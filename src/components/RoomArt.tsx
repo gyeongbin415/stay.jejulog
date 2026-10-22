@@ -206,43 +206,53 @@ const ART: Record<ProgramId, ReactNode> = {
     </Room>
   ),
 
-  /* 03 나무반지 — 다락 작업실: 화분 · 스탠드 · 작업대 위 나무반지 · 붓통 · 서랍장 · 의자 */
+  /* 03 나무반지 — 다락 작업실: 초록 스탠드 · 검은 작업 매트 위 나무반지 · 붓통 · 작은 병 · 서랍장 · 의자 */
   craft: (
     <>
-      {/* 화분 */}
-      <path d="M58 156 H92 L88 190 H62 Z" fill={C.white} />
-      <path d="M75 156 C58 140 54 118 60 100 C72 116 78 136 75 156 Z M75 156 C90 132 102 124 112 118 C110 140 96 150 75 156 Z M75 156 C70 132 76 112 86 98 C90 120 86 140 75 156 Z" fill={C.leaf} />
       {/* 작업대 */}
-      <rect x="120" y="118" width="192" height="8" fill={C.wood} />
-      <rect x="130" y="126" width="7" height="64" fill={C.wood} />
-      <rect x="295" y="126" width="7" height="64" fill={C.wood} />
-      {/* 스탠드 */}
-      <rect x="128" y="108" width="26" height="10" rx="2" fill={C.woodPale} />
-      <path d="M141 108 L150 74 L178 64" stroke={C.woodPale} strokeWidth="5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M170 52 L196 62 L186 82 Z" fill={C.green} />
-      {/* 작업 매트 · 나무반지 · 작은 병 */}
-      <path d="M196 118 L206 104 H262 L270 118 Z" fill={C.char} />
+      <rect x="22" y="112" width="278" height="9" fill={C.wood} />
+      <rect x="34" y="121" width="8" height="69" fill={C.wood} />
+      <rect x="280" y="121" width="8" height="69" fill={C.wood} />
+      {/* 초록 스탠드 — 받침 · 꺾인 팔 · 갓 */}
+      <rect x="30" y="98" width="38" height="14" rx="3" fill={C.woodPale} />
+      <path d="M48 100 L62 50 L104 34" stroke={C.woodPale} strokeWidth="7" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+      <circle cx="62" cy="50" r="5" fill="#A87C48" />
+      <path d="M96 22 L134 38 L120 62 Z" fill={C.green} />
+      <path d="M120 62 L134 38 L128 52 Z" fill={C.greenDk} />
+      {/* 작은 병 */}
+      <rect x="104" y="84" width="12" height="28" rx="3" fill={C.char} />
+      <rect x="107" y="78" width="6" height="7" fill="#5A5A5C" />
+      {/* 검은 작업 매트 위 나무반지 */}
+      <path d="M128 112 L140 92 H226 L238 112 Z" fill={C.char} />
       <g className="obj">
-        <ellipse cx="234" cy="106" rx="18" ry="7" fill={C.woodPale} />
-        <ellipse cx="234" cy="104" rx="10" ry="3.6" fill="#8E5E33" />
+        <ellipse cx="183" cy="98" rx="30" ry="13" fill="#8E5E33" />
+        <rect x="153" y="88" width="60" height="10" fill="#8E5E33" />
+        <ellipse cx="183" cy="88" rx="30" ry="13" fill={C.woodPale} />
+        <ellipse cx="183" cy="88" rx="24" ry="9.5" fill="#D6A76E" />
+        <ellipse cx="183" cy="88" rx="15" ry="5.6" fill="#7A4F2B" />
+        <path d="M168 84 Q183 79 198 84" stroke="#E9C590" strokeWidth="1.6" fill="none" />
       </g>
-      <rect x="180" y="104" width="8" height="14" rx="2" fill={C.char} />
       {/* 붓통 */}
-      <path d="M276 82 L272 72 M284 82 L286 66 M291 82 L298 70" stroke={C.char} strokeWidth="2.5" strokeLinecap="round" />
-      <rect x="272" y="82" width="22" height="36" rx="2" fill="#E8A13A" />
-      <rect x="298" y="102" width="9" height="16" rx="2" fill="#3E5F4A" />
+      <path d="M248 66 L240 34 M255 66 L253 26 M262 66 L266 30 M268 66 L278 38" stroke={C.char} strokeWidth="3" strokeLinecap="round" />
+      <circle cx="240" cy="34" r="2.5" fill={C.red} />
+      <circle cx="266" cy="30" r="2.5" fill={C.orange} />
+      <path d="M240 66 H276 L272 112 H244 Z" fill="#E8A13A" />
+      <rect x="240" y="66" width="36" height="5" fill="#D18E2C" />
+      {/* 작은 초록 병 */}
+      <rect x="284" y="88" width="13" height="24" rx="3" fill="#3E5F4A" />
+      <rect x="287" y="82" width="7" height="7" fill={C.char} />
       {/* 서랍장 */}
-      <rect x="318" y="118" width="54" height="72" fill={C.woodPale} />
-      {[124, 146, 168].map((y) => (
+      <rect x="312" y="96" width="74" height="94" fill={C.woodPale} />
+      {[102, 131, 160].map((y) => (
         <g key={y}>
-          <rect x="322" y={y} width="46" height="18" fill="#D6A76E" />
-          <rect x="340" y={y + 7} width="10" height="3" rx="1.5" fill={C.wood} />
+          <rect x="318" y={y} width="62" height="24" fill="#D6A76E" />
+          <rect x="342" y={y + 10} width="14" height="4" rx="2" fill={C.wood} />
         </g>
       ))}
       {/* 의자 */}
-      <rect x="196" y="150" width="46" height="7" fill={C.woodPale} />
-      <rect x="200" y="157" width="6" height="33" fill={C.woodPale} />
-      <rect x="232" y="157" width="6" height="33" fill={C.woodPale} />
+      <rect x="132" y="146" width="62" height="9" rx="2" fill={C.woodPale} />
+      <rect x="138" y="155" width="7" height="35" fill={C.woodPale} />
+      <rect x="181" y="155" width="7" height="35" fill={C.woodPale} />
     </>
   ),
 

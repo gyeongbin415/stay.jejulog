@@ -67,10 +67,12 @@
 /* 지붕 — 처마가 몸체보다 양쪽으로 70/760 넓습니다 (viewBox -70 0 900 300) */
 .house__top { position: relative; }
 .house__roof { display: block; width: 118.421%; max-width: none; margin-left: -9.211%; aspect-ratio: 900 / 300; height: auto; }
-/* 다락 — 지붕 박공 한가운데 (몸체 폭의 40%, 가운데 정렬) */
-.house__top .house__floor--attic { position: absolute; z-index: 1; left: 30%; width: 40%; bottom: 0; }
+/* 다락 — 지붕 박공 한가운데 (몸체 폭의 52%, 가운데 정렬 — 작업대 소품이 잘 보이게) */
+.house__top .house__floor--attic { position: absolute; z-index: 1; left: 24%; width: 52%; bottom: 0; }
 .house__floor--attic .house__rooms { grid-template-columns: 1fr; }
 .house__floor--attic .room { aspect-ratio: 400 / 190; }
+/* 다락 이름표 — 박공 지붕선에 닿지 않게 가운데 위 */
+.house__floor--attic .room__tag { left: 50%; translate: -50% 0; }
 
 /* 몸체 — 갈색 나무 벽 · 층 사이 갈색 띠, 방은 두 칸씩 */
 .house { --gap: clamp(8px, 2.4vw, 18px); }
