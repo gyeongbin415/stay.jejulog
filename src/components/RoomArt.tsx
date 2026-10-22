@@ -140,7 +140,7 @@ function Bush({ x, y, r, color }: { x: number; y: number; r: number; color: stri
 const BOOKS = ['#3E7C8C', C.orange, '#F0DA7A', C.red, '#E8A13A', '#5A8F6A', '#F4E4C1', '#3E7C8C', C.red];
 
 const ART: Record<ProgramId, ReactNode> = {
-  /* 01 독서 — 세이지 벽 · 책장 · 화분 · 잎 액자 · 초록 안락의자 · 노란 스탠드 */
+  /* 01 독서 — 세이지 벽 · 책장 · 잎 액자 · 초록 안락의자 · 노란 스탠드 */
   book: (
     <Room wall={C.sage}>
       <g className="obj">
@@ -154,9 +154,6 @@ const ART: Record<ProgramId, ReactNode> = {
       <rect x="196" y="52" width="44" height="56" fill="#7A7468" />
       <rect x="200" y="56" width="36" height="48" fill="#F4EFE3" />
       <path d="M218 96 V70 M218 84 Q208 78 210 70 Q216 74 218 84 M218 78 Q228 72 226 64 Q220 68 218 78" stroke={C.leaf} strokeWidth="2.5" fill={C.leafLt} />
-      {/* 화분 */}
-      <path d="M150 222 H182 L178 256 H154 Z" fill={C.white} />
-      <path d="M166 222 C150 206 146 186 152 170 C164 184 168 202 166 222 Z M166 222 C178 200 190 192 198 186 C196 206 184 216 166 222 Z M166 222 C160 200 166 180 176 168 C180 188 176 206 166 222 Z" fill={C.leaf} />
       {/* 안락의자 */}
       <rect x="214" y="150" width="112" height="78" rx="20" fill={C.green} />
       <rect x="198" y="186" width="32" height="56" rx="12" fill={C.greenDk} />
@@ -213,12 +210,15 @@ const ART: Record<ProgramId, ReactNode> = {
       <rect x="22" y="112" width="278" height="9" fill={C.wood} />
       <rect x="34" y="121" width="8" height="69" fill={C.wood} />
       <rect x="280" y="121" width="8" height="69" fill={C.wood} />
-      {/* 초록 스탠드 — 받침 · 꺾인 팔 · 갓 */}
-      <rect x="30" y="98" width="38" height="14" rx="3" fill={C.woodPale} />
-      <path d="M48 100 L62 50 L104 34" stroke={C.woodPale} strokeWidth="7" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-      <circle cx="62" cy="50" r="5" fill="#A87C48" />
-      <path d="M96 22 L134 38 L120 62 Z" fill={C.green} />
-      <path d="M120 62 L134 38 L128 52 Z" fill={C.greenDk} />
+      {/* 스탠드 조명 — 받침 · 꺾인 팔 · 아래를 비추는 초록 갓과 불빛 */}
+      <path d="M100 66 L80 112 H158 L138 66 Z" fill={C.yellow} opacity=".22" />
+      <rect x="32" y="102" width="36" height="10" rx="3" fill={C.woodPale} />
+      <path d="M50 102 L60 52 L100 40 L114 38" stroke={C.woodPale} strokeWidth="6" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+      <circle cx="60" cy="52" r="5" fill="#A87C48" />
+      <circle cx="100" cy="40" r="4" fill="#A87C48" />
+      <path d="M104 44 Q119 26 134 44 L140 64 H98 Z" fill={C.green} />
+      <rect x="98" y="62" width="42" height="4" rx="2" fill={C.greenDk} />
+      <ellipse cx="119" cy="68" rx="10" ry="4" fill={C.yellow} />
       {/* 작은 병 */}
       <rect x="104" y="84" width="12" height="28" rx="3" fill={C.char} />
       <rect x="107" y="78" width="6" height="7" fill="#5A5A5C" />
@@ -325,16 +325,16 @@ const ART: Record<ProgramId, ReactNode> = {
       <rect x="76" y="92" width="4" height="26" rx="2" fill="#BDB7AC" />
       <rect x="76" y="150" width="4" height="34" rx="2" fill="#BDB7AC" />
       <Pendant x={236} len={46} shade="#E8B04A" />
-      <Chair x={112} dir={1} color={C.green} />
-      <Chair x={316} dir={-1} color={C.green} />
+      <Chair x={110} dir={1} color={C.green} />
+      <Chair x={322} dir={-1} color={C.green} />
       <g className="obj">
-        <Table x={140} w={210} y={176} />
+        <Table x={160} w={156} y={176} />
         <path d="M184 140 c-3 -5 3 -8 0 -13 M192 140 c-3 -5 3 -8 0 -13 M200 140 c-3 -5 3 -8 0 -13" fill="none" stroke="#B7AEC0" strokeWidth="2" strokeLinecap="round" />
         <path d="M174 152 H210 C208 166 200 174 192 174 C184 174 176 166 174 152 Z" fill={C.white} />
         <path d="M234 156 H284 V168 C284 174 280 176 274 176 H244 C238 176 234 174 234 168 Z" fill={C.red} />
         <rect x="230" y="152" width="58" height="6" rx="3" fill={C.redDk} />
         <rect x="254" y="144" width="10" height="6" rx="2" fill={C.redDk} />
-        <ellipse cx="316" cy="173" rx="13" ry="3.5" fill={C.white} />
+        <ellipse cx="300" cy="173" rx="11" ry="3.5" fill={C.white} />
       </g>
     </Room>
   ),
@@ -401,10 +401,10 @@ const ART: Record<ProgramId, ReactNode> = {
   wine: (
     <Room wall={C.butter}>
       <Pendant x={230} len={56} shade={C.char} />
-      <Chair x={92} dir={1} color={C.red} />
+      <Chair x={96} dir={1} color={C.red} />
       <Chair x={300} dir={-1} color={C.red} />
       <g className="obj">
-        <Table x={130} w={210} y={176} />
+        <Table x={150} w={140} y={176} />
         <rect x="178" y="108" width="7" height="22" fill="#2F6B3E" />
         <rect x="172" y="126" width="19" height="50" rx="5" fill="#3E7C4A" />
         <rect x="174" y="146" width="15" height="12" fill="#F4EDD8" />
