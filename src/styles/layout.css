@@ -1,0 +1,114 @@
+/* ==================================================================
+   공통 레이아웃 — 상단 바 · 메뉴 · 푸터
+================================================================== */
+
+/* ── 상단 바 ─────────────────────────────── */
+.topbar {
+  position: fixed; inset: 0 0 auto; z-index: 50;
+  height: var(--header);
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 0 var(--gutter);
+  color: var(--ink);
+  transition: background var(--t-page) var(--ease), color var(--t-page) var(--ease), box-shadow var(--t-page) var(--ease);
+}
+.topbar.is-scrolled { background: rgba(250, 250, 243, .92); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: 0 1px 0 var(--line); }
+.topbar--dark { color: var(--on-dark); }
+.topbar--dark.is-scrolled { background: rgba(35, 32, 29, .85); box-shadow: 0 1px 0 rgba(246, 243, 237, .1); }
+
+.topbar__brand { display: inline-flex; align-items: baseline; gap: 10px; text-decoration: none; }
+.topbar__logo { font-size: 15px; font-weight: 700; letter-spacing: .26em; }
+/* Stay Log 로고 (455 × 349) — 밝은 곳에선 네이비, 어두운 곳에선 크림색 */
+.topbar__mark {
+  display: block; height: 30px; aspect-ratio: 455 / 349;
+  background-color: var(--navy);
+  -webkit-mask-size: contain; mask-size: contain;
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+  -webkit-mask-position: left center; mask-position: left center;
+  transition: background-color var(--t-page) var(--ease);
+}
+.topbar--dark .topbar__mark { background-color: var(--on-dark); }
+.topbar__brand { align-items: center; }
+.topbar__ko { font-size: 13px; font-weight: 500; opacity: .7; }
+
+.topbar__nav { display: flex; align-items: center; gap: 4px; }
+.topbar__link {
+  display: none;
+  padding: 10px 14px; border-radius: 999px;
+  font-size: 15px; font-weight: 500; text-decoration: none;
+  transition: background var(--t-hover) var(--ease);
+}
+.topbar__link:hover { background: rgba(17, 17, 17, .07); }
+.topbar--dark .topbar__link:hover { background: rgba(246, 243, 237, .12); }
+.topbar__link[aria-current="page"] { font-weight: 700; text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 1.5px; }
+
+.topbar__menu { width: 44px; height: 44px; display: grid; place-items: center; border-radius: 999px; margin-right: -10px; }
+.topbar__menu:hover { background: rgba(17, 17, 17, .07); }
+.topbar--dark .topbar__menu:hover { background: rgba(246, 243, 237, .12); }
+.topbar__burger { display: grid; gap: 5px; width: 20px; }
+.topbar__burger i { display: block; height: 1.5px; background: currentColor; border-radius: 2px; }
+.topbar__burger i:nth-child(2) { width: 70%; margin-left: auto; }
+
+/* 언어 바꾸기 — KO / EN / 中 */
+.langswitch { display: inline-flex; align-items: center; gap: 2px; margin-left: 6px; padding: 3px; border-radius: 999px; border: 1px solid currentColor; border-color: rgba(17, 17, 17, .18); }
+.topbar--dark .langswitch { border-color: rgba(246, 243, 237, .28); }
+.langswitch button {
+  min-width: 34px; height: 30px; padding: 0 8px; border-radius: 999px;
+  font-size: 12.5px; font-weight: 700; letter-spacing: .04em; opacity: .62;
+  transition: background var(--t-hover) var(--ease), color var(--t-hover) var(--ease), opacity var(--t-hover) var(--ease);
+}
+.langswitch button:hover { opacity: 1; }
+.langswitch button[aria-pressed="true"] { opacity: 1; background: var(--ink); color: var(--bg); }
+.topbar--dark .langswitch button[aria-pressed="true"] { background: var(--bg); color: var(--navy); }
+@media (max-width: 639px) {
+  .topbar__ko { display: none; }
+  .langswitch button { min-width: 30px; height: 28px; padding: 0 6px; font-size: 12px; }
+}
+
+@media (min-width: 640px) {
+  .topbar__link { display: inline-block; }
+  .topbar__menu { margin-left: 6px; }
+}
+
+/* ── 메뉴 ─────────────────────────────── */
+.menu {
+  position: fixed; inset: 0; z-index: 100;
+  background: rgba(17, 17, 17, .45);
+  animation: fade-in var(--t-page) var(--ease) both;
+}
+.menu__sheet {
+  margin-left: auto; height: 100%; width: min(420px, 100%);
+  background: var(--bg); padding: 0 var(--gutter) 40px;
+  display: flex; flex-direction: column;
+  animation: sheet-in var(--t-page) var(--ease-out) both;
+}
+.menu__head { height: var(--header); display: flex; align-items: center; justify-content: space-between; }
+.menu__close { width: 44px; height: 44px; margin-right: -10px; font-size: 30px; line-height: 1; border-radius: 999px; }
+.menu__close:hover { background: rgba(17, 17, 17, .07); }
+.menu__list { margin-top: 32px; border-top: 1px solid var(--line); }
+.menu__list li { border-bottom: 1px solid var(--line); }
+.menu__list a {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
+  padding: 22px 4px; text-decoration: none;
+  font-family: var(--f-head); font-size: 24px; font-weight: 600; line-height: 1.3; letter-spacing: -0.03em;
+  transition: color var(--t-hover) var(--ease), padding var(--t-hover) var(--ease);
+}
+.menu__list .label { font-family: var(--f-sans); }
+.menu__list a:hover { color: var(--forest); padding-left: 10px; }
+.menu__list a[aria-current="page"] { color: var(--forest); }
+@keyframes fade-in { from { opacity: 0; } }
+@keyframes sheet-in { from { transform: translateX(24px); opacity: 0; } }
+
+/* ── 푸터 ─────────────────────────────── */
+.footer { background: var(--navy); color: var(--on-dark-soft); padding: 48px 0 calc(48px + env(safe-area-inset-bottom)); }
+.footer__inner { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 24px; font-size: var(--t-small); }
+.footer__logo { color: var(--on-dark); font-weight: 700; letter-spacing: .26em; font-size: 15px; }
+.footer__ko { margin-top: 6px; }
+.footer__note { line-height: 1.7; }
+@media (min-width: 768px) { .footer__note { text-align: right; } }
+
+/* ── 공통 섹션 머리 ─────────────────────────────── */
+.section-head { display: grid; gap: 14px; }
+/* 메인 페이지 섹션 제목 — 넥슨 카트 고딕 Bold */
+.section-head__title { font-family: var(--f-home); font-size: clamp(27px, 3.8vw, 46px); font-weight: 700; line-height: 1.32; letter-spacing: -0.025em; }
+.section-head__title span { display: block; }
+.section-head__sub { font-size: clamp(17px, 1.45vw, 20px); color: var(--ink-soft); line-height: 1.7; }

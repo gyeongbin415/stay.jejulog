@@ -1,0 +1,130 @@
+/* ==================================================================
+   PAGE 03 — 게스트하우스 상세 (공통 템플릿)
+================================================================== */
+
+/* 사진 프레임 (공통) */
+.photo { position: relative; }
+.photo__frame { position: relative; width: 100%; height: 100%; overflow: hidden; background: var(--paper); border-radius: inherit; }
+.photo[style*="aspect-ratio"] .photo__frame { position: absolute; inset: 0; }
+.photo__frame img, .photo__frame svg { width: 100%; height: 100%; object-fit: cover; }
+.photo__pending {
+  position: absolute; right: 12px; bottom: 12px;
+  padding: 5px 12px; border-radius: 999px;
+  background: rgba(17, 17, 17, .72); color: var(--bg);
+  font-size: 12px; font-weight: 600;
+}
+.photo__cap { margin-top: 10px; font-size: var(--t-caption); line-height: 1.55; letter-spacing: 0; color: var(--ink-soft); }
+
+/* ── 01. HERO ─────────────────────────────── */
+.stay-hero {
+  position: relative; display: flex; align-items: flex-end;
+  min-height: 72vh; min-height: 72svh;
+  background: var(--navy); color: var(--on-dark); overflow: hidden;
+}
+.stay-hero__photo { position: absolute; inset: 0; }
+.stay-hero__photo .photo__frame { position: absolute; inset: 0; }
+.stay-hero__photo .photo__pending { top: calc(var(--header) + 12px); bottom: auto; }
+.stay-hero::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(180deg, rgba(17, 17, 17, .45) 0%, rgba(17, 17, 17, 0) 26%, rgba(17, 17, 17, 0) 40%, rgba(17, 17, 17, .82) 100%);
+}
+.stay-hero__copy { position: relative; z-index: 1; padding: 140px 0 clamp(40px, 7vh, 72px); display: grid; gap: 12px; }
+.stay-hero__meta { display: flex; flex-wrap: wrap; gap: 6px 14px; margin-bottom: 4px; font-size: var(--t-caption); font-weight: 600; line-height: 1.4; letter-spacing: .1em; }
+.stay-hero__meta span:first-child { color: var(--accent-on-dark); }
+.stay-hero__name { font-family: var(--f-head); font-size: var(--t-h2); font-weight: 700; line-height: 1.25; letter-spacing: -0.035em; }
+
+/* ── 섹션 공통 ─────────────────────────────── */
+.stay-sec { padding-block: clamp(56px, 9vh, 96px); }
+.stay-sec__label { display: grid; gap: 10px; align-content: start; align-self: start; margin-bottom: clamp(28px, 4.5vh, 44px); }
+@media (min-width: 900px) {
+  .stay-sec__label { position: sticky; top: calc(var(--header) + 24px); }
+}
+.stay-sec__title { font-family: var(--f-head); font-size: var(--t-h3); font-weight: 700; line-height: 1.3; letter-spacing: -0.03em; }
+
+/* ── 02. BASIC INFORMATION ─────────────────────────────── */
+.stay-info { border-bottom: 1px solid var(--line); }
+.stay-info__grid { display: grid; gap: 32px; }
+.stay-info__oneline { font-family: var(--f-head); font-size: clamp(20px, 2vw, 26px); font-weight: 500; line-height: 1.5; letter-spacing: -0.03em; max-width: 22em; }
+.stay-info__list { display: grid; border-top: 1px solid var(--line-strong); }
+.stay-info__list > div { display: grid; grid-template-columns: 8em 1fr; gap: 12px; padding: 15px 0; border-bottom: 1px solid var(--line); }
+.stay-info__list dt { display: flex; align-items: center; gap: 8px; align-self: start; font-size: var(--t-caption); font-weight: 600; line-height: 1.5; letter-spacing: .02em; color: var(--ink-soft); padding-top: 1px; }
+.stay-info__list dd { font-size: 15px; font-weight: 500; line-height: 1.6; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
+.stay-info__usage { display: grid; gap: 8px; }
+.stay-info__usage strong { display: block; font-weight: 600; }
+.icon { width: 18px; height: 18px; flex: none; color: var(--ochre); }
+@media (min-width: 900px) {
+  .stay-info { display: grid; grid-template-columns: 220px 1fr; column-gap: 48px; }
+  .stay-info__grid { grid-template-columns: 1fr 1.15fr; column-gap: 56px; align-items: start; }
+}
+
+/* ── 03. PROGRAM STORY ─────────────────────────────── */
+.stay-story { background: var(--bg); }
+.stay-story__text { display: grid; gap: 28px; max-width: var(--col); font-size: clamp(16px, 1.25vw, 18px); line-height: 1.85; }
+.stay-story__quote { font-family: var(--f-head); font-size: clamp(21px, 2.1vw, 28px); font-weight: 600; line-height: 1.45; letter-spacing: -0.035em; color: var(--forest); }
+@media (min-width: 900px) {
+  .stay-story__inner { display: grid; grid-template-columns: 220px 1fr; column-gap: 48px; }
+}
+
+/* ── 04. PROGRAM DETAILS — 사진과 글을 번갈아 ─────────────────────────────── */
+.stay-programs__list { display: grid; gap: clamp(56px, 9vh, 96px); }
+.program { display: grid; gap: 28px; }
+.program__media .photo { border-radius: var(--radius); overflow: hidden; }
+/* 프로그램 번호 · 제목 — 사진 바로 위 */
+.program__head { display: grid; gap: 6px; margin-bottom: 18px; }
+.program__pair { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.program__body { display: grid; gap: 24px; align-content: start; max-width: var(--col); }
+.program__no { font-size: var(--t-caption); font-weight: 600; line-height: 1.4; letter-spacing: .12em; color: var(--orange-ink); }
+.program__name { font-family: var(--f-head); font-size: clamp(20px, 1.7vw, 24px); font-weight: 700; line-height: 1.3; letter-spacing: -0.035em; }
+.program__info { display: grid; border-top: 1px solid var(--line-strong); }
+.program__info > div { display: grid; grid-template-columns: 6.5em 1fr; gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--line); font-size: 14.5px; font-weight: 500; line-height: 1.6; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
+.program__info dt { font-weight: 600; color: var(--ink-soft); font-size: var(--t-caption); letter-spacing: .02em; padding-top: 1px; }
+.program__text { display: grid; gap: 14px; font-size: var(--t-body); line-height: var(--lh-body); }
+.program__sub { font-size: var(--t-caption); font-weight: 600; line-height: 1.4; letter-spacing: .02em; color: var(--ink-soft); }
+.program__note { display: grid; gap: 6px; padding: 16px 18px; border-radius: 10px; background: var(--paper); font-size: var(--t-small); line-height: 1.7; }
+.program__note strong { font-size: var(--t-label); font-weight: 600; letter-spacing: .04em; color: var(--orange-ink); }
+@media (min-width: 900px) {
+  .stay-programs { display: grid; grid-template-columns: 220px 1fr; column-gap: 48px; }
+  .program { grid-template-columns: 1.05fr 1fr; column-gap: 48px; align-items: start; }
+  .program:nth-child(even) .program__media { order: 2; }
+  .program__media { position: sticky; top: calc(var(--header) + 24px); }
+}
+
+/* ── 05. EDITOR'S PICK ─────────────────────────────── */
+.stay-editor { background: var(--navy); color: var(--on-dark); }
+.stay-editor__inner { display: grid; gap: 28px; }
+.stay-editor__head { display: grid; gap: 8px; align-content: start; align-self: start; }
+@media (min-width: 900px) {
+  .stay-editor__head { position: sticky; top: calc(var(--header) + 24px); }
+}
+.stay-editor__body { display: grid; gap: clamp(36px, 5vh, 48px); max-width: var(--col); }
+.stay-editor__profile { display: flex; align-items: center; gap: 20px; padding-bottom: clamp(28px, 4vh, 36px); border-bottom: 1px solid rgba(246, 243, 237, .2); }
+.stay-editor__avatar { width: 76px; height: 76px; border-radius: 50%; object-fit: cover; flex: none; }
+.stay-editor__avatar--line { display: grid; place-items: center; background: #fff; }
+.stay-editor__avatar--line svg { width: 100%; height: 100%; fill: none; stroke: var(--orange); stroke-width: 2.2; stroke-linecap: round; }
+.stay-editor__k { font-family: var(--f-sans); font-size: var(--t-caption); font-weight: 600; line-height: 1.4; letter-spacing: .06em; color: var(--accent-on-dark); margin-bottom: 8px; }
+.stay-editor__title { font-family: var(--f-head); font-size: var(--t-h4); font-weight: 600; line-height: 1.45; letter-spacing: -0.03em; }
+.stay-editor__labeltext { margin-top: 6px; font-size: var(--t-caption); line-height: 1.5; letter-spacing: 0; color: var(--on-dark-soft); }
+.stay-editor__block { display: grid; gap: 16px; font-size: var(--t-body); line-height: var(--lh-body); color: rgba(246, 243, 237, .86); }
+.stay-editor__block .stay-editor__k { margin-bottom: 2px; }
+.stay-editor__story { font-size: clamp(16.5px, 1.3vw, 18px); font-weight: 400; line-height: 1.85; color: var(--on-dark); }
+.stay-editor__tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.stay-editor__tags li { padding: 5px 13px; border: 1px solid rgba(246, 243, 237, .35); border-radius: 999px; font-size: var(--t-caption); font-weight: 500; line-height: 1.45; letter-spacing: 0; }
+@media (min-width: 900px) {
+  .stay-editor__inner { grid-template-columns: 220px 1fr; column-gap: 48px; }
+}
+
+/* ── 06. RECOMMENDATION ─────────────────────────────── */
+.stay-reco__list { display: grid; gap: 12px; }
+.stay-reco__list li {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 18px 20px; border-radius: var(--radius); background: var(--paper);
+  font-size: 16px; font-weight: 500; line-height: 1.6; letter-spacing: -0.015em;
+}
+.stay-reco__list .icon { width: 22px; height: 22px; margin-top: 1px; }
+@media (min-width: 900px) {
+  .stay-reco { display: grid; grid-template-columns: 220px 1fr; column-gap: 48px; }
+  .stay-reco__list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+/* ── 07. NAVIGATION ─────────────────────────────── */
+.stay-nav { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; padding: 8px 0 clamp(72px, 10vh, 112px); }

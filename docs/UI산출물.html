@@ -1,0 +1,495 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>게하 사용설명서 — UI 산출물</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+  :root { --green:#1D5E44; --sage:#929F83; --sand:#D9CEB7; --ivory:#F2EDE2; --char:#292B29; --terra:#B66E53; --line:#cfc6b4; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Pretendard Variable", Pretendard, "Malgun Gothic", sans-serif; color: var(--char); background: #fff; font-size: 13px; line-height: 1.6; word-break: keep-all; }
+  .page { max-width: 1180px; margin: 0 auto; padding: 48px 40px; }
+  header.cover { background: var(--green); color: var(--ivory); padding: 56px 40px; }
+  header.cover .page { padding: 0 40px; }
+  header.cover h1 { font-size: 34px; letter-spacing: -0.03em; }
+  header.cover p { opacity: .8; margin-top: 6px; }
+  .meta { display: flex; flex-wrap: wrap; gap: 6px 28px; margin-top: 20px; font-size: 12px; }
+  h2 { font-size: 22px; color: var(--green); border-bottom: 2px solid var(--green); padding-bottom: 8px; margin: 56px 0 18px; }
+  h3 { font-size: 16px; margin: 32px 0 10px; color: var(--green); }
+  h3 small { font-weight: 400; color: #777; margin-left: 8px; }
+  p.note { color: #666; font-size: 12px; margin: 6px 0 12px; }
+  table { width: 100%; border-collapse: collapse; margin: 8px 0 16px; }
+  th, td { border: 1px solid var(--line); padding: 7px 9px; text-align: left; vertical-align: top; }
+  th { background: #f3efe6; font-weight: 600; white-space: nowrap; }
+  td code, .mono { font-family: Consolas, "IBM Plex Mono", monospace; font-size: 11.5px; color: #8a4b34; }
+  .toc { columns: 2; margin-top: 12px; }
+  .toc a { color: var(--green); }
+  .tag { display: inline-block; padding: 1px 6px; border: 1px solid currentColor; font-size: 10.5px; margin-right: 4px; color: var(--green); }
+  .tag.terra { color: var(--terra); }
+
+  /* 사이트맵 트리 */
+  .tree { display: grid; grid-template-columns: 220px 1fr; gap: 0 28px; align-items: start; margin: 18px 0 8px; }
+  .node { border: 2px solid var(--green); padding: 10px 12px; background: var(--ivory); }
+  .node b { display: block; font-size: 14px; }
+  .node .mono { font-size: 11px; }
+  .node.dark { background: var(--green); color: var(--ivory); }
+  .node.dark .mono { color: #f0c9b8; }
+  .branch { display: grid; gap: 8px; border-left: 2px solid var(--green); padding-left: 18px; }
+  .branch .node { position: relative; border-width: 1px; }
+  .branch .node::before { content: ""; position: absolute; left: -19px; top: 50%; width: 18px; border-top: 2px solid var(--green); }
+  .branch .grid8 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .branch .grid8 .node::before { display: none; }
+
+  /* 와이어프레임 */
+  .frames { display: grid; grid-template-columns: 1fr 200px; gap: 28px; align-items: start; margin: 12px 0; }
+  .wf { position: relative; border: 1px solid #999; background: #faf8f3; }
+  .wf.pc { aspect-ratio: 1280 / 760; }
+  .wf.mo { aspect-ratio: 360 / 760; }
+  .wf .lbl { position: absolute; top: -20px; left: 0; font-size: 11px; color: #666; }
+  .box { position: absolute; border: 1px dashed #8d8577; background: rgba(217, 206, 183, .35); display: flex; align-items: center; justify-content: center; text-align: center; font-size: 10.5px; color: #555; padding: 2px; line-height: 1.3; }
+  .box.dark { background: rgba(41, 43, 41, .82); color: #eee; border-color: #000; }
+  .box.green { background: rgba(29, 94, 68, .85); color: #eee; }
+  .box.img { background: repeating-linear-gradient(45deg, rgba(146,159,131,.25) 0 6px, rgba(146,159,131,.12) 6px 12px); }
+  .box.t { background: transparent; border-style: solid; border-color: #bbb; }
+  .pin { position: absolute; z-index: 3; width: 20px; height: 20px; border-radius: 50%; background: var(--terra); color: #fff; font-size: 11px; font-weight: 700; display: grid; place-items: center; transform: translate(-50%, -50%); box-shadow: 0 0 0 2px #fff; }
+
+  .layout-row td:first-child { white-space: nowrap; font-weight: 600; }
+  @media print {
+    body { font-size: 11px; }
+    .page { padding: 20px 0; }
+    h2 { break-before: page; }
+    h2.first { break-before: auto; }
+    .screen { break-inside: avoid; }
+    table { break-inside: auto; }
+    tr { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<header class="cover">
+  <div class="page">
+    <p class="mono" style="color:#f0c9b8">UI DELIVERABLES — VOL.01 JEJU</p>
+    <h1>게하 사용설명서 — UI 산출물</h1>
+    <p>사이트맵 · 페이지 레이아웃 · 화면설계서 (실제 구현 사이트 기준)</p>
+    <div class="meta">
+      <span>대상: 제주 이색 게스트하우스 체험형 인터랙티브 웹진</span>
+      <span>기준 해상도: PC 1280px / Mobile 360px</span>
+      <span>구현: React 19 · TypeScript · GSAP ScrollTrigger · Vite</span>
+      <span>문서 버전: v1.0 (2026.10.15)</span>
+    </div>
+  </div>
+</header>
+
+<div class="page">
+  <p class="note">※ 이 문서는 브라우저에서 열어 <b>인쇄 → PDF로 저장</b>하면 제출용 PDF가 됩니다. 요소 번호(●)는 화면설계서 표의 번호와 같고, '데이터 추적용 이름표'는 실제 코드의 <code>data-track</code> 값입니다.</p>
+  <div class="toc">
+    <p><a href="#sitemap">A. 사이트맵</a></p>
+    <p><a href="#layout">B. 페이지 레이아웃</a></p>
+    <p><a href="#spec">C. 화면설계서</a></p>
+    <p><a href="#events">D. 추적 이벤트 · 점수 규칙</a></p>
+  </div>
+
+  <!-- ================= A. 사이트맵 ================= -->
+  <h2 id="sitemap" class="first">A. 사이트맵</h2>
+  <div class="tree">
+    <div class="node dark"><b>S-01 웹진 메인</b><span class="mono">#/</span><br>스크롤 스토리 · 사용법 목록 · 테스트 입구</div>
+    <div class="branch">
+      <div class="node"><b>CH.00 사용 전 주의사항</b><span class="mono">#/?to=intro</span> — 도입 · 반전 · 제목</div>
+      <div class="node"><b>CH.01 설명서의 첫 번째 발견</b><span class="mono">#/?to=discovery</span> — 숙소 고르는 기준</div>
+      <div class="node"><b>CH.02 아홉 가지 게하 사용법</b><span class="mono">#/?to=uses</span> — 9개 사용법 한눈에 보기 (누르면 기사에서 체험)
+        <div class="grid8" style="margin-top:8px">
+          <div class="node">USE 01 러닝<br><span class="mono">→ A-01</span></div>
+          <div class="node">USE 02 영화<br><span class="mono">→ A-02</span></div>
+          <div class="node">USE 03 꽃<br><span class="mono">→ A-03</span></div>
+          <div class="node">USE 04 LP<br><span class="mono">→ A-04</span></div>
+          <div class="node">USE 05 책<br><span class="mono">→ A-05</span></div>
+          <div class="node">USE 06 공예<br><span class="mono">→ A-06</span></div>
+          <div class="node">USE 07 캠핑<br><span class="mono">→ A-07</span></div>
+          <div class="node">USE 08 집밥<br><span class="mono">→ A-08</span></div>
+          <div class="node">USE 09 와인<br><span class="mono">→ A-09</span></div>
+        </div>
+      </div>
+      <div class="node"><b>CH.03 취향 테스트 입구</b><span class="mono">#/?to=test</span> — 안내 + 버튼 → <b>T-01</b></div>
+      <div class="node"><b>에필로그</b><span class="mono">#/?to=epilogue</span> — 엔딩 카피 · 마지막 문장</div>
+    </div>
+  </div>
+  <div class="tree">
+    <div class="node dark"><b>T-01 취향 테스트</b><span class="mono">#/test</span><br>7문항 → 결과(특별 부록)</div>
+    <div class="branch">
+      <div class="node"><b>결과</b> — 대표·보조 추천 → A-0N 기사 · 공유 URL <span class="mono">#/test?r=ABCDABC</span></div>
+    </div>
+  </div>
+
+  <h3>페이지 목록</h3>
+  <table>
+    <thead><tr><th>ID</th><th>페이지명</th><th>URL</th><th>카테고리</th><th>유형</th><th>들어오는 경로</th><th>나가는 경로</th></tr></thead>
+    <tbody>
+      <tr><td><b>S-01</b></td><td>웹진 메인</td><td><code>#/</code></td><td>메인</td><td>인터랙티브 스크롤 페이지 (단일 페이지 5챕터)</td><td>직접 접속, 로고, 기사 하단 '웹진으로 돌아가기'</td><td>A-01~09, T-01, 목차</td></tr>
+      <tr><td>S-01 · C00</td><td>사용 전 주의사항</td><td><code>#/?to=intro</code></td><td>메인 › 챕터</td><td>고정 스크롤텔링</td><td>목차, 에필로그 '처음 페이지로'</td><td>C01</td></tr>
+      <tr><td>S-01 · C01</td><td>설명서의 첫 번째 발견</td><td><code>#/?to=discovery</code></td><td>메인 › 챕터</td><td>기준 체크리스트</td><td>스크롤, 목차</td><td>C02 각 USE</td></tr>
+      <tr><td>S-01 · C02</td><td>아홉 가지 게하 사용법</td><td><code>#/?to=uses</code></td><td>메인 › 챕터</td><td>9개 사용법 3D 책장 (PC) / 옆으로 넘기는 책장 (휴대폰)</td><td>스크롤, 목차</td><td>A-01~09</td></tr>
+      <tr><td>S-01 · C03</td><td>취향 테스트 입구</td><td><code>#/?to=test</code></td><td>메인 › 챕터</td><td>안내 + 이동 버튼</td><td>스크롤, 목차</td><td>T-01</td></tr>
+      <tr><td>S-01 · C04</td><td>에필로그</td><td><code>#/?to=epilogue</code></td><td>메인 › 챕터</td><td>정적 엔딩</td><td>스크롤</td><td>C00, T-01</td></tr>
+      <tr><td><b>A-01</b></td><td>제주의 바다를 달리는 방법 (새애월)</td><td><code>#/use/running</code></td><td>취재 기사</td><td>상세 · 체험 기사</td><td rowspan="9">C02 사용법 목록, 목차, 테스트 결과, 이전/다음 기사</td><td rowspan="9">예약·상세 외부 링크, T-01 테스트, 이전/다음 기사, S-01 사용법 목록</td></tr>
+      <tr><td><b>A-02</b></td><td>스크린을 통해 몰입을 찾는 방법 (쉼 게스트하우스)</td><td><code>#/use/cinema</code></td><td>취재 기사</td><td>상세 · 체험 기사</td></tr>
+      <tr><td><b>A-03</b></td><td>꽃으로 하루를 채우는 방법 (코코코)</td><td><code>#/use/flower</code></td><td>취재 기사</td><td>상세 · 체험 기사</td></tr>
+      <tr><td><b>A-04</b></td><td>LP로 제주의 밤을 즐기는 방법 (서론게스트하우스)</td><td><code>#/use/lp</code></td><td>취재 기사</td><td>상세 · 체험 기사</td></tr>
+      <tr><td><b>A-05</b></td><td>낯선 사람과 책으로 이야기를 나누는 방법 (서점숙소)</td><td><code>#/use/book</code></td><td>취재 기사</td><td>상세 · 체험 기사</td></tr>
+      <tr><td><b>A-06</b></td><td>내 손끝에서 깎여 나가는 여행의 잡념 (스르르 게스트하우스)</td><td><code>#/use/craft</code></td><td>취재 기사</td><td>상세 · 체험 기사</td></tr>
+      <tr><td><b>A-07</b></td><td>모닥불 앞에 모이는 방법 (무릉쉼표)</td><td><code>#/use/camping</code></td><td>취재 기사</td><td>상세 · 체험 기사</td></tr>
+      <tr><td><b>A-08</b></td><td>집밥 한 끼로 낯선 사람과 가까워지는 방법 (수수민박)</td><td><code>#/use/homemeal</code></td><td>취재 기사</td><td>상세 · 체험 기사</td></tr>
+      <tr><td><b>A-09</b></td><td>와인 한 잔으로 제주의 저녁을 즐기는 방법 (루프탑정원)</td><td><code>#/use/wine</code></td><td>취재 기사</td><td>상세 · 체험 기사</td></tr>
+      <tr><td><b>T-01</b></td><td>취향 테스트</td><td><code>#/test</code><br>공유: <code>#/test?r=ABCDABC</code></td><td>테스트</td><td>참여형 진단 (7문항 → 결과 부록)</td><td>GNB '취향 테스트', C03 입구, 기사 하단 CTA, 에필로그, 공유 링크</td><td>A-0N(대표·보조 추천), S-01 사용법 목록</td></tr>
+      <tr><td>P-01</td><td>목차</td><td>(오버레이)</td><td>공통</td><td>모달 다이얼로그</td><td>GNB '목차'</td><td>모든 챕터 · 기사</td></tr>
+      <tr><td>E-404</td><td>없는 페이지</td><td><code>#/그 외</code></td><td>공통</td><td>오류</td><td>잘못된 주소</td><td>S-01</td></tr>
+    </tbody>
+  </table>
+  <p class="note">해시(#) 주소를 쓰는 이유: Netlify Drop·GitHub Pages 같은 정적 호스팅에서 서버 설정 없이 새로고침·공유가 동작합니다.</p>
+
+  <!-- ================= B. 페이지 레이아웃 ================= -->
+  <h2 id="layout">B. 페이지 레이아웃</h2>
+  <h3>S-01 웹진 메인 — 섹션 순서 <small>PC 1280 / Mobile 360</small></h3>
+  <table>
+    <thead><tr><th>순서</th><th>섹션</th><th>위치 · 크기</th><th>콘텐츠 형태</th><th>인터랙션</th><th>모바일 대응 (360px)</th></tr></thead>
+    <tbody class="layout-row">
+      <tr><td>1</td><td>GNB</td><td>상단 고정 56px</td><td>로고 · 현재 챕터 · 취향 테스트 · 목차 · 진행률 막대</td><td>섹션 톤에 따라 글자색 자동 전환, 진행률 표시</td><td>현재 챕터 표시 숨김, 로고 축약('게하')</td></tr>
+      <tr><td>2</td><td>CH.00 사용 전 주의사항</td><td>100vh 고정, 스크롤 560vh 분량</td><td>차콜 배경 · 질문 · 키워드 4개 · 밤 사진 3장 → 아이보리 · 사물 사진 9장 · 제목</td><td>스크롤 스크럽: 키워드 등장 → 시야 축소(아이리스) → 정적 → '빠진 페이지' → 원형으로 밝은 페이지 열림</td><td>키워드 위치 재배치, 사물 사진 위 5 / 아래 4 배열, 캡션 숨김</td></tr>
+      <tr><td>3</td><td>CH.01 첫 번째 발견</td><td>체크리스트 460 : 캡션 문장</td><td>기준 체크리스트 · 캡션</td><td>체크리스트에 손글씨 항목이 그려짐</td><td>1단 세로 흐름</td></tr>
+      <tr><td>4</td><td>CH.02 아홉 가지 게하 사용법</td><td>차콜 배경 · 큰 제목 가운데 · 비스듬히 꽂힌 책 가로 한 줄(한 번에 5권, 나머지는 옆으로 넘김) · 좌우 화살표 · 아래 설명과 칩</td><td>책 표지(사진 + USE 번호 + 제목) · 옆면 페이지 결 / 고른 책의 USE·동사 · 제목 · 한 줄 리드 · 체험 버튼 / 사용법 칩 6개</td><td>마우스를 올리거나 칩·키보드로 고르면 그 책이 앞으로 빠져나와 정면을 보며 밝아지고, 아래 설명이 바뀜. 책이나 체험 버튼을 누르면 A-0N 기사로 이동</td><td>책 132px로 크게, 옆으로 넘기는 책장(가운데 온 책이 선택됨), 칩을 누르면 그 책을 가운데로</td></tr>
+      <tr><td>5</td><td>CH.03 취향 테스트 입구</td><td>인화 사진 5 : 문안 6</td><td>인화 사진 4장 · 질문형 제목 · 7문항 안내 · 버튼</td><td>[취향 테스트 하러 가기] → T-01</td><td>1단, 사진 아래로</td></tr>
+      <tr><td>6</td><td>에필로그</td><td>엔딩 카피 + 전폭 엔딩</td><td>엔딩 카피 · 제주 풍경 대형 타이포</td><td>사진 줌아웃, 문장 등장</td><td>동일</td></tr>
+      <tr><td>7</td><td>푸터</td><td>차콜 전폭</td><td>발행 정보 · 크레딧 · 샘플 안내</td><td>-</td><td>동일</td></tr>
+    </tbody>
+  </table>
+
+  <h3>T-01 취향 테스트 페이지</h3>
+  <table>
+    <thead><tr><th>순서</th><th>영역</th><th>PC 1280</th><th>Mobile 360</th></tr></thead>
+    <tbody class="layout-row">
+      <tr><td>1</td><td>GNB</td><td>현재 위치 'T-01 · 취향 테스트'</td><td>동일</td></tr>
+      <tr><td>2</td><td>질문 카드 (페이지를 열면 바로 Q1)</td><td>설문지 카드 한 장(폭 760, 가운데) — 머리글·사진 없이 바로 질문</td><td>1단, 질문과 4개 선택지가 첫 화면에</td></tr>
+      <tr><td>3</td><td>결과 부록</td><td>유형 · 대표 사진 2단 → 3단 정보 → 대표 프로그램 띠 → 보조 추천 3열 → 버튼</td><td>1단, 보조 추천 2열</td></tr>
+      <tr><td>4</td><td>하단</td><td>[← 아홉 가지 사용법 다시 보기] → S-01 · C02</td><td>동일</td></tr>
+    </tbody>
+  </table>
+
+  <h3>A-01~A-09 취재 기사 — 공통 구조</h3>
+  <table>
+    <thead><tr><th>순서</th><th>영역</th><th>PC 1280</th><th>Mobile 360</th></tr></thead>
+    <tbody class="layout-row">
+      <tr><td>1</td><td>제목 (방법)</td><td>페이지 ID · USE 번호 · 동사 / 제목(H1)</td><td>동일</td></tr>
+      <tr><td>2</td><td>소제목 (게스트하우스 이름)</td><td>Guesthouse + 숙소 이름 + 주소 / 한 줄 소개</td><td>동일, 줄바꿈</td></tr>
+      <tr><td>3</td><td>대표 사진</td><td>숙소 외관 · 간판 사진 최대 860px (SC-04)</td><td>전폭</td></tr>
+      <tr><td>4</td><td>프로그램 소개</td><td>왼쪽 라벨(고정) 3 : 기획 의도(드롭캡) → 프로그램 1·2 (이름 · 시간·가격 · 사진 · 설명 · 안내사항) 9</td><td>라벨 위 / 내용 아래</td></tr>
+      <tr><td>5</td><td>에디터 기록</td><td>왼쪽 라벨 3 : 에디터 프로필 → 나의 여행 성향 → 그래서 이 게하가 좋았어요 → 이런 사람에게 추천해요 9</td><td>라벨 위 / 내용 아래</td></tr>
+      <tr><td>6</td><td>취향 테스트</td><td>딥그린 전폭, 어울리는 유형 + [취향 테스트 하러 가기]</td><td>동일</td></tr>
+      <tr><td>-</td><td>이전 · 웹진으로 · 다음</td><td>3열</td><td>이전/다음 2열 + 웹진으로 아래</td></tr>
+    </tbody>
+  </table>
+  <p class="note">작은 영화관(A-02)은 어두운 페이지로, 나머지는 프로그램별 종이 색으로 표시합니다.</p>
+
+  <!-- ================= C. 화면설계서 ================= -->
+  <h2 id="spec">C. 화면설계서</h2>
+  <p class="note">각 화면의 와이어프레임(PC · Mobile)과 요소 번호. 이동 목적지의 'S-01 · C0N'은 메인 안의 챕터 위치입니다.</p>
+  <div id="screens"></div>
+
+  <!-- ================= D. 이벤트 · 점수 ================= -->
+  <h2 id="events">D. 추적 이벤트 · 테스트 점수 규칙</h2>
+  <h3>추적 방식</h3>
+  <p>모든 클릭 요소에는 <code>data-track</code> 이름표가 붙어 있고, 클릭하면 <code>window.dataLayer</code>에 <code>{ event: 'click', track: '이름표' }</code>가 쌓입니다 (GA4 · GTM 연결 시 그대로 수집). 클릭 외 행동은 아래 이벤트로 기록합니다.</p>
+  <table>
+    <thead><tr><th>이벤트</th><th>발생 시점</th><th>함께 보내는 값</th></tr></thead>
+    <tbody>
+      <tr><td><code>quiz_start</code></td><td>테스트 시작</td><td>-</td></tr>
+      <tr><td><code>quiz_answer</code></td><td>문항 선택</td><td>q(문항 id), a(A~D)</td></tr>
+      <tr><td><code>quiz_result</code></td><td>결과 산출</td><td>type, main(대표 프로그램), code(답변 문자열)</td></tr>
+      <tr><td><code>interaction_start</code></td><td>영화 상영 시작</td><td>use</td></tr>
+      <tr><td><code>interaction_complete</code></td><td>러닝 완주 · 꽃다발 완성 · 반지 완성 · 모닥불 · 한 상 완성</td><td>use (+ 꽃 목록)</td></tr>
+      <tr><td><code>drag</code></td><td>톤암 · 공예 드래그 종료</td><td>track, playing / progress</td></tr>
+      <tr><td><code>pour</code></td><td>와인 따르기 멈춤</td><td>use, wine, level(%)</td></tr>
+      <tr><td><code>page_turn</code></td><td>책장 넘김</td><td>use, page</td></tr>
+    </tbody>
+  </table>
+  <h3>취향 테스트 점수 규칙</h3>
+  <table>
+    <thead><tr><th>문항</th><th>A</th><th>B</th><th>C</th><th>D</th></tr></thead>
+    <tbody>
+      <tr><td>Q1 마음이 가는 숙소 후기</td><td>수집 +2, 장면 +1 / 책 1·LP 1</td><td>기록자 +2, 모험 +1 / 공예 1·꽃 1</td><td>모험 +2 / 캠핑 2·집밥 1</td><td>장면 +2 / 영화 2·와인 1</td></tr>
+      <tr><td>Q2 체크인까지 남은 세 시간</td><td>수집 +2 / LP 2·책 1</td><td>기록자 +2 / 공예 2·꽃 1·집밥 1</td><td>장면 +2, 기록자 +1 / 와인 2·집밥 2</td><td>모험 +2, 장면 +1 / 러닝 2</td></tr>
+      <tr><td>Q3 하루 종일 비가 오는 날</td><td>수집 +2 / 책 2·LP 1</td><td>기록자 +2 / 꽃 2·집밥 1</td><td>장면 +2, 기록자 +1 / 집밥 2·와인 1</td><td>모험 +2 / 러닝 1·캠핑 1</td></tr>
+      <tr><td>Q4 우연히 통째로 빈 하루</td><td>모험 +2 / 러닝 2</td><td>기록자 +2, 모험 +1 / 공예 2·꽃 1</td><td>수집 +2 / 책 1·LP 1</td><td>장면 +2, 기록자 +1 / 집밥 2·와인 1</td></tr>
+      <tr><td>Q5 좋아하던 것을 제주에서</td><td>수집 +2 / LP 2·책 1</td><td>기록자 +2 / 공예 2·꽃 1</td><td>장면 +2, 기록자 +1 / 와인 2·집밥 1</td><td>모험 +2 / 캠핑 2·러닝 1</td></tr>
+      <tr><td>Q6 여행에서 발견한 다른 나</td><td>수집 +2 / 책 2·LP 1</td><td>기록자 +2, 모험 +1 / 집밥 1·공예 1</td><td>장면 +2, 수집 +1 / 영화 2·꽃 1</td><td>모험 +2, 장면 +1 / 캠핑 2</td></tr>
+      <tr><td>Q7 남기고 싶은 여행의 기억 (가중)</td><td>수집 +3 / LP 1·책 1</td><td>기록자 +3 / 공예 1·꽃 1</td><td>모험 +3 / 캠핑 1·러닝 1</td><td>장면 +3 / 영화 1·와인 1</td></tr>
+    </tbody>
+  </table>
+  <p><b>결과 유형</b> = 성향 점수 합계 최고. <b>동점 규칙</b> ① 마지막 문항(Q7)에서 고른 선택지의 주 성향 ② Q6 → Q1 순으로 거슬러 올라가며 동점 유형을 가리킨 첫 답 ③ 고정 순서 수집가 → 기록자 → 장면 → 모험.<br>
+  <b>대표 프로그램</b> = 결과 유형의 프로그램 중 프로그램 점수 최고(동점 시 유형 목록 순서). <b>보조 추천</b> = 같은 유형의 나머지 + 점수를 받은 다음 순위 유형의 최고 프로그램(최대 2개, 점수 0인 유형은 제외).<br>
+  <b>검증</b>: 가능한 16,384개 답변 조합(4의 7제곱) 전수 계산 — 유형 분포 모험 4,212 · 수집 3,677 · 기록자 4,513 · 장면 3,982, 9개 프로그램 모두 대표 추천으로 등장 (대표 추천 분포: 와인 2,565 · LP 2,516 · 러닝 2,193 · 캠핑 2,019 · 공예 1,875 · 꽃 1,471 · 영화 1,417 · 집밥 1,167 · 책 1,161) (<code>npm run test:quiz</code>).</p>
+  <table>
+    <thead><tr><th>유형</th><th>카피</th><th>추천 프로그램</th></tr></thead>
+    <tbody>
+      <tr><td>TYPE 01 모험하는 여행자</td><td>당신의 제주는 움직일 때 가장 빛납니다.</td><td>러닝 · 캠핑 (A-01 · A-07)</td></tr>
+      <tr><td>TYPE 02 감각적인 수집가</td><td>당신은 조용한 순간에도 깊은 여행을 합니다.</td><td>LP · 책 (A-04 · A-05)</td></tr>
+      <tr><td>TYPE 03 손끝의 기록자</td><td>당신은 여행의 순간을 직접 만들어 가는 사람입니다.</td><td>꽃꽂이 · 나무반지 공예 · 집밥 (A-03 · A-06 · A-08)</td></tr>
+      <tr><td>TYPE 04 장면을 간직하는 여행자</td><td>당신에게 여행은 오래 남을 장면의 연속입니다.</td><td>작은 영화관 · 와인 (A-02 · A-09)</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<script>
+/* 화면설계서 데이터 — 와이어프레임 상자(x, y, w, h: %)와 요소 표 */
+const SCREENS = [
+  {
+    id: 'SC-00', title: 'GNB · 목차 (공통)', page: '전 페이지',
+    pc: [
+      { b: [0, 0, 100, 7.4], t: '상단 바 56px', cls: 't' },
+      { b: [2, 1.5, 12, 4.5], t: '로고' }, { b: [40, 1.5, 20, 4.5], t: '현재 챕터' }, { b: [76, 1.5, 9, 4.5], t: '취향 테스트' }, { b: [87, 1.5, 9, 4.5], t: '목차' },
+      { b: [0, 7, 100, .6], t: '', cls: 'green' },
+      { b: [56, 7.4, 44, 92.6], t: '목차 오버레이<br>CH.00~04 · USE 01~08', cls: 'img' },
+    ],
+    pcPins: [[2, 1.5, 1], [40, 1.5, 2], [76, 1.5, 3], [87, 1.5, 4], [50, 7.2, 5], [56, 10, 6]],
+    mo: [{ b: [0, 0, 100, 7.4], t: '', cls: 't' }, { b: [4, 1.6, 24, 4.2], t: '게하' }, { b: [46, 1.6, 26, 4.2], t: '취향 테스트' }, { b: [76, 1.6, 20, 4.2], t: '목차' }, { b: [0, 7.4, 100, 92.6], t: '목차 (전체 화면)', cls: 'img' }],
+    moPins: [[4, 1.6, 1], [46, 1.6, 3], [76, 1.6, 4], [10, 12, 6]],
+    rows: [
+      [1, '로고', '게하 사용설명서', '클릭', 'S-01 처음', '-', 'gnb_logo'],
+      [2, '현재 챕터 표시', '예) CH.02 — 아홉 가지 게하 사용법 / 기사: A-03 · USE 03', '스크롤', '-', '읽는 섹션의 data-chapter 값으로 자동 갱신 (모바일 숨김)', '-'],
+      [3, '취향 테스트 바로가기', '취향 테스트', '클릭', 'T-01', '테스트 페이지에서는 현재 위치 표시', 'gnb_test'],
+      [4, '목차 버튼', '목차', '클릭', 'P-01 목차 열기', 'Esc · 바깥 클릭 · 닫기로 닫힘, 포커스 순환', 'gnb_toc_open'],
+      [5, '진행률 막대', '테라코타 선', '스크롤', '-', '문서 전체 스크롤 비율만큼 늘어남', '-'],
+      [6, '목차 항목', 'CH.00~04, USE 01~09 제목·영문', '클릭', '각 챕터 / A-01~09', '닫으며 이동', 'toc_chapter_00~04 · toc_article_{id} · toc_close'],
+    ],
+  },
+  {
+    id: 'SC-01', title: 'CH.00 사용 전 주의사항', page: 'S-01',
+    pc: [
+      { b: [0, 0, 100, 100], t: '', cls: 'dark' },
+      { b: [4, 9, 92, 87], t: '', cls: 't' },
+      { b: [20, 38, 60, 22], t: '“게스트하우스, 어떻게 사용하는 곳일까요?”', cls: 'dark' },
+      { b: [8, 18, 18, 9], t: '파티.' }, { b: [70, 32, 20, 9], t: '술자리.' }, { b: [6, 56, 32, 9], t: '낯선 사람과의 만남.' }, { b: [66, 72, 26, 9], t: '시끄러운 밤.' },
+      { b: [8, 8, 50, 62], t: '밤 사진 3장', cls: 'img' },
+      { b: [46, 92, 8, 4], t: 'SCROLL' },
+    ],
+    pcPins: [[4, 9, 1], [20, 38, 2], [8, 18, 3], [8, 30, 4], [50, 50, 5], [46, 92, 6]],
+    mo: [{ b: [0, 0, 100, 100], t: '', cls: 'dark' }, { b: [8, 38, 84, 18], t: '질문 (3줄)', cls: 'dark' }, { b: [6, 19, 40, 6], t: '파티.' }, { b: [50, 35, 44, 6], t: '술자리.' }, { b: [6, 53, 70, 9], t: '낯선 사람과의 만남.' }, { b: [46, 74, 48, 6], t: '시끄러운 밤.' }],
+    moPins: [[8, 38, 2], [6, 19, 3]],
+    rows: [
+      [1, '설명서 프레임', 'GUESTHOUSE — USER MANUAL / 제0장 · 사용 전 주의사항 / p.00', '-', '-', '낡은 사용설명서 첫 장을 표현하는 테두리와 도면 선', '-'],
+      [2, '도입 질문', '게스트하우스, 어떻게 사용하는 곳일까요?', '스크롤', '-', '진입 시 떠오르며 등장 → 스크롤하면 위로 흐려짐', '-'],
+      [3, '기존 인식 키워드', '파티. / 술자리. / 낯선 사람과의 만남. / 시끄러운 밤.', '스크롤', '-', '스크롤 단계마다 하나씩 등장 (번호 01~04)', '-'],
+      [4, '밤 사진', '보케 · 사람 실루엣 샘플 사진 3장', '스크롤', '-', '키워드와 함께 겹쳐지며 진해짐', '-'],
+      [5, '시야 축소 → 정적 → 빠진 페이지', '그런데, 이 설명서에는 빠진 페이지가 있습니다.', '스크롤', '-', '원형으로 시야가 좁아지고(아이리스), 1화면 분량 정적 후 문장 등장', '-'],
+      [6, '스크롤 안내', 'SCROLL + 떨어지는 선', '-', '-', '반복 애니메이션 (동작 줄이기 시 정지)', '-'],
+      [7, '반전 · 사물 사진 9장', '러닝화 · 작은 영화관 · 들꽃 · 레코드 · 책 · 나무반지 · 모닥불 · 밥상 · 와인잔', '스크롤', '-', '화면 중앙에서 원형으로 아이보리 페이지가 열리고 인화 사진이 차례로 내려앉음', '-'],
+      [8, '제목 블록', 'VOL.01 — JEJU / 게하 사용설명서 + 개정판 도장 / 당신이 몰랐던 숙박의 다른 방식.', '-', '-', '사진 뒤에 순서대로 등장', '-'],
+    ],
+    note: '동작 줄이기 설정: 고정 연출 없이 어두운 페이지(질문·키워드·빠진 페이지) → 밝은 페이지(사진·제목) 순서로 쌓아서 표시.',
+  },
+  {
+    id: 'SC-02', title: 'CH.01 설명서의 첫 번째 발견', page: 'S-01',
+    pc: [
+      { b: [4, 10, 40, 50], t: '기준 체크리스트' }, { b: [50, 22, 46, 22], t: '캡션 문장' },
+    ],
+    pcPins: [[4, 10, 1]],
+    mo: [{ b: [6, 6, 88, 40], t: '체크리스트' }, { b: [6, 50, 88, 16], t: '캡션 문장' }],
+    moPins: [[6, 6, 1]],
+    rows: [
+      [1, '기준 체크리스트', '가격 ✓ 위치 ✓ 시설 ✓ + (손글씨) 그곳에서 보낼 수 있는 시간', '스크롤', '-', '화면 70% 지점에서 손글씨 항목이 써지고 동그라미가 그려짐', '-'],
+    ],
+  },
+  {
+    id: 'SC-03', title: 'CH.02 아홉 가지 게하 사용법 (3D 책장)', page: 'S-01',
+    pc: [
+      { b: [0, 0, 100, 100], t: '', cls: 'dark' },
+      { b: [20, 4, 60, 16], t: 'Chapter 02 — Index<br>아홉 가지 게하 사용법 (큰 제목)<br>안내 문장', cls: 'dark' },
+      { b: [8, 28, 12, 36], t: '책 01', cls: 'img' }, { b: [22, 30, 12, 34], t: '책 02', cls: 'img' }, { b: [36, 24, 15, 40], t: '고른 책<br>(앞으로)', cls: 'img' },
+      { b: [53, 30, 12, 34], t: '책 04', cls: 'img' }, { b: [67, 30, 12, 34], t: '책 05', cls: 'img' }, { b: [81, 30, 12, 34], t: '책 06', cls: 'img' },
+      { b: [30, 70, 40, 16], t: 'USE · 동사 / 제목 / 한 줄 리드<br>[체험 이름 →]', cls: 'dark' },
+      { b: [22, 89, 56, 6], t: 'Running · Cinema · Flower · LP · Book · Craft · Camping · Home meal · Wine', cls: 'dark' },
+    ],
+    pcPins: [[20, 4, 1], [8, 28, 2], [36, 24, 3], [30, 70, 4], [22, 89, 5]],
+    mo: [
+      { b: [0, 0, 100, 100], t: '', cls: 'dark' },
+      { b: [6, 4, 88, 16], t: '큰 제목 · 안내', cls: 'dark' },
+      { b: [-12, 26, 30, 30], t: '책', cls: 'img' }, { b: [32, 23, 36, 34], t: '가운데 책<br>(고른 책)', cls: 'img' }, { b: [82, 26, 30, 30], t: '책', cls: 'img' },
+      { b: [6, 60, 88, 20], t: '설명 · 체험 버튼', cls: 'dark' }, { b: [6, 83, 88, 12], t: '칩 9개', cls: 'dark' },
+    ],
+    moPins: [[6, 4, 1], [32, 23, 3], [6, 60, 4], [6, 83, 5]],
+    rows: [
+      [1, '제목', 'Chapter 02 — Index / 아홉 가지 게하 사용법 / 한 권을 골라 펼치면, 그 공간의 시간을 직접 체험할 수 있어요.', '-', '-', '화면에 들어오면 책이 오른쪽에서 차례로 꽂힘', '-'],
+      [2, '책 (사용법 9권)', '표지: 대표 사진 · USE 0N · 제목 · 게하 사용설명서 / 옆면: 페이지 결', '호버 · 키보드 포커스 · 클릭', 'A-01~A-09', '비스듬히(-28°) 서 있다가 고르면 앞으로 빠져나와 정면 쪽(-10°)으로 돌고 밝아짐. 누르면 기사로 이동', 'ch02_use_{id}'],
+      [3, '고른 책', '처음에는 USE 01', '-', '-', '마우스가 떠나도 마지막으로 고른 책이 앞에 나와 있음', '-'],
+      [4, '고른 책 설명', 'USE 0N · 동사 / 제목 / 한 줄 리드 / [체험 이름 →]', '클릭', 'A-01~A-09', '고른 책에 맞춰 바뀜 (스크린리더에 안내)', 'ch02_now_{id}'],
+      [6, '좌우 화살표', '← / →', '클릭', '-', '책 한 권만큼 넘김. 처음·끝에서는 해당 화살표가 사라짐 (휴대폰에서는 숨김)', 'ch02_shelf_prev · ch02_shelf_next'],
+      [5, '사용법 칩', 'Running · Cinema · Flower · LP · Book · Craft · Camping · Home meal · Wine', '호버 · 클릭', '-', '해당 책을 고름. 휴대폰에서는 그 책을 가운데로 넘겨 줌', 'ch02_chip_{id}'],
+    ],
+    note: 'PC에서는 콘텐츠 폭 안에 책 다섯 권이 보이고, 나머지 네 권은 좌우 화살표 · 마우스로 끌기 · 가로 스크롤(트랙패드)로 넘겨 봅니다. 휴대폰(600px 이하)에서는 책을 크게 보여 주고 옆으로 넘기는 책장으로 바뀝니다. 가운데에 온 책이 고른 책이 됩니다. 체험 인터랙션은 각 기사(A-01~A-09) 맨 위에서 실행합니다.',
+  },
+  {
+    id: 'SC-03B', title: 'CH.03 취향 테스트 입구', page: 'S-01',
+    pc: [
+      { b: [0, 0, 100, 100], t: '', cls: 'img' },
+      { b: [6, 16, 38, 60], t: '인화 사진 4장', cls: 't' },
+      { b: [50, 18, 44, 6], t: 'Chapter 03 — Travel Questionnaire' }, { b: [50, 28, 44, 20], t: '당신의 제주에는 어떤 게하가 어울릴까요?' },
+      { b: [50, 52, 44, 8], t: '7문항, 약 2분 안내' }, { b: [50, 66, 26, 9], t: '취향 테스트 하러 가기 →', cls: 'green' },
+    ],
+    pcPins: [[50, 28, 1], [50, 66, 2]],
+    mo: [{ b: [6, 6, 88, 30], t: '인화 사진', cls: 't' }, { b: [6, 40, 88, 24], t: '제목 · 안내' }, { b: [6, 68, 70, 8], t: '테스트 하러 가기', cls: 'green' }],
+    moPins: [[6, 40, 1], [6, 68, 2]],
+    rows: [
+      [1, '안내 문안', 'Chapter 03 — Travel Questionnaire / 당신의 제주에는 어떤 게하가 어울릴까요? / 7문항, 약 2분…', '-', '-', '-', '-'],
+      [2, '이동 버튼', '취향 테스트 하러 가기 →', '클릭', 'T-01 (바로 Q1)', '-', 'ch03_test_open'],
+    ],
+  },
+];
+
+/* SC-04: 9개 기사 — 대표 사진 · 프로그램 사진 · 에디터픽 */
+const ARTICLES = [
+  ['USE 01 러닝', '새애월', 'SAE AEWOL 외관', '와인 & 양식 디너 + 불멍 — 마당 디너 · 불멍 (세로 2장 나란히) / 아침 러닝 & 바다수영 — 해안 러닝 · 바다수영 (세로 2장 나란히, 얼굴 흐림)', '-'],
+  ['USE 02 영화', '쉼 게스트하우스', '흰 건물과 JEJUSHYM 돌담', '작은 영화관 — 상영실', '-'],
+  ['USE 03 꽃', '코코코', '코코코 Guest House 간판', '꽃꽂이 클래스 — 꽃과 고양이 / 오름 일출 감상 — 오름 전망대', '있음'],
+  ['USE 04 LP', '서론게스트하우스', '사진 교체 예정 (샘플 일러스트)', 'LP 청음 시간 / 리스닝 파티 — 사진 없음', '있음 (프로필 문구 없음)'],
+  ['USE 05 책', '서점숙소', '서점숙소 @bookhome 로고 외벽', "대화 모임 '오름에게' — 서재 / 북바인딩 클래스 — 필사 노트", '-'],
+  ['USE 06 공예', '스르르 게스트하우스', '스르르 · 우주공간 나무반지 공방 간판', '나무반지 원데이 클래스 — 공방 작업대', '있음'],
+  ['USE 07 캠핑', '무릉쉼표', '무릉쉼표, 천천히 60m 손글씨 간판', '스냅사진 — 메밀꽃밭 / 포틀럭 파티 & 불멍 — 저녁 한 상', '-'],
+  ['USE 08 집밥', '수수민박', '수수민박 나무 간판', '수수한 저녁 — 저녁 식탁 / 아침 산책 — 대평리 바닷길', '있음 (캐릭터 그림)'],
+  ['USE 09 와인', '루프탑정원', '루프탑정원 철판 간판과 돌길', '와이너리 디너 — 디너 식탁', '있음'],
+];
+
+const SCREENS2 = [
+  {
+    id: 'SC-05', title: 'T-01 취향 테스트 — 질문 (바로 시작)', page: 'T-01 (#/test)',
+    pc: [
+      { b: [20, 6, 60, 88], t: '', cls: 't' },
+      { b: [24, 10, 20, 4], t: '← 이전 질문' }, { b: [66, 10, 10, 4], t: 'Q02 / 07' },
+      { b: [24, 17, 52, 2], t: '진행 막대 7칸', cls: 'green' },
+      { b: [24, 23, 52, 14], t: '맥락 + 질문' },
+      { b: [24, 44, 52, 9], t: '□ A 선택지' }, { b: [24, 56, 52, 9], t: '□ B 선택지' }, { b: [24, 68, 52, 9], t: '□ C 선택지' }, { b: [24, 80, 52, 9], t: '□ D 선택지' },
+    ],
+    pcPins: [[24, 10, 2], [66, 10, 3], [24, 17, 4], [24, 23, 5], [24, 44, 6]],
+    mo: [{ b: [6, 10, 40, 4], t: '← 이전' }, { b: [70, 10, 24, 4], t: 'Q02/07' }, { b: [6, 16, 88, 2], t: '', cls: 'green' }, { b: [6, 21, 88, 16], t: '질문' }, { b: [6, 42, 88, 11], t: 'A' }, { b: [6, 55, 88, 11], t: 'B' }, { b: [6, 68, 88, 11], t: 'C' }, { b: [6, 81, 88, 11], t: 'D' }],
+    moPins: [[6, 10, 2], [70, 10, 3], [6, 16, 4], [6, 21, 5], [6, 42, 6]],
+    rows: [
+      [2, '이전 질문', '← 이전 질문 (Q1에서는 "7문항 · 약 2분" 안내)', '클릭', '이전 문항', '이전 답은 체크된 상태로 유지', 'quiz_prev'],
+      [3, '문항 번호', 'Q02 / 07', '-', '-', '-', '-'],
+      [4, '진행 막대', '완료(딥그린) · 현재(테라코타) · 남음(옅은 선)', '-', '-', '스크린리더: "7문항 중 2번째"', '-'],
+      [5, '질문', '맥락(예: 낯선 사람과 만날 때) + 질문 문장', '-', '-', '문항이 바뀌면 질문에 포커스 이동', '-'],
+      [6, '선택지 A~D', '체크박스 + 알파벳 + 문장 (role=radio)', '클릭 · Enter', '다음 문항 / 결과', '체크가 그려지고 0.5초 뒤 다음 문항으로 카드가 넘어감', 'quiz_q{1~5}_{A~D}'],
+    ],
+  },
+  {
+    id: 'SC-06', title: 'T-01 결과 — 특별 부록', page: 'T-01 (#/test)',
+    pc: [
+      { b: [4, 3, 92, 3], t: 'SUPPLEMENT — TYPE 02 / 04', cls: 't' },
+      { b: [4, 9, 52, 30], t: '유형명 · 영문 · 카피 · 설명' },
+      { b: [62, 9, 34, 34], t: '대표 프로그램 사진', cls: 'img' },
+      { b: [4, 46, 28, 18], t: '어울리는 여행 방식' }, { b: [36, 46, 28, 18], t: '추천 이유' }, { b: [68, 46, 28, 18], t: '성향 계기판' },
+      { b: [4, 67, 92, 10], t: '대표 프로그램 · 게스트하우스 · 기사 읽기', cls: 'green' },
+      { b: [4, 80, 60, 10], t: '함께 추천 2~3', cls: 'img' },
+      { b: [4, 92, 60, 5], t: '저장 · 공유 · 다시 하기' },
+    ],
+    pcPins: [[4, 9, 1], [62, 9, 2], [4, 46, 3], [36, 46, 4], [68, 46, 5], [4, 67, 6], [4, 80, 7], [4, 92, 8]],
+    mo: [{ b: [6, 3, 88, 18], t: '유형명 · 카피' }, { b: [18, 23, 76, 22], t: '사진', cls: 'img' }, { b: [6, 47, 88, 18], t: '여행 방식 · 이유 · 계기판' }, { b: [6, 67, 88, 12], t: '대표 프로그램', cls: 'green' }, { b: [6, 81, 88, 9], t: '보조 추천', cls: 'img' }, { b: [6, 92, 88, 6], t: '버튼' }],
+    moPins: [[6, 3, 1], [18, 23, 2], [6, 47, 3], [6, 67, 6], [6, 81, 7], [6, 92, 8]],
+    rows: [
+      [1, '유형', '당신의 게하 사용법은 / 감각적인 수집가 / the collector / 카피 / 설명', '-', '-', '결과 제목으로 포커스 이동', '-'],
+      [2, '대표 사진', '대표 프로그램 사진 + 손글씨 "가장 잘 맞는 사용법!"', '-', '-', '원본 사진 그대로', '-'],
+      [3, '어울리는 제주 여행 방식', '3줄 목록', '-', '-', '-', '-'],
+      [4, '추천 이유', '결과 유형을 가리킨 답변을 질문 맥락과 함께 인용 + 연결 문장, 동점 시 적용 규칙', '-', '-', '실제 답변 데이터로 생성', '-'],
+      [5, '성향 계기판', '4유형 점수 막대 (1위 테라코타)', '-', '-', '막대가 차오름', '-'],
+      [6, '대표 프로그램', 'USE 0N 제목 · 리드 · 취재 게스트하우스(샘플 표시) · [체험 기사 읽기]', '클릭', 'A-0N', '-', 'result_article_{id}'],
+      [7, '보조 추천', '같은 유형 / 두 번째 성향 라벨 + 사진 + 제목', '클릭', 'A-0N', '-', 'result_sub_{id}'],
+      [8, '결과 버튼', '[결과 이미지 저장] [결과 공유하기] [테스트 다시 하기] + 상태 문구', '클릭', 'PNG 다운로드 / 공유 시트 · 링크 복사 / Q1부터 다시', '1080×1350 결과 카드 생성, 공유 링크 #/test?r=답변코드', 'result_save · result_share · result_retry'],
+    ],
+    note: '공유 링크로 들어오면 같은 답변으로 결과를 다시 계산해 "공유받은 결과지"로 표시. 결과는 세션에 저장되어 에필로그 "나의 사용법"에 기록됩니다.',
+  },
+  {
+    id: 'SC-07', title: '에필로그', page: 'S-01',
+    pc: [
+      { b: [14, 30, 72, 12], t: '엔딩 카피 1' },
+      { b: [0, 78, 100, 22], t: '제주 풍경 + 대형 타이포 + 버튼 2', cls: 'dark' },
+    ],
+    pcPins: [[14, 30, 4], [4, 82, 5], [4, 94, 6]],
+    mo: [{ b: [6, 30, 88, 12], t: '카피' }, { b: [0, 76, 100, 24], t: '엔딩', cls: 'dark' }],
+    moPins: [[6, 30, 4], [4, 80, 5]],
+    rows: [
+      [4, '엔딩 카피', '우리가 몰랐던 건 게스트하우스가 아니라, 그 안에서 보낼 수 있는 시간이었습니다.', '-', '-', '-', '-'],
+      [5, '마지막 문장', '게스트하우스의 사용법은 하나가 아니니까.', '스크롤', '-', '사진이 천천히 줌아웃되고 문장이 떠오름', '-'],
+      [6, '엔딩 버튼', '[처음 페이지로]', '클릭', 'S-01 · C00', '-', 'epilogue_top'],
+    ],
+  },
+  {
+    id: 'SC-08', title: '취재 기사 A-01~A-09 (공통)', page: 'A-01~A-09',
+    pc: [
+      { b: [4, 2, 60, 4], t: 'A-0N · USE · 동사', cls: 't' },
+      { b: [4, 7, 60, 6], t: '제목 (방법)' },
+      { b: [4, 14, 70, 4], t: 'Guesthouse · 게스트하우스 이름 · 주소 / 한 줄 소개' },
+      { b: [4, 20, 66, 26], t: '대표 사진 (SC-04)', cls: 'green' },
+      { b: [4, 50, 22, 4], t: '01 — Program' }, { b: [30, 50, 66, 10], t: '기획 의도 · 프로그램 1·2 (시간·가격 → 사진 → 설명)' },
+      { b: [4, 64, 22, 4], t: "02 — Editor's Log" }, { b: [30, 64, 66, 18], t: '에디터 프로필 · 나의 여행 성향 · 좋았던 점 · 추천' },
+      { b: [0, 86, 100, 8], t: '취향 테스트', cls: 'green' },
+      { b: [0, 94, 100, 6], t: '이전 · 웹진으로 · 다음', cls: 'dark' },
+    ],
+    pcPins: [[4, 7, 1], [4, 14, 2], [4, 20, 3], [4, 50, 4], [4, 64, 5], [4, 86, 6], [4, 95, 7]],
+    mo: [
+      { b: [6, 2, 88, 6], t: '제목' }, { b: [6, 9, 88, 4], t: '게스트하우스 이름' },
+      { b: [6, 15, 88, 28], t: '대표 사진', cls: 'green' },
+      { b: [6, 46, 88, 14], t: '프로그램 소개' }, { b: [6, 62, 88, 20], t: '에디터 기록' },
+      { b: [0, 85, 100, 8], t: '취향 테스트', cls: 'green' }, { b: [0, 93, 100, 7], t: '이전/다음', cls: 'dark' },
+    ],
+    moPins: [[6, 2, 1], [6, 9, 2], [6, 15, 3], [6, 46, 4], [6, 62, 5], [4, 86, 6], [4, 94, 7]],
+    rows: [
+      [1, '제목', '페이지 ID · USE 번호 · 동사 / 예) LP로 제주의 밤을 즐기는 방법 (H1)', '-', '-', '-', '-'],
+      [2, '소제목 (게스트하우스 이름)', 'Guesthouse / 숙소 이름 · 주소 / 한 줄 소개', '-', '-', '이름이 비어 있으면 "게스트하우스 이름 — 취재 후 입력" 예시로 표시', '-'],
+      [3, '대표 사진', '숙소 외관 · 간판 사진 + 캡션 (SC-04)', '스크롤', '-', '원본 사진 그대로 (필터 · 질감 없음)', '-'],
+      [4, '프로그램 소개', '프로그램 기획 의도(드롭캡) / 프로그램 N. 이름 · 시간 · 가격 · 사진 · 설명 · 안내사항', '스크롤', '-', '왼쪽 라벨이 따라 내려옴(sticky)', '-'],
+      [5, '에디터 기록', '에디터 프로필(그림 · 한 줄 소개) / 나의 여행 성향(해시태그 · 설명) / 그래서 이 게하가 좋았어요 / 이런 사람에게 추천해요', '스크롤', '-', '에디터픽이 없는 기사는 에디터 기록 칸 전체를 숨김', '-'],
+      [6, '취향 테스트', '이 사용법이 어울리는 유형 — TYPE 0N 유형명 / [취향 테스트 하러 가기]', '클릭', 'T-01', '-', 'article_{id}_to_test'],
+      [7, '기사 이동', '← 이전 · USE / 웹진으로 돌아가기 / 다음 · USE →', '클릭', '이전·다음 기사 / S-01 사용법 책장', '순환(09 다음은 01)', 'article_{id}_prev · article_{id}_home · article_{id}_next'],
+    ],
+  },
+];
+
+function frame(boxes, pins, kind) {
+  const el = document.createElement('div');
+  el.className = 'wf ' + kind;
+  el.innerHTML = `<span class="lbl">${kind === 'pc' ? 'PC 1280' : 'Mobile 360'}</span>` +
+    boxes.map(({ b, t, cls }) => `<div class="box ${cls || ''}" style="left:${b[0]}%;top:${b[1]}%;width:${b[2]}%;height:${b[3]}%">${t}</div>`).join('') +
+    pins.map(([x, y, n]) => `<span class="pin" style="left:${x}%;top:${y}%">${n}</span>`).join('');
+  return el;
+}
+
+function table(rows) {
+  return `<table><thead><tr><th>No</th><th>요소명</th><th>표시 내용</th><th>동작</th><th>이동 목적지</th><th>인터랙션 설명</th><th>데이터 추적용 이름표</th></tr></thead><tbody>` +
+    rows.map((r) => `<tr><td>${r[0]}</td><td><b>${r[1]}</b></td><td>${r[2]}</td><td>${r[3]}</td><td>${r[4]}</td><td>${r[5]}</td><td><code>${r[6]}</code></td></tr>`).join('') +
+    `</tbody></table>`;
+}
+
+const root = document.getElementById('screens');
+function addScreen(s) {
+  const sec = document.createElement('section');
+  sec.className = 'screen';
+  sec.innerHTML = `<h3>${s.id} · ${s.title} <small>${s.page}</small></h3>`;
+  const f = document.createElement('div');
+  f.className = 'frames';
+  f.style.marginTop = '26px';
+  f.append(frame(s.pc, s.pcPins, 'pc'), frame(s.mo, s.moPins, 'mo'));
+  sec.append(f);
+  sec.insertAdjacentHTML('beforeend', table(s.rows) + (s.note ? `<p class="note">${s.note}</p>` : ''));
+  root.append(sec);
+}
+SCREENS.forEach(addScreen);
+
+const sc4 = document.createElement('section');
+sc4.className = 'screen';
+sc4.innerHTML = `<h3>SC-04 · 기사별 사진과 에디터픽 <small>A-01~A-09 제목 아래 대표 사진 · 프로그램 사진</small></h3>
+<table><thead><tr><th>프로그램</th><th>게스트하우스</th><th>대표 사진</th><th>프로그램 — 사진</th><th>에디터픽</th></tr></thead><tbody>${
+  ARTICLES.map((r) => `<tr><td><b>${r[0]}</b></td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td><td>${r[4]}</td></tr>`).join('')
+}</tbody></table>
+<p class="note">사진은 보정 · 필터 · 질감 없이 원본 그대로 보여 줍니다. 사진이 없는 칸은 'SAMPLE · 사진 교체 예정' 일러스트로 표시하고, 에디터픽이 없는 기사(러닝 · 영화 · 책 · 캠핑)는 에디터 기록 칸을 통째로 숨깁니다. 체험 인터랙션 코드는 src/interactions/ 에 남아 있어 report.programs 를 비우면 다시 나타납니다.</p>`;
+root.append(sc4);
+SCREENS2.forEach(addScreen);
+</script>
+</body>
+</html>

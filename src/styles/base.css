@@ -1,0 +1,93 @@
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: var(--header); }
+body {
+  font-family: var(--f-sans);
+  font-size: var(--t-body);
+  font-weight: 400;
+  line-height: var(--lh-body);
+  letter-spacing: var(--ls-body);
+  color: var(--ink);
+  background: var(--bg);
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+ol, ul { list-style: none; }
+h1, h2, h3, h4 { font-family: var(--f-head); font-weight: 600; line-height: var(--lh-title); letter-spacing: var(--ls-title); }
+main { display: block; outline: none; }
+::selection { background: var(--forest); color: var(--bg); }
+
+:focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; }
+.skip-link {
+  position: fixed; left: 12px; top: -60px; z-index: 200; padding: 10px 16px;
+  background: var(--navy); color: var(--bg); font-size: 14px; text-decoration: none;
+}
+.skip-link:focus { top: 12px; }
+.visually-hidden {
+  position: absolute !important; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap;
+}
+
+/* 중국어 — 한자 서체, 글자 단위 줄바꿈 (keep-all 이면 줄이 넘칩니다) */
+:lang(zh) { --f-home: var(--f-sans); --f-sans: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", "Pretendard Variable", sans-serif; --f-head: var(--f-sans); --ls-body: 0; --ls-title: -0.01em; }
+:lang(zh) body { word-break: normal; line-break: strict; }
+/* 영어 — 단어 단위 줄바꿈 */
+:lang(en) body { word-break: normal; }
+
+.wrap { width: min(var(--max), 100% - var(--gutter) * 2); margin-inline: auto; }
+.pre { white-space: pre-line; }
+.serif { font-family: var(--f-head); }  /* 예전 이름 — 이제 제목 서체 */
+
+/* 영문 섹션 라벨 — 작지만 읽을 수 있게, 과하게 쓰지 않습니다 */
+.label {
+  display: inline-block;
+  font-size: var(--t-label); font-weight: 600; line-height: 1.4;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--orange-ink);
+}
+.label--light { color: var(--accent-on-dark); }
+.label--muted { color: var(--ink-soft); }
+
+/* 버튼 — 손가락으로 누르기 좋은 52px 알약형 */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 14px;
+  min-height: 54px; padding: 14px 30px;
+  font-size: 15.5px; font-weight: 600; letter-spacing: -0.01em; line-height: 1.2;
+  color: var(--ink); background: var(--orange); border: 1.5px solid var(--orange);
+  border-radius: 999px; text-decoration: none; cursor: pointer;
+  transition: background var(--t-hover) var(--ease), color var(--t-hover) var(--ease), border-color var(--t-hover) var(--ease), transform var(--t-hover) var(--ease);
+}
+.btn:hover { background: #F5A266; border-color: #F5A266; }
+.btn:active { transform: translateY(1px); }
+.btn .arrow { display: inline-block; transition: transform var(--t-hover) var(--ease); }
+.btn:hover .arrow { transform: translateX(4px); }
+.btn--ghost { background: transparent; color: var(--forest); }
+.btn--ghost:hover { background: var(--forest); color: var(--bg); }
+.btn--light { background: var(--bg); color: var(--navy); border-color: var(--bg); }
+.btn--light:hover { background: #fff; border-color: #fff; }
+.btn--back .arrow { order: -1; }
+.btn--back:hover .arrow { transform: translateX(-4px); }
+.btn[disabled] { opacity: .4; cursor: not-allowed; }
+
+/* 페이지 전환 — 0.3초 */
+.page { animation: page-in var(--t-page) var(--ease) both; }
+@keyframes page-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+.page-loading, .notfound {
+  min-height: 80vh; display: grid; place-content: center; gap: 20px; text-align: center;
+  padding: 120px var(--gutter);
+}
+.notfound h1 { font-size: var(--t-h2); font-weight: 700; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important; animation-delay: 0ms !important; animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important; transition-delay: 0ms !important; scroll-behavior: auto !important;
+  }
+}
