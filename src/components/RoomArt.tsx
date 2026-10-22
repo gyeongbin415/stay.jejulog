@@ -225,12 +225,12 @@ const ART: Record<ProgramId, ReactNode> = {
       {/* 검은 작업 매트 위 나무반지 */}
       <path d="M128 112 L140 92 H226 L238 112 Z" fill={C.char} />
       <g className="obj">
-        <ellipse cx="183" cy="98" rx="30" ry="13" fill="#8E5E33" />
-        <rect x="153" y="88" width="60" height="10" fill="#8E5E33" />
-        <ellipse cx="183" cy="88" rx="30" ry="13" fill={C.woodPale} />
-        <ellipse cx="183" cy="88" rx="24" ry="9.5" fill="#D6A76E" />
-        <ellipse cx="183" cy="88" rx="15" ry="5.6" fill="#7A4F2B" />
-        <path d="M168 84 Q183 79 198 84" stroke="#E9C590" strokeWidth="1.6" fill="none" />
+        <ellipse cx="183" cy="103" rx="17" ry="7.5" fill="#8E5E33" />
+        <rect x="166" y="97" width="34" height="6" fill="#8E5E33" />
+        <ellipse cx="183" cy="97" rx="17" ry="7.5" fill={C.woodPale} />
+        <ellipse cx="183" cy="97" rx="13.5" ry="5.5" fill="#D6A76E" />
+        <ellipse cx="183" cy="97" rx="8.5" ry="3.2" fill="#7A4F2B" />
+        <path d="M174 94.5 Q183 91.5 192 94.5" stroke="#E9C590" strokeWidth="1.2" fill="none" />
       </g>
       {/* 붓통 */}
       <path d="M248 66 L240 34 M255 66 L253 26 M262 66 L266 30 M268 66 L278 38" stroke={C.char} strokeWidth="3" strokeLinecap="round" />
