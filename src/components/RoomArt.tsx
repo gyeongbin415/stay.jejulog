@@ -2,43 +2,48 @@ import type { ReactNode } from 'react';
 import type { ProgramId } from '../data/types';
 
 /* ------------------------------------------------------------------
-   집 내부 9개 공간 — 외곽선 없는 플랫 일러스트 (MY JEJU HOUSE 시안)
-   · 실내 · 마당 viewBox 400 × 260 (바닥 y 256), 다락 400 × 190 (지붕 가운데)
-   · 색: 크림 방 · 차콜 가구 · 청록 · 주황 · 노랑
+   집 내부 9개 공간 — 외곽선 없는 플랫 일러스트 (방마다 벽 색이 다른 시안)
+   · 실내 · 마당 viewBox 400 × 260 (바닥 y 256), 다락 400 × 190 (지붕 박공 위, 배경 없음)
+   · 벽: 독서 세이지 · LP 하늘 · 영화 · 꽃 살구분홍 · 와인 노랑 · 집밥 연보라
+   · 마당: 하늘 · 구름 · 풀밭 (스냅사진), 하늘 · 바다 · 모래사장 · 달리는 사람 (러닝)
    · 클릭 대상이 되는 사물은 <g className="obj"> 로 묶어 호버 때 살짝 커집니다.
 ------------------------------------------------------------------- */
 
 const C = {
-  cream: '#F2E6D3',     // 방 벽 — 따뜻한 베이지
   white: '#FFFFFF',
-  char: '#3A3735',
-  grey: '#6E6A68',
-  screen: '#6B6663',
-  teal: '#1F7A8C',
-  tealDk: '#196878',
-  tealLt: '#7CC4C8',
-  orange: '#F39A2B',
-  yellow: '#F6C945',
-  green: '#4F9160',
-  greenDk: '#2E5E3C',
-  sky: '#F7D9A6',
-  path: '#EFE3C4',
+  cream: '#F4EDD8',
+  char: '#2E2E30',
+  charLt: '#3A3A3C',
+  grey: '#9A9EA3',
+  wood: '#6B4A2E',
+  woodLt: '#B07A45',
+  woodPale: '#C9965C',
+  green: '#3F8A57',
+  greenDk: '#357A4B',
+  leaf: '#4E8C5A',
+  leafLt: '#6FA86A',
+  orange: '#E8873A',
+  orangeLt: '#F39A2B',
+  yellow: '#F6D46A',
+  red: '#D9453C',
+  redDk: '#B8372F',
+  blue: '#2E6FD6',
+  navy: '#2F3A55',
+  skin: '#F2C1A0',
+  hair: '#6B3E26',
+  sky: '#A9D8F0',
+  sea: '#2E9BD6',
+  seaLt: '#5DB6E3',
+  sand: '#F0DDB8',
+  grass: '#9CCB7E',
+  grassDk: '#5E9F55',
   trunk: '#8A5A3B',
-  fridge: '#F4F1EA',
-  red: '#B5313A',
-  brick: '#C55A4F',     // 와인 의자 · 연필꽂이 · 책
-  greenSofa: '#6A8F5C', // 독서 의자
-  greenDk2: '#5A7C4E',
-  cabinet: '#6A8F5C',   // 부엌 수납장
-  cabinetDk: '#58784C',
-  sofa: '#E39A4B',      // 영화 소파
-  lawn: '#D5E6C4',      // 마당 칸 — 연두 판
-  skyLt: '#DDEDEA',     // 러닝 칸 하늘
-  sea: '#8CC3C9',       // 러닝 칸 바다
-  rice: '#FFFDF7',
-  steam: '#C9BFAE',
-  sofaDk: '#C9803A',
-  potGrey: '#8A8580',   // 회색 화분 · 꽃병
+  /* 방 벽 */
+  sage: '#B7D3A9',
+  skyRoom: '#BBD7E7',
+  salmon: '#F2C3B9',
+  butter: '#F8DE97',
+  lilac: '#D9CDE1',
 };
 
 export const YARD_ROOMS: ProgramId[] = ['camping', 'running'];
@@ -52,34 +57,59 @@ export function RoomArt({ id }: { id: ProgramId }) {
   );
 }
 
-/** 실내 공통 — 크림색 방 */
-function Room({ children }: { children: ReactNode }) {
+/** 실내 공통 — 방마다 다른 벽 색 */
+function Room({ wall, children }: { wall: string; children: ReactNode }) {
   return (
     <>
-      <rect width="400" height="260" fill={C.cream} />
+      <rect width="400" height="260" fill={wall} />
       {children}
     </>
   );
 }
 
-/** 천장에 매단 조명 */
+/** 천장에 매단 조명 (원뿔 갓) */
 function Pendant({ x, len, shade }: { x: number; len: number; shade: string }) {
   return (
     <>
       <rect x={x - 1} y="0" width="2" height={len} fill={C.char} />
-      <path d={`M${x - 18} ${len + 22} H${x + 18} L${x + 9} ${len} H${x - 9} Z`} fill={shade} />
-      <circle cx={x} cy={len + 27} r="5" fill={C.yellow} />
+      <path d={`M${x - 22} ${len + 24} H${x + 22} L${x + 4} ${len} H${x - 4} Z`} fill={shade} />
+      <circle cx={x} cy={len + 28} r="5" fill={C.yellow} />
     </>
   );
 }
 
-/** 마당 공통 — 연두 판 */
-function Lawn({ children }: { children: ReactNode }) {
+/** 식탁 · 테이블 — 상판과 다리 둘 */
+function Table({ x, w, y, color = C.wood }: { x: number; w: number; y: number; color?: string }) {
   return (
     <>
-      <rect width="400" height="260" fill={C.lawn} />
-      {children}
+      <rect x={x} y={y} width={w} height="8" fill={color} />
+      <rect x={x + 10} y={y + 8} width="7" height={256 - y - 8} fill={color} />
+      <rect x={x + w - 17} y={y + 8} width="7" height={256 - y - 8} fill={color} />
     </>
+  );
+}
+
+/** 의자 — 등받이가 바깥쪽 (dir 1: 왼쪽 의자, -1: 오른쪽 의자) */
+function Chair({ x, dir, color }: { x: number; dir: 1 | -1; color: string }) {
+  const back = dir === 1 ? x : x + 34;
+  return (
+    <>
+      <path d={`M${back} 168 Q${back} 160 ${back + 8 * dir} 160 L${back + 10 * dir} 160 L${back + 10 * dir} 214 L${back} 214 Z`} fill={color} />
+      <rect x={x} y="206" width="44" height="10" rx="3" fill={color} />
+      <rect x={x + 4} y="216" width="5" height="40" fill={C.char} />
+      <rect x={x + 35} y="216" width="5" height="40" fill={C.char} />
+    </>
+  );
+}
+
+/** 하늘의 뭉게구름 */
+function Cloud({ x, y, s = 1 }: { x: number; y: number; s?: number }) {
+  return (
+    <g transform={`translate(${x} ${y}) scale(${s})`}>
+      <ellipse cx="0" cy="0" rx="22" ry="10" fill={C.white} />
+      <circle cx="-6" cy="-6" r="10" fill={C.white} />
+      <circle cx="8" cy="-8" r="12" fill={C.white} />
+    </g>
   );
 }
 
@@ -87,227 +117,293 @@ function Lawn({ children }: { children: ReactNode }) {
 function Flower({ x, y }: { x: number; y: number }) {
   return (
     <>
-      <rect x={x - 1.5} y={y} width="3" height={256 - y} fill={C.green} />
-      <path d={`M${x} ${y - 11} L${x + 9} ${y} L${x} ${y + 9} L${x - 9} ${y} Z`} fill={C.yellow} />
+      <rect x={x - 1.2} y={y} width="2.4" height={256 - y} fill={C.grassDk} />
+      {[0, 72, 144, 216, 288].map((a) => (
+        <circle key={a} cx={x + Math.cos((a * Math.PI) / 180) * 5} cy={y + Math.sin((a * Math.PI) / 180) * 5} r="4" fill={C.yellow} />
+      ))}
+      <circle cx={x} cy={y} r="3" fill={C.orange} />
     </>
   );
 }
 
-const BOOK_COLORS = [C.green, C.orange, C.white, C.brick, C.yellow, C.green, C.white];
+/** 덤불 — 둥근 잎 뭉치 */
+function Bush({ x, y, r, color }: { x: number; y: number; r: number; color: string }) {
+  return (
+    <>
+      <circle cx={x - r * 0.7} cy={y} r={r * 0.75} fill={color} />
+      <circle cx={x} cy={y - r * 0.35} r={r} fill={color} />
+      <circle cx={x + r * 0.75} cy={y + r * 0.05} r={r * 0.7} fill={color} />
+    </>
+  );
+}
+
+const BOOKS = ['#3E7C8C', C.orange, '#F0DA7A', C.red, '#E8A13A', '#5A8F6A', '#F4E4C1', '#3E7C8C', C.red];
 
 const ART: Record<ProgramId, ReactNode> = {
-  /* 01 독서 — 책장 · 안락의자 · 스탠드 */
+  /* 01 독서 — 세이지 벽 · 책장 · 화분 · 잎 액자 · 초록 안락의자 · 노란 스탠드 */
   book: (
-    <Room>
+    <Room wall={C.sage}>
       <g className="obj">
-        <rect x="36" y="62" width="96" height="194" fill={C.char} />
+        <rect x="28" y="70" width="108" height="186" fill={C.char} />
         {[0, 1, 2].map((r) =>
-          BOOK_COLORS.map((c, i) => (
-            <rect key={`${r}-${i}`} x={44 + i * 12} y={78 + r * 60} width="10" height="46" fill={c} />
+          BOOKS.map((c, i) => (
+            <rect key={`${r}-${i}`} x={35 + i * 10.8} y={80 + r * 58} width="8.6" height="50" fill={BOOKS[(i + r * 2) % BOOKS.length] ?? c} />
           )),
         )}
       </g>
-      <rect x="184" y="138" width="106" height="70" rx="14" fill={C.greenSofa} />
-      <rect x="168" y="170" width="28" height="62" rx="12" fill={C.greenSofa} />
-      <rect x="278" y="170" width="28" height="62" rx="12" fill={C.greenSofa} />
-      <rect x="182" y="196" width="110" height="36" rx="8" fill={C.greenDk2} />
-      <rect x="208" y="166" width="58" height="30" rx="8" fill={C.white} />
-      <rect x="186" y="232" width="6" height="24" fill={C.char} />
-      <rect x="282" y="232" width="6" height="24" fill={C.char} />
-      <rect x="336" y="90" width="4" height="162" fill={C.char} />
-      <rect x="324" y="250" width="28" height="6" fill={C.char} />
-      <path d="M318 94 H358 L348 62 H328 Z" fill={C.orange} />
+      <rect x="196" y="52" width="44" height="56" fill="#7A7468" />
+      <rect x="200" y="56" width="36" height="48" fill="#F4EFE3" />
+      <path d="M218 96 V70 M218 84 Q208 78 210 70 Q216 74 218 84 M218 78 Q228 72 226 64 Q220 68 218 78" stroke={C.leaf} strokeWidth="2.5" fill={C.leafLt} />
+      {/* 화분 */}
+      <path d="M150 222 H182 L178 256 H154 Z" fill={C.white} />
+      <path d="M166 222 C150 206 146 186 152 170 C164 184 168 202 166 222 Z M166 222 C178 200 190 192 198 186 C196 206 184 216 166 222 Z M166 222 C160 200 166 180 176 168 C180 188 176 206 166 222 Z" fill={C.leaf} />
+      {/* 안락의자 */}
+      <rect x="214" y="150" width="112" height="78" rx="20" fill={C.green} />
+      <rect x="198" y="186" width="32" height="56" rx="12" fill={C.greenDk} />
+      <rect x="310" y="186" width="32" height="56" rx="12" fill={C.greenDk} />
+      <rect x="214" y="206" width="112" height="36" rx="10" fill={C.greenDk} />
+      <rect x="244" y="170" width="52" height="34" rx="8" fill={C.cream} />
+      <rect x="208" y="242" width="6" height="14" fill={C.char} />
+      <rect x="328" y="242" width="6" height="14" fill={C.char} />
+      {/* 스탠드 */}
+      <rect x="364" y="96" width="4" height="156" fill={C.char} />
+      <rect x="350" y="250" width="32" height="6" rx="3" fill={C.char} />
+      <path d="M344 98 H388 L376 58 H356 Z" fill={C.yellow} />
     </Room>
   ),
 
-  /* 02 LP — 벽 스피커 · 레코드 액자 · 턴테이블 · 콘솔 */
+  /* 02 LP — 하늘색 벽 · 양쪽 스피커 · 나무 수납장 위 턴테이블 */
   lp: (
-    <Room>
-      <rect x="6" y="112" width="54" height="76" rx="3" fill={C.char} />
-      <circle cx="33" cy="134" r="9" fill={C.grey} />
-      <circle cx="33" cy="166" r="12" fill={C.grey} />
-      <rect x="306" y="112" width="54" height="76" rx="3" fill={C.char} />
-      <circle cx="333" cy="134" r="9" fill={C.grey} />
-      <circle cx="333" cy="166" r="12" fill={C.grey} />
-      <rect x="214" y="44" width="66" height="66" fill={C.char} />
-      <circle cx="247" cy="77" r="25" fill="#1E1C1B" />
-      <circle cx="247" cy="77" r="8" fill={C.orange} />
-      <g className="obj">
-        <rect x="112" y="170" width="140" height="22" rx="3" fill={C.white} />
-        <circle cx="152" cy="181" r="7" fill={C.char} />
-        <path d="M236 146 L212 174" stroke={C.char} strokeWidth="4" strokeLinecap="round" />
-      </g>
-      <rect x="66" y="192" width="236" height="56" fill={C.char} />
-      {[C.yellow, C.orange, C.brick, C.white, C.yellow, C.orange, C.brick].map((c, i) => (
-        <rect key={i} x={78 + i * 11} y="202" width="7" height="38" fill={c} />
+    <Room wall={C.skyRoom}>
+      {[22, 320].map((x) => (
+        <g key={x}>
+          <rect x={x} y="128" width="58" height="108" rx="6" fill={C.char} />
+          {[160, 206].map((cy) => (
+            <g key={cy}>
+              <circle cx={x + 29} cy={cy} r="16" fill="#D9DDE0" />
+              <circle cx={x + 29} cy={cy} r="9" fill={C.char} />
+            </g>
+          ))}
+        </g>
       ))}
-      <rect x="168" y="200" width="122" height="42" fill={C.screen} />
-      <rect x="78" y="248" width="8" height="8" fill={C.char} />
-      <rect x="282" y="248" width="8" height="8" fill={C.char} />
+      <rect x="102" y="186" width="198" height="60" rx="4" fill={C.woodLt} />
+      <rect x="110" y="194" width="74" height="44" fill="#8E5E33" />
+      {['#3E7C8C', C.red, '#F0DA7A', C.orange, C.white, '#5A8F6A', C.red, '#3E7C8C'].map((c, i) => (
+        <rect key={i} x={114 + i * 8.6} y="198" width="6.4" height="38" fill={c} />
+      ))}
+      <rect x="192" y="194" width="100" height="44" fill={C.woodPale} />
+      <circle cx="242" cy="216" r="3" fill={C.char} />
+      <rect x="110" y="246" width="6" height="10" fill={C.char} />
+      <rect x="286" y="246" width="6" height="10" fill={C.char} />
+      <g className="obj">
+        <rect x="140" y="166" width="118" height="20" rx="4" fill={C.charLt} />
+        <ellipse cx="184" cy="165" rx="34" ry="6" fill="#151516" />
+        <ellipse cx="184" cy="165" rx="7" ry="2" fill={C.red} />
+        <path d="M236 168 L232 150 L210 160" stroke={C.char} strokeWidth="3.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+        <circle cx="236" cy="168" r="4" fill={C.grey} />
+        <rect x="262" y="174" width="30" height="12" rx="2" fill={C.woodPale} />
+      </g>
     </Room>
   ),
 
-  /* 03 나무반지 — 다락의 작업 책상 (길쭉한 칸) */
+  /* 03 나무반지 — 다락 작업실: 화분 · 스탠드 · 작업대 위 나무반지 · 붓통 · 서랍장 · 의자 */
   craft: (
     <>
-      <rect x="90" y="96" width="220" height="11" fill={C.char} />
-      <rect x="104" y="107" width="9" height="83" fill={C.char} />
-      <rect x="287" y="107" width="9" height="83" fill={C.char} />
-      <rect x="170" y="140" width="56" height="8" fill={C.orange} />
-      <rect x="177" y="148" width="6" height="42" fill={C.orange} />
-      <rect x="213" y="148" width="6" height="42" fill={C.orange} />
+      {/* 화분 */}
+      <path d="M58 156 H92 L88 190 H62 Z" fill={C.white} />
+      <path d="M75 156 C58 140 54 118 60 100 C72 116 78 136 75 156 Z M75 156 C90 132 102 124 112 118 C110 140 96 150 75 156 Z M75 156 C70 132 76 112 86 98 C90 120 86 140 75 156 Z" fill={C.leaf} />
+      {/* 작업대 */}
+      <rect x="120" y="118" width="192" height="8" fill={C.wood} />
+      <rect x="130" y="126" width="7" height="64" fill={C.wood} />
+      <rect x="295" y="126" width="7" height="64" fill={C.wood} />
+      {/* 스탠드 */}
+      <rect x="128" y="108" width="26" height="10" rx="2" fill={C.woodPale} />
+      <path d="M141 108 L150 74 L178 64" stroke={C.woodPale} strokeWidth="5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M170 52 L196 62 L186 82 Z" fill={C.green} />
+      {/* 작업 매트 · 나무반지 · 작은 병 */}
+      <path d="M196 118 L206 104 H262 L270 118 Z" fill={C.char} />
       <g className="obj">
-        <circle cx="146" cy="78" r="14" fill="none" stroke={C.orange} strokeWidth="6" />
-        <circle cx="178" cy="85" r="9" fill="none" stroke={C.yellow} strokeWidth="5" />
+        <ellipse cx="234" cy="106" rx="18" ry="7" fill={C.woodPale} />
+        <ellipse cx="234" cy="104" rx="10" ry="3.6" fill="#8E5E33" />
       </g>
-      <path d="M268 66 L261 38 M280 66 L287 36" stroke={C.char} strokeWidth="3" strokeLinecap="round" />
-      <rect x="258" y="64" width="28" height="32" fill={C.brick} />
+      <rect x="180" y="104" width="8" height="14" rx="2" fill={C.char} />
+      {/* 붓통 */}
+      <path d="M276 82 L272 72 M284 82 L286 66 M291 82 L298 70" stroke={C.char} strokeWidth="2.5" strokeLinecap="round" />
+      <rect x="272" y="82" width="22" height="36" rx="2" fill="#E8A13A" />
+      <rect x="298" y="102" width="9" height="16" rx="2" fill="#3E5F4A" />
+      {/* 서랍장 */}
+      <rect x="318" y="118" width="54" height="72" fill={C.woodPale} />
+      {[124, 146, 168].map((y) => (
+        <g key={y}>
+          <rect x="322" y={y} width="46" height="18" fill="#D6A76E" />
+          <rect x="340" y={y + 7} width="10" height="3" rx="1.5" fill={C.wood} />
+        </g>
+      ))}
+      {/* 의자 */}
+      <rect x="196" y="150" width="46" height="7" fill={C.woodPale} />
+      <rect x="200" y="157" width="6" height="33" fill={C.woodPale} />
+      <rect x="232" y="157" width="6" height="33" fill={C.woodPale} />
     </>
   ),
 
-  /* 04 스냅사진 — 연두 판 위 감귤나무 · 삼각대 위 카메라 · 노란 꽃 */
+  /* 04 스냅사진 — 하늘 · 구름 · 풀밭 · 감귤나무 · 삼각대 위 카메라 · 노란 꽃 */
   camping: (
-    <Lawn>
-      <rect x="86" y="158" width="14" height="98" fill={C.trunk} />
-      <circle cx="93" cy="118" r="52" fill={C.green} />
-      {[[70, 102], [104, 92], [124, 120], [80, 134], [110, 146], [58, 126]].map(([x, y]) => (
-        <circle key={`${x}-${y}`} cx={x} cy={y} r="8" fill={C.orange} />
-      ))}
-      <g className="obj">
-        <path d="M236 168 L202 256 M236 168 L270 256 M236 168 V256" stroke={C.char} strokeWidth="5" strokeLinecap="round" />
-        <rect x="220" y="104" width="30" height="15" rx="3" fill={C.char} />
-        <rect x="196" y="116" width="80" height="52" rx="8" fill={C.char} />
-        <circle cx="236" cy="142" r="18" fill={C.tealLt} />
-        <circle cx="236" cy="142" r="8" fill={C.teal} />
+    <>
+      <rect width="400" height="260" fill={C.sky} />
+      <Cloud x={312} y={44} />
+      <Cloud x={366} y={78} s={0.7} />
+      <path d="M0 196 Q90 168 200 190 T400 182 V260 H0 Z" fill={C.grassDk} />
+      <rect y="208" width="400" height="52" fill={C.grass} />
+      <Bush x={358} y={214} r={30} color="#4E8C4A" />
+      <rect x="92" y="150" width="16" height="106" fill={C.trunk} />
+      <g>
+        <circle cx="100" cy="118" r="58" fill="#3F8A4E" />
+        <circle cx="64" cy="140" r="30" fill="#3F8A4E" />
+        <circle cx="140" cy="140" r="30" fill="#3F8A4E" />
+        {[[70, 96], [104, 80], [134, 104], [84, 128], [118, 136], [56, 142], [146, 148], [100, 106], [132, 76]].map(([x, y]) => (
+          <circle key={`${x}-${y}`} cx={x} cy={y} r="9" fill={C.orangeLt} />
+        ))}
       </g>
-      {[322, 346].map((x, i) => (
-        <Flower key={x} x={x} y={i % 2 ? 214 : 206} />
+      <g className="obj">
+        <path d="M240 172 L208 256 M240 172 L272 256 M240 172 V256" stroke={C.char} strokeWidth="5" strokeLinecap="round" />
+        <rect x="222" y="114" width="26" height="13" rx="3" fill={C.char} />
+        <rect x="204" y="124" width="72" height="50" rx="8" fill={C.charLt} />
+        <circle cx="240" cy="149" r="17" fill="#1F5FA8" />
+        <circle cx="240" cy="149" r="9" fill="#9FD0F0" />
+        <rect x="258" y="130" width="10" height="5" rx="2" fill={C.orange} />
+      </g>
+      {[[28, 226], [48, 236], [300, 230], [322, 240], [186, 238]].map(([x, y]) => (
+        <Flower key={`${x}-${y}`} x={x} y={y} />
       ))}
-    </Lawn>
+    </>
   ),
 
-  /* 05 영화 — 재생 버튼이 뜬 검은 스크린 · 주황 소파 · 팝콘 */
+  /* 05 영화 — 살구분홍 벽 · 재생 화면 · 주황 소파 · 팝콘 */
   cinema: (
-    <Room>
+    <Room wall={C.salmon}>
       <g className="obj">
-        <rect x="44" y="40" width="312" height="110" rx="3" fill={C.char} />
-        <rect x="52" y="48" width="296" height="94" fill="#1F1E1D" />
-        <circle cx="200" cy="88" r="18" fill="none" stroke={C.white} strokeWidth="3" />
-        <path d="M194 79 L210 88 L194 97 Z" fill={C.white} />
-        <rect x="72" y="126" width="256" height="3" rx="1.5" fill="#5A5755" />
-        <rect x="72" y="126" width="96" height="3" rx="1.5" fill={C.orange} />
-        <circle cx="168" cy="127.5" r="5" fill={C.orange} />
+        <rect x="104" y="40" width="200" height="106" rx="3" fill={C.char} />
+        <circle cx="204" cy="88" r="19" fill="none" stroke={C.white} strokeWidth="3.5" />
+        <path d="M197 78 L214 88 L197 98 Z" fill={C.white} />
+        <rect x="124" y="126" width="160" height="3.5" rx="1.75" fill="#5A5755" />
+        <rect x="124" y="126" width="74" height="3.5" rx="1.75" fill={C.red} />
+        <circle cx="198" cy="127.75" r="5" fill={C.red} />
       </g>
-      <rect x="54" y="166" width="292" height="48" rx="18" fill={C.sofa} />
-      <rect x="198" y="170" width="4" height="40" fill={C.sofaDk} />
-      <rect x="22" y="188" width="36" height="52" rx="14" fill={C.sofa} />
-      <rect x="342" y="188" width="36" height="52" rx="14" fill={C.sofa} />
-      <rect x="40" y="200" width="320" height="40" rx="14" fill={C.sofa} />
-      <rect x="58" y="240" width="8" height="16" fill={C.char} />
-      <rect x="334" y="240" width="8" height="16" fill={C.char} />
-      {/* 소파 위 팝콘 — 빨강 · 흰 줄무늬 통 */}
-      {[[304, 192, 6, '#FFF3D6'], [312, 186, 7, '#FFF3D6'], [323, 188, 7, '#FFF3D6'], [331, 193, 6, '#FFF3D6'], [318, 181, 6, C.yellow], [308, 191, 3, C.yellow]].map(([x, y, r, f]) => (
-        <circle key={`${x}-${y}`} cx={x} cy={y} r={r} fill={f as string} />
+      <rect x="62" y="160" width="128" height="52" rx="14" fill="#E07A3E" />
+      <rect x="194" y="160" width="128" height="52" rx="14" fill="#E07A3E" />
+      <rect x="34" y="186" width="34" height="56" rx="12" fill="#D06B32" />
+      <rect x="316" y="186" width="34" height="56" rx="12" fill="#D06B32" />
+      <rect x="50" y="202" width="284" height="40" rx="12" fill="#E07A3E" />
+      <rect x="60" y="242" width="7" height="14" fill={C.char} />
+      <rect x="318" y="242" width="7" height="14" fill={C.char} />
+      {/* 팝콘 */}
+      <path d="M354 170 L346 150" stroke={C.char} strokeWidth="2.5" strokeLinecap="round" />
+      {[[346, 186, 8], [358, 180, 9], [370, 186, 8], [352, 176, 6], [364, 174, 6]].map(([x, y, r]) => (
+        <circle key={`${x}-${y}`} cx={x} cy={y} r={r} fill="#FFF3D6" />
       ))}
-      <path d="M300 196 H336 L332 236 H304 Z" fill={C.white} />
-      <path d="M306 196 H314 L313 236 H308 Z M322 196 H330 L328 236 H323 Z" fill={C.brick} />
+      <circle cx="356" cy="182" r="3" fill={C.yellow} />
+      <path d="M336 190 H380 L374 252 H342 Z" fill={C.white} />
+      <path d="M342 190 H351 L349.5 252 H344 Z M360 190 H369 L366 252 H361.5 Z" fill={C.red} />
     </Room>
   ),
 
-  /* 06 집밥 — 냉장고 · 조명 · 식탁 위 밥 두 공기와 국 · 초록 의자 */
+  /* 06 집밥 — 연보라 벽 · 냉장고 · 노란 조명 · 식탁 위 밥 · 빨간 냄비 · 초록 의자 */
   homemeal: (
-    <Room>
-      <rect x="14" y="60" width="72" height="196" rx="6" fill={C.fridge} />
-      <rect x="14" y="128" width="72" height="3" fill="#DCD7CD" />
-      <rect x="74" y="92" width="4" height="26" rx="2" fill="#BDB7AC" />
-      <rect x="74" y="146" width="4" height="34" rx="2" fill="#BDB7AC" />
-      <Pendant x={250} len={52} shade={C.orange} />
-      <rect x="112" y="160" width="7" height="96" fill={C.cabinet} />
-      <rect x="112" y="206" width="40" height="7" fill={C.cabinet} />
-      <rect x="145" y="206" width="7" height="50" fill={C.cabinet} />
-      <rect x="381" y="160" width="7" height="96" fill={C.cabinet} />
-      <rect x="348" y="206" width="40" height="7" fill={C.cabinet} />
-      <rect x="348" y="206" width="7" height="50" fill={C.cabinet} />
+    <Room wall={C.lilac}>
+      <rect x="18" y="70" width="70" height="186" rx="6" fill="#FAFAF7" />
+      <rect x="18" y="134" width="70" height="3" fill="#DCD7CD" />
+      <rect x="76" y="92" width="4" height="26" rx="2" fill="#BDB7AC" />
+      <rect x="76" y="150" width="4" height="34" rx="2" fill="#BDB7AC" />
+      <Pendant x={236} len={46} shade="#E8B04A" />
+      <Chair x={112} dir={1} color={C.green} />
+      <Chair x={316} dir={-1} color={C.green} />
       <g className="obj">
-        <rect x="156" y="178" width="188" height="8" fill={C.char} />
-        <rect x="168" y="186" width="7" height="70" fill={C.char} />
-        <rect x="325" y="186" width="7" height="70" fill={C.char} />
-        {[200, 300].map((x) => (
-          <g key={x}>
-            <path d={`M${x - 4} 150 c-3 -5 3 -8 0 -13 M${x + 4} 150 c-3 -5 3 -8 0 -13`} fill="none" stroke={C.steam} strokeWidth="2" strokeLinecap="round" />
-            <path d={`M${x - 13} 166 C${x - 11} 156 ${x + 11} 156 ${x + 13} 166 Z`} fill={C.rice} />
-            <path d={`M${x - 15} 166 H${x + 15} C${x + 14} 174 ${x + 8} 178 ${x} 178 C${x - 8} 178 ${x - 14} 174 ${x - 15} 166 Z`} fill={C.white} />
-          </g>
-        ))}
-        <path d="M238 168 H262 C261 174 256 178 250 178 C244 178 239 174 238 168 Z" fill={C.brick} />
-        <ellipse cx="174" cy="176" rx="8" ry="2.5" fill={C.green} />
-        <ellipse cx="327" cy="176" rx="8" ry="2.5" fill={C.orange} />
+        <Table x={140} w={210} y={176} />
+        <path d="M184 140 c-3 -5 3 -8 0 -13 M192 140 c-3 -5 3 -8 0 -13 M200 140 c-3 -5 3 -8 0 -13" fill="none" stroke="#B7AEC0" strokeWidth="2" strokeLinecap="round" />
+        <path d="M174 152 H210 C208 166 200 174 192 174 C184 174 176 166 174 152 Z" fill={C.white} />
+        <path d="M234 156 H284 V168 C284 174 280 176 274 176 H244 C238 176 234 174 234 168 Z" fill={C.red} />
+        <rect x="230" y="152" width="58" height="6" rx="3" fill={C.redDk} />
+        <rect x="254" y="144" width="10" height="6" rx="2" fill={C.redDk} />
+        <ellipse cx="316" cy="173" rx="13" ry="3.5" fill={C.white} />
       </g>
     </Room>
   ),
 
-  /* 07 꽃꽂이 — 테이블 위 꽃병 */
+  /* 07 꽃꽂이 — 살구분홍 벽 · 테이블 위 유리 꽃병 · 가위 */
   flower: (
-    <Room>
-      <rect x="74" y="176" width="236" height="8" fill={C.char} />
-      <rect x="86" y="184" width="7" height="72" fill={C.char} />
-      <rect x="291" y="184" width="7" height="72" fill={C.char} />
-      <rect x="228" y="170" width="38" height="4" rx="2" fill={C.green} transform="rotate(-12 247 172)" />
+    <Room wall={C.salmon}>
+      <Table x={104} w={232} y={190} />
       <g className="obj">
-        <path d="M152 176 L146 134 H190 L184 176 Z" fill={C.potGrey} />
-        <circle cx="150" cy="118" r="13" fill={C.orange} />
-        <circle cx="172" cy="104" r="13" fill={C.yellow} />
-        <circle cx="191" cy="122" r="13" fill={C.orange} />
-        <circle cx="166" cy="126" r="11" fill={C.white} />
-      </g>
-    </Room>
-  ),
-
-  /* 08 러닝 — 하늘 · 바다 아래 연두 판, 비스듬한 산책길 위 운동화 한 켤레 · 노란 꽃 */
-  running: (
-    <Lawn>
-      <rect width="400" height="74" fill={C.skyLt} />
-      <rect y="74" width="400" height="30" fill={C.sea} />
-      {[[30, 84], [118, 92], [214, 84], [300, 94], [356, 84]].map(([x, y]) => (
-        <rect key={`${x}-${y}`} x={x} y={y} width="22" height="2.5" rx="1.2" fill={C.white} />
-      ))}
-      <path d="M-10 256 L392 168 L404 192 L4 276 Z" fill={C.path} />
-      <g className="obj">
-        {[[118, 208], [204, 196]].map(([x, y]) => (
-          <g key={x} transform={`translate(${x} ${y}) scale(.4) translate(-120 -222)`}>
-            <path d="M120 198 C126 178 144 170 166 172 L192 162 C206 158 218 164 226 174 L268 188 C286 192 292 202 290 212 H120 Z" fill={C.teal} />
-            <path d="M120 198 C122 188 128 180 136 176 L144 204 H120 Z" fill={C.orange} />
-            <path d="M174 172 l8 10 M186 168 l8 10 M198 166 l8 10" stroke={C.white} strokeWidth="5" strokeLinecap="round" />
-            <rect x="116" y="210" width="178" height="12" rx="6" fill={C.white} />
+        <path d="M196 186 L190 150 H222 L216 186 Z" fill="#CFE5E6" opacity=".85" />
+        <path d="M206 186 V128 M206 160 L190 124 M206 160 L224 120 M206 168 L180 140 M206 168 L234 138" stroke={C.leaf} strokeWidth="2" />
+        <path d="M184 142 q-8 -6 -4 -12 q6 2 4 12 Z M230 138 q8 -6 4 -12 q-6 2 -4 12 Z" fill={C.leaf} />
+        {[[190, 120, '#E26B4F'], [206, 106, C.white], [224, 116, C.orange], [178, 136, C.orange], [236, 134, '#E26B4F'], [212, 126, '#F2A07A']].map(([x, y, c]) => (
+          <g key={`${x}-${y}`}>
+            {[0, 60, 120, 180, 240, 300].map((a) => (
+              <circle key={a} cx={(x as number) + Math.cos((a * Math.PI) / 180) * 6} cy={(y as number) + Math.sin((a * Math.PI) / 180) * 6} r="5" fill={c as string} />
+            ))}
+            <circle cx={x as number} cy={y as number} r="3.5" fill="#F6C945" />
           </g>
         ))}
       </g>
-      {[330, 354].map((x, i) => (
-        <Flower key={x} x={x} y={i ? 214 : 206} />
-      ))}
-    </Lawn>
+      {/* 가위 */}
+      <path d="M262 186 L292 176 M262 176 L292 186" stroke={C.grey} strokeWidth="2.5" strokeLinecap="round" />
+      <circle cx="296" cy="174" r="4" fill="none" stroke={C.grey} strokeWidth="2" />
+      <circle cx="296" cy="188" r="4" fill="none" stroke={C.grey} strokeWidth="2" />
+    </Room>
   ),
 
-  /* 09 와인 — 조명 아래 식탁 · 와인 · 빨간 의자 */
-  wine: (
-    <Room>
-      <Pendant x={208} len={64} shade={C.orange} />
-      <rect x="84" y="160" width="7" height="96" fill={C.brick} />
-      <rect x="84" y="206" width="42" height="7" fill={C.brick} />
-      <rect x="119" y="206" width="7" height="50" fill={C.brick} />
-      <rect x="309" y="160" width="7" height="96" fill={C.brick} />
-      <rect x="274" y="206" width="42" height="7" fill={C.brick} />
-      <rect x="274" y="206" width="7" height="50" fill={C.brick} />
+  /* 08 러닝 — 하늘 · 바다 · 모래사장 · 덤불 · 해변을 달리는 사람 */
+  running: (
+    <>
+      <rect width="400" height="260" fill={C.sky} />
+      <Cloud x={150} y={48} s={0.8} />
+      <Cloud x={340} y={36} />
+      <path d="M250 112 Q320 84 400 92 V116 H250 Z" fill="#5C9A63" />
+      <rect y="112" width="400" height="62" fill={C.sea} />
+      <rect y="112" width="400" height="10" fill={C.seaLt} />
+      <path d="M0 196 Q120 168 230 176 T400 160 V260 H0 Z" fill={C.white} opacity=".7" />
+      <path d="M0 202 Q120 176 230 184 T400 168 V260 H0 Z" fill={C.sand} />
+      <Bush x={26} y={236} r={30} color="#4E8C4A" />
+      <Bush x={380} y={226} r={34} color="#4E8C4A" />
+      {/* 달리는 사람 */}
       <g className="obj">
-        <rect x="124" y="178" width="168" height="8" fill={C.char} />
-        <rect x="136" y="186" width="7" height="70" fill={C.char} />
-        <rect x="274" y="186" width="7" height="70" fill={C.char} />
-        <rect x="160" y="116" width="6" height="18" fill={C.greenDk} />
-        <rect x="156" y="130" width="14" height="48" rx="3" fill={C.greenDk} />
-        {[200, 224].map((x) => (
+        {/* 뒷다리 · 뒷팔 */}
+        <path d="M206 188 L184 214 L164 222" stroke={C.skin} strokeWidth="9" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M160 218 L150 228 L170 230 Z" fill={C.blue} />
+        <path d="M212 130 L190 148 L178 138" stroke={C.skin} strokeWidth="7" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+        {/* 몸 */}
+        <path d="M200 124 Q214 116 226 124 L230 170 Q214 176 198 170 Z" fill={C.white} />
+        <path d="M198 166 L232 166 L236 192 L212 194 L200 190 Z" fill={C.navy} />
+        {/* 앞다리 · 앞팔 */}
+        <path d="M226 190 L248 210 L246 236" stroke={C.skin} strokeWidth="9" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M238 234 L260 240 L240 244 Z" fill={C.blue} />
+        <path d="M222 132 L240 152 L254 140" stroke={C.skin} strokeWidth="7" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+        {/* 머리 · 묶은 머리 */}
+        <circle cx="218" cy="104" r="14" fill={C.skin} />
+        <path d="M204 102 Q206 86 220 88 Q232 90 232 100 Q220 96 210 104 Z" fill={C.hair} />
+        <path d="M206 96 Q192 96 186 108 Q196 104 204 106 Z" fill={C.hair} />
+      </g>
+    </>
+  ),
+
+  /* 09 와인 — 버터 노랑 벽 · 검정 조명 · 식탁 위 와인병과 두 잔 · 빨간 의자 */
+  wine: (
+    <Room wall={C.butter}>
+      <Pendant x={230} len={56} shade={C.char} />
+      <Chair x={92} dir={1} color={C.red} />
+      <Chair x={300} dir={-1} color={C.red} />
+      <g className="obj">
+        <Table x={130} w={210} y={176} />
+        <rect x="178" y="108" width="7" height="22" fill="#2F6B3E" />
+        <rect x="172" y="126" width="19" height="50" rx="5" fill="#3E7C4A" />
+        <rect x="174" y="146" width="15" height="12" fill="#F4EDD8" />
+        {[228, 256].map((x) => (
           <g key={x}>
-            <path d={`M${x - 8} 150 H${x + 8} L${x + 5} 166 H${x - 5} Z`} fill={C.red} />
-            <rect x={x - 1} y="166" width="2" height="12" fill={C.char} />
+            <path d={`M${x - 10} 140 H${x + 10} C${x + 10} 154 ${x + 5} 160 ${x} 160 C${x - 5} 160 ${x - 10} 154 ${x - 10} 140 Z`} fill="#F4F0EA" />
+            <path d={`M${x - 9} 148 H${x + 9} C${x + 8} 155 ${x + 4} 159 ${x} 159 C${x - 4} 159 ${x - 8} 155 ${x - 9} 148 Z`} fill={C.redDk} />
+            <rect x={x - 1} y="160" width="2" height="14" fill="#F4F0EA" />
+            <rect x={x - 6} y="173" width="12" height="3" rx="1.5" fill="#F4F0EA" />
           </g>
         ))}
       </g>

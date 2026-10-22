@@ -19,7 +19,7 @@ export function HouseRoof({ className, roofOnly = false }: { className: string; 
       ))}
       {!roofOnly && (
         <>
-          <path d="M0 300 V262 L380 46 L760 262 V300 Z" fill="#F2E6D3" />
+          <path d="M0 300 V262 L380 46 L760 262 V300 Z" fill="#F2DEC0" />
           <rect x="0" y="252" width="20" height="48" fill="#7B4628" />
           <rect x="740" y="252" width="20" height="48" fill="#7B4628" />
         </>
