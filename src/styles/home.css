@@ -70,9 +70,10 @@
 .intro__word.is-on { opacity: 1; transform: none; filter: none; }
 .intro[data-phase="iris"] .intro__word.is-on { opacity: .6; filter: blur(5px); }
 /* 크기 순서 — 파티 > 헌팅 > 술 */
-.w1 { left: 7%; top: 18%; font-size: clamp(46px, 8vw, 118px); }
-.w2 { right: 8%; top: 41%; text-align: right; font-size: clamp(40px, 7vw, 102px); }
-.w3 { left: 7%; top: 60%; font-size: clamp(43px, 7.5vw, 110px); }
+/* 넓은 화면에서도 양 끝에 붙지 않게 — 화면 가운데에서 520px 안쪽까지만 벌어짐 */
+.w1 { left: max(7%, 50% - 520px); top: 18%; font-size: clamp(46px, 8vw, 118px); }
+.w2 { right: max(8%, 50% - 520px); top: 41%; text-align: right; font-size: clamp(40px, 7vw, 102px); }
+.w3 { left: max(7%, 50% - 520px); top: 60%; font-size: clamp(43px, 7.5vw, 110px); }
 
 .intro__hint {
   z-index: 2; position: absolute; left: 50%; bottom: 40px; translate: -50% 0;
