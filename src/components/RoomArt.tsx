@@ -413,9 +413,11 @@ const ART: Record<ProgramId, ReactNode> = {
     </>
   ),
 
-  /* 09 와인 — 버터 노랑 벽 · 벽 와인랙 · 오크통 · 검정 조명 · 식탁 위 와인병 · 두 잔 · 촛불 · 빨간 의자 */
+  /* 09 와인 — 버터 노랑 벽 · 오른쪽 벽 와인랙 · 오크통 · 검정 조명 · 식탁 위 와인병 · 두 잔 · 촛불 · 빨간 의자 */
   wine: (
     <Room wall={C.butter}>
+      {/* 오른쪽 벽 와인랙 · 오크통 (왼쪽 기준 그림을 오른쪽 벽으로 300 옮김) */}
+      <g transform="translate(300 0)">
       {/* 벽 와인랙 — 칸마다 눕혀 둔 병 끝 */}
       <rect x="14" y="68" width="72" height="108" fill="#8A5A3B" />
       <rect x="18" y="72" width="64" height="100" fill="#6B4A2E" />
@@ -435,6 +437,9 @@ const ART: Record<ProgramId, ReactNode> = {
       <rect x="18" y="206" width="64" height="5" fill="#4A3B33" />
       <rect x="18" y="245" width="64" height="5" fill="#4A3B33" />
       <path d="M36 200 Q33 228 36 256 M50 200 V256 M64 200 Q67 228 64 256" stroke="#8C5934" strokeWidth="1.5" fill="none" />
+      </g>
+      {/* 식탁 · 의자 · 조명은 왼쪽으로 56 옮겨 와인랙과 겹치지 않게 */}
+      <g transform="translate(-56 0)">
       {/* 조명 아래 따뜻한 불빛 */}
       <ellipse cx="230" cy="150" rx="70" ry="28" fill="#FFE7A8" opacity=".35" />
       <Pendant x={230} len={56} shade={C.char} />
@@ -458,6 +463,7 @@ const ART: Record<ProgramId, ReactNode> = {
         <rect x="277" y="152" width="6" height="20" rx="1" fill="#FBF3DE" />
         <ellipse cx="280" cy="146" rx="3.4" ry="6" fill="#F39A2B" />
         <ellipse cx="280" cy="148" rx="1.8" ry="3.4" fill="#FFE08A" />
+      </g>
       </g>
     </Room>
   ),
