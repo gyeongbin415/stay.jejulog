@@ -413,7 +413,7 @@ const ART: Record<ProgramId, ReactNode> = {
     </>
   ),
 
-  /* 09 와인 — 버터 노랑 벽 · 벽 와인랙 · 오크통 · 포도 액자 · 검정 조명 · 식탁 위 와인병 · 두 잔 · 촛불 · 빨간 의자 */
+  /* 09 와인 — 버터 노랑 벽 · 벽 와인랙 · 오크통 · 검정 조명 · 식탁 위 와인병 · 두 잔 · 촛불 · 빨간 의자 */
   wine: (
     <Room wall={C.butter}>
       {/* 벽 와인랙 — 칸마다 눕혀 둔 병 끝 */}
@@ -435,14 +435,6 @@ const ART: Record<ProgramId, ReactNode> = {
       <rect x="18" y="206" width="64" height="5" fill="#4A3B33" />
       <rect x="18" y="245" width="64" height="5" fill="#4A3B33" />
       <path d="M36 200 Q33 228 36 256 M50 200 V256 M64 200 Q67 228 64 256" stroke="#8C5934" strokeWidth="1.5" fill="none" />
-      {/* 포도 액자 */}
-      <rect x="318" y="44" width="56" height="66" fill="#8A5A3B" />
-      <rect x="323" y="49" width="46" height="56" fill="#FBF6EC" />
-      <path d="M346 58 Q350 54 356 56" stroke="#6B4A2E" strokeWidth="2" fill="none" />
-      <path d="M346 60 q10 -6 14 2 q-8 4 -14 -2 Z" fill="#6FA06A" />
-      {[[340, 66], [348, 66], [356, 66], [344, 74], [352, 74], [348, 82], [340, 74]].map(([x, y]) => (
-        <circle key={`g${x}-${y}`} cx={x} cy={y} r="4.2" fill="#7A3B6E" />
-      ))}
       {/* 조명 아래 따뜻한 불빛 */}
       <ellipse cx="230" cy="150" rx="70" ry="28" fill="#FFE7A8" opacity=".35" />
       <Pendant x={230} len={56} shade={C.char} />
