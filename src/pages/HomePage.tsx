@@ -162,7 +162,6 @@ function Intro() {
         <p className="intro__turn pre">{SITE.intro.turn}</p>
 
         <p className="intro__hint" aria-hidden="true">
-          <span>SCROLL</span>
           <i />
         </p>
 
