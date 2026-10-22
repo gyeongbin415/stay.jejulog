@@ -46,8 +46,8 @@ const C = {
 export const YARD_ROOMS: ProgramId[] = ['camping', 'running'];
 
 export function RoomArt({ id }: { id: ProgramId }) {
-  // 다락은 위로 46만큼 빈 자리를 두어 이름표가 그림(스탠드 · 붓통)과 겹치지 않게
-  const viewBox = id === 'craft' ? '0 -46 400 236' : '0 0 400 260';
+  // 다락은 위로 60만큼 빈 자리를 두어 이름표가 그림(스탠드 · 붓통)과 겹치지 않게 (휴대폰 포함)
+  const viewBox = id === 'craft' ? '0 -60 400 250' : '0 0 400 260';
   return (
     <svg className="room__art" viewBox={viewBox} preserveAspectRatio="xMidYMax slice" aria-hidden="true" focusable="false">
       {ART[id]}
