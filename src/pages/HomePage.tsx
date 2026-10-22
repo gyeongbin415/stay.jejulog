@@ -136,13 +136,6 @@ function Intro() {
     <section ref={ref} id="intro" className={`intro${reduced ? ' intro--static' : ''}`} data-step={Math.min(shown, total)} data-phase={phase} data-tone={revealed ? 'light' : 'dark'} aria-labelledby="intro-title">
       <div className="intro__stage">
         <NightScene />
-        <svg className="intro__plan" viewBox="0 0 600 400" aria-hidden="true" focusable="false">
-          <rect x="60" y="60" width="480" height="280" />
-          <path d="M60 200 H300 V340 M300 60 V140 M420 200 H540 M300 200 H360" />
-          <path d="M60 30 H540 M60 24 V36 M540 24 V36" />
-          <circle cx="180" cy="130" r="26" />
-          <text x="300" y="22">GUESTHOUSE — FIG. 0</text>
-        </svg>
 
         <h2 id="intro-title" className="intro__q pre">{SITE.intro.question}</h2>
         <ol className="intro__words" aria-label={ui.home.wordsAria}>
