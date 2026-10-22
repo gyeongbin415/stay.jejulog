@@ -90,10 +90,10 @@ function Intro() {
       const range = el.offsetHeight - window.innerHeight;
       const p = range > 0 ? Math.min(1, Math.max(0, -el.getBoundingClientRect().top / range)) : 1;
       el.style.setProperty('--p', p.toFixed(3));
-      // 스크롤한 화면 수 기준 — 0.1 화면만 내려도 조리개가 열리며 문제 정의 (문제 정의 화면은 약 0.3화면 머문 뒤 다음 섹션으로)
+      // 스크롤한 화면 수 기준 — 0.04 화면만 내려도 조리개가 열리며 문제 정의 (문제 정의 화면은 약 0.3화면 머문 뒤 다음 섹션으로)
       // 자동 진행이 끝나기 전에 내려가 버려도, 돌아오면 문제 정의가 열린 상태입니다
       const s = p * range / window.innerHeight;
-      const reveal = s >= 0.1;
+      const reveal = s >= 0.04;
       setRevealByScroll(reveal);
       if (reveal) {
         setAuto(REVEAL);

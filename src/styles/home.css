@@ -10,7 +10,7 @@
   --cream: #F6F3ED;
   --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
   --p: 0;
-  position: relative; height: 130vh;
+  position: relative; height: 115vh;
   background: var(--night); color: var(--cream);
 }
 .intro__stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
