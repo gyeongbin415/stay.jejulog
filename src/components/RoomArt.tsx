@@ -167,9 +167,18 @@ const ART: Record<ProgramId, ReactNode> = {
     </Room>
   ),
 
-  /* 02 LP — 하늘색 벽 · 양쪽 스피커 · 나무 수납장 위 턴테이블 */
+  /* 02 LP — 하늘색 벽 · 가운데 LP 포스터 · 양쪽 스피커 · 나무 수납장 위 턴테이블 */
   lp: (
     <Room wall={C.skyRoom}>
+      {/* 벽 가운데 LP 포스터 — 레코드판 그림 */}
+      <rect x="172" y="34" width="58" height="80" rx="2" fill={C.char} />
+      <rect x="176" y="38" width="50" height="72" fill="#F0883A" />
+      <circle cx="201" cy="68" r="19" fill="#151516" />
+      <circle cx="201" cy="68" r="13" fill="none" stroke="#3A3A3C" strokeWidth="1.5" />
+      <circle cx="201" cy="68" r="6" fill={C.yellow} />
+      <circle cx="201" cy="68" r="1.6" fill="#151516" />
+      <rect x="184" y="94" width="34" height="3.5" rx="1.75" fill={C.white} />
+      <rect x="190" y="101" width="22" height="3" rx="1.5" fill="#FBD9BE" />
       {[22, 320].map((x) => (
         <g key={x}>
           <rect x={x} y="128" width="58" height="108" rx="6" fill={C.char} />
