@@ -58,7 +58,8 @@
 .explore__hint, .explore__toggle { background: rgba(255, 255, 255, .6); }
 
 .house { position: relative; }
-.house__stage { position: relative; padding-top: 8px; }
+/* 마당 초록이 집 아래쪽(1층 절반쯤)까지 올라와, 집이 풀밭 위에 서 있는 것처럼 */
+.house__stage { position: relative; padding-top: 8px; background: linear-gradient(to bottom, transparent calc(100% - var(--house-w) * .17), var(--yard) 0); }
 /* 집 폭 — 좁은 화면은 760, 넓은 화면(층마다 3칸)은 1080 까지 */
 /* 지붕(몸체의 118.4%)이 화면 안에 다 들어오도록, 남는 폭을 1.18421 로 나눈 값까지만 */
 .house { --house-w: min(760px, (100% - var(--gutter) * 2) / 1.18421); }
