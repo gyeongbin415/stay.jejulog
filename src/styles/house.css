@@ -120,12 +120,13 @@
   font-size: 15px; font-weight: 600; line-height: 1.3; white-space: nowrap;
   transition: background var(--t-hover) var(--ease), color var(--t-hover) var(--ease), border-color var(--t-hover) var(--ease);
 }
-.room__place { font-size: 13px; font-weight: 500; color: #1F7A8C; overflow: hidden; text-overflow: ellipsis; transition: color var(--t-hover) var(--ease); }
+.room__place { font-size: 13px; font-weight: 500; color: #D46A1F; overflow: hidden; text-overflow: ellipsis; transition: color var(--t-hover) var(--ease); }
 .room__place::before { content: "·"; margin-right: 6px; color: var(--ink-soft); }
 .room__arrow { font-weight: 500; }
-.room:hover .room__tag, .room:focus-visible .room__tag { background: #1F7A8C; border-color: #1F7A8C; color: #FFFFFF; }
+/* 호버 — 메인 주황 바탕 */
+.room:hover .room__tag, .room:focus-visible .room__tag { background: #F0883A; border-color: #F0883A; color: #111111; }
 .room:hover .room__place, .room:focus-visible .room__place,
-.room:hover .room__place::before, .room:focus-visible .room__place::before { color: rgba(255, 255, 255, .85); }
+.room:hover .room__place::before, .room:focus-visible .room__place::before { color: rgba(17, 17, 17, .72); }
 
 /* ── ~639px : 휴대폰 — 칸이 작아지므로 이름표는 경험 이름만 ─────────────────────────────── */
 @media (max-width: 639px) {
