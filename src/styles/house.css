@@ -73,7 +73,8 @@
 /* 다락 — 지붕 박공 한가운데, 아래층 방 한 칸과 같은 폭이라 소품 크기도 다른 방과 같음
    (좁은 화면: 두 칸 중 한 칸 · 넓은 화면: 세 칸 중 한 칸) */
 .house__top .house__floor--attic { position: absolute; z-index: 1; left: 50%; translate: -50% 0; width: calc((100% - var(--gap) * 3) / 2); bottom: 0; }
-@media (min-width: 900px) { .house__top .house__floor--attic { width: calc((100% - var(--gap) * 4) / 3); } }
+/* 넓은 화면 — 방 한 칸(약 32%)보다 조금 크게 */
+@media (min-width: 900px) { .house__top .house__floor--attic { width: 42%; } }
 .house__floor--attic .house__rooms { grid-template-columns: 1fr; }
 .house__floor--attic .room { aspect-ratio: 400 / 250; }
 /* 다락 이름표 — 박공 지붕선에 닿지 않게 가운데 위 */
