@@ -326,17 +326,17 @@ const ART: Record<ProgramId, ReactNode> = {
     </Room>
   ),
 
-  /* 06 집밥 — 시안 그림 그대로 (나무 밥상 위 밥 · 뚝배기 · 반찬, 초록 방석). 그림 비율이 더 가로로 길어 위아래 남는 곳은 같은 베이지로 채움 (그림은 가운데) */
+  /* 06 집밥 — 시안 그림 그대로 (나무 밥상 위 밥 · 뚝배기 · 반찬, 초록 방석), 바탕만 파스텔 민트로. 위아래 남는 곳도 같은 민트 (그림은 가운데) */
   homemeal: (
     <>
-      <rect width="400" height="260" fill="#EEE3CE" />
+      <rect width="400" height="260" fill="#D6EEE4" />
       <g className="obj">
         <image href="rooms/homemeal.png" x="0" y="0" width="400" height="260" preserveAspectRatio="xMidYMid meet" />
       </g>
     </>
   ),
 
-  /* 07 꽃꽂이 — 연보라 파스텔 벽 · 벽 선반 위 작은 화병 · 압화 액자 · 테이블 위 유리 꽃병과 가위 · 꽃 양동이 · 물뿌리개 */
+  /* 07 꽃꽂이 — 연보라 파스텔 벽 · 벽 선반 위 작은 화병 · 압화 액자 · 테이블 위 유리 꽃병과 가위 · 물뿌리개 */
   flower: (
     <Room wall="#E4DAF0">
       {/* 벽 선반 · 작은 화병 둘 */}
@@ -359,7 +359,8 @@ const ART: Record<ProgramId, ReactNode> = {
       <circle cx="330" cy="68" r="3.5" fill="#F2A07A" />
       <Table x={104} w={232} y={190} />
       <g className="obj">
-        <path d="M196 190 L190 154 H222 L216 190 Z" fill="#CFE5E6" opacity=".85" />
+        <path d="M196 190 L190 154 H222 L216 190 Z" fill="#4F8F9C" />
+        <path d="M191 160 H221" stroke="#3E7783" strokeWidth="3" />
         <path d="M206 190 V128 M206 160 L190 124 M206 160 L224 120 M206 168 L180 140 M206 168 L234 138" stroke={C.leaf} strokeWidth="2" />
         <path d="M184 142 q-8 -6 -4 -12 q6 2 4 12 Z M230 138 q8 -6 4 -12 q-6 2 -4 12 Z" fill={C.leaf} />
         {[[190, 120, '#E26B4F'], [206, 106, C.white], [224, 116, C.orange], [178, 136, C.orange], [236, 134, '#E26B4F'], [212, 126, '#F2A07A']].map(([x, y, c]) => (
@@ -377,18 +378,6 @@ const ART: Record<ProgramId, ReactNode> = {
       <path d="M262 186 L292 176 M262 176 L292 186" stroke={C.grey} strokeWidth="2.5" strokeLinecap="round" />
       <circle cx="296" cy="174" r="4" fill="none" stroke={C.grey} strokeWidth="2" />
       <circle cx="296" cy="188" r="4" fill="none" stroke={C.grey} strokeWidth="2" />
-      {/* 바닥 꽃 양동이 */}
-      <path d="M40 212 C34 196 38 182 44 176 M54 212 C56 194 52 182 58 172 M66 212 C70 198 72 188 80 182" stroke={C.leaf} strokeWidth="2.2" fill="none" />
-      {[[44, 174, '#E26B4F'], [58, 170, C.white], [80, 180, '#F6C945'], [36, 186, '#F2A07A'], [68, 186, '#E26B4F']].map(([x, y, c]) => (
-        <g key={`b${x}-${y}`}>
-          {[0, 72, 144, 216, 288].map((a) => (
-            <circle key={a} cx={(x as number) + Math.cos((a * Math.PI) / 180) * 4.5} cy={(y as number) + Math.sin((a * Math.PI) / 180) * 4.5} r="4" fill={c as string} />
-          ))}
-          <circle cx={x as number} cy={y as number} r="2.6" fill="#F6C945" />
-        </g>
-      ))}
-      <path d="M32 210 H88 L82 256 H38 Z" fill="#9AA3A8" />
-      <rect x="30" y="208" width="60" height="6" rx="3" fill="#B7BEC2" />
       {/* 물뿌리개 */}
       <path d="M346 222 H378 V256 H346 Z" fill="#6FA06A" />
       <path d="M346 230 L326 214 L322 218" stroke="#6FA06A" strokeWidth="5" fill="none" strokeLinecap="round" />
