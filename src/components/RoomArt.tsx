@@ -207,15 +207,17 @@ const ART: Record<ProgramId, ReactNode> = {
       <rect x="22" y="112" width="278" height="9" fill={C.wood} />
       <rect x="34" y="121" width="8" height="69" fill={C.wood} />
       <rect x="280" y="121" width="8" height="69" fill={C.wood} />
-      {/* 스탠드 조명 — 받침 · 꺾인 팔 · 아래를 비추는 초록 갓과 불빛 */}
-      <path d="M100 66 L80 112 H158 L138 66 Z" fill={C.yellow} opacity=".22" />
+      {/* 스탠드 조명 — 받침 · 꺾인 팔 · 반지 쪽으로 기울인 초록 갓, 불빛이 매트 위 반지에 떨어짐 */}
+      <path d="M127 74 L155 40 L218 96 L166 116 Z" fill={C.yellow} opacity=".28" />
       <rect x="32" y="102" width="36" height="10" rx="3" fill={C.woodPale} />
-      <path d="M50 102 L60 52 L100 40 L114 38" stroke={C.woodPale} strokeWidth="6" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-      <circle cx="60" cy="52" r="5" fill="#A87C48" />
-      <circle cx="100" cy="40" r="4" fill="#A87C48" />
-      <path d="M104 44 Q119 26 134 44 L140 64 H98 Z" fill={C.green} />
-      <rect x="98" y="62" width="42" height="4" rx="2" fill={C.greenDk} />
-      <ellipse cx="119" cy="68" rx="10" ry="4" fill={C.yellow} />
+      <path d="M50 102 L66 50 L118 38" stroke={C.woodPale} strokeWidth="6" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+      <circle cx="66" cy="50" r="5" fill="#A87C48" />
+      <g transform="translate(126 44) rotate(-50)">
+        <path d="M-16 0 Q0 -20 16 0 L22 20 H-22 Z" fill={C.green} />
+        <rect x="-22" y="18" width="44" height="4" rx="2" fill={C.greenDk} />
+        <ellipse cx="0" cy="23" rx="10" ry="4" fill={C.yellow} />
+        <circle cx="0" cy="-10" r="4" fill="#A87C48" />
+      </g>
       {/* 작은 병 */}
       <rect x="104" y="84" width="12" height="28" rx="3" fill={C.char} />
       <rect x="107" y="78" width="6" height="7" fill="#5A5A5C" />
