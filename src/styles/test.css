@@ -85,4 +85,9 @@
 .result__actrow { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; width: min(100%, 460px); }
 .result__actrow .btn { justify-content: center; width: 100%; }
 .result__retry { min-width: min(100%, 220px); justify-content: center; }
+/* 휴대폰 — 저장하기 · 친구에게 공유하기 · 다시하기를 한 줄에 하나씩, 같은 폭으로 */
+@media (max-width: 559px) {
+  .result__actrow { grid-template-columns: 1fr; width: min(100%, 340px); }
+  .result__retry { width: min(100%, 340px); }
+}
 .result__status { text-align: center; font-size: 14px; color: var(--ink-soft); min-height: 1.6em; }
