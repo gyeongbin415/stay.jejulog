@@ -336,7 +336,7 @@ const ART: Record<ProgramId, ReactNode> = {
     </>
   ),
 
-  /* 07 꽃꽂이 — 연보라 파스텔 벽 · 벽 선반 위 작은 화병 · 압화 액자 · 테이블 위 유리 꽃병과 가위 · 물뿌리개 */
+  /* 07 꽃꽂이 — 연보라 파스텔 벽 · 벽 선반 위 작은 화병 · 테이블 위 유리 꽃병과 가위 · 물뿌리개 */
   flower: (
     <Room wall="#DCD3E8">
       {/* 벽 선반 · 작은 화병 둘 */}
@@ -350,13 +350,6 @@ const ART: Record<ProgramId, ReactNode> = {
       <circle cx="110" cy="52" r="4" fill={C.white} />
       <circle cx="119" cy="54" r="3.5" fill="#F2A07A" />
       <circle cx="101" cy="52" r="3.5" fill="#F2A07A" />
-      {/* 압화 액자 */}
-      <rect x="292" y="44" width="54" height="68" fill="#B88A5E" />
-      <rect x="297" y="49" width="44" height="58" fill="#FBF6EC" />
-      <path d="M319 98 V66 M319 84 L309 74 M319 78 L329 70" stroke="#6FA06A" strokeWidth="1.8" />
-      <circle cx="319" cy="63" r="5" fill="#E26B4F" />
-      <circle cx="308" cy="72" r="3.5" fill={C.yellow} />
-      <circle cx="330" cy="68" r="3.5" fill="#F2A07A" />
       <Table x={104} w={232} y={190} />
       <g className="obj">
         <path d="M196 190 L190 154 H222 L216 190 Z" fill="#4F8F9C" />
