@@ -326,13 +326,104 @@ const ART: Record<ProgramId, ReactNode> = {
     </Room>
   ),
 
-  /* 06 집밥 — 시안 그림 그대로 (나무 밥상 위 밥 · 뚝배기 · 반찬, 초록 방석), 바탕만 파스텔 민트로. 위아래 남는 곳도 같은 민트 (그림은 가운데) */
+  /* 06 집밥 — 시안 그림을 벡터로 (나무 밥상 · 밥 한 공기 · 뚝배기 찌개 · 반찬 여덟 · 수저 · 초록 방석 둘), 파스텔 민트 바탕.
+     그림 좌표(503 × 263)를 그대로 쓰고 칸(400 × 260) 가운데에 맞춤 */
   homemeal: (
     <>
       <rect width="400" height="260" fill="#D6EEE4" />
-      <g className="obj">
-        <image href="rooms/homemeal.png" x="0" y="0" width="400" height="260" preserveAspectRatio="xMidYMid meet" />
-      </g>
+      <svg x="0" y="25" width="400" height="209" viewBox="0 0 503 263">
+        {/* 김 */}
+        <path d="M182 56 c-6 -7 6 -11 0 -18 c-6 -7 6 -11 0 -18 M194 56 c-6 -7 6 -11 0 -18 c-6 -7 6 -11 0 -18 M343 62 c-5 -6 5 -9 0 -15 c-5 -6 5 -9 0 -15 M354 62 c-5 -6 5 -9 0 -15 c-5 -6 5 -9 0 -15" stroke="#B9B2A6" strokeWidth="2.6" fill="none" strokeLinecap="round" />
+        <g className="obj">
+          {/* 밥상 — 상판 · 앞면 · 다리 */}
+          <path d="M100 102 H432 L457 187 H47 Z" fill="#7A4A2A" />
+          <path d="M104 104 H428 L432 112 H101 Z" fill="#8A5833" />
+          <path d="M47 187 H457 V200 H47 Z" fill="#5E3820" />
+          <rect x="64" y="200" width="22" height="43" fill="#5E3820" />
+          <rect x="418" y="200" width="22" height="43" fill="#5E3820" />
+          <rect x="64" y="200" width="22" height="6" fill="#55321B" />
+          <rect x="418" y="200" width="22" height="6" fill="#55321B" />
+          {/* 밥 한 공기 */}
+          <path d="M158 88 H207 C206 104 196 113 182 113 C168 113 159 104 158 88 Z" fill="#F2EADB" />
+          <ellipse cx="182" cy="88" rx="25" ry="7" fill="#FFFFFF" />
+          <path d="M162 88 C162 70 202 70 202 88 Z" fill="#FFFFFF" />
+          <path d="M168 82 q4 -3 8 0 M180 78 q4 -3 8 0 M190 83 q4 -3 8 0" stroke="#E9E4DA" strokeWidth="1.6" fill="none" strokeLinecap="round" />
+          {/* 뚝배기 찌개 — 받침 · 몸통 · 국물 */}
+          <ellipse cx="251" cy="130" rx="47" ry="12" fill="#1E1E20" />
+          <path d="M210 100 H292 C291 120 278 134 251 134 C224 134 211 120 210 100 Z" fill="#2E2E30" />
+          <ellipse cx="251" cy="100" rx="41" ry="12" fill="#3A3A3C" />
+          <ellipse cx="251" cy="101" rx="35" ry="9" fill="#C97A3A" />
+          <ellipse cx="243" cy="99" rx="7" ry="2.4" fill="#E39B55" />
+          <circle cx="262" cy="102" r="2.2" fill="#F0D27A" />
+          {/* 반찬 */}
+          <path d="M104 116 H148 C147.12 123.48 139.64 127 126 127 C112.36 127 104.88 123.48 104 116 Z" fill="#F4EFE6" />
+          <ellipse cx="126" cy="116" rx="22" ry="6.6" fill="#FFFFFF" />
+          <ellipse cx="126" cy="116.5" rx="18.5" ry="4.8" fill="#E9E3D8" />
+          <path d="M110.16 117 Q126 97.08 141.84 117 Z" fill="#5C9440" />
+          <path d="M117.288 111.6 Q124.9 105 133.128 110.72" stroke="#467A2E" strokeWidth="2" fill="none" strokeLinecap="round" />
+          <circle cx="117.2" cy="108.2" r="2.0" fill="#7DB35A" />
+          <circle cx="122.7" cy="105.2" r="2.0" fill="#7DB35A" />
+          <circle cx="128.6" cy="105.6" r="2.0" fill="#7DB35A" />
+          <circle cx="133.7" cy="108.7" r="2.0" fill="#7DB35A" />
+          <circle cx="121.2" cy="110.4" r="2.0" fill="#7DB35A" />
+          <circle cx="127.1" cy="108.7" r="2.0" fill="#7DB35A" />
+          <circle cx="131.5" cy="110.7" r="2.0" fill="#7DB35A" />
+          <path d="M295 100 H341 C340.08 107.82 332.26 111.5 318 111.5 C303.74 111.5 295.92 107.82 295 100 Z" fill="#F4EFE6" />
+          <ellipse cx="318" cy="100" rx="23" ry="6.9" fill="#FFFFFF" />
+          <ellipse cx="318" cy="100.5" rx="19.3" ry="5.1" fill="#E9E3D8" />
+          <path d="M301.44 101 Q318 80.22 334.56 101 Z" fill="#E0673A" />
+          <path d="M308.892 95.4 Q316.85 88.5 325.452 94.48" stroke="#C4502A" strokeWidth="2" fill="none" strokeLinecap="round" />
+          <path d="M352 116 H398 C397.08 123.82 389.26 127.5 375 127.5 C360.74 127.5 352.92 123.82 352 116 Z" fill="#F4EFE6" />
+          <ellipse cx="375" cy="116" rx="23" ry="6.9" fill="#FFFFFF" />
+          <ellipse cx="375" cy="116.5" rx="19.3" ry="5.1" fill="#E9E3D8" />
+          <path d="M358.44 117 Q375 96.22 391.56 117 Z" fill="#D8CB8E" />
+          <path d="M365.892 111.4 Q373.85 104.5 382.452 110.48" stroke="#BFAE6C" strokeWidth="2" fill="none" strokeLinecap="round" />
+          <path d="M147 136 H205 C203.84 145.86 193.98 150.5 176 150.5 C158.02 150.5 148.16 145.86 147 136 Z" fill="#F4EFE6" />
+          <ellipse cx="176" cy="136" rx="29" ry="8.7" fill="#FFFFFF" />
+          <ellipse cx="176" cy="136.5" rx="24.4" ry="6.4" fill="#E9E3D8" />
+          <path d="M156.86 137 Q176 111.06 195.14 137 Z" fill="#E0673A" />
+          <path d="M165.473 130.2 Q174.55 121.5 184.613 129.04" stroke="#C4502A" strokeWidth="2" fill="none" strokeLinecap="round" />
+          <path d="M304 129 H346 C345.16 136.14 338.02 139.5 325 139.5 C311.98 139.5 304.84 136.14 304 129 Z" fill="#F4EFE6" />
+          <ellipse cx="325" cy="129" rx="21" ry="6.3" fill="#FFFFFF" />
+          <ellipse cx="325" cy="129.5" rx="17.6" ry="4.6" fill="#E9E3D8" />
+          <path d="M309.88 130 Q325 110.94 340.12 130 Z" fill="#6E8E3E" />
+          <path d="M316.684 124.8 Q323.95 118.5 331.804 123.96" stroke="#56742E" strokeWidth="2" fill="none" strokeLinecap="round" />
+          <path d="M277 152 H319 C318.16 159.14 311.02 162.5 298 162.5 C284.98 162.5 277.84 159.14 277 152 Z" fill="#F4EFE6" />
+          <ellipse cx="298" cy="152" rx="21" ry="6.3" fill="#FFFFFF" />
+          <ellipse cx="298" cy="152.5" rx="17.6" ry="4.6" fill="#E9E3D8" />
+          <path d="M282.88 153 Q298 133.94 313.12 153 Z" fill="#6EA040" />
+          <path d="M289.684 147.8 Q296.95 141.5 304.804 146.96" stroke="#558530" strokeWidth="2" fill="none" strokeLinecap="round" />
+          <circle cx="289.6" cy="145.3" r="1.9" fill="#8CC062" />
+          <circle cx="294.9" cy="142.4" r="1.9" fill="#8CC062" />
+          <circle cx="300.5" cy="142.8" r="1.9" fill="#8CC062" />
+          <circle cx="305.4" cy="145.7" r="1.9" fill="#8CC062" />
+          <circle cx="293.4" cy="147.4" r="1.9" fill="#8CC062" />
+          <circle cx="299.1" cy="145.7" r="1.9" fill="#8CC062" />
+          <circle cx="303.3" cy="147.6" r="1.9" fill="#8CC062" />
+          <path d="M208 161 H268 C266.8 171.2 256.6 176 238 176 C219.4 176 209.2 171.2 208 161 Z" fill="#F4EFE6" />
+          <ellipse cx="238" cy="161" rx="30" ry="9.0" fill="#FFFFFF" />
+          <ellipse cx="238" cy="161.5" rx="25.2" ry="6.6" fill="#E9E3D8" />
+          <path d="M218.2 162 Q238 135.2 257.8 162 Z" fill="#4F6B33" />
+          <path d="M227.11 155 Q236.5 146 246.91 153.8" stroke="#3C5525" strokeWidth="2" fill="none" strokeLinecap="round" />
+          <path d="M92 150 H140 C140 164.4 129.2 169.68 116 169.68 C102.8 169.68 92 164.4 92 150 Z" fill="#F7F3EC" />
+          <ellipse cx="116" cy="150" rx="24" ry="7.7" fill="#FFFFFF" />
+          <ellipse cx="116" cy="151" rx="19.2" ry="5.3" fill="#E8D9B0" />
+          <path d="M347 143 H401 C401 159.2 388.85 165.14 374 165.14 C359.15 165.14 347 159.2 347 143 Z" fill="#F7F3EC" />
+          <ellipse cx="374" cy="143" rx="27" ry="8.6" fill="#FFFFFF" />
+          <ellipse cx="374" cy="144" rx="21.6" ry="5.9" fill="#E9DCB8" />
+          {/* 수저 */}
+          <ellipse cx="349" cy="178" rx="7" ry="3.6" fill="#C9C4BA" />
+          <path d="M355 177 H414 M352 182 H416" stroke="#B7B1A6" strokeWidth="2.4" strokeLinecap="round" />
+        </g>
+        {/* 방석 둘 */}
+        {[100, 290].map((x) => (
+          <g key={x}>
+            <rect x={x} y="214" width="115" height="44" rx="8" fill="#476F44" />
+            <rect x={x + 4} y="214" width="107" height="38" rx="7" fill="#527F4F" />
+            <rect x={x + 10} y="219" width="95" height="10" rx="5" fill="#628F5D" opacity=".7" />
+          </g>
+        ))}
+      </svg>
     </>
   ),
 
