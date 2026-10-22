@@ -338,7 +338,7 @@ const ART: Record<ProgramId, ReactNode> = {
 
   /* 07 꽃꽂이 — 연보라 파스텔 벽 · 벽 선반 위 작은 화병 · 압화 액자 · 테이블 위 유리 꽃병과 가위 · 물뿌리개 */
   flower: (
-    <Room wall="#EFE9F7">
+    <Room wall="#DCD3E8">
       {/* 벽 선반 · 작은 화병 둘 */}
       <rect x="44" y="92" width="96" height="6" rx="2" fill={C.wood} />
       <path d="M60 92 L58 74 H72 L70 92 Z" fill="#F4EDD8" />
