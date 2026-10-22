@@ -288,7 +288,6 @@ function CheckOut() {
     <section id="checkout" className="outro" data-tone="dark" aria-labelledby="checkout-title">
       <div className="outro__inner wrap">
         <header className="outro__head">
-          <p className="label">{c.label}</p>
           <h2 id="checkout-title" className="outro__title">
             {c.title.map((l) => (
               <span key={l}>{l}</span>
