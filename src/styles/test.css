@@ -51,11 +51,10 @@
 .result__lead { font-size: var(--t-lead); color: var(--ink-soft); margin-top: 6px; }
 .result__type { font-family: var(--f-home); font-size: clamp(30px, 4.4vw, 52px); font-weight: 800; line-height: 1.25; letter-spacing: -0.03em; color: var(--forest); outline: none; }
 .result__place { font-family: var(--f-home); font-size: clamp(18px, 1.8vw, 22px); font-weight: 500; color: var(--ink); }
-/* 1위 캐릭터 그림 — 크림색 판 */
-/* 1위 캐릭터 그림 — 그림 자체에 파스텔 바탕이 있어 비율 그대로 둥근 모서리로 */
-.result__hero { position: relative; width: min(100%, 520px); margin-top: 10px; border-radius: 22px; overflow: hidden; }
+/* 1위 캐릭터 그림 — 배경 없이 오린 소라게, 비율 그대로 */
+.result__hero { position: relative; width: min(100%, 400px); margin-top: 10px; padding-top: 36px; }
 .result__hero img { display: block; width: 100%; height: auto; }
-.result__rank { position: absolute; left: 14px; top: 14px; padding: 5px 12px; border-radius: 999px; background: #fff; box-shadow: 0 1px 6px rgba(58, 55, 53, .1); font-size: 12.5px; font-weight: 700; letter-spacing: .1em; color: var(--orange-ink); }
+.result__rank { position: absolute; left: 0; top: 0; padding: 5px 12px; border-radius: 999px; background: #fff; box-shadow: 0 1px 6px rgba(58, 55, 53, .1); font-size: 12.5px; font-weight: 700; letter-spacing: .1em; color: var(--orange-ink); }
 .result__head .btn { margin-top: 10px; }
 
 .result__picks { display: grid; gap: 20px; }
@@ -63,7 +62,7 @@
 .pick { position: relative; display: grid; justify-items: center; align-content: start; gap: 6px; padding: 0 0 26px; border-radius: 18px; overflow: hidden; background: #FDF6EA; text-align: center; }
 .pick__rank { position: absolute; left: 14px; top: 14px; z-index: 1; padding: 5px 12px; border-radius: 999px; background: #fff; box-shadow: 0 1px 6px rgba(58, 55, 53, .1); }
 .pick__rank strong { font-size: 12.5px; letter-spacing: .1em; color: var(--orange-ink); }
-.pick__character { width: 100%; }
+.pick__character { width: min(82%, 300px); margin-top: 52px; }
 .pick__character img { display: block; width: 100%; height: auto; }
 .pick__charname { font-family: var(--f-home); font-size: clamp(19px, 1.9vw, 23px); font-weight: 700; line-height: 1.35; letter-spacing: -0.02em; padding-inline: 14px; }
 .pick__name { font-family: var(--f-home); font-size: 16px; font-weight: 500; line-height: 1.4; color: var(--orange-ink); }

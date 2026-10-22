@@ -89,19 +89,16 @@ export async function makeResultImage(input: ResultImageInput): Promise<Blob> {
     ctx.font = `500 32px ${FONT}`;
     ctx.fillText(first.place, W / 2, 302);
   }
-  // 그림은 비율 그대로(가로 680) 둥근 모서리로 잘라 그림 — 소라게 그림마다 바탕색이 들어 있음
+  // 소라게 그림은 배경 없이 오린 것 — 카드 안 상자에 비율 그대로 맞춰 가운데에
   const cardY = 350;
-  const firstH = imgs[0] ? Math.round((680 * imgs[0].height) / imgs[0].width) : 506;
-  const clipDraw = (img: HTMLImageElement, x: number, y: number, w: number, h: number, r: number) => {
-    ctx.save();
-    ctx.beginPath();
-    ctx.roundRect(x, y, w, h, r);
-    ctx.clip();
-    ctx.drawImage(img, x, y, w, h);
-    ctx.restore();
+  const firstH = 560;
+  const fit = (img: HTMLImageElement, x: number, y: number, w: number, h: number) => {
+    const s = Math.min(w / img.width, h / img.height);
+    const dw = img.width * s, dh = img.height * s;
+    ctx.drawImage(img, x + (w - dw) / 2, y + (h - dh) / 2, dw, dh);
   };
-  if (imgs[0]) clipDraw(imgs[0], W / 2 - 340, cardY, 680, firstH, 32);
-  else roundRect(ctx, W / 2 - 340, cardY, 680, firstH, 32, C.card);
+  roundRect(ctx, W / 2 - 340, cardY, 680, firstH, 32, C.card);
+  if (imgs[0]) fit(imgs[0], W / 2 - 300, cardY + 40, 600, firstH - 70);
   if (first) {
     roundRect(ctx, W / 2 - 318, cardY + 22, 150, 48, 24, '#FFFFFF');
     ctx.fillStyle = C.orange;
@@ -115,10 +112,7 @@ export async function makeResultImage(input: ResultImageInput): Promise<Blob> {
     const x = 90 + i * 460;
     roundRect(ctx, x, smallY, 440, 250, 28, C.card);
     const img = imgs[i + 1];
-    if (img) {
-      const ih = Math.round((200 * img.height) / img.width);
-      clipDraw(img, x + 14, smallY + (250 - ih) / 2, 200, ih, 18);
-    }
+    if (img) fit(img, x + 14, smallY + 20, 196, 210);
     ctx.textAlign = 'left';
     ctx.fillStyle = C.orange;
     ctx.font = `700 20px ${FONT}`;
