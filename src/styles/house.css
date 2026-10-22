@@ -78,7 +78,8 @@
 .house__floor--attic .room__tag { left: 50%; translate: -50% 0; }
 
 /* 몸체 — 갈색 나무 벽 · 층 사이 갈색 띠, 방은 두 칸씩 */
-.house { --gap: clamp(8px, 2.4vw, 18px); }
+/* 갈색 벽 · 층 사이 띠 두께 */
+.house { --gap: clamp(5px, 1.2vw, 10px); }
 .house__body { background: #7B4628; padding: var(--gap); }
 .house__floor { position: relative; }
 .house__floor + .house__floor { margin-top: var(--gap); }
