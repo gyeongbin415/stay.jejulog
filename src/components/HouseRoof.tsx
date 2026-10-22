@@ -6,8 +6,8 @@ export function HouseRoof({ className, roofOnly = false }: { className: string; 
   // roofOnly — 박공 · 벽 없이 갈색 지붕선만 (굴뚝은 지붕 오른쪽 경사, 박공과 지붕선 뒤로 밑동이 가려짐)
   return (
     <svg className={className} viewBox="-70 0 900 300" aria-hidden="true" focusable="false">
-      <rect x="590" y="88" width="56" height="110" fill="#3A3735" />
-      {[[608, 106], [630, 126], [608, 144]].map(([x, y]) => (
+      <rect x="548" y="70" width="54" height="110" fill="#3A3735" />
+      {[[565, 88], [586, 106], [565, 122]].map(([x, y]) => (
         <circle key={`${x}-${y}`} cx={x} cy={y} r="6.5" fill="#6E6A68" />
       ))}
       {!roofOnly && (

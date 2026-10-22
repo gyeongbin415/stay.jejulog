@@ -336,9 +336,27 @@ const ART: Record<ProgramId, ReactNode> = {
     </>
   ),
 
-  /* 07 꽃꽂이 — 살구분홍 벽 · 테이블 위 유리 꽃병 · 가위 */
+  /* 07 꽃꽂이 — 연보라 파스텔 벽 · 벽 선반 위 작은 화병 · 압화 액자 · 테이블 위 유리 꽃병과 가위 · 꽃 양동이 · 물뿌리개 */
   flower: (
-    <Room wall={C.salmon}>
+    <Room wall="#E4DAF0">
+      {/* 벽 선반 · 작은 화병 둘 */}
+      <rect x="44" y="92" width="96" height="6" rx="2" fill={C.wood} />
+      <path d="M60 92 L58 74 H72 L70 92 Z" fill="#F4EDD8" />
+      <path d="M65 74 V58 M65 66 L58 56" stroke={C.leaf} strokeWidth="1.8" />
+      <circle cx="65" cy="55" r="5" fill="#E26B4F" />
+      <circle cx="57" cy="54" r="3.5" fill={C.yellow} />
+      <path d="M104 92 Q96 82 104 72 H116 Q124 82 116 92 Z" fill="#7FB3A6" />
+      <path d="M110 72 V54 M110 64 L118 56 M110 62 L102 54" stroke={C.leaf} strokeWidth="1.8" />
+      <circle cx="110" cy="52" r="4" fill={C.white} />
+      <circle cx="119" cy="54" r="3.5" fill="#F2A07A" />
+      <circle cx="101" cy="52" r="3.5" fill="#F2A07A" />
+      {/* 압화 액자 */}
+      <rect x="292" y="44" width="54" height="68" fill="#B88A5E" />
+      <rect x="297" y="49" width="44" height="58" fill="#FBF6EC" />
+      <path d="M319 98 V66 M319 84 L309 74 M319 78 L329 70" stroke="#6FA06A" strokeWidth="1.8" />
+      <circle cx="319" cy="63" r="5" fill="#E26B4F" />
+      <circle cx="308" cy="72" r="3.5" fill={C.yellow} />
+      <circle cx="330" cy="68" r="3.5" fill="#F2A07A" />
       <Table x={104} w={232} y={190} />
       <g className="obj">
         <path d="M196 190 L190 154 H222 L216 190 Z" fill="#CFE5E6" opacity=".85" />
@@ -353,10 +371,28 @@ const ART: Record<ProgramId, ReactNode> = {
           </g>
         ))}
       </g>
+      {/* 리본 */}
+      <path d="M140 188 q10 -10 20 0 q-10 -4 -20 0 Z M150 186 l-6 6 M150 186 l8 5" stroke="#D9453C" strokeWidth="2" fill="#E26B4F" strokeLinecap="round" />
       {/* 가위 */}
       <path d="M262 186 L292 176 M262 176 L292 186" stroke={C.grey} strokeWidth="2.5" strokeLinecap="round" />
       <circle cx="296" cy="174" r="4" fill="none" stroke={C.grey} strokeWidth="2" />
       <circle cx="296" cy="188" r="4" fill="none" stroke={C.grey} strokeWidth="2" />
+      {/* 바닥 꽃 양동이 */}
+      <path d="M40 212 C34 196 38 182 44 176 M54 212 C56 194 52 182 58 172 M66 212 C70 198 72 188 80 182" stroke={C.leaf} strokeWidth="2.2" fill="none" />
+      {[[44, 174, '#E26B4F'], [58, 170, C.white], [80, 180, '#F6C945'], [36, 186, '#F2A07A'], [68, 186, '#E26B4F']].map(([x, y, c]) => (
+        <g key={`b${x}-${y}`}>
+          {[0, 72, 144, 216, 288].map((a) => (
+            <circle key={a} cx={(x as number) + Math.cos((a * Math.PI) / 180) * 4.5} cy={(y as number) + Math.sin((a * Math.PI) / 180) * 4.5} r="4" fill={c as string} />
+          ))}
+          <circle cx={x as number} cy={y as number} r="2.6" fill="#F6C945" />
+        </g>
+      ))}
+      <path d="M32 210 H88 L82 256 H38 Z" fill="#9AA3A8" />
+      <rect x="30" y="208" width="60" height="6" rx="3" fill="#B7BEC2" />
+      {/* 물뿌리개 */}
+      <path d="M346 222 H378 V256 H346 Z" fill="#6FA06A" />
+      <path d="M346 230 L326 214 L322 218" stroke="#6FA06A" strokeWidth="5" fill="none" strokeLinecap="round" />
+      <path d="M352 222 Q362 206 372 222" stroke="#5E8F5A" strokeWidth="4" fill="none" />
     </Room>
   ),
 
