@@ -3,6 +3,7 @@ import { QUESTIONS } from '../data/quiz';
 import { useContent } from '../i18n';
 import type { ProgramId } from '../data/types';
 import { scoreQuiz, decodeAnswers, type AnswerKey, type QuizResult } from '../lib/scoring';
+import { characterArt } from '../data/characterArt';
 import { href } from '../lib/router';
 import { prefersReducedMotion } from '../lib/motion';
 import { track } from '../lib/track';
@@ -212,7 +213,7 @@ function Result({ result, shared, onRetry, focusRef }: { result: QuizResult; sha
         <p className="result__place">{programById[result.main].report.place.name}</p>
         <div className="result__hero">
           <span className="result__rank">BEST 01<span className="visually-hidden"> {t.bestCaption}</span></span>
-          <img src={`characters/${result.main}.svg`} alt="" />
+          <img src={characterArt[result.main]} alt="" />
         </div>
         <a className="btn" href={href.stay(result.main)} data-track={`result_best01_${result.main}`}>
           {t.detail} <span className="arrow" aria-hidden="true">→</span>
@@ -246,7 +247,7 @@ function Result({ result, shared, onRetry, focusRef }: { result: QuizResult; sha
 
 /**
  * 결과 카드 — 소라게 캐릭터 · 캐릭터 이름 · 게스트하우스 이름 · 자세히 보기 버튼만
- * 캐릭터 그림은 public/characters/<프로그램 id>.svg
+ * 캐릭터 그림은 src/assets/characters/hermit-*.svg (data/characterArt.ts)
  */
 function Pick({ rank, caption, id }: { rank: string; caption: string; id: ProgramId }) {
   const { ui, site, programById } = useContent();
@@ -258,7 +259,7 @@ function Pick({ rank, caption, id }: { rank: string; caption: string; id: Progra
         <span className="visually-hidden">{caption}</span>
       </p>
       <div className="pick__character">
-        <img src={`characters/${id}.svg`} alt="" />
+        <img src={characterArt[id]} alt="" />
       </div>
       <p className="pick__charname">{site.characters[id]}</p>
       <h2 className="pick__name">{p.report.place.name}</h2>

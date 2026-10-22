@@ -1,10 +1,13 @@
+import type { ProgramId } from '../data/types';
+import { characterArt } from '../data/characterArt';
+
 /**
  * 취향 테스트 결과를 한 장의 이미지(1080 × 1350, 인스타그램 세로 비율)로 그립니다.
  * 위: 나의 여행 취향은 → 1위 캐릭터 이름 · 게스트하우스 이름 / 가운데: 1위 소라게 크게 / 아래: 2 · 3위 소라게 나란히.
- * 캐릭터 그림은 public/characters/<프로그램 id>.svg (원본 그림을 따라 그린 벡터) 를 그대로 씁니다.
+ * 캐릭터 그림은 src/assets/characters/hermit-*.svg (data/characterArt.ts) 를 그대로 씁니다.
  */
 export interface ResultImagePick {
-  id: string;
+  id: ProgramId;
   rank: string;
   charName: string;
   place: string;
@@ -58,7 +61,7 @@ function roundRect(ctx: CanvasRenderingContext2D, x: number, y: number, w: numbe
 export async function makeResultImage(input: ResultImageInput): Promise<Blob> {
   // 카트 고딕이 그림에 쓰이도록 미리 불러 둡니다
   await Promise.all(['500 32px "Kart Gothic"', '700 32px "Kart Gothic"', '800 32px "Kart Gothic"'].map((f) => document.fonts.load(f).catch(() => null)));
-  const imgs = await Promise.all(input.picks.map((p) => loadImage(`characters/${p.id}.svg`).catch(() => null)));
+  const imgs = await Promise.all(input.picks.map((p) => loadImage(characterArt[p.id]).catch(() => null)));
 
   const canvas = document.createElement('canvas');
   canvas.width = W;
