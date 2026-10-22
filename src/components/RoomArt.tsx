@@ -326,25 +326,61 @@ const ART: Record<ProgramId, ReactNode> = {
     </Room>
   ),
 
-  /* 06 집밥 — 연보라 벽 · 냉장고 · 노란 조명 · 식탁 위 밥 · 빨간 냄비 · 초록 의자 */
+  /* 06 집밥 — 연보라 벽 · 나무 밥상 위 밥 한 공기 · 뚝배기 찌개 · 여러 가지 반찬 · 초록 방석 둘 */
   homemeal: (
     <Room wall={C.lilac}>
-      <rect x="18" y="70" width="70" height="186" rx="6" fill="#FAFAF7" />
-      <rect x="18" y="134" width="70" height="3" fill="#DCD7CD" />
-      <rect x="76" y="92" width="4" height="26" rx="2" fill="#BDB7AC" />
-      <rect x="76" y="150" width="4" height="34" rx="2" fill="#BDB7AC" />
-      <Pendant x={236} len={46} shade="#E8B04A" />
-      <Chair x={110} dir={1} color={C.green} />
-      <Chair x={322} dir={-1} color={C.green} />
+      {/* 김 */}
+      <path d="M164 110 c-4 -6 4 -10 0 -16 M174 108 c-4 -6 4 -10 0 -16 M222 116 c-4 -6 4 -10 0 -16 M232 114 c-4 -6 4 -10 0 -16 M300 126 c-4 -6 4 -10 0 -16 M310 124 c-4 -6 4 -10 0 -16" fill="none" stroke="#B7AEC0" strokeWidth="2.2" strokeLinecap="round" />
       <g className="obj">
-        <Table x={160} w={156} y={176} />
-        <path d="M184 140 c-3 -5 3 -8 0 -13 M192 140 c-3 -5 3 -8 0 -13 M200 140 c-3 -5 3 -8 0 -13" fill="none" stroke="#B7AEC0" strokeWidth="2" strokeLinecap="round" />
-        <path d="M174 152 H210 C208 166 200 174 192 174 C184 174 176 166 174 152 Z" fill={C.white} />
-        <path d="M234 156 H284 V168 C284 174 280 176 274 176 H244 C238 176 234 174 234 168 Z" fill={C.red} />
-        <rect x="230" y="152" width="58" height="6" rx="3" fill={C.redDk} />
-        <rect x="254" y="144" width="10" height="6" rx="2" fill={C.redDk} />
-        <ellipse cx="300" cy="173" rx="11" ry="3.5" fill={C.white} />
+        {/* 밥상 — 상판 · 앞면 · 다리 */}
+        <path d="M74 150 H326 L358 198 H42 Z" fill="#8A5A3B" />
+        <path d="M42 198 H358 V208 H42 Z" fill="#6B4A2E" />
+        <rect x="56" y="208" width="14" height="30" fill="#6B4A2E" />
+        <rect x="330" y="208" width="14" height="30" fill="#6B4A2E" />
+        {/* 밥 한 공기 */}
+        <path d="M152 134 C154 118 190 118 192 134 Z" fill="#FFFDF7" />
+        <path d="M150 134 H194 C192 148 184 154 172 154 C160 154 152 148 150 134 Z" fill="#FFFFFF" />
+        {/* 뚝배기 찌개 */}
+        <ellipse cx="228" cy="152" rx="34" ry="9" fill="#1F1F21" />
+        <path d="M196 140 H260 C258 152 248 158 228 158 C208 158 198 152 196 140 Z" fill="#2E2E30" />
+        <ellipse cx="228" cy="140" rx="32" ry="8" fill="#2E2E30" />
+        <ellipse cx="228" cy="140" rx="26" ry="5.6" fill="#C9762E" />
+        <circle cx="220" cy="139" r="2.4" fill="#F2D27A" />
+        <circle cx="236" cy="141" r="2" fill="#5E9A3E" />
+        {/* 반찬 */}
+        <ellipse cx="104" cy="171" rx="17" ry="6.5" fill="#E9E4DA" />
+        <ellipse cx="104" cy="168" rx="17" ry="6.5" fill="#FFFFFF" />
+        <ellipse cx="104" cy="167" rx="12.6" ry="4.4" fill="#5E9A3E" />
+        <ellipse cx="292" cy="149" rx="16" ry="6.1" fill="#E9E4DA" />
+        <ellipse cx="292" cy="146" rx="16" ry="6.1" fill="#FFFFFF" />
+        <ellipse cx="292" cy="145" rx="11.8" ry="4.2" fill="#E2683C" />
+        <ellipse cx="312" cy="173" rx="17" ry="6.5" fill="#E9E4DA" />
+        <ellipse cx="312" cy="170" rx="17" ry="6.5" fill="#FFFFFF" />
+        <ellipse cx="312" cy="169" rx="12.6" ry="4.4" fill="#E8D8A8" />
+        <ellipse cx="98" cy="193" rx="15" ry="5.7" fill="#E9E4DA" />
+        <ellipse cx="98" cy="190" rx="15" ry="5.7" fill="#FFFFFF" />
+        <ellipse cx="98" cy="189" rx="11.1" ry="3.9" fill="#F2E6C8" />
+        <ellipse cx="150" cy="185" rx="22" ry="8.4" fill="#E9E4DA" />
+        <ellipse cx="150" cy="182" rx="22" ry="8.4" fill="#FFFFFF" />
+        <ellipse cx="150" cy="181" rx="16.3" ry="5.7" fill="#E2683C" />
+        <ellipse cx="204" cy="189" rx="20" ry="7.6" fill="#E9E4DA" />
+        <ellipse cx="204" cy="186" rx="20" ry="7.6" fill="#FFFFFF" />
+        <ellipse cx="204" cy="185" rx="14.8" ry="5.2" fill="#4A6B3A" />
+        <ellipse cx="254" cy="179" rx="15" ry="5.7" fill="#E9E4DA" />
+        <ellipse cx="254" cy="176" rx="15" ry="5.7" fill="#FFFFFF" />
+        <ellipse cx="254" cy="175" rx="11.1" ry="3.9" fill="#8BB55A" />
+        <ellipse cx="318" cy="195" rx="19" ry="7.2" fill="#E9E4DA" />
+        <ellipse cx="318" cy="192" rx="19" ry="7.2" fill="#FFFFFF" />
+        <ellipse cx="318" cy="191" rx="14.1" ry="4.9" fill="#F2E6C8" />
+        {/* 수저 */}
+        <rect x="268" y="194" width="34" height="2.2" rx="1.1" fill="#B9B4AA" />
+        <rect x="268" y="198" width="36" height="2" rx="1" fill="#9A958B" />
       </g>
+      {/* 방석 둘 */}
+      <rect x="96" y="226" width="84" height="26" rx="7" fill="#5E8F5A" />
+      <rect x="102" y="230" width="72" height="18" rx="5" fill="#6FA06A" />
+      <rect x="220" y="226" width="84" height="26" rx="7" fill="#5E8F5A" />
+      <rect x="226" y="230" width="72" height="18" rx="5" fill="#6FA06A" />
     </Room>
   ),
 
