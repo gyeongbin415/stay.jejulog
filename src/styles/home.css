@@ -206,10 +206,10 @@
 .checkin .door__opening:focus-visible { outline: 3px solid var(--ochre); outline-offset: 4px; }
 
 /* ── FIND YOUR STAY ─────────────────────────────── */
-/* 취향 찾기 — 제주 올리브 버튼과 어울리는 연한 세이지 배경 */
-.find { background: #ECEFE4; }
-.find .btn { background: #68765B; border-color: #68765B; color: #FAFAF3; }
-.find .btn:hover { background: #56634B; border-color: #56634B; }
+/* 취향 찾기 — 다락과 같은 베이지 배경 · 주황 테두리 버튼 */
+.find { background: #F2DEC0; }
+.find .btn { background: transparent; border: 1.5px solid #F0883A; color: #D46A1F; }
+.find .btn:hover { background: #F0883A; border-color: #F0883A; color: #FFFFFF; }
 .find__inner { padding: clamp(80px, 12vh, 130px) 0; }
 .find__copy { display: grid; gap: 16px; justify-items: start; }
 .find__copy .btn { margin-top: 12px; }
