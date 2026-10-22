@@ -89,23 +89,36 @@ export async function makeResultImage(input: ResultImageInput): Promise<Blob> {
     ctx.font = `500 32px ${FONT}`;
     ctx.fillText(first.place, W / 2, 302);
   }
-  const cardY = 340;
-  roundRect(ctx, W / 2 - 310, cardY, 620, 620, 36, C.card);
-  if (imgs[0]) ctx.drawImage(imgs[0], W / 2 - 300, cardY + 10, 600, 600);
+  // 그림은 비율 그대로(가로 680) 둥근 모서리로 잘라 그림 — 소라게 그림마다 바탕색이 들어 있음
+  const cardY = 350;
+  const firstH = imgs[0] ? Math.round((680 * imgs[0].height) / imgs[0].width) : 506;
+  const clipDraw = (img: HTMLImageElement, x: number, y: number, w: number, h: number, r: number) => {
+    ctx.save();
+    ctx.beginPath();
+    ctx.roundRect(x, y, w, h, r);
+    ctx.clip();
+    ctx.drawImage(img, x, y, w, h);
+    ctx.restore();
+  };
+  if (imgs[0]) clipDraw(imgs[0], W / 2 - 340, cardY, 680, firstH, 32);
+  else roundRect(ctx, W / 2 - 340, cardY, 680, firstH, 32, C.card);
   if (first) {
-    roundRect(ctx, W / 2 - 286, cardY + 24, 150, 48, 24, '#FFFFFF');
+    roundRect(ctx, W / 2 - 318, cardY + 22, 150, 48, 24, '#FFFFFF');
     ctx.fillStyle = C.orange;
     ctx.font = `700 22px ${FONT}`;
-    ctx.fillText(first.rank, W / 2 - 211, cardY + 56);
+    ctx.fillText(first.rank, W / 2 - 243, cardY + 54);
   }
 
   // 2 · 3위 — 나란히
-  const smallY = cardY + 650;
+  const smallY = cardY + firstH + 40;
   rest.slice(0, 2).forEach((p, i) => {
     const x = 90 + i * 460;
     roundRect(ctx, x, smallY, 440, 250, 28, C.card);
     const img = imgs[i + 1];
-    if (img) ctx.drawImage(img, x + 6, smallY + 20, 210, 210);
+    if (img) {
+      const ih = Math.round((200 * img.height) / img.width);
+      clipDraw(img, x + 14, smallY + (250 - ih) / 2, 200, ih, 18);
+    }
     ctx.textAlign = 'left';
     ctx.fillStyle = C.orange;
     ctx.font = `700 20px ${FONT}`;
