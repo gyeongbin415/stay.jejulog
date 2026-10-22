@@ -10,7 +10,7 @@
   --cream: #F6F3ED;
   --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
   --p: 0;
-  position: relative; height: 260vh;
+  position: relative; height: 130vh;
   background: var(--night); color: var(--cream);
 }
 .intro__stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
@@ -234,6 +234,5 @@
 .outro__head { display: grid; justify-items: center; gap: 16px; }
 .outro__title { font-family: var(--f-home); font-weight: 700; font-size: clamp(28px, 4.2vw, 54px); line-height: 1.32; letter-spacing: -0.03em; }
 .outro__title span { display: block; }
-.outro__sub { font-size: var(--t-lead); line-height: 1.75; color: rgba(246, 243, 237, .72); }
 .outro__closing { font-family: var(--f-home); font-weight: 500; font-size: clamp(17px, 1.8vw, 22px); line-height: 1.75; margin-top: 12px; }
 .outro .btn { font-size: 16px; }

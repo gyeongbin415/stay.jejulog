@@ -90,10 +90,10 @@ function Intro() {
       const range = el.offsetHeight - window.innerHeight;
       const p = range > 0 ? Math.min(1, Math.max(0, -el.getBoundingClientRect().top / range)) : 1;
       el.style.setProperty('--p', p.toFixed(3));
-      // 스크롤한 화면 수 기준 — 0.4 화면 넘게 내리면 조리개가 열리며 문제 정의 (끝까지 약 1.2화면)
+      // 스크롤한 화면 수 기준 — 0.1 화면만 내려도 조리개가 열리며 문제 정의 (문제 정의 화면은 약 0.3화면 머문 뒤 다음 섹션으로)
       // 자동 진행이 끝나기 전에 내려가 버려도, 돌아오면 문제 정의가 열린 상태입니다
       const s = p * range / window.innerHeight;
-      const reveal = s >= 0.4;
+      const reveal = s >= 0.1;
       setRevealByScroll(reveal);
       if (reveal) {
         setAuto(REVEAL);
@@ -294,7 +294,6 @@ function CheckOut() {
               <span key={l}>{l}</span>
             ))}
           </h2>
-          <p className="outro__sub pre">{c.sub}</p>
         </header>
 
         <p className="outro__closing pre">{c.closing}</p>
