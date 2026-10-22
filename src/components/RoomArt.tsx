@@ -326,12 +326,12 @@ const ART: Record<ProgramId, ReactNode> = {
     </Room>
   ),
 
-  /* 06 집밥 — 시안 그림 그대로 (나무 밥상 위 밥 · 뚝배기 · 반찬, 초록 방석). 그림 비율이 더 가로로 길어 위쪽은 같은 베이지로 채움 */
+  /* 06 집밥 — 시안 그림 그대로 (나무 밥상 위 밥 · 뚝배기 · 반찬, 초록 방석). 그림 비율이 더 가로로 길어 위아래 남는 곳은 같은 베이지로 채움 (그림은 가운데) */
   homemeal: (
     <>
       <rect width="400" height="260" fill="#EEE3CE" />
       <g className="obj">
-        <image href="rooms/homemeal.png" x="0" y="0" width="400" height="260" preserveAspectRatio="xMidYMax meet" />
+        <image href="rooms/homemeal.png" x="0" y="0" width="400" height="260" preserveAspectRatio="xMidYMid meet" />
       </g>
     </>
   ),
