@@ -153,12 +153,8 @@ function Intro() {
           ))}
         </ol>
 
-        {/* 시야가 좁아지는 조리개와 그 끝의 작은 조준선 */}
+        {/* 시야가 좁아지는 조리개 */}
         <div className="intro__iris" aria-hidden="true" />
-        <svg className="intro__reticle" viewBox="0 0 120 120" aria-hidden="true" focusable="false">
-          <circle cx="60" cy="60" r="44" />
-          <path d="M60 0 V120 M0 60 H120" />
-        </svg>
         <p className="intro__turn pre">{SITE.intro.turn}</p>
 
         <p className="intro__hint" aria-hidden="true">
