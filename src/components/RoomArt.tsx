@@ -5,7 +5,7 @@ import type { ProgramId } from '../data/types';
    집 내부 9개 공간 — 외곽선 없는 플랫 일러스트 (방마다 벽 색이 다른 시안)
    · 실내 · 마당 viewBox 400 × 260 (바닥 y 256), 다락 400 × 190 (지붕 박공 위, 배경 없음)
    · 벽: 독서 세이지 · LP 하늘 · 영화 · 꽃 살구분홍 · 와인 노랑 · 집밥 연보라
-   · 마당: 하늘 · 구름 · 풀밭 (스냅사진), 하늘 · 바다 · 모래사장 · 달리는 사람 (러닝)
+   · 마당: 하늘 · 구름 · 풀밭 (스냅사진), 하늘 · 바다 · 모래사장 · 운동화 (러닝)
    · 클릭 대상이 되는 사물은 <g className="obj"> 로 묶어 호버 때 살짝 커집니다.
 ------------------------------------------------------------------- */
 
@@ -28,9 +28,6 @@ const C = {
   red: '#D9453C',
   redDk: '#B8372F',
   blue: '#2E6FD6',
-  navy: '#2F3A55',
-  skin: '#F2C1A0',
-  hair: '#6B3E26',
   sky: '#A9D8F0',
   sea: '#2E9BD6',
   seaLt: '#5DB6E3',
@@ -94,7 +91,7 @@ function Chair({ x, dir, color }: { x: number; dir: 1 | -1; color: string }) {
   const back = dir === 1 ? x : x + 34;
   return (
     <>
-      <path d={`M${back} 168 Q${back} 160 ${back + 8 * dir} 160 L${back + 10 * dir} 160 L${back + 10 * dir} 214 L${back} 214 Z`} fill={color} />
+      <rect x={back} y="158" width="10" height="56" rx="4" fill={color} />
       <rect x={x} y="206" width="44" height="10" rx="3" fill={color} />
       <rect x={x + 4} y="216" width="5" height="40" fill={C.char} />
       <rect x={x + 35} y="216" width="5" height="40" fill={C.char} />
@@ -344,8 +341,8 @@ const ART: Record<ProgramId, ReactNode> = {
     <Room wall={C.salmon}>
       <Table x={104} w={232} y={190} />
       <g className="obj">
-        <path d="M196 186 L190 150 H222 L216 186 Z" fill="#CFE5E6" opacity=".85" />
-        <path d="M206 186 V128 M206 160 L190 124 M206 160 L224 120 M206 168 L180 140 M206 168 L234 138" stroke={C.leaf} strokeWidth="2" />
+        <path d="M196 190 L190 154 H222 L216 190 Z" fill="#CFE5E6" opacity=".85" />
+        <path d="M206 190 V128 M206 160 L190 124 M206 160 L224 120 M206 168 L180 140 M206 168 L234 138" stroke={C.leaf} strokeWidth="2" />
         <path d="M184 142 q-8 -6 -4 -12 q6 2 4 12 Z M230 138 q8 -6 4 -12 q-6 2 -4 12 Z" fill={C.leaf} />
         {[[190, 120, '#E26B4F'], [206, 106, C.white], [224, 116, C.orange], [178, 136, C.orange], [236, 134, '#E26B4F'], [212, 126, '#F2A07A']].map(([x, y, c]) => (
           <g key={`${x}-${y}`}>
@@ -363,7 +360,7 @@ const ART: Record<ProgramId, ReactNode> = {
     </Room>
   ),
 
-  /* 08 러닝 — 하늘 · 바다 · 모래사장 · 덤불 · 해변을 달리는 사람 */
+  /* 08 러닝 — 하늘 · 바다 · 모래사장 · 덤불 · 모래 위 운동화 한 켤레 */
   running: (
     <>
       <rect width="400" height="260" fill={C.sky} />
@@ -376,23 +373,17 @@ const ART: Record<ProgramId, ReactNode> = {
       <path d="M0 202 Q120 176 230 184 T400 168 V260 H0 Z" fill={C.sand} />
       <Bush x={26} y={236} r={30} color="#4E8C4A" />
       <Bush x={380} y={226} r={34} color="#4E8C4A" />
-      {/* 달리는 사람 */}
+      {/* 모래 위 운동화 한 켤레 */}
       <g className="obj">
-        {/* 뒷다리 · 뒷팔 */}
-        <path d="M206 188 L184 214 L164 222" stroke={C.skin} strokeWidth="9" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-        <path d="M160 218 L150 228 L170 230 Z" fill={C.blue} />
-        <path d="M212 130 L190 148 L178 138" stroke={C.skin} strokeWidth="7" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-        {/* 몸 */}
-        <path d="M200 124 Q214 116 226 124 L230 170 Q214 176 198 170 Z" fill={C.white} />
-        <path d="M198 166 L232 166 L236 192 L212 194 L200 190 Z" fill={C.navy} />
-        {/* 앞다리 · 앞팔 */}
-        <path d="M226 190 L248 210 L246 236" stroke={C.skin} strokeWidth="9" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-        <path d="M238 234 L260 240 L240 244 Z" fill={C.blue} />
-        <path d="M222 132 L240 152 L254 140" stroke={C.skin} strokeWidth="7" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-        {/* 머리 · 묶은 머리 */}
-        <circle cx="218" cy="104" r="14" fill={C.skin} />
-        <path d="M204 102 Q206 86 220 88 Q232 90 232 100 Q220 96 210 104 Z" fill={C.hair} />
-        <path d="M206 96 Q192 96 186 108 Q196 104 204 106 Z" fill={C.hair} />
+        {[[120, 222], [212, 212]].map(([x, y]) => (
+          <g key={x} transform={`translate(${x} ${y})`}>
+            <path d="M0 14 C2 2 12 -4 26 -2 L40 -10 C48 -14 56 -10 60 -4 L82 4 C92 7 96 12 96 18 H0 Z" fill={C.blue} />
+            <path d="M0 14 C1 6 6 1 12 -1 L18 16 H0 Z" fill={C.orange} />
+            <path d="M36 -6 l6 8 M44 -9 l6 8 M52 -10 l6 8" stroke={C.white} strokeWidth="2.6" strokeLinecap="round" />
+            <path d="M66 4 Q76 8 84 14" stroke="#9FC0F2" strokeWidth="2.4" fill="none" strokeLinecap="round" />
+            <rect x="-2" y="16" width="100" height="8" rx="4" fill={C.white} />
+          </g>
+        ))}
       </g>
     </>
   ),
