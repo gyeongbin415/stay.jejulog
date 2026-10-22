@@ -24,7 +24,7 @@ export function HouseRoof({ className, roofOnly = false }: { className: string; 
           <rect x="740" y="252" width="20" height="48" fill="#7B4628" />
         </>
       )}
-      <path d="M-56 290 L380 32 L816 290" fill="none" stroke="#5E321C" strokeWidth="26" strokeLinejoin="round" />
+      <path d="M-56 290 L380 32 L816 290" fill="none" stroke="#5E321C" strokeWidth="26" strokeLinejoin="round" strokeLinecap="round" />
     </svg>
   );
 }

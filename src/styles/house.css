@@ -60,8 +60,9 @@
 .house { position: relative; }
 .house__stage { position: relative; padding-top: 8px; }
 /* 집 폭 — 좁은 화면은 760, 넓은 화면(층마다 3칸)은 1080 까지 */
-.house { --house-w: min(760px, 100% - var(--gutter) * 2); }
-@media (min-width: 900px) { .house { --house-w: min(1080px, 100% - var(--gutter) * 2); } }
+/* 지붕(몸체의 118.4%)이 화면 안에 다 들어오도록, 남는 폭을 1.18421 로 나눈 값까지만 */
+.house { --house-w: min(760px, (100% - var(--gutter) * 2) / 1.18421); }
+@media (min-width: 900px) { .house { --house-w: min(1080px, (100% - var(--gutter) * 2) / 1.18421); } }
 .house__inner { position: relative; z-index: 1; width: var(--house-w); margin-inline: auto; }
 
 /* 지붕 — 처마가 몸체보다 양쪽으로 70/760 넓습니다 (viewBox -70 0 900 300) */
