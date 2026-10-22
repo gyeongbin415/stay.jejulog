@@ -413,9 +413,38 @@ const ART: Record<ProgramId, ReactNode> = {
     </>
   ),
 
-  /* 09 와인 — 버터 노랑 벽 · 검정 조명 · 식탁 위 와인병과 두 잔 · 빨간 의자 */
+  /* 09 와인 — 버터 노랑 벽 · 벽 와인랙 · 오크통 · 포도 액자 · 검정 조명 · 식탁 위 와인병 · 두 잔 · 촛불 · 빨간 의자 */
   wine: (
     <Room wall={C.butter}>
+      {/* 벽 와인랙 — 칸마다 눕혀 둔 병 끝 */}
+      <rect x="14" y="68" width="72" height="108" fill="#8A5A3B" />
+      <rect x="18" y="72" width="64" height="100" fill="#6B4A2E" />
+      {[0, 1, 2, 3].map((r) =>
+        [0, 1, 2].map((c) => (
+          <g key={`${r}-${c}`}>
+            <circle cx={30 + c * 20} cy={85 + r * 25} r="8.5" fill={(r + c) % 2 ? '#2F6B3E' : '#5A1E24'} />
+            <circle cx={30 + c * 20} cy={85 + r * 25} r="3.5" fill={(r + c) % 2 ? '#4E8C5A' : '#8A3A42'} />
+          </g>
+        )),
+      )}
+      {[97, 122, 147].map((y) => (
+        <rect key={y} x="18" y={y} width="64" height="2.5" fill="#8A5A3B" />
+      ))}
+      {/* 오크통 */}
+      <path d="M22 200 Q16 228 22 256 H78 Q84 228 78 200 Z" fill="#A86F42" />
+      <rect x="18" y="206" width="64" height="5" fill="#4A3B33" />
+      <rect x="18" y="245" width="64" height="5" fill="#4A3B33" />
+      <path d="M36 200 Q33 228 36 256 M50 200 V256 M64 200 Q67 228 64 256" stroke="#8C5934" strokeWidth="1.5" fill="none" />
+      {/* 포도 액자 */}
+      <rect x="318" y="44" width="56" height="66" fill="#8A5A3B" />
+      <rect x="323" y="49" width="46" height="56" fill="#FBF6EC" />
+      <path d="M346 58 Q350 54 356 56" stroke="#6B4A2E" strokeWidth="2" fill="none" />
+      <path d="M346 60 q10 -6 14 2 q-8 4 -14 -2 Z" fill="#6FA06A" />
+      {[[340, 66], [348, 66], [356, 66], [344, 74], [352, 74], [348, 82], [340, 74]].map(([x, y]) => (
+        <circle key={`g${x}-${y}`} cx={x} cy={y} r="4.2" fill="#7A3B6E" />
+      ))}
+      {/* 조명 아래 따뜻한 불빛 */}
+      <ellipse cx="230" cy="150" rx="70" ry="28" fill="#FFE7A8" opacity=".35" />
       <Pendant x={230} len={56} shade={C.char} />
       <Chair x={96} dir={1} color={C.red} />
       <Chair x={300} dir={-1} color={C.red} />
@@ -432,6 +461,11 @@ const ART: Record<ProgramId, ReactNode> = {
             <rect x={x - 6} y="173" width="12" height="3" rx="1.5" fill="#F4F0EA" />
           </g>
         ))}
+        {/* 촛불 */}
+        <rect x="274" y="171" width="12" height="5" rx="1.5" fill="#B9A27A" />
+        <rect x="277" y="152" width="6" height="20" rx="1" fill="#FBF3DE" />
+        <ellipse cx="280" cy="146" rx="3.4" ry="6" fill="#F39A2B" />
+        <ellipse cx="280" cy="148" rx="1.8" ry="3.4" fill="#FFE08A" />
       </g>
     </Room>
   ),
