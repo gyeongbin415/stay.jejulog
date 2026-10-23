@@ -23,7 +23,9 @@ export default function StayPage({ id }: { id: ProgramId }) {
   const hasEditor = Boolean(editor || r.experience.length);
   const hasStory = Boolean(p.intro || r.introQuote);
   // 다음 게하 — 9곳 순서대로, 마지막 다음은 처음으로
-  const next = EXPERIENCES[(EXPERIENCES.findIndex((x) => x.id === id) + 1) % EXPERIENCES.length];
+  const at = EXPERIENCES.findIndex((x) => x.id === id);
+  const next = EXPERIENCES[(at + 1) % EXPERIENCES.length];
+  const prev = EXPERIENCES[(at - 1 + EXPERIENCES.length) % EXPERIENCES.length];
 
   return (
     <article className="stay" aria-labelledby="stay-title">
@@ -209,8 +211,11 @@ export default function StayPage({ id }: { id: ProgramId }) {
 
       {/* 07. NAVIGATION — 예약 링크는 데이터에 있을 때만 */}
       <nav className="stay-nav wrap" data-tone="light" aria-label={t.navAria}>
-        {/* 위: 다시 집 둘러보기 · 다음 게하 살펴보기 / 아래: 나에게 맞는 게하 찾기 */}
+        {/* 위: 이전 게하 살펴보기 · 다시 집 둘러보기 · 다음 게하 살펴보기 / 아래: 나에게 맞는 게하 찾기 */}
         <div className="stay-nav__row">
+          <a className="btn btn--ghost btn--back" href={href.stay(prev.id)} data-track={`stay_${id}_prev_${prev.id}`}>
+            {t.prevStay} <span className="arrow" aria-hidden="true">←</span>
+          </a>
           <a className="btn btn--ghost btn--back" href={href.house()} data-track={`stay_${id}_back_house`}>
             {t.backToHouse} <span className="arrow" aria-hidden="true">←</span>
           </a>
