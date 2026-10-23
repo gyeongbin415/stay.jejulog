@@ -4,7 +4,7 @@ import { characterArt } from '../data/characterArt';
 /**
  * 취향 테스트 결과를 한 장의 이미지(1080 × 1350, 인스타그램 세로 비율)로 그립니다.
  * 위: 나의 여행 취향은 → 1위 캐릭터 이름 · 게스트하우스 이름 / 가운데: 1위 소라게 크게 / 아래: 2 · 3위 소라게 나란히.
- * 캐릭터 그림은 src/assets/characters/hermit-*.svg (data/characterArt.ts) 를 그대로 씁니다.
+ * 캐릭터 그림은 src/assets/characters/hermit-*.webp (data/characterArt.ts) 를 그대로 씁니다.
  */
 export interface ResultImagePick {
   id: ProgramId;

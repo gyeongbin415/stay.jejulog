@@ -282,7 +282,7 @@ function Result({ result, shared, onRetry, focusRef }: { result: QuizResult; sha
 
 /**
  * 결과 카드 — 소라게 캐릭터 · 캐릭터 이름 · 게스트하우스 이름 · 자세히 보기 버튼만
- * 캐릭터 그림은 src/assets/characters/hermit-*.svg (data/characterArt.ts)
+ * 캐릭터 그림은 src/assets/characters/hermit-*.webp (data/characterArt.ts)
  */
 function Pick({ rank, caption, id }: { rank: string; caption: string; id: ProgramId }) {
   const { ui, site, programById } = useContent();
