@@ -61,6 +61,8 @@
 .w1 { left: max(7%, 50% - 440px); top: 18%; font-size: clamp(46px, 8vw, 118px); }
 .w2 { right: max(8%, 50% - 440px); top: 41%; text-align: right; font-size: clamp(40px, 7vw, 102px); }
 .w3 { left: max(7%, 50% - 440px); top: 60%; font-size: clamp(43px, 7.5vw, 110px); }
+/* 단어마다 색 — 파티 소프트 테라코타 · 술 웜 옐로 · 헌팅 세이지 그린 */
+.w1 { color: #D99983; } .w2 { color: #E6C58C; } .w3 { color: #A8BAA1; }
 
 .intro__hint {
   z-index: 2; position: absolute; left: 50%; bottom: 40px; translate: -50% 0;
