@@ -8,12 +8,10 @@ import { href } from '../lib/router';
 import { prefersReducedMotion } from '../lib/motion';
 import { track } from '../lib/track';
 import { makeResultImage } from '../lib/resultImage';
+import gehageUrl from '../assets/gehage.png';
 
 /** 'story' — 테스트 전 소라게 게하게 이야기 · 숫자 — 질문 순서 · 'result' — 결과 */
 type Step = 'story' | number | 'result';
-
-/** 이야기 화면의 소라게 — 껍데기를 바꿔 가며 옮겨 다니는 모습으로 세 마리 */
-const STORY_CRABS: ProgramId[] = ['camping', 'flower', 'cinema'];
 
 /**
  * PAGE 04 — 취향 테스트
@@ -97,11 +95,8 @@ export default function TestPage({ sharedCode }: { sharedCode: string | null }) 
         {step === 'story' && (
           <div className="story">
             <p className="label">STORY</p>
-            <div className="story__crabs" aria-hidden="true">
-              {STORY_CRABS.map((id) => (
-                <img key={id} src={characterArt[id]} alt="" />
-              ))}
-            </div>
+            {/* 짐을 메고 지도를 든 여행자 소라게 게하게 */}
+            <img className="story__char" src={gehageUrl} alt="" aria-hidden="true" />
             <h1 id="test-title" ref={focusRef} tabIndex={-1} className="story__title">{ui.test.storyTitle}</h1>
             <p className="story__body pre">{ui.test.storyBody}</p>
             <button type="button" className="btn" onClick={start} data-track="quiz_story_start">

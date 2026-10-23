@@ -6,9 +6,7 @@
 
 /* 테스트 전 이야기 — 소라게 게하게 */
 .story { display: grid; justify-items: center; gap: 16px; max-width: 620px; margin: 0 auto; text-align: center; padding-block: clamp(8px, 3vh, 32px); }
-.story__crabs { display: flex; justify-content: center; align-items: flex-end; gap: clamp(4px, 2vw, 18px); margin: 6px 0 4px; }
-.story__crabs img { display: block; width: clamp(92px, 16vw, 150px); height: auto; }
-.story__crabs img:nth-child(2) { width: clamp(116px, 20vw, 190px); }
+.story__char { display: block; width: clamp(190px, 30vw, 280px); height: auto; margin: 4px 0 2px; }
 .story__title { font-family: var(--f-home); font-size: var(--t-h2); font-weight: 700; line-height: 1.3; letter-spacing: -0.035em; outline: none; }
 .story__body { font-family: var(--f-home); font-size: clamp(17px, 1.9vw, 21px); font-weight: 500; line-height: 1.8; letter-spacing: -0.02em; }
 .story .btn { margin-top: 10px; }
