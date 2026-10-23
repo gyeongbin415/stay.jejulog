@@ -249,7 +249,7 @@ export const ZH: ContentPack = {
         '喜欢模拟质感和温馨空间的人',
         '想以音乐为媒介结识新朋友的人',
       ],
-      hero: { alt: 'Seoron Guesthouse 建筑外观（照片待替换）', caption: 'Seoron Guesthouse' },
+      hero: { alt: '挂在红砖墙上的圆形木招牌，上面刻着白色的“서론”和“@seolon_zip”', caption: 'Seoron Guesthouse' },
       placeName: 'Seoron Guesthouse（서론게스트하우스）',
       area: '西归浦市 安德面',
       oneLine: '一边欣赏黑胶，一边与人分享喜好，从容享受济州之夜的民宿',
@@ -260,6 +260,7 @@ export const ZH: ContentPack = {
             { label: '时间', value: '每天傍晚6点～7点' },
             { label: '价格', value: '无需另付参加费' },
           ],
+          photos: [{ alt: '灯光照亮的木架上陈列着黑胶唱片，下方摆着唱机音响的聆听角', caption: '黑胶聆听角' }],
           text: [
             '每天傍晚6点，远离喧嚣、专注于音乐的黑胶聆听时间。想听的歌可以向老板点播，用黑胶来欣赏。平时用耳机听惯了的歌，在黑胶特有的温暖音色里也会焕然一新。这是能深入享受喜爱音乐的时间。',
           ],

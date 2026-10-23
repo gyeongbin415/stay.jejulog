@@ -261,7 +261,7 @@ export const EN: ContentPack = {
         'Those who love analog moods and cozy spaces',
         'Those who want to connect with new people through music',
       ],
-      hero: { alt: 'Exterior of Seoron Guesthouse (photo to be replaced)', caption: 'Seoron Guesthouse' },
+      hero: { alt: 'A round wooden sign on a red brick wall, carved in white with ‘서론’ and ‘@seolon_zip’', caption: 'Seoron Guesthouse' },
       placeName: 'Seoron Guesthouse',
       area: 'Andeok-myeon, Seogwipo',
       oneLine: 'A stay where you listen to LPs, share your taste with others, and take the Jeju night slowly',
@@ -272,6 +272,7 @@ export const EN: ContentPack = {
             { label: 'Time', value: 'Daily, 6:00–7:00 PM' },
             { label: 'Price', value: 'No participation fee' },
           ],
+          photos: [{ alt: 'A listening corner with LP albums on lit wooden shelves and a turntable stereo below', caption: 'The LP listening corner' }],
           text: [
             'Every evening at 6, an LP listening hour to step away from the noise and focus on the music. You can request songs from the owner and hear them on vinyl. Familiar songs you used to play through earphones come to you anew in the warm tone unique to LPs. A time to enjoy the music you love, deeply.',
           ],

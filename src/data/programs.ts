@@ -240,7 +240,7 @@ export const PROGRAMS: Program[] = [
     ],
     hint: '톤암을 끌어 레코드 위에 올려 보세요. 키보드 방향키로도 움직일 수 있습니다.',
     tryLabel: '서론게스트하우스 들여다보기',
-    hero: { art: 'lp', alt: '서론게스트하우스 건물 외관 (사진 교체 예정)', caption: '서론게스트하우스' },
+    hero: { src: 'photos/seoron-exterior.jpg', art: 'lp', alt: "붉은 벽돌 벽에 걸린 원형 나무 간판. 흰 글씨로 '서론'과 '@seolon_zip'이 새겨져 있다", caption: '서론게스트하우스' },
     gallery: [
       { art: 'window', alt: '레코드 선반이 있는 라운지 (샘플 이미지)', caption: '선반 앞에서 한참' },
       { art: 'sea-night', alt: '라운지 창밖의 밤 (샘플 이미지)', caption: 'B면이 끝날 무렵' },
@@ -257,6 +257,7 @@ export const PROGRAMS: Program[] = [
         {
           name: 'LP 청음 시간',
           info: [{ label: '시간', value: '매일 오후 6시 ~ 7시' }, { label: '가격', value: '별도 참가비 없음' }],
+          photo: { src: 'photos/seoron-lp.jpg', art: 'lp', alt: '조명이 켜진 나무 선반에 LP 앨범이 진열되어 있고, 그 아래 턴테이블 오디오가 놓인 청음 공간', caption: 'LP 청음 공간' },
           text: ['매일 저녁 6시, 소음에서 벗어나 음악에 집중하는 LP 청음 시간입니다. 듣고 싶은 곡은 사장님께 신청해 LP로 감상할 수 있습니다. 이어폰으로 듣던 익숙한 노래도 LP 특유의 따뜻한 음색으로 새롭게 다가옵니다. 좋아하는 음악을 깊이 즐길 수 있는 시간입니다.'],
         },
         {
