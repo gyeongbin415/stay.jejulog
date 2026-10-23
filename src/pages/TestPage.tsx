@@ -9,7 +9,11 @@ import { prefersReducedMotion } from '../lib/motion';
 import { track } from '../lib/track';
 import { makeResultImage } from '../lib/resultImage';
 
-type Step = number | 'result';
+/** 'story' — 테스트 전 소라게 게하게 이야기 · 숫자 — 질문 순서 · 'result' — 결과 */
+type Step = 'story' | number | 'result';
+
+/** 이야기 화면의 소라게 — 껍데기를 바꿔 가며 옮겨 다니는 모습으로 세 마리 */
+const STORY_CRABS: ProgramId[] = ['camping', 'flower', 'cinema'];
 
 /**
  * PAGE 04 — 취향 테스트
@@ -20,7 +24,7 @@ export default function TestPage({ sharedCode }: { sharedCode: string | null }) 
   const { ui, questions } = useContent();
   const shared = decodeAnswers(sharedCode);
   const [answers, setAnswers] = useState<(AnswerKey | null)[]>(() => shared ?? QUESTIONS.map(() => null));
-  const [step, setStep] = useState<Step>(shared ? 'result' : 0);
+  const [step, setStep] = useState<Step>(shared ? 'result' : 'story');
   const [isShared, setIsShared] = useState(Boolean(shared));
   const focusRef = useRef<HTMLHeadingElement>(null);
   const first = useRef(true);
@@ -34,11 +38,13 @@ export default function TestPage({ sharedCode }: { sharedCode: string | null }) 
     setStep('result');
   }, [sharedCode]);
 
-  useEffect(() => {
-    if (!shared) track('quiz_start');
-    return () => window.clearTimeout(timer.current);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  useEffect(() => () => window.clearTimeout(timer.current), []);
+
+  // 이야기 화면에서 '테스트 시작하기'
+  const start = () => {
+    setStep(0);
+    track('quiz_start');
+  };
 
   // 문항이 바뀌면 질문으로 초점을 옮기고 화면 위쪽에 맞춥니다.
   useEffect(() => {
@@ -87,6 +93,24 @@ export default function TestPage({ sharedCode }: { sharedCode: string | null }) 
   return (
     <section className="test" data-tone="light" aria-labelledby="test-title">
       <div className="test__inner wrap">
+        {/* 테스트 전 — 왜 소라게인지, 소라게 게하게 이야기 */}
+        {step === 'story' && (
+          <div className="story">
+            <p className="label">STORY</p>
+            <div className="story__crabs" aria-hidden="true">
+              {STORY_CRABS.map((id) => (
+                <img key={id} src={characterArt[id]} alt="" />
+              ))}
+            </div>
+            <h1 id="test-title" ref={focusRef} tabIndex={-1} className="story__title">{ui.test.storyTitle}</h1>
+            <p className="story__body pre">{ui.test.storyBody}</p>
+            <p className="story__why">{ui.test.storyWhy}</p>
+            <button type="button" className="btn" onClick={start} data-track="quiz_story_start">
+              {ui.test.start} <span className="arrow" aria-hidden="true">→</span>
+            </button>
+          </div>
+        )}
+
         {qi >= 0 && (
           <>
             <header className="test__head">
