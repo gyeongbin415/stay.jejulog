@@ -96,7 +96,7 @@
 
 @media (max-width: 639px) {
   .w1 { top: 17%; } .w2 { top: 41%; } .w3 { top: 60%; }
-  .w1, .w3 { left: 6%; } .w2 { right: 7%; }
+  .w1, .w3 { left: 14%; } .w2 { right: 15%; } /* 화면 끝에서 안쪽으로 */
   .w1 { font-size: clamp(44px, 13.4vw, 56px); } .w3 { font-size: clamp(41px, 12.6vw, 52px); } .w2 { font-size: clamp(38px, 11.4vw, 48px); }
 }
 
