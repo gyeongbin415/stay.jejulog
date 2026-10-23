@@ -194,7 +194,7 @@
 :is(.intro, .checkin, .find, .checkout) .btn { font-size: 15px; }
 
 /* ── CHECK OUT — 메인 마지막 마무리 (인트로와 같은 현무암 먹색으로 처음과 끝을 맞춤) ─────────────────────────────── */
-.outro { background: #686A64; color: #F6F3ED; letter-spacing: normal; } /* Stone Gray */
+.outro { background: #343632; color: #F6F3ED; letter-spacing: normal; } /* Basalt Black */
 .outro .label { letter-spacing: .16em; color: #F39A52; }
 .outro__inner { display: grid; justify-items: center; text-align: center; gap: clamp(28px, 4vh, 44px); padding: clamp(88px, 14vh, 150px) 0 clamp(96px, 15vh, 160px); }
 .outro__head { display: grid; justify-items: center; gap: 16px; }
