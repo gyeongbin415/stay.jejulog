@@ -211,7 +211,7 @@ export default function StayPage({ id }: { id: ProgramId }) {
 
       {/* 07. NAVIGATION — 예약 링크는 데이터에 있을 때만 */}
       <nav className="stay-nav wrap" data-tone="light" aria-label={t.navAria}>
-        {/* 위: 이전 게하 살펴보기 · 집 둘러보기 · 다음 게하 살펴보기 / 아래: 나에게 맞는 게하 찾기 */}
+        {/* 위: 이전 게하 · 집 둘러보기 · 다음 게하 (한 줄) / 아래: 나에게 맞는 게하 찾기 */}
         <div className="stay-nav__row">
           <a className="btn btn--ghost btn--back" href={href.stay(prev.id)} data-track={`stay_${id}_prev_${prev.id}`}>
             {t.prevStay} <span className="arrow" aria-hidden="true">←</span>
