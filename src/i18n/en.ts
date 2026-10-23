@@ -73,7 +73,7 @@ export const EN: ContentPack = {
 
   /* --------------------------------------------------------- experiences */
   experiences: {
-    book: { label: 'Reading', short: 'Books' },
+    book: { label: 'Books', short: 'Books' },
     lp: { label: 'Vinyl', short: 'LP' },
     craft: { label: 'Wood Rings', short: 'Rings' },
     camping: { label: 'Snapshots', short: 'Snaps', headline: 'How to Capture Jeju’s Seasons in Photos' },

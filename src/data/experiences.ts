@@ -28,7 +28,7 @@ export interface Experience {
 /** 집 순서 그대로 — 다락 → 3F → 2F → 1F → 마당 (no 는 숙소 번호 STAY 01 ~ 09) */
 export const EXPERIENCES: Experience[] = [
   { id: 'craft', no: '01', label: '나무반지', short: '반지', en: 'CRAFT', room: 'attic' },
-  { id: 'book', no: '02', label: '독서', short: '책', en: 'BOOK', room: 'living' },
+  { id: 'book', no: '02', label: '책', short: '책', en: 'BOOK', room: 'living' },
   { id: 'flower', no: '03', label: '꽃꽂이', short: '꽃', en: 'FLOWER', room: 'kitchen' },
   { id: 'cinema', no: '04', label: '영화', short: '영화', en: 'CINEMA', room: 'living' },
   { id: 'lp', no: '05', label: 'LP', short: 'LP', en: 'LP', room: 'living' },
@@ -48,7 +48,7 @@ export const ROOMS: { id: RoomId; floor: string; name: string; items: ProgramId[
   { id: 'yard', floor: 'YARD', name: '마당', items: ['camping', 'running'] },
 ];
 
-/** 집 단면 — 다락 나무반지 · 3F 독서 · 꽃꽂이 · 2F 영화 · LP · 1F 집밥 · 와인 · 마당 스냅 · 러닝 (넓은 화면 · 좁은 화면 같은 배치) */
+/** 집 단면 — 다락 나무반지 · 3F 책 · 꽃꽂이 · 2F 영화 · LP · 1F 집밥 · 와인 · 마당 스냅 · 러닝 (넓은 화면 · 좁은 화면 같은 배치) */
 export const COMPACT_FLOORS: { id: RoomId; floor: string; name: string; items: ProgramId[] }[] = [
   { id: 'study', floor: '3F', name: '서재', items: ['book', 'flower'] },
   { id: 'living', floor: '2F', name: '거실', items: ['cinema', 'lp'] },

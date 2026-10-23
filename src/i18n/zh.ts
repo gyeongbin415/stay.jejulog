@@ -69,7 +69,7 @@ export const ZH: ContentPack = {
   },
 
   experiences: {
-    book: { label: '阅读', short: '书' },
+    book: { label: '书', short: '书' },
     lp: { label: '黑胶', short: '黑胶' },
     craft: { label: '木戒指', short: '戒指' },
     camping: { label: '旅拍', short: '旅拍', headline: '用照片留住济州四季的方法' },
