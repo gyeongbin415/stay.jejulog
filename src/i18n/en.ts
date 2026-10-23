@@ -44,7 +44,7 @@ export const EN: ContentPack = {
     },
 
     checkOut: {
-      label: 'CHECK OUT',
+      label: 'OUTRO',
       title: ['Do you see it differently', 'now than when you came in?'],
       sub: 'Beyond parties, guesthouses hold\nall kinds of experiences\nwaiting to match your taste.',
       cta: 'Look around again',

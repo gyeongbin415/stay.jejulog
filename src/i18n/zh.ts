@@ -41,7 +41,7 @@ export const ZH: ContentPack = {
     },
 
     checkOut: {
-      label: 'CHECK OUT',
+      label: 'OUTRO',
       title: ['走进来时和离开时，', '你的想法有改变吗？'],
       sub: '民宿里除了派对，\n还有许多契合你喜好的\n体验在等着你。',
       cta: '再逛一遍',
