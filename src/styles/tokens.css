@@ -6,6 +6,8 @@
 @font-face { font-family: "Kart Gothic"; src: url("../assets/fonts/KartGothic-Medium.woff") format("woff"); font-weight: 500; font-display: swap; }
 @font-face { font-family: "Kart Gothic"; src: url("../assets/fonts/KartGothic-Bold.woff") format("woff"); font-weight: 700; font-display: swap; }
 @font-face { font-family: "Kart Gothic"; src: url("../assets/fonts/KartGothic-ExtraBold.woff") format("woff"); font-weight: 800; font-display: swap; }
+/* 손글씨 — 윤초록우산어린이 대한 (초록우산 어린이재단 · 윤디자인, 눈누 무료 폰트) · 소라게 말풍선 */
+@font-face { font-family: "Yoon Childfund DaeHan"; src: url("../assets/fonts/YoonChildfundkoreaDaeHan.woff2") format("woff2"); font-weight: 400; font-display: swap; }
 
 :root {
   /* 컬러 — 메인 3색: 오프화이트 배경 · 검정 글자 · 오렌지 포인트 (그림은 일러스트 자체 색) */
