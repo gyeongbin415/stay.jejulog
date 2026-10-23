@@ -67,7 +67,7 @@ export const UI: Record<Lang, UiText> = {
       title: '당신의 제주 취향을\n찾아보세요.',
       sub: (n) => `${n}가지 질문으로 알아보는\n나에게 맞는 게스트하우스.`,
       storyTitle: '‘게하게’',
-      storyBody: '바다에서 올라온 소라게, 게하게.\n마음에 드는 집을 찾으면 껍데기를 바꿔 들어가요.',
+      storyBody: '바다에서 올라온 소라게, 게하게\n마음에 드는 집을 찾으면 껍데기를 바꿔 들어가요.',
       storyBubble: '오늘은 어떤 집에서\n묵어볼까?',
       start: '테스트 시작하기',
       progress: '진행 상태', prev: '이전 질문', next: '다음으로', seeResult: '결과 보기',
