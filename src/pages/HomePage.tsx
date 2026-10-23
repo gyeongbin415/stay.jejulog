@@ -214,7 +214,7 @@ const BOKEH: [number, number, number, string, number][] = [
 
 /* ── SECTION 02. PROBLEM — 인트로의 조리개가 열리면 보이는 문제 정의 ─────────────────────────────── */
 /**
- * 질문 → 연필이 '가격' · '위치'를 적고 찍찍 그음 → 두 단어는 그냥 사라짐 → 연필이 '경험'을 적음 → 질문과 함께 사라짐 → 맺음 문구
+ * 질문 → 연필이 '가격' · '위치'를 적고 한 번에 찍찍 그음 → 두 단어는 그냥 사라짐 → 연필이 '경험'을 적음 → 질문과 함께 사라짐 → 맺음 문구
  * 동작 줄이기 설정이면 질문과 맺음 문구만 바로 보여 줍니다.
  */
 function Problem({ active }: { active: boolean }) {
@@ -258,9 +258,8 @@ function Problem({ active }: { active: boolean }) {
               ))}
             </div>
             <span className="sketch__word sketch__word--then">{then}</span>
-            {/* 연필로 찍찍 긋는 줄 — 단어마다 하나 */}
+            {/* 연필로 찍찍 긋는 줄 — 두 단어를 한 번에 */}
             <svg className="sketch__strikes" focusable="false">
-              <path />
               <path />
             </svg>
             <img className="sketch__pencil" src={pencilUrl} alt="" />
@@ -314,28 +313,26 @@ function runSketch(board: HTMLElement, onDone: () => void, onClear: () => void) 
   // 시간표 — 가격 · 위치를 적고 → 찍찍 긋고 → 두 단어는 그냥 사라지고 → 경험을 적고 → 질문과 함께 사라짐
   const T = {
     pIn: [700, 1100], w1: [1100, 1900], move: [1900, 2200], w2: [2200, 3000],
-    back: [3000, 3350], s1: [3350, 3950], hop: [3950, 4200], s2: [4200, 4800], pOut: [4800, 5200],
-    gone: [5200, 5900],
-    p2In: [6000, 6400], w3: [6400, 7200], p2Out: [7200, 7600], fade: [8000, 8800], end: 9100,
+    back: [3000, 3350], strike: [3350, 4450], pOut: [4450, 4850],
+    gone: [4900, 5600],
+    p2In: [5700, 6100], w3: [6100, 6900], p2Out: [6900, 7300], fade: [7700, 8500], end: 8800,
   } as const;
 
-  // 찍찍 긋는 줄 — 단어 위를 오가는 지그재그 (단어 상자 기준 비율)
-  const ZIG = [[-0.08, 0.62], [1.06, 0.4], [-0.02, 0.58], [1.04, 0.36], [0.02, 0.7], [1.08, 0.5]];
-  let geo: { a: ReturnType<typeof box>; b: ReturnType<typeof box>; lens: number[] } | null = null;
+  // 찍찍 긋는 줄 — 두 단어 위를 한 번에 오가는 지그재그 (두 단어를 합친 상자 기준 비율)
+  const ZIG = [[-0.04, 0.62], [1.03, 0.4], [-0.01, 0.58], [1.02, 0.36], [0.01, 0.7], [1.04, 0.5]];
+  let geo: { lens: number[] } | null = null;
   const measure = () => {
     const a = box(w1), b = box(w2);
+    const r = { l: a.l, t: Math.min(a.t, b.t), w: b.r - a.l, h: Math.max(a.b, b.b) - Math.min(a.t, b.t) };
     svg.setAttribute('viewBox', `0 0 ${board.clientWidth} ${board.clientHeight}`);
-    const lens = [a, b].map((r, i) => {
-      const d = ZIG.map(([x, y], k) => `${k ? 'L' : 'M'}${(r.l + r.w * x).toFixed(1)} ${(r.t + r.h * y).toFixed(1)}`).join(' ');
-      const p = strikes[i];
-      p.setAttribute('d', d);
-      p.style.strokeWidth = String(Math.max(3, r.h * 0.07));
-      const len = p.getTotalLength();
-      p.style.strokeDasharray = String(len);
-      p.style.strokeDashoffset = String(len);
-      return len;
-    });
-    geo = { a, b, lens };
+    const d = ZIG.map(([x, y], k) => `${k ? 'L' : 'M'}${(r.l + r.w * x).toFixed(1)} ${(r.t + r.h * y).toFixed(1)}`).join(' ');
+    const p = strikes[0];
+    p.setAttribute('d', d);
+    p.style.strokeWidth = String(Math.max(3, r.h * 0.07));
+    const len = p.getTotalLength();
+    p.style.strokeDasharray = String(len);
+    p.style.strokeDashoffset = String(len);
+    geo = { lens: [len] };
   };
 
   let raf = 0;
@@ -390,23 +387,16 @@ function runSketch(board: HTMLElement, onDone: () => void, onClear: () => void) 
       } else {
         w2.style.clipPath = 'inset(0 0 0 0)';
         if (!geo) measure();
-        if (t < T.s1[0]) {
+        if (t < T.strike[0]) {
           const p = ease(seg(t, T.back[0], T.back[1]));
           const s = strikeAt(0, 0);
           placePencil(lerp(b.r, s.x, p), lerp(line(b), s.y, p) - Math.sin(p * Math.PI) * ph * 0.3, 1);
-        } else if (t < T.hop[0]) {
-          drawStrike(0, seg(t, T.s1[0], T.s1[1]));
-        } else if (t < T.s2[0]) {
-          strikes[0].style.strokeDashoffset = '0';
-          const p = ease(seg(t, T.hop[0], T.hop[1]));
-          const e = strikeAt(0, 1), s = strikeAt(1, 0);
-          placePencil(lerp(e.x, s.x, p), lerp(e.y, s.y, p) - Math.sin(p * Math.PI) * ph * 0.25, 1);
         } else if (t < T.pOut[0]) {
-          drawStrike(1, seg(t, T.s2[0], T.s2[1]));
+          drawStrike(0, seg(t, T.strike[0], T.strike[1]));
         } else {
-          strikes[1].style.strokeDashoffset = '0';
+          strikes[0].style.strokeDashoffset = '0';
           const p = ease(seg(t, T.pOut[0], T.pOut[1]));
-          const e = strikeAt(1, 1);
+          const e = strikeAt(0, 1);
           placePencil(lerp(e.x, off.x, p), lerp(e.y, -ph * 0.2, p), 1 - p);
         }
       }
