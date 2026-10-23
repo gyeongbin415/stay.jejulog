@@ -42,7 +42,7 @@
 .stay-sec__title { font-family: var(--f-head); font-size: var(--t-h3); font-weight: 700; line-height: 1.3; letter-spacing: -0.03em; }
 
 /* ── 02. BASIC INFORMATION ─────────────────────────────── */
-.stay-info { border-bottom: 1px solid var(--line); }
+/* 기본 정보 아래 구분선은 없앰 */
 .stay-info__grid { display: grid; gap: 32px; }
 .stay-info__oneline { font-family: var(--f-head); font-size: clamp(20px, 2vw, 26px); font-weight: 500; line-height: 1.5; letter-spacing: -0.03em; max-width: 22em; }
 .stay-info__list { display: grid; border-top: 1px solid var(--line-strong); }
