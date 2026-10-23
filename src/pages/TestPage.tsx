@@ -213,7 +213,8 @@ function Result({ result, shared, onRetry, focusRef }: { result: QuizResult; sha
       const file = new File([blob], `jejulog-${result.code}.png`, { type: 'image/png' });
       const touch = window.matchMedia('(pointer: coarse)').matches;
       if (touch && navigator.canShare?.({ files: [file] })) {
-        await navigator.share({ files: [file], title: t.shareTitle(site.brand, type.name) });
+        // 이미지만 보냄 — 제목 문장(‘스테이 제주로그 — …’)은 함께 보내지 않음
+        await navigator.share({ files: [file] });
       } else {
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
