@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type CSSProperties } from 'react';
 import { SITE as SITE_KO, INSTAGRAM_URL } from '../data/site';
 import { QUESTIONS } from '../data/quiz';
 import { useContent } from '../i18n';
@@ -6,6 +6,17 @@ import { href } from '../lib/router';
 import { useReducedMotion } from '../lib/motion';
 import { HousePage } from './HousePage';
 import introNightUrl from '../assets/intro-night.webp';
+import mosaicCinema from '../assets/mosaic/shym-cinema.webp';
+import mosaicLp from '../assets/mosaic/seoron-lp.webp';
+import mosaicFlower from '../assets/mosaic/kokoko-flower.webp';
+import mosaicWorkshop from '../assets/mosaic/srr-workshop.webp';
+import mosaicLibrary from '../assets/mosaic/bookhome-library.webp';
+import mosaicDinner from '../assets/mosaic/susu-dinner-table.webp';
+import mosaicWine from '../assets/mosaic/rooftop-dinner.webp';
+import mosaicRun from '../assets/mosaic/saewol-run.webp';
+import mosaicSnap from '../assets/mosaic/mureung-snap.webp';
+import mosaicSunrise from '../assets/mosaic/kokoko-sunrise.webp';
+import mosaicPotluck from '../assets/mosaic/mureung-potluck.webp';
 
 /**
  * PAGE 01 — 메인 (하나의 세로 스크롤)
@@ -228,6 +239,7 @@ function Problem() {
             ))}
           </h2>
         </header>
+        <Mosaic />
         {SITE.problem.points.length > 0 && (
           <div className="problem__points">
             {SITE.problem.points.map((pt) => (
@@ -247,6 +259,36 @@ function Problem() {
         </div>
       </div>
     </section>
+  );
+}
+
+/**
+ * 줌아웃 모자이크 — 인트로의 파티 장면이 가운데 한 칸으로 작아지고,
+ * 그 둘레에 게스트하우스 아홉 곳의 다른 장면들이 하나씩 떠오릅니다. (4칸 × 3줄, 6번째 칸이 파티)
+ */
+const MOSAIC: (string | null)[] = [
+  mosaicCinema, mosaicLp, mosaicFlower, mosaicWorkshop,
+  mosaicLibrary, null, mosaicDinner, mosaicWine,
+  mosaicRun, mosaicSnap, mosaicSunrise, mosaicPotluck,
+];
+/** 떠오르는 순서 — 칸 번호 순이 아니라 여기저기서 하나씩 */
+const POP_ORDER = [6, 1, 9, 3, 4, 11, 0, 7, 10, 2, 8];
+
+function Mosaic() {
+  return (
+    <div className="mosaic" aria-hidden="true">
+      {MOSAIC.map((src, i) =>
+        src ? (
+          <span key={i} className="mosaic__tile" style={{ '--o': POP_ORDER.indexOf(i) } as CSSProperties}>
+            <img src={src} alt="" />
+          </span>
+        ) : (
+          <span key={i} className="mosaic__tile mosaic__tile--party">
+            <img src={introNightUrl} alt="" />
+          </span>
+        ),
+      )}
+    </div>
   );
 }
 
