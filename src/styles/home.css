@@ -61,8 +61,8 @@
 .w1 { left: max(7%, 50% - 440px); top: 18%; font-size: clamp(46px, 8vw, 118px); }
 .w2 { right: max(8%, 50% - 440px); top: 41%; text-align: right; font-size: clamp(40px, 7vw, 102px); }
 .w3 { left: max(7%, 50% - 440px); top: 60%; font-size: clamp(43px, 7.5vw, 110px); }
-/* 세 단어 모두 회청색 */
-.intro__word { color: #B2BEC5; }
+/* 세 단어 모두 같은 색 */
+.intro__word { color: #C4BEB5; }
 
 .intro__hint {
   z-index: 2; position: absolute; left: 50%; bottom: 40px; translate: -50% 0;
