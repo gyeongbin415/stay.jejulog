@@ -66,7 +66,7 @@ export const UI: Record<Lang, UiText> = {
     test: {
       title: '당신의 제주 취향을\n찾아보세요.',
       sub: (n) => `${n}가지 질문으로 알아보는\n나에게 맞는 게스트하우스.`,
-      storyTitle: '소라게 ‘게하게’',
+      storyTitle: '‘게하게’',
       storyBody: '바다에서 올라온 소라게, 게하게.\n마음에 드는 집을 찾으면 껍데기를 바꿔 들어가요.',
       storyBubble: '"오늘은 어떤 집에서\n묵어볼까?"',
       start: '테스트 시작하기',
@@ -114,7 +114,7 @@ export const UI: Record<Lang, UiText> = {
     test: {
       title: 'Find your\nJeju taste.',
       sub: (n) => `${n} questions to find\nthe guesthouse that fits you.`,
-      storyTitle: 'Gehage the hermit crab',
+      storyTitle: '‘Gehage’',
       storyBody: 'Up from the sea came a hermit crab named Gehage.\nWhen it finds a home it likes, it swaps shells and moves in.',
       storyBubble: '"Which home shall\nwe stay in today?"',
       start: 'Start the test',
@@ -162,7 +162,7 @@ export const UI: Record<Lang, UiText> = {
     test: {
       title: '找到你的\n济州旅行喜好。',
       sub: (n) => `用${n}个问题\n找到适合你的民宿。`,
-      storyTitle: '寄居蟹「게하게」',
+      storyTitle: '「게하게」',
       storyBody: '从海里爬上来的寄居蟹，게하게。\n找到喜欢的家，就换个壳住进去。',
       storyBubble: '"今天要在哪个家\n住一晚呢？"',
       start: '开始测试',
