@@ -164,7 +164,7 @@
 /* 사진 띠 — 세로 사진이 조금씩 겹쳐 화면 양 끝까지, 오른쪽에서 밀려 들어온 뒤 계속 왼쪽으로 흘러감 */
 .problem__inner:has(.strip) { padding-bottom: clamp(56px, 9vh, 100px); gap: clamp(18px, 3vh, 32px); }
 .strip { margin-inline: calc(50% - 50vw); height: clamp(220px, 38vh, 390px); padding-block: 10px; overflow: hidden; } /* 위아래 여백 — 기운 모서리가 잘리지 않게 */
-.strip__track { display: flex; align-items: center; width: max-content; height: 100%; animation: strip-flow 10s linear infinite; }
+.strip__track { display: flex; align-items: center; width: max-content; height: 100%; animation: strip-flow 9.5s linear infinite; }
 .strip__item { flex: none; aspect-ratio: 3 / 4; margin-left: clamp(-22px, -1.5vw, -10px); overflow: hidden; background: #F1E3D8; box-shadow: 0 2px 8px rgba(40, 30, 20, .1); opacity: .92; transform: translateY(var(--y, 0)) rotate(var(--r, 0deg)); } /* 살짝 비치게 — 겹친 사진이 은은하게 */
 .strip__item:nth-child(odd) { z-index: 1; }
 .strip__item img { display: block; width: 100%; height: 100%; object-fit: cover; }
