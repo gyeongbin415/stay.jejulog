@@ -105,11 +105,8 @@ export default function TestPage({ sharedCode, mine = false }: { sharedCode: str
             {lang === 'ko' ? (
               <div className="story__scene">
                 <img className="story__char story__char--art" src={storyCrabUrl} alt="" aria-hidden="true" />
-                {/* 시안 말풍선 그림(글자는 지움) 위에 손글씨 문구 — 문구는 ui.test.storyBubble */}
-                <div className="story__bubble-art">
-                  <img src={storyBubbleUrl} alt="" />
-                  <p className="story__bubble-say pre">{ui.test.storyBubble}</p>
-                </div>
+                {/* 받은 말풍선 그림 그대로 ('오늘은 어떤 집으로 이사갈까?', 배경만 뺌) */}
+                <img className="story__bubble-art" src={storyBubbleUrl} alt={ui.test.storyBubble.replace('\n', ' ')} />
               </div>
             ) : (
             <div className="story__scene">
