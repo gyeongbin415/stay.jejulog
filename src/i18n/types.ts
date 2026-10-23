@@ -20,6 +20,8 @@ export interface SiteText {
     label: string;
     title: string[];
     points: { no: string; key: string; text: string }[];
+    /** 연필로 적었다 지우는 단어 — 먼저 적고 지우는 두 단어 · 다시 적는 단어 */
+    sketch: { written: string[]; then: string };
     answer: string;
     answerNote: string;
   };

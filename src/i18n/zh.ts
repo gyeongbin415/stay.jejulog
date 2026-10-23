@@ -21,7 +21,7 @@ export const ZH: ContentPack = {
 
     problem: {
       label: 'PROBLEM',
-      title: ['说起民宿，你还是先想到派对吗？'],
+      title: ['说起民宿，', '你还是先想到派对吗？'],
       points: [
         {
           no: '01',
@@ -29,6 +29,7 @@ export const ZH: ContentPack = {
           text: '我们挑选住处时，主要比较价格和位置。但在民宿里不只是睡觉，还可以享受各种活动，结识新朋友。',
         },
       ],
+      sketch: { written: ['价格', '位置'], then: '体验' },
       answer: '现在，是时候超越价格和位置，\n用自己想要的体验来挑选民宿了。',
       answerNote: '',
     },

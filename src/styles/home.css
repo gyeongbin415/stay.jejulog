@@ -162,7 +162,9 @@
 .intro[data-phase="reveal"] .problem__inner > * { opacity: 1; transform: none; }
 .intro[data-phase="reveal"] .problem__points { transition-delay: .75s; }
 .intro[data-phase="reveal"] .problem__head { transition-delay: .55s; }
-.intro[data-phase="reveal"] .problem__answer { transition-delay: .95s; }
+.intro[data-phase="reveal"] .sketch { transition-delay: .55s; }
+/* 맺음 문구는 연필 · 지우개 장면이 끝난 뒤에 */
+.intro[data-phase="reveal"] .problem:not(.is-done) .problem__answer { opacity: 0; transform: translateY(18px); }
 .problem__head { display: grid; gap: 14px; align-content: start; }
 .problem__title { font-family: var(--f-home); font-size: clamp(24px, 3.4vw, 46px); font-weight: 700; line-height: 1.38; letter-spacing: -0.025em; }
 .problem__title span { display: block; }
@@ -174,13 +176,21 @@
 .problem__key { display: flex; align-items: baseline; gap: 10px; font-size: 15px; font-weight: 700; }
 .problem__key span { font-size: 12px; letter-spacing: .12em; color: var(--orange-ink); }
 
+/* 연필 · 지우개 장면 — 적었다 지우고 다시 적는 낙서판 */
+.sketch { position: relative; height: clamp(130px, 22vh, 220px); font-size: clamp(46px, 7vw, 92px); }
+.sketch__row { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 1.1em; }
+.sketch__word { display: inline-block; padding: .08em .06em; font-family: "Nanum Pen Script", var(--f-home); line-height: 1; color: #3A3735; clip-path: inset(0 100% 0 0); }
+.sketch__word--then { position: absolute; left: 50%; top: 50%; translate: -50% -50%; }
+.sketch__pencil, .sketch__eraser { position: absolute; left: 0; top: 0; opacity: 0; pointer-events: none; will-change: transform, opacity; }
+.sketch__pencil { height: 1.5em; width: auto; }
+.sketch__eraser { height: .95em; width: auto; }
+
 /* 그래서 — 웹진이 하는 일 */
 .problem__answer { display: grid; gap: 8px; }
 .problem__answertext { font-family: var(--f-home); font-size: clamp(19px, 2.6vw, 32px); font-weight: 500; line-height: 1.5; letter-spacing: -0.025em; color: var(--forest); }
 .problem__answernote { font-size: 14.5px; color: var(--ink-soft); }
 @media (min-width: 900px) {
-  .problem__inner { grid-template-columns: 1fr 1fr; column-gap: 72px; align-items: start; }
-  .problem__answer { grid-column: 1 / -1; padding-top: 8px; }
+  .problem__answer { padding-top: 8px; }
 }
 @media (max-height: 700px) and (max-width: 899px) {
   .problem__answernote { display: none; }
