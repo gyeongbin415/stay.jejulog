@@ -65,7 +65,8 @@ main { display: block; outline: none; }
 }
 .btn:hover { background: #F5A266; border-color: #F5A266; }
 .btn:active { transform: translateY(1px); }
-.btn .arrow { display: inline-block; transition: transform var(--t-hover) var(--ease); }
+/* 버튼 화살표는 모두 숨김 (글자만) */
+.btn .arrow { display: none; }
 .btn:hover .arrow { transform: translateX(4px); }
 .btn--ghost { background: transparent; color: var(--forest); }
 .btn--ghost:hover { background: var(--forest); color: var(--bg); }
