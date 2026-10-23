@@ -54,6 +54,7 @@ export const EN: ContentPack = {
       title: ['Do you see it differently', 'now than when you came in?'],
       sub: 'Beyond parties, guesthouses hold\nall kinds of experiences\nwaiting to match your taste.',
       cta: 'Look around again',
+      instagram: 'See us on Instagram',
       closing: 'We hope the way you choose a stay shifts\nfrom price and location to the experience you want.\nMay your next Jeju trip be remembered by your taste.',
     },
 

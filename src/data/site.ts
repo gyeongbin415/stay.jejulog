@@ -3,6 +3,9 @@
    CHECK IN → EXPLORE → DISCOVER → CHECK OUT
 ------------------------------------------------------------------- */
 
+/** 제주로그 인스타그램 (@stay.jejulog) */
+export const INSTAGRAM_URL = 'https://www.instagram.com/stay.jejulog/';
+
 export const SITE = {
   brand: '스테이 제주로그',
   brandEn: 'JEJULOG',
@@ -50,6 +53,7 @@ export const SITE = {
     title: ['들어올 때와', '나갈 때의 생각이 달라졌나요?'],
     sub: '게스트하우스에는 파티 말고도\n당신의 취향에 맞는\n다양한 경험이 기다리고 있습니다.',
     cta: '다시 둘러보기',
+    instagram: '인스타그램 보러가기',
     closing: '숙소를 고르는 기준이 가격과 위치에서\n‘내가 하고 싶은 경험’으로 바뀌기를 바랍니다.\n당신의 다음 제주 여행이 취향으로 기억되기를.',
   },
 

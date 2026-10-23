@@ -26,7 +26,7 @@ export interface SiteText {
   checkIn: { label: string; title: string[]; sub: string; cta: string };
   findYourStay: { label: string; title: string[]; cta: string };
   /** 메인 마지막 마무리 — closing: 맺음말 */
-  checkOut: { label: string; title: string[]; sub: string; cta: string; closing: string };
+  checkOut: { label: string; title: string[]; sub: string; cta: string; instagram: string; closing: string };
   explore: { label: string; title: string[]; sub: string; hint: string };
   /** 숙소(프로그램)마다 소라게 캐릭터 이름 — 취향 테스트 결과 카드 */
   characters: Record<string, string>;
