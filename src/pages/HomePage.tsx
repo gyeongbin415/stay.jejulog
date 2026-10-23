@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type CSSProperties } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { SITE as SITE_KO, INSTAGRAM_URL } from '../data/site';
 import { QUESTIONS } from '../data/quiz';
 import { useContent } from '../i18n';
@@ -6,17 +6,6 @@ import { href } from '../lib/router';
 import { useReducedMotion } from '../lib/motion';
 import { HousePage } from './HousePage';
 import introNightUrl from '../assets/intro-night.webp';
-import mosaicCinema from '../assets/mosaic/shym-cinema.webp';
-import mosaicLp from '../assets/mosaic/seoron-lp.webp';
-import mosaicFlower from '../assets/mosaic/kokoko-flower.webp';
-import mosaicWorkshop from '../assets/mosaic/srr-workshop.webp';
-import mosaicLibrary from '../assets/mosaic/bookhome-library.webp';
-import mosaicDinner from '../assets/mosaic/susu-dinner-table.webp';
-import mosaicWine from '../assets/mosaic/rooftop-dinner.webp';
-import mosaicRun from '../assets/mosaic/saewol-run.webp';
-import mosaicFire from '../assets/mosaic/saewol-fire.webp';
-import mosaicSnap from '../assets/mosaic/mureung-snap.webp';
-import mosaicSunrise from '../assets/mosaic/kokoko-sunrise.webp';
 
 /**
  * PAGE 01 — 메인 (하나의 세로 스크롤)
@@ -239,7 +228,6 @@ function Problem() {
             ))}
           </h2>
         </header>
-        <PhotoStrip />
         {SITE.problem.points.length > 0 && (
           <div className="problem__points">
             {SITE.problem.points.map((pt) => (
@@ -259,45 +247,6 @@ function Problem() {
         </div>
       </div>
     </section>
-  );
-}
-
-/**
- * 사진 띠 — 게스트하우스 아홉 곳의 장면이 크기 · 비율 제각각으로 조금씩 겹쳐 한 줄로 늘어서,
- * 오른쪽에서 '쫘라락' 밀려 들어온 뒤 계속 왼쪽으로 흘러갑니다. (같은 줄을 두 번 이어 붙여 끊김 없이 돕니다)
- * ar 은 사진 비율, h 는 띠 높이 대비 %, y 는 위아래 어긋남(%), r 은 기울기(도).
- */
-const STRIP: { src: string; ar: string; h: number; y: number; r: number }[] = [
-  { src: mosaicWine, ar: '3 / 2', h: 78, y: -6, r: -2.5 },
-  { src: mosaicRun, ar: '9 / 16', h: 96, y: 2, r: 2 },
-  { src: mosaicCinema, ar: '16 / 9', h: 62, y: 10, r: -1.5 },
-  { src: mosaicFlower, ar: '4 / 3', h: 84, y: -4, r: 3 },
-  { src: mosaicFire, ar: '9 / 16', h: 90, y: 5, r: -3 },
-  { src: mosaicLp, ar: '7 / 5', h: 72, y: -8, r: 1.5 },
-  { src: mosaicWorkshop, ar: '4 / 3', h: 64, y: 12, r: -2 },
-  { src: mosaicDinner, ar: '7 / 5', h: 86, y: 0, r: 2.5 },
-  { src: mosaicSnap, ar: '3 / 2', h: 70, y: -10, r: -1 },
-  { src: mosaicLibrary, ar: '16 / 9', h: 66, y: 9, r: 2 },
-  { src: mosaicSunrise, ar: '7 / 5', h: 80, y: -3, r: -2.5 },
-];
-
-function PhotoStrip() {
-  return (
-    <div className="strip" aria-hidden="true">
-      <div className="strip__track">
-        {[0, 1].map((loop) =>
-          STRIP.map((p) => (
-            <span
-              key={`${loop}-${p.src}`}
-              className="strip__item"
-              style={{ aspectRatio: p.ar, height: `${p.h}%`, '--y': `${p.y}%`, '--r': `${p.r}deg` } as CSSProperties}
-            >
-              <img src={p.src} alt="" />
-            </span>
-          )),
-        )}
-      </div>
-    </div>
   );
 }
 
