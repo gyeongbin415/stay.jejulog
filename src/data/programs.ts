@@ -124,12 +124,12 @@ export const PROGRAMS: Program[] = [
       '비 오는 날의 실내 일정이 필요한 사람',
     ],
     hint: '상영 시작 버튼을 누르면 조명이 꺼집니다.',
-    tryLabel: '쉼 게스트하우스 들여다보기',
+    tryLabel: '쉼게스트하우스 들여다보기',
     hero: {
       src: 'photos/shym-exterior.jpg',
       art: 'cinema',
-      alt: "돌담에 'JEJUSHYM' 글자가 붙은 쉼 게스트하우스의 흰 건물과 잔디 마당",
-      caption: '쉼 게스트하우스',
+      alt: "돌담에 'JEJUSHYM' 글자가 붙은 쉼게스트하우스의 흰 건물과 잔디 마당",
+      caption: '쉼게스트하우스',
     },
     gallery: [
       { art: 'window', alt: '상영 전, 빛이 드는 라운지 (샘플 이미지)', caption: '상영 두 시간 전의 라운지' },
@@ -141,7 +141,7 @@ export const PROGRAMS: Program[] = [
     report: {
       ...emptyReport({ schedule: '매일 오후 8시', duration: '', price: '별도 비용 없음', capacity: '' }),
       sample: false,
-      place: { name: '쉼 게스트하우스', area: '제주시 한림읍', address: '제주특별자치도 제주시 한림읍 옹포2길 30' },
+      place: { name: '쉼게스트하우스', area: '제주시 한림읍', address: '제주특별자치도 제주시 한림읍 옹포2길 30' },
       oneLine:
         '사장님이 직접 깎아 만든 수제 스피커로 숨은 명작을 감상하며, 낯선 이들과 소란스럽지 않은 여운을 나누는 조용한 숙소.',
       introLabel: '프로그램 기획 의도',
@@ -239,8 +239,8 @@ export const PROGRAMS: Program[] = [
       '음악을 매개로 새로운 사람과 교류하고 싶은 사람',
     ],
     hint: '톤암을 끌어 레코드 위에 올려 보세요. 키보드 방향키로도 움직일 수 있습니다.',
-    tryLabel: '서론게스트하우스 들여다보기',
-    hero: { src: 'photos/seoron-exterior.jpg', art: 'lp', alt: "붉은 벽돌 벽에 걸린 원형 나무 간판. 흰 글씨로 '서론'과 '@seolon_zip'이 새겨져 있다", caption: '서론게스트하우스' },
+    tryLabel: '서론 게스트하우스 들여다보기',
+    hero: { src: 'photos/seoron-exterior.jpg', art: 'lp', alt: "붉은 벽돌 벽에 걸린 원형 나무 간판. 흰 글씨로 '서론'과 '@seolon_zip'이 새겨져 있다", caption: '서론 게스트하우스' },
     gallery: [
       { art: 'window', alt: '레코드 선반이 있는 라운지 (샘플 이미지)', caption: '선반 앞에서 한참' },
       { art: 'sea-night', alt: '라운지 창밖의 밤 (샘플 이미지)', caption: 'B면이 끝날 무렵' },
@@ -251,7 +251,7 @@ export const PROGRAMS: Program[] = [
     report: {
       ...emptyReport({ schedule: 'LP 청음 매일 18:00 ~ 19:00 · 리스닝 파티 두 달에 한 번', duration: '', price: 'LP 청음 무료', capacity: '' }),
       sample: false,
-      place: { name: '서론게스트하우스', area: '서귀포시 안덕면', address: '제주 서귀포시 안덕면 사계신항로39번길 17-13 1층' },
+      place: { name: '서론 게스트하우스', area: '서귀포시 안덕면', address: '제주 서귀포시 안덕면 사계신항로39번길 17-13 1층' },
       oneLine: 'LP를 감상하며 사람들과 취향을 나누고, 제주의 밤을 느긋하게 즐길 수 있는 숙소',
       programs: [
         {

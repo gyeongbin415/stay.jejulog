@@ -161,7 +161,7 @@ export const ZH: ContentPack = {
         alt: '石墙上贴着“JEJUSHYM”字样的 Shym Guesthouse 白色建筑与草坪庭院',
         caption: 'Shym Guesthouse',
       },
-      placeName: 'Shym Guesthouse（쉼 게스트하우스）',
+      placeName: 'Shym Guesthouse（쉼게스트하우스）',
       area: '济州市 翰林邑',
       oneLine: '用老板亲手削制的手工音箱欣赏冷门佳作，与陌生人分享一份不喧嚣的余韵——一间安静的民宿。',
       programs: [
@@ -245,7 +245,7 @@ export const ZH: ContentPack = {
         '想以音乐为媒介结识新朋友的人',
       ],
       hero: { alt: '挂在红砖墙上的圆形木招牌，上面刻着白色的“서론”和“@seolon_zip”', caption: 'Seoron Guesthouse' },
-      placeName: 'Seoron Guesthouse（서론게스트하우스）',
+      placeName: 'Seoron Guesthouse（서론 게스트하우스）',
       area: '西归浦市 安德面',
       oneLine: '一边欣赏黑胶，一边与人分享喜好，从容享受济州之夜的民宿',
       programs: [
