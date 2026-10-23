@@ -127,4 +127,6 @@
 }
 
 /* ── 07. NAVIGATION ─────────────────────────────── */
-.stay-nav { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; padding: 8px 0 clamp(72px, 10vh, 112px); }
+.stay-nav { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 8px 0 clamp(72px, 10vh, 112px); }
+/* 위 줄: 다시 집 둘러보기 · 다음 게하 살펴보기 — 나란히, 좁으면 위아래로 */
+.stay-nav__row { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }

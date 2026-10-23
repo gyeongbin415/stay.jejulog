@@ -19,7 +19,7 @@ export interface UiText {
     basicInfo: string; placeName: string; address: string; mainPrograms: string; usage: string;
     programStory: string; programDetails: string; content: string; note: string;
     editorTitle: string; editorOneLine: string; travelStyle: string; likedIt: string; forWhom: string;
-    recommendTitle: string; backToHouse: string; toTest: string; booking: string; navAria: string;
+    recommendTitle: string; backToHouse: string; nextStay: string; toTest: string; booking: string; navAria: string;
   };
   test: {
     title: string; sub: (n: number) => string; progress: string; prev: string; next: string; seeResult: string;
@@ -58,7 +58,7 @@ export const UI: Record<Lang, UiText> = {
       programStory: '프로그램 이야기', programDetails: '프로그램 소개', content: '체험 내용', note: '참고사항',
       editorTitle: '에디터가 직접 머물러 봤어요', editorOneLine: '에디터의 한 줄 소개', travelStyle: '나의 여행 성향',
       likedIt: '그래서 이 게하가 좋았어요', forWhom: '이런 사람에게 추천해요',
-      recommendTitle: '이런 분께 추천합니다', backToHouse: '다른 게하 둘러보기', toTest: '나에게 맞는 게하 찾기', booking: '예약 정보 보기', navAria: '다른 게스트하우스',
+      recommendTitle: '이런 분께 추천합니다', backToHouse: '다시 집 둘러보기', nextStay: '다음 게하 살펴보기', toTest: '나에게 맞는 게하 찾기', booking: '예약 정보 보기', navAria: '다른 게스트하우스',
     },
     test: {
       title: '당신의 제주 취향을\n찾아보세요.',
@@ -102,7 +102,7 @@ export const UI: Record<Lang, UiText> = {
       programStory: 'The story behind it', programDetails: 'Programs', content: 'What you’ll do', note: 'Good to know',
       editorTitle: 'Our editor stayed here', editorOneLine: 'About the editor', travelStyle: 'Travel style',
       likedIt: 'Why I loved this place', forWhom: 'Who it’s for',
-      recommendTitle: 'Recommended for', backToHouse: 'Explore other guesthouses', toTest: 'Find the stay that fits you', booking: 'Booking info', navAria: 'Other guesthouses',
+      recommendTitle: 'Recommended for', backToHouse: 'Back to the house', nextStay: 'See the next guesthouse', toTest: 'Find the stay that fits you', booking: 'Booking info', navAria: 'Other guesthouses',
     },
     test: {
       title: 'Find your\nJeju taste.',
@@ -146,7 +146,7 @@ export const UI: Record<Lang, UiText> = {
       programStory: '活动的故事', programDetails: '活动介绍', content: '体验内容', note: '注意事项',
       editorTitle: '编辑亲自入住体验', editorOneLine: '编辑简介', travelStyle: '我的旅行风格',
       likedIt: '所以我喜欢这家民宿', forWhom: '推荐给这样的人',
-      recommendTitle: '推荐给这样的你', backToHouse: '看看其他民宿', toTest: '找到适合我的民宿', booking: '预订信息', navAria: '其他民宿',
+      recommendTitle: '推荐给这样的你', backToHouse: '再逛逛这栋房子', nextStay: '看看下一家民宿', toTest: '找到适合我的民宿', booking: '预订信息', navAria: '其他民宿',
     },
     test: {
       title: '找到你的\n济州旅行喜好。',
