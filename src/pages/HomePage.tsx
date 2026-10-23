@@ -290,7 +290,7 @@ function CheckOut() {
             {c.cta} <span className="arrow" aria-hidden="true">→</span>
           </a>
           <a className="btn" href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" data-track="checkout_instagram">
-            {c.instagram} <span className="arrow" aria-hidden="true">↗</span>
+            {c.instagram} <span className="arrow" aria-hidden="true">→</span>
           </a>
         </div>
       </div>
