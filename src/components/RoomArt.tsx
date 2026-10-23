@@ -445,10 +445,11 @@ const ART: Record<ProgramId, ReactNode> = {
       </g>
       <Table x={104} w={232} y={190} />
       <g className="obj">
-        <path d="M196 190 L190 154 H222 L216 190 Z" fill="#4F8F9C" />
-        <path d="M191 160 H221" stroke="#3E7783" strokeWidth="3" />
         <path d="M206 190 V128 M206 160 L190 124 M206 160 L224 120 M206 168 L180 140 M206 168 L234 138" stroke={C.leaf} strokeWidth="2" />
         <path d="M184 142 q-8 -6 -4 -12 q6 2 4 12 Z M230 138 q8 -6 4 -12 q-6 2 -4 12 Z" fill={C.leaf} />
+        {/* 꽃병 — 줄기 위에 그려 줄기가 병 안으로 들어가 보이게 */}
+        <path d="M196 190 L190 154 H222 L216 190 Z" fill="#4F8F9C" />
+        <path d="M191 160 H221" stroke="#3E7783" strokeWidth="3" />
         {[[190, 120, '#E26B4F'], [206, 106, C.white], [224, 116, C.orange], [178, 136, C.orange], [236, 134, '#E26B4F'], [212, 126, '#F2A07A']].map(([x, y, c]) => (
           <g key={`${x}-${y}`}>
             {[0, 60, 120, 180, 240, 300].map((a) => (
