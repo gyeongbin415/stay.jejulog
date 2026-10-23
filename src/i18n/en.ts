@@ -645,7 +645,6 @@ export const EN: ContentPack = {
       adventurer: {
         name: 'The Adventurous Traveler',
         en: 'THE MOVER',
-        tagline: 'Your Jeju shines brightest when you’re on the move.',
         description:
           'You remember a landscape with your body before your eyes. The moment you run out of breath, the moment the wind changes direction — those become the scenes of your trip. Walk side by side with strangers, warm yourselves at the same fire, and before long you’re friends.',
         travelStyle: [
@@ -657,7 +656,6 @@ export const EN: ContentPack = {
       collector: {
         name: 'The Sensory Collector',
         en: 'THE COLLECTOR',
-        tagline: 'You travel deeply, even in quiet moments.',
         description:
           'For you, travel is about collecting sounds and sentences. You look for a place to sit for a long while before any crowded landmark. Among people who share a space without words, you actually feel most at ease.',
         travelStyle: [
@@ -669,7 +667,6 @@ export const EN: ContentPack = {
       maker: {
         name: 'The Hands-On Recorder',
         en: 'THE MAKER',
-        tagline: 'You’re someone who makes the moments of a trip yourself.',
         description:
           'Just seeing and hearing isn’t quite enough for you. Trimming a single flower, carving a piece of wood, cooking a meal to share — that’s when a place finally becomes yours. It’s fine if the result comes out a little crooked. That crookedness is the memory.',
         travelStyle: [
@@ -681,7 +678,6 @@ export const EN: ContentPack = {
       keeper: {
         name: 'The Scene Keeper',
         en: 'THE KEEPER',
-        tagline: 'For you, travel is a series of scenes that stay with you.',
         description:
           'You’re the kind of person who takes the trip once more after it’s over. A scene from a film watched together, the air of a night spent tilting glasses — they grow sharper as time goes by. You know how this moment will be remembered later.',
         travelStyle: [

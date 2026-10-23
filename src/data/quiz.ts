@@ -133,7 +133,6 @@ export interface TravelType {
   no: string;
   name: string;
   en: string;
-  tagline: string;
   /** 감각적인 유형 설명 */
   description: string;
   /** 당신에게 어울리는 제주 여행 방식 */
@@ -149,7 +148,6 @@ export const TYPES: Record<TypeId, TravelType> = {
     no: '01',
     name: '모험하는 여행자',
     en: 'THE MOVER',
-    tagline: '당신의 제주는 움직일 때 가장 빛납니다.',
     description:
       '당신은 풍경을 눈보다 몸으로 먼저 기억합니다. 숨이 차오르는 순간, 바람이 방향을 바꾸는 순간, 그런 것들이 여행의 장면이 되지요. 낯선 사람과도 나란히 걷고 같은 불을 쬐다 보면 어느새 친해져 있습니다.',
     travelStyle: [
@@ -165,7 +163,6 @@ export const TYPES: Record<TypeId, TravelType> = {
     no: '02',
     name: '감각적인 수집가',
     en: 'THE COLLECTOR',
-    tagline: '당신은 조용한 순간에도 깊은 여행을 합니다.',
     description:
       '당신에게 여행은 소리와 문장을 모으는 일입니다. 붐비는 명소보다 오래 앉아 있을 수 있는 자리를 먼저 찾지요. 말없이 같은 공간을 나누는 사람들 사이에서 오히려 편안함을 느낍니다.',
     travelStyle: [
@@ -181,7 +178,6 @@ export const TYPES: Record<TypeId, TravelType> = {
     no: '03',
     name: '손끝의 기록자',
     en: 'THE MAKER',
-    tagline: '당신은 여행의 순간을 직접 만들어 가는 사람입니다.',
     description:
       '당신은 보고 듣는 것만으로는 조금 아쉬운 사람입니다. 꽃 한 송이를 다듬고, 나무 한 조각을 깎고, 함께 먹을 밥을 짓는 동안 여행지는 비로소 내 것이 되지요. 결과물이 조금 비뚤어도 괜찮습니다. 그 비뚤어짐이 기억이니까요.',
     travelStyle: [
@@ -197,7 +193,6 @@ export const TYPES: Record<TypeId, TravelType> = {
     no: '04',
     name: '장면을 간직하는 여행자',
     en: 'THE KEEPER',
-    tagline: '당신에게 여행은 오래 남을 장면의 연속입니다.',
     description:
       '당신은 여행이 끝난 뒤에 여행을 한 번 더 하는 사람입니다. 함께 본 영화의 한 장면, 잔을 기울이던 밤의 공기가 시간이 지날수록 선명해지지요. 지금 이 순간이 나중에 어떻게 기억될지 아는 사람입니다.',
     travelStyle: [

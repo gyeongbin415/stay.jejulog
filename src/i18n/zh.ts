@@ -614,7 +614,6 @@ export const ZH: ContentPack = {
       adventurer: {
         name: '冒险的旅行者',
         en: 'THE MOVER',
-        tagline: '你的济州，在行动时最闪耀。',
         description:
           '比起眼睛，你更先用身体记住风景。呼吸变得急促的瞬间、风改变方向的瞬间，这些都会成为旅途的画面。和陌生人并肩走着、围着同一堆火取暖，不知不觉就熟了起来。',
         travelStyle: [
@@ -626,7 +625,6 @@ export const ZH: ContentPack = {
       collector: {
         name: '感性的收集者',
         en: 'THE COLLECTOR',
-        tagline: '即使在安静的时刻，你也在进行一场深度旅行。',
         description:
           '对你来说，旅行是收集声音与句子的事。比起拥挤的景点，你会先找一个能久坐的位置。在默默共享同一空间的人们之间，你反而感到自在。',
         travelStyle: [
@@ -638,7 +636,6 @@ export const ZH: ContentPack = {
       maker: {
         name: '指尖的记录者',
         en: 'THE MAKER',
-        tagline: '你是亲手创造旅途瞬间的人。',
         description:
           '对你来说，只是看和听总觉得少了点什么。修剪一枝花、削一块木头、做一顿和大家一起吃的饭，旅行地这才真正变成你的。成品有点歪也没关系，那份歪斜正是记忆。',
         travelStyle: [
@@ -650,7 +647,6 @@ export const ZH: ContentPack = {
       keeper: {
         name: '珍藏画面的旅行者',
         en: 'THE KEEPER',
-        tagline: '对你来说，旅行是一连串会留存很久的画面。',
         description:
           '你是在旅行结束后，还会再旅行一次的人。一起看过的电影里的某个镜头、举杯那晚的空气，随着时间流逝反而愈发清晰。你知道此刻在日后会被如何记住。',
         travelStyle: [
