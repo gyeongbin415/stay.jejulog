@@ -47,8 +47,8 @@ function Intro() {
 
   useEffect(() => {
     if (reduced) return;
-    // 질문만 2초(생각할 시간) → 단어 0.65초 간격 → 1초 뒤 시야가 좁아짐 → 0.9초 뒤 전환 문구 → 1.6초 뒤 문제 정의
-    const at = Array.from({ length: total }, (_, i) => 2000 + i * 650);
+    // 질문만 1초(생각할 시간) → 단어 0.65초 간격 → 1초 뒤 시야가 좁아짐 → 0.9초 뒤 전환 문구 → 1.6초 뒤 문제 정의
+    const at = Array.from({ length: total }, (_, i) => 1000 + i * 650);
     const last = at[at.length - 1];
     at.push(last + 1000, last + 1900, last + 3500);
     // 화면에 실제로 보이는 동안만 시간을 셉니다 — 공유 링크가 뒤에서 미리 불러와질 때 혼자 끝나 버리지 않도록
