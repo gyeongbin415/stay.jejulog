@@ -245,7 +245,7 @@ function Result({ result, shared, onRetry, focusRef }: { result: QuizResult; sha
   return (
     <div className="result">
       <header className="result__head">
-        <p className="label">{shared ? t.sharedLabel : t.resultLabel}</p>
+        {shared && <p className="label">{t.sharedLabel}</p>}
         <p className="result__lead">{t.lead}</p>
         {/* 1위 — 캐릭터 이름(…하게) · 게스트하우스 이름 · 캐릭터 그림 */}
         <h1 id="test-title" ref={focusRef} tabIndex={-1} className="result__type">
