@@ -29,6 +29,9 @@ export function HousePage({ embedded = false }: { embedded?: boolean }) {
   // 다락 1 · 실내 두 칸씩 세 층(compactFloors) · 마당 2 — 넓은 화면 · 좁은 화면 같은 배치
   const [attic, , , yard] = rooms;
   const bodyFloors = compactFloors;
+  // 목록 보기도 집 순서대로 — 다락 → 3F → 2F → 1F → 마당
+  const houseOrder = [attic, ...bodyFloors, yard].flatMap((f) => f.items);
+  const listed = houseOrder.map((id) => experiences.find((e) => e.id === id)!).filter(Boolean);
   // 상세페이지에 다녀와도 보던 방식이 유지되도록 이 탭에서만 기억합니다.
   const [view, setView] = useState<View>(readView);
   const choose = (v: View) => {
@@ -67,7 +70,7 @@ export function HousePage({ embedded = false }: { embedded?: boolean }) {
       {view === 'list' ? (
         <nav className="explist wrap" aria-label={ui.house.listAria}>
           <ol className="explist__grid">
-            {experiences.map((e) => (
+            {listed.map((e) => (
               <li key={e.id}>
                 <a className="explist__item" href={href.stay(e.id)} data-track={`house_list_${e.id}`}>
                   <span className="explist__name">{e.label}</span>
