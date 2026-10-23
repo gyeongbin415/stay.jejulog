@@ -47,8 +47,8 @@ function Intro() {
 
   useEffect(() => {
     if (reduced) return;
-    // 질문만 0.9초 → 단어 0.65초 간격 → 1초 뒤 시야가 좁아짐 → 0.9초 뒤 전환 문구 → 1.6초 뒤 문제 정의
-    const at = Array.from({ length: total }, (_, i) => 900 + i * 650);
+    // 질문만 3초(생각할 시간) → 단어 0.65초 간격 → 1초 뒤 시야가 좁아짐 → 0.9초 뒤 전환 문구 → 1.6초 뒤 문제 정의
+    const at = Array.from({ length: total }, (_, i) => 3000 + i * 650);
     const last = at[at.length - 1];
     at.push(last + 1000, last + 1900, last + 3500);
     // 화면에 실제로 보이는 동안만 시간을 셉니다 — 공유 링크가 뒤에서 미리 불러와질 때 혼자 끝나 버리지 않도록
@@ -126,6 +126,40 @@ function Intro() {
     : step === total ? 'all'
     : step === total + 1 ? 'iris'
     : step === total + 2 ? 'turn' : 'reveal';
+
+  // 문제 정의(PROBLEM)가 열리기 전까지는 스크롤을 막습니다 — 휠 · 터치 · 키보드만 막고,
+  // 메뉴 · 버튼으로 이동하는 스크롤은 그대로 둡니다 (메뉴 안 스크롤도 그대로)
+  // 혹시 시간이 멈춰도(창이 가려졌다 돌아오는 등) 갇히지 않게 15초 뒤에는 풀어 줍니다
+  const [lockTimedOut, setLockTimedOut] = useState(false);
+  const locked = !reduced && !revealed && !lockTimedOut;
+  useEffect(() => {
+    setLockTimedOut(false);
+    const t = window.setTimeout(() => setLockTimedOut(true), 15000);
+    return () => window.clearTimeout(t);
+  }, [run]);
+  useEffect(() => {
+    if (!locked) return;
+    const KEYS = new Set([' ', 'PageDown', 'PageUp', 'ArrowDown', 'ArrowUp', 'End', 'Home']);
+    const inMenu = (t: EventTarget | null) => t instanceof Element && !!t.closest('.menu');
+    const block = (e: Event) => {
+      if (!inMenu(e.target)) e.preventDefault();
+    };
+    const onKey = (e: KeyboardEvent) => {
+      const t = e.target as HTMLElement | null;
+      if (!KEYS.has(e.key) || inMenu(t) || t?.closest('input, textarea, select, [contenteditable]')) return;
+      // 버튼 위 스페이스는 누르기 동작이라 그대로 둠
+      if (e.key === ' ' && t?.closest('button')) return;
+      e.preventDefault();
+    };
+    window.addEventListener('wheel', block, { passive: false });
+    window.addEventListener('touchmove', block, { passive: false });
+    window.addEventListener('keydown', onKey);
+    return () => {
+      window.removeEventListener('wheel', block);
+      window.removeEventListener('touchmove', block);
+      window.removeEventListener('keydown', onKey);
+    };
+  }, [locked]);
 
   // 밝은 문제 정의 화면이 열리면 상단 바 글자색도 다시 맞춥니다.
   useEffect(() => {
