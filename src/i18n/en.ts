@@ -458,11 +458,11 @@ export const EN: ContentPack = {
       title: 'How to Get Close to Strangers over a Home-Cooked Meal',
       kicker: 'The joy of sharing dinner on a solo trip to Jeju',
       intro:
-        'Among countless Jeju guesthouses, the owner wondered what would make Susu Minbak special. What the owner was most confident in was a warm home-cooked meal, like one your mom would make. The dinner program that grew from it has become a time when solo travelers sit around one table, sharing food and stories.',
+        'Wondering what could make Susu Minbak special among countless Jeju guesthouses, the owner thought of the thing they were most confident in: home cooking. The dinner program began as a warm meal like one your mom would make, and has become a time when solo travelers sit around one table, sharing food and stories.',
       forWhom: [
-        'Solo travelers who still want to share dinner with someone',
-        'Those who prefer easy conversation to rowdy parties',
-        'Anyone who’s a little shy but wants to mingle comfortably',
+        'Those who travel solo but still want to share dinner',
+        'Those who enjoy good food and easy conversation',
+        'Those who prefer relaxed company to rowdy parties',
       ],
       hero: {
         alt: 'The Susu Minbak sign on a wooden wall, with an olive tree by the entrance',
@@ -470,8 +470,7 @@ export const EN: ContentPack = {
       },
       placeName: 'Susu Minbak',
       area: 'Andeok-myeon, Seogwipo',
-      oneLine:
-        'A guesthouse where you share a warm, home-cooked meal made by the owner and naturally fall in with new people.',
+      oneLine: 'A guesthouse where sharing a home-cooked meal made by the owner warms you right through',
       programs: [
         {
           name: 'Susu’s Simple Supper',
@@ -480,10 +479,10 @@ export const EN: ContentPack = {
             { label: 'Price', value: 'KRW 30,000' },
           ],
           photos: [
-            { alt: 'Dombe-gogi boiled pork and an array of side dishes laid out on the Susu Minbak dinner table', caption: 'The simple supper spread' },
+            { alt: 'The Susu Minbak dinner setting: plates and side dishes on a wooden table in front of a lit kitchen', caption: 'The simple supper spread' },
           ],
           text: [
-            'A dinner program where everyone shares a home-cooked meal the owner has lovingly prepared. Travelers who spent their own day across Jeju come back and gather at one table. It’s a little awkward at first, but as you share good food and swap travel stories, laughter soon fills the room. Even on a solo trip to Jeju, you get to enjoy the pleasure of dinner with company.',
+            'A dinner program where everyone shares a home-cooked meal the owner has lovingly prepared. Travelers back from a day in Jeju gather at one table to share dombe-gogi boiled pork and plenty of side dishes. Swapping travel stories over the food, you can enjoy dinner with company even on a solo trip to Jeju.',
           ],
         },
         {
@@ -493,24 +492,25 @@ export const EN: ContentPack = {
             { label: 'Price', value: 'Free' },
           ],
           photos: [
-            { alt: 'Cliffs and a calm sea along the Daepyeong-ri coast', caption: 'The Daepyeong-ri seaside path' },
+            { alt: 'A cliff rising beside a calm sea', caption: 'The sea on the morning walk' },
           ],
           text: [
-            'A morning walk along the Daepyeong-ri seaside path where the owner often goes running. Smitten with scenery too beautiful to tire of, even every day, the owner decided to build the guesthouse here. Walking along quiet Daepyeong Port and the sea, you can enjoy a Jeju morning without rushing.',
+            'A morning walk that starts at Daepyeong Port, where the owner likes to run, passes Baksugijeong and ends at Yerae Port. You may also hear the owner’s story of falling for scenery that never gets old and deciding to build the guesthouse here. Walking the quiet seaside path, you can start a Jeju morning at an easy pace.',
           ],
         },
       ],
       editorProfile: {
-        title: 'An editor who travels solo but still wants dinner with company',
-        tags: ['Solo traveler', 'Food first', 'Easy conversation', 'Unhurried travel'],
+        title: 'An editor who enjoys both solo time and company',
+        tags: ['Solo travel', 'Easy conversation', 'Unhurried travel'],
       },
       experience: [
-        'The dinner the owner made with such care is what I remember most. From the dombe-gogi boiled pork to all the side dishes, the generous spread was great — but sharing a meal and chatting naturally with guests I’d just met made it even more special.',
-        'The four-person room I stayed in had a curtain on every bed, so I could enjoy time to myself too. Each room has its own bathroom and everything was spotless, so I got to enjoy both time with others and time on my own.',
+        'What I remember most is the dinner the owner made. Sharing dombe-gogi boiled pork and plenty of side dishes while swapping travel stories with guests I’d just met was a joy.',
+        'The four-person room I stayed in had a curtain on every bed, so I could rest comfortably. I mingled with guests in the evening and enjoyed time to myself in the room. I was happy to have both the fun of company and some quiet time alone.',
       ],
       recommend: [
-        'For anyone who loves traveling solo but would like to share at least one dinner with someone.',
-        'If you’d rather share good food and easy conversation than go to a rowdy party, Susu Minbak will suit you well. The owner and staff look after everyone warmly, so even shy travelers can feel at ease.',
+        'Those who travel solo but still want to share dinner',
+        'Those who enjoy good food and easy conversation',
+        'Those who prefer relaxed company to rowdy parties',
       ],
     },
 
