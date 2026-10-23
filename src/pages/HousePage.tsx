@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useContent } from '../i18n';
 import type { ProgramId } from '../data/types';
 import { href } from '../lib/router';
-import { RoomArt } from '../components/RoomArt';
 import bookFrame from '../assets/windows/book-frame.webp';
 import bookCover from '../assets/windows/book-cover.webp';
 import craftFrame from '../assets/windows/craft-frame.webp';
@@ -21,6 +20,15 @@ import campingFrame from '../assets/windows/camping-frame.webp';
 import campingCover from '../assets/windows/camping-cover.webp';
 import wineFrame from '../assets/windows/wine-frame.webp';
 import wineCover from '../assets/windows/wine-cover.webp';
+import bookRoom from '../assets/windows/book-room.webp';
+import craftRoom from '../assets/windows/craft-room.webp';
+import flowerRoom from '../assets/windows/flower-room.webp';
+import cinemaRoom from '../assets/windows/cinema-room.webp';
+import lpRoom from '../assets/windows/lp-room.webp';
+import homemealRoom from '../assets/windows/homemeal-room.webp';
+import runningRoom from '../assets/windows/running-room.webp';
+import campingRoom from '../assets/windows/camping-room.webp';
+import wineRoom from '../assets/windows/wine-room.webp';
 
 /**
  * PAGE 02 — 창문 탐색 (ROOM TOUR)
@@ -110,26 +118,26 @@ export function HousePage({ embedded = false }: { embedded?: boolean }) {
 
 /**
  * 창문 아홉 개 — 받은 창문 그림(1024 × 1536)을 창마다 따로 오려 씀. 초록 창틀은 웹진 메인 짙은 주황(--orange-ink)으로, 초록 벽은 투명.
- * 한 창 = 창틀 그림(frame, 큰 창 자리만 뚫림) + 큰 창 자리의 방 그림 + 그 앞을 가린 커튼 · 블라인드 · 간유리 · 덧창(cover).
+ * 한 창 = 창틀 그림(frame, 큰 창 자리만 뚫림) + 큰 창 자리의 창 안 그림(room — 받은 그림에서 오려 낸 파스텔 바탕 + 소품) + 그 앞을 가린 커튼 · 블라인드 · 간유리 · 덧창(cover).
  * l · t · w 는 벽 위 위치 · 너비(벽 1024 × 1610 기준 %) — 줄을 맞추지 않고 열마다 높이 · 좌우를 조금씩 어긋나게, 겹치지 않게. ratio 는 창 그림 비율,
  * pane 은 큰 창 자리(창 그림 기준 % — 왼쪽 · 위 · 너비 · 높이).
  */
 type Cover = 'curtain' | 'blind' | 'frost' | 'shutter';
-type WindowArt = { id: ProgramId; frame: string; cover: string; kind: Cover; l: number; t: number; w: number; ratio: string; pane: [number, number, number, number] };
+type WindowArt = { id: ProgramId; frame: string; cover: string; room: string; kind: Cover; l: number; t: number; w: number; ratio: string; pane: [number, number, number, number] };
 const WINDOWS: WindowArt[] = [
-  { id: 'book', frame: bookFrame, cover: bookCover, kind: 'curtain', l: 2.93, t: 8.70, w: 25.68, ratio: '263 / 340', pane: [11.03, 26.18, 77.57, 63.82] },
-  { id: 'craft', frame: craftFrame, cover: craftCover, kind: 'blind', l: 35.16, t: 4.97, w: 26.86, ratio: '275 / 386', pane: [13.82, 25.91, 73.45, 65.03] },
-  { id: 'flower', frame: flowerFrame, cover: flowerCover, kind: 'frost', l: 68.36, t: 11.18, w: 25.78, ratio: '264 / 332', pane: [10.98, 27.71, 77.65, 61.75] },
-  { id: 'cinema', frame: cinemaFrame, cover: cinemaCover, kind: 'blind', l: 4.88, t: 37.89, w: 28.32, ratio: '290 / 378', pane: [12.07, 26.46, 75.86, 64.29] },
-  { id: 'lp', frame: lpFrame, cover: lpCover, kind: 'curtain', l: 37.11, t: 36.65, w: 25.98, ratio: '266 / 385', pane: [12.41, 25.71, 75.19, 65.19] },
-  { id: 'homemeal', frame: homemealFrame, cover: homemealCover, kind: 'frost', l: 69.34, t: 40.99, w: 27.15, ratio: '278 / 374', pane: [11.15, 26.2, 77.34, 64.44] },
-  { id: 'running', frame: runningFrame, cover: runningCover, kind: 'shutter', l: 1.95, t: 70.19, w: 26.86, ratio: '275 / 400', pane: [14.55, 26.5, 70.91, 62] },
-  { id: 'camping', frame: campingFrame, cover: campingCover, kind: 'frost', l: 38.09, t: 68.94, w: 27.54, ratio: '282 / 392', pane: [12.77, 26.79, 74.82, 63.78] },
-  { id: 'wine', frame: wineFrame, cover: wineCover, kind: 'curtain', l: 70.31, t: 72.67, w: 26.76, ratio: '274 / 399', pane: [10.95, 24.06, 78.1, 66.67] },
+  { id: 'book', frame: bookFrame, cover: bookCover, room: bookRoom, kind: 'curtain', l: 2.93, t: 8.70, w: 25.68, ratio: '263 / 340', pane: [11.03, 26.18, 77.57, 63.82] },
+  { id: 'craft', frame: craftFrame, cover: craftCover, room: craftRoom, kind: 'blind', l: 35.16, t: 4.97, w: 26.86, ratio: '275 / 386', pane: [13.82, 25.91, 73.45, 65.03] },
+  { id: 'flower', frame: flowerFrame, cover: flowerCover, room: flowerRoom, kind: 'frost', l: 68.36, t: 11.18, w: 25.78, ratio: '264 / 332', pane: [10.98, 27.71, 77.65, 61.75] },
+  { id: 'cinema', frame: cinemaFrame, cover: cinemaCover, room: cinemaRoom, kind: 'blind', l: 4.88, t: 37.89, w: 28.32, ratio: '290 / 378', pane: [12.07, 26.46, 75.86, 64.29] },
+  { id: 'lp', frame: lpFrame, cover: lpCover, room: lpRoom, kind: 'curtain', l: 37.11, t: 36.65, w: 25.98, ratio: '266 / 385', pane: [12.41, 25.71, 75.19, 65.19] },
+  { id: 'homemeal', frame: homemealFrame, cover: homemealCover, room: homemealRoom, kind: 'frost', l: 69.34, t: 40.99, w: 27.15, ratio: '278 / 374', pane: [11.15, 26.2, 77.34, 64.44] },
+  { id: 'running', frame: runningFrame, cover: runningCover, room: runningRoom, kind: 'shutter', l: 1.95, t: 70.19, w: 26.86, ratio: '275 / 400', pane: [14.55, 26.5, 70.91, 62] },
+  { id: 'camping', frame: campingFrame, cover: campingCover, room: campingRoom, kind: 'frost', l: 38.09, t: 68.94, w: 27.54, ratio: '282 / 392', pane: [12.77, 26.79, 74.82, 63.78] },
+  { id: 'wine', frame: wineFrame, cover: wineCover, room: wineRoom, kind: 'curtain', l: 70.31, t: 72.67, w: 26.76, ratio: '274 / 399', pane: [10.95, 24.06, 78.1, 66.67] },
 ];
 
 /** 창 하나 — 따로 떨어진 요소(id: window-…)라 창마다 클릭 · 호버 · 여는 그림을 따로 붙일 수 있음 */
-function Window({ id, frame, cover, kind, l, t, w, ratio, pane }: WindowArt) {
+function Window({ id, frame, cover, room, kind, l, t, w, ratio, pane }: WindowArt) {
   const { ui, experienceById, programById } = useContent();
   const e = experienceById[id];
   const place = programById[id].report.place.name;
@@ -146,7 +154,7 @@ function Window({ id, frame, cover, kind, l, t, w, ratio, pane }: WindowArt) {
     >
       {/* 큰 창 자리 — 방 그림, 그 앞을 가린 두 짝 */}
       <span className="win__pane" style={{ left: `${pl}%`, top: `${pt}%`, width: `${pw}%`, height: `${ph}%` }} aria-hidden="true">
-        <RoomArt id={id} />
+        <img className="win__room" src={room} alt="" />
         <span className="win__cover">
           <span className="win__half win__half--l" style={half} />
           <span className="win__half win__half--r" style={half} />
