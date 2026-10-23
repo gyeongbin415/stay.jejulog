@@ -255,49 +255,54 @@ export const EN: ContentPack = {
       title: 'How to Spend a Jeju Night with LPs',
       kicker: 'The night begins with the sound of a needle settling into the groove.',
       intro:
-        'Seoron Guesthouse grew out of the owner’s love of LPs, with the hope of going beyond listening alone and create a space where music could be shared with others. Every evening there’s an LP listening hour devoted entirely to the music, and once every two months a listening party where guests share their tastes around a single musician.',
+        'The owner, who loves travel and freedom, found a wider world at guesthouses. Seoron was shaped around the owner’s own taste — a long habit of listening to and collecting LPs. Here, travelers listen to music together and naturally grow closer.',
       forWhom: [
-        'Anyone who wants to spend their travel nights quietly',
-        'Those who’d like to share their taste with strangers through music',
-        'Anyone who loves the hands-on feel of analog',
+        'Those who want a different kind of listening on LP',
+        'Those who love analog moods and cozy spaces',
+        'Those who want to connect with new people through music',
       ],
       hero: { alt: 'Exterior of Seoron Guesthouse (photo to be replaced)', caption: 'Seoron Guesthouse' },
       placeName: 'Seoron Guesthouse',
       area: 'Andeok-myeon, Seogwipo',
-      oneLine: 'A stay where you listen to LPs, share your taste with strangers, and take the Jeju night slowly.',
+      oneLine: 'A stay where you listen to LPs, share your taste with others, and take the Jeju night slowly',
       programs: [
         {
           name: 'LP Listening Hour',
           info: [
-            { label: 'Time', value: '6:00–7:00 PM' },
+            { label: 'Time', value: 'Daily, 6:00–7:00 PM' },
             { label: 'Price', value: 'No participation fee' },
           ],
           text: [
-            'Every evening, a time to step away from the noise around you and focus entirely on the music. If there’s a song you want to hear, you can request it from the owner and listen on vinyl. Even familiar songs you usually play through earphones feel new in the warm tone unique to LPs. It’s a program for listening slowly, one track at a time.',
+            'Every evening at 6, an LP listening hour to step away from the noise and focus on the music. You can request songs from the owner and hear them on vinyl. Familiar songs you used to play through earphones come to you anew in the warm tone unique to LPs. A time to enjoy the music you love, deeply.',
           ],
         },
         {
           name: 'Listening Party',
           info: [
-            { label: 'Schedule', value: 'Once every two months' },
+            { label: 'Schedule', value: 'Held once every two months' },
             { label: 'Time · Price', value: 'Varies by session — please check' },
           ],
           text: [
-            'A listening party that explores a single musician in depth. Guests listen to that artist’s music together, then share their impressions and their tastes. It’s a special chance to connect with strangers met in Jeju through the music you love.',
+            'Held once every two months, the listening party is a program built around a single musician. Guests listen to that artist’s songs together and share what they felt, getting to know each other’s taste in music. Even travelers meeting for the first time in Jeju grow closer naturally through the music they share.',
           ],
         },
       ],
       editorProfile: {
-        title: 'An editor who loves analog moods and music',
-        tags: ['Analog mood', 'Music listening', 'New experiences'],
+        title: 'An editor who enjoys analog moods',
+        tags: ['Romance seeker', 'No-regrets travel', 'New experiences'],
         about: [
-          'I’m drawn to all things analog, and I listen to music whenever I’m resting at home or on the move. When I travel, I like seeking out atmospheric spaces and trying new experiences I don’t usually get to have.',
+          'I love analog moods and enjoy listening to music while resting or on the move. When I travel, I seek out atmospheric spaces and like trying new experiences that are hard to come by.',
         ],
       },
       experience: [
-        'Hearing music I usually play through earphones on an LP felt completely different. What struck me most was a space and atmosphere where I could focus on nothing but the music. It was lovely to slow down for a while with songs I love.',
+        'Listening on LP to songs I used to play through earphones made even familiar music feel new. The atmosphere that let me focus on the music was striking, and I loved slowing down with songs I like.',
+        'It’s an actual house, so it felt as cozy as home, and the figures and comic books made it fun to look around. Drinking is allowed only until 10:30 PM, which I liked too — after that, the focus shifts from drinking to conversation.',
       ],
-      recommend: ['For anyone who loves analog and wants a special listening experience on vinyl.'],
+      recommend: [
+        'Those who want a different kind of listening on LP',
+        'Those who love analog moods and cozy spaces',
+        'Those who want to connect with new people through music',
+      ],
     },
 
     book: {
