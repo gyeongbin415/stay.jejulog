@@ -195,6 +195,10 @@ function Intro() {
           <p className="intro__scroll" aria-hidden="true">
             <span>SCROLL</span>
             <i />
+            <b className="intro__chev">
+              <span />
+              <span />
+            </b>
           </p>
         </div>
       </div>
