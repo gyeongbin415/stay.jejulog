@@ -78,6 +78,12 @@ export function HousePage({ embedded = false }: { embedded?: boolean }) {
         </nav>
       ) : (
       <nav className="facade wrap" aria-label={ui.house.houseAria}>
+        {/* 벽에 자잘하게 그은 벽돌 스케치 — 창문 뒤 */}
+        <span className="facade__bricks" aria-hidden="true">
+          {BRICKS.map(([x, y]) => (
+            <span key={`${x}-${y}`} className="brick" style={{ left: `${x}%`, top: `${y}%` }} />
+          ))}
+        </span>
         <ul className="facade__grid">
           {WINDOWS.map((w) => (
             <li key={w.id}>
@@ -96,6 +102,10 @@ export function HousePage({ embedded = false }: { embedded?: boolean }) {
  * top: 둥근 아치(arch) · 네모 위 처마(cap) / cover: 닫혀 있을 때 가린 것
  */
 type Cover = 'curtain' | 'blind' | 'frost' | 'shutter';
+/** 벽돌 스케치 위치 (벽 기준 %, 왼쪽 · 위) — 창문 사이 빈 벽에 띄엄띄엄 */
+const BRICKS: [number, number][] = [
+  [3, 2], [62, 1], [93, 4], [35, 31], [95, 34], [1, 64], [64, 64], [30, 95], [88, 96],
+];
 const WINDOWS: { id: ProgramId; top: 'arch' | 'cap'; cover: Cover }[] = [
   { id: 'book', top: 'arch', cover: 'curtain' },
   { id: 'craft', top: 'cap', cover: 'blind' },
