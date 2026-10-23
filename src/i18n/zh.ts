@@ -21,7 +21,7 @@ export const ZH: ContentPack = {
 
     problem: {
       label: 'CHECK IN',
-      title: ['在民宿里度过这样的一天，', '你想象过吗？'],
+      title: ['在民宿里度过这样的一天', '你想象过吗？'],
       points: [],
       answer: "编辑亲自在济州入住找到的体验，\n都收进了这一栋房子里。",
       answerNote: '',
@@ -51,7 +51,7 @@ export const ZH: ContentPack = {
 
     explore: {
       label: 'ROOM TOUR',
-      title: ['先从哪个房间', '开始逛呢？'],
+      title: ['先从哪个房间开始逛呢？'],
       sub: '逛一逛济州民宿里能遇见的九种体验。',
       hint: '点击空间，即可前往对应的民宿。',
     },

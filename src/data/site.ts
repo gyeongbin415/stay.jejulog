@@ -23,7 +23,7 @@ export const SITE = {
   /* 문제 정의 — 기획 배경을 그대로 옮깁니다 */
   problem: {
     label: 'CHECK IN',
-    title: ['게스트하우스에서 이런 하루,', '상상해보셨나요?'],
+    title: ['게스트하우스에서 이런 하루', '상상해보셨나요?'],
     points: [],
     answer: "에디터가 직접 제주에 머물며 찾은 경험,\n한 집에 모아봤습니다.",
     answerNote: '',
@@ -53,7 +53,7 @@ export const SITE = {
 
   explore: {
     label: 'ROOM TOUR',
-    title: ['어느 방부터', '둘러볼까요?'],
+    title: ['어느 방부터 둘러볼까요?'],
     sub: '제주 게스트하우스에서 만날 수 있는 아홉 가지 경험을 둘러보세요.',
     hint: '공간을 누르면 해당 게스트하우스로 이동합니다.',
   },
