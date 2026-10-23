@@ -47,7 +47,7 @@ export const UI: Record<Lang, UiText> = {
       srTitle: '제주 게스트하우스 공간 탐험 웹진',
       wordsAria: '게스트하우스 하면 흔히 떠올리는 것들',
       opening: '들어가는 중 — 바로 입장',
-      findSub: (n) => `${n}가지 질문으로 알아보는\n나에게 맞는 제주 게스트하우스.`,
+      findSub: (n) => `${n}가지 질문으로 찾는 나의 제주 게스트하우스`,
       typesAria: '네 가지 여행 취향',
     },
     house: {
@@ -96,7 +96,7 @@ export const UI: Record<Lang, UiText> = {
       srTitle: 'A webzine for exploring Jeju guesthouses',
       wordsAria: 'What people usually picture when they hear “guesthouse”',
       opening: 'Opening — go straight in',
-      findSub: (n) => `${n} questions to find\nthe Jeju guesthouse that fits you.`,
+      findSub: (n) => `Find your Jeju guesthouse in ${n} questions`,
       typesAria: 'Four travel tastes',
     },
     house: {
@@ -145,7 +145,7 @@ export const UI: Record<Lang, UiText> = {
       srTitle: '济州民宿空间探索杂志',
       wordsAria: '提起民宿，人们常会想到的事',
       opening: '正在开门 — 直接进入',
-      findSub: (n) => `用${n}个问题\n找到适合你的济州民宿。`,
+      findSub: (n) => `用${n}个问题找到我的济州民宿`,
       typesAria: '四种旅行喜好',
     },
     house: {
