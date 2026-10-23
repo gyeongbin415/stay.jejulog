@@ -226,7 +226,7 @@
 /* 메인 페이지는 예전 글자 설정 그대로 — 자간 없음 · 라벨 · 버튼 크기 */
 .intro, .checkin, .find, .checkout { letter-spacing: normal; }
 :is(.intro, .checkin, .find, .checkout) .label { letter-spacing: .16em; }
-:is(.intro, .checkin, .find, .checkout) .btn { font-size: 16px; }
+:is(.intro, .checkin, .find, .checkout) .btn { font-size: 15px; }
 
 /* ── CHECK OUT — 메인 마지막 마무리 (인트로와 같은 현무암 먹색으로 처음과 끝을 맞춤) ─────────────────────────────── */
 .outro { background: #343632; color: #F6F3ED; letter-spacing: normal; }
@@ -238,5 +238,5 @@
 .outro__closing { font-family: var(--f-home); font-weight: 500; font-size: clamp(17px, 1.8vw, 22px); line-height: 1.75; margin-top: 12px; }
 .outro__actions { display: grid; justify-items: center; gap: 14px; margin-top: clamp(24px, 5vh, 48px); }
 /* 다시 둘러보기 · 인스타그램 보러가기 — 테두리만 (먹색 배경 위 주황 선) */
-.outro .btn { font-size: 16px; background: transparent; border: 1.5px solid #F39A52; color: #F39A52; }
+.outro .btn { font-size: 15px; background: transparent; border: 1.5px solid #F39A52; color: #F39A52; }
 .outro .btn:hover { background: #F39A52; border-color: #F39A52; color: #111111; }
