@@ -101,9 +101,9 @@
 /* ── 푸터 ─────────────────────────────── */
 .footer { background: var(--navy); color: var(--on-dark-soft); padding: 48px 0 calc(48px + env(safe-area-inset-bottom)); }
 .footer__inner { display: grid; gap: 28px; font-size: var(--t-small); }
-.footer__logo { margin-bottom: 6px; }
+.footer__logo { margin-bottom: 16px; }
 .footer__mark {
-  display: block; height: 40px; aspect-ratio: 455 / 349; background-color: var(--accent-on-dark);
+  display: block; height: 28px; aspect-ratio: 455 / 349; background-color: var(--accent-on-dark);
   -webkit-mask-size: contain; mask-size: contain; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
   -webkit-mask-position: left center; mask-position: left center;
 }
