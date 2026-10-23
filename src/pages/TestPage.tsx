@@ -195,7 +195,7 @@ export default function TestPage({ sharedCode, mine = false }: { sharedCode: str
 }
 
 function Result({ result, shared, onRetry, focusRef }: { result: QuizResult; shared: boolean; onRetry: () => void; focusRef: RefObject<HTMLHeadingElement | null> }) {
-  const { ui, site, types, programById } = useContent();
+  const { ui, site, types, programById, experiences } = useContent();
   const t = ui.test;
   const type = types[result.type];
   const [status, setStatus] = useState('');
@@ -273,6 +273,25 @@ function Result({ result, shared, onRetry, focusRef }: { result: QuizResult; sha
         {second && <Pick rank="BEST 2" caption={t.nextCaption} id={second.id} />}
         {third && <Pick rank="BEST 3" caption={t.thirdCaption} id={third.id} />}
       </ol>
+
+      {/* 나머지 캐릭터 — 1 · 2 · 3위를 뺀 여섯 곳, 집 둘러보기 순서대로 */}
+      <section className="others" aria-labelledby="others-title">
+        <p className="label">{t.othersLabel}</p>
+        <h2 id="others-title" className="others__title">{t.othersTitle}</h2>
+        <ul className="others__list">
+          {experiences
+            .filter((e) => e.id !== result.main && e.id !== second?.id && e.id !== third?.id)
+            .map((e) => (
+              <li key={e.id}>
+                <a className="others__item" href={href.stay(e.id)} data-track={`result_other_${e.id}`}>
+                  <img src={characterArt[e.id]} alt="" loading="lazy" />
+                  <span className="others__char">{site.characters[e.id]}</span>
+                  <span className="others__place">{programById[e.id].report.place.name}</span>
+                </a>
+              </li>
+            ))}
+        </ul>
+      </section>
 
       {/* 저장하기 · 친구에게 공유하기 / 다시하기 */}
       <div className="result__actions">

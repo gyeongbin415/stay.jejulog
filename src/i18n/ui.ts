@@ -27,7 +27,7 @@ export interface UiText {
     storyTitle: string; storyBody: string; storyBubble: string; start: string;
     progress: string; prev: string; next: string; seeResult: string;
     sharedLabel: string; resultLabel: string; lead: string;
-    bestCaption: string; nextCaption: string; thirdCaption: string; expType: string; reason: string; myPicks: string; detail: string;
+    bestCaption: string; nextCaption: string; thirdCaption: string; othersLabel: string; othersTitle: string; expType: string; reason: string; myPicks: string; detail: string;
     retry: string; share: string; shared: string; copied: string; canceled: string;
     save: string; saved: string; saveFailed: string;
     bestReason: (type: string) => string; nextRunnerUp: (type: string) => string; nextSameType: (type: string) => string;
@@ -73,6 +73,7 @@ export const UI: Record<Lang, UiText> = {
       progress: '진행 상태', prev: '이전 질문', next: '다음으로', seeResult: '결과 보기',
       sharedLabel: 'SHARED RESULT — 공유받은 결과', resultLabel: 'YOUR JEJU TASTE', lead: '나의 여행 취향은',
       bestCaption: '가장 잘 맞는 게스트하우스', nextCaption: '두 번째로 잘 맞는 게스트하우스', thirdCaption: '세 번째로 잘 맞는 게스트하우스',
+      othersLabel: 'OTHER STAYS', othersTitle: '다른 게하게들도 만나보세요',
       expType: '경험 유형', reason: '추천 이유', myPicks: '나의 선택', detail: '게스트하우스 자세히 보기',
       retry: '다시하기', share: '친구에게 공유하기',
       save: '저장하기', saved: '결과 이미지를 저장했습니다.', saveFailed: '이미지를 저장하지 못했습니다. 화면을 캡처해 주세요.',
@@ -121,6 +122,7 @@ export const UI: Record<Lang, UiText> = {
       progress: 'Progress', prev: 'Previous', next: 'Next', seeResult: 'See my result',
       sharedLabel: 'SHARED RESULT', resultLabel: 'YOUR JEJU TASTE', lead: 'Your travel taste is',
       bestCaption: 'Your best-matched guesthouse', nextCaption: 'Your second match', thirdCaption: 'Your third match',
+      othersLabel: 'OTHER STAYS', othersTitle: 'Meet the other Gehages',
       expType: 'Experience', reason: 'Why it fits', myPicks: 'Your answers', detail: 'See the guesthouse',
       retry: 'Try again', share: 'Share with friends',
       save: 'Save', saved: 'Result image saved.', saveFailed: 'Couldn’t save the image. Please take a screenshot instead.',
@@ -169,6 +171,7 @@ export const UI: Record<Lang, UiText> = {
       progress: '进度', prev: '上一题', next: '下一题', seeResult: '查看结果',
       sharedLabel: 'SHARED RESULT — 分享的结果', resultLabel: 'YOUR JEJU TASTE', lead: '你的旅行喜好是',
       bestCaption: '最适合你的民宿', nextCaption: '第二适合你的民宿', thirdCaption: '第三适合你的民宿',
+      othersLabel: 'OTHER STAYS', othersTitle: '也来认识其他的게하게吧',
       expType: '体验类型', reason: '推荐理由', myPicks: '你的选择', detail: '查看民宿详情',
       retry: '再测一次', share: '分享给朋友',
       save: '保存', saved: '已保存结果图片。', saveFailed: '无法保存图片，请截屏保存。',
