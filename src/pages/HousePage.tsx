@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useContent } from '../i18n';
 import type { ProgramId } from '../data/types';
 import { href } from '../lib/router';
+import { useMediaQuery } from '../lib/motion';
 import { RoomArt } from '../components/RoomArt';
 import { HouseRoof } from '../components/HouseRoof';
 
@@ -26,9 +27,10 @@ export function HousePage({ embedded = false }: { embedded?: boolean }) {
   const { site, ui, rooms, compactFloors, experiences, programById } = useContent();
   const SITE = site;
   const Title = embedded ? 'h2' : 'h1';
-  // 다락 1 · 실내 두 칸씩 세 층(compactFloors) · 마당 2 — 넓은 화면 · 좁은 화면 같은 배치
-  const [attic, , , yard] = rooms;
-  const bodyFloors = compactFloors;
+  // 넓은 화면: 다락 1 · 2층 3칸 · 1층 3칸 · 마당 2 (rooms) / 좁은 화면: 실내를 두 칸씩 세 층(compactFloors)
+  const [attic, living, kitchen, yard] = rooms;
+  const wide = useMediaQuery('(min-width: 900px)');
+  const bodyFloors = wide ? [living, kitchen] : compactFloors;
   // 목록 보기도 집 순서대로 — 다락 → 3F → 2F → 1F → 마당
   const houseOrder = [attic, ...bodyFloors, yard].flatMap((f) => f.items);
   const listed = houseOrder.map((id) => experiences.find((e) => e.id === id)!).filter(Boolean);

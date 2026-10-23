@@ -43,12 +43,12 @@ export const EXPERIENCE_BY_ID = Object.fromEntries(EXPERIENCES.map((e) => [e.id,
 
 export const ROOMS: { id: RoomId; floor: string; name: string; items: ProgramId[] }[] = [
   { id: 'attic', floor: 'ATTIC', name: '다락 작업실', items: ['craft'] },
-  { id: 'living', floor: '2F', name: '거실', items: ['book', 'lp', 'cinema'] },
-  { id: 'kitchen', floor: '1F', name: '부엌', items: ['homemeal', 'wine', 'flower'] },
+  { id: 'living', floor: '2F', name: '거실', items: ['book', 'flower', 'cinema'] },
+  { id: 'kitchen', floor: '1F', name: '부엌', items: ['lp', 'homemeal', 'wine'] },
   { id: 'yard', floor: 'YARD', name: '마당', items: ['camping', 'running'] },
 ];
 
-/** 집 단면 — 다락 나무반지 · 3F 책 · 꽃꽂이 · 2F 영화 · LP · 1F 집밥 · 와인 · 마당 스냅 · 러닝 (넓은 화면 · 좁은 화면 같은 배치) */
+/** 집 단면 — 다락 나무반지 · 3F 책 · 꽃꽂이 · 2F 영화 · LP · 1F 집밥 · 와인 · 마당 스냅 · 러닝 (좁은 화면 — 넓은 화면은 ROOMS: 다락 1 · 2F 3칸 · 1F 3칸 · 마당 2) */
 export const COMPACT_FLOORS: { id: RoomId; floor: string; name: string; items: ProgramId[] }[] = [
   { id: 'study', floor: '3F', name: '서재', items: ['book', 'flower'] },
   { id: 'living', floor: '2F', name: '거실', items: ['cinema', 'lp'] },
