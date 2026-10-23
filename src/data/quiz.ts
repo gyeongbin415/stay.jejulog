@@ -48,7 +48,7 @@ export const QUESTIONS: QuizQuestion[] = [
   {
     id: 'q2',
     context: '체크인 후 라운지에서',
-    q: '체크인! 라운지에 먼저 온 게스트들이 있다.',
+    q: '체크인! 라운지에 먼저 온 게스트가 있다.',
     options: [
       { key: 'A', text: '눈인사만 하고 방으로 직행', types: { collector: 2 }, programs: { craft: 3, cinema: 2, flower: 1 } },
       { key: 'B', text: '“어디서 오셨어요?” 먼저 말 건다', types: { keeper: 1, adventurer: 1 }, programs: { wine: 3, homemeal: 1, running: 1, camping: 1 } },
