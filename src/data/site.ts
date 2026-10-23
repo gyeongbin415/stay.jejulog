@@ -4,7 +4,7 @@
 ------------------------------------------------------------------- */
 
 /** 제주로그 인스타그램 (@stay.jejulog) */
-export const INSTAGRAM_URL = 'https://www.instagram.com/stay.jejulog/';
+export const INSTAGRAM_URL = 'https://www.instagram.com/stay.jejulog?cplk=YmVraTQ2YWU1b2hh&utm_source=qr';
 
 export const SITE = {
   brand: '스테이 제주로그',
