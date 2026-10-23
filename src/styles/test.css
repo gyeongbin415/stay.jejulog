@@ -72,6 +72,7 @@
 .result__lead { font-size: var(--t-lead); color: var(--ink-soft); margin-top: 6px; }
 .result__type { font-family: var(--f-home); font-size: clamp(30px, 4.4vw, 52px); font-weight: 800; line-height: 1.25; letter-spacing: -0.03em; color: var(--forest); outline: none; }
 .result__place { font-family: var(--f-home); font-size: clamp(18px, 1.8vw, 22px); font-weight: 500; color: var(--ink); }
+.result__oneline { max-width: 24em; margin-top: -2px; font-size: clamp(14.5px, 1.4vw, 16px); line-height: 1.65; letter-spacing: -0.02em; color: var(--ink-soft); text-wrap: balance; }
 /* 1위 캐릭터 그림 — 배경 없이 오린 소라게, 비율 그대로 */
 .result__hero { position: relative; width: min(100%, 400px); margin-top: 10px; padding-top: 36px; }
 .result__hero img { display: block; width: min(68%, 260px); height: auto; margin: 0 auto; }

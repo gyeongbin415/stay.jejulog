@@ -256,6 +256,8 @@ function Result({ result, shared, onRetry, focusRef }: { result: QuizResult; sha
           {site.characters[result.main]}
         </h1>
         <p className="result__place">{programById[result.main].report.place.name}</p>
+        {/* 게하 한 줄 소개 — 숙소 페이지 BASIC INFORMATION 과 같은 문장 */}
+        {programById[result.main].report.oneLine && <p className="result__oneline">{programById[result.main].report.oneLine}</p>}
         <div className="result__hero">
           <span className="result__rank">BEST 01<span className="visually-hidden"> {t.bestCaption}</span></span>
           <img src={characterArt[result.main]} alt="" />
