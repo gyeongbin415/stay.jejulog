@@ -1,8 +1,8 @@
-import { useState, type CSSProperties } from 'react';
+import { useState } from 'react';
 import { useContent } from '../i18n';
 import type { ProgramId } from '../data/types';
 import { href } from '../lib/router';
-import { useInView, useMediaQuery } from '../lib/motion';
+import { useMediaQuery } from '../lib/motion';
 import { RoomArt } from '../components/RoomArt';
 import { HouseRoof } from '../components/HouseRoof';
 
@@ -89,16 +89,11 @@ export function HousePage({ embedded = false }: { embedded?: boolean }) {
           <div className="house__inner">
             <div className="house__top">
               <HouseRoof className="house__roof" />
-              {/* 다락 덧창 — 방 한 칸이 아니라 지붕 아래 박공 전체를 덮는 큰 겉창 두 짝 */}
-              <span className="gable" aria-hidden="true">
-                <span className="gable__leaf gable__leaf--l" />
-                <span className="gable__leaf gable__leaf--r" />
-              </span>
               <div className="house__floor house__floor--attic">
                 <FloorLabel floor={attic.floor} name={attic.name} />
                 <div className="house__rooms">
                   {attic.items.map((id) => (
-                    <Room key={id} id={id} shutters={false} />
+                    <Room key={id} id={id} />
                   ))}
                 </div>
               </div>
@@ -126,7 +121,7 @@ export function HousePage({ embedded = false }: { embedded?: boolean }) {
             <FloorLabel floor={yard.floor} name={yard.name} />
             <div className="house__rooms">
               {yard.items.map((id) => (
-                <Room key={id} id={id} shutters={false} />
+                <Room key={id} id={id} />
               ))}
             </div>
           </div>
@@ -147,34 +142,13 @@ function FloorLabel({ floor, name }: { floor: string; name: string }) {
   );
 }
 
-/**
- * 방 하나 — 겉에는 초록 덧창(나무 겉창 두 짝)이 닫혀 있고, 마우스를 올리면 양쪽으로 열리며 방 안이 보입니다.
- * 마우스가 없는 휴대폰은 방이 화면에 들어올 때 덧창이 저절로 열립니다 (is-seen).
- * 마당(스냅 · 러닝)은 바깥이라 덧창 없이 (shutters={false}).
- */
-function Room({ id, shutters = true }: { id: ProgramId; shutters?: boolean }) {
+function Room({ id }: { id: ProgramId }) {
   const { ui, experienceById, programById } = useContent();
   const e = experienceById[id];
   const place = programById[id].report.place.name;
-  const [ref, seen] = useInView<HTMLAnchorElement>({ rootMargin: '0px 0px -20% 0px' });
-  // 같은 줄의 방들이 한꺼번에 말고 조금씩 차례로 열리게
-  const delay = `${0.15 + (Number(e.no) % 3) * 0.18}s`;
   return (
-    <a
-      ref={ref}
-      className={`room room--${id}${seen ? ' is-seen' : ''}`}
-      style={{ '--d': delay } as CSSProperties}
-      href={href.stay(id)}
-      aria-label={ui.house.roomAria(e.no, e.label, place)}
-      data-track={`house_${id}`}
-    >
+    <a className={`room room--${id}`} href={href.stay(id)} aria-label={ui.house.roomAria(e.no, e.label, place)} data-track={`house_${id}`}>
       <RoomArt id={id} />
-      {shutters && (
-        <span className="room__shutters" aria-hidden="true">
-          <span className="room__leaf room__leaf--l" />
-          <span className="room__leaf room__leaf--r" />
-        </span>
-      )}
       <span className="room__tag" aria-hidden="true">
         <span className="room__name">{e.label}</span>
         <span className="room__place">{place}</span>
