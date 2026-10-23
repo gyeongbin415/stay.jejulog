@@ -194,7 +194,6 @@ function Intro() {
           {/* 아래로 내려 보라는 표시 */}
           <p className="intro__scroll" aria-hidden="true">
             <span>SCROLL</span>
-            <i />
             <b className="intro__chev">
               <span />
               <span />
