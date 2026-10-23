@@ -201,7 +201,7 @@ export const PROGRAMS: Program[] = [
         {
           name: '오름 일출 감상',
           info: [{ label: '가격', value: '15,000원' }, { label: '시간', value: '1시간 소요' }],
-          photo: { src: 'photos/kokoko-sunrise.jpg', art: 'oreum', alt: '오름 전망대 난간에서 붉게 물든 하늘과 바다를 바라보는 여행자', caption: '오름 위에서 맞는 아침' },
+          photo: { src: 'photos/kokoko-sunrise.jpg', art: 'oreum', alt: '오름 위에서 해가 떠오르는 하늘과 바다를 바라보는 여행자', caption: '오름 위에서 맞는 아침' },
           text: [
             '이른 아침에는 투어를 운영하고 있는 마을 주민과 함께 오름에 올라 일출을 감상하는 특별한 프로그램도 참여해보자.',
             '제주에서 함께 아침을 맞이하며, 여행지의 풍경을 넘어 제주만의 일상과 분위기를 가까이에서 느껴볼 수 있다.',
