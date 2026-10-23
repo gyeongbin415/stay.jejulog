@@ -237,7 +237,8 @@ export const EN: ContentPack = {
         ],
       },
       experience: [
-        'It was a place with a charming calm, as if time were flowing slowly. Away from crowded tourist spots, I could enjoy some time to myself and focus fully on me. From the breakfast the staff made with such care to the flower arranging class and watching the sunrise from an oreum with a villager, I got both rest on my own and special experiences across so many programs — which makes it a stay I remember all the more.',
+        'It was a place with a charming calm, as if time were flowing slowly. Away from crowded tourist spots, I could enjoy some time to myself and focus fully on me.',
+        'From the breakfast the staff made with such care to the flower arranging class and watching the sunrise from an oreum with a villager, I got both rest on my own and special experiences across so many programs — which makes it a stay I remember all the more.',
       ],
     },
 
@@ -379,7 +380,8 @@ export const EN: ContentPack = {
         ],
       },
       experience: [
-        'What made it special was making my own wooden ring from a combination I liked among 11 special woods and 7 designs. You even choose the size and the engraving yourself, finishing a ring that’s the only one of its kind. Focusing on carving and smoothing the wood, I could set my tangled thoughts aside for a while. Even back home, I think every time I look at the ring I made, I’ll remember my time in Jeju and how I felt then.',
+        'What made it special was making my own wooden ring from a combination I liked among 11 special woods and 7 designs. You even choose the size and the engraving yourself, finishing a ring that’s the only one of its kind.',
+        'Focusing on carving and smoothing the wood, I could set my tangled thoughts aside for a while. Even back home, I think every time I look at the ring I made, I’ll remember my time in Jeju and how I felt then.',
       ],
     },
 
