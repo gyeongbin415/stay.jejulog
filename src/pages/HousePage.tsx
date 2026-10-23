@@ -89,11 +89,16 @@ export function HousePage({ embedded = false }: { embedded?: boolean }) {
           <div className="house__inner">
             <div className="house__top">
               <HouseRoof className="house__roof" />
+              {/* 다락 덧창 — 방 한 칸이 아니라 지붕 아래 박공 전체를 덮는 큰 겉창 두 짝 */}
+              <span className="gable" aria-hidden="true">
+                <span className="gable__leaf gable__leaf--l" />
+                <span className="gable__leaf gable__leaf--r" />
+              </span>
               <div className="house__floor house__floor--attic">
                 <FloorLabel floor={attic.floor} name={attic.name} />
                 <div className="house__rooms">
                   {attic.items.map((id) => (
-                    <Room key={id} id={id} />
+                    <Room key={id} id={id} shutters={false} />
                   ))}
                 </div>
               </div>
