@@ -293,7 +293,7 @@ function Result({ result, shared, onRetry, focusRef }: { result: QuizResult; sha
 }
 
 /**
- * 결과 카드 — 소라게 캐릭터 · 캐릭터 이름 · 게스트하우스 이름 · 자세히 보기 버튼만
+ * 결과 카드 — 소라게 캐릭터 · 캐릭터 이름 · 게스트하우스 이름 · 한 줄 소개 · 자세히 보기 버튼
  * 캐릭터 그림은 src/assets/characters/hermit-*.webp (data/characterArt.ts)
  */
 function Pick({ rank, caption, id }: { rank: string; caption: string; id: ProgramId }) {
@@ -310,6 +310,7 @@ function Pick({ rank, caption, id }: { rank: string; caption: string; id: Progra
       </div>
       <p className="pick__charname">{site.characters[id]}</p>
       <h2 className="pick__name">{p.report.place.name}</h2>
+      {p.report.oneLine && <p className="pick__oneline">{p.report.oneLine}</p>}
       <a className="btn" href={href.stay(id)} data-track={`result_${rank.toLowerCase().replace(' ', '')}_${id}`}>
         {ui.test.detail} <span className="arrow" aria-hidden="true">→</span>
       </a>
