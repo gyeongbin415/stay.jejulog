@@ -235,7 +235,8 @@ function Result({ result, shared, onRetry, focusRef }: { result: QuizResult; sha
     const url = `${window.location.origin}${window.location.pathname}${href.result(result.code)}`;
     try {
       if (navigator.share) {
-        await navigator.share({ title: t.shareTitle(site.brand, type.name), text: type.tagline, url });
+        // 링크만 보냄 — 결과 유형 설명 문장(‘당신은 …’)은 함께 보내지 않음
+        await navigator.share({ title: t.shareTitle(site.brand, type.name), url });
         setStatus(t.shared);
       } else {
         await navigator.clipboard.writeText(url);
