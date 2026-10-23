@@ -2,10 +2,6 @@
    디자인 토큰 — 제주로그 JEJULOG
    Modern Editorial · Minimal Magazine · Mid-century Flat Vector
 ================================================================== */
-/* 넥슨 카트 고딕 (brand.nexon.com 배포본, 한글 OTF → WOFF) — 메인 페이지 제목에만 */
-@font-face { font-family: "Kart Gothic"; src: url("../assets/fonts/KartGothic-Medium.woff") format("woff"); font-weight: 500; font-display: swap; }
-@font-face { font-family: "Kart Gothic"; src: url("../assets/fonts/KartGothic-Bold.woff") format("woff"); font-weight: 700; font-display: swap; }
-@font-face { font-family: "Kart Gothic"; src: url("../assets/fonts/KartGothic-ExtraBold.woff") format("woff"); font-weight: 800; font-display: swap; }
 /* 손글씨 — 온글잎 새하얀체 (보이저엑스 온글잎 무료 폰트) · 소라게 말풍선 */
 @font-face { font-family: "Ownglyph Saehayan"; src: url("../assets/fonts/OwnglyphSaehayan.woff2") format("woff2"); font-weight: 400; font-display: swap; }
 
@@ -32,10 +28,10 @@
   --on-dark: #FAFAF3;
   --on-dark-soft: rgba(250, 250, 243, .72);
 
-  /* 서체 — 디에디트처럼 Pretendard 하나로 제목과 본문을 모두 */
+  /* 서체 — Pretendard 하나로 제목과 본문을 모두 (index.html 에서 불러옴) */
   --f-sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
   --f-head: var(--f-sans);
-  --f-home: "Kart Gothic", "Pretendard Variable", Pretendard, sans-serif; /* 메인 페이지 제목 — 넥슨 카트 고딕 */
+  --f-home: var(--f-sans);
 
   /* 타입 스케일 (PC 기준, 모바일은 clamp 로 줄어듭니다)
      메인 제목 48~64 · 숙소 제목 32~40 · 섹션 제목 22~28 · 본문 16~18 · 캡션 13~14 */

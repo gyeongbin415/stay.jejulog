@@ -21,7 +21,7 @@ export interface ResultImageInput {
 
 const W = 1080;
 const H = 1350;
-const FONT = '"Kart Gothic", "Pretendard Variable", Pretendard, sans-serif';
+const FONT = '"Pretendard Variable", Pretendard, sans-serif';
 const C = { bg: '#FAFAF3', card: '#FDF6EA', ink: '#111111', soft: '#686A64', orange: '#D46A1F', line: '#E4E3D8' };
 
 function loadImage(src: string) {
@@ -58,8 +58,9 @@ function roundRect(ctx: CanvasRenderingContext2D, x: number, y: number, w: numbe
 }
 
 export async function makeResultImage(input: ResultImageInput): Promise<Blob> {
-  // 카트 고딕이 그림에 쓰이도록 미리 불러 둡니다
-  await Promise.all(['500 32px "Kart Gothic"', '700 32px "Kart Gothic"', '800 32px "Kart Gothic"'].map((f) => document.fonts.load(f).catch(() => null)));
+  // Pretendard 가 그림에 쓰이도록 미리 불러 둡니다 (그림에 들어갈 글자를 함께 넘겨 필요한 조각만)
+  const glyphs = [input.lead, input.brand, ...input.picks.flatMap((p) => [p.rank, p.charName, p.place])].join('');
+  await Promise.all(['500 32px "Pretendard Variable"', '700 32px "Pretendard Variable"', '800 32px "Pretendard Variable"'].map((f) => document.fonts.load(f, glyphs).catch(() => null)));
   const imgs = await Promise.all(input.picks.map((p) => loadImage(characterArt[p.id]).catch(() => null)));
 
   const canvas = document.createElement('canvas');

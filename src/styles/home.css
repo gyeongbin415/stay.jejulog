@@ -8,7 +8,7 @@
 .intro {
   --night: #343632;   /* Basalt Black — 현무암의 짙은 먹색 */
   --cream: #F6F3ED;
-  --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+  --mono: var(--f-sans);
   --p: 0;
   position: relative; height: 115vh;
   background: var(--night); color: var(--cream);
