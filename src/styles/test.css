@@ -88,8 +88,8 @@
 .pick__rank strong { font-size: 12.5px; letter-spacing: .1em; color: var(--orange-ink); }
 .pick__character { width: min(66%, 170px); margin-top: 52px; }
 .pick__character img { display: block; width: 100%; height: auto; }
-.pick__charname { font-family: var(--f-home); font-size: clamp(19px, 1.9vw, 23px); font-weight: 700; line-height: 1.35; letter-spacing: -0.02em; padding-inline: 14px; }
-.pick__name { font-family: var(--f-home); font-size: 16px; font-weight: 500; line-height: 1.4; color: var(--orange-ink); }
+.pick__charname { font-family: var(--f-home); font-size: clamp(19px, 1.9vw, 23px); font-weight: 700; line-height: 1.35; letter-spacing: -0.02em; padding-inline: 14px; color: var(--orange-ink); }
+.pick__name { font-family: var(--f-home); font-size: 16px; font-weight: 500; line-height: 1.4; color: var(--ink); }
 /* 한 줄 소개 — 길이가 달라도 두 카드의 버튼은 맨 아래에 나란히 */
 .pick__oneline { max-width: 22em; padding-inline: 18px; margin-bottom: 14px; font-size: 14px; line-height: 1.6; letter-spacing: -0.02em; color: var(--ink-soft); text-wrap: balance; }
 .pick .btn { margin-top: auto; }
@@ -115,8 +115,8 @@
 .others__item { display: grid; justify-items: center; gap: 4px; height: 100%; padding: 14px 8px 16px; border-radius: 16px; background: #FDF6EA; text-decoration: none; color: var(--ink); transition: transform var(--t-hover) var(--ease), box-shadow var(--t-hover) var(--ease); }
 .others__item:hover { transform: translateY(-3px); box-shadow: 0 6px 16px rgba(58, 55, 53, .1); }
 .others__item img { display: block; width: min(80%, 130px); height: auto; margin-bottom: 4px; }
-.others__char { font-family: var(--f-home); font-size: clamp(13px, 1.4vw, 16px); font-weight: 700; line-height: 1.35; letter-spacing: -0.02em; text-wrap: balance; }
-.others__place { font-size: clamp(12px, 1.2vw, 14px); font-weight: 500; color: var(--orange-ink); }
+.others__char { font-family: var(--f-home); font-size: clamp(13px, 1.4vw, 16px); font-weight: 700; line-height: 1.35; letter-spacing: -0.02em; text-wrap: balance; color: var(--orange-ink); }
+.others__place { font-size: clamp(12px, 1.2vw, 14px); font-weight: 500; color: var(--ink); }
 .result__actions { display: grid; justify-items: center; gap: 12px; margin-top: 36px; }
 .result__actrow { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; width: min(100%, 460px); }
 .result__actrow .btn { justify-content: center; width: 100%; }
