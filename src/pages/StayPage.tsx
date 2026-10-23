@@ -216,8 +216,8 @@ export default function StayPage({ id }: { id: ProgramId }) {
           <a className="btn btn--ghost btn--back" href={href.stay(prev.id)} data-track={`stay_${id}_prev_${prev.id}`}>
             {t.prevStay} <span className="arrow" aria-hidden="true">←</span>
           </a>
-          <a className="btn btn--ghost btn--back" href={href.house()} data-track={`stay_${id}_back_house`}>
-            {t.backToHouse} <span className="arrow" aria-hidden="true">←</span>
+          <a className="btn btn--ghost" href={href.house()} data-track={`stay_${id}_back_house`}>
+            {t.backToHouse}
           </a>
           <a className="btn btn--ghost" href={href.stay(next.id)} data-track={`stay_${id}_next_${next.id}`}>
             {t.nextStay} <span className="arrow" aria-hidden="true">→</span>
