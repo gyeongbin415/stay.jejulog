@@ -5,7 +5,6 @@ import { useContent } from '../i18n';
 import { href } from '../lib/router';
 import { useReducedMotion } from '../lib/motion';
 import { HousePage } from './HousePage';
-import pencilUrl from '../assets/sketch-pencil.png';
 
 /**
  * PAGE 01 — 메인 (하나의 세로 스크롤)
@@ -158,7 +157,7 @@ function Intro() {
         {/* 조리개가 다시 열리며 밝은 화면 — 문제 정의 */}
         <span className="intro__ring" aria-hidden="true" />
         <div id="problem" className="intro__reveal">
-          <Problem active={revealed} />
+          <Problem />
         </div>
       </div>
     </section>
@@ -213,33 +212,10 @@ const BOKEH: [number, number, number, string, number][] = [
 ];
 
 /* ── SECTION 02. PROBLEM — 인트로의 조리개가 열리면 보이는 문제 정의 ─────────────────────────────── */
-/**
- * 질문 → 연필이 '가격' · '위치'를 적고 한 번에 찍찍 그음 → 두 단어는 그냥 사라짐 → 연필이 '경험'을 적음 → 질문과 함께 사라짐 → 맺음 문구
- * 동작 줄이기 설정이면 질문과 맺음 문구만 바로 보여 줍니다.
- */
-function Problem({ active }: { active: boolean }) {
+function Problem() {
   const { site: SITE } = useContent();
-  const reduced = useReducedMotion();
-  const boardRef = useRef<HTMLDivElement>(null);
-  const [done, setDone] = useState(false);
-  // 경험이 사라질 때 질문 문장도 함께 사라짐 (지우개로 지우지 않고)
-  const [clearing, setClearing] = useState(false);
-
-  useEffect(() => {
-    setDone(false);
-    setClearing(false);
-    if (reduced) {
-      setDone(true);
-      return;
-    }
-    const board = boardRef.current;
-    if (!active || !board) return;
-    return runSketch(board, () => setDone(true), () => setClearing(true));
-  }, [active, reduced, SITE.problem.sketch]);
-
-  const { written, then } = SITE.problem.sketch;
   return (
-    <section className={`problem${done ? ' is-done' : ''}${clearing ? ' is-clearing' : ''}`} aria-labelledby="problem-title">
+    <section className="problem" aria-labelledby="problem-title">
       <div className="problem__inner wrap">
         <header className="problem__head">
           <p className="label">{SITE.problem.label}</p>
@@ -249,197 +225,24 @@ function Problem({ active }: { active: boolean }) {
             ))}
           </h2>
         </header>
-        {/* 연필 장면 — 글자는 화면 읽기 프로그램에 읽히지 않게(맺음 문구가 같은 뜻) */}
-        {!reduced && (
-          <div ref={boardRef} className="sketch" aria-hidden="true">
-            <div className="sketch__row">
-              {written.map((w) => (
-                <span key={w} className="sketch__word">{w}</span>
-              ))}
+        <div className="problem__points">
+          {SITE.problem.points.map((pt) => (
+            <div key={pt.no} className="problem__point">
+              <p className="problem__key">
+                <span>{pt.no}</span>
+                {pt.key}
+              </p>
+              <p>{pt.text}</p>
             </div>
-            <span className="sketch__word sketch__word--then">{then}</span>
-            {/* 연필로 찍찍 긋는 줄 — 두 단어를 한 번에 */}
-            <svg className="sketch__strikes" focusable="false">
-              <path />
-            </svg>
-            <img className="sketch__pencil" src={pencilUrl} alt="" />
-          </div>
-        )}
+          ))}
+        </div>
         <div className="problem__answer">
           <p className="problem__answertext pre">{SITE.problem.answer}</p>
           {SITE.problem.answerNote && <p className="problem__answernote">{SITE.problem.answerNote}</p>}
-          {/* 아래로 내려가 보라는 표시 */}
-          <p className="problem__scroll" aria-hidden="true">SCROLL<i /></p>
         </div>
       </div>
     </section>
   );
-}
-
-/** 연필 끝(그림 왼쪽 아래)의 위치 — 그림 크기에 대한 비율 */
-const PENCIL_TIP = { x: 0.017, y: 0.988 };
-
-/**
- * 연필 장면을 시간에 맞춰 그립니다 (밀리초).
- * 글자는 연필 끝이 지나간 만큼 왼쪽부터 보이고, 그은 줄은 연필 끝을 따라 그려집니다.
- * 돌려주는 함수를 부르면 멈추고 처음 상태로 되돌립니다.
- */
-function runSketch(board: HTMLElement, onDone: () => void, onClear: () => void) {
-  const words = [...board.querySelectorAll<HTMLElement>('.sketch__word')];
-  const [w1, w2, w3] = words;
-  const pencil = board.querySelector<HTMLElement>('.sketch__pencil')!;
-  const svg = board.querySelector<SVGSVGElement>('.sketch__strikes')!;
-  const strikes = [...svg.querySelectorAll<SVGPathElement>('path')];
-
-  const reset = () => {
-    for (const w of words) {
-      w.style.clipPath = 'inset(0 100% 0 0)';
-      w.style.opacity = '1';
-    }
-    for (const s of strikes) s.style.opacity = '0';
-    pencil.style.opacity = '0';
-  };
-  reset();
-
-  const box = (el: HTMLElement) => {
-    const b = board.getBoundingClientRect();
-    const r = el.getBoundingClientRect();
-    return { l: r.left - b.left, r: r.right - b.left, t: r.top - b.top, b: r.bottom - b.top, w: r.width, h: r.height };
-  };
-  const clamp = (v: number) => Math.min(1, Math.max(0, v));
-  const ease = (v: number) => (v < 0.5 ? 2 * v * v : 1 - (-2 * v + 2) ** 2 / 2);
-  const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
-  // 구간 [s, e] 안에서의 진행도 0~1
-  const seg = (t: number, s: number, e: number) => clamp((t - s) / (e - s));
-
-  // 시간표 — 가격 · 위치를 적고 → 찍찍 긋고 → 두 단어는 그냥 사라지고 → 경험을 적고 → 질문과 함께 사라짐
-  const T = {
-    pIn: [700, 1100], w1: [1100, 1900], move: [1900, 2200], w2: [2200, 3000],
-    back: [3000, 3350], strike: [3350, 4450], pOut: [4450, 4850],
-    gone: [4900, 5600],
-    p2In: [5700, 6100], w3: [6100, 6900], p2Out: [6900, 7300], fade: [7700, 8500], end: 8800,
-  } as const;
-
-  // 찍찍 긋는 줄 — 두 단어 위를 한 번에 오가는 지그재그 (두 단어를 합친 상자 기준 비율)
-  const ZIG = [[-0.04, 0.62], [1.03, 0.4], [-0.01, 0.58], [1.02, 0.36], [0.01, 0.7], [1.04, 0.5]];
-  let geo: { lens: number[] } | null = null;
-  const measure = () => {
-    const a = box(w1), b = box(w2);
-    const r = { l: a.l, t: Math.min(a.t, b.t), w: b.r - a.l, h: Math.max(a.b, b.b) - Math.min(a.t, b.t) };
-    svg.setAttribute('viewBox', `0 0 ${board.clientWidth} ${board.clientHeight}`);
-    const d = ZIG.map(([x, y], k) => `${k ? 'L' : 'M'}${(r.l + r.w * x).toFixed(1)} ${(r.t + r.h * y).toFixed(1)}`).join(' ');
-    const p = strikes[0];
-    p.setAttribute('d', d);
-    p.style.strokeWidth = String(Math.max(3, r.h * 0.07));
-    const len = p.getTotalLength();
-    p.style.strokeDasharray = String(len);
-    p.style.strokeDashoffset = String(len);
-    geo = { lens: [len] };
-  };
-
-  let raf = 0;
-  let start = 0;
-  let finished = false;
-  let cleared = false;
-  const frame = (now: number) => {
-    if (!start) start = now;
-    const t = now - start;
-    const bw = board.clientWidth;
-    const bh = board.clientHeight;
-    const a = box(w1), b = box(w2), c = box(w3);
-    // 글자 아랫선 근처 — 연필 끝이 닿는 높이
-    const line = (r: typeof a) => r.t + r.h * 0.72;
-    const ph = pencil.offsetHeight, pw = pencil.offsetWidth;
-    const wiggle = (p: number) => Math.sin(p * Math.PI * 7) * ph * 0.035;
-    const placePencil = (x: number, y: number, o: number) => {
-      pencil.style.transform = `translate(${x - pw * PENCIL_TIP.x}px, ${y - ph * PENCIL_TIP.y}px)`;
-      pencil.style.opacity = String(o);
-    };
-    const off = { x: bw * 0.92, y: bh * 1.15 };
-    // 긋는 줄 위의 한 점 (줄의 시작 · 진행)
-    const strikeAt = (i: number, p: number) => {
-      const path = strikes[i];
-      const pt = path.getPointAtLength(geo!.lens[i] * p);
-      return { x: pt.x, y: pt.y };
-    };
-    const drawStrike = (i: number, p: number) => {
-      strikes[i].style.opacity = '1';
-      strikes[i].style.strokeDashoffset = String(geo!.lens[i] * (1 - p));
-      const pt = strikeAt(i, p);
-      placePencil(pt.x, pt.y, 1);
-    };
-
-    if (t < T.pOut[1]) {
-      // 1) 연필 — 가격 · 위치를 적고, 찍찍 그음
-      if (t < T.w1[0]) {
-        const p = ease(seg(t, T.pIn[0], T.pIn[1]));
-        placePencil(lerp(off.x, a.l, p), lerp(off.y, line(a), p), p);
-      } else if (t < T.move[0]) {
-        const p = seg(t, T.w1[0], T.w1[1]);
-        placePencil(lerp(a.l, a.r, p), line(a) + wiggle(p), 1);
-        w1.style.clipPath = `inset(0 ${(1 - p) * 100}% 0 0)`;
-      } else if (t < T.w2[0]) {
-        w1.style.clipPath = 'inset(0 0 0 0)';
-        const p = ease(seg(t, T.move[0], T.move[1]));
-        placePencil(lerp(a.r, b.l, p), lerp(line(a), line(b), p) - Math.sin(p * Math.PI) * ph * 0.25, 1);
-      } else if (t < T.back[0]) {
-        const p = seg(t, T.w2[0], T.w2[1]);
-        placePencil(lerp(b.l, b.r, p), line(b) + wiggle(p), 1);
-        w2.style.clipPath = `inset(0 ${(1 - p) * 100}% 0 0)`;
-      } else {
-        w2.style.clipPath = 'inset(0 0 0 0)';
-        if (!geo) measure();
-        if (t < T.strike[0]) {
-          const p = ease(seg(t, T.back[0], T.back[1]));
-          const s = strikeAt(0, 0);
-          placePencil(lerp(b.r, s.x, p), lerp(line(b), s.y, p) - Math.sin(p * Math.PI) * ph * 0.3, 1);
-        } else if (t < T.pOut[0]) {
-          drawStrike(0, seg(t, T.strike[0], T.strike[1]));
-        } else {
-          strikes[0].style.strokeDashoffset = '0';
-          const p = ease(seg(t, T.pOut[0], T.pOut[1]));
-          const e = strikeAt(0, 1);
-          placePencil(lerp(e.x, off.x, p), lerp(e.y, -ph * 0.2, p), 1 - p);
-        }
-      }
-    } else if (t < T.p2In[0]) {
-      // 2) 그은 두 단어는 그냥 사라짐
-      pencil.style.opacity = '0';
-      const o = String(1 - ease(seg(t, T.gone[0], T.gone[1])));
-      for (const el of [w1, w2, ...strikes]) el.style.opacity = o;
-    } else {
-      for (const el of [w1, w2, ...strikes]) el.style.opacity = '0';
-      // 3) 연필 — 경험, 그리고 질문과 함께 저절로 사라짐
-      if (t < T.w3[0]) {
-        const p = ease(seg(t, T.p2In[0], T.p2In[1]));
-        placePencil(lerp(off.x, c.l, p), lerp(off.y, line(c), p), p);
-      } else if (t < T.p2Out[0]) {
-        const p = seg(t, T.w3[0], T.w3[1]);
-        placePencil(lerp(c.l, c.r, p), line(c) + wiggle(p), 1);
-        w3.style.clipPath = `inset(0 ${(1 - p) * 100}% 0 0)`;
-      } else {
-        w3.style.clipPath = 'inset(0 0 0 0)';
-        const p = ease(seg(t, T.p2Out[0], T.p2Out[1]));
-        placePencil(lerp(c.r, off.x, p), lerp(line(c), -ph * 0.2, p), 1 - p);
-        w3.style.opacity = String(1 - seg(t, T.fade[0], T.fade[1]));
-      }
-    }
-
-    if (t >= T.fade[0] && !cleared) {
-      cleared = true;
-      onClear();
-    }
-    if (t >= T.end && !finished) {
-      finished = true;
-      onDone();
-    }
-    if (t < T.end) raf = requestAnimationFrame(frame);
-  };
-  raf = requestAnimationFrame(frame);
-  return () => {
-    cancelAnimationFrame(raf);
-    reset();
-  };
 }
 
 /* ── SECTION 03. FIND YOUR STAY — 취향 테스트 안내 ─────────────────────────────── */

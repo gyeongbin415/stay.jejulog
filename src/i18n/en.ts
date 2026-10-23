@@ -24,7 +24,7 @@ export const EN: ContentPack = {
 
     problem: {
       label: 'PROBLEM',
-      title: ['Guesthouses —', 'do parties still come to mind first?'],
+      title: ['Guesthouses — do parties still come to mind first?'],
       points: [
         {
           no: '01',
@@ -32,7 +32,6 @@ export const EN: ContentPack = {
           text: 'When choosing a stay, we mostly compare price and location. But a guesthouse isn’t just a place to sleep — you can enjoy all kinds of activities and connect with new people.',
         },
       ],
-      sketch: { written: ['Price', 'Location'], then: 'Experience' },
       answer: 'Now it’s time to look beyond price and location\nand choose a guesthouse by the experience you want.',
       answerNote: '',
     },
