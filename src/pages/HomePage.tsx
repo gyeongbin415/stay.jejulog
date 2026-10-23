@@ -28,7 +28,7 @@ export function HomePage() {
 /**
  * 화면을 고정해 두고 스크롤하는 만큼 장면이 진행됩니다.
  * 질문 → 01 파티. → 02 술. → 03 헌팅.
- * → 시야가 좁아짐(조리개) → 어둠 속 전환 문구 → 조리개가 다시 열리며 문제 정의(PROBLEM)
+ * → 어둠 속 전환 문구 → 밝은 화면이 서서히 떠오르며 문제 정의(PROBLEM)
  * 동작 줄이기 설정이면 고정 없이 모든 문구를 한 번에 보여 줍니다.
  */
 const REVEAL = SITE_KO.intro.words.length + 3;
@@ -37,7 +37,7 @@ function Intro() {
   const ref = useRef<HTMLElement>(null);
   const reduced = useReducedMotion();
   const total = SITE.intro.words.length;
-  // 스크롤 없이 시간에 맞춰 저절로 — 질문 → 파티 · 술 · 헌팅 → 시야가 좁아짐 → 전환 문구 → 조리개가 열리며 문제 정의
+  // 스크롤 없이 시간에 맞춰 저절로 — 질문 → 파티 · 술 · 헌팅 → 전환 문구 → 문제 정의
   // auto: 1 ~ total 은 나온 단어 수, total + 1 은 시야가 좁아짐, total + 2 는 전환 문구, REVEAL 은 문제 정의
   const [auto, setAuto] = useState(0);
   // 자동 진행 중에 먼저 스크롤해 내려가도 바로 문제 정의
@@ -47,10 +47,11 @@ function Intro() {
 
   useEffect(() => {
     if (reduced) return;
-    // 질문만 1.5초(생각할 시간) → 단어 0.65초 간격 → 1초 뒤 시야가 좁아짐 → 0.9초 뒤 전환 문구 → 1.6초 뒤 문제 정의
+    // 질문만 1.5초(생각할 시간) → 단어 0.65초 간격 → 1초 뒤 전환 문구 → 1.6초 뒤 문제 정의
+    // (예전 '시야가 좁아짐' 단계는 뺐습니다 — 같은 시각에 두 단계를 한꺼번에 넘김)
     const at = Array.from({ length: total }, (_, i) => 1500 + i * 650);
     const last = at[at.length - 1];
-    at.push(last + 1000, last + 1900, last + 3500);
+    at.push(last + 1000, last + 1000, last + 2600);
     // 화면에 실제로 보이는 동안만 시간을 셉니다 — 공유 링크가 뒤에서 미리 불러와질 때 혼자 끝나 버리지 않도록
     // (requestAnimationFrame 은 안 보이는 창 · 프레임에서 멈추고, 인트로 무대가 화면에 반 이상 보일 때만 셈)
     let visible = false;
@@ -90,7 +91,7 @@ function Intro() {
       const range = el.offsetHeight - window.innerHeight;
       const p = range > 0 ? Math.min(1, Math.max(0, -el.getBoundingClientRect().top / range)) : 1;
       el.style.setProperty('--p', p.toFixed(3));
-      // 스크롤한 화면 수 기준 — 0.04 화면만 내려도 조리개가 열리며 문제 정의 (문제 정의 화면은 약 0.3화면 머문 뒤 다음 섹션으로)
+      // 스크롤한 화면 수 기준 — 0.04 화면만 내려도 문제 정의 (문제 정의 화면은 약 0.3화면 머문 뒤 다음 섹션으로)
       // 자동 진행이 끝나기 전에 내려가 버려도, 돌아오면 문제 정의가 열린 상태입니다
       const s = p * range / window.innerHeight;
       const reveal = s >= 0.04;
@@ -180,16 +181,13 @@ function Intro() {
           ))}
         </ol>
 
-        {/* 시야가 좁아지는 조리개 */}
-        <div className="intro__iris" aria-hidden="true" />
         <p className="intro__turn pre">{SITE.intro.turn}</p>
 
         <p className="intro__hint" aria-hidden="true">
           <i />
         </p>
 
-        {/* 조리개가 다시 열리며 밝은 화면 — 문제 정의 */}
-        <span className="intro__ring" aria-hidden="true" />
+        {/* 밝은 화면이 서서히 떠오르며 — 문제 정의 */}
         <div id="problem" className="intro__reveal">
           <Problem />
         </div>
@@ -245,7 +243,7 @@ const BOKEH: [number, number, number, string, number][] = [
   [330, 700, 60, '#5A4A40', 0.3],
 ];
 
-/* ── SECTION 02. PROBLEM — 인트로의 조리개가 열리면 보이는 문제 정의 ─────────────────────────────── */
+/* ── SECTION 02. PROBLEM — 인트로 끝에 떠오르는 문제 정의 ─────────────────────────────── */
 function Problem() {
   const { site: SITE } = useContent();
   return (
