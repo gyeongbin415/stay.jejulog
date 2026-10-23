@@ -103,11 +103,11 @@ export const EN: ContentPack = {
       title: 'How to Run Along Jeju’s Sea',
       kicker: 'Next on the schedule after check-in: lacing up your running shoes.',
       intro:
-        'So that even solo travelers in Jeju can easily mix with strangers, the house offers an evening dinner and a morning run. In the evening, guests grow closer over food and wine; in the morning, they run the Aewol coastline together and make new memories. It’s a place where you can join in without pressure and enjoy company even when you came alone.',
+        'The owner’s days as a guesthouse staffer stayed with them long after, so they opened this stay to share that experience with travelers. To make meeting people feel natural, there’s dinner and wine in the evening, a run along the coast in the morning, and a tea time at midday. Every program is optional.',
       forWhom: [
-        'Anyone who wants to keep a morning routine, even on the road',
-        'Solo travelers who’d like to mingle, lightly',
-        'Those more curious about neighborhood mornings than tourist sights',
+        'Those who want easy, no-pressure company',
+        'Those who want a relaxed evening over wine',
+        'Those who want a morning run along the Jeju sea',
       ],
       hero: { alt: 'A two-story brown building with ‘SAE AEWOL’ written large on its exterior wall', caption: 'Sae Aewol' },
       placeName: 'Sae Aewol',
@@ -125,7 +125,7 @@ export const EN: ContentPack = {
             { alt: 'Hands toasting marshmallows on skewers over a campfire', caption: 'Fire gazing after dinner' },
           ],
           text: [
-            'A time to enjoy a Western-style dinner and wine prepared by the owner, and to get to know other guests naturally. On fine days, dinner is served in the yard; afterward, you can gaze into the campfire and wind down the Jeju night at an easy pace.',
+            'A time to enjoy a Western-style dinner and wine prepared by the owner and get to know guests you’ve just met. On fine days, dinner is served in the yard, and afterward everyone talks around the campfire. A slow, easy way to close a Jeju night.',
           ],
         },
         {
@@ -139,9 +139,19 @@ export const EN: ContentPack = {
             { alt: 'Guests waving from the blue sea with wind turbines in the distance (faces blurred)', caption: 'A sea swim after the run' },
           ],
           text: [
-            'The day begins with a run along the Aewol coastline with fellow guests. After the run, you can dive into the cool sea for a swim. Running in the Jeju sea breeze and opening the day in the water makes for a rare kind of morning.',
+            'The day begins with a run along the Aewol coast with other guests. You take in the Jeju scenery in the sea breeze, and after the run, weather permitting, you can try a sea swim too. Talking naturally as you run, it’s a different way to greet a Jeju morning.',
           ],
-          note: 'The sea swim may or may not go ahead depending on the weather and sea conditions.',
+          note: 'The sea swim may change depending on the weather and sea conditions.',
+        },
+        {
+          name: 'Tea Time',
+          info: [
+            { label: 'Time', value: '12:00 PM' },
+            { label: 'Price', value: 'No participation fee' },
+          ],
+          text: [
+            'At noon after check-out, guests gather over tea prepared by the owner and talk. Joining is up to you; it’s an easy time to share your Jeju experiences and upcoming travel plans. When people hit it off, they sometimes carry on traveling together.',
+          ],
         },
       ],
       experience: [],
