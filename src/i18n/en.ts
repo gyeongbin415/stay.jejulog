@@ -23,7 +23,7 @@ export const EN: ContentPack = {
     },
 
     problem: {
-      label: "EDITOR'S NOTE",
+      label: 'INTRO',
       title: ['Beyond the parties,', 'there was more we found by going ourselves.'],
       points: [],
       answer: "The experiences our editors found by staying there,\ngathered into one house.",

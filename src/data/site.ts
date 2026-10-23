@@ -22,7 +22,7 @@ export const SITE = {
 
   /* 문제 정의 — 기획 배경을 그대로 옮깁니다 */
   problem: {
-    label: "EDITOR'S NOTE",
+    label: 'INTRO',
     title: ['파티 말고도,', '직접 가서 알게 된 게 있어요.'],
     points: [],
     answer: "에디터가 직접 머물며 찾은 경험,\n한 집에 모아봤어요.",
