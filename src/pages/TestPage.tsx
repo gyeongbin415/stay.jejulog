@@ -140,7 +140,6 @@ export default function TestPage({ sharedCode, mine = false }: { sharedCode: str
             <header className="test__head">
               <p className="label">TEST</p>
               <p className="test__title serif pre">{ui.test.title}</p>
-              <p className="test__sub pre">{ui.test.sub(QUESTIONS.length)}</p>
             </header>
 
             <div className="test__card" key={qi}>
