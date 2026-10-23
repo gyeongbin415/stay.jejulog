@@ -2,13 +2,12 @@ import { useState } from 'react';
 import { useContent } from '../i18n';
 import type { ProgramId } from '../data/types';
 import { href } from '../lib/router';
-import { useMediaQuery } from '../lib/motion';
 import { RoomArt } from '../components/RoomArt';
-import { HouseRoof } from '../components/HouseRoof';
 
 /**
- * PAGE 02 — 집 내부 탐색 (EXPLORE)
- * 외벽을 걷어 낸 제주 구옥 단면. 아홉 가지 공간을 누르면 바로 해당 게스트하우스 상세페이지로 이동합니다.
+ * PAGE 02 — 창문 탐색 (ROOM TOUR)
+ * 벽에 난 창문 아홉 개. 닫힌 창(커튼 · 블라인드 · 간유리 · 덧창)에 이름이 적혀 있고,
+ * 마우스를 올리면 창이 열려 방 안이 보입니다(이름은 사라짐). 누르면 해당 게스트하우스 상세페이지로 이동합니다.
  * '목록'을 누르면 그림 대신 아홉 가지 경험을 이름으로 한눈에 보여 줍니다.
  */
 type View = 'house' | 'list';
@@ -24,16 +23,11 @@ function readView(): View {
 
 /** embedded — 메인 페이지 안 한 섹션으로 (제목은 h2, 위쪽 여백은 상단 바 없이) */
 export function HousePage({ embedded = false }: { embedded?: boolean }) {
-  const { site, ui, rooms, compactFloors, experiences, programById } = useContent();
+  const { site, ui, experiences, programById } = useContent();
   const SITE = site;
   const Title = embedded ? 'h2' : 'h1';
-  // 넓은 화면: 다락 1 · 2층 3칸 · 1층 3칸 · 마당 2 (rooms) / 좁은 화면: 실내를 두 칸씩 세 층(compactFloors)
-  const [attic, living, kitchen, yard] = rooms;
-  const wide = useMediaQuery('(min-width: 900px)');
-  const bodyFloors = wide ? [living, kitchen] : compactFloors;
-  // 목록 보기도 집 순서대로 — 다락 → 3F → 2F → 1F → 마당
-  const houseOrder = [attic, ...bodyFloors, yard].flatMap((f) => f.items);
-  const listed = houseOrder.map((id) => experiences.find((e) => e.id === id)!).filter(Boolean);
+  // 목록 보기도 창문 순서대로
+  const listed = WINDOWS.map((w) => experiences.find((e) => e.id === w.id)!).filter(Boolean);
   // 상세페이지에 다녀와도 보던 방식이 유지되도록 이 탭에서만 기억합니다.
   const [view, setView] = useState<View>(readView);
   const choose = (v: View) => {
@@ -83,77 +77,61 @@ export function HousePage({ embedded = false }: { embedded?: boolean }) {
           </ol>
         </nav>
       ) : (
-      <nav className="house" aria-label={ui.house.houseAria}>
-        {/* 집 — 배경은 페이지 색 그대로 */}
-        <div className="house__stage">
-          <div className="house__inner">
-            <div className="house__top">
-              <HouseRoof className="house__roof" />
-              <div className="house__floor house__floor--attic">
-                <FloorLabel floor={attic.floor} name={attic.name} />
-                <div className="house__rooms">
-                  {attic.items.map((id) => (
-                    <Room key={id} id={id} />
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            <div className="house__body">
-              {bodyFloors.map((f) => (
-                <div key={f.id} className={`house__floor house__floor--${f.id}`}>
-                  <FloorLabel floor={f.floor} name={f.name} />
-                  {/* 층마다 칸 수만큼 (넓은 화면 3칸 · 좁은 화면 2칸) */}
-                  <div className="house__rooms" style={{ gridTemplateColumns: `repeat(${f.items.length}, minmax(0, 1fr))` }}>
-                    {f.items.map((id) => (
-                      <Room key={id} id={id} />
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* 마당 */}
-        <div className="house__yard">
-          <div className="house__floor house__floor--yard">
-            <FloorLabel floor={yard.floor} name={yard.name} />
-            <div className="house__rooms">
-              {yard.items.map((id) => (
-                <Room key={id} id={id} />
-              ))}
-            </div>
-          </div>
-        </div>
+      <nav className="facade wrap" aria-label={ui.house.houseAria}>
+        <ul className="facade__grid">
+          {WINDOWS.map((w) => (
+            <li key={w.id}>
+              <Window {...w} />
+            </li>
+          ))}
+        </ul>
       </nav>
       )}
     </section>
   );
 }
 
-/** 층 이름 — 그림에는 보이지 않고 화면 읽기 프로그램에만 */
-function FloorLabel({ floor, name }: { floor: string; name: string }) {
-  return (
-    <p className="house__label visually-hidden">
-      <span>{floor}</span>
-      {name}
-    </p>
-  );
-}
+/**
+ * 창문 아홉 개 — 위 줄부터 책 · 나무반지 · 꽃꽂이 / 영화 · LP · 집밥 / 러닝 · 스냅 · 와인
+ * top: 둥근 아치(arch) · 네모 위 처마(cap) / cover: 닫혀 있을 때 가린 것
+ */
+type Cover = 'curtain' | 'blind' | 'frost' | 'shutter';
+const WINDOWS: { id: ProgramId; top: 'arch' | 'cap'; cover: Cover }[] = [
+  { id: 'book', top: 'arch', cover: 'curtain' },
+  { id: 'craft', top: 'cap', cover: 'blind' },
+  { id: 'flower', top: 'arch', cover: 'frost' },
+  { id: 'cinema', top: 'cap', cover: 'blind' },
+  { id: 'lp', top: 'cap', cover: 'curtain' },
+  { id: 'homemeal', top: 'arch', cover: 'frost' },
+  { id: 'running', top: 'arch', cover: 'shutter' },
+  { id: 'camping', top: 'cap', cover: 'frost' },
+  { id: 'wine', top: 'arch', cover: 'curtain' },
+];
 
-function Room({ id }: { id: ProgramId }) {
+function Window({ id, top, cover }: { id: ProgramId; top: 'arch' | 'cap'; cover: Cover }) {
   const { ui, experienceById, programById } = useContent();
   const e = experienceById[id];
   const place = programById[id].report.place.name;
   return (
-    <a className={`room room--${id}`} href={href.stay(id)} aria-label={ui.house.roomAria(e.no, e.label, place)} data-track={`house_${id}`}>
-      <RoomArt id={id} />
-      <span className="room__tag" aria-hidden="true">
-        <span className="room__name">{e.label}</span>
-        <span className="room__place">{place}</span>
-        <span className="room__arrow">→</span>
+    <a className={`win win--${top} win--${cover}`} href={href.stay(id)} aria-label={ui.house.roomAria(e.no, e.label, place)} data-track={`house_${id}`}>
+      {top === 'cap' && <span className="win__cap" aria-hidden="true" />}
+      <span className="win__frame" aria-hidden="true">
+        {/* 위 채광창 두 칸 */}
+        <span className="win__transom">
+          <span />
+          <span />
+        </span>
+        {/* 아래 큰 창 — 안에 방 그림, 그 앞을 가린 커튼 · 블라인드 · 간유리 · 덧창 */}
+        <span className="win__pane">
+          <RoomArt id={id} />
+          <span className="win__cover">
+            <span className="win__half win__half--l" />
+            <span className="win__half win__half--r" />
+          </span>
+          <span className="win__label">{e.label}</span>
+        </span>
       </span>
+      <span className="win__sill" aria-hidden="true" />
     </a>
   );
 }

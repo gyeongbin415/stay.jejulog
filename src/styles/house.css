@@ -48,111 +48,93 @@
   .explist__item { padding: 22px 22px 24px; gap: 6px; }
 }
 
-/* ── 집 — 민트 하늘 · 오름 · 흰 벽 · 크림색 방 · 돌담 · 초록 마당 ─────────────────────────────── */
-.explore { --yard: #C0DBA7; --charcoal: #3A3735; background: var(--bg); padding-bottom: 0; }
-/* 집 내부 문구는 모두 인트로 질문과 같은 카트 고딕 (제목 · 설명 · 버튼 · 방 이름표 · 전체보기 목록) */
+/* ── 메인 섹션 공통 ─────────────────────────────── */
+.explore { background: var(--bg); }
+/* 섹션 문구는 모두 본문 서체 */
 .explore, .explore button { font-family: var(--f-home); }
-/* EXPLORE 라벨은 다른 섹션 라벨(CHECK IN 등)과 같은 본문 서체 · 자간 */
 .explore .label { font-family: var(--f-sans); letter-spacing: .16em; }
 .explore .explist { padding-bottom: clamp(72px, 10vh, 120px); }
 /* 메인 페이지 안 — 문제 정의 바로 다음 섹션 */
-/* 문제 정의 화면 아래 빈 자리로 살짝 끌어올려 두 섹션 사이 간격을 줄임 */
-.explore.explore--home { position: relative; z-index: 5; padding-top: clamp(40px, 7vh, 80px); } /* SCROLL 표시 아래 공백 */
+.explore.explore--home { position: relative; z-index: 5; padding-top: clamp(40px, 7vh, 80px); }
 .explore__hint, .explore__toggle { background: rgba(255, 255, 255, .6); }
 
-.house { position: relative; }
-/* 마당 초록이 집 아래쪽(1층 절반쯤)까지 올라와, 집이 풀밭 위에 서 있는 것처럼 */
-.house__stage { position: relative; padding-top: 8px; background: linear-gradient(to bottom, transparent calc(100% - var(--house-w) * .17), var(--yard) 0); }
-/* 집 폭 — 좁은 화면(층마다 2칸)은 760, 넓은 화면(층마다 3칸)은 1080 까지 */
-/* 지붕(몸체의 118.4%)이 화면 안에 다 들어오도록, 남는 폭을 1.18421 로 나눈 값까지만 */
-.house { --house-w: min(760px, (100% - var(--gutter) * 2) / 1.18421); }
-@media (min-width: 900px) { .house { --house-w: min(1080px, (100% - var(--gutter) * 2) / 1.18421); } }
-.house__inner { position: relative; z-index: 1; width: var(--house-w); margin-inline: auto; }
-
-/* 지붕 — 처마가 몸체보다 양쪽으로 70/760 넓습니다 (viewBox -70 0 900 300) */
-.house__top { position: relative; }
-/* overflow: visible — 처마 끝 둥근 마감이 그림 틀(아래 경계) 밖으로 살짝 나와도 잘리지 않게 */
-.house__roof { display: block; width: 118.421%; max-width: none; margin-left: -9.211%; aspect-ratio: 900 / 300; height: auto; overflow: visible; }
-/* 다락 — 지붕 박공 한가운데, 아래층 방 한 칸과 같은 폭이라 소품 크기도 다른 방과 같음
-   (좁은 화면: 두 칸 중 한 칸 · 넓은 화면: 아래 42%) */
-.house__top .house__floor--attic { position: absolute; z-index: 1; left: 50%; translate: -50% 0; width: calc((100% - var(--gap) * 3) / 2); bottom: 0; }
-/* 넓은 화면 — 방 한 칸(약 32%)보다 조금 크게 */
-@media (min-width: 900px) { .house__top .house__floor--attic { width: 42%; } }
-.house__floor--attic .house__rooms { grid-template-columns: 1fr; }
-.house__floor--attic .room { aspect-ratio: 400 / 250; }
-/* 다락 이름표 — 박공 지붕선에 닿지 않게 가운데 위 */
-.house__floor--attic .room__tag { left: 50%; translate: -50% 0; }
-
-/* 몸체 — 갈색 나무 벽 · 층 사이 갈색 띠, 방은 두 칸씩 */
-/* 갈색 벽 · 층 사이 띠 두께 */
-.house { --gap: clamp(5px, 1.2vw, 10px); }
-.house__body { background: #7B4628; padding: var(--gap); }
-.house__floor { position: relative; }
-.house__floor + .house__floor { margin-top: var(--gap); }
-.house__rooms { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gap); }
-
-/* 마당 — 초록 잔디 위, 집 칸과 같은 폭 · 간격의 연두 판 두 칸 */
-.house__yard { background: var(--yard); padding: clamp(12px, 3vh, 28px) 0 clamp(48px, 8vh, 88px); }
-.house__floor--yard { width: var(--house-w); margin-inline: auto; padding-inline: var(--gap); }
-
-/* ── 공간(클릭 영역) ─────────────────────────────── */
-.room {
-  position: relative; display: block; overflow: hidden;
-  aspect-ratio: 400 / 260;
-  text-decoration: none; color: var(--ink);
-  outline-offset: -3px;
-  -webkit-tap-highlight-color: transparent;
+/* ── 창문 벽 — 크림색 벽에 나무색 창틀 아홉 개 (3 × 3) ─────────────────────────────── */
+.facade {
+  --wood: #7B4628; --wood-dark: #5E321C; --glass: #F6DCC6;
+  padding-bottom: clamp(64px, 10vh, 120px);
 }
-.room__art { position: absolute; inset: 0; width: 100%; height: 100%; }
-.room::after {
-  content: ""; position: absolute; inset: 0; pointer-events: none;
-  box-shadow: inset 0 0 0 0 #F39A2B;
-  transition: box-shadow var(--t-hover) var(--ease);
-}
-.room .obj { transform-box: fill-box; transform-origin: 50% 100%; transition: transform var(--t-hover) var(--ease); }
-.room:hover .obj, .room:focus-visible .obj { transform: scale(1.07); }
-/* 네모 테두리는 키보드로 고를 때만 (마우스 호버엔 없음) */
-.room:focus-visible::after { box-shadow: inset 0 0 0 3px #F39A2B; }
-.room:active .obj { transform: scale(1.03); }
+.facade__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(22px, 5vw, 72px) clamp(22px, 5vw, 64px); max-width: 860px; margin-inline: auto; align-items: end; }
 
-/* 이름표 — 흰 알약 (테두리 없이 옅은 그림자) */
-.room__tag {
-  position: absolute; left: 10px; top: 10px;
-  display: inline-flex; align-items: center; gap: 7px; max-width: calc(100% - 20px);
-  padding: 7px 14px 7px 12px; border-radius: 999px;
-  background: var(--bg); color: var(--charcoal); box-shadow: 0 1px 6px rgba(58, 55, 53, .12); /* 메인페이지 배경색 */
-  font-size: 15px; font-weight: 600; line-height: 1.3; white-space: nowrap;
-  transition: background var(--t-hover) var(--ease), color var(--t-hover) var(--ease), border-color var(--t-hover) var(--ease);
+.win { position: relative; display: block; text-decoration: none; color: var(--ink); -webkit-tap-highlight-color: transparent; outline-offset: 6px; }
+/* 창틀 — 나무색 두꺼운 테두리 · 짙은 외곽선 */
+.win__frame {
+  --t: clamp(5px, .9vw, 10px);
+  position: relative; display: grid; gap: var(--t);
+  padding: var(--t); background: var(--wood);
+  box-shadow: 0 0 0 1.5px var(--wood-dark);
 }
-.room__place { font-size: 13px; font-weight: 500; color: #D46A1F; overflow: hidden; text-overflow: ellipsis; transition: color var(--t-hover) var(--ease); }
-.room__place::before { content: "·"; margin-right: 6px; color: var(--ink-soft); }
-.room__arrow { font-weight: 500; }
-/* 호버 — 메인 주황 바탕 */
-.room:hover .room__tag, .room:focus-visible .room__tag { background: #F0883A; border-color: #F0883A; color: #111111; }
-.room:hover .room__place, .room:focus-visible .room__place,
-.room:hover .room__place::before, .room:focus-visible .room__place::before { color: rgba(17, 17, 17, .72); }
+/* 위 채광창 두 칸 (분홍빛 유리) */
+.win__transom { display: grid; grid-template-columns: 1fr 1fr; gap: var(--t); height: clamp(18px, 3.2vw, 34px); }
+.win__transom span { background: var(--glass); box-shadow: inset 0 0 0 1px rgba(94, 50, 28, .35); }
+/* 둥근 아치 — 창틀 위쪽을 반원에 가깝게, 채광창도 아치를 따라 */
+.win--arch .win__frame { border-radius: 50% 50% 0 0 / clamp(28px, 6vw, 70px) clamp(28px, 6vw, 70px) 0 0; }
+.win--arch .win__transom { height: clamp(26px, 5vw, 56px); }
+.win--arch .win__transom span:first-child { border-top-left-radius: 100% 100%; }
+.win--arch .win__transom span:last-child { border-top-right-radius: 100% 100%; }
+/* 네모 창 위 처마 */
+.win__cap { display: block; height: clamp(7px, 1.1vw, 12px); margin: 0 -4% 2px; background: var(--wood); box-shadow: 0 0 0 1.5px var(--wood-dark); }
+/* 창턱 */
+.win__sill { display: block; height: clamp(7px, 1.1vw, 12px); margin: 3px -5% 0; background: var(--wood); box-shadow: 0 0 0 1.5px var(--wood-dark); }
 
-/* ── ~639px : 휴대폰 — 칸이 작아지므로 이름표는 경험 이름만 ─────────────────────────────── */
+/* 큰 창 — 방 그림이 들어가는 칸 */
+.win__pane { position: relative; display: block; aspect-ratio: 4 / 5; overflow: hidden; background: #F2DEC0; box-shadow: inset 0 0 0 1px rgba(94, 50, 28, .4); }
+.win__pane .room__art { position: absolute; inset: 0; width: 100%; height: 100%; }
+.win__pane .obj { transform-box: fill-box; transform-origin: 50% 100%; transition: transform var(--t-hover) var(--ease); }
+
+/* 가림막 — 왼쪽 · 오른쪽 두 짝, 열리는 방식은 종류마다 다름 */
+.win__cover { position: absolute; inset: 0; z-index: 1; perspective: 700px; pointer-events: none; }
+.win__half { position: absolute; top: 0; bottom: 0; width: 50.6%; /* 가운데 틈이 안 생기게 살짝 겹침 */ transition: transform .7s cubic-bezier(.2, .75, .2, 1), opacity .6s var(--ease); }
+.win__half--l { left: 0; transform-origin: left center; }
+.win__half--r { right: 0; transform-origin: right center; }
+/* 커튼 — 크림색 천 주름 */
+.win--curtain .win__half { background: repeating-linear-gradient(to right, #F7EBD6 0 9%, #EAD6B6 13%, #F7EBD6 18%); box-shadow: inset -1px 0 0 rgba(94, 50, 28, .18); }
+/* 블라인드 — 나무 살이 가로로 */
+.win--blind .win__half { background-color: #B9845A; background-image: repeating-linear-gradient(to bottom, rgba(255, 236, 210, .32) 0 2px, transparent 2px 5px, rgba(74, 38, 16, .45) 5px 6px); transform-origin: top center; }
+/* 간유리 — 따뜻한 불빛이 번지는 반투명 유리, 가운데 창살 */
+.win--frost .win__half { background: radial-gradient(circle at 50% 40%, #F7CFA2, #DDA683 70%); box-shadow: inset 0 0 0 calc(var(--t, 6px) / 2) var(--wood); }
+/* 덧창 — 나무 겉창 */
+.win--shutter .win__half { background-color: #8A5634; background-image: repeating-linear-gradient(to bottom, rgba(255, 236, 210, .25) 0 2px, transparent 2px 6px, rgba(40, 20, 8, .4) 6px 8px, transparent 8px 10px); box-shadow: inset 0 0 0 calc(var(--t, 6px) / 2) #6B3D22; }
+
+/* 이름표 — 닫혀 있을 때만 */
+.win__label {
+  position: absolute; z-index: 2; left: 8px; top: 8px; max-width: calc(100% - 16px);
+  padding: 6px 13px; border-radius: 999px; background: var(--bg); color: var(--charcoal, #3A3735);
+  box-shadow: 0 1px 6px rgba(58, 55, 53, .14);
+  font-size: clamp(12px, 1.4vw, 16px); font-weight: 600; line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  transition: opacity .3s var(--ease);
+}
+
+/* ── 열림 — 마우스를 올리거나 키보드로 고르면 ─────────────────────────────── */
+.win:hover .win__label, .win:focus-visible .win__label { opacity: 0; }
+.win:hover .obj, .win:focus-visible .obj { transform: scale(1.05); }
+/* 커튼은 양옆으로 걷히고 */
+.win--curtain:hover .win__half, .win--curtain:focus-visible .win__half { transform: scaleX(.2); } /* 양옆으로 모여 걷힘 */
+/* 블라인드는 위로 말려 올라가고 */
+.win--blind:hover .win__half, .win--blind:focus-visible .win__half { transform: scaleY(.06); }
+/* 간유리는 열리며 사라지고 */
+.win--frost:hover .win__half--l, .win--frost:focus-visible .win__half--l { transform: rotateY(-75deg); opacity: 0; }
+.win--frost:hover .win__half--r, .win--frost:focus-visible .win__half--r { transform: rotateY(75deg); opacity: 0; }
+/* 덧창은 양쪽으로 젖혀짐 */
+.win--shutter:hover .win__half--l, .win--shutter:focus-visible .win__half--l { transform: rotateY(-62deg); }
+.win--shutter:hover .win__half--r, .win--shutter:focus-visible .win__half--r { transform: rotateY(62deg); }
+@media (prefers-reduced-motion: reduce) { .win__half { transition-duration: .01s; } }
+
+/* ── ~639px : 휴대폰 ─────────────────────────────── */
 @media (max-width: 639px) {
-  .explore__head { gap: 8px; margin-bottom: 18px; }
+  .explore__head { gap: 8px; margin-bottom: 22px; }
   .explore__title { font-size: 28px; }
   .explore__sub { font-size: 15.5px; }
   .explore__hint { font-size: 12.5px; padding: 6px 12px; margin-top: 2px; }
   .explore { padding-top: calc(var(--header) + 22px); }
-  .room__tag { left: 5px; top: 5px; max-width: calc(100% - 10px); padding: 3px 9px; gap: 4px; font-size: 12px; }
-  .room__place, .room__arrow { display: none; }
-}
-@media (min-width: 640px) and (max-width: 899px) {
-  .room__place, .room__arrow { display: none; }
-  .room__tag { left: 8px; top: 8px; font-size: 13.5px; padding: 5px 12px; }
-}
-
-/* ── 900px~ : 마우스가 있는 화면 — 숙소 이름은 호버 때 ─────────────────────────────── */
-@media (min-width: 900px) and (hover: hover) {
-  .room__place, .room__arrow {
-    max-width: 0; opacity: 0; overflow: hidden; margin-left: -7px;
-    transition: max-width var(--t-hover) var(--ease), opacity var(--t-hover) var(--ease), margin var(--t-hover) var(--ease);
-  }
-  .room:hover .room__place, .room:focus-visible .room__place { display: inline; max-width: 140px; opacity: 1; margin-left: 0; }
-  .room:hover .room__arrow, .room:focus-visible .room__arrow { max-width: 20px; opacity: 1; margin-left: 0; }
+  .win__label { left: 4px; top: 4px; max-width: calc(100% - 8px); padding: 3px 8px; font-size: 11.5px; }
 }
