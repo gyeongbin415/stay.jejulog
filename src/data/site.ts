@@ -22,7 +22,7 @@ export const SITE = {
 
   /* 문제 정의 — 기획 배경을 그대로 옮깁니다 */
   problem: {
-    label: 'INTRO',
+    label: 'CHECK IN',
     title: ['파티 말고도,', '직접 가서 알게 된 게 있어요.'],
     points: [],
     answer: "에디터가 직접 머물며 찾은 경험,\n한 집에 모아봤어요.",
@@ -43,7 +43,7 @@ export const SITE = {
   },
 
   checkOut: {
-    label: 'OUTRO',
+    label: 'CHECK OUT',
     title: ['들어올 때와', '나갈 때의 생각이 달라졌나요?'],
     sub: '게스트하우스에는 파티 말고도\n당신의 취향에 맞는\n다양한 경험이 기다리고 있습니다.',
     cta: '다시 둘러보기',

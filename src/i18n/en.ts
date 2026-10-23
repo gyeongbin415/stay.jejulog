@@ -23,7 +23,7 @@ export const EN: ContentPack = {
     },
 
     problem: {
-      label: 'INTRO',
+      label: 'CHECK IN',
       title: ['Beyond the parties,', 'there was more we found by going ourselves.'],
       points: [],
       answer: "The experiences our editors found by staying there,\ngathered into one house.",
@@ -44,7 +44,7 @@ export const EN: ContentPack = {
     },
 
     checkOut: {
-      label: 'OUTRO',
+      label: 'CHECK OUT',
       title: ['Do you see it differently', 'now than when you came in?'],
       sub: 'Beyond parties, guesthouses hold\nall kinds of experiences\nwaiting to match your taste.',
       cta: 'Look around again',
