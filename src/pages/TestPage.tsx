@@ -9,7 +9,8 @@ import { prefersReducedMotion } from '../lib/motion';
 import { track } from '../lib/track';
 import { makeResultImage } from '../lib/resultImage';
 import gehageUrl from '../assets/gehage.png';
-import storySceneUrl from '../assets/gehage-story.webp';
+import storyCrabUrl from '../assets/gehage-story-crab.webp';
+import storyBubbleUrl from '../assets/gehage-story-bubble.webp';
 
 /** 말풍선 모양 — 타원 몸통(가운데 112,58 · 반지름 100×52)과 왼쪽 아래로 뻗은 꼬리 */
 const BUBBLE_PATH = 'M54.6 100.6 A100 52 0 1 0 30.1 87.8 Q29 110 14 126 Q38 117 54.6 100.6 Z';
@@ -99,10 +100,13 @@ export default function TestPage({ sharedCode }: { sharedCode: string | null }) 
         {step === 'story' && (
           <div className="story">
             <p className="label">STORY</p>
-            {/* 짐을 메고 지도를 든 여행자 소라게 게하게 + 말풍선 — 한국어는 시안 그림 한 장(배경만 뺌),
-                다른 언어는 말풍선 글자를 바꿀 수 있게 소라게 그림 + 그린 말풍선 */}
+            {/* 짐을 메고 지도를 든 여행자 소라게 게하게 + 말풍선 — 한국어는 시안 그림에서 소라게 · 말풍선을 따로 떼어
+                (배경만 뺌) 소라게는 가운데, 말풍선은 오른쪽 위에 작게. 다른 언어는 글자를 바꿀 수 있게 그린 말풍선 */}
             {lang === 'ko' ? (
-              <img className="story__art" src={storySceneUrl} alt={ui.test.storyBubble.replace('\n', ' ')} />
+              <div className="story__scene">
+                <img className="story__char story__char--art" src={storyCrabUrl} alt="" aria-hidden="true" />
+                <img className="story__bubble-art" src={storyBubbleUrl} alt={ui.test.storyBubble.replace('\n', ' ')} />
+              </div>
             ) : (
             <div className="story__scene">
               <img className="story__char" src={gehageUrl} alt="" aria-hidden="true" />

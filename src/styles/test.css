@@ -7,8 +7,9 @@
 /* 테스트 전 이야기 — 소라게 게하게 */
 .story { display: grid; justify-items: center; gap: 16px; max-width: 620px; margin: 0 auto; text-align: center; padding-block: clamp(8px, 3vh, 32px); }
 /* 소라게는 가운데, 말풍선은 오른쪽 위에 작게 */
-/* 소라게 + 말풍선 그림 한 장 (한국어) */
-.story__art { display: block; width: min(100%, 520px); height: auto; margin: clamp(8px, 2vw, 20px) 0 2px; }
+/* 한국어 — 시안에서 떼어 낸 소라게(가운데) · 말풍선 그림(오른쪽 위, 작게) */
+.story__scene .story__char--art { width: clamp(190px, 34vw, 320px); }
+.story__bubble-art { position: absolute; left: 66%; bottom: 70%; width: clamp(142px, 68%, 230px); height: auto; }
 .story__scene { position: relative; margin: clamp(36px, 5vw, 56px) 0 2px; }
 .story__char { display: block; width: clamp(160px, 30vw, 280px); height: auto; }
 .story__bubble { position: absolute; left: 76%; top: -4%; padding: 13px 22px 24px 28px; }
