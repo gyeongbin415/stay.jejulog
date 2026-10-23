@@ -60,7 +60,7 @@ export const PROGRAMS: Program[] = [
     ],
     hint: '화면을 누를 때마다 한 걸음씩, 제주의 아침이 밝아옵니다.',
     tryLabel: '새애월 들여다보기',
-    hero: { src: 'photos/saewol-exterior.jpg', art: 'road', alt: "외벽에 'SAE AEWOL' 글자가 크게 적힌 2층 갈색 건물", caption: '새애월' },
+    hero: { src: 'photos/saewol-exterior-v2.jpg', art: 'road', alt: "외벽에 'SAE AEWOL' 글자가 크게 적힌 2층 갈색 건물", caption: '새애월' },
     gallery: [
       { art: 'shoe', alt: '현관에 나란히 놓인 러닝화 (샘플 이미지)', caption: '06:10 — 출발 전 현관' },
       { art: 'coast-dawn', alt: '돌담 너머로 해가 떠오르는 바다 (샘플 이미지)', caption: '반환점에서 본 바다' },
@@ -126,7 +126,7 @@ export const PROGRAMS: Program[] = [
     hint: '상영 시작 버튼을 누르면 조명이 꺼집니다.',
     tryLabel: '쉼게스트하우스 들여다보기',
     hero: {
-      src: 'photos/shym-exterior.jpg',
+      src: 'photos/shym-exterior-v2.jpg',
       art: 'cinema',
       alt: "돌담에 'JEJUSHYM' 글자가 붙은 쉼게스트하우스의 흰 건물과 잔디 마당",
       caption: '쉼게스트하우스',
@@ -172,7 +172,7 @@ export const PROGRAMS: Program[] = [
     ],
     hint: '마음에 드는 꽃을 골라 나만의 작은 꽃다발을 완성해 보세요.',
     tryLabel: '코코코 들여다보기',
-    hero: { src: 'photos/kokoko-sign.jpg', art: 'flower', alt: "흰 나무 외벽에 걸린 '코코코 Guest House' 간판", caption: '코코코 게스트하우스' },
+    hero: { src: 'photos/kokoko-sign-v2.jpg', art: 'flower', alt: "흰 나무 외벽에 걸린 '코코코 Guest House' 간판", caption: '코코코 게스트하우스' },
     gallery: [
       { art: 'window', alt: '꽃꽂이 작업대에 드는 오후의 빛 (샘플 이미지)', caption: '작업대 위의 오후' },
       { art: 'oreum', alt: '꽃을 구해 오는 오름 아래 들판 (샘플 이미지)', caption: '들풀이 자라는 곳' },
@@ -201,7 +201,7 @@ export const PROGRAMS: Program[] = [
         {
           name: '오름 일출 감상',
           info: [{ label: '가격', value: '15,000원' }, { label: '시간', value: '1시간 소요' }],
-          photo: { src: 'photos/kokoko-sunrise.jpg', art: 'oreum', alt: '오름 위에서 해가 떠오르는 하늘과 바다를 바라보는 여행자', caption: '오름 위에서 맞는 아침' },
+          photo: { src: 'photos/kokoko-sunrise-v2.jpg', art: 'oreum', alt: '오름 위에서 해가 떠오르는 하늘과 바다를 바라보는 여행자', caption: '오름 위에서 맞는 아침' },
           text: [
             '이른 아침에는 투어를 운영하고 있는 마을 주민과 함께 오름에 올라 일출을 감상하는 특별한 프로그램도 참여해보자.',
             '제주에서 함께 아침을 맞이하며, 여행지의 풍경을 넘어 제주만의 일상과 분위기를 가까이에서 느껴볼 수 있다.',
@@ -240,7 +240,7 @@ export const PROGRAMS: Program[] = [
     ],
     hint: '톤암을 끌어 레코드 위에 올려 보세요. 키보드 방향키로도 움직일 수 있습니다.',
     tryLabel: '서론 게스트하우스 들여다보기',
-    hero: { src: 'photos/seoron-exterior.jpg', art: 'lp', alt: "붉은 벽돌 벽에 걸린 원형 나무 간판. 흰 글씨로 '서론'과 '@seolon_zip'이 새겨져 있다", caption: '서론 게스트하우스' },
+    hero: { src: 'photos/seoron-exterior-v2.jpg', art: 'lp', alt: "붉은 벽돌 벽에 걸린 원형 나무 간판. 흰 글씨로 '서론'과 '@seolon_zip'이 새겨져 있다", caption: '서론 게스트하우스' },
     gallery: [
       { art: 'window', alt: '레코드 선반이 있는 라운지 (샘플 이미지)', caption: '선반 앞에서 한참' },
       { art: 'sea-night', alt: '라운지 창밖의 밤 (샘플 이미지)', caption: 'B면이 끝날 무렵' },
@@ -301,7 +301,7 @@ export const PROGRAMS: Program[] = [
     ],
     hint: '책장을 넘기면 에디터의 공간 기록이 나타납니다.',
     tryLabel: '서점숙소 들여다보기',
-    hero: { src: 'photos/bookhome-sign.jpg', art: 'book', alt: "흰 외벽에 그려진 '서점숙소 @bookhome' 로고와 파란 하늘", caption: '서점숙소' },
+    hero: { src: 'photos/bookhome-sign-v2.jpg', art: 'book', alt: "흰 외벽에 그려진 '서점숙소 @bookhome' 로고와 파란 하늘", caption: '서점숙소' },
     gallery: [
       { art: 'window', alt: '책방 겸 라운지에 드는 오후의 빛 (샘플 이미지)', caption: '오후 세 시의 책장' },
       { art: 'stone-house', alt: '돌담 안쪽의 작은 책방 입구 (샘플 이미지)', caption: '책방 입구' },
@@ -351,7 +351,7 @@ export const PROGRAMS: Program[] = [
     hint: '나무 위를 문지르듯 드래그해 반지를 다듬어 보세요.',
     tryLabel: '스르르 게스트하우스 들여다보기',
     hero: {
-      src: 'photos/srr-sign.jpg',
+      src: 'photos/srr-sign-v2.jpg',
       art: 'ring',
       alt: "'스르르 Guest House · 우주공간 나무반지 공방'이라고 적힌 나무 간판",
       caption: '스르르 게스트하우스 · 우주공간 나무반지 공방',
@@ -422,7 +422,7 @@ export const PROGRAMS: Program[] = [
     ],
     hint: '장작을 올리고 불을 붙여 보세요. 불이 붙으면 사람들이 모여듭니다.',
     tryLabel: '무릉쉼표 들여다보기',
-    hero: { src: 'photos/mureung-sign.jpg', art: 'campfire', alt: "나무 기둥에 걸린 '무릉쉼표, 천천히 60m →' 손글씨 간판", caption: '무릉쉼표' },
+    hero: { src: 'photos/mureung-sign-v2.jpg', art: 'campfire', alt: "나무 기둥에 걸린 '무릉쉼표, 천천히 60m →' 손글씨 간판", caption: '무릉쉼표' },
     gallery: [
       { art: 'oreum', alt: '캠핑 사이트 뒤편의 오름 (샘플 이미지)', caption: '해 질 무렵' },
       { art: 'sea-night', alt: '모닥불이 잦아든 뒤의 밤 (샘플 이미지)', caption: '불이 잦아든 뒤' },
@@ -478,7 +478,7 @@ export const PROGRAMS: Program[] = [
     hint: '',
     tryLabel: '수수민박 들여다보기',
     hero: {
-      src: 'photos/susu-entrance.jpg',
+      src: 'photos/susu-entrance-v2.jpg',
       art: 'stone-house',
       alt: '나무 벽에 걸린 수수민박 간판과 입구 앞 올리브 나무',
       caption: '수수민박 입구',
@@ -548,7 +548,7 @@ export const PROGRAMS: Program[] = [
     ],
     hint: '와인을 고르고 따르기 버튼을 누르고 있어 보세요. 알맞은 선에서 멈추면 됩니다.',
     tryLabel: '루프탑정원 들여다보기',
-    hero: { src: 'photos/rooftop-sign.jpg', art: 'wine', alt: "돌담 위 녹슨 철판 '루프탑정원' 간판과 정원 사이로 난 돌길", caption: '루프탑정원' },
+    hero: { src: 'photos/rooftop-sign-v2.jpg', art: 'wine', alt: "돌담 위 녹슨 철판 '루프탑정원' 간판과 정원 사이로 난 돌길", caption: '루프탑정원' },
     gallery: [
       { art: 'sea-night', alt: '와인 바 창밖의 밤바다 (샘플 이미지)', caption: '창밖의 밤' },
       { art: 'window', alt: '해 질 녘 와인 바 (샘플 이미지)', caption: '문 열기 전' },
