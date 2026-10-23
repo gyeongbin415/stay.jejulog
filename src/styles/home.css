@@ -129,7 +129,7 @@
 .intro[data-phase="reveal"] .problem__head { transition-delay: .55s; }
 .intro[data-phase="reveal"] .problem__answer { transition-delay: .95s; }
 .problem__head { display: grid; gap: 14px; align-content: start; }
-.problem__title { font-family: var(--f-home); font-size: clamp(30px, 4.6vw, 58px); font-weight: 800; line-height: 1.32; letter-spacing: -0.03em; }
+.problem__title { font-family: var(--f-home); font-size: clamp(30px, 4.6vw, 58px); font-weight: 700; line-height: 1.32; letter-spacing: -0.03em; }
 .problem__title span { display: block; }
 
 /* 문제 두 가지 */
