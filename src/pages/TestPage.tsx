@@ -199,7 +199,6 @@ function Result({ result, shared, onRetry, focusRef }: { result: QuizResult; sha
     try {
       const ranked = [result.main, second?.id, third?.id].filter(Boolean) as ProgramId[];
       const blob = await makeResultImage({
-        label: t.resultLabel,
         lead: t.lead,
         brand: `${site.brandEn} · ${site.brand}`,
         picks: ranked.map((id, i) => ({ id, rank: `BEST ${i + 1}`, charName: site.characters[id], place: programById[id].report.place.name })),

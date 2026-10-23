@@ -14,7 +14,6 @@ export interface ResultImagePick {
 }
 
 export interface ResultImageInput {
-  label: string;
   lead: string;
   brand: string;
   picks: ResultImagePick[];
@@ -73,15 +72,10 @@ export async function makeResultImage(input: ResultImageInput): Promise<Blob> {
   ctx.textAlign = 'center';
   ctx.textBaseline = 'alphabetic';
 
-  // 머리 — 나의 여행 취향
-  ctx.fillStyle = C.orange;
-  ctx.font = `700 26px ${FONT}`;
-  ctx.letterSpacing = '4px';
-  ctx.fillText(input.label, W / 2, 100);
-  ctx.letterSpacing = '0px';
+  // 머리 — 나의 게스트하우스 취향은
   ctx.fillStyle = C.soft;
   ctx.font = `500 32px ${FONT}`;
-  ctx.fillText(input.lead, W / 2, 158);
+  ctx.fillText(input.lead, W / 2, 140);
   // 1위 — 캐릭터 이름 · 게스트하우스 이름 · 큰 캐릭터
   const [first, ...rest] = input.picks;
   if (first) {
