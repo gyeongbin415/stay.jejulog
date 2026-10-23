@@ -69,8 +69,14 @@
 .win__room { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; } /* 창 안 그림 — 소품이 가운데라 비율이 조금 달라도 가운데 맞춤 */
 
 /* 가림막 — 받은 그림의 커튼 · 블라인드 · 간유리 · 덧창을 반씩 나눈 두 짝 */
-.win__cover { position: absolute; inset: 0; perspective: 700px; pointer-events: none; }
-.win__half { position: absolute; top: 0; bottom: 0; width: 50.6%; background-size: 197.6% 100%; background-repeat: no-repeat; transition: transform .7s cubic-bezier(.2, .75, .2, 1), opacity .6s var(--ease); }
+.win__cover { position: absolute; inset: 0; perspective: 520px; pointer-events: none; }
+/* 열고 닫힘 — 처음엔 천천히 움직이다 부드럽게 멈춤, 오른짝은 살짝 늦게 따라옴 */
+.win__half {
+  position: absolute; top: 0; bottom: 0; width: 50.6%; background-size: 197.6% 100%; background-repeat: no-repeat;
+  transition: transform .95s cubic-bezier(.45, .05, .2, 1), filter .95s cubic-bezier(.45, .05, .2, 1);
+  will-change: transform; backface-visibility: hidden;
+}
+.win__half--r { transition-delay: .06s; }
 .win__half--l { left: 0; transform-origin: left center; background-position: left center; }
 .win__half--r { right: 0; transform-origin: right center; background-position: right center; }
 .win--blind .win__half { transform-origin: top center; }
@@ -87,15 +93,16 @@
 /* ── 열림 — 마우스를 올리거나 키보드로 고르면 ─────────────────────────────── */
 .win:hover .win__label, .win:focus-visible .win__label { background: var(--orange); color: var(--ink); } /* 이름표 뒤가 메인 주황으로 */
 /* 커튼은 양옆으로 모여 걷히고 */
-.win--curtain:hover .win__half, .win--curtain:focus-visible .win__half { transform: scaleX(.2); }
+.win--curtain:hover .win__half, .win--curtain:focus-visible .win__half { transform: scaleX(.26); filter: brightness(.94); } /* 주름이 모이며 양옆으로 */
 /* 블라인드는 위로 말려 올라가고 */
-.win--blind:hover .win__half, .win--blind:focus-visible .win__half { transform: scaleY(.05); }
+.win--blind .win__half { transition-duration: 1.05s; transition-delay: 0s; }
+.win--blind:hover .win__half, .win--blind:focus-visible .win__half { transform: scaleY(.07); filter: brightness(.95); } /* 살이 겹치며 위로 */
 /* 간유리 창은 양쪽으로 열리며 사라지고 */
-.win--frost:hover .win__half--l, .win--frost:focus-visible .win__half--l { transform: rotateY(-75deg); opacity: 0; }
-.win--frost:hover .win__half--r, .win--frost:focus-visible .win__half--r { transform: rotateY(75deg); opacity: 0; }
+.win--frost:hover .win__half--l, .win--frost:focus-visible .win__half--l { transform: rotateY(-84deg); filter: brightness(.82); } /* 경첩 축으로 바깥쪽으로 젖혀짐 */
+.win--frost:hover .win__half--r, .win--frost:focus-visible .win__half--r { transform: rotateY(84deg); filter: brightness(.82); }
 /* 덧창은 양쪽으로 젖혀짐 */
-.win--shutter:hover .win__half--l, .win--shutter:focus-visible .win__half--l { transform: rotateY(-62deg); }
-.win--shutter:hover .win__half--r, .win--shutter:focus-visible .win__half--r { transform: rotateY(62deg); }
+.win--shutter:hover .win__half--l, .win--shutter:focus-visible .win__half--l { transform: rotateY(-80deg); filter: brightness(.8); }
+.win--shutter:hover .win__half--r, .win--shutter:focus-visible .win__half--r { transform: rotateY(80deg); filter: brightness(.8); }
 @media (prefers-reduced-motion: reduce) { .win__half { transition-duration: .01s; } }
 
 /* ── ~639px : 휴대폰 ─────────────────────────────── */
