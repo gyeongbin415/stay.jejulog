@@ -130,6 +130,8 @@
 .stay-nav { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 8px 0 clamp(72px, 10vh, 112px); }
 /* 위 줄: 이전 게하 · 집 둘러보기 · 다음 게하 — 한 줄로 나란히 */
 .stay-nav__row { display: flex; flex-wrap: nowrap; gap: 12px; justify-content: center; }
+/* 이전 게하 · 다음 게하만 화살표 (다른 버튼 화살표는 모두 숨김) */
+.stay-nav__row .btn .arrow { display: inline-block; }
 /* 좁은 화면 — 이전 · 집 둘러보기 · 다음 세 버튼이 한 줄에 들어가게 여백만 줄임 */
 @media (max-width: 480px) {
   .stay-nav__row { gap: 6px; }
