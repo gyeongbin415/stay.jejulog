@@ -93,7 +93,7 @@ export default function TestPage({ sharedCode }: { sharedCode: string | null }) 
   return (
     <section className="test" data-tone="light" aria-labelledby="test-title">
       <div className="test__inner wrap">
-        {/* 테스트 전 — 왜 소라게인지, 소라게 게하게 이야기 */}
+        {/* 테스트 전 — 소라게 게하게 이야기 */}
         {step === 'story' && (
           <div className="story">
             <p className="label">STORY</p>
@@ -104,7 +104,6 @@ export default function TestPage({ sharedCode }: { sharedCode: string | null }) 
             </div>
             <h1 id="test-title" ref={focusRef} tabIndex={-1} className="story__title">{ui.test.storyTitle}</h1>
             <p className="story__body pre">{ui.test.storyBody}</p>
-            <p className="story__why">{ui.test.storyWhy}</p>
             <button type="button" className="btn" onClick={start} data-track="quiz_story_start">
               {ui.test.start} <span className="arrow" aria-hidden="true">→</span>
             </button>
