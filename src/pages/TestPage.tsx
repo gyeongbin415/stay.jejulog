@@ -100,7 +100,6 @@ export default function TestPage({ sharedCode, mine = false }: { sharedCode: str
         {/* 테스트 전 — 소라게 게하게 이야기 */}
         {step === 'story' && (
           <div className="story">
-            <p className="label">STORY</p>
             {/* 짐을 메고 지도를 든 여행자 소라게 게하게 + 말풍선 — 한국어는 시안 그림에서 소라게 · 말풍선을 따로 떼어
                 (배경만 뺌) 소라게는 가운데, 말풍선은 오른쪽 위에 작게. 다른 언어는 글자를 바꿀 수 있게 그린 말풍선 */}
             {lang === 'ko' ? (
