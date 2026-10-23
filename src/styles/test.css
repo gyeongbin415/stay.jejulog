@@ -9,7 +9,10 @@
 /* 소라게는 가운데, 말풍선은 오른쪽 위에 작게 */
 /* 한국어 — 시안에서 떼어 낸 소라게(가운데) · 말풍선 그림(오른쪽 위, 작게) */
 .story__scene .story__char--art { width: clamp(190px, 34vw, 320px); }
-.story__bubble-art { position: absolute; left: 66%; bottom: 70%; width: clamp(142px, 68%, 230px); height: auto; }
+.story__bubble-art { position: absolute; left: 66%; bottom: 70%; width: clamp(142px, 68%, 230px); container-type: inline-size; }
+.story__bubble-art img { display: block; width: 100%; height: auto; }
+/* 말풍선 글자 — 시안 말풍선 손글씨와 가장 닮은 Poor Story, 그림 폭에 맞춰 크기가 따라감 (cqw = 말풍선 폭의 1%) */
+.story__bubble-say { position: absolute; left: 50%; top: 46%; translate: -50% -50%; width: 86%; margin: 0; font-family: "Poor Story", "Ownglyph Saehayan", var(--f-home); font-size: 11cqw; font-weight: 400; -webkit-text-stroke: .25cqw currentColor; line-height: 1.32; letter-spacing: -0.01em; color: #7F5132; text-align: center; white-space: pre; }
 .story__scene { position: relative; margin: clamp(36px, 5vw, 56px) 0 2px; }
 .story__char { display: block; width: clamp(160px, 30vw, 280px); height: auto; }
 .story__bubble { position: absolute; left: 76%; top: -4%; padding: 13px 22px 24px 28px; }
