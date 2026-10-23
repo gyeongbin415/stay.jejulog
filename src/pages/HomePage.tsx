@@ -223,21 +223,24 @@ function Problem({ active }: { active: boolean }) {
   const reduced = useReducedMotion();
   const boardRef = useRef<HTMLDivElement>(null);
   const [done, setDone] = useState(false);
+  // 경험이 사라질 때 질문 문장도 함께 사라짐 (지우개로 지우지 않고)
+  const [clearing, setClearing] = useState(false);
 
   useEffect(() => {
     setDone(false);
+    setClearing(false);
     if (reduced) {
       setDone(true);
       return;
     }
     const board = boardRef.current;
     if (!active || !board) return;
-    return runSketch(board, () => setDone(true));
+    return runSketch(board, () => setDone(true), () => setClearing(true));
   }, [active, reduced, SITE.problem.sketch]);
 
   const { written, then } = SITE.problem.sketch;
   return (
-    <section className={`problem${done ? ' is-done' : ''}`} aria-labelledby="problem-title">
+    <section className={`problem${done ? ' is-done' : ''}${clearing ? ' is-clearing' : ''}`} aria-labelledby="problem-title">
       <div className="problem__inner wrap">
         <header className="problem__head">
           <p className="label">{SITE.problem.label}</p>
@@ -277,7 +280,7 @@ const PENCIL_TIP = { x: 0.017, y: 0.988 };
  * 글자는 연필 끝이 지나간 만큼 왼쪽부터 보이고, 지우개가 지나간 만큼 왼쪽부터 지워집니다.
  * 돌려주는 함수를 부르면 멈추고 처음 상태로 되돌립니다.
  */
-function runSketch(board: HTMLElement, onDone: () => void) {
+function runSketch(board: HTMLElement, onDone: () => void, onClear: () => void) {
   const words = [...board.querySelectorAll<HTMLElement>('.sketch__word')];
   const [w1, w2, w3] = words;
   const pencil = board.querySelector<HTMLElement>('.sketch__pencil')!;
@@ -314,6 +317,7 @@ function runSketch(board: HTMLElement, onDone: () => void) {
   let raf = 0;
   let start = 0;
   let finished = false;
+  let cleared = false;
   const frame = (now: number) => {
     if (!start) start = now;
     const t = now - start;
@@ -398,6 +402,10 @@ function runSketch(board: HTMLElement, onDone: () => void) {
       }
     }
 
+    if (t >= T.fade[0] && !cleared) {
+      cleared = true;
+      onClear();
+    }
     if (t >= T.end && !finished) {
       finished = true;
       onDone();
