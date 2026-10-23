@@ -59,11 +59,11 @@
 .explore__hint, .explore__toggle { background: rgba(255, 255, 255, .6); }
 
 /* ── 창문 벽 — 크림색 벽에 나무색 창틀 아홉 개 (3 × 3) ─────────────────────────────── */
-.facade { padding-bottom: clamp(64px, 10vh, 120px); }
+.facade { padding-top: clamp(48px, 8vh, 96px); padding-bottom: clamp(64px, 10vh, 120px); } /* 집 · 목록 버튼과 넉넉히 */
 .facade { position: relative; }
 .facade__grid { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(40px, 8vw, 104px) clamp(30px, 7.5vw, 104px); max-width: 920px; margin-inline: auto; align-items: end; }
 /* 벽돌 스케치 — 가는 갈색 선으로 두 장씩 엇갈려 */
-.facade__bricks { position: absolute; inset: 0 var(--gutter) clamp(64px, 10vh, 120px); max-width: 1000px; margin-inline: auto; pointer-events: none; }
+.facade__bricks { position: absolute; inset: clamp(48px, 8vh, 96px) var(--gutter) clamp(64px, 10vh, 120px); max-width: 1000px; margin-inline: auto; pointer-events: none; }
 .brick { position: absolute; width: clamp(22px, 3vw, 38px); height: clamp(9px, 1.1vw, 14px); border: 1.5px solid rgba(94, 50, 28, .5); border-radius: 1px; }
 .brick::after { content: ""; position: absolute; left: 45%; top: calc(100% + 2px); width: 100%; height: 100%; border: inherit; border-radius: inherit; box-sizing: border-box; }
 
