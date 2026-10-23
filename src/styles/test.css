@@ -74,7 +74,7 @@
 .result__place { font-family: var(--f-home); font-size: clamp(18px, 1.8vw, 22px); font-weight: 500; color: var(--ink); }
 /* 1위 캐릭터 그림 — 배경 없이 오린 소라게, 비율 그대로 */
 .result__hero { position: relative; width: min(100%, 400px); margin-top: 10px; padding-top: 36px; }
-.result__hero img { display: block; width: 100%; height: auto; }
+.result__hero img { display: block; width: min(68%, 260px); height: auto; margin: 0 auto; }
 .result__rank { position: absolute; left: 0; top: 0; padding: 5px 12px; border-radius: 999px; background: #fff; box-shadow: 0 1px 6px rgba(58, 55, 53, .1); font-size: 12.5px; font-weight: 700; letter-spacing: .1em; color: var(--orange-ink); }
 .result__head .btn { margin-top: 10px; }
 
