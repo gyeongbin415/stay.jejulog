@@ -5,6 +5,7 @@ import { useContent } from '../i18n';
 import { href } from '../lib/router';
 import { useReducedMotion } from '../lib/motion';
 import { HousePage } from './HousePage';
+import introNightUrl from '../assets/intro-night.webp';
 
 /**
  * PAGE 01 — 메인 (하나의 세로 스크롤)
@@ -196,52 +197,14 @@ function Intro() {
   );
 }
 
-/** 흐릿한 파티 불빛과 사람들의 실루엣 — 문구가 늘어날수록 짙어집니다 */
+/** 흐릿한 파티 불빛과 사람들의 실루엣 — 받은 배경 그림 한 장, 문구가 늘어날수록 짙어집니다 */
 function NightScene() {
   return (
     <div className="intro__scene" aria-hidden="true">
-      <svg className="intro__bokeh" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice" focusable="false">
-        <defs>
-          <filter id="bokeh-blur" x="-50%" y="-50%" width="200%" height="200%">
-            <feGaussianBlur stdDeviation="22" />
-          </filter>
-        </defs>
-        <g filter="url(#bokeh-blur)">
-          {BOKEH.map(([x, y, r, c, o], i) => (
-            <circle key={i} className={`intro__light l${(i % 3) + 1}`} cx={x} cy={y} r={r} fill={c} opacity={o} />
-          ))}
-        </g>
-      </svg>
-      <svg className="intro__crowd" viewBox="0 0 1000 400" preserveAspectRatio="xMidYMax slice" focusable="false">
-        <g fill="#05080D" opacity=".85">
-          {[[90, 250, 46], [230, 220, 52], [380, 260, 44], [520, 230, 50], [660, 255, 46], [800, 225, 52], [930, 250, 46]].map(([x, y, r]) => (
-            <g key={x}>
-              <circle cx={x} cy={y} r={r} />
-              <rect x={x - r * 1.6} y={y + r * 0.8} width={r * 3.2} height={400} rx={r} />
-            </g>
-          ))}
-        </g>
-        <rect x="350" y="110" width="22" height="70" rx="3" fill="#6E6656" opacity=".55" />
-        <rect x="560" y="100" width="22" height="70" rx="3" fill="#6E6656" opacity=".55" />
-      </svg>
+      <img className="intro__bg" src={introNightUrl} alt="" />
     </div>
   );
 }
-
-/** [x, y, 반지름, 색, 투명도] */
-const BOKEH: [number, number, number, string, number][] = [
-  [230, 230, 70, '#7A6A55', 0.55],
-  [380, 170, 60, '#9C8C74', 0.5],
-  [470, 380, 80, '#8A7A60', 0.5],
-  [700, 150, 50, '#D9B1A4', 0.75],
-  [780, 270, 56, '#DBA190', 0.6],
-  [900, 330, 46, '#CB9382', 0.55],
-  [640, 500, 70, '#7A6C5A', 0.45],
-  [860, 520, 60, '#6B5E4E', 0.4],
-  [130, 560, 64, '#5E5446', 0.35],
-  [540, 650, 54, '#7A3B32', 0.35],
-  [330, 700, 60, '#5A4A40', 0.3],
-];
 
 /* ── SECTION 02. PROBLEM — 인트로 끝에 떠오르는 문제 정의 ─────────────────────────────── */
 function Problem() {
