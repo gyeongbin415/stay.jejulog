@@ -161,26 +161,19 @@
   .problem__answernote { display: none; }
 }
 
-/* 줌아웃 모자이크 — 파티 장면(가운데 칸)이 화면 가득에서 한 칸으로 작아지고, 둘레 칸들이 하나씩 톡톡 떠오름 */
-.mosaic { position: relative; aspect-ratio: 5 / 4; }
-.mosaic__tile { position: absolute; border-radius: clamp(7px, .9vw, 14px); overflow: hidden; background: #F1E3D8; box-shadow: 0 6px 18px rgba(40, 30, 20, .16); opacity: 0; transform: rotate(var(--r, 0deg)) scale(.55); }
-.mosaic__tile img { display: block; width: 100%; height: 100%; object-fit: cover; }
-.mosaic__tile--party { z-index: 2; background: #343632; }
-.intro[data-phase="reveal"] .problem__inner > .mosaic { transition-delay: 0s; transform: none; }
-.intro[data-phase="reveal"] .mosaic__tile { animation: mosaic-pop .5s cubic-bezier(.34, 1.56, .64, 1) both; animation-delay: calc(1.15s + var(--o, 0) * .12s); }
-.intro[data-phase="reveal"] .mosaic__tile--party { animation: mosaic-zoom 1.2s var(--ease-out) both; animation-delay: .05s; }
-@keyframes mosaic-pop { from { opacity: 0; transform: rotate(var(--r, 0deg)) scale(.55); } to { opacity: 1; transform: rotate(var(--r, 0deg)); } }
-@keyframes mosaic-zoom { from { opacity: 1; transform: scale(2.6); border-radius: 0; } to { opacity: 1; transform: none; } }
-.intro--static .mosaic__tile { opacity: 1; transform: rotate(var(--r, 0deg)); animation: none; }
-@media (min-width: 900px) {
-  /* 넓은 화면 — 글은 왼쪽, 모자이크는 오른쪽 */
-  .problem__inner:has(.mosaic) { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); grid-template-rows: auto auto; column-gap: clamp(40px, 5vw, 88px); align-items: center; }
-  .problem__inner:has(.mosaic) .problem__title { font-size: clamp(30px, 3.4vw, 50px); }
-  .problem__inner:has(.mosaic) .problem__title span { white-space: nowrap; }
-  .problem__inner:has(.mosaic) .problem__head { grid-column: 1; grid-row: 1; align-self: end; }
-  .problem__inner:has(.mosaic) .problem__answer { grid-column: 1; grid-row: 2; align-self: start; padding-top: 0; }
-  .problem__inner:has(.mosaic) .mosaic { grid-column: 2; grid-row: 1 / 3; }
-}
+/* 사진 띠 — 화면 양 끝까지 꽉 차게, 오른쪽에서 쫘라락 밀려 들어온 뒤 천천히 왼쪽으로 계속 흘러감 */
+.strip { margin-inline: calc(50% - 50vw); height: clamp(170px, 30vh, 310px); padding-block: clamp(10px, 1.6vh, 16px); overflow: hidden; } /* 위아래 여백 — 기운 모서리가 잘리지 않게 */
+.strip__track { display: flex; align-items: center; width: max-content; height: 100%; animation: strip-flow 22s linear infinite; }
+.strip__item { flex: none; margin-left: clamp(-26px, -1.8vw, -10px); overflow: hidden; background: #F1E3D8; box-shadow: 0 6px 18px rgba(40, 30, 20, .18); transform: translateY(var(--y, 0)) rotate(var(--r, 0deg)); }
+.strip__item:nth-child(odd) { z-index: 1; }
+.strip__item img { display: block; width: 100%; height: 100%; object-fit: cover; }
+@keyframes strip-flow { to { transform: translateX(-50%); } }
+@media (max-width: 639px) { .strip { height: clamp(140px, 21vh, 190px); } } /* 휴대폰 — 사진이 화면을 덮지 않게 낮게 */
+/* 열릴 때 — 띠 전체가 오른쪽 밖에서 빠르게 들어와 멈추듯 감속 */
+.intro[data-phase="reveal"] .problem__inner > .strip { transition: opacity .3s var(--ease) .15s; transform: none; animation: strip-in 1.3s cubic-bezier(.16, 1, .3, 1) .15s both; }
+@keyframes strip-in { from { translate: 85vw 0; } to { translate: 0 0; } }
+.intro--static .strip__track { animation: none; }
+@media (prefers-reduced-motion: reduce) { .strip__track { animation: none; } }
 
 /* 동작 줄이기 — 문제 정의를 일반 섹션처럼 */
 .intro--static .intro__reveal { position: relative; inset: auto; opacity: 1; visibility: visible; margin: 40px calc(var(--gutter) * -1) -110px; }

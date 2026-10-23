@@ -239,7 +239,7 @@ function Problem() {
             ))}
           </h2>
         </header>
-        <Mosaic />
+        <PhotoStrip />
         {SITE.problem.points.length > 0 && (
           <div className="problem__points">
             {SITE.problem.points.map((pt) => (
@@ -263,38 +263,40 @@ function Problem() {
 }
 
 /**
- * 줌아웃 모자이크 — 인트로의 파티 장면이 가운데 한 칸으로 작아지고,
- * 그 둘레에 게스트하우스 아홉 곳의 다른 장면들이 하나씩 떠오릅니다.
- * 바둑판이 아니라 콜라주 — 사진마다 제 비율 · 크기로, 조금씩 겹치고 살짝 기울어져 있습니다.
- * l · t · w 는 상자 기준 % (왼쪽 · 위 · 너비), ar 은 사진 비율, r 은 기울기(도), z 는 겹치는 순서.
+ * 사진 띠 — 게스트하우스 아홉 곳의 장면이 크기 · 비율 제각각으로 조금씩 겹쳐 한 줄로 늘어서,
+ * 오른쪽에서 '쫘라락' 밀려 들어온 뒤 계속 왼쪽으로 흘러갑니다. (같은 줄을 두 번 이어 붙여 끊김 없이 돕니다)
+ * ar 은 사진 비율, h 는 띠 높이 대비 %, y 는 위아래 어긋남(%), r 은 기울기(도).
  */
-const MOSAIC: { src: string; l: number; t: number; w: number; ar: string; r: number; z: number; order: number; party?: boolean }[] = [
-  { src: mosaicWine, l: 0, t: 6, w: 34, ar: '3 / 2', r: -3, z: 2, order: 3 },
-  { src: mosaicFlower, l: 32, t: 0, w: 20, ar: '4 / 3', r: 2.5, z: 3, order: 7 },
-  { src: mosaicCinema, l: 54, t: 4, w: 30, ar: '16 / 9', r: -2, z: 2, order: 1 },
-  { src: mosaicRun, l: 84, t: 0, w: 16, ar: '9 / 16', r: 3, z: 3, order: 5 },
-  { src: introNightUrl, l: 30, t: 26, w: 40, ar: '4 / 3', r: 0, z: 5, order: 0, party: true },
-  { src: mosaicLp, l: 71, t: 35, w: 27, ar: '7 / 5', r: 2, z: 4, order: 9 },
-  { src: mosaicFire, l: 2, t: 42, w: 15, ar: '9 / 16', r: -4, z: 3, order: 8 },
-  { src: mosaicWorkshop, l: 14, t: 38, w: 20, ar: '4 / 3', r: 3, z: 4, order: 2 },
-  { src: mosaicDinner, l: 66, t: 62, w: 32, ar: '7 / 5', r: -2.5, z: 3, order: 6 },
-  { src: mosaicLibrary, l: 11, t: 72, w: 26, ar: '16 / 9', r: 2, z: 2, order: 10 },
-  { src: mosaicSnap, l: 35, t: 70, w: 22, ar: '3 / 2', r: -3, z: 6, order: 4 },
-  { src: mosaicSunrise, l: 54, t: 77, w: 18, ar: '7 / 5', r: 3.5, z: 4, order: 11 },
+const STRIP: { src: string; ar: string; h: number; y: number; r: number }[] = [
+  { src: mosaicWine, ar: '3 / 2', h: 78, y: -6, r: -2.5 },
+  { src: mosaicRun, ar: '9 / 16', h: 96, y: 2, r: 2 },
+  { src: mosaicCinema, ar: '16 / 9', h: 62, y: 10, r: -1.5 },
+  { src: mosaicFlower, ar: '4 / 3', h: 84, y: -4, r: 3 },
+  { src: mosaicFire, ar: '9 / 16', h: 90, y: 5, r: -3 },
+  { src: mosaicLp, ar: '7 / 5', h: 72, y: -8, r: 1.5 },
+  { src: mosaicWorkshop, ar: '4 / 3', h: 64, y: 12, r: -2 },
+  { src: mosaicDinner, ar: '7 / 5', h: 86, y: 0, r: 2.5 },
+  { src: mosaicSnap, ar: '3 / 2', h: 70, y: -10, r: -1 },
+  { src: mosaicLibrary, ar: '16 / 9', h: 66, y: 9, r: 2 },
+  { src: mosaicSunrise, ar: '7 / 5', h: 80, y: -3, r: -2.5 },
 ];
 
-function Mosaic() {
+function PhotoStrip() {
   return (
-    <div className="mosaic" aria-hidden="true">
-      {MOSAIC.map((t) => (
-        <span
-          key={t.src}
-          className={`mosaic__tile${t.party ? ' mosaic__tile--party' : ''}`}
-          style={{ left: `${t.l}%`, top: `${t.t}%`, width: `${t.w}%`, aspectRatio: t.ar, zIndex: t.z, '--r': `${t.r}deg`, '--o': t.order } as CSSProperties}
-        >
-          <img src={t.src} alt="" />
-        </span>
-      ))}
+    <div className="strip" aria-hidden="true">
+      <div className="strip__track">
+        {[0, 1].map((loop) =>
+          STRIP.map((p) => (
+            <span
+              key={`${loop}-${p.src}`}
+              className="strip__item"
+              style={{ aspectRatio: p.ar, height: `${p.h}%`, '--y': `${p.y}%`, '--r': `${p.r}deg` } as CSSProperties}
+            >
+              <img src={p.src} alt="" />
+            </span>
+          )),
+        )}
+      </div>
     </div>
   );
 }
