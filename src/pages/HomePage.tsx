@@ -6,7 +6,6 @@ import { href } from '../lib/router';
 import { useReducedMotion } from '../lib/motion';
 import { HousePage } from './HousePage';
 import pencilUrl from '../assets/sketch-pencil.png';
-import eraserUrl from '../assets/sketch-eraser.png';
 
 /**
  * PAGE 01 — 메인 (하나의 세로 스크롤)
@@ -215,7 +214,7 @@ const BOKEH: [number, number, number, string, number][] = [
 
 /* ── SECTION 02. PROBLEM — 인트로의 조리개가 열리면 보이는 문제 정의 ─────────────────────────────── */
 /**
- * 질문 → 연필이 '가격' · '위치'를 적음 → 지우개가 모두 지움 → 연필이 '경험'을 적음 → 저절로 사라짐 → 맺음 문구
+ * 질문 → 연필이 '가격' · '위치'를 적고 찍찍 그음 → 두 단어는 그냥 사라짐 → 연필이 '경험'을 적음 → 질문과 함께 사라짐 → 맺음 문구
  * 동작 줄이기 설정이면 질문과 맺음 문구만 바로 보여 줍니다.
  */
 function Problem({ active }: { active: boolean }) {
@@ -250,7 +249,7 @@ function Problem({ active }: { active: boolean }) {
             ))}
           </h2>
         </header>
-        {/* 연필 · 지우개 장면 — 글자는 화면 읽기 프로그램에 읽히지 않게(맺음 문구가 같은 뜻) */}
+        {/* 연필 장면 — 글자는 화면 읽기 프로그램에 읽히지 않게(맺음 문구가 같은 뜻) */}
         {!reduced && (
           <div ref={boardRef} className="sketch" aria-hidden="true">
             <div className="sketch__row">
@@ -259,7 +258,11 @@ function Problem({ active }: { active: boolean }) {
               ))}
             </div>
             <span className="sketch__word sketch__word--then">{then}</span>
-            <img className="sketch__eraser" src={eraserUrl} alt="" />
+            {/* 연필로 찍찍 긋는 줄 — 단어마다 하나 */}
+            <svg className="sketch__strikes" focusable="false">
+              <path />
+              <path />
+            </svg>
             <img className="sketch__pencil" src={pencilUrl} alt="" />
           </div>
         )}
@@ -276,23 +279,24 @@ function Problem({ active }: { active: boolean }) {
 const PENCIL_TIP = { x: 0.017, y: 0.988 };
 
 /**
- * 연필 · 지우개 장면을 시간에 맞춰 그립니다 (밀리초).
- * 글자는 연필 끝이 지나간 만큼 왼쪽부터 보이고, 지우개가 지나간 만큼 왼쪽부터 지워집니다.
+ * 연필 장면을 시간에 맞춰 그립니다 (밀리초).
+ * 글자는 연필 끝이 지나간 만큼 왼쪽부터 보이고, 그은 줄은 연필 끝을 따라 그려집니다.
  * 돌려주는 함수를 부르면 멈추고 처음 상태로 되돌립니다.
  */
 function runSketch(board: HTMLElement, onDone: () => void, onClear: () => void) {
   const words = [...board.querySelectorAll<HTMLElement>('.sketch__word')];
   const [w1, w2, w3] = words;
   const pencil = board.querySelector<HTMLElement>('.sketch__pencil')!;
-  const eraser = board.querySelector<HTMLElement>('.sketch__eraser')!;
+  const svg = board.querySelector<SVGSVGElement>('.sketch__strikes')!;
+  const strikes = [...svg.querySelectorAll<SVGPathElement>('path')];
 
   const reset = () => {
     for (const w of words) {
       w.style.clipPath = 'inset(0 100% 0 0)';
       w.style.opacity = '1';
     }
+    for (const s of strikes) s.style.opacity = '0';
     pencil.style.opacity = '0';
-    eraser.style.opacity = '0';
   };
   reset();
 
@@ -307,12 +311,32 @@ function runSketch(board: HTMLElement, onDone: () => void, onClear: () => void) 
   // 구간 [s, e] 안에서의 진행도 0~1
   const seg = (t: number, s: number, e: number) => clamp((t - s) / (e - s));
 
-  // 시간표
+  // 시간표 — 가격 · 위치를 적고 → 찍찍 긋고 → 두 단어는 그냥 사라지고 → 경험을 적고 → 질문과 함께 사라짐
   const T = {
-    pIn: [700, 1100], w1: [1100, 1900], move: [1900, 2200], w2: [2200, 3000], pOut: [3000, 3400],
-    eIn: [3400, 3700], erase: [3700, 4800], eOut: [4800, 5200],
-    p2In: [5200, 5600], w3: [5600, 6400], p2Out: [6400, 6800], fade: [7200, 8000], end: 8300,
+    pIn: [700, 1100], w1: [1100, 1900], move: [1900, 2200], w2: [2200, 3000],
+    back: [3000, 3350], s1: [3350, 3950], hop: [3950, 4200], s2: [4200, 4800], pOut: [4800, 5200],
+    gone: [5200, 5900],
+    p2In: [6000, 6400], w3: [6400, 7200], p2Out: [7200, 7600], fade: [8000, 8800], end: 9100,
   } as const;
+
+  // 찍찍 긋는 줄 — 단어 위를 오가는 지그재그 (단어 상자 기준 비율)
+  const ZIG = [[-0.08, 0.62], [1.06, 0.4], [-0.02, 0.58], [1.04, 0.36], [0.02, 0.7], [1.08, 0.5]];
+  let geo: { a: ReturnType<typeof box>; b: ReturnType<typeof box>; lens: number[] } | null = null;
+  const measure = () => {
+    const a = box(w1), b = box(w2);
+    svg.setAttribute('viewBox', `0 0 ${board.clientWidth} ${board.clientHeight}`);
+    const lens = [a, b].map((r, i) => {
+      const d = ZIG.map(([x, y], k) => `${k ? 'L' : 'M'}${(r.l + r.w * x).toFixed(1)} ${(r.t + r.h * y).toFixed(1)}`).join(' ');
+      const p = strikes[i];
+      p.setAttribute('d', d);
+      p.style.strokeWidth = String(Math.max(3, r.h * 0.07));
+      const len = p.getTotalLength();
+      p.style.strokeDasharray = String(len);
+      p.style.strokeDashoffset = String(len);
+      return len;
+    });
+    geo = { a, b, lens };
+  };
 
   let raf = 0;
   let start = 0;
@@ -333,9 +357,21 @@ function runSketch(board: HTMLElement, onDone: () => void, onClear: () => void) 
       pencil.style.opacity = String(o);
     };
     const off = { x: bw * 0.92, y: bh * 1.15 };
+    // 긋는 줄 위의 한 점 (줄의 시작 · 진행)
+    const strikeAt = (i: number, p: number) => {
+      const path = strikes[i];
+      const pt = path.getPointAtLength(geo!.lens[i] * p);
+      return { x: pt.x, y: pt.y };
+    };
+    const drawStrike = (i: number, p: number) => {
+      strikes[i].style.opacity = '1';
+      strikes[i].style.strokeDashoffset = String(geo!.lens[i] * (1 - p));
+      const pt = strikeAt(i, p);
+      placePencil(pt.x, pt.y, 1);
+    };
 
-    // 1) 연필 — 가격 · 위치
     if (t < T.pOut[1]) {
+      // 1) 연필 — 가격 · 위치를 적고, 찍찍 그음
       if (t < T.w1[0]) {
         const p = ease(seg(t, T.pIn[0], T.pIn[1]));
         placePencil(lerp(off.x, a.l, p), lerp(off.y, line(a), p), p);
@@ -347,46 +383,41 @@ function runSketch(board: HTMLElement, onDone: () => void, onClear: () => void) 
         w1.style.clipPath = 'inset(0 0 0 0)';
         const p = ease(seg(t, T.move[0], T.move[1]));
         placePencil(lerp(a.r, b.l, p), lerp(line(a), line(b), p) - Math.sin(p * Math.PI) * ph * 0.25, 1);
-      } else if (t < T.pOut[0]) {
+      } else if (t < T.back[0]) {
         const p = seg(t, T.w2[0], T.w2[1]);
         placePencil(lerp(b.l, b.r, p), line(b) + wiggle(p), 1);
         w2.style.clipPath = `inset(0 ${(1 - p) * 100}% 0 0)`;
       } else {
         w2.style.clipPath = 'inset(0 0 0 0)';
-        const p = ease(seg(t, T.pOut[0], T.pOut[1]));
-        placePencil(lerp(b.r, off.x, p), lerp(line(b), -ph * 0.2, p), 1 - p);
+        if (!geo) measure();
+        if (t < T.s1[0]) {
+          const p = ease(seg(t, T.back[0], T.back[1]));
+          const s = strikeAt(0, 0);
+          placePencil(lerp(b.r, s.x, p), lerp(line(b), s.y, p) - Math.sin(p * Math.PI) * ph * 0.3, 1);
+        } else if (t < T.hop[0]) {
+          drawStrike(0, seg(t, T.s1[0], T.s1[1]));
+        } else if (t < T.s2[0]) {
+          strikes[0].style.strokeDashoffset = '0';
+          const p = ease(seg(t, T.hop[0], T.hop[1]));
+          const e = strikeAt(0, 1), s = strikeAt(1, 0);
+          placePencil(lerp(e.x, s.x, p), lerp(e.y, s.y, p) - Math.sin(p * Math.PI) * ph * 0.25, 1);
+        } else if (t < T.pOut[0]) {
+          drawStrike(1, seg(t, T.s2[0], T.s2[1]));
+        } else {
+          strikes[1].style.strokeDashoffset = '0';
+          const p = ease(seg(t, T.pOut[0], T.pOut[1]));
+          const e = strikeAt(1, 1);
+          placePencil(lerp(e.x, off.x, p), lerp(e.y, -ph * 0.2, p), 1 - p);
+        }
       }
     } else if (t < T.p2In[0]) {
+      // 2) 그은 두 단어는 그냥 사라짐
       pencil.style.opacity = '0';
-      // 2) 지우개 — 두 단어를 왼쪽부터 쓱 지움
-      const ew = eraser.offsetWidth, eh = eraser.offsetHeight;
-      const from = a.l - ew * 0.15, to = b.r + ew * 0.15;
-      const mid = (a.t + a.b) / 2;
-      let x = from, o = 1;
-      if (t < T.erase[0]) {
-        const p = ease(seg(t, T.eIn[0], T.eIn[1]));
-        x = from;
-        o = p;
-      } else if (t < T.eOut[0]) {
-        const p = seg(t, T.erase[0], T.erase[1]);
-        x = lerp(from, to, p);
-        for (const [w, r] of [[w1, a], [w2, b]] as const) {
-          const k = clamp((x - r.l) / r.w);
-          w.style.clipPath = `inset(0 0 0 ${k * 100}%)`;
-        }
-      } else {
-        for (const w of [w1, w2]) w.style.clipPath = 'inset(0 0 0 100%)';
-        const p = ease(seg(t, T.eOut[0], T.eOut[1]));
-        x = to;
-        o = 1 - p;
-      }
-      // 문지르듯 위아래로 살짝
-      const rub = t >= T.erase[0] && t < T.eOut[0] ? Math.sin(t / 55) * eh * 0.1 : 0;
-      eraser.style.transform = `translate(${x - ew / 2}px, ${mid - eh / 2 + rub}px) rotate(-14deg)`;
-      eraser.style.opacity = String(o);
+      const o = String(1 - ease(seg(t, T.gone[0], T.gone[1])));
+      for (const el of [w1, w2, ...strikes]) el.style.opacity = o;
     } else {
-      eraser.style.opacity = '0';
-      // 3) 연필 — 경험, 그리고 저절로 사라짐
+      for (const el of [w1, w2, ...strikes]) el.style.opacity = '0';
+      // 3) 연필 — 경험, 그리고 질문과 함께 저절로 사라짐
       if (t < T.w3[0]) {
         const p = ease(seg(t, T.p2In[0], T.p2In[1]));
         placePencil(lerp(off.x, c.l, p), lerp(off.y, line(c), p), p);
