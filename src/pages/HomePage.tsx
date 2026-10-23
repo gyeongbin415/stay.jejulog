@@ -268,6 +268,8 @@ function Problem({ active }: { active: boolean }) {
         <div className="problem__answer">
           <p className="problem__answertext pre">{SITE.problem.answer}</p>
           {SITE.problem.answerNote && <p className="problem__answernote">{SITE.problem.answerNote}</p>}
+          {/* 아래로 내려가 보라는 표시 */}
+          <p className="problem__scroll" aria-hidden="true">SCROLL<i /></p>
         </div>
       </div>
     </section>
