@@ -137,11 +137,6 @@ export default function TestPage({ sharedCode, mine = false }: { sharedCode: str
 
         {qi >= 0 && (
           <>
-            <header className="test__head">
-              <p className="label">TEST</p>
-              <p className="test__title serif pre">{ui.test.title}</p>
-            </header>
-
             <div className="test__card" key={qi}>
               <div className="test__progress">
                 <span className="test__count">
