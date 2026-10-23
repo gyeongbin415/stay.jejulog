@@ -48,11 +48,11 @@ function Intro() {
 
   useEffect(() => {
     if (reduced) return;
-    // 질문만 1.5초(생각할 시간) → 단어 0.65초 간격 → 1초 뒤 전환 문구 → 1.6초 뒤 문제 정의
+    // 질문만 1.5초(생각할 시간) → 단어 0.65초 간격 → 1초 뒤 전환 문구 → 2.6초 뒤 문제 정의
     // (예전 '시야가 좁아짐' 단계는 뺐습니다 — 같은 시각에 두 단계를 한꺼번에 넘김)
     const at = Array.from({ length: total }, (_, i) => 1500 + i * 650);
     const last = at[at.length - 1];
-    at.push(last + 1000, last + 1000, last + 2600);
+    at.push(last + 1000, last + 1000, last + 3600);
     // 화면에 실제로 보이는 동안만 시간을 셉니다 — 공유 링크가 뒤에서 미리 불러와질 때 혼자 끝나 버리지 않도록
     // (requestAnimationFrame 은 안 보이는 창 · 프레임에서 멈추고, 인트로 무대가 화면에 반 이상 보일 때만 셈)
     let visible = false;
