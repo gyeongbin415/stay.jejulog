@@ -9,7 +9,7 @@ import { HouseRoof } from '../components/HouseRoof';
 /**
  * PAGE 02 — 집 내부 탐색 (EXPLORE)
  * 외벽을 걷어 낸 제주 구옥 단면. 아홉 가지 공간을 누르면 바로 해당 게스트하우스 상세페이지로 이동합니다.
- * '전체보기'를 누르면 그림 대신 아홉 가지 경험을 이름으로 한눈에 보여 줍니다.
+ * '목록'을 누르면 그림 대신 아홉 가지 경험을 이름으로 한눈에 보여 줍니다.
  */
 type View = 'house' | 'list';
 const VIEW_KEY = 'jejulog:house-view';

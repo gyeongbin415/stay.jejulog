@@ -51,7 +51,7 @@ export const UI: Record<Lang, UiText> = {
       typesAria: '네 가지 여행 취향',
     },
     house: {
-      viewGroup: '보기 방식', viewHouse: '집으로 보기', viewList: '전체보기',
+      viewGroup: '보기 방식', viewHouse: '집', viewList: '목록',
       houseAria: '집 안의 아홉 가지 경험', listAria: '아홉 가지 경험 전체',
       roomAria: (no, label, place) => `${no} ${label} — ${place} 상세 보기`,
     },
@@ -100,7 +100,7 @@ export const UI: Record<Lang, UiText> = {
       typesAria: 'Four travel tastes',
     },
     house: {
-      viewGroup: 'View mode', viewHouse: 'House view', viewList: 'See all',
+      viewGroup: 'View mode', viewHouse: 'House', viewList: 'List',
       houseAria: 'Nine experiences inside the house', listAria: 'All nine experiences',
       roomAria: (no, label, place) => `${no} ${label} — see ${place}`,
     },
@@ -149,7 +149,7 @@ export const UI: Record<Lang, UiText> = {
       typesAria: '四种旅行喜好',
     },
     house: {
-      viewGroup: '浏览方式', viewHouse: '房子视图', viewList: '查看全部',
+      viewGroup: '浏览方式', viewHouse: '房子', viewList: '列表',
       houseAria: '房子里的九种体验', listAria: '全部九种体验',
       roomAria: (no, label, place) => `${no} ${label} — 查看${place}`,
     },
