@@ -1,4 +1,4 @@
-import { useState, type MouseEvent } from 'react';
+import { useState } from 'react';
 import { useContent } from '../i18n';
 import type { ProgramId } from '../data/types';
 import { href } from '../lib/router';
@@ -135,33 +135,11 @@ function Window({ id, frame, cover, kind, l, t, w, ratio, pane }: WindowArt) {
   const place = programById[id].report.place.name;
   const [pl, pt, pw, ph] = pane;
   const half = { backgroundImage: `url(${cover})` };
-  // 누르면 — 창 안 방 그림이 화면 가득 커지며 안으로 들어가는 듯하다가 상세페이지로
-  const enter = (ev: MouseEvent<HTMLAnchorElement>) => {
-    if (ev.button !== 0 || ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.altKey) return;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    const paneEl = ev.currentTarget.querySelector<HTMLElement>('.win__pane');
-    if (!paneEl) return;
-    ev.preventDefault();
-    const r = paneEl.getBoundingClientRect();
-    const zoom = paneEl.cloneNode(true) as HTMLElement;
-    zoom.className = 'win-zoom';
-    zoom.removeAttribute('style');
-    Object.assign(zoom.style, { left: `${r.left}px`, top: `${r.top}px`, width: `${r.width}px`, height: `${r.height}px` });
-    document.body.appendChild(zoom);
-    zoom.getBoundingClientRect(); // 시작 크기를 먼저 그린 뒤
-    zoom.classList.add('is-in'); // 화면 가득으로
-    window.setTimeout(() => {
-      window.location.hash = href.stay(id);
-      zoom.classList.add('is-out');
-      window.setTimeout(() => zoom.remove(), 450);
-    }, 720);
-  };
   return (
     <a
       id={`window-${id}`}
       className={`win win--${kind}`}
       href={href.stay(id)}
-      onClick={enter}
       aria-label={ui.house.roomAria(e.no, e.label, place)}
       data-track={`house_${id}`}
       style={{ left: `${l}%`, top: `${t}%`, width: `${w}%`, aspectRatio: ratio }}
@@ -175,7 +153,7 @@ function Window({ id, frame, cover, kind, l, t, w, ratio, pane }: WindowArt) {
         </span>
       </span>
       <img className="win__frame" src={frame} alt="" />
-      <span className="win__label" style={{ left: `calc(${pl}% + 5px)`, top: `calc(${pt}% + 5px)` }} aria-hidden="true">
+      <span className="win__label" style={{ left: `${pl + pw / 2}%`, top: `${pt + ph / 2}%` }} aria-hidden="true">
         {e.label}
       </span>
     </a>

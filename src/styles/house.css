@@ -78,7 +78,7 @@
 
 /* 이름표 — 닫혀 있을 때만 */
 .win__label {
-  position: absolute; z-index: 3; max-width: 70%;
+  position: absolute; z-index: 3; max-width: 70%; translate: -50% -50%; /* 큰 창 한가운데 */
   padding: 5px 12px; border-radius: 999px; background: var(--bg); color: var(--charcoal, #3A3735);
   box-shadow: 0 1px 6px rgba(58, 55, 53, .16);
   font-size: clamp(12px, 1.4vw, 16px); font-weight: 600; line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
@@ -109,13 +109,3 @@
   .explore { padding-top: calc(var(--header) + 22px); }
   .win__label { padding: 3px 8px; font-size: 11.5px; }
 }
-
-/* ── 누르면 안으로 — 창 안 방 그림이 화면 가득 커졌다가 상세페이지가 나타나며 사라짐 ─────────────────────────────── */
-.win-zoom {
-  position: fixed; z-index: 200; overflow: hidden; background: #F2DEC0; pointer-events: none;
-  transition: left .72s cubic-bezier(.65, 0, .35, 1), top .72s cubic-bezier(.65, 0, .35, 1), width .72s cubic-bezier(.65, 0, .35, 1), height .72s cubic-bezier(.65, 0, .35, 1), opacity .45s var(--ease);
-}
-.win-zoom .room__art { position: absolute; inset: 0; width: 100%; height: 100%; }
-.win-zoom .win__cover { display: none; } /* 들어갈 때는 커튼 · 블라인드 없이 방 안 */
-.win-zoom.is-in { left: 0 !important; top: 0 !important; width: 100vw !important; height: 100vh !important; }
-.win-zoom.is-out { opacity: 0; }
