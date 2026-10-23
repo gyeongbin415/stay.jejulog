@@ -10,7 +10,7 @@ export interface UiText {
   langLabel: string;
   skip: string;
   nav: { main: string; house: string; test: string; menuOpen: string; menuClose: string; menu: string; mainNav: string; toHome: (brand: string) => string };
-  footer: { tagline: string; copyright: string };
+  footer: { tagline: string; madeBy: string };
   app: { loadingStay: string; loadingTest: string; notFound: string; toHome: string };
   home: { srTitle: string; wordsAria: string; opening: string; findSub: (n: number) => string; typesAria: string };
   house: { viewGroup: string; viewHouse: string; viewList: string; houseAria: string; listAria: string; roomAria: (no: string, label: string, place: string) => string };
@@ -40,7 +40,7 @@ export const UI: Record<Lang, UiText> = {
     langLabel: '언어',
     skip: '본문 바로가기',
     nav: { main: '메인', house: '게하 탐색', test: '취향 테스트', menuOpen: '메뉴 열기', menuClose: '메뉴 닫기', menu: '메뉴', mainNav: '주요 메뉴', toHome: (b) => `${b} 메인으로` },
-    footer: { tagline: '제주 게스트하우스 공간 탐험 웹진', copyright: '게재된 사진과 글의 저작권은 각 촬영자와 편집팀에 있습니다.' },
+    footer: { tagline: '우리가 몰랐던 제주 게스트하우스를 만나는 웹진', madeBy: 'MADE BY' },
     app: { loadingStay: '게스트하우스를 불러오는 중…', loadingTest: '테스트를 준비하는 중…', notFound: '찾으시는 페이지가 없습니다.', toHome: '메인으로' },
     home: {
       srTitle: '제주 게스트하우스 공간 탐험 웹진',
@@ -88,7 +88,7 @@ export const UI: Record<Lang, UiText> = {
     langLabel: 'Language',
     skip: 'Skip to content',
     nav: { main: 'Home', house: 'Explore', test: 'Taste Test', menuOpen: 'Open menu', menuClose: 'Close menu', menu: 'Menu', mainNav: 'Main menu', toHome: (b) => `${b} home` },
-    footer: { tagline: 'A webzine for exploring Jeju guesthouses', copyright: 'All photos and text are copyrighted by their photographers and the editorial team.' },
+    footer: { tagline: 'A webzine for meeting the Jeju guesthouses we never knew', madeBy: 'MADE BY' },
     app: { loadingStay: 'Loading the guesthouse…', loadingTest: 'Preparing the test…', notFound: 'We couldn’t find that page.', toHome: 'Back to home' },
     home: {
       srTitle: 'A webzine for exploring Jeju guesthouses',
@@ -136,7 +136,7 @@ export const UI: Record<Lang, UiText> = {
     langLabel: '语言',
     skip: '跳到正文',
     nav: { main: '首页', house: '探索民宿', test: '喜好测试', menuOpen: '打开菜单', menuClose: '关闭菜单', menu: '菜单', mainNav: '主菜单', toHome: (b) => `返回${b}首页` },
-    footer: { tagline: '济州民宿空间探索杂志', copyright: '本站照片与文字的版权归各摄影师及编辑团队所有。' },
+    footer: { tagline: '遇见我们不曾了解的济州民宿的杂志', madeBy: 'MADE BY' },
     app: { loadingStay: '正在加载民宿…', loadingTest: '正在准备测试…', notFound: '找不到您要的页面。', toHome: '返回首页' },
     home: {
       srTitle: '济州民宿空间探索杂志',
