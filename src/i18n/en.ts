@@ -24,7 +24,7 @@ export const EN: ContentPack = {
 
     problem: {
       label: 'CHECK IN',
-      title: ['Beyond the parties,', 'there was more we found by going ourselves.'],
+      title: ['Beyond the parties', 'there was more we found by going ourselves.'],
       points: [],
       answer: "The experiences our editors found by staying there,\ngathered into one house.",
       answerNote: '',

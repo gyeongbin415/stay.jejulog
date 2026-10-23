@@ -21,7 +21,7 @@ export const ZH: ContentPack = {
 
     problem: {
       label: 'CHECK IN',
-      title: ['除了派对，', '我们亲自去过才发现了更多。'],
+      title: ['除了派对', '我们亲自去过才发现了更多。'],
       points: [],
       answer: "编辑亲自入住找到的体验，\n都收进了这一栋房子里。",
       answerNote: '',
