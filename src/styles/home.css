@@ -150,7 +150,7 @@
 
 /* 그래서 — 웹진이 하는 일 */
 .problem__answer { display: grid; gap: 8px; }
-.problem__answertext { font-family: var(--f-home); font-size: clamp(20px, 2.6vw, 32px); font-weight: 600; line-height: 1.5; letter-spacing: -0.025em; color: var(--forest); }
+.problem__answertext { font-family: var(--f-home); font-size: clamp(17px, 2vw, 25px); font-weight: 600; line-height: 1.5; letter-spacing: -0.025em; color: var(--forest); }
 .problem__answernote { font-size: 14.5px; color: var(--ink-soft); }
 @media (min-width: 900px) {
   /* 문제 두 가지가 있을 때만 두 칸 — EDITOR'S NOTE 처럼 제목 · 문장만 있으면 한 칸 */
