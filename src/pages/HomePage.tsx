@@ -257,17 +257,19 @@ function Problem() {
             ))}
           </h2>
         </header>
-        <div className="problem__points">
-          {SITE.problem.points.map((pt) => (
-            <div key={pt.no} className="problem__point">
-              <p className="problem__key">
-                <span>{pt.no}</span>
-                {pt.key}
-              </p>
-              <p>{pt.text}</p>
-            </div>
-          ))}
-        </div>
+        {SITE.problem.points.length > 0 && (
+          <div className="problem__points">
+            {SITE.problem.points.map((pt) => (
+              <div key={pt.no} className="problem__point">
+                <p className="problem__key">
+                  <span>{pt.no}</span>
+                  {pt.key}
+                </p>
+                <p>{pt.text}</p>
+              </div>
+            ))}
+          </div>
+        )}
         <div className="problem__answer">
           <p className="problem__answertext pre">{SITE.problem.answer}</p>
           {SITE.problem.answerNote && <p className="problem__answernote">{SITE.problem.answerNote}</p>}

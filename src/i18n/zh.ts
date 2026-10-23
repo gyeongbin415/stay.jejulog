@@ -20,16 +20,10 @@ export const ZH: ContentPack = {
     },
 
     problem: {
-      label: 'PROBLEM',
-      title: ['说起民宿，你还是先想到派对吗？'],
-      points: [
-        {
-          no: '01',
-          key: '选择标准',
-          text: '我们挑选住处时，主要比较价格和位置。但在民宿里不只是睡觉，还可以享受各种活动，结识新朋友。',
-        },
-      ],
-      answer: '现在，是时候超越价格和位置，\n用自己想要的体验来挑选民宿了。',
+      label: "EDITOR'S NOTE",
+      title: ['除了派对，', '我们亲自去过才发现了更多。'],
+      points: [],
+      answer: "编辑亲自入住找到的体验，\n都收进了这一栋房子里。",
       answerNote: '',
     },
 
