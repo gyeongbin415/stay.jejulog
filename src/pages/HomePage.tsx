@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type CSSProperties } from 'react';
 import { SITE as SITE_KO, INSTAGRAM_URL } from '../data/site';
 import { QUESTIONS } from '../data/quiz';
 import { useContent } from '../i18n';
@@ -6,6 +6,18 @@ import { href } from '../lib/router';
 import { useReducedMotion } from '../lib/motion';
 import { HousePage } from './HousePage';
 import introNightUrl from '../assets/intro-night.webp';
+import stripWine from '../assets/strip/rooftop-dinner.webp';
+import stripRun from '../assets/strip/saewol-run.webp';
+import stripCinema from '../assets/strip/shym-cinema.webp';
+import stripFlower from '../assets/strip/kokoko-flower.webp';
+import stripFire from '../assets/strip/saewol-fire.webp';
+import stripLp from '../assets/strip/seoron-lp.webp';
+import stripWorkshop from '../assets/strip/srr-workshop.webp';
+import stripDinner from '../assets/strip/susu-dinner-table.webp';
+import stripSnap from '../assets/strip/mureung-snap.webp';
+import stripLibrary from '../assets/strip/bookhome-library.webp';
+import stripSunrise from '../assets/strip/kokoko-sunrise.webp';
+import stripSwim from '../assets/strip/saewol-swim.webp';
 
 /**
  * PAGE 01 — 메인 (하나의 세로 스크롤)
@@ -228,6 +240,7 @@ function Problem() {
             ))}
           </h2>
         </header>
+        <PhotoStrip />
         {SITE.problem.points.length > 0 && (
           <div className="problem__points">
             {SITE.problem.points.map((pt) => (
@@ -247,6 +260,42 @@ function Problem() {
         </div>
       </div>
     </section>
+  );
+}
+
+/**
+ * 사진 띠 — 게스트하우스 장면을 세로 사진으로, 조금씩 겹치고 살짝 기울여 한 줄로 늘어놓고
+ * 오른쪽에서 밀려 들어온 뒤 계속 왼쪽으로 흘러갑니다. (같은 줄을 두 번 이어 붙여 끊김 없이 돕니다)
+ * h 는 띠 높이 대비 %, y 는 위아래 어긋남(%), r 은 기울기(도).
+ */
+const STRIP: { src: string; h: number; y: number; r: number }[] = [
+  { src: stripWine, h: 92, y: -3, r: -2 },
+  { src: stripRun, h: 100, y: 2, r: 1.5 },
+  { src: stripCinema, h: 86, y: 5, r: -1 },
+  { src: stripFlower, h: 96, y: -4, r: 2.5 },
+  { src: stripFire, h: 88, y: 4, r: -2.5 },
+  { src: stripLp, h: 98, y: -2, r: 1 },
+  { src: stripWorkshop, h: 90, y: 5, r: -1.5 },
+  { src: stripDinner, h: 100, y: 0, r: 2 },
+  { src: stripSnap, h: 87, y: -5, r: -1 },
+  { src: stripLibrary, h: 94, y: 3, r: 1.5 },
+  { src: stripSunrise, h: 90, y: -2, r: -2 },
+  { src: stripSwim, h: 97, y: 2, r: 2 },
+];
+
+function PhotoStrip() {
+  return (
+    <div className="strip" aria-hidden="true">
+      <div className="strip__track">
+        {[0, 1].map((loop) =>
+          STRIP.map((p) => (
+            <span key={`${loop}-${p.src}`} className="strip__item" style={{ height: `${p.h}%`, '--y': `${p.y}%`, '--r': `${p.r}deg` } as CSSProperties}>
+              <img src={p.src} alt="" />
+            </span>
+          )),
+        )}
+      </div>
+    </div>
   );
 }
 

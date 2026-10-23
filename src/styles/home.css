@@ -161,6 +161,21 @@
   .problem__answernote { display: none; }
 }
 
+/* 사진 띠 — 세로 사진이 조금씩 겹쳐 화면 양 끝까지, 오른쪽에서 밀려 들어온 뒤 계속 왼쪽으로 흘러감 */
+.problem__inner:has(.strip) { padding-bottom: clamp(56px, 9vh, 100px); gap: clamp(18px, 3vh, 32px); }
+.strip { margin-inline: calc(50% - 50vw); height: clamp(220px, 38vh, 390px); padding-block: 10px; overflow: hidden; } /* 위아래 여백 — 기운 모서리가 잘리지 않게 */
+.strip__track { display: flex; align-items: center; width: max-content; height: 100%; animation: strip-flow 14s linear infinite; }
+.strip__item { flex: none; aspect-ratio: 3 / 4; margin-left: clamp(-22px, -1.5vw, -10px); overflow: hidden; background: #F1E3D8; box-shadow: 0 2px 8px rgba(40, 30, 20, .14); transform: translateY(var(--y, 0)) rotate(var(--r, 0deg)); }
+.strip__item:nth-child(odd) { z-index: 1; }
+.strip__item img { display: block; width: 100%; height: 100%; object-fit: cover; }
+@keyframes strip-flow { to { transform: translateX(-50%); } }
+@media (max-width: 639px) { .strip { height: clamp(190px, 28vh, 250px); } }
+/* 열릴 때 — 띠 전체가 오른쪽 밖에서 빠르게 들어와 감속 */
+.intro[data-phase="reveal"] .problem__inner > .strip { transition: opacity .3s var(--ease) .15s; transform: none; animation: strip-in 1.3s cubic-bezier(.16, 1, .3, 1) .15s both; }
+@keyframes strip-in { from { translate: 85vw 0; } to { translate: 0 0; } }
+.intro--static .strip__track { animation: none; }
+@media (prefers-reduced-motion: reduce) { .strip__track { animation: none; } }
+
 /* 동작 줄이기 — 문제 정의를 일반 섹션처럼 */
 .intro--static .intro__reveal { position: relative; inset: auto; opacity: 1; visibility: visible; margin: 40px calc(var(--gutter) * -1) -110px; }
 .intro--static .intro__scroll { display: none; }
