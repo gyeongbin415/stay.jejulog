@@ -21,7 +21,7 @@ type Step = 'story' | number | 'result';
 /**
  * PAGE 04 — 취향 테스트
  * 10문항 · 점수 배점(src/data/quiz.ts) · 계산(src/lib/scoring.ts)을 그대로 씁니다.
- * 결과는 BEST 01(결과 유형의 대표 숙소) + NEXT 01(그다음 추천) 두 곳.
+ * 결과는 BEST 1(결과 유형의 대표 숙소) + BEST 2 · 3(그다음 추천).
  */
 export default function TestPage({ sharedCode, mine = false }: { sharedCode: string | null; mine?: boolean }) {
   const { ui, questions, lang } = useContent();
@@ -209,7 +209,7 @@ function Result({ result, shared, onRetry, focusRef }: { result: QuizResult; sha
         label: t.resultLabel,
         lead: t.lead,
         brand: `${site.brandEn} · ${site.brand}`,
-        picks: ranked.map((id, i) => ({ id, rank: `BEST 0${i + 1}`, charName: site.characters[id], place: programById[id].report.place.name })),
+        picks: ranked.map((id, i) => ({ id, rank: `BEST ${i + 1}`, charName: site.characters[id], place: programById[id].report.place.name })),
       });
       const file = new File([blob], `jejulog-${result.code}.png`, { type: 'image/png' });
       const touch = window.matchMedia('(pointer: coarse)').matches;
@@ -260,7 +260,7 @@ function Result({ result, shared, onRetry, focusRef }: { result: QuizResult; sha
         {/* 게하 한 줄 소개 — 숙소 페이지 BASIC INFORMATION 과 같은 문장 */}
         {programById[result.main].report.oneLine && <p className="result__oneline">{programById[result.main].report.oneLine}</p>}
         <div className="result__hero">
-          <span className="result__rank">BEST 01<span className="visually-hidden"> {t.bestCaption}</span></span>
+          <span className="result__rank">BEST 1<span className="visually-hidden"> {t.bestCaption}</span></span>
           <img src={characterArt[result.main]} alt="" />
         </div>
         <a className="btn" href={href.stay(result.main)} data-track={`result_best01_${result.main}`}>
@@ -270,8 +270,8 @@ function Result({ result, shared, onRetry, focusRef }: { result: QuizResult; sha
 
       <ol className="result__picks">
         {/* 2 · 3순위 — 나란히 */}
-        {second && <Pick rank="BEST 02" caption={t.nextCaption} id={second.id} />}
-        {third && <Pick rank="BEST 03" caption={t.thirdCaption} id={third.id} />}
+        {second && <Pick rank="BEST 2" caption={t.nextCaption} id={second.id} />}
+        {third && <Pick rank="BEST 3" caption={t.thirdCaption} id={third.id} />}
       </ol>
 
       {/* 저장하기 · 친구에게 공유하기 / 다시하기 */}
