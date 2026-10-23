@@ -9,6 +9,7 @@ import { prefersReducedMotion } from '../lib/motion';
 import { track } from '../lib/track';
 import { makeResultImage } from '../lib/resultImage';
 import gehageUrl from '../assets/gehage.png';
+import storySceneUrl from '../assets/gehage-story.webp';
 
 /** 말풍선 모양 — 타원 몸통(가운데 112,58 · 반지름 100×52)과 왼쪽 아래로 뻗은 꼬리 */
 const BUBBLE_PATH = 'M54.6 100.6 A100 52 0 1 0 30.1 87.8 Q29 110 14 126 Q38 117 54.6 100.6 Z';
@@ -22,7 +23,7 @@ type Step = 'story' | number | 'result';
  * 결과는 BEST 01(결과 유형의 대표 숙소) + NEXT 01(그다음 추천) 두 곳.
  */
 export default function TestPage({ sharedCode }: { sharedCode: string | null }) {
-  const { ui, questions } = useContent();
+  const { ui, questions, lang } = useContent();
   const shared = decodeAnswers(sharedCode);
   const [answers, setAnswers] = useState<(AnswerKey | null)[]>(() => shared ?? QUESTIONS.map(() => null));
   const [step, setStep] = useState<Step>(shared ? 'result' : 'story');
@@ -98,7 +99,11 @@ export default function TestPage({ sharedCode }: { sharedCode: string | null }) 
         {step === 'story' && (
           <div className="story">
             <p className="label">STORY</p>
-            {/* 짐을 메고 지도를 든 여행자 소라게 게하게 — 시안 사진에서 배경만 뺀 그림 */}
+            {/* 짐을 메고 지도를 든 여행자 소라게 게하게 + 말풍선 — 한국어는 시안 그림 한 장(배경만 뺌),
+                다른 언어는 말풍선 글자를 바꿀 수 있게 소라게 그림 + 그린 말풍선 */}
+            {lang === 'ko' ? (
+              <img className="story__art" src={storySceneUrl} alt={ui.test.storyBubble.replace('\n', ' ')} />
+            ) : (
             <div className="story__scene">
               <img className="story__char" src={gehageUrl} alt="" aria-hidden="true" />
               {/* 소라게 옆 말풍선 — 크림색 몸통 · 갈색 테두리 · 오른쪽 아래 베이지 그림자 · 왼쪽 아래 꼬리 */}
@@ -116,6 +121,7 @@ export default function TestPage({ sharedCode }: { sharedCode: string | null }) 
                 <p className="story__bubble-text pre">{ui.test.storyBubble}</p>
               </div>
             </div>
+            )}
             <h1 id="test-title" ref={focusRef} tabIndex={-1} className="story__title">{ui.test.storyTitle}</h1>
             <p className="story__body pre">{ui.test.storyBody}</p>
             <button type="button" className="btn" onClick={start} data-track="quiz_story_start">
