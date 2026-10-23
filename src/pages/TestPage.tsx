@@ -96,7 +96,11 @@ export default function TestPage({ sharedCode }: { sharedCode: string | null }) 
           <div className="story">
             <p className="label">STORY</p>
             {/* 짐을 메고 지도를 든 여행자 소라게 게하게 — 시안을 따라 만든 벡터(SVG) */}
-            <img className="story__char" src={gehageUrl} alt="" aria-hidden="true" />
+            <div className="story__scene">
+              <img className="story__char" src={gehageUrl} alt="" aria-hidden="true" />
+              {/* 소라게 옆 말풍선 */}
+              <p className="story__bubble pre">{ui.test.storyBubble}</p>
+            </div>
             <h1 id="test-title" ref={focusRef} tabIndex={-1} className="story__title">{ui.test.storyTitle}</h1>
             <p className="story__body pre">{ui.test.storyBody}</p>
             <button type="button" className="btn" onClick={start} data-track="quiz_story_start">

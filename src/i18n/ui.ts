@@ -24,7 +24,7 @@ export interface UiText {
   test: {
     title: string; sub: (n: number) => string;
     /** 테스트 시작 전 — 소라게 게하게 이야기 */
-    storyTitle: string; storyBody: string; start: string;
+    storyTitle: string; storyBody: string; storyBubble: string; start: string;
     progress: string; prev: string; next: string; seeResult: string;
     sharedLabel: string; resultLabel: string; lead: string;
     bestCaption: string; nextCaption: string; thirdCaption: string; expType: string; reason: string; myPicks: string; detail: string;
@@ -67,7 +67,8 @@ export const UI: Record<Lang, UiText> = {
       title: '당신의 제주 취향을\n찾아보세요.',
       sub: (n) => `${n}가지 질문으로 알아보는\n나에게 맞는 게스트하우스.`,
       storyTitle: '소라게 ‘게하게’',
-      storyBody: '바다에서 올라온 소라게, 게하게.\n마음에 드는 집을 찾으면 껍데기를 바꿔 들어가요.\n오늘은 어떤 집에서 묵어볼까?',
+      storyBody: '바다에서 올라온 소라게, 게하게.\n마음에 드는 집을 찾으면 껍데기를 바꿔 들어가요.',
+      storyBubble: '오늘은 어떤 집에서\n묵어볼까?',
       start: '테스트 시작하기',
       progress: '진행 상태', prev: '이전 질문', next: '다음으로', seeResult: '결과 보기',
       sharedLabel: 'SHARED RESULT — 공유받은 결과', resultLabel: 'YOUR JEJU TASTE', lead: '나의 여행 취향은',
@@ -114,7 +115,8 @@ export const UI: Record<Lang, UiText> = {
       title: 'Find your\nJeju taste.',
       sub: (n) => `${n} questions to find\nthe guesthouse that fits you.`,
       storyTitle: 'Gehage the hermit crab',
-      storyBody: 'Up from the sea came a hermit crab named Gehage.\nWhen it finds a home it likes, it swaps shells and moves in.\nWhich home shall we stay in today?',
+      storyBody: 'Up from the sea came a hermit crab named Gehage.\nWhen it finds a home it likes, it swaps shells and moves in.',
+      storyBubble: 'Which home shall\nwe stay in today?',
       start: 'Start the test',
       progress: 'Progress', prev: 'Previous', next: 'Next', seeResult: 'See my result',
       sharedLabel: 'SHARED RESULT', resultLabel: 'YOUR JEJU TASTE', lead: 'Your travel taste is',
@@ -161,7 +163,8 @@ export const UI: Record<Lang, UiText> = {
       title: '找到你的\n济州旅行喜好。',
       sub: (n) => `用${n}个问题\n找到适合你的民宿。`,
       storyTitle: '寄居蟹「게하게」',
-      storyBody: '从海里爬上来的寄居蟹，게하게。\n找到喜欢的家，就换个壳住进去。\n今天要在哪个家住一晚呢？',
+      storyBody: '从海里爬上来的寄居蟹，게하게。\n找到喜欢的家，就换个壳住进去。',
+      storyBubble: '今天要在哪个家\n住一晚呢？',
       start: '开始测试',
       progress: '进度', prev: '上一题', next: '下一题', seeResult: '查看结果',
       sharedLabel: 'SHARED RESULT — 分享的结果', resultLabel: 'YOUR JEJU TASTE', lead: '你的旅行喜好是',
