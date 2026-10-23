@@ -10,6 +10,9 @@ import { track } from '../lib/track';
 import { makeResultImage } from '../lib/resultImage';
 import gehageUrl from '../assets/gehage.png';
 
+/** 말풍선 모양 — 타원 몸통(가운데 112,58 · 반지름 100×52)과 왼쪽 아래로 뻗은 꼬리 */
+const BUBBLE_PATH = 'M54.6 100.6 A100 52 0 1 0 30.1 87.8 Q29 110 14 126 Q38 117 54.6 100.6 Z';
+
 /** 'story' — 테스트 전 소라게 게하게 이야기 · 숫자 — 질문 순서 · 'result' — 결과 */
 type Step = 'story' | number | 'result';
 
@@ -98,8 +101,20 @@ export default function TestPage({ sharedCode }: { sharedCode: string | null }) 
             {/* 짐을 메고 지도를 든 여행자 소라게 게하게 — 시안 사진에서 배경만 뺀 그림 */}
             <div className="story__scene">
               <img className="story__char" src={gehageUrl} alt="" aria-hidden="true" />
-              {/* 소라게 옆 말풍선 */}
-              <p className="story__bubble pre">{ui.test.storyBubble}</p>
+              {/* 소라게 옆 말풍선 — 크림색 몸통 · 갈색 테두리 · 오른쪽 아래 베이지 그림자 · 왼쪽 아래 꼬리 */}
+              <div className="story__bubble">
+                <svg className="story__bubble-bg" viewBox="0 0 220 130" preserveAspectRatio="none" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="story-bubble-fill" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0.45" stopColor="#FCF1E2" />
+                      <stop offset="1" stopColor="#F4E2CB" />
+                    </linearGradient>
+                  </defs>
+                  <path d={BUBBLE_PATH} transform="translate(5 5)" fill="#EFDCC3" />
+                  <path d={BUBBLE_PATH} fill="url(#story-bubble-fill)" stroke="#A3683F" strokeWidth="2" strokeLinejoin="round" vectorEffect="non-scaling-stroke" />
+                </svg>
+                <p className="story__bubble-text pre">{ui.test.storyBubble}</p>
+              </div>
             </div>
             <h1 id="test-title" ref={focusRef} tabIndex={-1} className="story__title">{ui.test.storyTitle}</h1>
             <p className="story__body pre">{ui.test.storyBody}</p>
