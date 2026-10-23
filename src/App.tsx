@@ -36,6 +36,15 @@ export function App() {
       history.replaceState(history.state, '', '#/');
     } else if (route.name === 'home' || route.name === 'house') {
       window.scrollTo(0, positions.current[key] ?? 0);
+    } else if (route.name === 'test' && route.query.get('r')) {
+      // 숙소 페이지에서 뒤로 가기로 결과에 돌아오면 보던 자리로 — 결과 화면이 그려질 때까지 몇 프레임 다시 맞춤
+      const y = positions.current[key] ?? 0;
+      let tries = 0;
+      const go = () => {
+        window.scrollTo(0, y);
+        if (Math.abs(window.scrollY - y) > 2 && tries++ < 30) requestAnimationFrame(go);
+      };
+      go();
     } else {
       window.scrollTo(0, 0);
     }
@@ -54,7 +63,7 @@ export function App() {
             </Suspense>
           ) : route.name === 'test' ? (
             <Suspense fallback={<div className="page-loading" role="status">{ui.app.loadingTest}</div>}>
-              <TestPage sharedCode={route.query.get('r')} />
+              <TestPage sharedCode={route.query.get('r')} mine={route.query.get('me') === '1'} />
             </Suspense>
           ) : route.name === 'house' ? (
             <HousePage />

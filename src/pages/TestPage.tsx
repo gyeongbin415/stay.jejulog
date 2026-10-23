@@ -23,23 +23,24 @@ type Step = 'story' | number | 'result';
  * 10문항 · 점수 배점(src/data/quiz.ts) · 계산(src/lib/scoring.ts)을 그대로 씁니다.
  * 결과는 BEST 01(결과 유형의 대표 숙소) + NEXT 01(그다음 추천) 두 곳.
  */
-export default function TestPage({ sharedCode }: { sharedCode: string | null }) {
+export default function TestPage({ sharedCode, mine = false }: { sharedCode: string | null; mine?: boolean }) {
   const { ui, questions, lang } = useContent();
   const shared = decodeAnswers(sharedCode);
   const [answers, setAnswers] = useState<(AnswerKey | null)[]>(() => shared ?? QUESTIONS.map(() => null));
   const [step, setStep] = useState<Step>(shared ? 'result' : 'story');
-  const [isShared, setIsShared] = useState(Boolean(shared));
+  const [isShared, setIsShared] = useState(Boolean(shared) && !mine);
   const focusRef = useRef<HTMLHeadingElement>(null);
-  const first = useRef(true);
+  // 직전 단계 — 처음 열릴 때(뒤로 가기로 돌아올 때 포함)는 위로 올리지 않도록 단계가 실제로 바뀔 때만 움직입니다
+  const prevStep = useRef(step);
   const timer = useRef(0);
 
   useEffect(() => {
     const decoded = decodeAnswers(sharedCode);
     if (!decoded) return;
     setAnswers(decoded);
-    setIsShared(true);
+    setIsShared(!mine);
     setStep('result');
-  }, [sharedCode]);
+  }, [sharedCode, mine]);
 
   useEffect(() => () => window.clearTimeout(timer.current), []);
 
@@ -51,10 +52,8 @@ export default function TestPage({ sharedCode }: { sharedCode: string | null }) 
 
   // 문항이 바뀌면 질문으로 초점을 옮기고 화면 위쪽에 맞춥니다.
   useEffect(() => {
-    if (first.current) {
-      first.current = false;
-      return;
-    }
+    if (prevStep.current === step) return;
+    prevStep.current = step;
     focusRef.current?.focus({ preventScroll: true });
     const top = document.querySelector('.test__card, .result');
     if (top && top.getBoundingClientRect().top < 0) window.scrollTo({ top: 0, behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
@@ -63,6 +62,8 @@ export default function TestPage({ sharedCode }: { sharedCode: string | null }) 
   const finish = (all: AnswerKey[]) => {
     const r = scoreQuiz(all);
     setStep('result');
+    // 주소에 내 결과를 남겨 둡니다 — 숙소 페이지로 갔다가 뒤로 가기를 누르면 이 결과로 돌아옴
+    history.replaceState(history.state, '', href.myResult(r.code));
     track('quiz_result', { type: r.type, best: r.main, code: r.code });
   };
 

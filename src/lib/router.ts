@@ -11,6 +11,7 @@ import { PROGRAM_BY_ID } from '../data/programs';
      PAGE 04  #/test                취향 테스트
      메인 안의 특정 위치             #/?to=checkin   (to = 섹션 id)
      공유받은 테스트 결과             #/test?r=ABCDABC
+     내가 방금 본 결과                #/test?r=ABCDABC&me=1  (숙소 페이지에서 뒤로 가기로 돌아오는 자리)
 ------------------------------------------------------------------- */
 
 export type Route =
@@ -56,6 +57,7 @@ export const href = {
   stay: (id: ProgramId) => `#/stay/${id}`,
   test: () => '#/test',
   result: (code: string) => `#/test?r=${code}`,
+  myResult: (code: string) => `#/test?r=${code}&me=1`,
 };
 
 /** 메인 안의 섹션으로 이동 (동작 줄이기 설정이면 즉시 이동) */
