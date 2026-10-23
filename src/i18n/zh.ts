@@ -563,7 +563,7 @@ export const ZH: ContentPack = {
       },
       q5: {
         context: '晚饭后在民宿',
-        q: '吃完晚饭，在民宿里只做一件事的话',
+        q: '吃完晚饭，在民宿里只做一件事的话？',
         options: {
           A: '大家一起看一部电影',
           B: '用黑胶唱片听音乐',
@@ -571,7 +571,7 @@ export const ZH: ContentPack = {
       },
       q6: {
         context: '夜晚的聊天',
-        q: '晚上和大家聊天的话',
+        q: '晚上和大家聊天的话？',
         options: {
           A: '从书中一句话开始的深入交谈',
           B: '在篝火前轻松闲聊',
@@ -587,7 +587,7 @@ export const ZH: ContentPack = {
       },
       q8: {
         context: '清晨出门的话',
-        q: '如果一大早出门',
+        q: '如果一大早出门？',
         options: {
           A: '爬上山丘看日出',
           B: '沿着海岸公路跑步',
@@ -595,7 +595,7 @@ export const ZH: ContentPack = {
       },
       q9: {
         context: '想留下的济州纪念',
-        q: '想留作济州纪念的是',
+        q: '想留作济州纪念的是？',
         options: {
           A: '亲手做的东西',
           B: '济州风景中的我的照片',
@@ -603,7 +603,7 @@ export const ZH: ContentPack = {
       },
       q10: {
         context: '和初次见面的人',
-        q: '如果和初次见面的人只能一起做一件事',
+        q: '如果和初次见面的人只能一起做一件事？',
         options: {
           A: '一杯葡萄酒',
           B: '一顿温暖的饭',
