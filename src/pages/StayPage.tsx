@@ -34,7 +34,7 @@ export default function StayPage({ id }: { id: ProgramId }) {
         <Photo photo={p.hero} fallback={id} className="stay-hero__photo" caption={false} eager />
         <div className="stay-hero__copy wrap">
           <p className="stay-hero__meta">
-            <span>STAY {e.no} / {String(EXPERIENCES.length).padStart(2, '0')}</span>
+            <span>STAY {e.no}</span>
             <span>{e.label}</span>
           </p>
           <h1 id="stay-title" className="stay-hero__name">{r.place.name}</h1>

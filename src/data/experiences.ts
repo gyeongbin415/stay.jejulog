@@ -25,17 +25,18 @@ export interface Experience {
   headline?: string;
 }
 
+/** 집 순서 그대로 — 다락 → 3F → 2F → 1F → 마당 (no 는 숙소 번호 STAY 1 ~ 9) */
 export const EXPERIENCES: Experience[] = [
-  { id: 'book', no: '01', label: '독서', short: '책', en: 'BOOK', room: 'living' },
-  { id: 'lp', no: '02', label: 'LP', short: 'LP', en: 'LP', room: 'living' },
-  { id: 'craft', no: '03', label: '나무반지', short: '반지', en: 'CRAFT', room: 'attic' },
+  { id: 'craft', no: '1', label: '나무반지', short: '반지', en: 'CRAFT', room: 'attic' },
+  { id: 'book', no: '2', label: '독서', short: '책', en: 'BOOK', room: 'living' },
+  { id: 'flower', no: '3', label: '꽃꽂이', short: '꽃', en: 'FLOWER', room: 'kitchen' },
+  { id: 'cinema', no: '4', label: '영화', short: '영화', en: 'CINEMA', room: 'living' },
+  { id: 'lp', no: '5', label: 'LP', short: 'LP', en: 'LP', room: 'living' },
+  { id: 'homemeal', no: '6', label: '집밥', short: '밥', en: 'HOME MEAL', room: 'kitchen', headline: '낯선 제주에서, 따뜻한 집밥을 먹는 방법' },
+  { id: 'wine', no: '7', label: '와인', short: '와인', en: 'WINE', room: 'kitchen' },
   // 무릉쉼표 — 스냅사진 · 포틀럭 파티 & 불멍 (기존 id 는 camping)
-  { id: 'camping', no: '04', label: '스냅사진', short: '스냅', en: 'SNAP', room: 'yard', headline: '제주의 계절을 사진으로 남기는 방법' },
-  { id: 'cinema', no: '05', label: '영화', short: '영화', en: 'CINEMA', room: 'living' },
-  { id: 'homemeal', no: '06', label: '집밥', short: '밥', en: 'HOME MEAL', room: 'kitchen', headline: '낯선 제주에서, 따뜻한 집밥을 먹는 방법' },
-  { id: 'flower', no: '07', label: '꽃꽂이', short: '꽃', en: 'FLOWER', room: 'kitchen' },
-  { id: 'running', no: '08', label: '러닝', short: '러닝', en: 'RUNNING', room: 'yard' },
-  { id: 'wine', no: '09', label: '와인', short: '와인', en: 'WINE', room: 'kitchen' },
+  { id: 'camping', no: '8', label: '스냅사진', short: '스냅', en: 'SNAP', room: 'yard', headline: '제주의 계절을 사진으로 남기는 방법' },
+  { id: 'running', no: '9', label: '러닝', short: '러닝', en: 'RUNNING', room: 'yard' },
 ];
 
 export const EXPERIENCE_BY_ID = Object.fromEntries(EXPERIENCES.map((e) => [e.id, e])) as Record<ProgramId, Experience>;
