@@ -45,7 +45,8 @@
   text-align: left; font-size: 16px; font-weight: 500; line-height: 1.55; letter-spacing: -0.015em; color: var(--ink);
   transition: border-color var(--t-hover) var(--ease), background var(--t-hover) var(--ease), transform var(--t-hover) var(--ease);
 }
-.test__option:hover { border-color: var(--forest); }
+/* 마우스가 있을 때만 — 휴대폰은 누른 자리에 hover 가 남아 다음 문항 버튼에 테두리가 묻어남 */
+@media (hover: hover) and (pointer: fine) { .test__option:hover { border-color: var(--forest); } }
 .test__option:active { transform: scale(.99); }
 .test__option.is-on { border-color: var(--forest); background: var(--forest); color: var(--bg); }
 .test__key {
