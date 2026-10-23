@@ -9,7 +9,7 @@
 /* 소라게는 가운데, 말풍선은 오른쪽 위에 작게 */
 .story__scene { position: relative; margin: clamp(36px, 5vw, 56px) 0 2px; }
 .story__char { display: block; width: clamp(160px, 30vw, 280px); height: auto; }
-.story__bubble { position: absolute; left: 68%; bottom: 76%; padding: 11px 15px; border-radius: 50%; background: #fff; filter: drop-shadow(0 3px 8px rgba(58, 55, 53, .13)); font-family: "Yoon Childfund DaeHan", var(--f-home); font-size: clamp(14px, 1.4vw, 17px); font-weight: 400; line-height: 1.4; color: var(--ink); text-align: center; white-space: pre; }
+.story__bubble { position: absolute; left: 68%; bottom: 76%; padding: 11px 15px; border-radius: 50%; background: #fff; filter: drop-shadow(0 3px 8px rgba(58, 55, 53, .13)); font-family: "Ownglyph Saehayan", var(--f-home); font-size: clamp(14px, 1.4vw, 17px); font-weight: 400; line-height: 1.4; color: var(--ink); text-align: center; white-space: pre; }
 /* 말풍선 꼬리 — 왼쪽 아래, 소라게 쪽 */
 .story__bubble::after { content: ""; position: absolute; left: 2px; bottom: -3px; width: 24px; height: 20px; background: #fff; clip-path: polygon(55% 0, 100% 40%, 0 100%); }
 .story__title { font-family: var(--f-home); font-size: var(--t-h2); font-weight: 700; line-height: 1.3; letter-spacing: -0.035em; outline: none; }
