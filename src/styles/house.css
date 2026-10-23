@@ -58,12 +58,10 @@
 .explore.explore--home { position: relative; z-index: 5; padding-top: clamp(40px, 7vh, 80px); }
 .explore__hint, .explore__toggle { background: rgba(255, 255, 255, .6); }
 
-/* ── 창문 벽 — 받은 그림과 같은 비율(1024 × 1440)의 벽에 창문 · 벽돌을 그림 속 좌표 그대로 ─────────────────────────────── */
+/* ── 창문 벽 — 1024 × 1380 비율의 벽에 창문 아홉 개를 불규칙하게 ─────────────────────────────── */
 .facade { padding-top: clamp(28px, 5vh, 64px); padding-bottom: clamp(64px, 10vh, 120px); }
 /* 화면 폭과 높이 중 작은 쪽에 맞춰 통째로 줄어듦 — 휴대폰에서도 창문 아홉 개가 한 화면에 */
-.facade__wall { position: relative; aspect-ratio: 1024 / 1440; width: min(100%, 660px, (100svh - var(--header) - 32px) * 1024 / 1440); margin-inline: auto; }
-/* 벽돌 스케치 — 받은 그림에서 오려 낸 선 한 장, 벽 전체에 겹쳐 둠 */
-.facade__bricks { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.facade__wall { position: relative; aspect-ratio: 1024 / 1380; width: min(100%, 660px, (100svh - var(--header) - 32px) * 1024 / 1380); margin-inline: auto; }
 
 .win { position: absolute; display: block; text-decoration: none; color: var(--ink); -webkit-tap-highlight-color: transparent; outline-offset: 6px; }
 .win__frame { position: relative; z-index: 2; display: block; width: 100%; height: 100%; pointer-events: none; }
@@ -111,3 +109,13 @@
   .explore { padding-top: calc(var(--header) + 22px); }
   .win__label { padding: 3px 8px; font-size: 11.5px; }
 }
+
+/* ── 누르면 안으로 — 창 안 방 그림이 화면 가득 커졌다가 상세페이지가 나타나며 사라짐 ─────────────────────────────── */
+.win-zoom {
+  position: fixed; z-index: 200; overflow: hidden; background: #F2DEC0; pointer-events: none;
+  transition: left .72s cubic-bezier(.65, 0, .35, 1), top .72s cubic-bezier(.65, 0, .35, 1), width .72s cubic-bezier(.65, 0, .35, 1), height .72s cubic-bezier(.65, 0, .35, 1), opacity .45s var(--ease);
+}
+.win-zoom .room__art { position: absolute; inset: 0; width: 100%; height: 100%; }
+.win-zoom .win__cover { display: none; } /* 들어갈 때는 커튼 · 블라인드 없이 방 안 */
+.win-zoom.is-in { left: 0 !important; top: 0 !important; width: 100vw !important; height: 100vh !important; }
+.win-zoom.is-out { opacity: 0; }
