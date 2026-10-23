@@ -42,7 +42,7 @@
   .test__otext { padding-top: 0; }
 }
 
-.test__nav { display: flex; justify-content: space-between; gap: 12px; margin-top: clamp(28px, 5vh, 40px); }
+.test__nav { display: flex; justify-content: flex-start; gap: 12px; margin-top: clamp(28px, 5vh, 40px); }
 .test__nav .btn { padding-inline: 22px; }
 
 /* ── 결과 ─────────────────────────────── */

@@ -130,12 +130,10 @@ export default function TestPage({ sharedCode }: { sharedCode: string | null }) 
                 })}
               </div>
 
+              {/* 답을 고르면 저절로 다음 질문으로 — 버튼은 이전 질문만 */}
               <div className="test__nav">
                 <button type="button" className="btn btn--ghost btn--back" onClick={() => setStep(qi - 1)} disabled={qi === 0} data-track="quiz_prev">
                   {ui.test.prev} <span className="arrow" aria-hidden="true">←</span>
-                </button>
-                <button type="button" className="btn" onClick={() => goNext(qi)} disabled={!answers[qi]} data-track="quiz_next">
-                  {qi === QUESTIONS.length - 1 ? ui.test.seeResult : ui.test.next} <span className="arrow" aria-hidden="true">→</span>
                 </button>
               </div>
             </div>
