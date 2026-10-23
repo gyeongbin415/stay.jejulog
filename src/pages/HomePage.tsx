@@ -14,9 +14,9 @@ import mosaicLibrary from '../assets/mosaic/bookhome-library.webp';
 import mosaicDinner from '../assets/mosaic/susu-dinner-table.webp';
 import mosaicWine from '../assets/mosaic/rooftop-dinner.webp';
 import mosaicRun from '../assets/mosaic/saewol-run.webp';
+import mosaicFire from '../assets/mosaic/saewol-fire.webp';
 import mosaicSnap from '../assets/mosaic/mureung-snap.webp';
 import mosaicSunrise from '../assets/mosaic/kokoko-sunrise.webp';
-import mosaicPotluck from '../assets/mosaic/mureung-potluck.webp';
 
 /**
  * PAGE 01 — 메인 (하나의 세로 스크롤)
@@ -264,30 +264,36 @@ function Problem() {
 
 /**
  * 줌아웃 모자이크 — 인트로의 파티 장면이 가운데 한 칸으로 작아지고,
- * 그 둘레에 게스트하우스 아홉 곳의 다른 장면들이 하나씩 떠오릅니다. (4칸 × 3줄, 6번째 칸이 파티)
+ * 그 둘레에 게스트하우스 아홉 곳의 다른 장면들이 하나씩 떠오릅니다.
+ * 6칸 × 4줄 바둑판에 크고 작은 칸(2×2 · 2×1 · 1×2 · 1×1)을 섞어 놓았습니다 — area 는 '줄 시작 / 칸 시작 / 줄 끝 / 칸 끝'.
  */
-const MOSAIC: (string | null)[] = [
-  mosaicCinema, mosaicLp, mosaicFlower, mosaicWorkshop,
-  mosaicLibrary, null, mosaicDinner, mosaicWine,
-  mosaicRun, mosaicSnap, mosaicSunrise, mosaicPotluck,
+const MOSAIC: { src: string; area: string; order: number; party?: boolean }[] = [
+  { src: mosaicWine, area: '1 / 1 / 3 / 3', order: 3 },
+  { src: mosaicFlower, area: '1 / 3 / 2 / 4', order: 7 },
+  { src: mosaicCinema, area: '1 / 4 / 2 / 6', order: 1 },
+  { src: mosaicRun, area: '1 / 6 / 3 / 7', order: 5 },
+  { src: introNightUrl, area: '2 / 3 / 4 / 5', order: 0, party: true },
+  { src: mosaicLp, area: '2 / 5 / 3 / 6', order: 9 },
+  { src: mosaicFire, area: '3 / 1 / 5 / 2', order: 8 },
+  { src: mosaicWorkshop, area: '3 / 2 / 4 / 3', order: 2 },
+  { src: mosaicDinner, area: '3 / 5 / 5 / 7', order: 6 },
+  { src: mosaicLibrary, area: '4 / 2 / 5 / 3', order: 10 },
+  { src: mosaicSnap, area: '4 / 3 / 5 / 4', order: 4 },
+  { src: mosaicSunrise, area: '4 / 4 / 5 / 5', order: 11 },
 ];
-/** 떠오르는 순서 — 칸 번호 순이 아니라 여기저기서 하나씩 */
-const POP_ORDER = [6, 1, 9, 3, 4, 11, 0, 7, 10, 2, 8];
 
 function Mosaic() {
   return (
     <div className="mosaic" aria-hidden="true">
-      {MOSAIC.map((src, i) =>
-        src ? (
-          <span key={i} className="mosaic__tile" style={{ '--o': POP_ORDER.indexOf(i) } as CSSProperties}>
-            <img src={src} alt="" />
-          </span>
-        ) : (
-          <span key={i} className="mosaic__tile mosaic__tile--party">
-            <img src={introNightUrl} alt="" />
-          </span>
-        ),
-      )}
+      {MOSAIC.map((t) => (
+        <span
+          key={t.area}
+          className={`mosaic__tile${t.party ? ' mosaic__tile--party' : ''}`}
+          style={{ gridArea: t.area, '--o': t.order } as CSSProperties}
+        >
+          <img src={t.src} alt="" />
+        </span>
+      ))}
     </div>
   );
 }
