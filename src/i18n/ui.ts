@@ -31,7 +31,6 @@ export interface UiText {
     retry: string; share: string; shared: string; copied: string; canceled: string;
     save: string; saved: string; saveFailed: string;
     bestReason: (type: string) => string; nextRunnerUp: (type: string) => string; nextSameType: (type: string) => string;
-    shareTitle: (brand: string, type: string) => string;
   };
 }
 
@@ -81,7 +80,6 @@ export const UI: Record<Lang, UiText> = {
       bestReason: (t) => `‘${t}’ 취향에서 가장 높은 점수를 받은 곳.`,
       nextRunnerUp: (t) => `두 번째로 높게 나온 ‘${t}’ 성향에 어울리는 곳.`,
       nextSameType: (t) => `같은 ‘${t}’ 취향에서 함께 고른 곳.`,
-      shareTitle: (b, t) => `${b} — ${t}`,
     },
   },
 
@@ -130,7 +128,6 @@ export const UI: Record<Lang, UiText> = {
       bestReason: (t) => `The top match for “${t}”.`,
       nextRunnerUp: (t) => `A fit for your second-strongest side, “${t}”.`,
       nextSameType: (t) => `Another pick for “${t}”.`,
-      shareTitle: (b, t) => `${b} — ${t}`,
     },
   },
 
@@ -179,7 +176,6 @@ export const UI: Record<Lang, UiText> = {
       bestReason: (t) => `在“${t}”喜好中得分最高的地方。`,
       nextRunnerUp: (t) => `适合你第二强的“${t}”倾向。`,
       nextSameType: (t) => `同为“${t}”喜好的另一个选择。`,
-      shareTitle: (b, t) => `${b} — ${t}`,
     },
   },
 };

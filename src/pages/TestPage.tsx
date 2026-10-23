@@ -194,9 +194,8 @@ export default function TestPage({ sharedCode, mine = false }: { sharedCode: str
 }
 
 function Result({ result, shared, onRetry, focusRef }: { result: QuizResult; shared: boolean; onRetry: () => void; focusRef: RefObject<HTMLHeadingElement | null> }) {
-  const { ui, site, types, programById, experiences } = useContent();
+  const { ui, site, programById, experiences } = useContent();
   const t = ui.test;
-  const type = types[result.type];
   const [status, setStatus] = useState('');
   const [second, third] = result.subs;
 
@@ -236,8 +235,8 @@ function Result({ result, shared, onRetry, focusRef }: { result: QuizResult; sha
     const url = `${window.location.origin}${window.location.pathname}${href.result(result.code)}`;
     try {
       if (navigator.share) {
-        // 링크만 보냄 — 결과 유형 설명 문장(‘당신은 …’)은 함께 보내지 않음
-        await navigator.share({ title: t.shareTitle(site.brand, type.name), url });
+        // 링크만 보냄 — 제목 · 설명 문장은 함께 보내지 않음
+        await navigator.share({ url });
         setStatus(t.shared);
       } else {
         await navigator.clipboard.writeText(url);
