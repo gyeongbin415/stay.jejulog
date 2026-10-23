@@ -75,7 +75,6 @@ export function HousePage({ embedded = false }: { embedded?: boolean }) {
                 <a className="explist__item" href={href.stay(e.id)} data-track={`house_list_${e.id}`}>
                   <span className="explist__name">{e.label}</span>
                   <span className="explist__place">{programById[e.id].report.place.name}</span>
-                  <span className="explist__arrow" aria-hidden="true">→</span>
                 </a>
               </li>
             ))}

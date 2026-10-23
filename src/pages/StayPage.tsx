@@ -157,9 +157,7 @@ export default function StayPage({ id }: { id: ProgramId }) {
                     </span>
                   )}
                   <div>
-                    <p className="stay-editor__k">{t.editorOneLine}</p>
                     {editor?.title && <p className="stay-editor__title">{editor.title}</p>}
-                    {editor?.label && <p className="stay-editor__labeltext">{editor.label}</p>}
                   </div>
                 </div>
               )}
