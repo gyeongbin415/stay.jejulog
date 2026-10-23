@@ -1,4 +1,4 @@
-import { useState, type CSSProperties } from 'react';
+import { useState } from 'react';
 import { useContent } from '../i18n';
 import type { ProgramId } from '../data/types';
 import { href } from '../lib/router';
@@ -21,6 +21,7 @@ import campingFrame from '../assets/windows/camping-frame.webp';
 import campingCover from '../assets/windows/camping-cover.webp';
 import wineFrame from '../assets/windows/wine-frame.webp';
 import wineCover from '../assets/windows/wine-cover.webp';
+import bricksUrl from '../assets/windows/bricks.webp';
 
 /**
  * PAGE 02 — 창문 탐색 (ROOM TOUR)
@@ -96,19 +97,14 @@ export function HousePage({ embedded = false }: { embedded?: boolean }) {
         </nav>
       ) : (
       <nav className="facade wrap" aria-label={ui.house.houseAria}>
-        {/* 벽에 자잘하게 그은 벽돌 스케치 — 창문 뒤 */}
-        <span className="facade__bricks" aria-hidden="true">
-          {BRICKS.map(([x, y]) => (
-            <span key={`${x}-${y}`} className="brick" style={{ left: `${x}%`, top: `${y}%` }} />
-          ))}
-        </span>
-        <ul className="facade__grid">
+        {/* 레퍼런스 그림(1024 × 1440 영역)과 같은 비율의 벽 — 창문 · 벽돌을 그림 속 좌표 그대로 놓고, 화면에 맞춰 통째로 줄어듦 */}
+        <div className="facade__wall">
+          {/* 벽돌 스케치 — 받은 그림에서 오려 낸 선 그대로 (창문과 같은 먹선) */}
+          <img className="facade__bricks" src={bricksUrl} alt="" aria-hidden="true" />
           {WINDOWS.map((w) => (
-            <li key={w.id}>
-              <Window {...w} />
-            </li>
+            <Window key={w.id} {...w} />
           ))}
-        </ul>
+        </div>
       </nav>
       )}
     </section>
@@ -116,45 +112,43 @@ export function HousePage({ embedded = false }: { embedded?: boolean }) {
 }
 
 /**
- * 창문 아홉 개 — 받은 창문 그림을 그대로 오려 씀(초록 창틀은 나무색으로, 벽은 투명).
+ * 창문 아홉 개 — 받은 창문 그림(1024 × 1536)을 창마다 따로 오려 씀. 초록 창틀은 웹진 메인 짙은 주황(--orange-ink)으로, 초록 벽은 투명.
  * 한 창 = 창틀 그림(frame, 큰 창 자리만 뚫림) + 큰 창 자리의 방 그림 + 그 앞을 가린 커튼 · 블라인드 · 간유리 · 덧창(cover).
- * w · h 는 그림 크기(px), pane 은 큰 창 자리(그림 기준 % — 왼쪽 · 위 · 너비 · 높이),
- * dx · dy 는 줄 맞춤에서 살짝 어긋나게 옮기는 정도(칸 기준 %) — 간격은 그대로, 배치만 불규칙하게.
+ * l · t · w 는 그림 속 위치 · 너비(벽 기준 %, 벽 = 그림의 y 40–1480 영역), ratio 는 창 그림 비율,
+ * pane 은 큰 창 자리(창 그림 기준 % — 왼쪽 · 위 · 너비 · 높이).
  */
 type Cover = 'curtain' | 'blind' | 'frost' | 'shutter';
-/** 벽돌 스케치 위치 (벽 기준 %, 왼쪽 · 위) — 창문 사이 빈 벽에 띄엄띄엄 */
-const BRICKS: [number, number][] = [
-  [3, 2], [62, 1], [93, 4], [35, 31], [95, 34], [1, 64], [64, 64], [30, 95], [88, 96],
-];
-type WindowArt = { id: ProgramId; frame: string; cover: string; w: number; h: number; pane: [number, number, number, number]; kind: Cover; dx: number; dy: number };
+type WindowArt = { id: ProgramId; frame: string; cover: string; kind: Cover; l: number; t: number; w: number; ratio: string; pane: [number, number, number, number] };
 const WINDOWS: WindowArt[] = [
-  { id: 'book', frame: bookFrame, cover: bookCover, w: 263, h: 340, pane: [11.03, 26.18, 77.57, 63.82], kind: 'curtain', dx: -3, dy: 4 },
-  { id: 'craft', frame: craftFrame, cover: craftCover, w: 275, h: 386, pane: [13.82, 25.91, 73.45, 65.03], kind: 'blind', dx: 4, dy: -9 },
-  { id: 'flower', frame: flowerFrame, cover: flowerCover, w: 264, h: 332, pane: [10.98, 27.71, 77.65, 61.75], kind: 'frost', dx: -2, dy: 8 },
-  { id: 'cinema', frame: cinemaFrame, cover: cinemaCover, w: 290, h: 378, pane: [12.07, 26.46, 75.86, 64.29], kind: 'blind', dx: 5, dy: -2 },
-  { id: 'lp', frame: lpFrame, cover: lpCover, w: 266, h: 385, pane: [12.41, 25.71, 75.19, 65.19], kind: 'curtain', dx: -4, dy: 10 },
-  { id: 'homemeal', frame: homemealFrame, cover: homemealCover, w: 278, h: 374, pane: [11.15, 26.2, 77.34, 64.44], kind: 'frost', dx: 3, dy: -6 },
-  { id: 'running', frame: runningFrame, cover: runningCover, w: 275, h: 400, pane: [14.55, 26.5, 70.91, 62], kind: 'shutter', dx: -5, dy: 6 },
-  { id: 'camping', frame: campingFrame, cover: campingCover, w: 282, h: 392, pane: [12.77, 26.79, 74.82, 63.78], kind: 'frost', dx: 2, dy: -5 },
-  { id: 'wine', frame: wineFrame, cover: wineCover, w: 274, h: 399, pane: [10.95, 24.06, 78.1, 66.67], kind: 'curtain', dx: 6, dy: 9 },
+  { id: 'book', frame: bookFrame, cover: bookCover, kind: 'curtain', l: 4.39, t: 7.64, w: 25.68, ratio: '263 / 340', pane: [11.03, 26.18, 77.57, 63.82] },
+  { id: 'craft', frame: craftFrame, cover: craftCover, kind: 'blind', l: 33.2, t: 1.32, w: 26.86, ratio: '275 / 386', pane: [13.82, 25.91, 73.45, 65.03] },
+  { id: 'flower', frame: flowerFrame, cover: flowerCover, kind: 'frost', l: 66.11, t: 8.4, w: 25.78, ratio: '264 / 332', pane: [10.98, 27.71, 77.65, 61.75] },
+  { id: 'cinema', frame: cinemaFrame, cover: cinemaCover, kind: 'blind', l: 3.22, t: 33.75, w: 28.32, ratio: '290 / 378', pane: [12.07, 26.46, 75.86, 64.29] },
+  { id: 'lp', frame: lpFrame, cover: lpCover, kind: 'curtain', l: 36.04, t: 35.56, w: 25.98, ratio: '266 / 385', pane: [12.41, 25.71, 75.19, 65.19] },
+  { id: 'homemeal', frame: homemealFrame, cover: homemealCover, kind: 'frost', l: 67.38, t: 35.9, w: 27.15, ratio: '278 / 374', pane: [11.15, 26.2, 77.34, 64.44] },
+  { id: 'running', frame: runningFrame, cover: runningCover, kind: 'shutter', l: 4.2, t: 65.97, w: 26.86, ratio: '275 / 400', pane: [14.55, 26.5, 70.91, 62] },
+  { id: 'camping', frame: campingFrame, cover: campingCover, kind: 'frost', l: 35.16, t: 66.32, w: 27.54, ratio: '282 / 392', pane: [12.77, 26.79, 74.82, 63.78] },
+  { id: 'wine', frame: wineFrame, cover: wineCover, kind: 'curtain', l: 69.73, t: 66.18, w: 26.76, ratio: '274 / 399', pane: [10.95, 24.06, 78.1, 66.67] },
 ];
 
-function Window({ id, frame, cover, w, h, pane, kind, dx, dy }: WindowArt) {
+/** 창 하나 — 따로 떨어진 요소(id: window-…)라 창마다 클릭 · 호버 · 여는 그림을 따로 붙일 수 있음 */
+function Window({ id, frame, cover, kind, l, t, w, ratio, pane }: WindowArt) {
   const { ui, experienceById, programById } = useContent();
   const e = experienceById[id];
   const place = programById[id].report.place.name;
-  const [l, t, pw, ph] = pane;
+  const [pl, pt, pw, ph] = pane;
   const half = { backgroundImage: `url(${cover})` };
   return (
     <a
+      id={`window-${id}`}
       className={`win win--${kind}`}
       href={href.stay(id)}
       aria-label={ui.house.roomAria(e.no, e.label, place)}
       data-track={`house_${id}`}
-      style={{ width: `${(w / 290) * 100}%`, aspectRatio: `${w} / ${h}`, translate: `${dx}% ${dy}%` } as CSSProperties}
+      style={{ left: `${l}%`, top: `${t}%`, width: `${w}%`, aspectRatio: ratio }}
     >
       {/* 큰 창 자리 — 방 그림, 그 앞을 가린 두 짝 */}
-      <span className="win__pane" style={{ left: `${l}%`, top: `${t}%`, width: `${pw}%`, height: `${ph}%` }} aria-hidden="true">
+      <span className="win__pane" style={{ left: `${pl}%`, top: `${pt}%`, width: `${pw}%`, height: `${ph}%` }} aria-hidden="true">
         <RoomArt id={id} />
         <span className="win__cover">
           <span className="win__half win__half--l" style={half} />
@@ -162,7 +156,7 @@ function Window({ id, frame, cover, w, h, pane, kind, dx, dy }: WindowArt) {
         </span>
       </span>
       <img className="win__frame" src={frame} alt="" />
-      <span className="win__label" style={{ left: `calc(${l}% + 6px)`, top: `calc(${t}% + 6px)` }} aria-hidden="true">
+      <span className="win__label" style={{ left: `calc(${pl}% + 5px)`, top: `calc(${pt}% + 5px)` }} aria-hidden="true">
         {e.label}
       </span>
     </a>

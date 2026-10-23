@@ -58,18 +58,14 @@
 .explore.explore--home { position: relative; z-index: 5; padding-top: clamp(40px, 7vh, 80px); }
 .explore__hint, .explore__toggle { background: rgba(255, 255, 255, .6); }
 
-/* ── 창문 벽 — 크림색 벽에 나무색 창틀 아홉 개 (3 × 3) ─────────────────────────────── */
-.facade { padding-top: clamp(48px, 8vh, 96px); padding-bottom: clamp(64px, 10vh, 120px); } /* 집 · 목록 버튼과 넉넉히 */
-.facade { position: relative; }
-.facade__grid { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(40px, 8vw, 104px) clamp(30px, 7.5vw, 104px); max-width: 920px; margin-inline: auto; align-items: end; }
-/* 벽돌 스케치 — 가는 갈색 선으로 두 장씩 엇갈려 */
-.facade__bricks { position: absolute; inset: clamp(48px, 8vh, 96px) var(--gutter) clamp(64px, 10vh, 120px); max-width: 1000px; margin-inline: auto; pointer-events: none; }
-.brick { position: absolute; width: clamp(22px, 3vw, 38px); height: clamp(9px, 1.1vw, 14px); border: 1.5px solid rgba(94, 50, 28, .5); border-radius: 1px; }
-.brick::after { content: ""; position: absolute; left: 45%; top: calc(100% + 2px); width: 100%; height: 100%; border: inherit; border-radius: inherit; box-sizing: border-box; }
+/* ── 창문 벽 — 받은 그림과 같은 비율(1024 × 1440)의 벽에 창문 · 벽돌을 그림 속 좌표 그대로 ─────────────────────────────── */
+.facade { padding-top: clamp(28px, 5vh, 64px); padding-bottom: clamp(64px, 10vh, 120px); }
+/* 화면 폭과 높이 중 작은 쪽에 맞춰 통째로 줄어듦 — 휴대폰에서도 창문 아홉 개가 한 화면에 */
+.facade__wall { position: relative; aspect-ratio: 1024 / 1440; width: min(100%, 660px, (100svh - var(--header) - 32px) * 1024 / 1440); margin-inline: auto; }
+/* 벽돌 스케치 — 받은 그림에서 오려 낸 선 한 장, 벽 전체에 겹쳐 둠 */
+.facade__bricks { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 
-/* 창 한 칸 — 받은 그림을 오려 낸 창틀(frame) 아래에, 큰 창 자리에 방 그림 + 가림막 두 짝 */
-.facade__grid > li { display: flex; justify-content: center; }
-.win { position: relative; display: block; text-decoration: none; color: var(--ink); -webkit-tap-highlight-color: transparent; outline-offset: 6px; }
+.win { position: absolute; display: block; text-decoration: none; color: var(--ink); -webkit-tap-highlight-color: transparent; outline-offset: 6px; }
 .win__frame { position: relative; z-index: 2; display: block; width: 100%; height: 100%; pointer-events: none; }
 .win__pane { position: absolute; z-index: 1; overflow: hidden; background: #F2DEC0; }
 .win__pane .room__art { position: absolute; inset: 0; width: 100%; height: 100%; }
