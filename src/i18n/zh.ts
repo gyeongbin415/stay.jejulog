@@ -50,7 +50,7 @@ export const ZH: ContentPack = {
     },
 
     explore: {
-      label: 'EXPLORE',
+      label: 'STAY GUIDE',
       title: ['在这里，', '你想体验些什么？'],
       sub: '逛一逛济州民宿里能遇见的九种体验。',
       hint: '点击空间，即可前往对应的民宿。',

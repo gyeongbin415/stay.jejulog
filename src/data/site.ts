@@ -52,7 +52,7 @@ export const SITE = {
   },
 
   explore: {
-    label: 'EXPLORE',
+    label: 'STAY GUIDE',
     title: ['이곳에서', '어떤 경험을 하고 싶나요?'],
     sub: '제주 게스트하우스에서 만날 수 있는 아홉 가지 경험을 둘러보세요.',
     hint: '공간을 누르면 해당 게스트하우스로 이동합니다.',

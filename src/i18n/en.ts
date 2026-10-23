@@ -53,7 +53,7 @@ export const EN: ContentPack = {
     },
 
     explore: {
-      label: 'EXPLORE',
+      label: 'STAY GUIDE',
       title: ['Here,', 'what would you like to experience?'],
       sub: 'Explore nine experiences waiting at Jeju guesthouses.',
       hint: 'Tap a room to visit its guesthouse.',
