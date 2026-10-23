@@ -211,7 +211,7 @@ export const PROGRAMS: Program[] = [
       ],
       editorProfile: {
         title: '혼자만의 여유를 즐기면서도, 새로운 사람과의 소통을 좋아하는 여행자',
-        avatar: 'photos/editor-flower.jpg',
+        avatar: 'photos/editor-flower-v3.jpg',
         tags: ['새로운경험', '숨은여행지찾기', '고요한힐링', '느린여행'],
       },
       experience: [
@@ -268,7 +268,7 @@ export const PROGRAMS: Program[] = [
       ],
       editorProfile: {
         title: '아날로그 감성을 즐기는 에디터',
-        avatar: 'photos/editor-lp.jpg',
+        avatar: 'photos/editor-lp-v3.jpg',
         tags: ['낭만추구', '후회없는여행', '새로운경험'],
         about: ['아날로그 감성을 좋아하고, 쉬거나 이동할 때 음악을 즐겨 들어요. 여행에서는 감성적인 공간을 찾아가고, 쉽게 접하기 어려운 새로운 경험을 해보는 걸 좋아해요.'],
       },
@@ -390,7 +390,7 @@ export const PROGRAMS: Program[] = [
       ],
       editorProfile: {
         title: '차분한 몰입의 시간이 필요한 에디터',
-        avatar: 'photos/editor-craft.jpg',
+        avatar: 'photos/editor-craft-v3.jpg',
         label: 'EDITOR 01 · 자연스러운 온기를 좋아하는 여행자',
         tags: ['내향형여행자', '몰입과집중', '소규모모임선호', '느슨한연대', '경험수집가'],
         about: [
@@ -516,7 +516,7 @@ export const PROGRAMS: Program[] = [
       ],
       editorProfile: {
         title: '혼자도 함께도 좋은 에디터',
-        avatar: 'photos/editor-homemeal-2.jpg',
+        avatar: 'photos/editor-homemeal-v3.jpg',
         tags: ['혼자여행', '소소한대화선호', '느긋한여행'],
       },
       experience: [
@@ -573,7 +573,7 @@ export const PROGRAMS: Program[] = [
       ],
       editorProfile: {
         title: '혼자 여행도 새로운 경험이라 도전해 본 에디터',
-        avatar: 'photos/editor-wine.jpg',
+        avatar: 'photos/editor-wine-v3.jpg',
         tags: ['혼행도전', '계획여행파', '새로운경험좋아', '할수있는거다하자'],
         about: [
           '평소에는 즉흥적이지만 여행만큼은 계획적으로 움직이는 편이에요. 혼자 여행하는 걸 즐기는 편은 아니지만, 새로운 경험에 도전하고 싶어 혼자 제주로 떠났어요. 여행지에서 할 수 있는 특별한 경험이라면 놓치고 싶지 않아요.',
