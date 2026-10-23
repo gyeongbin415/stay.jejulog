@@ -17,16 +17,16 @@
 
 .topbar__brand { display: inline-flex; align-items: baseline; gap: 10px; text-decoration: none; }
 .topbar__logo { font-size: 15px; font-weight: 700; letter-spacing: .26em; }
-/* Stay Log 로고 (455 × 349) — 밝은 곳에선 네이비, 어두운 곳에선 크림색 */
+/* Stay Log 로고 (455 × 349) — 주황 (어두운 곳에선 조금 밝은 주황) */
 .topbar__mark {
   display: block; height: 30px; aspect-ratio: 455 / 349;
-  background-color: var(--navy);
+  background-color: var(--orange);
   -webkit-mask-size: contain; mask-size: contain;
   -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
   -webkit-mask-position: left center; mask-position: left center;
   transition: background-color var(--t-page) var(--ease);
 }
-.topbar--dark .topbar__mark { background-color: var(--on-dark); }
+.topbar--dark .topbar__mark { background-color: var(--accent-on-dark); }
 .topbar__brand { align-items: center; }
 .topbar__ko { font-size: 13px; font-weight: 500; opacity: .7; }
 
