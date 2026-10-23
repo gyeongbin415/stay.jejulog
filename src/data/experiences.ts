@@ -47,9 +47,9 @@ export const ROOMS: { id: RoomId; floor: string; name: string; items: ProgramId[
   { id: 'yard', floor: 'YARD', name: '마당', items: ['camping', 'running'] },
 ];
 
-/** 집 단면 — 실내 여섯 공간을 두 칸씩 세 층으로 (다락 1 · 3F 2 · 2F 2 · 1F 2 · 마당 2) */
+/** 집 단면 — 다락 나무반지 · 3F 독서 · 꽃꽂이 · 2F 영화 · LP · 1F 집밥 · 와인 · 마당 스냅 · 러닝 (넓은 화면 · 좁은 화면 같은 배치) */
 export const COMPACT_FLOORS: { id: RoomId; floor: string; name: string; items: ProgramId[] }[] = [
-  { id: 'study', floor: '3F', name: '서재', items: ['book', 'lp'] },
-  { id: 'living', floor: '2F', name: '거실', items: ['cinema', 'wine'] },
-  { id: 'kitchen', floor: '1F', name: '부엌', items: ['homemeal', 'flower'] },
+  { id: 'study', floor: '3F', name: '서재', items: ['book', 'flower'] },
+  { id: 'living', floor: '2F', name: '거실', items: ['cinema', 'lp'] },
+  { id: 'kitchen', floor: '1F', name: '부엌', items: ['homemeal', 'wine'] },
 ];

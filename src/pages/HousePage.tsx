@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useContent } from '../i18n';
 import type { ProgramId } from '../data/types';
 import { href } from '../lib/router';
-import { useMediaQuery } from '../lib/motion';
 import { RoomArt } from '../components/RoomArt';
 import { HouseRoof } from '../components/HouseRoof';
 
@@ -27,10 +26,9 @@ export function HousePage({ embedded = false }: { embedded?: boolean }) {
   const { site, ui, rooms, compactFloors, experiences, programById } = useContent();
   const SITE = site;
   const Title = embedded ? 'h2' : 'h1';
-  // 넓은 화면: 다락 1 · 2층 3칸 · 1층 3칸 · 마당 2 (rooms) / 좁은 화면: 실내를 두 칸씩 세 층(compactFloors)
-  const [attic, living, kitchen, yard] = rooms;
-  const wide = useMediaQuery('(min-width: 900px)');
-  const bodyFloors = wide ? [living, kitchen] : compactFloors;
+  // 다락 1 · 실내 두 칸씩 세 층(compactFloors) · 마당 2 — 넓은 화면 · 좁은 화면 같은 배치
+  const [attic, , , yard] = rooms;
+  const bodyFloors = compactFloors;
   // 상세페이지에 다녀와도 보던 방식이 유지되도록 이 탭에서만 기억합니다.
   const [view, setView] = useState<View>(readView);
   const choose = (v: View) => {
