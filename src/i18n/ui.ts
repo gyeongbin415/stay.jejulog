@@ -36,7 +36,7 @@ export interface UiText {
 
 export const UI: Record<Lang, UiText> = {
   ko: {
-    docTitle: '제주로그 JEJULOG — 문 너머, 우리가 몰랐던 게스트하우스',
+    docTitle: 'STAY JEJULOG — 문 너머, 우리가 몰랐던 게스트하우스',
     langLabel: '언어',
     skip: '본문 바로가기',
     nav: { main: '메인', house: '게하 탐색', test: '취향 테스트', menuOpen: '메뉴 열기', menuClose: '메뉴 닫기', menu: '메뉴', mainNav: '주요 메뉴', toHome: (b) => `${b} 메인으로` },
@@ -84,7 +84,7 @@ export const UI: Record<Lang, UiText> = {
   },
 
   en: {
-    docTitle: 'JEJULOG — Beyond the door, the guesthouses we never knew',
+    docTitle: 'STAY JEJULOG — Beyond the door, the guesthouses we never knew',
     langLabel: 'Language',
     skip: 'Skip to content',
     nav: { main: 'Home', house: 'Explore', test: 'Taste Test', menuOpen: 'Open menu', menuClose: 'Close menu', menu: 'Menu', mainNav: 'Main menu', toHome: (b) => `${b} home` },
@@ -132,7 +132,7 @@ export const UI: Record<Lang, UiText> = {
   },
 
   zh: {
-    docTitle: '济州日志 JEJULOG — 门的那边，我们不曾了解的民宿',
+    docTitle: 'STAY JEJULOG — 门的那边，我们不曾了解的民宿',
     langLabel: '语言',
     skip: '跳到正文',
     nav: { main: '首页', house: '探索民宿', test: '喜好测试', menuOpen: '打开菜单', menuClose: '关闭菜单', menu: '菜单', mainNav: '主菜单', toHome: (b) => `返回${b}首页` },
