@@ -52,6 +52,8 @@
 .explore { --yard: #C0DBA7; --charcoal: #3A3735; background: var(--bg); padding-bottom: 0; }
 /* 집 내부 문구는 모두 인트로 질문과 같은 카트 고딕 (제목 · 설명 · 버튼 · 방 이름표 · 전체보기 목록) */
 .explore, .explore button { font-family: var(--f-home); }
+/* EXPLORE 라벨은 다른 섹션 라벨(CHECK IN 등)과 같은 본문 서체 · 자간 */
+.explore .label { font-family: var(--f-sans); letter-spacing: .16em; }
 .explore .explist { padding-bottom: clamp(72px, 10vh, 120px); }
 /* 메인 페이지 안 — 문제 정의 바로 다음 섹션 */
 /* 문제 정의 화면 아래 빈 자리로 살짝 끌어올려 두 섹션 사이 간격을 줄임 */
