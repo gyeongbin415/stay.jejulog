@@ -24,9 +24,9 @@ export const EN: ContentPack = {
 
     problem: {
       label: 'CHECK IN',
-      title: ['Beyond the parties', 'there was more we found by going ourselves.'],
+      title: ['Have you ever imagined a day', 'like this at a guesthouse?'],
       points: [],
-      answer: "The experiences our editors found by staying there,\ngathered into one house.",
+      answer: "The experiences our editors found by staying in Jeju,\ngathered into one house.",
       answerNote: '',
     },
 
