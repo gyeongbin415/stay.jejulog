@@ -265,21 +265,22 @@ function Problem() {
 /**
  * 줌아웃 모자이크 — 인트로의 파티 장면이 가운데 한 칸으로 작아지고,
  * 그 둘레에 게스트하우스 아홉 곳의 다른 장면들이 하나씩 떠오릅니다.
- * 6칸 × 4줄 바둑판에 크고 작은 칸(2×2 · 2×1 · 1×2 · 1×1)을 섞어 놓았습니다 — area 는 '줄 시작 / 칸 시작 / 줄 끝 / 칸 끝'.
+ * 바둑판이 아니라 콜라주 — 사진마다 제 비율 · 크기로, 조금씩 겹치고 살짝 기울어져 있습니다.
+ * l · t · w 는 상자 기준 % (왼쪽 · 위 · 너비), ar 은 사진 비율, r 은 기울기(도), z 는 겹치는 순서.
  */
-const MOSAIC: { src: string; area: string; order: number; party?: boolean }[] = [
-  { src: mosaicWine, area: '1 / 1 / 3 / 3', order: 3 },
-  { src: mosaicFlower, area: '1 / 3 / 2 / 4', order: 7 },
-  { src: mosaicCinema, area: '1 / 4 / 2 / 6', order: 1 },
-  { src: mosaicRun, area: '1 / 6 / 3 / 7', order: 5 },
-  { src: introNightUrl, area: '2 / 3 / 4 / 5', order: 0, party: true },
-  { src: mosaicLp, area: '2 / 5 / 3 / 6', order: 9 },
-  { src: mosaicFire, area: '3 / 1 / 5 / 2', order: 8 },
-  { src: mosaicWorkshop, area: '3 / 2 / 4 / 3', order: 2 },
-  { src: mosaicDinner, area: '3 / 5 / 5 / 7', order: 6 },
-  { src: mosaicLibrary, area: '4 / 2 / 5 / 3', order: 10 },
-  { src: mosaicSnap, area: '4 / 3 / 5 / 4', order: 4 },
-  { src: mosaicSunrise, area: '4 / 4 / 5 / 5', order: 11 },
+const MOSAIC: { src: string; l: number; t: number; w: number; ar: string; r: number; z: number; order: number; party?: boolean }[] = [
+  { src: mosaicWine, l: 0, t: 6, w: 34, ar: '3 / 2', r: -3, z: 2, order: 3 },
+  { src: mosaicFlower, l: 32, t: 0, w: 20, ar: '4 / 3', r: 2.5, z: 3, order: 7 },
+  { src: mosaicCinema, l: 54, t: 4, w: 30, ar: '16 / 9', r: -2, z: 2, order: 1 },
+  { src: mosaicRun, l: 84, t: 0, w: 16, ar: '9 / 16', r: 3, z: 3, order: 5 },
+  { src: introNightUrl, l: 30, t: 26, w: 40, ar: '4 / 3', r: 0, z: 5, order: 0, party: true },
+  { src: mosaicLp, l: 71, t: 35, w: 27, ar: '7 / 5', r: 2, z: 4, order: 9 },
+  { src: mosaicFire, l: 2, t: 42, w: 15, ar: '9 / 16', r: -4, z: 3, order: 8 },
+  { src: mosaicWorkshop, l: 14, t: 38, w: 20, ar: '4 / 3', r: 3, z: 4, order: 2 },
+  { src: mosaicDinner, l: 66, t: 62, w: 32, ar: '7 / 5', r: -2.5, z: 3, order: 6 },
+  { src: mosaicLibrary, l: 11, t: 72, w: 26, ar: '16 / 9', r: 2, z: 2, order: 10 },
+  { src: mosaicSnap, l: 35, t: 70, w: 22, ar: '3 / 2', r: -3, z: 6, order: 4 },
+  { src: mosaicSunrise, l: 54, t: 77, w: 18, ar: '7 / 5', r: 3.5, z: 4, order: 11 },
 ];
 
 function Mosaic() {
@@ -287,9 +288,9 @@ function Mosaic() {
     <div className="mosaic" aria-hidden="true">
       {MOSAIC.map((t) => (
         <span
-          key={t.area}
+          key={t.src}
           className={`mosaic__tile${t.party ? ' mosaic__tile--party' : ''}`}
-          style={{ gridArea: t.area, '--o': t.order } as CSSProperties}
+          style={{ left: `${t.l}%`, top: `${t.t}%`, width: `${t.w}%`, aspectRatio: t.ar, zIndex: t.z, '--r': `${t.r}deg`, '--o': t.order } as CSSProperties}
         >
           <img src={t.src} alt="" />
         </span>
