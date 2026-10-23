@@ -191,6 +191,11 @@ function Intro() {
         {/* 밝은 화면이 서서히 떠오르며 — 문제 정의 */}
         <div id="problem" className="intro__reveal">
           <Problem />
+          {/* 아래로 내려 보라는 표시 */}
+          <p className="intro__scroll" aria-hidden="true">
+            <span>SCROLL</span>
+            <i />
+          </p>
         </div>
       </div>
     </section>

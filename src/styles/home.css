@@ -119,6 +119,13 @@
   transition: opacity .9s var(--ease), visibility 0s .9s;
 }
 .intro[data-phase="reveal"] .intro__reveal { opacity: 1; visibility: visible; transition: opacity .9s var(--ease); }
+/* SCROLL — 화면 아래 가운데, 문구가 다 뜬 뒤 나타나 위아래로 흐르는 선 */
+.intro__scroll { position: absolute; left: 50%; bottom: clamp(22px, 5vh, 44px); translate: -50% 0; display: grid; justify-items: center; gap: 10px; margin: 0; font-family: var(--f-sans); font-size: 11px; font-weight: 600; letter-spacing: .22em; color: var(--ink-soft); opacity: 0; transition: opacity .8s var(--ease); }
+.intro[data-phase="reveal"] .intro__scroll { opacity: 1; transition-delay: 1.4s; }
+.intro__scroll i { position: relative; display: block; width: 1px; height: 36px; overflow: hidden; background: var(--line-strong); }
+.intro__scroll i::after { content: ""; position: absolute; left: 0; top: -40%; width: 100%; height: 40%; background: var(--orange-ink); animation: scroll-cue 1.8s var(--ease) infinite; }
+@keyframes scroll-cue { to { top: 100%; } }
+@media (prefers-reduced-motion: reduce) { .intro__scroll i::after { animation: none; top: 0; height: 100%; } }
 .intro[data-phase="reveal"] .intro__turn, .intro[data-phase="reveal"] .intro__reticle { opacity: 0; transition-delay: 0s; }
 
 /* 문제 정의 내용 — 열린 원 안에서 차례로 */
@@ -154,6 +161,7 @@
 
 /* 동작 줄이기 — 문제 정의를 일반 섹션처럼 */
 .intro--static .intro__reveal { position: relative; inset: auto; opacity: 1; visibility: visible; margin: 40px calc(var(--gutter) * -1) -110px; }
+.intro--static .intro__scroll { display: none; }
 .intro--static .problem__inner > * { opacity: 1; transform: none; }
 .intro--static .problem__inner { padding: 96px 0; }
 
