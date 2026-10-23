@@ -120,11 +120,11 @@
 }
 .intro[data-phase="reveal"] .intro__reveal { opacity: 1; visibility: visible; transition: opacity .9s var(--ease); }
 /* SCROLL — 화면 아래 가운데, 문구가 다 뜬 뒤 나타나는 글자와 아래 꺾쇠 */
-.intro__scroll { position: absolute; left: 50%; bottom: clamp(18px, 4vh, 36px); translate: -50% 0; display: grid; justify-items: center; gap: 7px; margin: 0; font-family: var(--f-sans); font-size: 9px; font-weight: 600; letter-spacing: .22em; color: var(--ink-soft); opacity: 0; transition: opacity .8s var(--ease); }
+.intro__scroll { position: absolute; left: 50%; bottom: clamp(18px, 4vh, 36px); translate: -50% 0; display: grid; justify-items: center; gap: 7px; margin: 0; font-family: var(--f-sans); font-size: 9px; font-weight: 600; letter-spacing: .22em; color: #9C9E98; opacity: 0; transition: opacity .8s var(--ease); } /* 조금 연한 회색 */
 .intro[data-phase="reveal"] .intro__scroll { opacity: 1; transition-delay: 1.4s; }
 /* SCROLL 아래 꺾쇠 두 개 — 차례로 깜빡임 */
 .intro__chev { display: grid; justify-items: center; }
-.intro__chev span { display: block; width: 6px; height: 6px; margin-top: -2px; border-right: 1.3px solid var(--ink-soft); border-bottom: 1.3px solid var(--ink-soft); rotate: 45deg; opacity: .25; animation: scroll-chev 1.6s var(--ease) infinite; }
+.intro__chev span { display: block; width: 6px; height: 6px; margin-top: -2px; border-right: 1.3px solid currentColor; border-bottom: 1.3px solid currentColor; rotate: 45deg; opacity: .25; animation: scroll-chev 1.6s var(--ease) infinite; }
 .intro__chev span:nth-child(2) { animation-delay: .2s; }
 @keyframes scroll-chev { 0%, 100% { opacity: .2; } 40% { opacity: 1; } }
 @media (prefers-reduced-motion: reduce) { .intro__chev span { animation: none; opacity: .6; } }
