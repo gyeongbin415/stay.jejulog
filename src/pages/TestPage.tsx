@@ -8,7 +8,7 @@ import { href } from '../lib/router';
 import { prefersReducedMotion } from '../lib/motion';
 import { track } from '../lib/track';
 import { makeResultImage } from '../lib/resultImage';
-import gehageUrl from '../assets/gehage.png';
+import gehageUrl from '../assets/gehage.svg';
 
 /** 'story' — 테스트 전 소라게 게하게 이야기 · 숫자 — 질문 순서 · 'result' — 결과 */
 type Step = 'story' | number | 'result';
@@ -95,7 +95,7 @@ export default function TestPage({ sharedCode }: { sharedCode: string | null }) 
         {step === 'story' && (
           <div className="story">
             <p className="label">STORY</p>
-            {/* 짐을 메고 지도를 든 여행자 소라게 게하게 */}
+            {/* 짐을 메고 지도를 든 여행자 소라게 게하게 — 시안을 따라 만든 벡터(SVG) */}
             <img className="story__char" src={gehageUrl} alt="" aria-hidden="true" />
             <h1 id="test-title" ref={focusRef} tabIndex={-1} className="story__title">{ui.test.storyTitle}</h1>
             <p className="story__body pre">{ui.test.storyBody}</p>
