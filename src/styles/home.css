@@ -135,8 +135,8 @@
 .problem__inner > * { opacity: 0; transform: translateY(18px); transition: opacity .7s var(--ease-out), transform .7s var(--ease-out); }
 .intro[data-phase="reveal"] .problem__inner > * { opacity: 1; transform: none; }
 .intro[data-phase="reveal"] .problem__points { transition-delay: .75s; }
-.intro[data-phase="reveal"] .problem__head { transition-delay: .55s; }
-.intro[data-phase="reveal"] .problem__answer { transition-delay: .95s; }
+.intro[data-phase="reveal"] .problem__head, .intro[data-phase="reveal"] .problem__inner > .strip { transition-delay: .55s; } /* 제목 · 사진 · 문장이 한꺼번에 */
+.intro[data-phase="reveal"] .problem__answer { transition-delay: .55s; }
 .problem__head { display: grid; gap: 14px; align-content: start; }
 .problem__title { font-family: var(--f-home); font-size: clamp(30px, 4.6vw, 58px); font-weight: 700; line-height: 1.32; letter-spacing: -0.03em; }
 .problem__title span { display: block; }
@@ -170,9 +170,6 @@
 .strip__item img { display: block; width: 100%; height: 100%; object-fit: cover; }
 @keyframes strip-flow { to { transform: translateX(-50%); } }
 @media (max-width: 639px) { .strip { height: clamp(190px, 28vh, 250px); } }
-/* 열릴 때 — 띠 전체가 오른쪽 밖에서 빠르게 들어와 감속 */
-.intro[data-phase="reveal"] .problem__inner > .strip { transition: opacity .3s var(--ease) .15s; transform: none; animation: strip-in 1.3s cubic-bezier(.16, 1, .3, 1) .15s both; }
-@keyframes strip-in { from { translate: 85vw 0; } to { translate: 0 0; } }
 .intro--static .strip__track { animation: none; }
 @media (prefers-reduced-motion: reduce) { .strip__track { animation: none; } }
 
