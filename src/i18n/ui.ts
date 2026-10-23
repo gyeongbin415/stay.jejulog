@@ -60,7 +60,7 @@ export const UI: Record<Lang, UiText> = {
       basicInfo: '기본 정보', placeName: '숙소명', address: '주소', mainPrograms: '주요 프로그램', usage: '이용 정보',
       programStory: '프로그램 이야기', programDetails: '프로그램 소개', content: '체험 내용', note: '참고사항',
       editorTitle: '에디터가 직접 머물러 봤어요', editorOneLine: '에디터의 한 줄 소개', travelStyle: '에디터 여행 성향',
-      likedIt: '그래서 이 게하가 좋았어요', forWhom: '이런 사람에게 추천해요',
+      likedIt: '이런 점이 좋았어요', forWhom: '이런 사람에게 추천해요',
       recommendTitle: '이런 분께 추천합니다', backToHouse: '집 둘러보기', prevStay: '이전 게하', nextStay: '다음 게하', toTest: '나에게 맞는 게하 찾기', booking: '예약 정보 보기', navAria: '다른 게스트하우스',
     },
     test: {
@@ -109,7 +109,7 @@ export const UI: Record<Lang, UiText> = {
       basicInfo: 'Basic information', placeName: 'Guesthouse', address: 'Address', mainPrograms: 'Programs', usage: 'Hours & fees',
       programStory: 'The story behind it', programDetails: 'Programs', content: 'What you’ll do', note: 'Good to know',
       editorTitle: 'Our editor stayed here', editorOneLine: 'About the editor', travelStyle: "Editor's travel style",
-      likedIt: 'Why I loved this place', forWhom: 'Who it’s for',
+      likedIt: 'What I loved', forWhom: 'Who it’s for',
       recommendTitle: 'Recommended for', backToHouse: 'Explore the house', prevStay: 'Previous', nextStay: 'Next', toTest: 'Find the stay that fits you', booking: 'Booking info', navAria: 'Other guesthouses',
     },
     test: {
@@ -158,7 +158,7 @@ export const UI: Record<Lang, UiText> = {
       basicInfo: '基本信息', placeName: '民宿名称', address: '地址', mainPrograms: '主要活动', usage: '时间与费用',
       programStory: '活动的故事', programDetails: '活动介绍', content: '体验内容', note: '注意事项',
       editorTitle: '编辑亲自入住体验', editorOneLine: '编辑简介', travelStyle: '编辑的旅行风格',
-      likedIt: '所以我喜欢这家民宿', forWhom: '推荐给这样的人',
+      likedIt: '我喜欢的地方', forWhom: '推荐给这样的人',
       recommendTitle: '推荐给这样的你', backToHouse: '逛逛这栋房子', prevStay: '上一家民宿', nextStay: '下一家民宿', toTest: '找到适合我的民宿', booking: '预订信息', navAria: '其他民宿',
     },
     test: {
