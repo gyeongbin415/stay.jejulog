@@ -13,9 +13,7 @@ export interface UiText {
   footer: { tagline: string; madeBy: string };
   app: { loadingStay: string; loadingTest: string; notFound: string; toHome: string };
   home: { srTitle: string; wordsAria: string; opening: string; findSub: (n: number) => string; typesAria: string };
-  house: { viewGroup: string; viewHouse: string; viewList: string; houseAria: string; listAria: string; roomAria: (no: string, label: string, place: string) => string;
-    /** ROOM TOUR 설명 아래 미리보기 링크 셋 — 나무반지 · 영화 · 집밥 순서 */
-    picks: [string, string, string]; picksAria: string };
+  house: { viewGroup: string; viewHouse: string; viewList: string; houseAria: string; listAria: string; roomAria: (no: string, label: string, place: string) => string };
   photo: { pending: string };
   stay: {
     basicInfo: string; placeName: string; address: string; mainPrograms: string; usage: string;
@@ -58,7 +56,6 @@ export const UI: Record<Lang, UiText> = {
       viewGroup: '보기 방식', viewHouse: '집', viewList: '목록',
       houseAria: '집 안의 아홉 가지 경험', listAria: '아홉 가지 경험 전체',
       roomAria: (no, label, place) => `${no} ${label} — ${place} 상세 보기`,
-      picks: ['반지 만드는 하루', '영화로 끝내는 밤', '함께 먹는 저녁'], picksAria: '먼저 둘러볼 경험',
     },
     photo: { pending: '사진 준비 중' },
     stay: {
@@ -109,7 +106,6 @@ export const UI: Record<Lang, UiText> = {
       viewGroup: 'View mode', viewHouse: 'House', viewList: 'List',
       houseAria: 'Nine experiences inside the house', listAria: 'All nine experiences',
       roomAria: (no, label, place) => `${no} ${label} — see ${place}`,
-      picks: ['A day making a ring', 'A night ending with a film', 'Dinner shared together'], picksAria: 'Experiences to start with',
     },
     photo: { pending: 'Photo coming soon' },
     stay: {
@@ -160,7 +156,6 @@ export const UI: Record<Lang, UiText> = {
       viewGroup: '浏览方式', viewHouse: '房子', viewList: '列表',
       houseAria: '房子里的九种体验', listAria: '全部九种体验',
       roomAria: (no, label, place) => `${no} ${label} — 查看${place}`,
-      picks: ['做戒指的一天', '以电影收尾的夜晚', '一起吃的晚餐'], picksAria: '先看看这些体验',
     },
     photo: { pending: '照片准备中' },
     stay: {
