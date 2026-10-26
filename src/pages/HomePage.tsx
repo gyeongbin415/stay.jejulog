@@ -254,6 +254,8 @@ function Problem() {
   return (
     <section className="problem" aria-labelledby="problem-title">
       <div className="problem__inner wrap">
+        {/* 사진 띠가 맨 위 — 그 아래 제목 · 문장 */}
+        <PhotoStrip />
         <header className="problem__head">
           <p className="label">{SITE.problem.label}</p>
           <h2 id="problem-title" className="problem__title">
@@ -262,7 +264,6 @@ function Problem() {
             ))}
           </h2>
         </header>
-        <PhotoStrip />
         {SITE.problem.points.length > 0 && (
           <div className="problem__points">
             {SITE.problem.points.map((pt) => (
