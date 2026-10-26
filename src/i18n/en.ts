@@ -116,7 +116,7 @@ export const EN: ContentPack = {
             { label: 'Time', value: '7:30 PM' },
           ],
           photos: [
-            { alt: 'Guests gathered around a table in the yard under strings of light bulbs (faces blurred)', caption: 'Dinner in the yard' },
+            { alt: 'A wine decanter and glasses, a bread basket and a water jug on a table on the lawn at night, with a cat asleep in a folding chair beside it', caption: 'Dinner in the yard' },
             { alt: 'Hands toasting marshmallows on skewers over a campfire', caption: 'Fire gazing after dinner' },
           ],
           text: [

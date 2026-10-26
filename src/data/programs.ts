@@ -84,7 +84,7 @@ export const PROGRAMS: Program[] = [
           name: '와인 디너 & 불멍',
           info: [{ label: '가격', value: '30,000원' }, { label: '시간', value: '오후 7시 30분' }],
           photos: [
-            { src: 'photos/saewol-dinner.jpg', art: 'table', alt: '전구 줄 조명 아래 마당 식탁에 둘러앉아 식사하는 게스트들 (얼굴 흐림 처리)', caption: '마당에서의 디너' },
+            { src: 'photos/saewol-dinner-v2.jpg', art: 'table', alt: '밤 잔디 마당의 식탁 위 와인 디캔터와 와인잔, 빵 바구니, 물병, 그 옆 접이식 의자에서 잠든 고양이', caption: '마당에서의 디너' },
             { src: 'photos/saewol-fire.jpg', art: 'campfire', alt: '모닥불 위로 꼬치에 꽂은 마시멜로를 굽는 손들', caption: '식사 후 불멍' },
           ],
           text: ['사장님이 직접 준비한 양식 디너와 와인을 즐기며 처음 만난 게스트들과 자연스럽게 가까워지는 시간이다. 날씨가 좋은 날에는 마당에서 저녁 식사를 즐기고, 식사 후에는 모닥불 앞에서 불멍을 하며 이야기를 나눈다. 제주의 밤을 여유롭게 마무리할 수 있다.'],

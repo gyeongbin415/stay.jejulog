@@ -427,7 +427,7 @@ const ART: Record<ProgramId, ReactNode> = {
     </>
   ),
 
-  /* 07 꽃꽂이 — 연보라 파스텔 벽 · 벽 선반 위 작은 화병 · 테이블 위 유리 꽃병과 가위 · 물뿌리개 */
+  /* 07 꽃꽂이 — 연보라 파스텔 벽 · 벽 선반 위 작은 화병 · 테이블 위 유리 꽃병과 가위 */
   flower: (
     <Room wall="#DCD3E8">
       {/* 오른쪽 벽 선반 · 작은 화병 둘 (왼쪽 기준 그림을 240 옮김) */}
@@ -465,10 +465,6 @@ const ART: Record<ProgramId, ReactNode> = {
       <path d="M262 186 L292 176 M262 176 L292 186" stroke={C.grey} strokeWidth="2.5" strokeLinecap="round" />
       <circle cx="296" cy="174" r="4" fill="none" stroke={C.grey} strokeWidth="2" />
       <circle cx="296" cy="188" r="4" fill="none" stroke={C.grey} strokeWidth="2" />
-      {/* 물뿌리개 */}
-      <path d="M346 222 H378 V256 H346 Z" fill="#6FA06A" />
-      <path d="M346 230 L326 214 L322 218" stroke="#6FA06A" strokeWidth="5" fill="none" strokeLinecap="round" />
-      <path d="M352 222 Q362 206 372 222" stroke="#5E8F5A" strokeWidth="4" fill="none" />
     </Room>
   ),
 

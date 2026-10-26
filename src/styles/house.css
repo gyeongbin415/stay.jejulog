@@ -69,15 +69,16 @@
 .house__stage { position: relative; padding-top: 8px; background: linear-gradient(to bottom, transparent calc(100% - var(--house-w) * .17), var(--yard) 0); }
 /* 집 폭 — 좁은 화면(층마다 2칸)은 760, 넓은 화면(층마다 3칸)은 1080 까지 */
 /* 지붕(몸체의 118.4%)이 화면 안에 다 들어오도록, 남는 폭을 1.18421 로 나눈 값까지만 */
-.house { --house-w: min(760px, (100% - var(--gutter) * 2) / 1.18421); }
-@media (min-width: 900px) { .house { --house-w: min(1080px, (100% - var(--gutter) * 2) / 1.18421); } }
+/* 100cqw = 이 섹션 폭 — 집 안 어느 요소에서 쓰든 같은 집 폭으로 계산되게 (container) */
+.house { container-type: inline-size; --house-w: min(760px, (100cqw - var(--gutter) * 2) / 1.18421); }
+@media (min-width: 900px) { .house { --house-w: min(1080px, (100cqw - var(--gutter) * 2) / 1.18421); } }
 .house__inner { position: relative; z-index: 1; width: var(--house-w); margin-inline: auto; }
 
 /* 지붕 — 처마가 몸체보다 양쪽으로 70/760 넓습니다 (viewBox -70 0 900 300) */
 .house__top { position: relative; }
 /* overflow: visible — 처마 끝 둥근 마감이 그림 틀(아래 경계) 밖으로 살짝 나와도 잘리지 않게 */
 .house__roof { position: relative; z-index: 1; display: block; width: 118.421%; max-width: none; margin-left: -9.211%; aspect-ratio: 900 / 300; height: auto; overflow: visible; }
-/* 박공 양쪽 기둥 — 아래층 갈색 벽 · 층 사이 띠(--gap)와 같은 두께, 윗부분은 지붕선 뒤로 숨음 */
+/* 박공 양쪽 기둥 — 아래층 갈색 벽(--gap)과 같은 두께, 윗부분은 지붕선 뒤로 숨음 */
 .house__top::before, .house__top::after { content: ''; position: absolute; bottom: 0; width: var(--gap); height: 16%; background: #7B4628; }
 .house__top::before { left: 0; }
 .house__top::after { right: 0; }
@@ -92,8 +93,8 @@
 .house__floor--attic .room__tag { left: 50%; translate: -50% 0; }
 
 /* 몸체 — 갈색 나무 벽 · 층 사이 갈색 띠, 방은 두 칸씩 */
-/* 갈색 벽 · 층 사이 띠 두께 */
-.house { --gap: clamp(5px, 1.2vw, 10px); }
+/* 갈색 벽 · 층 사이 띠 · 방 사이 벽 두께 — 다락 양쪽 기둥(지붕 그림 기준 20/760)과 같게, 집 크기에 비례 */
+.house { --gap: calc(var(--house-w) * 20 / 760); }
 .house__body { background: #7B4628; padding: var(--gap); }
 .house__floor { position: relative; }
 .house__floor + .house__floor { margin-top: var(--gap); }
