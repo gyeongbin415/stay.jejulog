@@ -88,7 +88,7 @@ export const PROGRAMS: Program[] = [
         {
           name: '아침 러닝 & 바다 수영',
           info: [{ label: '가격', value: '별도 참가비 없음' }, { label: '시간', value: '오전 8시 30분 (논의 후 조정 가능)' }],
-          photo: { src: 'photos/saewol-run-v2.jpg', art: 'coast-dawn', alt: '풍력발전기가 줄지어 선 바다를 옆에 두고 해안 산책로 난간을 따라 나란히 달리는 게스트 세 명', caption: '애월 해안가 러닝' },
+          photo: { src: 'photos/saewol-run-v3.jpg', art: 'coast-dawn', alt: '풍력발전기가 줄지어 선 바다를 옆에 두고 해안 산책로 난간을 따라 나란히 달리는 게스트 세 명 (얼굴 흐림 처리)', caption: '애월 해안가 러닝' },
           text: ['아침에는 게스트들과 애월 해안가를 달리며 하루를 시작한다. 바닷바람을 맞으며 제주의 풍경을 즐기고, 러닝을 마친 뒤에는 날씨에 따라 바다 수영도 경험할 수 있다. 함께 달리며 자연스럽게 이야기를 나누고, 색다른 방식으로 제주에서의 아침을 맞이하는 시간이다.'],
           note: '바다 수영은 날씨 및 해상 상황에 따라 진행 여부 변동 가능',
         },
@@ -104,7 +104,7 @@ export const PROGRAMS: Program[] = [
         {
           name: '티 타임',
           info: [{ label: '가격', value: '별도 참가비 없음' }, { label: '시간', value: '오후 12시' }],
-          photo: { src: 'photos/saewol-tea-v2.jpg', art: 'table', alt: '돌담이 보이는 창가 나무 테이블에 둘러앉아 차를 마시며 이야기를 나누는 게스트들 (얼굴 흐림 처리)', caption: '체크아웃 후 티 타임' },
+          photo: { src: 'photos/saewol-tea-v3.jpg', art: 'table', alt: '돌담이 보이는 창가 나무 테이블에 둘러앉아 차를 마시며 이야기를 나누는 게스트들 (얼굴 흐림 처리)', caption: '체크아웃 후 티 타임' },
           text: ['체크아웃 후 게스트들이 함께 모여 사장님이 준비한 차를 마시며 이야기를 나누는 시간이다. 참여는 자유로우며, 제주에서의 경험과 앞으로의 여행 계획을 편하게 공유할 수 있다. 대화를 나누다 마음이 맞으면 이후의 여행을 함께하기도 한다.'],
         },
       ],
