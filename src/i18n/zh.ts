@@ -135,6 +135,7 @@ export const ZH: ContentPack = {
         },
         {
           name: '茶歇',
+          photos: [{ alt: '在木地板上方手持一杯加冰的茶，从上往下看的样子', caption: '茶歇时的一杯茶' }],
           info: [
             { label: '价格', value: '无需另付参加费' },
             { label: '时间', value: '中午12:00' },
