@@ -5,6 +5,7 @@ import { href } from '../lib/router';
 import { useMediaQuery } from '../lib/motion';
 import { RoomArt } from '../components/RoomArt';
 import { HouseRoof } from '../components/HouseRoof';
+import { ExpIcon } from '../components/ExpIcon';
 
 /**
  * PAGE 02 — 집 내부 탐색 (EXPLORE)
@@ -77,6 +78,7 @@ export function HousePage({ embedded = false }: { embedded?: boolean }) {
                 <a className="explist__item" href={href.stay(e.id)} data-track={`house_list_${e.id}`}>
                   <span className="explist__name">{e.label}</span>
                   <span className="explist__place">{programById[e.id].report.place.name}</span>
+                  <ExpIcon id={e.id} className="explist__icon" />
                 </a>
               </li>
             ))}

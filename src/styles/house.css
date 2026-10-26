@@ -29,7 +29,7 @@
 .explist__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; max-width: 920px; margin-inline: auto; }
 .explist__item {
   position: relative; display: grid; gap: 4px; height: 100%;
-  padding: 16px 16px 18px; border-radius: var(--radius);
+  padding: 16px 60px 18px 16px; border-radius: var(--radius);
   background: #FAF8F5; border: 1.5px solid var(--line);
   text-decoration: none; color: var(--ink);
   animation: page-in var(--t-page) var(--ease) both;
@@ -43,9 +43,13 @@
 .explist__item:hover .explist__no, .explist__item:hover .explist__place, .explist__item:hover .explist__arrow,
 .explist__item:focus-visible .explist__no, .explist__item:focus-visible .explist__place, .explist__item:focus-visible .explist__arrow { color: rgba(246, 243, 237, .85); }
 .explist__item:hover .explist__arrow { transform: translateX(3px); }
+/* 경험 아이콘 — 카드 오른쪽 끝, 세로 가운데 */
+.explist__icon { position: absolute; right: 16px; top: 50%; width: 32px; height: 32px; transform: translateY(-50%); color: var(--orange-ink); transition: color var(--t-hover) var(--ease); }
+.explist__item:hover .explist__icon, .explist__item:focus-visible .explist__icon { color: rgba(246, 243, 237, .85); }
 @media (min-width: 768px) {
   .explist__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
-  .explist__item { padding: 22px 22px 24px; gap: 6px; }
+  .explist__item { padding: 22px 76px 24px 22px; gap: 6px; }
+  .explist__icon { right: 22px; width: 38px; height: 38px; }
 }
 
 /* ── 집 — 민트 하늘 · 오름 · 흰 벽 · 크림색 방 · 돌담 · 초록 마당 ─────────────────────────────── */
