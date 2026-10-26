@@ -76,7 +76,11 @@
 /* 지붕 — 처마가 몸체보다 양쪽으로 70/760 넓습니다 (viewBox -70 0 900 300) */
 .house__top { position: relative; }
 /* overflow: visible — 처마 끝 둥근 마감이 그림 틀(아래 경계) 밖으로 살짝 나와도 잘리지 않게 */
-.house__roof { display: block; width: 118.421%; max-width: none; margin-left: -9.211%; aspect-ratio: 900 / 300; height: auto; overflow: visible; }
+.house__roof { position: relative; z-index: 1; display: block; width: 118.421%; max-width: none; margin-left: -9.211%; aspect-ratio: 900 / 300; height: auto; overflow: visible; }
+/* 박공 양쪽 기둥 — 아래층 갈색 벽 · 층 사이 띠(--gap)와 같은 두께, 윗부분은 지붕선 뒤로 숨음 */
+.house__top::before, .house__top::after { content: ''; position: absolute; bottom: 0; width: var(--gap); height: 16%; background: #7B4628; }
+.house__top::before { left: 0; }
+.house__top::after { right: 0; }
 /* 다락 — 지붕 박공 한가운데, 아래층 방 한 칸과 같은 폭이라 소품 크기도 다른 방과 같음
    (좁은 화면: 두 칸 중 한 칸 · 넓은 화면: 아래 42%) */
 .house__top .house__floor--attic { position: absolute; z-index: 1; left: 50%; translate: -50% 0; width: calc((100% - var(--gap) * 3) / 2); bottom: 0; }

@@ -11,11 +11,8 @@ export function HouseRoof({ className, roofOnly = false }: { className: string; 
         <circle key={`${x}-${y}`} cx={x} cy={y} r="6.5" fill="#6E6A68" />
       ))}
       {!roofOnly && (
-        <>
-          <path d="M0 300 V262 L380 46 L760 262 V300 Z" fill="#F2DEC0" />
-          <rect x="0" y="252" width="20" height="48" fill="#7B4628" />
-          <rect x="740" y="252" width="20" height="48" fill="#7B4628" />
-        </>
+        // 박공 양쪽 기둥은 CSS(.house__top::before · ::after) — 아래층 갈색 벽(--gap)과 같은 두께
+        <path d="M0 300 V262 L380 46 L760 262 V300 Z" fill="#F2DEC0" />
       )}
       <path d="M-56 290 L380 32 L816 290" fill="none" stroke="#5E321C" strokeWidth="26" strokeLinejoin="round" strokeLinecap="round" />
     </svg>
