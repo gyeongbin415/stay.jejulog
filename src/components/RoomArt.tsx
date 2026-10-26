@@ -35,8 +35,7 @@ const C = {
   grass: '#9CCB7E',
   grassDk: '#5E9F55',
   trunk: '#8A5A3B',
-  /* 방 벽 — 창 안 벽은 모두 웹진 페이지 배경색(--bg) */
-  page: '#FAFAF3',
+  /* 방 벽 */
   sage: '#B7D3A9',
   skyRoom: '#BBD7E7',
   salmon: '#F2C3B9',
@@ -141,7 +140,7 @@ const BOOKS = ['#3E7C8C', C.orange, '#F0DA7A', C.red, '#E8A13A', '#5A8F6A', '#F4
 const ART: Record<ProgramId, ReactNode> = {
   /* 01 독서 — 세이지 벽 · 책장 · 잎 액자 · 초록 안락의자 · 노란 스탠드 */
   book: (
-    <Room wall={C.page}>
+    <Room wall={C.sage}>
       <g className="obj">
         <rect x="28" y="70" width="108" height="186" fill={C.char} />
         {[0, 1, 2].map((r) =>
@@ -170,7 +169,7 @@ const ART: Record<ProgramId, ReactNode> = {
 
   /* 02 LP — 하늘색 벽 · 가운데 LP 포스터 · 양쪽 스피커 · 나무 수납장 위 턴테이블 */
   lp: (
-    <Room wall={C.page}>
+    <Room wall={C.skyRoom}>
       {/* 벽 가운데 LP 포스터 — 레코드판 그림 */}
       <rect x="172" y="34" width="58" height="80" rx="2" fill={C.char} />
       <rect x="176" y="38" width="50" height="72" fill="#F0883A" />
@@ -300,7 +299,7 @@ const ART: Record<ProgramId, ReactNode> = {
 
   /* 05 영화 — 살구분홍 벽 · 재생 화면 · 주황 소파 · 팝콘 */
   cinema: (
-    <Room wall={C.page}>
+    <Room wall={C.salmon}>
       <g className="obj">
         <rect x="104" y="40" width="200" height="106" rx="3" fill={C.char} />
         <circle cx="204" cy="88" r="19" fill="none" stroke={C.white} strokeWidth="3.5" />
@@ -331,7 +330,7 @@ const ART: Record<ProgramId, ReactNode> = {
      그림 좌표(503 × 263)를 그대로 쓰고 칸(400 × 260) 가운데에 맞춤 */
   homemeal: (
     <>
-      <rect width="400" height="260" fill={C.page} />
+      <rect width="400" height="260" fill="#D6EEE4" />
       <svg x="0" y="25" width="400" height="209" viewBox="0 0 503 263">
         {/* 김 */}
         <path d="M182 56 c-6 -7 6 -11 0 -18 c-6 -7 6 -11 0 -18 M194 56 c-6 -7 6 -11 0 -18 c-6 -7 6 -11 0 -18 M343 62 c-5 -6 5 -9 0 -15 c-5 -6 5 -9 0 -15 M354 62 c-5 -6 5 -9 0 -15 c-5 -6 5 -9 0 -15" stroke="#B9B2A6" strokeWidth="2.6" fill="none" strokeLinecap="round" />
@@ -430,7 +429,7 @@ const ART: Record<ProgramId, ReactNode> = {
 
   /* 07 꽃꽂이 — 연보라 파스텔 벽 · 벽 선반 위 작은 화병 · 테이블 위 유리 꽃병과 가위 · 물뿌리개 */
   flower: (
-    <Room wall={C.page}>
+    <Room wall="#DCD3E8">
       {/* 오른쪽 벽 선반 · 작은 화병 둘 (왼쪽 기준 그림을 240 옮김) */}
       <g transform="translate(240 0)">
       <rect x="44" y="92" width="96" height="6" rx="2" fill={C.wood} />
@@ -503,7 +502,7 @@ const ART: Record<ProgramId, ReactNode> = {
 
   /* 09 와인 — 버터 노랑 벽 · 오른쪽 벽 와인랙 · 오크통 · 검정 조명 · 식탁 위 와인병 · 두 잔 · 빨간 의자 */
   wine: (
-    <Room wall={C.page}>
+    <Room wall={C.butter}>
       {/* 오른쪽 벽 와인랙 · 오크통 (왼쪽 기준 그림을 오른쪽 벽으로 300 옮김) */}
       <g transform="translate(300 0)">
       {/* 벽 와인랙 — 칸마다 눕혀 둔 병 끝 */}
