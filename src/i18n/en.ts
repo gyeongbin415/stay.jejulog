@@ -122,7 +122,6 @@ export const EN: ContentPack = {
           ],
           photos: [
             { alt: 'Three guests running side by side along the railing of a seaside path, with a row of wind turbines out at sea', caption: 'Running the Aewol coast' },
-            { alt: 'Guests waving from the blue sea with wind turbines in the distance (faces blurred)', caption: 'A sea swim after the run' },
           ],
           text: [
             'The day begins with a run along the Aewol coast with other guests. You take in the Jeju scenery in the sea breeze, and after the run, weather permitting, you can try a sea swim too. Talking naturally as you run, it’s a different way to greet a Jeju morning.',
