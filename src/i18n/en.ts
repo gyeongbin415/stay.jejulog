@@ -175,7 +175,7 @@ export const EN: ContentPack = {
       area: 'Hallim-eup, Jeju City',
       oneLine: 'A stay where, every evening, you can watch a film with other guests in a little cinema',
       join: {
-        who: 'Screenings are a program for guests staying here. To ask whether you can watch without staying, contact the guesthouse.',
+        who: 'Screenings are a program for guests staying here.',
         how: 'Write the film you’d like to see on the board, and the screening starts at 8 PM. Rooms are booked through Naver Booking.',
         linkLabels: ['Instagram @jejushym', 'Naver booking'],
       },
@@ -213,7 +213,7 @@ export const EN: ContentPack = {
       oneLine: 'A stay of single rooms with a simple breakfast, where women can stay safely and comfortably',
       join: {
         who: 'The flower class runs Monday to Saturday at 2 PM and can be joined by reservation. Guests join the sunrise oreum tour by booking ahead.',
-        how: 'Class sign-ups and questions go through Instagram DM. Ask there too whether you can join without staying.',
+        how: 'Class sign-ups and questions go through Instagram DM.',
         linkLabels: ['Instagram @cococolife'],
       },
       programs: [
@@ -328,7 +328,7 @@ export const EN: ContentPack = {
       area: 'Jocheon-eup, Jeju City',
       oneLine: 'A stay where books open the door to conversations with strangers about the many kinds of love',
       join: {
-        who: 'The conversation gathering ‘To the Oreum’ meets every evening at 8. To ask whether you can join without staying, contact the stay.',
+        who: 'The conversation gathering ‘To the Oreum’ meets every evening at 8.',
         how: 'Sign up by text on the day; it usually goes ahead with two or more people (based on visitor reviews). Rooms are booked through Naver Booking.',
         linkLabels: ['Instagram @jejubookhome', 'Official blog', 'Naver booking'],
       },
@@ -427,7 +427,7 @@ export const EN: ContentPack = {
       area: 'Daejeong-eup, Seogwipo',
       oneLine: 'A stay in the quiet village of Mureung-ri, a fine place to step away from everyday life and truly rest',
       join: {
-        who: 'The snap photo shoot is run by a photo studio (@studiopastel_). To ask whether you can join without staying, contact the stay.',
+        who: 'The snap photo shoot is run by a photo studio (@studiopastel_).',
         how: 'For the shoot, contact the studio by Instagram DM, KakaoTalk or phone. Rooms are booked through Naver Booking.',
         linkLabels: ['Instagram @mr_shuimpyo__', 'Naver booking', 'Studio @studiopastel_'],
       },
@@ -482,7 +482,7 @@ export const EN: ContentPack = {
       area: 'Andeok-myeon, Seogwipo',
       oneLine: 'A stay where sharing a home-cooked meal made by the owner warms you right through',
       join: {
-        who: 'The Simple Dinner goes ahead when enough people sign up. To ask whether you can join without staying, contact the stay.',
+        who: 'The Simple Dinner goes ahead when enough people sign up.',
         how: 'Sign up for dinner ahead of time by text. Rooms can be booked from the booking link on the Instagram profile.',
         linkLabels: ['Instagram @soosoohouse', 'Naver booking'],
       },

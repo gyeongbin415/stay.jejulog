@@ -146,7 +146,7 @@ export const PROGRAMS: Program[] = [
       sample: false,
       place: { name: '쉼게스트하우스', area: '제주시 한림읍', address: '제주특별자치도 제주시 한림읍 옹포2길 30' },
       join: {
-        who: '영화 상영은 투숙객을 위한 프로그램이에요. 숙박하지 않고 볼 수 있는지는 숙소에 문의해 주세요.',
+        who: '영화 상영은 투숙객을 위한 프로그램이에요.',
         how: '보고 싶은 영화를 보드에 적어 신청하면 저녁 8시에 상영이 시작돼요. 숙소 예약은 네이버 예약으로 받아요.',
         links: [{ label: '인스타그램 @jejushym', url: 'https://www.instagram.com/jejushym/' }, { label: '네이버 예약', url: 'https://naver.me/Fvn7KHzj' }],
       },
@@ -195,7 +195,7 @@ export const PROGRAMS: Program[] = [
       place: { name: '코코코', area: '제주시 구좌읍', address: '제주특별자치도 구좌읍 상하도길 44-1' },
       join: {
         who: '꽃 수업은 월~토 오후 2시, 예약하면 체험할 수 있어요. 오름 일출 투어는 투숙객이 미리 예약해 참여해요.',
-        how: '클래스 신청과 문의는 인스타그램 DM으로 받아요. 숙박하지 않고 참여할 수 있는지도 DM으로 확인해 주세요.',
+        how: '클래스 신청과 문의는 인스타그램 DM으로 받아요.',
         links: [{ label: '인스타그램 @cococolife', url: 'https://www.instagram.com/cococolife/' }],
       },
       oneLine: '아침으로 간단한 조식이 제공되며 여성이 안심하고 편안하게 머물 수 있는 1인실 숙소',
@@ -318,7 +318,7 @@ export const PROGRAMS: Program[] = [
       sample: false,
       place: { name: '서점숙소', area: '제주시 조천읍', address: '제주특별자치도 제주시 조천읍 북촌14길 13-12' },
       join: {
-        who: '대화 모임 ‘오름에게’는 매일 저녁 8시에 열려요. 숙박하지 않고 참여할 수 있는지는 숙소에 문의해 주세요.',
+        who: '대화 모임 ‘오름에게’는 매일 저녁 8시에 열려요.',
         how: '모임은 당일 문자로 신청하고, 보통 2명 이상 모이면 진행돼요 (방문 후기 기준). 숙소 예약은 네이버 예약으로 받아요.',
         links: [{ label: '인스타그램 @jejubookhome', url: 'https://www.instagram.com/jejubookhome/' }, { label: '공식 블로그', url: 'https://blog.naver.com/jejubookhome' }, { label: '네이버 예약', url: 'https://naver.me/Gywdy5MD' }],
       },
@@ -438,7 +438,7 @@ export const PROGRAMS: Program[] = [
       sample: false,
       place: { name: '무릉쉼표', area: '서귀포시 대정읍', address: '제주특별자치도 서귀포시 대정읍 무릉중앙로 43-11' },
       join: {
-        who: '스냅 사진 촬영은 사진 스튜디오(@studiopastel_)가 진행해요. 숙박하지 않고 참여할 수 있는지는 숙소에 문의해 주세요.',
+        who: '스냅 사진 촬영은 사진 스튜디오(@studiopastel_)가 진행해요.',
         how: '촬영 문의는 스튜디오에 인스타그램 DM·카카오톡·전화로 해요. 숙소 예약은 네이버 예약으로 받아요.',
         links: [{ label: '인스타그램 @mr_shuimpyo__', url: 'https://www.instagram.com/mr_shuimpyo__/' }, { label: '네이버 예약', url: 'https://m.place.naver.com/accommodation/1024146961' }, { label: '스튜디오 @studiopastel_', url: 'https://www.instagram.com/studiopastel_/' }],
       },
@@ -501,7 +501,7 @@ export const PROGRAMS: Program[] = [
       sample: false,
       place: { name: '수수민박', area: '서귀포시 안덕면', address: '제주특별자치도 서귀포시 안덕면 소기왓로 22' },
       join: {
-        who: '수수한 저녁은 신청 인원이 충분할 때 진행돼요. 숙박하지 않고 참여할 수 있는지는 숙소에 문의해 주세요.',
+        who: '수수한 저녁은 신청 인원이 충분할 때 진행돼요.',
         how: '저녁 식사는 문자로 미리 신청해요. 숙소 예약은 인스타그램 프로필의 예약 링크에서 할 수 있어요.',
         links: [{ label: '인스타그램 @soosoohouse', url: 'https://www.instagram.com/soosoohouse/' }, { label: '네이버 예약', url: 'https://naver.me/5R4HxdWs' }],
       },

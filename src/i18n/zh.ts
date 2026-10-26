@@ -170,7 +170,7 @@ export const ZH: ContentPack = {
       area: '济州市 翰林邑',
       oneLine: '每天晚上，可以在小电影院里和其他客人一起看一部电影的民宿',
       join: {
-        who: '电影放映是为住客准备的项目。不住宿能否观看，请向民宿咨询。',
+        who: '电影放映是为住客准备的项目。',
         how: '把想看的电影写在留言板上报名，晚上8点开始放映。住宿通过 Naver 预订。',
         linkLabels: ['Instagram @jejushym', 'Naver 预订'],
       },
@@ -206,7 +206,7 @@ export const ZH: ContentPack = {
       oneLine: '提供简单早餐、让女性住得安心又自在的单人间民宿',
       join: {
         who: '花艺课周一至周六下午2点，预约即可体验。日出山丘之旅由住客提前预约参加。',
-        how: '课程报名与咨询请通过 Instagram 私信。不住宿能否参加，也请私信确认。',
+        how: '课程报名与咨询请通过 Instagram 私信。',
         linkLabels: ['Instagram @cococolife'],
       },
       programs: [
@@ -317,7 +317,7 @@ export const ZH: ContentPack = {
       area: '济州市 朝天邑',
       oneLine: '以书为媒，与陌生人聊聊各种各样爱情的民宿',
       join: {
-        who: '对话聚会“致山丘”每天晚上8点举行。不住宿能否参加，请向民宿咨询。',
+        who: '对话聚会“致山丘”每天晚上8点举行。',
         how: '当天发短信报名，通常2人以上即可进行（据住客评价）。住宿通过 Naver 预订。',
         linkLabels: ['Instagram @jejubookhome', '官方博客', 'Naver 预订'],
       },
@@ -410,7 +410,7 @@ export const ZH: ContentPack = {
       area: '西归浦市 大静邑',
       oneLine: '坐落在安静的武陵里村，适合远离日常、彻底休息的民宿',
       join: {
-        who: '快照拍摄由摄影工作室（@studiopastel_）负责。不住宿能否参加，请向民宿咨询。',
+        who: '快照拍摄由摄影工作室（@studiopastel_）负责。',
         how: '拍摄咨询请通过 Instagram 私信、KakaoTalk 或电话联系工作室。住宿通过 Naver 预订。',
         linkLabels: ['Instagram @mr_shuimpyo__', 'Naver 预订', '工作室 @studiopastel_'],
       },
@@ -461,7 +461,7 @@ export const ZH: ContentPack = {
       area: '西归浦市 安德面',
       oneLine: '一起分享老板亲手做的家常饭，连心都变得温暖的民宿',
       join: {
-        who: '“朴素的晚餐”在报名人数足够时进行。不住宿能否参加，请向民宿咨询。',
+        who: '“朴素的晚餐”在报名人数足够时进行。',
         how: '晚餐请提前发短信报名。住宿可通过 Instagram 主页上的预订链接预订。',
         linkLabels: ['Instagram @soosoohouse', 'Naver 预订'],
       },
