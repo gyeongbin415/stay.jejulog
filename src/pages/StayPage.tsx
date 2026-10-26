@@ -208,10 +208,9 @@ export default function StayPage({ id }: { id: ProgramId }) {
         </section>
       )}
 
-      {/* 06-2. 참여 전 확인 — 확인된 참여 조건만, 그리고 네이버 지도에서 위치 확인 */}
-      <section className="stay-sec stay-join wrap" data-tone="light" aria-labelledby={r.join ? 'sec-join' : undefined}>
-        {r.join && (
-          <>
+      {/* 06-2. 참여 전 확인 — 확인된 참여 조건만 */}
+      {r.join && (
+        <section className="stay-sec stay-join wrap" data-tone="light" aria-labelledby="sec-join">
             <div className="stay-sec__label">
               <p className="label">{t.joinLabel}</p>
               <h2 id="sec-join" className="stay-sec__title">{t.joinTitle}</h2>
@@ -242,14 +241,8 @@ export default function StayPage({ id }: { id: ProgramId }) {
                 </div>
               )}
             </dl>
-          </>
-        )}
-        {r.place.address && (
-          <a className="btn btn--ghost stay-join__map" href={`https://map.naver.com/p/search/${encodeURIComponent(r.place.address)}`} target="_blank" rel="noopener noreferrer" data-track={`stay_${id}_map`}>
-            {t.locate} <span className="arrow" aria-hidden="true">↗</span>
-          </a>
-        )}
-      </section>
+        </section>
+      )}
 
       {/* 07. NAVIGATION — 예약 링크는 데이터에 있을 때만 */}
       <nav className="stay-nav wrap" data-tone="light" aria-label={t.navAria}>
