@@ -104,7 +104,8 @@ export default function StayPage({ id }: { id: ProgramId }) {
                       ))}
                     </div>
                   ) : (
-                    <Photo photo={g.photo} fallback={id} ratio="4 / 3" />
+                    // 사진이 없는 프로그램은 그림 자리 없이 글만 ('사진 준비 중' 같은 빈 자리를 두지 않음)
+                    g.photo?.src && <Photo photo={g.photo} fallback={id} ratio="4 / 3" />
                   )}
                 </div>
                 <div className="program__body">

@@ -27,6 +27,8 @@ export interface UiText {
     storyTitle: string; storyBody: string; storyBubble: string; start: string;
     progress: string; prev: string; next: string; seeResult: string;
     sharedLabel: string; resultLabel: string; lead: string;
+    /** 추천 이유 — 1위 숙소에 점수를 준 실제 답변(최대 둘)으로 */
+    reasonLine: (picks: string[]) => string;
     bestCaption: string; nextCaption: string; thirdCaption: string; othersLabel: string; othersTitle: string; expType: string; reason: string; myPicks: string; detail: string;
     retry: string; share: string; shared: string; copied: string; canceled: string;
     save: string; saved: string; saveFailed: string;
@@ -71,6 +73,7 @@ export const UI: Record<Lang, UiText> = {
       start: '테스트 시작하기',
       progress: '진행 상태', prev: '이전 질문', next: '다음으로', seeResult: '결과 보기',
       sharedLabel: 'RESULT', resultLabel: 'YOUR JEJU TASTE', lead: '나의 게스트하우스 취향은',
+      reasonLine: (p) => `${p.map((x) => `‘${x}’`).join(', ')}라고 답한 당신에게 잘 맞는 곳이에요.`,
       bestCaption: '가장 잘 맞는 게스트하우스', nextCaption: '두 번째로 잘 맞는 게스트하우스', thirdCaption: '세 번째로 잘 맞는 게스트하우스',
       othersLabel: 'OTHER STAYS', othersTitle: '다른 게하게들도 만나보세요',
       expType: '경험 유형', reason: '추천 이유', myPicks: '나의 선택', detail: '자세히 알아보기',
@@ -119,6 +122,7 @@ export const UI: Record<Lang, UiText> = {
       start: 'Start the test',
       progress: 'Progress', prev: 'Previous', next: 'Next', seeResult: 'See my result',
       sharedLabel: 'RESULT', resultLabel: 'YOUR JEJU TASTE', lead: 'Your guesthouse taste is',
+      reasonLine: (p) => `You answered ${p.map((x) => `“${x}”`).join(' and ')} — that’s why this stay suits you.`,
       bestCaption: 'Your best-matched guesthouse', nextCaption: 'Your second match', thirdCaption: 'Your third match',
       othersLabel: 'OTHER STAYS', othersTitle: 'Meet the other Gehages',
       expType: 'Experience', reason: 'Why it fits', myPicks: 'Your answers', detail: 'Learn more',
@@ -167,6 +171,7 @@ export const UI: Record<Lang, UiText> = {
       start: '开始测试',
       progress: '进度', prev: '上一题', next: '下一题', seeResult: '查看结果',
       sharedLabel: 'RESULT', resultLabel: 'YOUR JEJU TASTE', lead: '你的民宿喜好是',
+      reasonLine: (p) => `你选择了${p.map((x) => `“${x}”`).join('、')}，所以这里很适合你。`,
       bestCaption: '最适合你的民宿', nextCaption: '第二适合你的民宿', thirdCaption: '第三适合你的民宿',
       othersLabel: 'OTHER STAYS', othersTitle: '也来认识其他的게하게吧',
       expType: '体验类型', reason: '推荐理由', myPicks: '你的选择', detail: '了解详情',

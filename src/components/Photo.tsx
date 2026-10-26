@@ -17,7 +17,7 @@ interface Props {
 }
 
 /**
- * 사진 프레임 — src 가 있으면 실제 취재 사진, 없으면 해당 경험의 공간 일러스트와 '사진 준비 중' 표시.
+ * 사진 프레임 — src 가 있으면 실제 취재 사진, 없으면 해당 경험의 공간 일러스트 (미완성 문구는 화면에 띄우지 않음).
  */
 export function Photo({ photo, fallback, ratio, caption, className = '', style, eager }: Props) {
   const cap = caption === false ? null : (caption ?? photo?.caption);
@@ -32,7 +32,6 @@ export function Photo({ photo, fallback, ratio, caption, className = '', style, 
           <>
             <RoomArt id={fallback} />
             <span className="visually-hidden">{photo?.alt ?? ui.photo.pending}</span>
-            <span className="photo__pending" aria-hidden="true">{ui.photo.pending}</span>
           </>
         )}
       </div>

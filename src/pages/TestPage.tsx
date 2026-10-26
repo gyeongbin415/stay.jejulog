@@ -189,8 +189,13 @@ export default function TestPage({ sharedCode, mine = false }: { sharedCode: str
 }
 
 function Result({ result, shared, onRetry, focusRef }: { result: QuizResult; shared: boolean; onRetry: () => void; focusRef: RefObject<HTMLHeadingElement | null> }) {
-  const { ui, site, programById, experiences } = useContent();
+  const { ui, site, programById, experiences, questions } = useContent();
   const t = ui.test;
+  // 추천 이유 — 1위 숙소에 점수를 가장 많이 준 실제 답변 둘 (지금 언어의 선택지 문장으로)
+  const reasonPicks = [...result.evidence]
+    .sort((a, b) => (b.option.programs[result.main] ?? 0) - (a.option.programs[result.main] ?? 0))
+    .slice(0, 2)
+    .map(({ question, option }) => questions.find((q) => q.id === question.id)?.options.find((o) => o.key === option.key)?.text ?? option.text);
   const [status, setStatus] = useState('');
   const [second, third] = result.subs;
 
@@ -253,6 +258,7 @@ function Result({ result, shared, onRetry, focusRef }: { result: QuizResult; sha
         <p className="result__place">{programById[result.main].report.place.name}</p>
         {/* 게하 한 줄 소개 — 숙소 페이지 BASIC INFORMATION 과 같은 문장 */}
         {programById[result.main].report.oneLine && <p className="result__oneline">{programById[result.main].report.oneLine}</p>}
+        {reasonPicks.length > 0 && <p className="result__reason">{t.reasonLine(reasonPicks)}</p>}
         <div className="result__hero">
           <span className="result__rank">BEST 1<span className="visually-hidden"> {t.bestCaption}</span></span>
           <img src={characterArt[result.main]} alt="" />
