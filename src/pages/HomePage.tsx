@@ -45,15 +45,6 @@ export function HomePage() {
  * 동작 줄이기 설정이면 고정 없이 모든 문구를 한 번에 보여 줍니다.
  */
 const REVEAL = SITE_KO.intro.words.length + 3;
-/** 인트로를 한 번 끝까지 봤는지 — 이 브라우저에 기억해 두고, 다음부터는 바로 문제 정의(CHECK IN)부터 */
-const INTRO_SEEN_KEY = 'jejulog:intro-seen';
-function readIntroSeen() {
-  try {
-    return localStorage.getItem(INTRO_SEEN_KEY) === '1';
-  } catch {
-    return false;
-  }
-}
 function Intro() {
   const { site: SITE, ui } = useContent();
   const ref = useRef<HTMLElement>(null);
@@ -61,16 +52,14 @@ function Intro() {
   const total = SITE.intro.words.length;
   // 스크롤 없이 시간에 맞춰 저절로 — 질문 → 파티 · 술 · 헌팅 → 전환 문구 → 문제 정의
   // auto: 1 ~ total 은 나온 단어 수, total + 1 은 시야가 좁아짐, total + 2 는 전환 문구, REVEAL 은 문제 정의
-  // 전에 본 적 있으면 처음부터 문제 정의 상태로 (질문 · 단어 · 전환 문구 없이, 스크롤도 막지 않음)
-  const seenRef = useRef(readIntroSeen());
-  const [auto, setAuto] = useState(() => (seenRef.current ? REVEAL : 0));
+  const [auto, setAuto] = useState(0);
   // 자동 진행 중에 먼저 스크롤해 내려가도 바로 문제 정의
   const [revealByScroll, setRevealByScroll] = useState(false);
   // 아래로 내려갔다가 맨 위로 돌아오면 질문부터 다시 재생 (run 이 바뀌면 시간을 처음부터 셉니다)
   const [run, setRun] = useState(0);
 
   useEffect(() => {
-    if (reduced || seenRef.current) return;
+    if (reduced) return;
     // 질문만 1.5초(생각할 시간) → 단어 0.65초 간격 → 1초 뒤 전환 문구 → 2.6초 뒤 문제 정의
     // (예전 '시야가 좁아짐' 단계는 뺐습니다 — 같은 시각에 두 단계를 한꺼번에 넘김)
     const at = Array.from({ length: total }, (_, i) => 1500 + i * 650);
@@ -123,7 +112,7 @@ function Intro() {
       if (reveal) {
         setAuto(REVEAL);
         wentDown = true;
-      } else if (wentDown && s < 0.05 && !seenRef.current) {
+      } else if (wentDown && s < 0.05) {
         wentDown = false;
         setAuto(0);
         setRun((r) => r + 1);
@@ -189,17 +178,6 @@ function Intro() {
   // 밝은 문제 정의 화면이 열리면 상단 바 글자색도 다시 맞춥니다.
   useEffect(() => {
     window.dispatchEvent(new Event('scroll'));
-  }, [revealed]);
-
-  // 처음 끝까지 보면 기억 — 이후로는 다시 재생하지 않음
-  useEffect(() => {
-    if (!revealed || seenRef.current) return;
-    seenRef.current = true;
-    try {
-      localStorage.setItem(INTRO_SEEN_KEY, '1');
-    } catch {
-      /* 저장할 수 없으면 다음에도 인트로가 나올 뿐 */
-    }
   }, [revealed]);
 
   return (
