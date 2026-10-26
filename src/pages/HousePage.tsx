@@ -13,6 +13,8 @@ import { ExpIcon } from '../components/ExpIcon';
  * '목록'을 누르면 그림 대신 아홉 가지 경험을 이름으로 한눈에 보여 줍니다.
  */
 type View = 'house' | 'list';
+/** ROOM TOUR 설명 아래 미리보기 — 반지 만드는 하루 · 영화로 끝내는 밤 · 함께 먹는 저녁 */
+const PICKS: ProgramId[] = ['craft', 'cinema', 'homemeal'];
 const VIEW_KEY = 'jejulog:house-view';
 
 function readView(): View {
@@ -56,6 +58,14 @@ export function HousePage({ embedded = false }: { embedded?: boolean }) {
           ))}
         </Title>
         <p className="explore__sub pre">{SITE.explore.sub}</p>
+        {/* 먼저 볼거리 셋 — 집 그림의 같은 방(상세페이지)으로 */}
+        <nav className="explore__picks" aria-label={ui.house.picksAria}>
+          {PICKS.map((id, i) => (
+            <a key={id} href={href.stay(id)} data-track={`house_pick_${id}`}>
+              {ui.house.picks[i]}
+            </a>
+          ))}
+        </nav>
         <p className="explore__hint">
           <span className="explore__dot" aria-hidden="true" />
           {SITE.explore.hint}

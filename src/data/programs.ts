@@ -71,15 +71,30 @@ export const PROGRAMS: Program[] = [
     type: 'adventurer',
     report: {
       ...emptyReport({
-        schedule: '와인 디너 & 불멍 19:30 · 아침 러닝 & 바다 수영 08:30 · 티 타임 12:00',
+        schedule: '아침 러닝 & 바다 수영 08:30 · 와인 디너 & 불멍 19:30 · 티 타임 12:00',
         duration: '',
-        price: '와인 디너 & 불멍 30,000원 · 아침 러닝 & 바다 수영 · 티 타임 별도 참가비 없음',
+        price: '아침 러닝 & 바다 수영 · 티 타임 별도 참가비 없음 · 와인 디너 & 불멍 30,000원',
         capacity: '',
       }),
       sample: false,
       place: { name: '새애월', area: '제주시 애월읍', address: '제주특별자치도 제주시 애월읍 애월로4길 18' },
+      join: {
+        who: '와인 디너 파티는 숙박하지 않아도 참여할 수 있어요. 아침 러닝은 신청한 사람만 함께 달려요.',
+        how: '파티만 참여하려면 인스타그램 DM이나 전화로 미리 문의해요. 숙소 예약은 네이버에서 ‘새애월’을 검색하면 돼요.',
+        links: [{ label: '인스타그램 @sae_aewol', url: 'https://www.instagram.com/sae_aewol/' }, { label: '네이버 예약', url: 'https://naver.me/xnOPiEBP' }],
+      },
       oneLine: '와인으로 물드는 저녁, 바닷바람으로 시작하는 아침을 만날 수 있는 숙소',
       programs: [
+        {
+          name: '아침 러닝 & 바다 수영',
+          info: [{ label: '가격', value: '별도 참가비 없음' }, { label: '시간', value: '오전 8시 30분 (논의 후 조정 가능)' }],
+          photos: [
+            { src: 'photos/saewol-run-v2.jpg', art: 'coast-dawn', alt: '풍력발전기가 줄지어 선 바다를 옆에 두고 해안 산책로 난간을 따라 나란히 달리는 게스트 세 명', caption: '애월 해안가 러닝' },
+            { src: 'photos/saewol-swim.jpg', art: 'coast-dawn', alt: '풍력발전기가 보이는 푸른 바다에서 손을 흔드는 게스트들 (얼굴 흐림 처리)', caption: '러닝 후 바다 수영' },
+          ],
+          text: ['아침에는 게스트들과 애월 해안가를 달리며 하루를 시작한다. 바닷바람을 맞으며 제주의 풍경을 즐기고, 러닝을 마친 뒤에는 날씨에 따라 바다 수영도 경험할 수 있다. 함께 달리며 자연스럽게 이야기를 나누고, 색다른 방식으로 제주에서의 아침을 맞이하는 시간이다.'],
+          note: '바다 수영은 날씨 및 해상 상황에 따라 진행 여부 변동 가능',
+        },
         {
           name: '와인 디너 & 불멍',
           info: [{ label: '가격', value: '30,000원' }, { label: '시간', value: '오후 7시 30분' }],
@@ -88,16 +103,6 @@ export const PROGRAMS: Program[] = [
             { src: 'photos/saewol-fire.jpg', art: 'campfire', alt: '모닥불 위로 꼬치에 꽂은 마시멜로를 굽는 손들', caption: '식사 후 불멍' },
           ],
           text: ['사장님이 직접 준비한 양식 디너와 와인을 즐기며 처음 만난 게스트들과 자연스럽게 가까워지는 시간이다. 날씨가 좋은 날에는 마당에서 저녁 식사를 즐기고, 식사 후에는 모닥불 앞에서 불멍을 하며 이야기를 나눈다. 제주의 밤을 여유롭게 마무리할 수 있다.'],
-        },
-        {
-          name: '아침 러닝 & 바다 수영',
-          info: [{ label: '가격', value: '별도 참가비 없음' }, { label: '시간', value: '오전 8시 30분 (논의 후 조정 가능)' }],
-          photos: [
-            { src: 'photos/saewol-run.jpg', art: 'coast-dawn', alt: '맑은 날 애월 바닷가 산책로를 따라 달리는 게스트들 (얼굴 흐림 처리)', caption: '애월 해안가 러닝' },
-            { src: 'photos/saewol-swim.jpg', art: 'coast-dawn', alt: '풍력발전기가 보이는 푸른 바다에서 손을 흔드는 게스트들 (얼굴 흐림 처리)', caption: '러닝 후 바다 수영' },
-          ],
-          text: ['아침에는 게스트들과 애월 해안가를 달리며 하루를 시작한다. 바닷바람을 맞으며 제주의 풍경을 즐기고, 러닝을 마친 뒤에는 날씨에 따라 바다 수영도 경험할 수 있다. 함께 달리며 자연스럽게 이야기를 나누고, 색다른 방식으로 제주에서의 아침을 맞이하는 시간이다.'],
-          note: '바다 수영은 날씨 및 해상 상황에 따라 진행 여부 변동 가능',
         },
         {
           name: '티 타임',
@@ -143,6 +148,11 @@ export const PROGRAMS: Program[] = [
       ...emptyReport({ schedule: '매일 오후 8시', duration: '', price: '별도 참가비 없음', capacity: '' }),
       sample: false,
       place: { name: '쉼게스트하우스', area: '제주시 한림읍', address: '제주특별자치도 제주시 한림읍 옹포2길 30' },
+      join: {
+        who: '영화 상영은 투숙객을 위한 프로그램이에요. 숙박하지 않고 볼 수 있는지는 숙소에 문의해 주세요.',
+        how: '보고 싶은 영화를 보드에 적어 신청하면 저녁 8시에 상영이 시작돼요. 숙소 예약은 네이버 예약으로 받아요.',
+        links: [{ label: '인스타그램 @jejushym', url: 'https://www.instagram.com/jejushym/' }, { label: '네이버 예약', url: 'https://naver.me/Fvn7KHzj' }],
+      },
       oneLine: '매일 저녁, 작은 영화관에서 게스트들과 영화 한 편을 함께 감상할 수 있는 숙소',
       introLabel: '프로그램 기획 의도',
       programs: [
@@ -186,6 +196,11 @@ export const PROGRAMS: Program[] = [
       ...emptyReport({ schedule: '꽃꽂이 클래스 · 오름 일출 투어', duration: '꽃꽂이 1시간', price: '꽃꽂이 25,000원 · 오름 일출 투어 28,000원', capacity: '' }),
       sample: false,
       place: { name: '코코코', area: '제주시 구좌읍', address: '제주특별자치도 구좌읍 상하도길 44-1' },
+      join: {
+        who: '꽃 수업은 월~토 오후 2시, 예약하면 체험할 수 있어요. 오름 일출 투어는 투숙객이 미리 예약해 참여해요.',
+        how: '클래스 신청과 문의는 인스타그램 DM으로 받아요. 숙박하지 않고 참여할 수 있는지도 DM으로 확인해 주세요.',
+        links: [{ label: '인스타그램 @cococolife', url: 'https://www.instagram.com/cococolife/' }],
+      },
       oneLine: '아침으로 간단한 조식이 제공되며 여성이 안심하고 편안하게 머물 수 있는 1인실 숙소',
       programs: [
         {
@@ -243,6 +258,11 @@ export const PROGRAMS: Program[] = [
       ...emptyReport({ schedule: 'LP 청음 매일 18:00 · 리스닝 모임 격월', duration: '', price: 'LP 청음 별도 참가비 없음 · 리스닝 모임 회차별 별도 공지', capacity: '' }),
       sample: false,
       place: { name: '서론 게스트하우스', area: '서귀포시 안덕면', address: '제주 서귀포시 안덕면 사계신항로39번길 17-13 1층' },
+      join: {
+        who: '리스닝 모임은 숙박과 저녁 식사가 포함된 패키지로 운영되고, 만 20세부터 만 38세까지 이용할 수 있어요 (2026년 10월 회차 안내 기준).',
+        how: '회차마다 열리는 신청 폼을 작성하고 참가비를 입금한 뒤, 확정 문자를 받으면 예약이 끝나요. 문의는 인스타그램 DM으로 받아요.',
+        links: [{ label: '인스타그램 @seolon_zip', url: 'https://www.instagram.com/seolon_zip/' }, { label: '예약 링크 모음', url: 'https://litt.ly/seolon_zip' }],
+      },
       oneLine: 'LP를 감상하며 사람들과 취향을 나누고, 제주의 밤을 느긋하게 즐길 수 있는 숙소',
       programs: [
         {
@@ -299,6 +319,11 @@ export const PROGRAMS: Program[] = [
       ...emptyReport({ schedule: "대화 모임 ‘오름에게’ 20:00 · 북바인딩 클래스 17:00 / 11:00 (택 1)", duration: '', price: '대화 모임 별도 참가비 없음 · 북바인딩 클래스 28,000원', capacity: '' }),
       sample: false,
       place: { name: '서점숙소', area: '제주시 조천읍', address: '제주특별자치도 제주시 조천읍 북촌14길 13-12' },
+      join: {
+        who: '대화 모임 ‘오름에게’는 매일 저녁 8시에 열려요. 숙박하지 않고 참여할 수 있는지는 숙소에 문의해 주세요.',
+        how: '모임은 당일 문자로 신청하고, 보통 2명 이상 모이면 진행돼요 (방문 후기 기준). 숙소 예약은 네이버 예약으로 받아요.',
+        links: [{ label: '인스타그램 @jejubookhome', url: 'https://www.instagram.com/jejubookhome/' }, { label: '공식 블로그', url: 'https://blog.naver.com/jejubookhome' }, { label: '네이버 예약', url: 'https://naver.me/Gywdy5MD' }],
+      },
       oneLine: '책을 매개로 낯선 사람들과 다양한 사랑에 대해 이야기 나눌 수 있는 숙소',
       introLabel: '프로그램 기획 의도',
       programs: [
@@ -354,6 +379,11 @@ export const PROGRAMS: Program[] = [
       ...emptyReport({ schedule: '11:00 · 13:00 · 15:00 (택 1)', duration: '1시간 ~ 1시간 30분', price: '29,000원', capacity: '' }),
       sample: false,
       place: { name: '스르르 게스트하우스', area: '서귀포시 호근동', address: '제주특별자치도 서귀포시 일주동로 8867' },
+      join: {
+        who: '나무반지 클래스는 숙박하지 않아도 참여할 수 있어요. 일반 참가비는 32,000원이고, 스르르 게스트하우스 투숙객은 29,000원으로 할인돼요.',
+        how: '공방 ‘우주공간’에 네이버 예약이나 전화로 예약해요.',
+        links: [{ label: '공방 인스타그램 @sspace_jeju', url: 'https://www.instagram.com/sspace_jeju/' }, { label: '네이버 예약', url: 'https://naver.me/FzSViPnX' }, { label: '공식 블로그', url: 'https://blog.naver.com/woodworking_sspace' }],
+      },
       oneLine: '제주에서 세상에 하나뿐인 나무반지를 만들며 특별한 하루를 보낼 수 있는 숙소',
       introLabel: '프로그램 기획 의도',
       introQuote: '“사실 게스트하우스보다 나무반지 공방이 먼저였습니다.”',
@@ -409,6 +439,11 @@ export const PROGRAMS: Program[] = [
       ...emptyReport({ schedule: '스냅 사진 촬영 시간 조율 · 텐트 내 포틀럭 & 불멍 19:00', duration: '', price: '스냅 사진 촬영 50,000원 · 텐트 내 포틀럭 & 불멍 25,000원', capacity: '' }),
       sample: false,
       place: { name: '무릉쉼표', area: '서귀포시 대정읍', address: '제주특별자치도 서귀포시 대정읍 무릉중앙로 43-11' },
+      join: {
+        who: '스냅 사진 촬영은 사진 스튜디오(@studiopastel_)가 진행해요. 숙박하지 않고 참여할 수 있는지는 숙소에 문의해 주세요.',
+        how: '촬영 문의는 스튜디오에 인스타그램 DM·카카오톡·전화로 해요. 숙소 예약은 네이버 예약으로 받아요.',
+        links: [{ label: '인스타그램 @mr_shuimpyo__', url: 'https://www.instagram.com/mr_shuimpyo__/' }, { label: '네이버 예약', url: 'https://m.place.naver.com/accommodation/1024146961' }, { label: '스튜디오 @studiopastel_', url: 'https://www.instagram.com/studiopastel_/' }],
+      },
       oneLine: '일상에서 벗어나 온전한 쉼을 누리기 좋은 곳이며 한적한 무릉리 마을에 자리한 숙소',
       programs: [
         {
@@ -467,6 +502,11 @@ export const PROGRAMS: Program[] = [
       }),
       sample: false,
       place: { name: '수수민박', area: '서귀포시 안덕면', address: '제주특별자치도 서귀포시 안덕면 소기왓로 22' },
+      join: {
+        who: '수수한 저녁은 신청 인원이 충분할 때 진행돼요. 숙박하지 않고 참여할 수 있는지는 숙소에 문의해 주세요.',
+        how: '저녁 식사는 문자로 미리 신청해요. 숙소 예약은 인스타그램 프로필의 예약 링크에서 할 수 있어요.',
+        links: [{ label: '인스타그램 @soosoohouse', url: 'https://www.instagram.com/soosoohouse/' }, { label: '네이버 예약', url: 'https://naver.me/5R4HxdWs' }],
+      },
       oneLine: '사장님이 직접 차려주신 집밥을 함께 나눠 먹으며 마음까지 따뜻해지는 숙소',
       introLabel: '프로그램 기획 의도',
       programs: [
@@ -525,6 +565,11 @@ export const PROGRAMS: Program[] = [
       ...emptyReport({ schedule: '와이너리 디너 20:00 (예약제)', duration: '', price: '30,000원', capacity: '' }),
       sample: false,
       place: { name: '루프탑정원', area: '서귀포시 남원읍', address: '제주특별자치도 서귀포시 남원읍 태위로912번길 37' },
+      join: {
+        who: '와이너리 디너는 투숙객에게 예약 우선권이 있어요.',
+        how: '숙박 당일 아침에 오는 안내 문자를 받고, 정해진 시간 안에 예약해요 (방문 후기 기준). 외부 주류는 가져갈 수 없어요.',
+        links: [{ label: '인스타그램 @rooftop_guesthouse', url: 'https://www.instagram.com/rooftop_guesthouse/' }, { label: '예약 링크', url: 'https://linkon.id/rooftop' }],
+      },
       oneLine: '게스트들이 한 테이블에 모여 와이너리 디너로 특별한 시간을 보낼 수 있는 숙소',
       introLabel: '프로그램 기획 의도',
       programs: [

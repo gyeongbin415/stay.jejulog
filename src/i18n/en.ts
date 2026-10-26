@@ -108,7 +108,27 @@ export const EN: ContentPack = {
       placeName: 'Sae Aewol',
       area: 'Aewol-eup, Jeju City',
       oneLine: 'A stay where evenings are tinted with wine and mornings begin with a sea breeze',
+      join: {
+        who: 'You can join the wine dinner party without staying here. The morning run is for those who sign up.',
+        how: 'To join only the party, ask ahead by Instagram DM or phone. Rooms can be booked by searching “새애월” on Naver.',
+        linkLabels: ['Instagram @sae_aewol', 'Naver booking'],
+      },
       programs: [
+        {
+          name: 'Morning Run & Sea Swim',
+          info: [
+            { label: 'Price', value: 'No participation fee' },
+            { label: 'Time', value: '8:30 AM (adjustable on request)' },
+          ],
+          photos: [
+            { alt: 'Three guests running side by side along the railing of a seaside path, with a row of wind turbines out at sea', caption: 'Running the Aewol coast' },
+            { alt: 'Guests waving from the blue sea with wind turbines in the distance (faces blurred)', caption: 'A sea swim after the run' },
+          ],
+          text: [
+            'The day begins with a run along the Aewol coast with other guests. You take in the Jeju scenery in the sea breeze, and after the run, weather permitting, you can try a sea swim too. Talking naturally as you run, it’s a different way to greet a Jeju morning.',
+          ],
+          note: 'The sea swim may change depending on the weather and sea conditions.',
+        },
         {
           name: 'Wine Dinner & Fire Gazing',
           info: [
@@ -122,21 +142,6 @@ export const EN: ContentPack = {
           text: [
             'A time to enjoy a Western-style dinner and wine prepared by the owner and get to know guests you’ve just met. On fine days, dinner is served in the yard, and afterward everyone talks around the campfire. A slow, easy way to close a Jeju night.',
           ],
-        },
-        {
-          name: 'Morning Run & Sea Swim',
-          info: [
-            { label: 'Price', value: 'No participation fee' },
-            { label: 'Time', value: '8:30 AM (adjustable on request)' },
-          ],
-          photos: [
-            { alt: 'Guests running along the Aewol seaside path on a clear day (faces blurred)', caption: 'Running the Aewol coast' },
-            { alt: 'Guests waving from the blue sea with wind turbines in the distance (faces blurred)', caption: 'A sea swim after the run' },
-          ],
-          text: [
-            'The day begins with a run along the Aewol coast with other guests. You take in the Jeju scenery in the sea breeze, and after the run, weather permitting, you can try a sea swim too. Talking naturally as you run, it’s a different way to greet a Jeju morning.',
-          ],
-          note: 'The sea swim may change depending on the weather and sea conditions.',
         },
         {
           name: 'Tea Time',
@@ -170,6 +175,11 @@ export const EN: ContentPack = {
       placeName: 'Shym Guesthouse',
       area: 'Hallim-eup, Jeju City',
       oneLine: 'A stay where, every evening, you can watch a film with other guests in a little cinema',
+      join: {
+        who: 'Screenings are a program for guests staying here. To ask whether you can watch without staying, contact the guesthouse.',
+        how: 'Write the film you’d like to see on the board, and the screening starts at 8 PM. Rooms are booked through Naver Booking.',
+        linkLabels: ['Instagram @jejushym', 'Naver booking'],
+      },
       programs: [
         {
           name: 'The Little Cinema',
@@ -202,6 +212,11 @@ export const EN: ContentPack = {
       placeName: 'Kokoko',
       area: 'Gujwa-eup, Jeju City',
       oneLine: 'A stay of single rooms with a simple breakfast, where women can stay safely and comfortably',
+      join: {
+        who: 'The flower class runs Monday to Saturday at 2 PM and can be joined by reservation. Guests join the sunrise oreum tour by booking ahead.',
+        how: 'Class sign-ups and questions go through Instagram DM. Ask there too whether you can join without staying.',
+        linkLabels: ['Instagram @cococolife'],
+      },
       programs: [
         {
           name: 'Flower Arranging Class',
@@ -257,6 +272,11 @@ export const EN: ContentPack = {
       placeName: 'Seoron Guesthouse',
       area: 'Andeok-myeon, Seogwipo',
       oneLine: 'A stay where you listen to LPs, share your taste with others, and take the Jeju night slowly',
+      join: {
+        who: 'The listening gathering runs as a package that includes your stay and dinner, open to ages 20 to 38 (as of the October 2026 session).',
+        how: 'Fill in the sign-up form opened for each session and pay the fee. Your booking is done once you get a confirmation text. Questions go through Instagram DM.',
+        linkLabels: ['Instagram @seolon_zip', 'Booking links'],
+      },
       programs: [
         {
           name: 'LP Listening',
@@ -307,6 +327,11 @@ export const EN: ContentPack = {
       placeName: 'Seojeom Sukso (Bookstore Stay)',
       area: 'Jocheon-eup, Jeju City',
       oneLine: 'A stay where books open the door to conversations with strangers about the many kinds of love',
+      join: {
+        who: 'The conversation gathering ‘To the Oreum’ meets every evening at 8. To ask whether you can join without staying, contact the stay.',
+        how: 'Sign up by text on the day; it usually goes ahead with two or more people (based on visitor reviews). Rooms are booked through Naver Booking.',
+        linkLabels: ['Instagram @jejubookhome', 'Official blog', 'Naver booking'],
+      },
       programs: [
         {
           name: 'Conversation Circle ‘To the Oreum’',
@@ -356,6 +381,11 @@ export const EN: ContentPack = {
       placeName: 'Seureureu Guesthouse',
       area: 'Hogeun-dong, Seogwipo',
       oneLine: 'A stay where you can spend a special day in Jeju making a one-of-a-kind wooden ring',
+      join: {
+        who: 'You can join the wooden ring class without staying here. The regular fee is KRW 32,000, discounted to KRW 29,000 for Seureureu Guesthouse guests.',
+        how: 'Book the workshop ‘Ujugonggan’ through Naver Booking or by phone.',
+        linkLabels: ['Workshop Instagram @sspace_jeju', 'Naver booking', 'Official blog'],
+      },
       introQuote: '“Honestly, the wood ring studio came before the guesthouse.”',
       programs: [
         {
@@ -396,6 +426,11 @@ export const EN: ContentPack = {
       placeName: 'Mureung Shwimpyo',
       area: 'Daejeong-eup, Seogwipo',
       oneLine: 'A stay in the quiet village of Mureung-ri, a fine place to step away from everyday life and truly rest',
+      join: {
+        who: 'The snap photo shoot is run by a photo studio (@studiopastel_). To ask whether you can join without staying, contact the stay.',
+        how: 'For the shoot, contact the studio by Instagram DM, KakaoTalk or phone. Rooms are booked through Naver Booking.',
+        linkLabels: ['Instagram @mr_shuimpyo__', 'Naver booking', 'Studio @studiopastel_'],
+      },
       programs: [
         {
           name: 'Snap Photo Shoot',
@@ -446,6 +481,11 @@ export const EN: ContentPack = {
       placeName: 'Susu Minbak',
       area: 'Andeok-myeon, Seogwipo',
       oneLine: 'A stay where sharing a home-cooked meal made by the owner warms you right through',
+      join: {
+        who: 'The Simple Dinner goes ahead when enough people sign up. To ask whether you can join without staying, contact the stay.',
+        how: 'Sign up for dinner ahead of time by text. Rooms can be booked from the booking link on the Instagram profile.',
+        linkLabels: ['Instagram @soosoohouse', 'Naver booking'],
+      },
       programs: [
         {
           name: 'Susu’s Simple Supper',
@@ -501,6 +541,11 @@ export const EN: ContentPack = {
       placeName: 'Rooftop Garden',
       area: 'Namwon-eup, Seogwipo',
       oneLine: 'A stay where guests gather at one table to share a special evening over a winery dinner',
+      join: {
+        who: 'Guests staying here get booking priority for the winery dinner.',
+        how: 'On the morning of your stay you get a text; book within the stated time (based on visitor reviews). Outside alcohol isn’t allowed.',
+        linkLabels: ['Instagram @rooftop_guesthouse', 'Booking link'],
+      },
       programs: [
         {
           name: 'Winery Dinner',

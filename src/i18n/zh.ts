@@ -103,7 +103,27 @@ export const ZH: ContentPack = {
       placeName: 'Sae Aewol（새애월）',
       area: '济州市 涯月邑',
       oneLine: '在这里，可以遇见被葡萄酒浸染的夜晚，和以海风开启的清晨',
+      join: {
+        who: '不住宿也可以参加葡萄酒晚宴派对。晨跑只限报名的人参加。',
+        how: '只参加派对的话，请提前通过 Instagram 私信或电话咨询。住宿可在 Naver 搜索“새애월”预订。',
+        linkLabels: ['Instagram @sae_aewol', 'Naver 预订'],
+      },
       programs: [
+        {
+          name: '晨跑 & 海泳',
+          info: [
+            { label: '价格', value: '无需另付参加费' },
+            { label: '时间', value: '早上8:30（可商量调整）' },
+          ],
+          photos: [
+            { alt: '海上排列着风力发电机，三位客人沿着海边步道的栏杆并排奔跑', caption: '涯月海岸晨跑' },
+            { alt: '在望得见风力发电机的蔚蓝海水中挥手的客人（面部已模糊处理）', caption: '跑完步去海泳' },
+          ],
+          text: [
+            '清晨和其他客人一起沿着涯月海岸奔跑，开启新的一天。迎着海风欣赏济州的风景，跑完后视天气还可以体验海泳。一边跑一边自然地聊天，用不一样的方式迎接济州的早晨。',
+          ],
+          note: '海泳是否进行，可能因天气及海况而有所变动。',
+        },
         {
           name: '葡萄酒晚宴 & 篝火发呆',
           info: [
@@ -117,21 +137,6 @@ export const ZH: ContentPack = {
           text: [
             '一边享用老板亲自准备的西餐晚宴和葡萄酒，一边与初次见面的客人自然地拉近距离。天气好的日子在庭院里吃晚餐，饭后在篝火前放空、聊天，从容地为济州的夜晚收尾。',
           ],
-        },
-        {
-          name: '晨跑 & 海泳',
-          info: [
-            { label: '价格', value: '无需另付参加费' },
-            { label: '时间', value: '早上8:30（可商量调整）' },
-          ],
-          photos: [
-            { alt: '晴天里沿着涯月海边步道奔跑的客人（面部已模糊处理）', caption: '涯月海岸晨跑' },
-            { alt: '在望得见风力发电机的蔚蓝海水中挥手的客人（面部已模糊处理）', caption: '跑完步去海泳' },
-          ],
-          text: [
-            '清晨和其他客人一起沿着涯月海岸奔跑，开启新的一天。迎着海风欣赏济州的风景，跑完后视天气还可以体验海泳。一边跑一边自然地聊天，用不一样的方式迎接济州的早晨。',
-          ],
-          note: '海泳是否进行，可能因天气及海况而有所变动。',
         },
         {
           name: '茶歇',
@@ -165,6 +170,11 @@ export const ZH: ContentPack = {
       placeName: 'Shym Guesthouse（쉼게스트하우스）',
       area: '济州市 翰林邑',
       oneLine: '每天晚上，可以在小电影院里和其他客人一起看一部电影的民宿',
+      join: {
+        who: '电影放映是为住客准备的项目。不住宿能否观看，请向民宿咨询。',
+        how: '把想看的电影写在留言板上报名，晚上8点开始放映。住宿通过 Naver 预订。',
+        linkLabels: ['Instagram @jejushym', 'Naver 预订'],
+      },
       programs: [
         {
           name: '小电影院',
@@ -195,6 +205,11 @@ export const ZH: ContentPack = {
       placeName: 'Kokoko（코코코）',
       area: '济州市 旧左邑',
       oneLine: '提供简单早餐、让女性住得安心又自在的单人间民宿',
+      join: {
+        who: '花艺课周一至周六下午2点，预约即可体验。日出山丘之旅由住客提前预约参加。',
+        how: '课程报名与咨询请通过 Instagram 私信。不住宿能否参加，也请私信确认。',
+        linkLabels: ['Instagram @cococolife'],
+      },
       programs: [
         {
           name: '插花课',
@@ -246,6 +261,11 @@ export const ZH: ContentPack = {
       placeName: 'Seoron Guesthouse（서론 게스트하우스）',
       area: '西归浦市 安德面',
       oneLine: '一边欣赏黑胶，一边与人分享喜好，从容享受济州之夜的民宿',
+      join: {
+        who: '聆听聚会以包含住宿和晚餐的套餐形式进行，限满20至38岁（以2026年10月场次说明为准）。',
+        how: '填写每场开放的报名表并汇款，收到确认短信即预约完成。咨询请通过 Instagram 私信。',
+        linkLabels: ['Instagram @seolon_zip', '预约链接'],
+      },
       programs: [
         {
           name: '黑胶聆听',
@@ -296,6 +316,11 @@ export const ZH: ContentPack = {
       placeName: 'Seojeom Sukso（서점숙소）',
       area: '济州市 朝天邑',
       oneLine: '以书为媒，与陌生人聊聊各种各样爱情的民宿',
+      join: {
+        who: '对话聚会“致山丘”每天晚上8点举行。不住宿能否参加，请向民宿咨询。',
+        how: '当天发短信报名，通常2人以上即可进行（据住客评价）。住宿通过 Naver 预订。',
+        linkLabels: ['Instagram @jejubookhome', '官方博客', 'Naver 预订'],
+      },
       programs: [
         {
           name: '对话会“致火山丘”',
@@ -341,6 +366,11 @@ export const ZH: ContentPack = {
       placeName: 'Seureureu Guesthouse（스르르 게스트하우스）',
       area: '西归浦市 好近洞',
       oneLine: '在济州亲手做一枚独一无二的木戒指，度过特别一天的民宿',
+      join: {
+        who: '不住宿也可以参加木戒指课程。一般参加费为32,000韩元，스르르民宿住客享29,000韩元优惠价。',
+        how: '可通过 Naver 预订或电话向工坊“宇宙空间”预约。',
+        linkLabels: ['工坊 Instagram @sspace_jeju', 'Naver 预订', '官方博客'],
+      },
       introQuote: '“其实，比起民宿，木戒指工坊才是先有的。”',
       programs: [
         {
@@ -379,6 +409,11 @@ export const ZH: ContentPack = {
       placeName: 'Mureung Shwimpyo（무릉쉼표）',
       area: '西归浦市 大静邑',
       oneLine: '坐落在安静的武陵里村，适合远离日常、彻底休息的民宿',
+      join: {
+        who: '快照拍摄由摄影工作室（@studiopastel_）负责。不住宿能否参加，请向民宿咨询。',
+        how: '拍摄咨询请通过 Instagram 私信、KakaoTalk 或电话联系工作室。住宿通过 Naver 预订。',
+        linkLabels: ['Instagram @mr_shuimpyo__', 'Naver 预订', '工作室 @studiopastel_'],
+      },
       programs: [
         {
           name: '旅拍摄影',
@@ -425,6 +460,11 @@ export const ZH: ContentPack = {
       placeName: 'Susu Minbak（수수민박）',
       area: '西归浦市 安德面',
       oneLine: '一起分享老板亲手做的家常饭，连心都变得温暖的民宿',
+      join: {
+        who: '“朴素的晚餐”在报名人数足够时进行。不住宿能否参加，请向民宿咨询。',
+        how: '晚餐请提前发短信报名。住宿可通过 Instagram 主页上的预订链接预订。',
+        linkLabels: ['Instagram @soosoohouse', 'Naver 预订'],
+      },
       programs: [
         {
           name: '朴素的晚餐',
@@ -476,6 +516,11 @@ export const ZH: ContentPack = {
       placeName: 'Rooftop Garden（루프탑정원）',
       area: '西归浦市 南元邑',
       oneLine: '客人们围坐同一张桌子，借一场酒庄晚宴共度特别时光的民宿',
+      join: {
+        who: '酒庄晚宴优先接受住客预约。',
+        how: '住宿当天早上会收到通知短信，请在规定时间内预约（据住客评价）。不可自带酒水。',
+        linkLabels: ['Instagram @rooftop_guesthouse', '预约链接'],
+      },
       programs: [
         {
           name: '酒庄晚宴',
