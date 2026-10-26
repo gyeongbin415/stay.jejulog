@@ -162,6 +162,4 @@
 }
 
 /* ROOM TOUR 설명 아래 — 먼저 볼거리 셋 (작은 글자 링크) */
-.explore__picks { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 18px; margin-top: 2px; font-size: var(--t-small); font-weight: 600; }
-.explore__picks a { color: var(--orange-ink); text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
-.explore__picks a:hover { color: var(--ink); }
+.explore__picks { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 18px; margin: 2px 0 0; padding: 0; list-style: none; font-size: var(--t-small); font-weight: 600; color: var(--orange-ink); }
