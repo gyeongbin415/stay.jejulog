@@ -140,7 +140,7 @@ export const EN: ContentPack = {
         },
         {
           name: 'Tea Time',
-          photos: [{ alt: 'Looking down at a glass of iced tea held over a wooden deck', caption: 'A glass of tea at tea time' }],
+          photos: [{ alt: 'Guests sitting around a wooden table by a window overlooking a stone wall, chatting over tea (faces blurred)', caption: 'Tea time after check-out' }],
           info: [
             { label: 'Price', value: 'No participation fee' },
             { label: 'Time', value: '12:00 PM' },

@@ -5,6 +5,7 @@ import { Footer } from './components/Footer';
 import { HomePage } from './pages/HomePage';
 import { HousePage } from './pages/HousePage';
 import { useContent } from './i18n';
+import { track } from './lib/track';
 
 const StayPage = lazy(() => import('./pages/StayPage'));
 const TestPage = lazy(() => import('./pages/TestPage'));
@@ -27,6 +28,21 @@ export function App() {
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  // 화면 이동 기록 — 주소의 #/ 뒤만 바뀌는 앱이라 GA4 기본 page_view 가 첫 화면에서만 나갑니다.
+  // 화면이 바뀔 때마다 dataLayer 에 'virtual_page_view' 를 쌓아 GTM 에서 page_view 로 보내게 합니다. (첫 화면은 GTM 기본 page_view 가 맡음)
+  const firstView = useRef(true);
+  useEffect(() => {
+    if (firstView.current) {
+      firstView.current = false;
+      return;
+    }
+    track('virtual_page_view', {
+      page_location: window.location.href,
+      page_path: `${window.location.pathname}${window.location.hash}`,
+      page_title: document.title,
+    });
+  }, [key]);
 
   useLayoutEffect(() => {
     keyRef.current = key;

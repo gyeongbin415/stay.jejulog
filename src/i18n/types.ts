@@ -61,6 +61,8 @@ export interface ProgramText {
   /** 에디터 체험기 문단 (원본과 같은 개수) */
   experience: string[];
   recommend?: string[];
+  /** 참여 전 확인 번역 — 링크 이름은 순서대로 */
+  join?: { who?: string; how?: string; linkLabels?: string[] };
 }
 
 export interface ExperienceText {

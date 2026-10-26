@@ -208,6 +208,49 @@ export default function StayPage({ id }: { id: ProgramId }) {
         </section>
       )}
 
+      {/* 06-2. 참여 전 확인 — 확인된 참여 조건만, 그리고 네이버 지도에서 위치 확인 */}
+      <section className="stay-sec stay-join wrap" data-tone="light" aria-labelledby={r.join ? 'sec-join' : undefined}>
+        {r.join && (
+          <>
+            <div className="stay-sec__label">
+              <p className="label">{t.joinLabel}</p>
+              <h2 id="sec-join" className="stay-sec__title">{t.joinTitle}</h2>
+            </div>
+            <dl className="stay-join__box">
+              {r.join.who && (
+                <div>
+                  <dt>{t.joinWho}</dt>
+                  <dd>{r.join.who}</dd>
+                </div>
+              )}
+              {r.join.how && (
+                <div>
+                  <dt>{t.joinHow}</dt>
+                  <dd>{r.join.how}</dd>
+                </div>
+              )}
+              {r.join.links && r.join.links.length > 0 && (
+                <div>
+                  <dt>{t.joinLinks}</dt>
+                  <dd>
+                    {r.join.links.map((l) => (
+                      <a key={l.url} href={l.url} target="_blank" rel="noopener noreferrer" data-track={`stay_${id}_official`}>
+                        {l.label} <span aria-hidden="true">↗</span>
+                      </a>
+                    ))}
+                  </dd>
+                </div>
+              )}
+            </dl>
+          </>
+        )}
+        {r.place.address && (
+          <a className="btn btn--ghost stay-join__map" href={`https://map.naver.com/p/search/${encodeURIComponent(r.place.address)}`} target="_blank" rel="noopener noreferrer" data-track={`stay_${id}_map`}>
+            {t.locate} <span className="arrow" aria-hidden="true">↗</span>
+          </a>
+        )}
+      </section>
+
       {/* 07. NAVIGATION — 예약 링크는 데이터에 있을 때만 */}
       <nav className="stay-nav wrap" data-tone="light" aria-label={t.navAria}>
         {/* 위: 이전 게하 · 집 둘러보기 · 다음 게하 (한 줄) / 아래: 나에게 맞는 게하 찾기 */}

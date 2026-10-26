@@ -114,6 +114,12 @@ function localizeProgram(p: Program, t?: ProgramText): Program {
       editorProfile: r.editorProfile && t.editorProfile ? { ...r.editorProfile, ...t.editorProfile } : r.editorProfile,
       experience: t.experience.length ? t.experience : r.experience,
       recommend: t.recommend ?? r.recommend,
+      join: r.join && {
+        ...r.join,
+        who: t.join?.who ?? r.join.who,
+        how: t.join?.how ?? r.join.how,
+        links: r.join.links?.map((l, i) => ({ ...l, label: t.join?.linkLabels?.[i] ?? l.label })),
+      },
     },
   };
 }

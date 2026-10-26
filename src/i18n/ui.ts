@@ -13,12 +13,15 @@ export interface UiText {
   footer: { tagline: string; madeBy: string };
   app: { loadingStay: string; loadingTest: string; notFound: string; toHome: string };
   home: { srTitle: string; wordsAria: string; opening: string; findSub: (n: number) => string; typesAria: string };
-  house: { viewGroup: string; viewHouse: string; viewList: string; houseAria: string; listAria: string; roomAria: (no: string, label: string, place: string) => string };
+  house: { viewGroup: string; viewHouse: string; viewList: string; houseAria: string; listAria: string; roomAria: (no: string, label: string, place: string) => string;
+    /** ROOM TOUR 설명 아래 미리보기 링크 셋 — 나무반지 · 영화 · 집밥 순서 */
+    picks: [string, string, string]; picksAria: string };
   photo: { pending: string };
   stay: {
     basicInfo: string; placeName: string; address: string; mainPrograms: string; usage: string;
     programStory: string; programDetails: string; content: string; note: string;
     editorTitle: string; editorOneLine: string; travelStyle: string; likedIt: string; forWhom: string;
+    joinLabel: string; joinTitle: string; joinWho: string; joinHow: string; joinLinks: string; locate: string;
     recommendTitle: string; backToHouse: string; prevStay: string; nextStay: string; toTest: string; booking: string; navAria: string;
   };
   test: {
@@ -55,6 +58,7 @@ export const UI: Record<Lang, UiText> = {
       viewGroup: '보기 방식', viewHouse: '집', viewList: '목록',
       houseAria: '집 안의 아홉 가지 경험', listAria: '아홉 가지 경험 전체',
       roomAria: (no, label, place) => `${no} ${label} — ${place} 상세 보기`,
+      picks: ['반지 만드는 하루', '영화로 끝내는 밤', '함께 먹는 저녁'], picksAria: '먼저 둘러볼 경험',
     },
     photo: { pending: '사진 준비 중' },
     stay: {
@@ -62,6 +66,7 @@ export const UI: Record<Lang, UiText> = {
       programStory: '프로그램 이야기', programDetails: '프로그램 소개', content: '체험 내용', note: '참고사항',
       editorTitle: '에디터가 직접 머물러 봤어요', editorOneLine: '에디터의 한 줄 소개', travelStyle: '에디터 여행 성향',
       likedIt: '이런 점이 좋았어요', forWhom: '이런 사람에게 추천해요',
+      joinLabel: 'BEFORE YOU GO', joinTitle: '참여 전 확인', joinWho: '참여 대상', joinHow: '참여 방법', joinLinks: '최신 안내', locate: '위치 확인하기',
       recommendTitle: '이런 분께 추천합니다', backToHouse: '집 둘러보기', prevStay: '이전 게하', nextStay: '다음 게하', toTest: '나에게 맞는 게하 찾기', booking: '예약 정보 보기', navAria: '다른 게스트하우스',
     },
     test: {
@@ -73,7 +78,7 @@ export const UI: Record<Lang, UiText> = {
       start: '테스트 시작하기',
       progress: '진행 상태', prev: '이전 질문', next: '다음으로', seeResult: '결과 보기',
       sharedLabel: 'RESULT', resultLabel: 'YOUR JEJU TASTE', lead: '나의 게스트하우스 취향은',
-      reasonLine: (p) => `${p.map((x) => `‘${x}’`).join(', ')}라고 답한 당신에게 잘 맞는 곳이에요.`,
+      reasonLine: (p) => `${p.map((x) => `‘${x}’`).join(', ')}라고 답한 당신에게 추천해요.`,
       bestCaption: '가장 잘 맞는 게스트하우스', nextCaption: '두 번째로 잘 맞는 게스트하우스', thirdCaption: '세 번째로 잘 맞는 게스트하우스',
       othersLabel: 'OTHER STAYS', othersTitle: '다른 게하게들도 만나보세요',
       expType: '경험 유형', reason: '추천 이유', myPicks: '나의 선택', detail: '자세히 알아보기',
@@ -104,6 +109,7 @@ export const UI: Record<Lang, UiText> = {
       viewGroup: 'View mode', viewHouse: 'House', viewList: 'List',
       houseAria: 'Nine experiences inside the house', listAria: 'All nine experiences',
       roomAria: (no, label, place) => `${no} ${label} — see ${place}`,
+      picks: ['A day making a ring', 'A night ending with a film', 'Dinner shared together'], picksAria: 'Experiences to start with',
     },
     photo: { pending: 'Photo coming soon' },
     stay: {
@@ -111,6 +117,7 @@ export const UI: Record<Lang, UiText> = {
       programStory: 'The story behind it', programDetails: 'Programs', content: 'What you’ll do', note: 'Good to know',
       editorTitle: 'Our editor stayed here', editorOneLine: 'About the editor', travelStyle: "Editor's travel style",
       likedIt: 'What I loved', forWhom: 'Who it’s for',
+      joinLabel: 'BEFORE YOU GO', joinTitle: 'Before you join', joinWho: 'Who can join', joinHow: 'How to join', joinLinks: 'Latest info', locate: 'See on the map',
       recommendTitle: 'Recommended for', backToHouse: 'Explore the house', prevStay: 'Previous', nextStay: 'Next', toTest: 'Find the stay that fits you', booking: 'Booking info', navAria: 'Other guesthouses',
     },
     test: {
@@ -153,6 +160,7 @@ export const UI: Record<Lang, UiText> = {
       viewGroup: '浏览方式', viewHouse: '房子', viewList: '列表',
       houseAria: '房子里的九种体验', listAria: '全部九种体验',
       roomAria: (no, label, place) => `${no} ${label} — 查看${place}`,
+      picks: ['做戒指的一天', '以电影收尾的夜晚', '一起吃的晚餐'], picksAria: '先看看这些体验',
     },
     photo: { pending: '照片准备中' },
     stay: {
@@ -160,6 +168,7 @@ export const UI: Record<Lang, UiText> = {
       programStory: '活动的故事', programDetails: '活动介绍', content: '体验内容', note: '注意事项',
       editorTitle: '编辑亲自入住体验', editorOneLine: '编辑简介', travelStyle: '编辑的旅行风格',
       likedIt: '我喜欢的地方', forWhom: '推荐给这样的人',
+      joinLabel: 'BEFORE YOU GO', joinTitle: '参加前确认', joinWho: '参加对象', joinHow: '参加方式', joinLinks: '最新信息', locate: '查看位置',
       recommendTitle: '推荐给这样的你', backToHouse: '逛逛这栋房子', prevStay: '上一家民宿', nextStay: '下一家民宿', toTest: '找到适合我的民宿', booking: '预订信息', navAria: '其他民宿',
     },
     test: {

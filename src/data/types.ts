@@ -76,6 +76,8 @@ export interface ProgramReport {
   editorProfile?: { title?: string; label?: string; avatar?: string; tags: string[]; about?: string[] };
   /** 이런 사람에게 추천해요 — 문단 단위 배열 */
   recommend?: string[];
+  /** 참여 전 확인 — 출처로 확인된 내용만 (참여 대상 · 참여 방법 · 공식 안내 링크). 없으면 박스를 띄우지 않음 */
+  join?: { who?: string; how?: string; links?: { label: string; url: string }[] };
 }
 
 export interface Program {

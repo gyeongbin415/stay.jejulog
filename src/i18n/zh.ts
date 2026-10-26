@@ -135,7 +135,7 @@ export const ZH: ContentPack = {
         },
         {
           name: '茶歇',
-          photos: [{ alt: '在木地板上方手持一杯加冰的茶，从上往下看的样子', caption: '茶歇时的一杯茶' }],
+          photos: [{ alt: '客人们围坐在能看到石墙的窗边木桌旁，边喝茶边聊天（面部已模糊处理）', caption: '退房后的茶歇' }],
           info: [
             { label: '价格', value: '无需另付参加费' },
             { label: '时间', value: '中午12:00' },

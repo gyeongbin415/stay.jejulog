@@ -156,3 +156,8 @@
   .room:hover .room__place, .room:focus-visible .room__place { display: inline; max-width: 140px; opacity: 1; margin-left: 0; }
   .room:hover .room__arrow, .room:focus-visible .room__arrow { max-width: 20px; opacity: 1; margin-left: 0; }
 }
+
+/* ROOM TOUR 설명 아래 — 먼저 볼거리 셋 (작은 글자 링크) */
+.explore__picks { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 18px; margin-top: 2px; font-size: var(--t-small); font-weight: 600; }
+.explore__picks a { color: var(--orange-ink); text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
+.explore__picks a:hover { color: var(--ink); }

@@ -137,3 +137,12 @@
   .stay-nav__row { gap: 6px; }
   .stay-nav__row .btn { padding-inline: 13px; gap: 6px; font-size: 13.5px; white-space: nowrap; }
 }
+
+/* 참여 전 확인 — 작은 정보 상자 + 위치 확인하기 */
+.stay-join { display: grid; gap: 18px; justify-items: start; }
+.stay-join__box { width: 100%; max-width: 640px; margin: 0; padding: 6px 20px; border-radius: var(--radius); background: var(--paper); }
+.stay-join__box > div { display: grid; grid-template-columns: 6.5em 1fr; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 15px; line-height: 1.65; }
+.stay-join__box > div:last-child { border-bottom: 0; }
+.stay-join__box dt { font-size: var(--t-caption); font-weight: 600; color: var(--ink-soft); padding-top: 2px; }
+.stay-join__box dd { margin: 0; display: flex; flex-wrap: wrap; gap: 4px 14px; }
+.stay-join__box a { color: var(--orange-ink); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
