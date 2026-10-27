@@ -264,14 +264,14 @@ function Result({ result, shared, onRetry, focusRef }: { result: QuizResult; sha
             ))}
           </ul>
         )}
-        {/* 게하 한 줄 소개 — 숙소 페이지 BASIC INFORMATION 과 같은 문장 */}
-        {programById[result.main].report.oneLine && <p className="result__oneline">{programById[result.main].report.oneLine}</p>}
         <div className="result__hero">
           <span className="result__rank">BEST 1<span className="visually-hidden"> {t.bestCaption}</span></span>
           <img src={characterArt[result.main]} alt="" />
         </div>
         {/* 게스트하우스 이름 — '자세히 알아보기' 바로 위 */}
         <p className="result__place">{programById[result.main].report.place.name}</p>
+        {/* 게하 한 줄 소개 — 숙소 페이지 BASIC INFORMATION 과 같은 문장, 이름 바로 밑 */}
+        {programById[result.main].report.oneLine && <p className="result__oneline">{programById[result.main].report.oneLine}</p>}
         <a className="btn" href={href.stay(result.main)} data-track={`result_best01_${result.main}`}>
           {t.detail} <span className="arrow" aria-hidden="true">→</span>
         </a>
@@ -339,7 +339,6 @@ function Pick({ rank, caption, id }: { rank: string; caption: string; id: Progra
       </div>
       <p className="pick__charname">{site.characters[id]}</p>
       <h2 className="pick__name">{p.report.place.name}</h2>
-      {p.report.oneLine && <p className="pick__oneline">{p.report.oneLine}</p>}
       <a className="btn" href={href.stay(id)} data-track={`result_${rank.toLowerCase().replace(' ', '')}_${id}`}>
         {ui.test.detail} <span className="arrow" aria-hidden="true">→</span>
       </a>
