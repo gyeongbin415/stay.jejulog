@@ -202,6 +202,7 @@
 .find__inner { padding: clamp(80px, 12vh, 130px) 0; }
 .find__copy { display: grid; gap: 16px; justify-items: start; }
 .find__copy .btn { margin-top: 12px; }
+.find__copy .btn + .btn { margin-top: -2px; } /* 테스트 바로가기 바로 밑 '방 둘러보기' */
 /* 보조 설명 — 중요한 문구가 아니라 작게 */
 .find .section-head__sub { font-size: 14.5px; line-height: 1.65; }
 

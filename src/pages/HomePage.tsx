@@ -348,6 +348,10 @@ function FindYourStay() {
           <a className="btn" href={href.test()} data-track="find_cta">
             {SITE.findYourStay.cta} <span className="arrow" aria-hidden="true">→</span>
           </a>
+          {/* 테스트 버튼 밑 한 칸 더 — 웹진 인스타그램 페이지(숙소 게시물)로 */}
+          <a className="btn" href={href.insta()} data-track="find_rooms">
+            {SITE.findYourStay.rooms} <span className="arrow" aria-hidden="true">→</span>
+          </a>
         </div>
       </div>
     </section>

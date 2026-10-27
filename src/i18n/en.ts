@@ -41,6 +41,7 @@ export const EN: ContentPack = {
       label: 'FIND YOUR STAY',
       title: ['Find the Jeju guesthouse', 'that fits your taste.'],
       cta: 'Go to the test',
+      rooms: 'Browse the rooms',
     },
 
     checkOut: {
