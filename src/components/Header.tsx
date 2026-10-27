@@ -111,12 +111,14 @@ const MENU = [
   { key: 'home', en: 'HOME', to: href.home() },
   { key: 'house', en: 'EXPLORE', to: href.house() },
   { key: 'test', en: 'TEST', to: href.test() },
+  // 제주 게하의 더 많은 이야기 — 웹진 인스타그램 페이지
+  { key: 'insta', en: 'INSTAGRAM', to: href.insta() },
 ] as const;
 
 function Menu({ route, onClose }: { route: Route; onClose: () => void }) {
   const ref = useRef<HTMLDivElement>(null);
   const { ui } = useContent();
-  const labels = { home: ui.nav.main, house: ui.nav.house, test: ui.nav.test };
+  const labels = { home: ui.nav.main, house: ui.nav.house, test: ui.nav.test, insta: ui.nav.more };
 
   useEffect(() => {
     const prev = document.activeElement as HTMLElement | null;
@@ -165,18 +167,6 @@ function Menu({ route, onClose }: { route: Route; onClose: () => void }) {
             </li>
           ))}
         </ul>
-        {/* 제일 밑 — 메인의 '제주 게하의 더 많은 이야기' 칸 그대로 (웹진 인스타그램 페이지로) */}
-        <div className="more menu__more">
-          <p className="label">MORE STORIES</p>
-          <p className="more__title">{ui.home.moreTitle}</p>
-          <p className="more__sub">{ui.home.moreSub}</p>
-          <a className="btn more__btn" href={href.insta()} onClick={onClose} data-track="menu_instagram">
-            {ui.home.moreCta}
-            <svg className="more__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-              <path d="M7 17 17 7M9 7h8v8" />
-            </svg>
-          </a>
-        </div>
       </div>
     </div>
   );

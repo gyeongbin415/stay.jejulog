@@ -94,13 +94,7 @@
 }
 .menu__list .label { font-family: var(--f-sans); }
 .menu__list a:hover { color: var(--forest); padding-left: 10px; }
-.menu__list a[aria-current="page"] { color: var(--forest); }
-/* 메뉴 제일 밑 — 제주 게하의 더 많은 이야기 (메인 칸과 같은 베이지 바탕 · 글 · 버튼) */
-.menu__more { margin-top: auto; padding: 28px 18px; border-radius: 16px; background: #F8ECDA; gap: 10px; }
-.menu__more .more__title { font-size: 20px; }
-.menu__more .more__sub { font-size: 14px; }
-.menu__more .more__btn { margin-top: 6px; }
-@keyframes fade-in { from { opacity: 0; } }
+.menu__list a[aria-current="page"] { color: var(--forest); }@keyframes fade-in { from { opacity: 0; } }
 @keyframes sheet-in { from { transform: translateX(24px); opacity: 0; } }
 
 /* ── 푸터 ─────────────────────────────── */
