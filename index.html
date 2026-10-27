@@ -51,8 +51,12 @@
     <!-- 서체 — Pretendard Variable 하나로 사이트 전체 (쓰는 글자만 나눠 받는 dynamic subset) -->
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
-    <script type="module" crossorigin src="./assets/index-tNEAU3z4.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-Cc9y0oDF.css">
+    <!-- 첫 화면 로딩 — 앱이 뜨기 전 소라게 로딩 그림 (앱이 #root 를 그리면 함께 사라짐) -->
+    <link rel="preload" as="image" href="loading.webp" />
+    <style>#boot-loader{z-index:200;background:#fafaf3;place-content:center;justify-items:center;gap:24px;display:grid;position:fixed;inset:0}#boot-loader img{width:min(78vw,420px);height:auto;display:block}#boot-loader .dots{gap:14px;display:flex}#boot-loader .dots i{background:#e4bc99;border-radius:50%;width:14px;height:14px;animation:1.2s infinite boot-dot}#boot-loader .dots i:nth-child(2){animation-delay:.4s}#boot-loader .dots i:nth-child(3){animation-delay:.8s}@keyframes boot-dot{0%,33%{background:#f58e4b}34%,to{background:#e4bc99}}</style>
+    <noscript><style>#boot-loader{display:none}</style></noscript>
+    <script type="module" crossorigin src="./assets/index-CQGBESgr.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-BbTxKSLR.css">
   </head>
   <body>
     <!-- Google Tag Manager (noscript) -->
@@ -62,6 +66,10 @@
     <a class="skip-link" href="#main">본문 바로가기</a>
     <!-- 앱이 뜨기 전 · 검색과 AI 가 읽는 소개 글 — 앱이 뜨면 이 자리가 화면으로 바뀝니다 -->
     <div id="root">
+      <div id="boot-loader" role="status" aria-label="불러오는 중">
+        <img src="loading.webp" alt="" width="640" height="465" />
+        <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+      </div>
       <main style="max-width: 720px; margin: 0 auto; padding: 96px 20px; font-family: sans-serif; line-height: 1.7; color: #111; background: #FAFAF3;">
         <h1>STAY JEJULOG 스테이 제주로그 — 문 너머, 우리가 몰랐던 게스트하우스</h1>
         <p>‘게스트하우스’ 하면 파티, 헌팅, 술, 이성이 먼저 떠오르지만, 그것이 전부는 아닙니다. 에디터가 직접 제주에 머물며 찾은 경험을 한 집에 모아봤습니다.</p>
