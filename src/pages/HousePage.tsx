@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import { useState, type CSSProperties } from 'react';
 import { useContent } from '../i18n';
 import type { ProgramId } from '../data/types';
 import { href } from '../lib/router';
 import { ExpIcon } from '../components/ExpIcon';
+import { useMediaQuery } from '../lib/motion';
 import houseUrl from '../assets/house-3d.webp';
+import houseWideUrl from '../assets/house-3d-wide.webp';
 
 /**
  * PAGE 02 — 집 내부 탐색 (EXPLORE)
@@ -15,22 +17,43 @@ type View = 'house' | 'list';
 const VIEW_KEY = 'jejulog:house-view';
 
 /**
- * 그림(1088 × 1446, 바깥 배경은 투명) 속 방 자리 · 이름표 자리 — 그림 픽셀 기준
+ * 그림(바깥 배경은 투명) 속 방 자리 · 이름표 자리 — 그림 픽셀 기준
  * room: 방 네모 [x1, y1, x2, y2] / tag: 그림 속 이름표를 덮는 자리 [x, y, 최소 너비] (center — 가운데 기준)
+ * 휴대폰은 한 층에 두 칸(1088 × 1446), 넓은 화면은 같은 그림을 잘라 이어 붙인 한 층 세 칸(1572 × 1196)
+ *  — 나무반지(다락) · 스냅사진 · 러닝(마당)은 그대로, 가운데 여섯 칸만 책 · 꽃꽂이 · 영화 / LP · 집밥 · 와인
+ * ground: 잔디색 땅이 시작되는 그림 높이
  */
-const IMG_W = 1088;
-const IMG_H = 1446;
-const SPOTS: { id: ProgramId; room: [number, number, number, number]; tag: [number, number, number]; center?: boolean }[] = [
-  { id: 'craft', room: [144, 75, 943, 348], tag: [543, 135, 122], center: true },
-  { id: 'book', room: [144, 362, 537, 605], tag: [155, 378, 66] },
-  { id: 'flower', room: [552, 362, 943, 605], tag: [565, 378, 95] },
-  { id: 'cinema', room: [144, 620, 537, 859], tag: [155, 636, 84] },
-  { id: 'lp', room: [552, 620, 943, 859], tag: [566, 636, 70] },
-  { id: 'homemeal', room: [144, 874, 537, 1109], tag: [155, 890, 85] },
-  { id: 'wine', room: [552, 874, 943, 1109], tag: [565, 890, 83] },
-  { id: 'camping', room: [130, 1140, 536, 1391], tag: [143, 1156, 120] },
-  { id: 'running', room: [553, 1140, 958, 1391], tag: [566, 1155, 89] },
-];
+type Spot = { id: ProgramId; room: [number, number, number, number]; tag: [number, number, number]; center?: boolean };
+const HOUSES: Record<'narrow' | 'wide', { url: string; w: number; h: number; ground: number; spots: Spot[] }> = {
+  narrow: {
+    url: houseUrl, w: 1088, h: 1446, ground: 978,
+    spots: [
+      { id: 'craft', room: [144, 75, 943, 348], tag: [543, 135, 122], center: true },
+      { id: 'book', room: [144, 362, 537, 605], tag: [155, 378, 66] },
+      { id: 'flower', room: [552, 362, 943, 605], tag: [565, 378, 95] },
+      { id: 'cinema', room: [144, 620, 537, 859], tag: [155, 636, 84] },
+      { id: 'lp', room: [552, 620, 943, 859], tag: [566, 636, 70] },
+      { id: 'homemeal', room: [144, 874, 537, 1109], tag: [155, 890, 85] },
+      { id: 'wine', room: [552, 874, 943, 1109], tag: [565, 890, 83] },
+      { id: 'camping', room: [130, 1140, 536, 1391], tag: [143, 1156, 120] },
+      { id: 'running', room: [553, 1140, 958, 1391], tag: [566, 1155, 89] },
+    ],
+  },
+  wide: {
+    url: houseWideUrl, w: 1572, h: 1196, ground: 728,
+    spots: [
+      { id: 'craft', room: [144, 75, 1352, 348], tag: [740, 135, 122], center: true },
+      { id: 'book', room: [144, 363, 537, 606], tag: [155, 378, 66] },
+      { id: 'flower', room: [552, 363, 944, 606], tag: [565, 378, 95] },
+      { id: 'cinema', room: [959, 363, 1352, 606], tag: [970, 379, 84] },
+      { id: 'lp', room: [144, 620, 537, 860], tag: [158, 636, 70] },
+      { id: 'homemeal', room: [552, 620, 944, 860], tag: [563, 635, 85] },
+      { id: 'wine', room: [959, 620, 1352, 860], tag: [972, 635, 83] },
+      { id: 'camping', room: [334, 890, 740, 1141], tag: [347, 906, 120] },
+      { id: 'running', room: [757, 890, 1162, 1141], tag: [770, 905, 89] },
+    ],
+  },
+};
 const pct = (v: number, of: number) => `${(v / of) * 100}%`;
 
 function readView(): View {
@@ -52,6 +75,8 @@ export function HousePage({ embedded = false }: { embedded?: boolean }) {
   const listed = houseOrder.map((id) => experiences.find((e) => e.id === id)!).filter(Boolean);
   // 상세페이지에 다녀와도 보던 방식이 유지되도록 이 탭에서만 기억합니다.
   const [view, setView] = useState<View>(readView);
+  const house = HOUSES[useMediaQuery('(min-width: 900px)') ? 'wide' : 'narrow'];
+  const { w: IMG_W, h: IMG_H } = house;
   const choose = (v: View) => {
     setView(v);
     try {
@@ -100,10 +125,14 @@ export function HousePage({ embedded = false }: { embedded?: boolean }) {
           </ol>
         </nav>
       ) : (
-      <nav className="house3d" aria-label={ui.house.houseAria}>
+      <nav
+        className={`house3d${house.url === houseWideUrl ? ' house3d--wide' : ''}`}
+        aria-label={ui.house.houseAria}
+        style={{ '--iw': IMG_W, '--ground': house.ground } as CSSProperties}
+      >
         <div className="house3d__frame">
-          <img className="house3d__img" src={houseUrl} width={IMG_W} height={IMG_H} alt={ui.house.houseAria} loading="lazy" decoding="async" />
-          {SPOTS.map(({ id, room: [x1, y1, x2, y2], tag: [tx, ty, tw], center }) => {
+          <img className="house3d__img" src={house.url} width={IMG_W} height={IMG_H} alt={ui.house.houseAria} loading="lazy" decoding="async" />
+          {house.spots.map(({ id, room: [x1, y1, x2, y2], tag: [tx, ty, tw], center }) => {
             const e = experienceById[id];
             const place = programById[id].report.place.name;
             return (

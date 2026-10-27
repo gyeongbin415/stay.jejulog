@@ -167,10 +167,14 @@
    그림 1088 × 1446 — --u 는 그림 1픽셀이 화면에서 차지하는 크기. 그림 바깥 배경은 투명.
    뒤 배경은 페이지 색, 땅(그림 y 978부터)은 잔디색으로 화면 양옆까지 깔아 둡니다. */
 .house3d {
-  --w: min(660px, 100vw); --u: calc(var(--w) / 1088); --pt: 8px;
+  --w: min(660px, 100vw); --u: calc(var(--w) / var(--iw, 1088)); --pt: 8px;
   padding: var(--pt) 0 clamp(48px, 8vh, 88px);
-  background: linear-gradient(to bottom, var(--bg) calc(var(--pt) + var(--u) * 978), #CDE8BD 0);
+  background: linear-gradient(to bottom, var(--bg) calc(var(--pt) + var(--u) * var(--ground, 978)), #CDE8BD 0);
 }
+/* 넓은 화면 — 한 층 세 칸 그림 (1572 × 1196) */
+.house3d--wide { --w: min(1000px, calc(100vw - 2 * var(--gutter))); }
+/* 다락 지붕 모양 — 세 칸 그림은 꼭대기가 49.9% */
+.house3d--wide .house3d__room--craft { clip-path: polygon(49.9% 0, 100% 87.5%, 100% 100%, 0 100%, 0 87.5%); }
 .house3d__frame { position: relative; width: var(--w); margin-inline: auto; }
 .house3d__img { display: block; width: 100%; height: auto; }
 /* 방 — 투명 링크 (네모 테두리는 키보드로 고를 때만) */
