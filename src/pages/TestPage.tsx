@@ -108,13 +108,7 @@ export default function TestPage({ sharedCode, mine = false }: { sharedCode: str
               <span className="trip__path" aria-hidden="true" />
               <img className="trip__house" src={tripHouseUrl} alt="" />
               <img className="trip__crab" src={tripCrabUrl} alt="" style={{ '--step': qi / (QUESTIONS.length - 1) } as CSSProperties} />
-            </div>
-            {/* 길 밑 문항 수 — 왼쪽 1 · 오른쪽 10 (지금 문항이 끝이면 주황) */}
-            <p className="trip__nums" aria-hidden="true">
-              <span className={qi === 0 ? 'is-on' : undefined}>1</span>
-              <span className={qi === QUESTIONS.length - 1 ? 'is-on' : undefined}>{QUESTIONS.length}</span>
-            </p>
-            <div className="test__card" key={qi}>
+            </div>            <div className="test__card" key={qi}>
 
               <p className="test__qno serif" aria-hidden="true">Q{qi + 1}.</p>
               <h1 id="test-title" ref={focusRef} tabIndex={-1} className="test__q">
