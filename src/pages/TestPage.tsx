@@ -158,27 +158,12 @@ function Result({ result, shared, onRetry, focusRef }: { result: QuizResult; sha
   // 저장하기 — 결과를 한 장의 이미지로 (휴대폰은 공유 창의 ‘이미지 저장’, 컴퓨터는 파일 내려받기)
   const save = async () => {
     try {
-      const ranked = [result.main, second?.id, third?.id].filter(Boolean) as ProgramId[];
-      const blob = await makeResultImage({
-        lead: t.lead,
-        brand: `${site.brandEn} · ${site.brand}`,
-        picks: ranked.map((id, i) => ({ id, rank: `BEST ${i + 1}`, charName: site.characters[id], place: programById[id].report.place.name })),
-      });
-      const file = new File([blob], `jejulog-${result.code}.png`, { type: 'image/png' });
+      const file = await resultFile();
       const touch = window.matchMedia('(pointer: coarse)').matches;
       if (touch && navigator.canShare?.({ files: [file] })) {
         // 이미지만 보냄 — 제목 문장(‘스테이 제주로그 — …’)은 함께 보내지 않음
         await navigator.share({ files: [file] });
-      } else {
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = file.name;
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-        setTimeout(() => URL.revokeObjectURL(url), 4000);
-      }
+      } else download(file);
       setStatus(t.saved);
       track('result_save', { type: result.type });
     } catch (err) {
@@ -186,38 +171,68 @@ function Result({ result, shared, onRetry, focusRef }: { result: QuizResult; sha
     }
   };
 
-  // 결과 공유 — 링크만 보냄 (제목 · 설명 문장은 함께 보내지 않음)
+  // 결과 이미지 한 장 — 저장하기 · 인스타그램 공유에 같이 씀
+  const resultFile = async () => {
+    const ranked = [result.main, second?.id, third?.id].filter(Boolean) as ProgramId[];
+    const blob = await makeResultImage({
+      lead: t.lead,
+      brand: `${site.brandEn} · ${site.brand}`,
+      picks: ranked.map((id, i) => ({ id, rank: `BEST ${i + 1}`, charName: site.characters[id], place: programById[id].report.place.name })),
+    });
+    return new File([blob], `jejulog-${result.code}.png`, { type: 'image/png' });
+  };
+  const download = (file: File) => {
+    const u = URL.createObjectURL(file);
+    const a = document.createElement('a');
+    a.href = u;
+    a.download = file.name;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(u), 4000);
+  };
+
+  // 결과 공유 — 지금 쓰는 기기의 공유 창으로 (휴대폰이면 카카오톡 · 인스타그램 앱이 목록에 바로 뜸)
   const url = `${window.location.origin}${window.location.pathname}${href.result(result.code)}`;
   const hit = (via: string) => track('result_share', { via });
-  const copyLink = async (done: string) => {
-    try {
-      await navigator.clipboard.writeText(url);
-      setStatus(done);
-      return true;
-    } catch {
-      setStatus(t.canceled);
-      return false;
-    }
-  };
-  // 카카오톡 — 휴대폰은 공유 창(카카오톡 선택), 공유 창이 없으면 링크를 복사해 대화창에 붙여 넣게
+  const failed = (err: unknown) => setStatus((err as Error)?.name === 'AbortError' ? t.canceled : t.shareFailed);
+  // 카카오톡 — 결과 링크를 공유 창으로 (링크만 보냄, 제목 · 설명 문장은 함께 보내지 않음)
+  //  공유 창이 없는 컴퓨터 브라우저는 링크를 복사해 카카오톡 대화창에 붙여 넣게
   const shareKakao = async () => {
-    if (window.matchMedia('(pointer: coarse)').matches && navigator.share) {
-      try {
+    try {
+      if (navigator.share) {
         await navigator.share({ url });
         setStatus(t.shared);
-        hit('kakao');
-      } catch {
-        setStatus(t.canceled);
+      } else {
+        await navigator.clipboard.writeText(url);
+        setStatus(t.kakaoCopied);
       }
-    } else if (await copyLink(t.kakaoCopied)) hit('kakao');
+      hit('kakao');
+    } catch (err) {
+      failed(err);
+    }
+  };
+  // 인스타그램 — 인스타는 링크 공유를 받지 않아 결과 이미지를 공유 창으로 (스토리 · 게시물 · DM 으로 바로)
+  //  이미지 공유가 안 되는 기기는 이미지를 내려받아 인스타그램에 올리게
+  const shareInsta = async () => {
+    try {
+      const file = await resultFile();
+      if (navigator.canShare?.({ files: [file] })) {
+        await navigator.share({ files: [file] });
+        setStatus(t.shared);
+      } else {
+        download(file);
+        setStatus(t.instaSaved);
+      }
+      hit('instagram');
+    } catch (err) {
+      failed(err);
+    }
   };
   const shareX = () => {
     window.open(`https://x.com/intent/post?url=${encodeURIComponent(url)}`, '_blank', 'noopener,noreferrer');
     setStatus(t.shared);
     hit('x');
-  };
-  const shareLink = async () => {
-    if (await copyLink(t.copied)) hit('link');
   };
 
   return (
@@ -267,8 +282,8 @@ function Result({ result, shared, onRetry, focusRef }: { result: QuizResult; sha
             <button type="button" className="share__btn share__btn--x" onClick={shareX} aria-label={t.shareX} title={t.shareX} data-track="result_share_x">
               <ShareIcon name="x" />
             </button>
-            <button type="button" className="share__btn share__btn--link" onClick={shareLink} aria-label={t.shareLink} title={t.shareLink} data-track="result_share_link">
-              <ShareIcon name="link" />
+            <button type="button" className="share__btn share__btn--insta" onClick={shareInsta} aria-label={t.shareInsta} title={t.shareInsta} data-track="result_share_instagram">
+              <ShareIcon name="insta" />
             </button>
           </div>
         </div>
@@ -319,8 +334,8 @@ function ActIcon({ name }: { name: 'save' | 'retry' }) {
   );
 }
 
-/** 공유 동그라미 버튼 그림 — 카카오톡(노랑 바탕 · 갈색 말풍선 TALK) · X 로고 · 링크(사슬) */
-function ShareIcon({ name }: { name: 'kakao' | 'x' | 'link' }) {
+/** 공유 동그라미 버튼 그림 — 카카오톡(노랑 바탕 · 갈색 말풍선 TALK) · X 로고 · 인스타그램(카메라) */
+function ShareIcon({ name }: { name: 'kakao' | 'x' | 'insta' }) {
   if (name === 'kakao') {
     return (
       <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
@@ -337,9 +352,10 @@ function ShareIcon({ name }: { name: 'kakao' | 'x' | 'link' }) {
     );
   }
   return (
-    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="#fff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M10 14a4.5 4.5 0 0 0 6.4 0l3-3a4.5 4.5 0 0 0-6.4-6.4l-1.1 1.1" />
-      <path d="M14 10a4.5 4.5 0 0 0-6.4 0l-3 3a4.5 4.5 0 0 0 6.4 6.4l1.1-1.1" />
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="#fff" strokeWidth="2">
+      <rect x="3.5" y="3.5" width="17" height="17" rx="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.2" cy="6.8" r="1" fill="#fff" stroke="none" />
     </svg>
   );
 }

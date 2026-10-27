@@ -143,7 +143,7 @@
 .share__btn--kakao svg { width: 46px; height: 46px; }
 .share__btn--x { background: #000; }
 .share__btn--x svg { width: 24px; height: 24px; }
-.share__btn--link { background: #8E8E8E; }
-.share__btn--link svg { width: 26px; height: 26px; }
+.share__btn--insta { background: radial-gradient(circle at 30% 107%, #FDF497 0%, #FDF497 5%, #FD5949 45%, #D6249F 60%, #285AEB 90%); }
+.share__btn--insta svg { width: 28px; height: 28px; }
 .result__save { min-width: min(100%, 220px); margin-top: 6px; }
 .result__status { text-align: center; font-size: 14px; color: var(--ink-soft); min-height: 1.6em; }
