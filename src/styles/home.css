@@ -56,12 +56,12 @@
 }
 .intro__word.is-on { opacity: 1; transform: none; filter: none; }
 .intro[data-phase="iris"] .intro__word.is-on { opacity: .6; filter: blur(5px); }
-/* 헌팅(왼쪽 위) · 이성(오른쪽) · 술(왼쪽 아래) · 파티(오른쪽 아래, 가장 크게) — 시안 배치 */
+/* 나타나는 순서 파티 → 헌팅 → 술 → 이성 / 자리: 파티 오른쪽 아래(가장 크게) · 헌팅 왼쪽 위 · 술 왼쪽 아래 · 이성 오른쪽 */
 /* 넓은 화면에서도 양 끝에 붙지 않게 — 화면 가운데에서 440px 안쪽까지만 벌어짐 */
-.w1 { left: max(15%, 50% - 420px); top: 27%; font-size: clamp(46px, 8vw, 118px); }
-.w2 { right: max(9%, 50% - 440px); top: 36%; text-align: right; font-size: clamp(44px, 7.6vw, 110px); }
+.w1 { right: max(14%, 50% - 420px); top: 63%; text-align: right; font-size: clamp(60px, 10vw, 150px); }
+.w2 { left: max(15%, 50% - 420px); top: 27%; font-size: clamp(46px, 8vw, 118px); }
 .w3 { left: max(17%, 50% - 400px); top: 60%; font-size: clamp(44px, 7.6vw, 110px); }
-.w4 { right: max(14%, 50% - 420px); top: 63%; text-align: right; font-size: clamp(60px, 10vw, 150px); }
+.w4 { right: max(9%, 50% - 440px); top: 36%; text-align: right; font-size: clamp(44px, 7.6vw, 110px); }
 /* 네 단어 모두 같은 색 */
 .intro__word { color: #C4BEB5; }
 
@@ -96,11 +96,11 @@
 .intro[data-phase="turn"] .intro__turn { opacity: 1; transform: none; }
 
 @media (max-width: 639px) {
-  /* 휴대폰 시안 — 헌팅 왼쪽 위 · 이성 오른쪽 · 술 왼쪽 아래 · 파티 오른쪽 아래(가장 크게) */
-  .w1 { top: 26%; left: 16%; font-size: clamp(46px, 14vw, 58px); }
-  .w2 { top: 34%; right: 9%; font-size: clamp(40px, 12.4vw, 52px); }
+  /* 휴대폰 시안 — 파티 오른쪽 아래(가장 크게) · 헌팅 왼쪽 위 · 술 왼쪽 아래 · 이성 오른쪽 */
+  .w1 { top: 63%; right: 15%; font-size: clamp(56px, 18vw, 76px); }
+  .w2 { top: 26%; left: 16%; font-size: clamp(46px, 14vw, 58px); }
   .w3 { top: 60%; left: 17%; font-size: clamp(42px, 13vw, 54px); }
-  .w4 { top: 63%; right: 15%; font-size: clamp(56px, 18vw, 76px); }
+  .w4 { top: 34%; right: 9%; font-size: clamp(40px, 12.4vw, 52px); }
 }
 
 /* 동작 줄이기 — 고정 없이 질문과 문구를 차례로 */
@@ -108,7 +108,7 @@
 .intro--static .intro__stage { position: relative; height: auto; min-height: 100vh; min-height: 100svh; display: grid; align-content: center; gap: 40px; padding: calc(var(--header) + 90px) var(--gutter) 110px; }
 .intro--static .intro__q, .intro--static .intro__words, .intro--static .intro__word { position: relative; inset: auto; opacity: 1; filter: none; transform: none; }
 .intro--static .intro__words { display: grid; gap: 22px; }
-.intro--static .w2 { text-align: right; }
+.intro--static .w1, .intro--static .w4 { text-align: right; }
 .intro--static .intro__word { white-space: normal; left: auto; right: auto; top: auto; }
 .intro--static .intro__hint, .intro--static .intro__reticle { display: none; }
 .intro--static .intro__turn { position: relative; inset: auto; opacity: 1; transform: none; margin-top: 24px; }
