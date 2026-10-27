@@ -13,6 +13,9 @@ import { TASTE_LAYERS, TASTE_PLACES, type TasteLayer, type TastePlace } from '..
  */
 type Filter = TasteLayer | 'all';
 
+// 띄어쓰기 · 대소문자 상관없이 찾기 (예: '제주시한림' = '제주시 한림읍')
+const norm = (s: string) => s.replace(/\s+/g, '').toLowerCase();
+
 const esc = (s: string) => s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!);
 
 export default function MapPage() {
@@ -20,6 +23,7 @@ export default function MapPage() {
   const t = ui.map;
   const [filter, setFilter] = useState<Filter>('all');
   const [active, setActive] = useState<string | null>(null);
+  const [query, setQuery] = useState('');
   const mapEl = useRef<HTMLDivElement>(null);
   const mapRef = useRef<L.Map | null>(null);
   const markers = useRef<Map<string, L.CircleMarker>>(new Map());
@@ -27,12 +31,18 @@ export default function MapPage() {
   const layerOf = (id: TasteLayer) => TASTE_LAYERS.find((l) => l.id === id)!;
   const layerName = (id: TasteLayer) => layerOf(id)[lang];
   const descOf = (p: TastePlace) => (p.stay ? programById[p.stay].report.oneLine ?? '' : p.desc ?? '');
-  const shown = useMemo(() => TASTE_PLACES.filter((p) => filter === 'all' || p.layer === filter), [filter]);
+  // 검색 — 이름 · 지역 · 주소에서 찾음 (레이어 버튼과 함께 걸러짐)
+  const found = useMemo(() => {
+    const q = norm(query);
+    return q ? TASTE_PLACES.filter((p) => norm(`${p.name}${p.area}${p.address ?? ''}`).includes(q)) : TASTE_PLACES;
+  }, [query]);
+  const shown = useMemo(() => found.filter((p) => filter === 'all' || p.layer === filter), [found, filter]);
 
   // 지도 — 처음 한 번 만들고, 핀은 언어가 바뀌면 다시 그림
   useEffect(() => {
     if (!mapEl.current || mapRef.current) return;
-    const map = L.map(mapEl.current, { scrollWheelZoom: false, zoomControl: true, attributionControl: true }).setView([33.38, 126.55], 10);
+    const map = L.map(mapEl.current, { scrollWheelZoom: false, zoomControl: false, attributionControl: true, zoomSnap: 0.25 }).setView([33.38, 126.55], 10);
+    L.control.zoom({ position: 'bottomright' }).addTo(map); // 위는 검색창 자리
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>',
@@ -68,17 +78,17 @@ export default function MapPage() {
     });
   }, [lang]);
 
-  // 레이어 고르기 — 고른 핀만 보이고, 그 핀들이 다 들어오게 맞춤
+  // 레이어 고르기 · 검색 — 걸러진 핀만 보이고, 그 핀들이 다 들어오게 맞춤
   useEffect(() => {
     const map = mapRef.current;
     if (!map) return;
+    const on = new Set(shown.map((p) => p.name));
     markers.current.forEach((m, name) => {
-      const p = TASTE_PLACES.find((x) => x.name === name)!;
-      if (filter === 'all' || p.layer === filter) m.addTo(map);
+      if (on.has(name)) m.addTo(map);
       else m.remove();
     });
-    if (shown.length) map.fitBounds(L.latLngBounds(shown.map((p) => [p.lat, p.lng] as [number, number])), { padding: [36, 36], maxZoom: 12 });
-  }, [filter, shown, lang]);
+    if (shown.length) map.fitBounds(L.latLngBounds(shown.map((p) => [p.lat, p.lng] as [number, number])), { paddingTopLeft: [28, 84], paddingBottomRight: [28, 28], maxZoom: 12 }); // 위는 검색창만큼 비움
+  }, [shown, lang]);
 
   const focus = (p: TastePlace) => {
     setActive(p.name);
@@ -100,10 +110,10 @@ export default function MapPage() {
 
       <div className="tmap__filters wrap" role="group" aria-label={t.filterAria}>
         <button type="button" className="tmap__chip" aria-pressed={filter === 'all'} onClick={() => setFilter('all')}>
-          {t.all} <span className="tmap__n">{TASTE_PLACES.length}</span>
+          {t.all} <span className="tmap__n">{found.length}</span>
         </button>
         {TASTE_LAYERS.map((l) => {
-          const n = TASTE_PLACES.filter((p) => p.layer === l.id).length;
+          const n = found.filter((p) => p.layer === l.id).length;
           return (
             <button key={l.id} type="button" className="tmap__chip" aria-pressed={filter === l.id} onClick={() => setFilter(l.id)} style={{ '--c': l.color } as CSSProperties} data-track={`map_layer_${l.id}`}>
               <i aria-hidden="true" /> {l[lang]} <span className="tmap__n">{n}</span>
@@ -115,6 +125,14 @@ export default function MapPage() {
       <div className="tmap__body wrap">
         <div className="tmap__mapwrap">
           <div ref={mapEl} className="tmap__map" role="region" aria-label={t.pageTitle} />
+          {/* 지도 위 검색창 — 엔터를 누르면 결과가 하나일 때 그곳으로 */}
+          <form className="tmap__search" role="search" onSubmit={(e) => { e.preventDefault(); if (shown.length === 1) focus(shown[0]); }}>
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="10.5" cy="10.5" r="6.5" /><path d="M15.5 15.5 21 21" /></svg>
+            <input type="search" value={query} onChange={(e) => setQuery(e.target.value)} placeholder={t.search} aria-label={t.searchAria} enterKeyHint="search" data-track="map_search" />
+            {query && (
+              <button type="button" className="tmap__clear" onClick={() => setQuery('')} aria-label={t.searchClear}>×</button>
+            )}
+          </form>
         </div>
         <ol className="tmap__list" aria-label={t.listAria}>
           {shown.map((p) => {
@@ -133,6 +151,7 @@ export default function MapPage() {
               </li>
             );
           })}
+          {shown.length === 0 && <li className="tmap__empty">{t.noResult}</li>}
         </ol>
       </div>
       <p className="tmap__note wrap">{t.note}</p>

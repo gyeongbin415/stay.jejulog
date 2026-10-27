@@ -20,6 +20,20 @@
 
 /* 지도 · 목록 — 넓은 화면은 나란히(지도는 따라 내려옴), 휴대폰은 지도 위 · 목록 아래 */
 .tmap__body { display: grid; gap: 16px; }
+.tmap__mapwrap { position: relative; }
+/* 지도 위 검색창 — 흰 둥근 상자 · 돋보기 */
+.tmap__search {
+  position: absolute; z-index: 500; top: 14px; left: 14px; right: 14px; display: flex; align-items: center; gap: 10px;
+  height: 54px; padding: 0 8px 0 18px; border-radius: 16px; background: #fff; box-shadow: 0 4px 18px rgba(21, 19, 18, .16);
+}
+.tmap__search svg { flex: none; width: 22px; height: 22px; fill: none; stroke: var(--ink); stroke-width: 2.2; stroke-linecap: round; }
+.tmap__search input { flex: 1; min-width: 0; height: 100%; border: 0; outline: 0; background: none; font: inherit; font-size: 16px; color: var(--ink); }
+.tmap__search input::placeholder { color: #A29C95; }
+.tmap__search input::-webkit-search-cancel-button { display: none; }
+.tmap__search:focus-within { box-shadow: 0 4px 18px rgba(21, 19, 18, .16), 0 0 0 2px var(--orange); }
+.tmap__clear { flex: none; width: 38px; height: 38px; border: 0; border-radius: 50%; background: none; color: var(--ink-soft); font-size: 24px; line-height: 1; cursor: pointer; }
+.tmap__clear:hover { background: var(--paper); }
+.tmap__empty { padding: 24px 18px; border-radius: 14px; background: var(--paper); font-size: 14.5px; line-height: 1.6; color: var(--ink-soft); }
 .tmap__map { height: min(58vh, 460px); border-radius: 18px; overflow: hidden; background: #E8EEF0; z-index: 0; }
 .tmap__list { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
 .tmap__item {
