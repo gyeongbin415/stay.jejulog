@@ -88,7 +88,7 @@
 .intro__turn {
   z-index: 3; position: absolute; inset: 0 var(--gutter); display: grid; place-content: center; justify-items: center; gap: .78em; text-align: center;
   font-family: var(--f-home); font-weight: 800; font-size: clamp(21px, 3.4vw, 46px); line-height: 1.3; letter-spacing: -0.035em;
-  color: #FFFFFF; /* 첫 줄 · 끝 줄은 흰색, 가운데 ‘제주 게스트하우스’만 주황 */
+  color: #FFFFFF; /* 앞 두 줄은 흰색, 끝 줄은 베이지(.intro__turn-end) */
   pointer-events: none; opacity: 0; transform: translateY(16px);
   transition: opacity .8s var(--ease) .35s, transform .8s var(--ease-out) .35s;
 }
@@ -286,9 +286,9 @@
 .outro .btn:hover { background: #F5A266; border-color: #F5A266; }
 
 /* 전환 문장 가운데 줄 — ‘제주 게스트하우스’를 크고 선명한 주황으로 (윗줄과는 붙여서) */
-.intro__turn-em { font-size: 1.55em; line-height: 1.15; margin-top: .08em; white-space: nowrap; color: #FF8A1F; }
+.intro__turn-em { font-size: 1.55em; line-height: 1.15; margin-top: .08em; white-space: nowrap; color: #FFFFFF; }
 /* 마지막 줄 '전부가 아닙니다.' — 첫 줄보다 크게 */
-.intro__turn-end { font-size: 1.2em; }
+.intro__turn-end { font-size: 1.2em; color: #F8ECDA; } /* 마지막 줄만 메인 베이지 — 앞 두 줄은 흰색 */
 /* '당신이 알고 있는 ‘제주 게스트하우스’'가 먼저 뜨고, 잠시 뒤 '전부가 아닙니다.' */
 .intro__turn-end { opacity: 0; transform: translateY(12px); transition: opacity .7s var(--ease), transform .7s var(--ease-out); }
 .intro[data-phase="turn"] .intro__turn-end { opacity: 1; transform: none; transition-delay: 1.5s; }
