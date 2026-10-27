@@ -54,14 +54,16 @@
     <!-- 첫 화면 로딩 — 앱이 뜨기 전 소라게 로딩 그림 (앱이 #root 를 그리면 함께 사라짐) -->
     <link rel="preload" as="image" href="loading-crab.webp" />
     <style>
-      #boot-loader { position: fixed; inset: 0; z-index: 200; display: grid; place-content: center; justify-items: center; gap: 8px; background: #FAFAF3; }
-      #boot-loader .art { display: block; width: clamp(80px, 22vw, 96px); height: auto; }
-      #boot-loader .text { display: block; width: auto; height: calc(clamp(17px, 2vw, 25px) * 1.3); }
-      #boot-loader .dots { display: flex; gap: 6px; }
-      #boot-loader .dots i { width: 6px; height: 6px; border-radius: 50%; background: #E4BC99; animation: boot-dot 1.2s infinite; }
-      #boot-loader .dots i:nth-child(2) { animation-delay: .4s; }
-      #boot-loader .dots i:nth-child(3) { animation-delay: .8s; }
-      @keyframes boot-dot { 0%, 33% { background: #F58E4B; } 34%, 100% { background: #E4BC99; } }
+      #boot-loader { position: fixed; inset: 0; z-index: 200; display: grid; place-content: center; justify-items: center; background: #FAFAF3; }
+      #boot-loader .art { display: block; width: clamp(190px, 56vw, 240px); height: auto; }
+      #boot-loader .text { display: block; width: clamp(200px, 61vw, 260px); height: auto; margin-top: 30px; }
+      #boot-loader .dots { display: flex; gap: 9px; margin-top: 16px; }
+      #boot-loader .dots i { width: 10px; height: 10px; border-radius: 50%; background: #E4BC99; animation: boot-dot1 1.8s steps(1, end) infinite; }
+      #boot-loader .dots i:nth-child(2) { animation-name: boot-dot2; }
+      #boot-loader .dots i:nth-child(3) { animation-name: boot-dot3; }
+      @keyframes boot-dot1 { 0% { background: #F58E4B; } 75% { background: #E4BC99; } }
+      @keyframes boot-dot2 { 0% { background: #E4BC99; } 25% { background: #F58E4B; } 75% { background: #E4BC99; } }
+      @keyframes boot-dot3 { 0% { background: #E4BC99; } 50% { background: #F58E4B; } 75% { background: #E4BC99; } }
     </style>
     <noscript><style>#boot-loader { display: none; }</style></noscript>
   </head>
