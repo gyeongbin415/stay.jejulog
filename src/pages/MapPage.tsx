@@ -62,15 +62,12 @@ export default function MapPage() {
     TASTE_PLACES.forEach((p) => {
       const color = layerOf(p.layer).color;
       const m = L.circleMarker([p.lat, p.lng], { radius: p.stay ? 10 : 8, color: '#fff', weight: 2, fillColor: color, fillOpacity: 1 });
-      const links = [
-        p.stay ? `<a href="${href.stay(p.stay)}">${esc(t.seeStay)} →</a>` : '',
-        `<a href="${p.kakao}" target="_blank" rel="noopener noreferrer">${esc(t.kakao)} ↗</a>`,
-        p.insta ? `<a href="${p.insta}" target="_blank" rel="noopener noreferrer">${esc(t.insta)} ↗</a>` : '',
-      ].filter(Boolean).join('');
+      // 바깥으로 나가는 링크(카카오맵 · 인스타그램)는 빼고, 웹진에 소개한 곳만 상세 페이지로
+      const links = p.stay ? `<a href="${href.stay(p.stay)}">${esc(t.seeStay)} →</a>` : '';
       m.bindPopup(
         `<div class="tmap-pop"><p class="tmap-pop__layer" style="color:${color}">${esc(layerName(p.layer))}${p.stay ? ` · ${esc(t.webzineBadge)}` : ''}</p>` +
           `<p class="tmap-pop__name">${esc(p.name)}</p><p class="tmap-pop__area">${esc(p.area)}</p>` +
-          `<p class="tmap-pop__desc">${esc(descOf(p))}</p><p class="tmap-pop__links">${links}</p></div>`,
+          `<p class="tmap-pop__desc">${esc(descOf(p))}</p>${links ? `<p class="tmap-pop__links">${links}</p>` : ''}</div>`,
         { maxWidth: 280 },
       );
       m.on('click', () => setActive(p.name));

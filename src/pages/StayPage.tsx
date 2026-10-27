@@ -228,18 +228,7 @@ export default function StayPage({ id }: { id: ProgramId }) {
                   <dd>{r.join.how}</dd>
                 </div>
               )}
-              {r.join.links && r.join.links.length > 0 && (
-                <div>
-                  <dt>{t.joinLinks}</dt>
-                  <dd>
-                    {r.join.links.map((l) => (
-                      <a key={l.url} href={l.url} target="_blank" rel="noopener noreferrer" data-track={`stay_${id}_official`}>
-                        {l.label} <span aria-hidden="true">↗</span>
-                      </a>
-                    ))}
-                  </dd>
-                </div>
-              )}
+              {/* 최신 안내(인스타그램 · 블로그 등 바깥 링크)는 보여 주지 않음 */}
             </dl>
         </section>
       )}
