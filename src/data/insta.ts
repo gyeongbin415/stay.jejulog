@@ -11,7 +11,8 @@ export const INSTA_PROFILE = {
   bio: ['🏡 에디터가 직접 머물고 기록하는 제주 숙소', '📖 소규모 게하부터 숨은 취향 스테이까지'],
   avatar: 'insta/profile.jpg',
   posts: 8,
-  followers: 37,
+  /** 팔로워 기준값 — 팀 요청으로 화면에 1,113명이 보이도록 (1,110 + 10/27 시점 웹진 팔로우 3). 실제 계정 팔로워는 37명 */
+  followers: 1110,
   following: 7,
 };
 
