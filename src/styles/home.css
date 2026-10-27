@@ -289,7 +289,7 @@
 /* 전환 문장 — '당신이 알고 있는' · ‘제주 게스트하우스’ 는 같은 크기 흰색,
    '전부가 아닙니다.' 만 크게 · 로고 색(#D46A1F)으로 눈에 들어오게 */
 .intro__turn > span { font-size: 1.15em; }
-.intro__turn-em { line-height: 1.15; white-space: nowrap; color: #FFFFFF; }
+.intro__turn-em { line-height: 1.15; margin-top: -.55em; white-space: nowrap; color: #FFFFFF; } /* 윗줄 '당신이 알고 있는'에 붙여서 */
 .intro__turn > .intro__turn-end { font-size: 1.75em; line-height: 1.15; margin-top: .05em; color: #D46A1F; }
 /* '당신이 알고 있는 ‘제주 게스트하우스’'가 먼저 뜨고, 잠시 뒤 '전부가 아닙니다.' */
 .intro__turn-end { opacity: 0; transform: translateY(12px); transition: opacity .7s var(--ease), transform .7s var(--ease-out); }
