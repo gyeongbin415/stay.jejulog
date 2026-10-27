@@ -296,18 +296,18 @@ function Problem() {
 const STRIP: { src: string; h: number; y: number; r: number; photo: string }[] = [
   { src: stripWine, h: 92, y: -3, r: -2, photo: 'rooftop-dinner' },
   { src: stripRun, h: 100, y: 2, r: 1.5, photo: 'run' },
-  { src: stripCandle, h: 98, y: 2, r: -1.5, photo: 'candle' },
-  { src: stripFlower, h: 96, y: -4, r: 2.5, photo: 'kokoko-flower' },
-  { src: stripNight, h: 91, y: 3, r: -2, photo: 'night' },
-  { src: stripDinner, h: 100, y: 0, r: 2, photo: 'susu-dinner-table' },
-  { src: stripSnap, h: 87, y: -5, r: -1, photo: 'mureung-snap' },
-  { src: stripRing, h: 92, y: 3, r: -2, photo: 'ring' },
-  { src: stripCamp, h: 97, y: 2, r: 2, photo: 'camp' },
   { src: stripLpWall, h: 89, y: -4, r: -1.5, photo: 'lpwall' },
-  { src: stripLibrary, h: 94, y: 3, r: 1.5, photo: 'bookhome-library' },
-  { src: stripLiving, h: 96, y: 1, r: 2, photo: 'living' },
+  { src: stripNight, h: 95, y: 3, r: 2, photo: 'night' },
+  { src: stripCamp, h: 97, y: -2, r: -2, photo: 'camp' },
+  { src: stripFlower, h: 90, y: 4, r: 2.5, photo: 'kokoko-flower' },
+  { src: stripLibrary, h: 94, y: -3, r: -1, photo: 'bookhome-library' },
+  { src: stripCandle, h: 98, y: 2, r: 1.5, photo: 'candle' },
+  { src: stripRing, h: 91, y: -4, r: -2, photo: 'ring' },
+  { src: stripSnap, h: 87, y: 3, r: 1, photo: 'mureung-snap' },
+  { src: stripMallow, h: 95, y: -1, r: -1.5, photo: 'mallow' },
+  { src: stripDinner, h: 100, y: 0, r: 2, photo: 'susu-dinner-table' },
   { src: stripSunrise, h: 90, y: -2, r: -2, photo: 'kokoko-sunrise' },
-  { src: stripMallow, h: 95, y: 4, r: 1.5, photo: 'mallow' },
+  { src: stripLiving, h: 96, y: 4, r: 1.5, photo: 'living' },
 ];
 
 function PhotoStrip() {

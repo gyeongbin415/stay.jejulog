@@ -82,7 +82,7 @@
 .result__hero img { display: block; width: clamp(180px, 20vw, 220px); height: auto; margin: 0 auto; } /* 이야기 화면 소라게와 비슷한 크기 */
 /* 넓은 화면 — BEST 1 은 BEST 2 · 3(170px)보다 크게 */
 @media (min-width: 768px) { .result__hero img { width: 300px; } }
-.result__rank { position: absolute; left: 50%; top: 0; translate: -50% 0; padding: 5px 0; white-space: nowrap; font-size: 12.5px; font-weight: 700; letter-spacing: .1em; color: var(--orange-ink); }
+.result__rank { position: absolute; left: 50%; top: 0; translate: -50% 0; padding: 5px 0; white-space: nowrap; font-size: clamp(16px, 1.6vw, 19px); font-weight: 700; letter-spacing: .1em; color: var(--orange-ink); }
 .result__head .btn { margin-top: 10px; }
 
 .result__picks { display: grid; gap: 20px; }
