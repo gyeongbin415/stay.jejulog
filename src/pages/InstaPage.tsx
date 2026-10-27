@@ -15,7 +15,7 @@ export default function InstaPage() {
   const t = ui.insta;
   const p = INSTA_PROFILE;
   const [open, setOpen] = useState<number | null>(null);
-  const [following, setFollowing] = useState(false);
+  const { following, extra, toggle } = useFollow();
   const fmt = new Intl.NumberFormat(lang === 'zh' ? 'zh-CN' : lang);
 
   return (
@@ -29,14 +29,14 @@ export default function InstaPage() {
           <div className="insta-head__row">
             <p className="insta-head__handle">{p.handle}</p>
             <div className="insta-head__btns">
-              <button type="button" className={`insta-btn${following ? ' insta-btn--ghost' : ''}`} aria-pressed={following} onClick={() => setFollowing((f) => !f)} data-track="insta_follow">
+              <button type="button" className={`insta-btn${following ? ' insta-btn--ghost' : ''}`} aria-pressed={following} onClick={toggle} data-track="insta_follow">
                 {following ? t.following : t.follow}
               </button>
             </div>
           </div>
           <ul className="insta-head__stats">
             <li><strong>{fmt.format(p.posts)}</strong> {t.posts}</li>
-            <li><strong>{fmt.format(p.followers + (following ? 1 : 0))}</strong> {t.followers}</li>
+            <li><strong>{fmt.format(p.followers + extra)}</strong> {t.followers}</li>
             <li><strong>{fmt.format(p.following)}</strong> {t.following}</li>
           </ul>
           <div className="insta-head__bio">
@@ -66,6 +66,53 @@ export default function InstaPage() {
       {open != null && <PostModal key={open} n={open + 1} post={INSTA_POSTS[open]} onClose={() => setOpen(null)} />}
     </section>
   );
+}
+
+/**
+ * 팔로우 — 웹진에서 누른 팔로우가 방문자 모두에게 쌓여 보이도록 공용 카운터(abacus.jasoncameron.dev)에 기록합니다.
+ * 카운터는 올리기만 되므로 '팔로우'와 '팔로우 취소'를 따로 세고, 화면 숫자 = 실제 팔로워 + 팔로우 − 취소.
+ * 한 브라우저는 한 번만 — 팔로우한 상태를 이 브라우저에 기억합니다. 카운터에 닿지 못하면 내 팔로우만 반영.
+ */
+const COUNTER = 'https://abacus.jasoncameron.dev';
+const NS = 'stay-jejulog';
+const FOLLOW_KEY = 'jejulog:insta-following';
+
+function useFollow() {
+  const [following, setFollowing] = useState(() => {
+    try {
+      return localStorage.getItem(FOLLOW_KEY) === '1';
+    } catch {
+      return false;
+    }
+  });
+  const [counts, setCounts] = useState<{ up: number; down: number } | null>(null);
+  useEffect(() => {
+    let alive = true;
+    Promise.all(['insta-follow', 'insta-unfollow'].map((k) => fetch(`${COUNTER}/get/${NS}/${k}`).then((r) => r.json())))
+      .then(([u, d]) => alive && setCounts({ up: u.value ?? 0, down: d.value ?? 0 }))
+      .catch(() => {});
+    return () => {
+      alive = false;
+    };
+  }, []);
+  const toggle = () => {
+    const next = !following;
+    setFollowing(next);
+    try {
+      localStorage.setItem(FOLLOW_KEY, next ? '1' : '0');
+    } catch {
+      /* 기억하지 못해도 숫자는 그대로 */
+    }
+    const key = next ? 'up' : 'down';
+    setCounts((c) => c && { ...c, [key]: c[key] + 1 }); // 먼저 화면에 반영
+    fetch(`${COUNTER}/hit/${NS}/${next ? 'insta-follow' : 'insta-unfollow'}`)
+      .then((r) => r.json())
+      .then((j) => typeof j.value === 'number' && setCounts((c) => c && { ...c, [key]: j.value }))
+      .catch(() => {});
+  };
+  // 카운터를 못 읽었으면 내 팔로우만 +1
+  const extra = counts ? Math.max(0, counts.up - counts.down) : following ? 1 : 0;
+  return { following, extra, toggle };
 }
 
 /** 게시물 속 사진 — public/insta/p{n}/01.webp … (n 은 게시물 번호, 1부터) */

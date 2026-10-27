@@ -224,6 +224,5 @@
 .outro__title span { display: block; }
 .outro__closing { font-family: var(--f-home); font-weight: 500; font-size: clamp(17px, 1.8vw, 22px); line-height: 1.75; margin-top: 12px; }
 .outro__actions { display: grid; justify-items: start; gap: 14px; margin-top: clamp(24px, 5vh, 48px); }
-/* 다시 둘러보기 · 인스타그램 보러가기 — 테두리만 (먹색 배경 위 주황 선) */
-.outro .btn { font-size: 15px; background: transparent; border: 1.5px solid #F39A52; color: #F39A52; }
-.outro .btn:hover { background: #F39A52; border-color: #F39A52; color: #111111; }
+/* 다시 둘러보기 · 인스타그램 보러가기 — '테스트 바로가기'와 같은 주황 바탕 버튼 */
+.outro .btn { font-size: 15px; color: #111111; }
