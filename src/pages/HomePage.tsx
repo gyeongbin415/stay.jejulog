@@ -6,6 +6,7 @@ import { href } from '../lib/router';
 import { useReducedMotion } from '../lib/motion';
 import { HousePage } from './HousePage';
 import { GehageScene } from '../components/GehageScene';
+import { INSTA_POSTS } from '../data/insta';
 import introNightUrl from '../assets/intro-night.webp';
 import stripWine from '../assets/strip/rooftop-dinner.webp';
 import stripRun from '../assets/strip/saewol-run.webp';
@@ -386,6 +387,16 @@ function InsideRooms() {
           <p className="label">MORE STORIES</p>
           <h2 id="inside-title" className="more__title">{ui.home.moreTitle}</h2>
           <p className="more__sub">{ui.home.moreSub}</p>
+          {/* 인스타그램 게시물 표지 사진만 — 세 칸 격자, 누르면 웹진 인스타그램 페이지로 */}
+          <ul className="more__grid">
+            {INSTA_POSTS.map((p, i) => (
+              <li key={p.img}>
+                <a href={href.insta()} data-track={`inside_thumb_${i + 1}`}>
+                  <img src={p.img} alt={p.alt} loading="lazy" decoding="async" />
+                </a>
+              </li>
+            ))}
+          </ul>
           <a className="btn more__btn" href={href.insta()} data-track="inside_instagram">
             {ui.home.moreCta}
             <svg className="more__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
