@@ -2,7 +2,7 @@ import { lazy, Suspense, useEffect, useLayoutEffect, useRef } from 'react';
 import { useRoute, scrollToSection, parseHash, routeKey } from './lib/router';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
-import { MapFab, MapPage } from './components/MapFab';
+import { MapFab } from './components/MapFab';
 import { Loader } from './components/Loader';
 import { HomePage } from './pages/HomePage';
 import { HousePage } from './pages/HousePage';
@@ -14,6 +14,7 @@ import { INSTA_PROFILE } from './data/insta';
 const StayPage = lazy(() => import('./pages/StayPage'));
 const TestPage = lazy(() => import('./pages/TestPage'));
 const InstaPage = lazy(() => import('./pages/InstaPage'));
+const MapPage = lazy(() => import('./pages/MapPage'));
 
 export function App() {
   const route = useRoute();
@@ -50,7 +51,7 @@ export function App() {
     } else if (route.name === 'insta') {
       m = { title: `${ui.insta.title} | ${SITE_NAME}`, description: INSTA_PROFILE.bio.join(' '), path: '#/instagram' };
     } else if (route.name === 'map') {
-      m = { title: `${ui.map.title} | ${SITE_NAME}`, description: site.description, path: '#/map' };
+      m = { title: `${ui.map.pageTitle} | ${SITE_NAME}`, description: ui.map.sub, path: '#/map' };
     }
     applyPageMeta(m);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -126,7 +127,9 @@ export function App() {
           ) : route.name === 'house' ? (
             <HousePage />
           ) : route.name === 'map' ? (
-            <MapPage />
+            <Suspense fallback={<Loader label={ui.map.title} />}>
+              <MapPage />
+            </Suspense>
           ) : route.name === 'home' ? (
             <HomePage />
           ) : (

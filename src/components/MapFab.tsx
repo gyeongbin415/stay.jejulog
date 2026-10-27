@@ -16,15 +16,3 @@ export function MapFab() {
     </a>
   );
 }
-
-/** 취향 지도 페이지 — 내용은 준비 중 (자리만) */
-export function MapPage() {
-  const { ui } = useContent();
-  return (
-    <section className="mappage" data-tone="light" aria-labelledby="map-title">
-      <p className="label">TASTE MAP</p>
-      <h1 id="map-title" className="mappage__title">{ui.map.title}</h1>
-      <p className="mappage__soon">{ui.map.soon}</p>
-    </section>
-  );
-}

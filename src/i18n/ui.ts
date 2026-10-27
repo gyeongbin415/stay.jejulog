@@ -14,7 +14,8 @@ export interface UiText {
   app: { loadingStay: string; loadingTest: string; notFound: string; toHome: string };
   /** 웹진 안 인스타그램 페이지 */
   /** 취향 지도 — 오른쪽 아래 동그라미 버튼 · 페이지(내용은 준비 중) */
-  map: { title: string; open: string; soon: string; cta: string };
+  map: { title: string; open: string; cta: string;
+    pageTitle: string; sub: string; all: string; filterAria: string; listAria: string; webzineBadge: string; seeStay: string; kakao: string; insta: string; note: string };
   insta: { title: string; loading: string; posts: string; followers: string; following: string; follow: string; message: string; postsTab: string; gridAria: string; close: string; prev: string; next: string; likes: (n: number) => string; comments: (n: number) => string; seeStay: string };
   home: { srTitle: string; wordsAria: string; opening: string; findSub: (n: number) => string; typesAria: string;
     /** 메인 사진 띠 — 상세페이지에서 빠진 사진 둘의 대체 텍스트 */
@@ -56,7 +57,10 @@ export const UI: Record<Lang, UiText> = {
     nav: { main: '메인', house: '게하 탐색', test: '취향 테스트', more: '더 많은 이야기', menuOpen: '메뉴 열기', menuClose: '메뉴 닫기', menu: '메뉴', mainNav: '주요 메뉴', toHome: (b) => `${b} 메인으로` },
     footer: { tagline: '우리가 몰랐던 제주 게스트하우스를 만나는 웹진', desc: '제주에서의 하루를 조금 다르게 보내는 방법.\n당신의 취향에 맞는 게스트하우스를 발견해 보세요.', followUs: 'FOLLOW US', madeBy: 'MADE BY' },
     app: { loadingStay: '게스트하우스를 불러오는 중…', loadingTest: '테스트를 준비하는 중…', notFound: '찾으시는 페이지가 없습니다.', toHome: '메인으로' },
-    map: { title: '취향 지도', open: '취향 지도 열기', soon: '취향 지도를 준비하고 있어요.', cta: '취향 지도 보러가기' },
+    map: { title: '취향 지도', open: '취향 지도 열기', cta: '취향 지도 보러가기',
+      pageTitle: '제주 게하 취향지도', sub: '파티 대신 책, 음악, 저녁 한 끼, 모닥불로 이어지는 조용한 제주 게스트하우스를 취향별로 골라 보세요.',
+      all: '전체', filterAria: '취향 고르기', listAria: '게스트하우스 목록', webzineBadge: '웹진 소개', seeStay: '웹진에서 자세히 보기', kakao: '카카오맵', insta: '인스타그램',
+      note: '위치는 카카오맵 장소 정보 기준이에요. 프로그램과 운영 여부는 방문 전에 숙소에 한 번 더 확인해 주세요.' },
     insta: { title: '스테이 제주로그 인스타그램', loading: '인스타그램을 불러오는 중…', posts: '게시물', followers: '팔로워', following: '팔로잉', follow: '팔로우', message: '메시지 보내기', postsTab: '게시물', gridAria: '게시물 목록', close: '닫기', prev: '이전 사진', next: '다음 사진', likes: (n) => `좋아요 ${n}개`, comments: (n) => `댓글 ${n}개`, seeStay: '웹진에서 이 숙소 보기' },
     home: {
       srTitle: '제주 게스트하우스 공간 탐험 웹진',
@@ -108,7 +112,7 @@ export const UI: Record<Lang, UiText> = {
       shared: '공유 창을 열었습니다.', copied: '결과 링크를 복사했습니다.', canceled: '공유를 취소했습니다.',
       shareTitle: '내 결과 공유하기', shareKakao: '카카오톡으로 공유', shareX: 'X로 공유', shareInsta: '인스타그램으로 공유',
       kakaoCopied: '결과 링크를 복사했습니다. 카카오톡 대화창에 붙여 넣어 주세요.',
-      instaSaved: '결과 이미지를 저장했습니다. 인스타그램에 올려 주세요.', shareFailed: '공유하지 못했습니다. 다시 눌러 주세요.',
+      instaSaved: '결과 이미지를 저장했습니다. 열리는 인스타그램에서 저장한 이미지를 올려 주세요.', shareFailed: '공유하지 못했습니다. 다시 눌러 주세요.',
       bestReason: (t) => `‘${t}’ 취향에서 가장 높은 점수를 받은 곳.`,
       nextRunnerUp: (t) => `두 번째로 높게 나온 ‘${t}’ 성향에 어울리는 곳.`,
       nextSameType: (t) => `같은 ‘${t}’ 취향에서 함께 고른 곳.`,
@@ -122,7 +126,10 @@ export const UI: Record<Lang, UiText> = {
     nav: { main: 'Home', house: 'Explore', test: 'Taste Test', more: 'More Stories', menuOpen: 'Open menu', menuClose: 'Close menu', menu: 'Menu', mainNav: 'Main menu', toHome: (b) => `${b} home` },
     footer: { tagline: 'A webzine for meeting the Jeju guesthouses we never knew', desc: 'A slightly different way to spend a day in Jeju.\nDiscover the guesthouse that fits your taste.', followUs: 'FOLLOW US', madeBy: 'MADE BY' },
     app: { loadingStay: 'Loading the guesthouse…', loadingTest: 'Preparing the test…', notFound: 'We couldn’t find that page.', toHome: 'Back to home' },
-    map: { title: 'Taste Map', open: 'Open the taste map', soon: 'The taste map is on its way.', cta: 'See the taste map' },
+    map: { title: 'Taste Map', open: 'Open the taste map', cta: 'See the taste map',
+      pageTitle: 'Jeju Guesthouse Taste Map', sub: 'Quiet Jeju guesthouses where books, music, a shared dinner or a campfire take the place of parties — pick by taste.',
+      all: 'All', filterAria: 'Choose a taste', listAria: 'Guesthouse list', webzineBadge: 'In the webzine', seeStay: 'Read more in the webzine', kakao: 'Kakao Map', insta: 'Instagram',
+      note: 'Locations follow Kakao Map place data. Please check programs and opening with each stay before you visit. Descriptions of places outside the webzine are in Korean.' },
     insta: { title: 'STAY JEJULOG on Instagram', loading: 'Loading Instagram…', posts: 'posts', followers: 'followers', following: 'following', follow: 'Follow', message: 'Message', postsTab: 'Posts', gridAria: 'Posts', close: 'Close', prev: 'Previous photo', next: 'Next photo', likes: (n) => `${n} likes`, comments: (n) => `${n} comments`, seeStay: 'See this stay in the webzine' },
     home: {
       srTitle: 'A webzine for exploring Jeju guesthouses',
@@ -174,7 +181,7 @@ export const UI: Record<Lang, UiText> = {
       shared: 'Opened the share sheet.', copied: 'Result link copied.', canceled: 'Sharing canceled.',
       shareTitle: 'Share my result', shareKakao: 'Share on KakaoTalk', shareX: 'Share on X', shareInsta: 'Share on Instagram',
       kakaoCopied: 'Result link copied. Paste it into a KakaoTalk chat.',
-      instaSaved: 'Result image saved. Post it on Instagram.', shareFailed: 'Couldn’t share. Please try again.',
+      instaSaved: 'Result image saved. Post it from the Instagram that opens.', shareFailed: 'Couldn’t share. Please try again.',
       bestReason: (t) => `The top match for “${t}”.`,
       nextRunnerUp: (t) => `A fit for your second-strongest side, “${t}”.`,
       nextSameType: (t) => `Another pick for “${t}”.`,
@@ -188,7 +195,10 @@ export const UI: Record<Lang, UiText> = {
     nav: { main: '首页', house: '探索民宿', test: '喜好测试', more: '更多故事', menuOpen: '打开菜单', menuClose: '关闭菜单', menu: '菜单', mainNav: '主菜单', toHome: (b) => `返回${b}首页` },
     footer: { tagline: '遇见我们不曾了解的济州民宿的杂志', desc: '在济州度过与众不同一天的方法。\n发现适合你喜好的民宿吧。', followUs: 'FOLLOW US', madeBy: 'MADE BY' },
     app: { loadingStay: '正在加载民宿…', loadingTest: '正在准备测试…', notFound: '找不到您要的页面。', toHome: '返回首页' },
-    map: { title: '喜好地图', open: '打开喜好地图', soon: '喜好地图正在准备中。', cta: '查看喜好地图' },
+    map: { title: '喜好地图', open: '打开喜好地图', cta: '查看喜好地图',
+      pageTitle: '济州民宿喜好地图', sub: '以书、音乐、一顿晚餐或篝火代替派对的安静济州民宿，按喜好挑选吧。',
+      all: '全部', filterAria: '选择喜好', listAria: '民宿列表', webzineBadge: '杂志介绍', seeStay: '在杂志中查看详情', kakao: 'Kakao 地图', insta: 'Instagram',
+      note: '位置依据 Kakao 地图的地点信息。出发前请再向民宿确认活动与营业情况。杂志外民宿的介绍为韩文。' },
     insta: { title: 'STAY JEJULOG 的 Instagram', loading: '正在加载 Instagram…', posts: '帖子', followers: '粉丝', following: '关注', follow: '关注', message: '发消息', postsTab: '帖子', gridAria: '帖子列表', close: '关闭', prev: '上一张', next: '下一张', likes: (n) => `${n} 次赞`, comments: (n) => `${n} 条评论`, seeStay: '在杂志中查看这家民宿' },
     home: {
       srTitle: '济州民宿空间探索杂志',
@@ -240,7 +250,7 @@ export const UI: Record<Lang, UiText> = {
       shared: '已打开分享窗口。', copied: '已复制结果链接。', canceled: '已取消分享。',
       shareTitle: '分享我的结果', shareKakao: '分享到 KakaoTalk', shareX: '分享到 X', shareInsta: '分享到 Instagram',
       kakaoCopied: '已复制结果链接，请粘贴到 KakaoTalk 聊天中。',
-      instaSaved: '已保存结果图片，请发布到 Instagram。', shareFailed: '分享失败，请再试一次。',
+      instaSaved: '已保存结果图片，请在打开的 Instagram 中发布。', shareFailed: '分享失败，请再试一次。',
       bestReason: (t) => `在“${t}”喜好中得分最高的地方。`,
       nextRunnerUp: (t) => `适合你第二强的“${t}”倾向。`,
       nextSameType: (t) => `同为“${t}”喜好的另一个选择。`,

@@ -223,6 +223,12 @@ function Result({ result, shared, onRetry, focusRef }: { result: QuizResult; sha
   };
   // 인스타그램 — 인스타는 링크 공유를 받지 않아 결과 이미지를 공유 창으로 (스토리 · 게시물 · DM 으로 바로)
   //  이미지 공유가 안 되는 기기는 이미지를 내려받아 인스타그램에 올리게
+  //  휴대폰 공유 창이 없는 곳(카카오톡 · 앱 안 브라우저, 컴퓨터)은 이미지를 저장한 뒤
+  //  이 기기에 로그인된 인스타그램을 바로 엶 — 휴대폰은 인스타 앱 스토리 화면, 컴퓨터는 instagram.com 새 탭
+  const openInstagram = () => {
+    if (window.matchMedia('(pointer: coarse)').matches) window.location.href = 'instagram://story-camera';
+    else window.open('https://www.instagram.com/', '_blank', 'noopener,noreferrer');
+  };
   const shareInsta = async () => {
     try {
       const file = await resultFile();
@@ -232,6 +238,7 @@ function Result({ result, shared, onRetry, focusRef }: { result: QuizResult; sha
       } else {
         download(file);
         setStatus(t.instaSaved);
+        setTimeout(openInstagram, 600);
       }
       hit('instagram');
     } catch (err) {

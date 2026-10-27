@@ -1,0 +1,54 @@
+/* ==================================================================
+   PAGE 06 — 제주 게하 취향지도 (지도 + 레이어 버튼 + 목록)
+================================================================== */
+.tmap { padding: calc(var(--header) + clamp(28px, 5vh, 56px)) 0 clamp(64px, 10vh, 112px); }
+.tmap__head { display: grid; gap: 12px; margin-bottom: clamp(20px, 3vh, 28px); }
+.tmap__title { font-family: var(--f-home); font-size: clamp(27px, 3.8vw, 46px); font-weight: 700; line-height: 1.32; letter-spacing: -0.025em; }
+.tmap__sub { max-width: 40em; font-size: clamp(15px, 1.5vw, 17px); line-height: 1.7; color: var(--ink-soft); }
+
+/* 레이어 버튼 — 가로로 넘겨 보기 */
+.tmap__filters { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 14px; scrollbar-width: none; }
+.tmap__filters::-webkit-scrollbar { display: none; }
+.tmap__chip {
+  flex: none; display: inline-flex; align-items: center; gap: 6px; height: 38px; padding: 0 14px;
+  border: 1px solid rgba(58, 55, 53, .18); border-radius: 999px; background: #fff; color: var(--ink);
+  font-size: 14px; font-weight: 600; cursor: pointer; transition: background var(--t-hover) var(--ease), border-color var(--t-hover) var(--ease);
+}
+.tmap__chip i { width: 10px; height: 10px; border-radius: 50%; background: var(--c); }
+.tmap__chip[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: #fff; }
+.tmap__n { font-size: 12px; font-weight: 500; opacity: .6; }
+
+/* 지도 · 목록 — 넓은 화면은 나란히(지도는 따라 내려옴), 휴대폰은 지도 위 · 목록 아래 */
+.tmap__body { display: grid; gap: 16px; }
+.tmap__map { height: min(58vh, 460px); border-radius: 18px; overflow: hidden; background: #E8EEF0; z-index: 0; }
+.tmap__list { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.tmap__item {
+  display: grid; gap: 4px; width: 100%; padding: 16px 18px; border: 1px solid transparent; border-radius: 14px;
+  background: var(--paper); text-align: left; color: var(--ink); cursor: pointer; transition: border-color var(--t-hover) var(--ease), background var(--t-hover) var(--ease);
+}
+.tmap__item:hover { background: #fff; }
+.tmap__item.is-on { background: #fff; border-color: var(--orange); }
+.tmap__layer { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 700; }
+.tmap__layer i { width: 8px; height: 8px; border-radius: 50%; }
+.tmap__badge { margin-left: 4px; padding: 2px 8px; border-radius: 999px; background: var(--orange); color: #111; font-size: 11px; font-weight: 700; }
+.tmap__name { font-family: var(--f-home); font-size: 17px; font-weight: 700; letter-spacing: -0.02em; }
+.tmap__area { font-size: 13px; color: var(--ink-soft); }
+.tmap__desc { font-size: 14px; line-height: 1.6; color: var(--ink-soft); }
+.tmap__note { margin-top: 20px; font-size: 13px; line-height: 1.6; color: var(--ink-soft); }
+@media (min-width: 900px) {
+  .tmap__body { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); align-items: start; gap: 24px; }
+  .tmap__mapwrap { position: sticky; top: calc(var(--header) + 16px); }
+  .tmap__map { height: min(72vh, 640px); }
+}
+
+/* 지도 말풍선 */
+.tmap-pop { display: grid; gap: 3px; font-family: var(--f-home); }
+.tmap-pop p { margin: 0 !important; }
+.tmap-pop__layer { font-size: 12px; font-weight: 700; }
+.tmap-pop__name { font-size: 16px; font-weight: 700; color: #111; }
+.tmap-pop__area { font-size: 12.5px; color: #6b6660; }
+.tmap-pop__desc { margin-top: 4px !important; font-size: 13px; line-height: 1.55; color: #3a3735; }
+.tmap-pop__links { display: flex; flex-wrap: wrap; gap: 6px 12px; margin-top: 6px !important; }
+.tmap-pop__links a { color: #C25A1C; font-weight: 700; font-size: 13px; text-decoration: none; }
+.tmap-pop__links a:hover { text-decoration: underline; }
+.leaflet-container { font-family: var(--f-home); }
