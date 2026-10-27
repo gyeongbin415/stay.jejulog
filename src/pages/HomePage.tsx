@@ -5,6 +5,7 @@ import { useContent } from '../i18n';
 import { href } from '../lib/router';
 import { useReducedMotion } from '../lib/motion';
 import { HousePage } from './HousePage';
+import { GehageScene } from '../components/GehageScene';
 import introNightUrl from '../assets/intro-night.webp';
 import stripWine from '../assets/strip/rooftop-dinner.webp';
 import stripRun from '../assets/strip/saewol-run.webp';
@@ -358,6 +359,12 @@ function FindYourStay() {
             ))}
           </h2>
           <p className="section-head__sub pre">{ui.home.findSub(QUESTIONS.length)}</p>
+        </div>
+        {/* 테스트 첫 화면의 소라게 게하게 소개 — 그림 · 이름 · 두 줄 이야기 그대로, 그 밑에 테스트 버튼 */}
+        <div className="find__gehage story">
+          <GehageScene bubbleId="find-bubble-fill" />
+          <p className="story__title">{ui.test.storyTitle}</p>
+          <p className="story__body pre">{ui.test.storyBody}</p>
           <a className="btn" href={href.test()} data-track="find_cta">
             {SITE.findYourStay.cta} <span className="arrow" aria-hidden="true">→</span>
           </a>

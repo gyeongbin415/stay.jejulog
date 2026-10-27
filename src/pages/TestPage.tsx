@@ -8,15 +8,9 @@ import { href } from '../lib/router';
 import { prefersReducedMotion } from '../lib/motion';
 import { track } from '../lib/track';
 import { makeResultImage } from '../lib/resultImage';
-import gehageUrl from '../assets/gehage.png';
-import storyCrabUrl from '../assets/gehage-story-crab.webp';
-import storyBubbleUrl from '../assets/gehage-story-bubble.webp';
 
-/** 말풍선 모양 — 타원 몸통(가운데 112,58 · 반지름 100×52)과 왼쪽 아래로 뻗은 꼬리 */
-const BUBBLE_PATH = 'M54.6 100.6 A100 52 0 1 0 30.1 87.8 Q29 110 14 126 Q38 117 54.6 100.6 Z';
-
-/** 'story' — 테스트 전 소라게 게하게 이야기 · 숫자 — 질문 순서 · 'result' — 결과 */
-type Step = 'story' | number | 'result';
+/** 숫자 — 질문 순서 · 'result' — 결과 */
+type Step = number | 'result';
 
 /**
  * PAGE 04 — 취향 테스트
@@ -24,10 +18,10 @@ type Step = 'story' | number | 'result';
  * 결과는 BEST 1(결과 유형의 대표 숙소) + BEST 2 · 3(그다음 추천).
  */
 export default function TestPage({ sharedCode, mine = false }: { sharedCode: string | null; mine?: boolean }) {
-  const { ui, questions, lang } = useContent();
+  const { ui, questions } = useContent();
   const shared = decodeAnswers(sharedCode);
   const [answers, setAnswers] = useState<(AnswerKey | null)[]>(() => shared ?? QUESTIONS.map(() => null));
-  const [step, setStep] = useState<Step>(shared ? 'result' : 'story');
+  const [step, setStep] = useState<Step>(shared ? 'result' : 0);
   const [isShared, setIsShared] = useState(Boolean(shared) && !mine);
   const focusRef = useRef<HTMLHeadingElement>(null);
   // 직전 단계 — 처음 열릴 때(뒤로 가기로 돌아올 때 포함)는 위로 올리지 않도록 단계가 실제로 바뀔 때만 움직입니다
@@ -44,11 +38,10 @@ export default function TestPage({ sharedCode, mine = false }: { sharedCode: str
 
   useEffect(() => () => window.clearTimeout(timer.current), []);
 
-  // 이야기 화면에서 '테스트 시작하기'
-  const start = () => {
-    setStep(0);
-    track('quiz_start');
-  };
+  // 들어오자마자 첫 질문부터 (게하게 소개는 메인 FIND YOUR STAY 칸에)
+  useEffect(() => {
+    if (!shared) track('quiz_start');
+  }, []);
 
   // 문항이 바뀌면 질문으로 초점을 옮기고 화면 위쪽에 맞춥니다.
   useEffect(() => {
@@ -97,44 +90,6 @@ export default function TestPage({ sharedCode, mine = false }: { sharedCode: str
   return (
     <section className="test" data-tone="light" aria-labelledby="test-title">
       <div className="test__inner wrap">
-        {/* 테스트 전 — 소라게 게하게 이야기 */}
-        {step === 'story' && (
-          <div className="story">
-            {/* 짐을 메고 지도를 든 여행자 소라게 게하게 + 말풍선 — 한국어는 시안 그림에서 소라게 · 말풍선을 따로 떼어
-                (배경만 뺌) 소라게는 가운데, 말풍선은 오른쪽 위에 작게. 다른 언어는 글자를 바꿀 수 있게 그린 말풍선 */}
-            {lang === 'ko' ? (
-              <div className="story__scene">
-                <img className="story__char story__char--art" src={storyCrabUrl} alt="" aria-hidden="true" />
-                {/* 받은 말풍선 그림 그대로 ('오늘은 어떤 집으로 이사갈까?', 배경만 뺌) */}
-                <img className="story__bubble-art" src={storyBubbleUrl} alt={ui.test.storyBubble.replace('\n', ' ')} />
-              </div>
-            ) : (
-            <div className="story__scene">
-              <img className="story__char" src={gehageUrl} alt="" aria-hidden="true" />
-              {/* 소라게 옆 말풍선 — 크림색 몸통 · 갈색 테두리 · 오른쪽 아래 베이지 그림자 · 왼쪽 아래 꼬리 */}
-              <div className="story__bubble">
-                <svg className="story__bubble-bg" viewBox="0 0 220 130" preserveAspectRatio="none" aria-hidden="true">
-                  <defs>
-                    <linearGradient id="story-bubble-fill" x1="0" y1="0" x2="1" y2="1">
-                      <stop offset="0.45" stopColor="#FCF1E2" />
-                      <stop offset="1" stopColor="#F4E2CB" />
-                    </linearGradient>
-                  </defs>
-                  <path d={BUBBLE_PATH} transform="translate(5 5)" fill="#EFDCC3" />
-                  <path d={BUBBLE_PATH} fill="url(#story-bubble-fill)" stroke="#A3683F" strokeWidth="2" strokeLinejoin="round" vectorEffect="non-scaling-stroke" />
-                </svg>
-                <p className="story__bubble-text pre">{ui.test.storyBubble}</p>
-              </div>
-            </div>
-            )}
-            <h1 id="test-title" ref={focusRef} tabIndex={-1} className="story__title">{ui.test.storyTitle}</h1>
-            <p className="story__body pre">{ui.test.storyBody}</p>
-            <button type="button" className="btn" onClick={start} data-track="quiz_story_start">
-              {ui.test.start} <span className="arrow" aria-hidden="true">→</span>
-            </button>
-          </div>
-        )}
-
         {qi >= 0 && (
           <>
             <div className="test__card" key={qi}>
@@ -231,20 +186,38 @@ function Result({ result, shared, onRetry, focusRef }: { result: QuizResult; sha
     }
   };
 
-  const share = async () => {
-    const url = `${window.location.origin}${window.location.pathname}${href.result(result.code)}`;
+  // 결과 공유 — 링크만 보냄 (제목 · 설명 문장은 함께 보내지 않음), 누를 때마다 공유 횟수 +1
+  const url = `${window.location.origin}${window.location.pathname}${href.result(result.code)}`;
+  const { count, hit } = useShareCount();
+  const copyLink = async (done: string) => {
     try {
-      if (navigator.share) {
-        // 링크만 보냄 — 제목 · 설명 문장은 함께 보내지 않음
-        await navigator.share({ url });
-        setStatus(t.shared);
-      } else {
-        await navigator.clipboard.writeText(url);
-        setStatus(t.copied);
-      }
+      await navigator.clipboard.writeText(url);
+      setStatus(done);
+      return true;
     } catch {
       setStatus(t.canceled);
+      return false;
     }
+  };
+  // 카카오톡 — 휴대폰은 공유 창(카카오톡 선택), 공유 창이 없으면 링크를 복사해 대화창에 붙여 넣게
+  const shareKakao = async () => {
+    if (window.matchMedia('(pointer: coarse)').matches && navigator.share) {
+      try {
+        await navigator.share({ url });
+        setStatus(t.shared);
+        hit('kakao');
+      } catch {
+        setStatus(t.canceled);
+      }
+    } else if (await copyLink(t.kakaoCopied)) hit('kakao');
+  };
+  const shareX = () => {
+    window.open(`https://x.com/intent/post?url=${encodeURIComponent(url)}`, '_blank', 'noopener,noreferrer');
+    setStatus(t.shared);
+    hit('x');
+  };
+  const shareLink = async () => {
+    if (await copyLink(t.copied)) hit('link');
   };
 
   return (
@@ -283,6 +256,37 @@ function Result({ result, shared, onRetry, focusRef }: { result: QuizResult; sha
         {third && <Pick rank="BEST 3" caption={t.thirdCaption} id={third.id} />}
       </ol>
 
+      {/* 내 결과 공유하기(카카오톡 · X · 링크) · 저장하기 — 2 · 3순위 카드 바로 밑 */}
+      <div className="result__actions">
+        <div className="share">
+          <p className="share__title">
+            {t.shareTitle}
+            {count !== null && (
+              <span className="share__count">
+                <span className="visually-hidden">{t.shareCount} </span>
+                {count.toLocaleString()}
+              </span>
+            )}
+          </p>
+          <div className="share__row">
+            <button type="button" className="share__btn share__btn--kakao" onClick={shareKakao} aria-label={t.shareKakao} title={t.shareKakao} data-track="result_share_kakao">
+              <ShareIcon name="kakao" />
+            </button>
+            <button type="button" className="share__btn share__btn--x" onClick={shareX} aria-label={t.shareX} title={t.shareX} data-track="result_share_x">
+              <ShareIcon name="x" />
+            </button>
+            <button type="button" className="share__btn share__btn--link" onClick={shareLink} aria-label={t.shareLink} title={t.shareLink} data-track="result_share_link">
+              <ShareIcon name="link" />
+            </button>
+          </div>
+        </div>
+        <button type="button" className="btn btn--ghost result__save" onClick={save} data-track="result_save">
+          <ActIcon name="save" />
+          {t.save}
+        </button>
+        <p className="result__status" role="status">{status}</p>
+      </div>
+
       {/* 나머지 캐릭터 — 1 · 2 · 3위를 뺀 여섯 곳, 집 둘러보기 순서대로 */}
       <section className="others" aria-labelledby="others-title">
         <p className="label">{t.othersLabel}</p>
@@ -302,37 +306,78 @@ function Result({ result, shared, onRetry, focusRef }: { result: QuizResult; sha
         </ul>
       </section>
 
-      {/* 저장하기 · 친구에게 공유하기 / 다시하기 */}
+      {/* 다시하기 */}
       <div className="result__actions">
-        <div className="result__actrow">
-          <button type="button" className="btn btn--ghost" onClick={save} data-track="result_save">
-            <ActIcon name="save" />
-            {t.save}
-          </button>
-          <button type="button" className="btn btn--ghost" onClick={share} data-track="result_share">
-            <ActIcon name="share" />
-            {t.share}
-          </button>
-        </div>
         <button type="button" className="btn btn--ghost result__retry" onClick={onRetry} data-track="result_retry">
           <ActIcon name="retry" />
           {t.retry}
         </button>
-        <p className="result__status" role="status">{status}</p>
       </div>
     </div>
   );
 }
 
-/** 결과 버튼 아이콘 — 저장(내려받기) · 공유 · 다시하기(되돌리기), 글자색 선으로 */
-function ActIcon({ name }: { name: 'save' | 'share' | 'retry' }) {
+/** 결과 버튼 아이콘 — 저장(내려받기) · 다시하기(되돌리기), 글자색 선으로 */
+function ActIcon({ name }: { name: 'save' | 'retry' }) {
   return (
     <svg className="result__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
       {name === 'save' && <path d="M12 4v11m-5-5 5 5 5-5M5 19h14" />}
-      {name === 'share' && <path d="M12 15V4m-4 4 4-4 4 4M7 11H6a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-7a1 1 0 0 0-1-1h-1" />}
       {name === 'retry' && <path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3M4.5 4v3.5H8" />}
     </svg>
   );
+}
+
+/** 공유 동그라미 버튼 그림 — 카카오톡(노랑 바탕 · 갈색 말풍선 TALK) · X 로고 · 링크(사슬) */
+function ShareIcon({ name }: { name: 'kakao' | 'x' | 'link' }) {
+  if (name === 'kakao') {
+    return (
+      <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+        <path d="M24 11c-9.4 0-17 5.9-17 13.2 0 4.7 3.1 8.8 7.8 11.1l-1.6 5.9c-.1.5.4.9.8.6l7-4.6c1 .1 2 .2 3 .2 9.4 0 17-5.9 17-13.2S33.4 11 24 11z" fill="#3A1D1D" />
+        <text x="24" y="27.8" textAnchor="middle" fontSize="10" fontWeight="800" fontFamily="Arial, sans-serif" fill="#FEE500" letterSpacing=".3">TALK</text>
+      </svg>
+    );
+  }
+  if (name === 'x') {
+    return (
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M17.75 3h3.07l-6.7 7.66L22 21h-6.17l-4.83-6.32L5.47 21H2.4l7.17-8.19L2 3h6.33l4.37 5.77L17.75 3zm-1.08 16.18h1.7L7.4 4.73H5.58l11.09 14.45z" fill="#fff" />
+      </svg>
+    );
+  }
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="#fff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M10 14a4.5 4.5 0 0 0 6.4 0l3-3a4.5 4.5 0 0 0-6.4-6.4l-1.1 1.1" />
+      <path d="M14 10a4.5 4.5 0 0 0-6.4 0l-3 3a4.5 4.5 0 0 0 6.4 6.4l1.1-1.1" />
+    </svg>
+  );
+}
+
+/**
+ * 결과 공유 횟수 — 방문자 모두에게 쌓이도록 공용 카운터(abacus.jasoncameron.dev, 인스타 팔로우와 같은 곳)에 기록.
+ * 카카오톡 · X · 링크 복사 중 무엇을 눌러도 +1, 아직 없으면 0부터 · 카운터에 닿지 못하면 숫자는 숨김
+ */
+const SHARE_COUNTER = 'https://abacus.jasoncameron.dev/%s/stay-jejulog/result-share';
+function useShareCount() {
+  const [count, setCount] = useState<number | null>(null);
+  useEffect(() => {
+    let alive = true;
+    fetch(SHARE_COUNTER.replace('%s', 'get'))
+      .then((r) => (r.status === 404 ? { value: 0 } : r.json())) // 아직 한 번도 공유되지 않았으면 0
+      .then((j) => alive && typeof j.value === 'number' && setCount(j.value))
+      .catch(() => {});
+    return () => {
+      alive = false;
+    };
+  }, []);
+  const hit = (via: string) => {
+    track('result_share', { via });
+    setCount((c) => (c === null ? c : c + 1)); // 먼저 화면에 반영
+    fetch(SHARE_COUNTER.replace('%s', 'hit'))
+      .then((r) => r.json())
+      .then((j) => typeof j.value === 'number' && setCount(j.value))
+      .catch(() => {});
+  };
+  return { count, hit };
 }
 
 /**

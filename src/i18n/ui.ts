@@ -37,6 +37,8 @@ export interface UiText {
     reasonLine: (picks: string[]) => string;
     bestCaption: string; nextCaption: string; thirdCaption: string; othersLabel: string; othersTitle: string; expType: string; reason: string; myPicks: string; detail: string;
     retry: string; share: string; shared: string; copied: string; canceled: string;
+    /** 결과 공유 — 제목 · 카카오톡 · X · 링크 복사, 카톡은 공유 창이 없으면 링크 복사로 */
+    shareTitle: string; shareKakao: string; shareX: string; shareLink: string; kakaoCopied: string; shareCount: string;
     save: string; saved: string; saveFailed: string;
     bestReason: (type: string) => string; nextRunnerUp: (type: string) => string; nextSameType: (type: string) => string;
   };
@@ -98,6 +100,8 @@ export const UI: Record<Lang, UiText> = {
       retry: '다시하기', share: '친구에게 공유하기',
       save: '저장하기', saved: '결과 이미지를 저장했습니다.', saveFailed: '이미지를 저장하지 못했습니다. 화면을 캡처해 주세요.',
       shared: '공유 창을 열었습니다.', copied: '결과 링크를 복사했습니다.', canceled: '공유를 취소했습니다.',
+      shareTitle: '내 결과 공유하기', shareKakao: '카카오톡으로 공유', shareX: 'X로 공유', shareLink: '링크 복사',
+      kakaoCopied: '결과 링크를 복사했습니다. 카카오톡 대화창에 붙여 넣어 주세요.', shareCount: '공유된 횟수',
       bestReason: (t) => `‘${t}’ 취향에서 가장 높은 점수를 받은 곳.`,
       nextRunnerUp: (t) => `두 번째로 높게 나온 ‘${t}’ 성향에 어울리는 곳.`,
       nextSameType: (t) => `같은 ‘${t}’ 취향에서 함께 고른 곳.`,
@@ -159,6 +163,8 @@ export const UI: Record<Lang, UiText> = {
       retry: 'Try again', share: 'Share with friends',
       save: 'Save', saved: 'Result image saved.', saveFailed: 'Couldn’t save the image. Please take a screenshot instead.',
       shared: 'Opened the share sheet.', copied: 'Result link copied.', canceled: 'Sharing canceled.',
+      shareTitle: 'Share my result', shareKakao: 'Share on KakaoTalk', shareX: 'Share on X', shareLink: 'Copy link',
+      kakaoCopied: 'Result link copied. Paste it into a KakaoTalk chat.', shareCount: 'Times shared',
       bestReason: (t) => `The top match for “${t}”.`,
       nextRunnerUp: (t) => `A fit for your second-strongest side, “${t}”.`,
       nextSameType: (t) => `Another pick for “${t}”.`,
@@ -220,6 +226,8 @@ export const UI: Record<Lang, UiText> = {
       retry: '再测一次', share: '分享给朋友',
       save: '保存', saved: '已保存结果图片。', saveFailed: '无法保存图片，请截屏保存。',
       shared: '已打开分享窗口。', copied: '已复制结果链接。', canceled: '已取消分享。',
+      shareTitle: '分享我的结果', shareKakao: '分享到 KakaoTalk', shareX: '分享到 X', shareLink: '复制链接',
+      kakaoCopied: '已复制结果链接，请粘贴到 KakaoTalk 聊天中。', shareCount: '分享次数',
       bestReason: (t) => `在“${t}”喜好中得分最高的地方。`,
       nextRunnerUp: (t) => `适合你第二强的“${t}”倾向。`,
       nextSameType: (t) => `同为“${t}”喜好的另一个选择。`,

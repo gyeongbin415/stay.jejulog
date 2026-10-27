@@ -202,6 +202,18 @@
 .find__inner { padding: clamp(80px, 12vh, 130px) 0; }
 .find__copy { display: grid; gap: 16px; justify-items: start; }
 .find__copy .btn { margin-top: 12px; }
+/* 테스트 칸 — 왼쪽 글 · 오른쪽 소라게 게하게 소개 (좁은 화면은 글 밑으로) */
+.find:not(.find--inside) .find__inner { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: clamp(40px, 6vw, 96px); }
+.find__gehage { gap: 10px; margin: 0; padding: 0 clamp(0px, 4vw, 80px) 0 0; }
+.find__gehage .story__scene { margin-top: clamp(40px, 5vw, 60px); }
+.find__gehage .story__char--art { width: clamp(170px, 20vw, 250px); }
+.find__gehage .story__bubble-art { width: clamp(130px, 62%, 190px); }
+.find__gehage .story__title { font-size: clamp(22px, 2.2vw, 28px); }
+.find__gehage .story__body { font-size: clamp(15px, 1.4vw, 17px); line-height: 1.75; }
+@media (max-width: 899px) {
+  .find:not(.find--inside) .find__inner { grid-template-columns: 1fr; }
+  .find__gehage { padding: 0; }
+}
 /* 방 내부 둘러보기 — 테스트 칸 바로 밑, 같은 배경에 가는 선으로 칸 나눔 */
 .find--inside .find__inner { border-top: 1px solid rgba(58, 55, 53, .12); padding-top: clamp(56px, 9vh, 96px); }
 /* 보조 설명 — 중요한 문구가 아니라 작게 */
