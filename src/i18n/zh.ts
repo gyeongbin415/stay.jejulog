@@ -15,7 +15,7 @@ export const ZH: ContentPack = {
       slug: 'S#00. 民宿 / 夜',
       time: '23:40',
       question: '提起“民宿”，\n你会想到哪些词？',
-      words: ['派对', '喝酒', '搭讪'],
+      words: ['搭讪', '异性', '喝酒', '派对'],
       turn: '你所知道的民宿，\n并不是全部。',
     },
 

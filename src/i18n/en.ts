@@ -18,7 +18,7 @@ export const EN: ContentPack = {
       slug: 'S#00. GUESTHOUSE / NIGHT',
       time: '23:40',
       question: 'What words come to mind\nwhen you hear “guesthouse”?',
-      words: ['Parties', 'Drinks', 'Flirting'],
+      words: ['Flirting', 'Romance', 'Drinks', 'Parties'],
       turn: 'The guesthouse you know\nisn’t the whole story.',
     },
 

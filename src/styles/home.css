@@ -56,12 +56,13 @@
 }
 .intro__word.is-on { opacity: 1; transform: none; filter: none; }
 .intro[data-phase="iris"] .intro__word.is-on { opacity: .6; filter: blur(5px); }
-/* 크기 순서 — 파티 > 헌팅 > 술 */
+/* 헌팅(왼쪽 위) · 이성(오른쪽) · 술(왼쪽 아래) · 파티(오른쪽 아래, 가장 크게) — 시안 배치 */
 /* 넓은 화면에서도 양 끝에 붙지 않게 — 화면 가운데에서 440px 안쪽까지만 벌어짐 */
-.w1 { left: max(7%, 50% - 440px); top: 18%; font-size: clamp(46px, 8vw, 118px); }
-.w2 { right: max(8%, 50% - 440px); top: 41%; text-align: right; font-size: clamp(40px, 7vw, 102px); }
-.w3 { left: max(7%, 50% - 440px); top: 60%; font-size: clamp(43px, 7.5vw, 110px); }
-/* 세 단어 모두 같은 색 */
+.w1 { left: max(15%, 50% - 420px); top: 27%; font-size: clamp(46px, 8vw, 118px); }
+.w2 { right: max(9%, 50% - 440px); top: 36%; text-align: right; font-size: clamp(44px, 7.6vw, 110px); }
+.w3 { left: max(17%, 50% - 400px); top: 60%; font-size: clamp(44px, 7.6vw, 110px); }
+.w4 { right: max(14%, 50% - 420px); top: 63%; text-align: right; font-size: clamp(60px, 10vw, 150px); }
+/* 네 단어 모두 같은 색 */
 .intro__word { color: #C4BEB5; }
 
 .intro__hint {
@@ -95,9 +96,11 @@
 .intro[data-phase="turn"] .intro__turn { opacity: 1; transform: none; }
 
 @media (max-width: 639px) {
-  .w1 { top: 17%; } .w2 { top: 41%; } .w3 { top: 60%; }
-  .w1, .w3 { left: 14%; } .w2 { right: 15%; } /* 화면 끝에서 안쪽으로 */
-  .w1 { font-size: clamp(44px, 13.4vw, 56px); } .w3 { font-size: clamp(41px, 12.6vw, 52px); } .w2 { font-size: clamp(38px, 11.4vw, 48px); }
+  /* 휴대폰 시안 — 헌팅 왼쪽 위 · 이성 오른쪽 · 술 왼쪽 아래 · 파티 오른쪽 아래(가장 크게) */
+  .w1 { top: 26%; left: 16%; font-size: clamp(46px, 14vw, 58px); }
+  .w2 { top: 34%; right: 9%; font-size: clamp(40px, 12.4vw, 52px); }
+  .w3 { top: 60%; left: 17%; font-size: clamp(42px, 13vw, 54px); }
+  .w4 { top: 63%; right: 15%; font-size: clamp(56px, 18vw, 76px); }
 }
 
 /* 동작 줄이기 — 고정 없이 질문과 문구를 차례로 */
