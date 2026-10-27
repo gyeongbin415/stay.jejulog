@@ -387,13 +387,11 @@ function InsideRooms() {
           <p className="label">MORE STORIES</p>
           <h2 id="inside-title" className="more__title">{ui.home.moreTitle}</h2>
           <p className="more__sub">{ui.home.moreSub}</p>
-          {/* 인스타그램 게시물 표지 사진만 — 세 칸 격자, 누르면 웹진 인스타그램 페이지로 */}
+          {/* 인스타그램 게시물 표지 사진만 — 세 칸 격자 (누르는 곳 아님) */}
           <ul className="more__grid">
-            {INSTA_POSTS.map((p, i) => (
+            {INSTA_POSTS.map((p) => (
               <li key={p.img}>
-                <a href={href.insta()} data-track={`inside_thumb_${i + 1}`}>
-                  <img src={p.img} alt={p.alt} loading="lazy" decoding="async" />
-                </a>
+                <img src={p.img} alt={p.alt} loading="lazy" decoding="async" />
               </li>
             ))}
           </ul>
