@@ -128,17 +128,19 @@
 /* ── 푸터 ─────────────────────────────── */
 .footer { background: var(--navy); color: var(--on-dark-soft); padding: 48px 0 calc(48px + env(safe-area-inset-bottom)); }
 .footer__inner { display: grid; gap: 28px; font-size: var(--t-small); }
-.footer__logo { margin-bottom: 16px; }
-.footer__mark {
-  display: block; height: 28px; aspect-ratio: 455 / 349; background-color: var(--accent-on-dark);
-  -webkit-mask-size: contain; mask-size: contain; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
-  -webkit-mask-position: left center; mask-position: left center;
-}
-.footer__ko { margin-top: 6px; }
-/* 만든 사람 — 위 소개와 가는 선으로 나눔 */
-.footer__team { display: grid; gap: 14px; padding-top: 28px; border-top: 1px solid rgba(250, 250, 243, .14); }
-.footer__names { display: flex; flex-wrap: wrap; gap: 6px 0; color: var(--on-dark-soft); }
-.footer__names li + li::before { content: '·'; margin: 0 12px; opacity: .5; }
+/* 위 — 스테이 제주로그 · 두 줄 소개 */
+.footer__about { display: grid; gap: 8px; }
+.footer__title { font-size: 17px; font-weight: 700; color: #F6F3ED; letter-spacing: -0.02em; }
+.footer__desc { line-height: 1.75; color: var(--on-dark-soft); }
+/* 아래 — 가는 선 밑 두 칸: FOLLOW US · MADE BY */
+.footer__cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; padding-top: 24px; border-top: 1px solid rgba(250, 250, 243, .14); }
+.footer__col { display: grid; gap: 8px; align-content: start; }
+.footer__label { font-size: 13px; letter-spacing: .04em; color: #F39A52; }
+.footer__insta { display: inline-flex; align-items: center; gap: 8px; width: fit-content; color: #F6F3ED; text-decoration: none; }
+.footer__insta:hover { color: #F39A52; }
+.footer__insta svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 2; }
+.footer__insta .footer__dot { fill: currentColor; stroke: none; }
+.footer__names { display: grid; gap: 2px; color: #F6F3ED; }
 
 /* ── 공통 섹션 머리 ─────────────────────────────── */
 .section-head { display: grid; gap: 14px; }

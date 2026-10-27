@@ -43,11 +43,11 @@ export const ZH: ContentPack = {
 
     checkOut: {
       label: 'CHECK OUT',
-      title: ['有你喜欢的房间吗？'],
+      title: ['下次来济州，你想度过怎样的一天？'],
       sub: '民宿里除了派对，\n还有许多契合你喜好的\n体验在等着你。',
       cta: '再逛一遍',
       instagram: '去看看 Instagram',
-      closing: '如果有正合你心意的房间，\n我们在济州等你。',
+      closing: '在编辑发现的九种体验中，\n\n挑选契合你喜好的一天吧。',
     },
 
     explore: {
