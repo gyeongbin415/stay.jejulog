@@ -257,7 +257,13 @@ function Result({ result, shared, onRetry, focusRef }: { result: QuizResult; sha
           {site.characters[result.main]}
         </h1>
         {/* 추천 근거 — 실제 고른 답에서 나온 해시태그 3개, 캐릭터 이름 바로 밑 */}
-        {reasonTags.length > 0 && <p className="result__reason result__reason--tags">{reasonTags.map((tg) => `#${tg}`).join(' ')}</p>}
+        {reasonTags.length > 0 && (
+          <ul className="result__tags">
+            {reasonTags.map((tg) => (
+              <li key={tg} className="result__tag">#{tg}</li>
+            ))}
+          </ul>
+        )}
         {/* 게하 한 줄 소개 — 숙소 페이지 BASIC INFORMATION 과 같은 문장 */}
         {programById[result.main].report.oneLine && <p className="result__oneline">{programById[result.main].report.oneLine}</p>}
         <div className="result__hero">
