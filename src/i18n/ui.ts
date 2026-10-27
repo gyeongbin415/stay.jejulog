@@ -79,7 +79,7 @@ export const UI: Record<Lang, UiText> = {
       wordsAria: '게스트하우스 하면 흔히 떠올리는 것들',
       opening: '들어가는 중 — 바로 입장',
       findSub: (n) => `${n}가지 질문으로 찾는 나의 제주 게스트하우스`,
-      moreTitle: '제주 게스트하우스의\n더 많은 이야기', moreSub: '웹진에 담지 못한 제주 게하의 다양한 경험을 만나보세요.', moreCta: '인스타그램에서 더 보기',
+      moreTitle: '제주 게스트하우스의\n더 많은 이야기', moreSub: '궁금한 사진을 눌러 숨은 이야기를 펼쳐 보세요.', moreCta: '인스타그램에서 더 보기',
       typesAria: '네 가지 여행 취향',
     },
     house: {
@@ -149,7 +149,7 @@ export const UI: Record<Lang, UiText> = {
       wordsAria: 'What people usually picture when they hear “guesthouse”',
       opening: 'Opening — go straight in',
       findSub: (n) => `Find your Jeju guesthouse in ${n} questions`,
-      moreTitle: 'More stories from Jeju guesthouses', moreSub: 'Discover more Jeju guesthouse experiences we couldn’t fit in the webzine.', moreCta: 'See more on Instagram',
+      moreTitle: 'More stories from Jeju guesthouses', moreSub: 'Tap a photo that catches your eye to unfold its hidden story.', moreCta: 'See more on Instagram',
       typesAria: 'Four travel tastes',
     },
     house: {
@@ -219,7 +219,7 @@ export const UI: Record<Lang, UiText> = {
       wordsAria: '提起民宿，人们常会想到的事',
       opening: '正在开门 — 直接进入',
       findSub: (n) => `用${n}个问题找到我的济州民宿`,
-      moreTitle: '济州民宿的更多故事', moreSub: '来看看网络杂志里没能收录的济州民宿多样体验。', moreCta: '在 Instagram 查看更多',
+      moreTitle: '济州民宿的更多故事', moreSub: '点开感兴趣的照片，看看藏在里面的故事吧。', moreCta: '在 Instagram 查看更多',
       typesAria: '四种旅行喜好',
     },
     house: {
