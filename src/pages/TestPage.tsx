@@ -186,9 +186,9 @@ function Result({ result, shared, onRetry, focusRef }: { result: QuizResult; sha
     }
   };
 
-  // 결과 공유 — 링크만 보냄 (제목 · 설명 문장은 함께 보내지 않음), 누를 때마다 공유 횟수 +1
+  // 결과 공유 — 링크만 보냄 (제목 · 설명 문장은 함께 보내지 않음)
   const url = `${window.location.origin}${window.location.pathname}${href.result(result.code)}`;
-  const { count, hit } = useShareCount();
+  const hit = (via: string) => track('result_share', { via });
   const copyLink = async (done: string) => {
     try {
       await navigator.clipboard.writeText(url);
@@ -259,15 +259,7 @@ function Result({ result, shared, onRetry, focusRef }: { result: QuizResult; sha
       {/* 내 결과 공유하기(카카오톡 · X · 링크) · 저장하기 — 2 · 3순위 카드 바로 밑 */}
       <div className="result__actions">
         <div className="share">
-          <p className="share__title">
-            {t.shareTitle}
-            {count !== null && (
-              <span className="share__count">
-                <span className="visually-hidden">{t.shareCount} </span>
-                {count.toLocaleString()}
-              </span>
-            )}
-          </p>
+          <p className="share__title">{t.shareTitle}</p>
           <div className="share__row">
             <button type="button" className="share__btn share__btn--kakao" onClick={shareKakao} aria-label={t.shareKakao} title={t.shareKakao} data-track="result_share_kakao">
               <ShareIcon name="kakao" />
@@ -350,34 +342,6 @@ function ShareIcon({ name }: { name: 'kakao' | 'x' | 'link' }) {
       <path d="M14 10a4.5 4.5 0 0 0-6.4 0l-3 3a4.5 4.5 0 0 0 6.4 6.4l1.1-1.1" />
     </svg>
   );
-}
-
-/**
- * 결과 공유 횟수 — 방문자 모두에게 쌓이도록 공용 카운터(abacus.jasoncameron.dev, 인스타 팔로우와 같은 곳)에 기록.
- * 카카오톡 · X · 링크 복사 중 무엇을 눌러도 +1, 아직 없으면 0부터 · 카운터에 닿지 못하면 숫자는 숨김
- */
-const SHARE_COUNTER = 'https://abacus.jasoncameron.dev/%s/stay-jejulog/result-share';
-function useShareCount() {
-  const [count, setCount] = useState<number | null>(null);
-  useEffect(() => {
-    let alive = true;
-    fetch(SHARE_COUNTER.replace('%s', 'get'))
-      .then((r) => (r.status === 404 ? { value: 0 } : r.json())) // 아직 한 번도 공유되지 않았으면 0
-      .then((j) => alive && typeof j.value === 'number' && setCount(j.value))
-      .catch(() => {});
-    return () => {
-      alive = false;
-    };
-  }, []);
-  const hit = (via: string) => {
-    track('result_share', { via });
-    setCount((c) => (c === null ? c : c + 1)); // 먼저 화면에 반영
-    fetch(SHARE_COUNTER.replace('%s', 'hit'))
-      .then((r) => r.json())
-      .then((j) => typeof j.value === 'number' && setCount(j.value))
-      .catch(() => {});
-  };
-  return { count, hit };
 }
 
 /**

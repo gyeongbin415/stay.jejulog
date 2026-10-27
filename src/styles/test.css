@@ -132,11 +132,9 @@
   .result__actrow { grid-template-columns: 1fr; width: min(100%, 340px); }
   .result__retry { width: min(100%, 340px); }
 }
-/* 내 결과 공유하기 — 제목 옆 공유 횟수(왼쪽 꼬리 달린 말풍선), 밑에 카카오톡 · X · 링크 동그라미 */
+/* 내 결과 공유하기 — 제목 밑에 카카오톡 · X · 링크 동그라미 */
 .share { display: grid; justify-items: center; gap: 14px; }
-.share__title { display: flex; align-items: center; gap: 12px; margin: 0; font-family: var(--f-home); font-size: clamp(17px, 1.7vw, 20px); font-weight: 700; letter-spacing: -0.03em; color: var(--ink-soft); }
-.share__count { position: relative; padding: 2px 9px 2px 8px; border: 1px solid rgba(58, 55, 53, .25); border-radius: 6px; background: #fff; font-size: 14px; font-weight: 600; letter-spacing: 0; color: var(--ink-soft); }
-.share__count::before { content: ""; position: absolute; left: -5px; top: 50%; width: 8px; height: 8px; border-left: 1px solid rgba(58, 55, 53, .25); border-bottom: 1px solid rgba(58, 55, 53, .25); background: #fff; translate: 0 -50%; rotate: 45deg; }
+.share__title { margin: 0; font-family: var(--f-home); font-size: clamp(17px, 1.7vw, 20px); font-weight: 700; letter-spacing: -0.03em; color: var(--ink-soft); }
 .share__row { display: flex; gap: 14px; }
 .share__btn { display: grid; place-items: center; width: 56px; height: 56px; padding: 0; border: 0; border-radius: 50%; cursor: pointer; transition: transform var(--t-hover) var(--ease), filter var(--t-hover) var(--ease); }
 .share__btn:hover { transform: translateY(-2px); filter: brightness(1.05); }
