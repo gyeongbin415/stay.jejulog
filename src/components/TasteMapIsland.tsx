@@ -8,7 +8,7 @@ import magUrl from '../assets/taste-map-magnifier.webp';
  * 메인 '취향 지도' 칸의 움직이는 섬 — 받은 섬 그림(돋보기 없는 판) 위로 돋보기가 집들을 하나씩 찾아다님
  * - 화면에 들어오면 돋보기가 집 → 집으로 옮겨 가며 잠깐씩 들여다보고(한라산은 비켜 감), 끝나면 오른쪽 집 위에서 쉼
  * - 돋보기 유리 안은 그 아래 섬을 진짜로 크게 보여 줌 (그림을 확대해 유리 모양으로 오려 냄)
- * - 마우스를 올리면 돋보기가 마우스를 따라감
+ * - 보고 있는 동안에는 한 바퀴 돈 뒤 잠깐 쉬고 다시 한 바퀴 (마우스 · 손가락과 상관없이 저절로)
  * - 물결은 출렁이며 흐르고, 섬 둘레로 잔물결이 퍼짐
  * 동작 줄이기 설정이면 돋보기는 쉬는 자리에 멈춰 있음
  */
@@ -62,7 +62,7 @@ export function TasteMapIsland() {
     let tilt = 0;
     let raf = 0;
     let tour: { t0: number; steps: { from: [number, number]; to: [number, number]; ctrl: [number, number] }[] } | null = null;
-    let follow: [number, number] | null = null;
+    let restUntil = 0; // 한 바퀴 끝나고 쉬는 시간
 
     // 돋보기를 (x, y) 에 — 유리 가운데가 그 점에 오도록, 유리 안은 그 아래 섬을 크게
     const place = (x: number, y: number, rot: number) => {
@@ -101,6 +101,7 @@ export function TasteMapIsland() {
         const i = Math.floor(t / per);
         if (i >= tour.steps.length) {
           tour = null;
+          restUntil = now + 2200;
         } else {
           const st = tour.steps[i];
           const local = t - i * per;
@@ -119,12 +120,12 @@ export function TasteMapIsland() {
         }
       }
       if (!tour) {
-        if (follow) {
-          target = follow;
-        } else {
-          // 쉬는 동안 둥실
-          target = [REST[0], REST[1] + Math.sin(now / 650) * 5];
-          rot = Math.sin(now / 900) * 2;
+        // 쉬는 동안 둥실 — 쉬고 나면 다시 한 바퀴
+        target = [REST[0], REST[1] + Math.sin(now / 650) * 5];
+        rot = Math.sin(now / 900) * 2;
+        if (restUntil && now > restUntil) {
+          restUntil = 0;
+          tour = { t0: now, steps: plan() };
         }
       }
       // 부드럽게 따라감
@@ -153,6 +154,7 @@ export function TasteMapIsland() {
         }
         if (!en.isIntersecting) {
           tour = null;
+          restUntil = 0;
           cancelAnimationFrame(raf);
           raf = 0;
           pos = [...REST];
@@ -164,26 +166,9 @@ export function TasteMapIsland() {
     );
     io.observe(el);
 
-    // 마우스를 올리면 돋보기가 따라감 (손가락은 그대로 눌러서 지도 페이지로)
-    const toImg = (e: PointerEvent): [number, number] => {
-      const b = el.getBoundingClientRect();
-      return [((e.clientX - b.left) / b.width) * W, ((e.clientY - b.top) / b.height) * H];
-    };
-    const onMove = (e: PointerEvent) => {
-      if (e.pointerType !== 'mouse') return;
-      tour = null;
-      follow = toImg(e);
-    };
-    const onLeave = () => {
-      follow = null;
-    };
-    el.addEventListener('pointermove', onMove);
-    el.addEventListener('pointerleave', onLeave);
     return () => {
       io.disconnect();
       cancelAnimationFrame(raf);
-      el.removeEventListener('pointermove', onMove);
-      el.removeEventListener('pointerleave', onLeave);
     };
   }, [reduced]);
 
