@@ -16,7 +16,7 @@ export interface UiText {
   insta: { title: string; loading: string; posts: string; followers: string; following: string; follow: string; message: string; postsTab: string; gridAria: string; close: string; prev: string; next: string; likes: (n: number) => string; comments: (n: number) => string; seeStay: string };
   home: { srTitle: string; wordsAria: string; opening: string; findSub: (n: number) => string; typesAria: string;
     /** 메인 사진 띠 — 상세페이지에서 빠진 사진 둘의 대체 텍스트 */
-    stripRunAlt: string; stripSwimAlt: string };
+    stripRunAlt: string; stripLoungeAlt: string };
   house: { viewGroup: string; viewHouse: string; viewList: string; houseAria: string; listAria: string; roomAria: (no: string, label: string, place: string) => string };
   photo: { pending: string };
   stay: {
@@ -54,7 +54,7 @@ export const UI: Record<Lang, UiText> = {
     home: {
       srTitle: '제주 게스트하우스 공간 탐험 웹진',
       stripRunAlt: '맑은 날 애월 바닷가 산책로를 따라 달리는 게스트들 (얼굴 흐림 처리)',
-      stripSwimAlt: '풍력발전기가 보이는 푸른 바다에서 손을 흔드는 게스트들 (얼굴 흐림 처리)',
+      stripLoungeAlt: '나무 서까래 아래 기타와 빈백이 놓인 다락 라운지, 긴 창 너머 초록 풍경',
       wordsAria: '게스트하우스 하면 흔히 떠올리는 것들',
       opening: '들어가는 중 — 바로 입장',
       findSub: (n) => `${n}가지 질문으로 찾는 나의 제주 게스트하우스`,
@@ -107,7 +107,7 @@ export const UI: Record<Lang, UiText> = {
     home: {
       srTitle: 'A webzine for exploring Jeju guesthouses',
       stripRunAlt: 'Guests running along the Aewol seaside path on a clear day (faces blurred)',
-      stripSwimAlt: 'Guests waving from the blue sea with wind turbines in the distance (faces blurred)',
+      stripLoungeAlt: 'An attic lounge under wooden beams with a guitar and bean bags, greenery beyond a long window',
       wordsAria: 'What people usually picture when they hear “guesthouse”',
       opening: 'Opening — go straight in',
       findSub: (n) => `Find your Jeju guesthouse in ${n} questions`,
@@ -160,7 +160,7 @@ export const UI: Record<Lang, UiText> = {
     home: {
       srTitle: '济州民宿空间探索杂志',
       stripRunAlt: '晴天里沿着涯月海边步道奔跑的客人（面部已模糊处理）',
-      stripSwimAlt: '在望得见风力发电机的蔚蓝海水中挥手的客人（面部已模糊处理）',
+      stripLoungeAlt: '木梁下摆着吉他和懒人沙发的阁楼休息区，长窗外一片绿意',
       wordsAria: '提起民宿，人们常会想到的事',
       opening: '正在开门 — 直接进入',
       findSub: (n) => `用${n}个问题找到我的济州民宿`,
