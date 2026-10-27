@@ -454,7 +454,7 @@ export const PROGRAMS: Program[] = [
         {
           name: '텐트 내 포틀럭 & 불멍',
           info: [{ label: '가격', value: '25,000원' }, { label: '시간', value: '오후 7시' }],
-          photo: { src: 'photos/mureung-potluck.jpg', art: 'table', alt: '긴 나무 테이블에 차려진 회, 수육, 떡볶이, 치킨과 밥, 국', caption: '포틀럭 파티 한 상' },
+          photo: { src: 'photos/mureung-potluck-v2.jpg', art: 'table', alt: '돌담 옆 야외 테이블에 차려진 회, 오므라이스, 주먹밥, 치킨과 반찬', caption: '포틀럭 파티 한 상' },
           text: ['제주에 노을이 내려앉으면 오로라 텐트에서 포틀럭 파티가 열린다. 스태프분들이 직접 만든 음식과 함께 이야기를 나누고, 파티가 끝나면 옆 텐트에서 불멍을 즐길 수 있다. 타오르는 불꽃과 선선한 밤공기 속에서 낯선 여행자와도 자연스럽게 가까워지는 시간이다.'],
           note: '1만원대 자유로운 음식 선택, 중간 참여 가능',
         },

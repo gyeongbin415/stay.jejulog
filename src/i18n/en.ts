@@ -454,7 +454,7 @@ export const EN: ContentPack = {
             { label: 'Time', value: '7:00 PM' },
           ],
           photos: [
-            { alt: 'Sashimi, boiled pork, tteokbokki, chicken, rice and soup laid out on a long wooden table', caption: 'The potluck spread' },
+            { alt: 'Sashimi, omurice, rice balls, chicken and side dishes laid out on an outdoor table by a stone wall', caption: 'The potluck spread' },
           ],
           text: [
             'When the sunset settles over Jeju, a potluck party begins in the aurora tent. You talk over dishes the staff made themselves, and once the party ends you can enjoy fire gazing in the tent next door. Amid the rising flames and the cool night air, it’s a time when you naturally grow closer, even to travelers you’ve just met.',
