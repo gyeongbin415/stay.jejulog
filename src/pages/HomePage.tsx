@@ -382,11 +382,13 @@ function InsideRooms() {
   return (
     <section id="inside" className="find find--inside" data-tone="light" aria-labelledby="inside-title">
       <div className="find__inner wrap">
-        {/* 가운데 정렬 — 작은 라벨 · 제목(두 줄) · 한 줄 · 인스타 게시물 표지 격자, 색은 그대로 */}
+        {/* 휴대폰 — 가운데 정렬로 글 밑에 격자 / 넓은 화면 — 테스트 칸과 거울처럼 왼쪽 사진 격자 · 오른쪽 글, 색은 그대로 */}
         <div className="more">
-          <p className="label">MORE STORIES</p>
-          <h2 id="inside-title" className="more__title pre">{ui.home.moreTitle}</h2>
-          <p className="more__sub">{ui.home.moreSub}</p>
+          <div className="more__copy">
+            <p className="label">MORE STORIES</p>
+            <h2 id="inside-title" className="more__title pre">{ui.home.moreTitle}</h2>
+            <p className="more__sub">{ui.home.moreSub}</p>
+          </div>
           {/* 인스타그램 게시물 표지 사진 — 세 칸 격자, 누르면 웹진 인스타그램 페이지에서 그 게시물이 바로 열림 */}
           <ul className="more__grid">
             {INSTA_POSTS.map((p, i) => (
