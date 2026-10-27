@@ -163,14 +163,19 @@
 
 /* ── 집 그림 (시안 한 장 그대로) ─────────────────────────────────────────
    그림 1087 × 1447 — --u 는 그림 1픽셀이 화면에서 차지하는 크기.
-   그림 위쪽 배경은 페이지 색, 땅(그림 y 989부터)은 그림 속 잔디색으로 화면 양옆까지 이어 붙입니다. */
+   그림 위쪽 배경은 페이지 색, 땅(그림 y 991부터)은 그림 속 잔디색으로 화면 양옆까지 이어 붙입니다. */
 .house3d {
   --w: min(660px, 100vw); --u: calc(var(--w) / 1087); --pt: 8px;
   padding: var(--pt) 0 clamp(48px, 8vh, 88px);
-  background: linear-gradient(to bottom, var(--bg) calc(var(--pt) + var(--u) * 989), #D5EEC0 0);
+  background: linear-gradient(to bottom, var(--bg) calc(var(--pt) + var(--u) * 991), #D7F3C3 0);
 }
 .house3d__frame { position: relative; width: var(--w); margin-inline: auto; }
-.house3d__img { display: block; width: 100%; height: auto; }
+/* 양옆 가장자리(빈 배경 · 잔디)만 아주 살짝 흐려 바깥 배경색과 이음매 없이 */
+.house3d__img {
+  display: block; width: 100%; height: auto;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 3.5%, #000 96.5%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 3.5%, #000 96.5%, transparent);
+}
 /* 방 — 투명 링크 (네모 테두리는 키보드로 고를 때만) */
 .house3d__room { position: absolute; display: block; outline: none; -webkit-tap-highlight-color: transparent; }
 .house3d__room::after { content: ""; position: absolute; inset: 0; pointer-events: none; box-shadow: inset 0 0 0 0 #F39A2B; transition: box-shadow var(--t-hover) var(--ease); }
