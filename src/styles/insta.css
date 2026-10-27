@@ -54,9 +54,9 @@
 .insta-modal__foot { display: grid; gap: 6px; padding: 12px 16px 16px; border-top: 1px solid var(--ig-line); }
 .insta-modal__likes { margin: 0; font-weight: 600; }
 .insta-modal__foot time { font-size: 12px; color: var(--ig-sub); }
-/* 웹진 숙소 페이지로 — 인스타 버튼 모양 (팔로우 버튼과 같은 파랑 · 8px 모서리), 칸 너비 가득 */
-.insta-modal__stay { display: flex; align-items: center; justify-content: center; gap: 6px; height: 36px; margin-top: 8px; border-radius: 8px; background: var(--ig-blue); color: #fff; font-size: 14px; font-weight: 600; text-decoration: none; transition: background .15s; }
-.insta-modal__stay:hover { background: #1877F2; }
+/* 웹진 숙소 페이지로 — 선 버튼 (흰 바탕 · 회색 테두리 · 검정 글씨, 8px 모서리), 칸 너비 가득 */
+.insta-modal__stay { display: flex; align-items: center; justify-content: center; gap: 6px; height: 36px; margin-top: 8px; border-radius: 8px; border: 1px solid var(--ig-line); background: #fff; color: var(--ig-ink); font-size: 14px; font-weight: 600; text-decoration: none; transition: background .15s, border-color .15s; }
+.insta-modal__stay:hover { background: #FAFAFA; border-color: #A8A8A8; }
 
 /* 휴대폰 — 머리는 사진 옆에 아이디 · 버튼, 아래에 숫자 · 소개 / 게시물은 위아래로 */
 @media (max-width: 735px) {
