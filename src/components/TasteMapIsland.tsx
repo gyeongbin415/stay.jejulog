@@ -6,7 +6,7 @@ import magUrl from '../assets/taste-map-magnifier.webp';
 
 /**
  * 메인 '취향 지도' 칸의 움직이는 섬 — 받은 섬 그림(돋보기 없는 판) 위로 돋보기가 집들을 하나씩 찾아다님
- * - 화면에 들어오면 돋보기가 집 → 집으로 옮겨 가며 잠깐씩 들여다보고(한라산은 비켜 감), 끝나면 오른쪽 집 위에서 쉼
+ * - 화면에 들어오면 돋보기가 집 → 집으로 빠르게 옮겨 가며 집마다 잠깐 멈추고(한라산은 비켜 감), 끝나면 오른쪽 집 위에서 쉼
  * - 돋보기 유리 안은 그 아래 섬을 진짜로 크게 보여 줌 (그림을 확대해 유리 모양으로 오려 냄)
  * - 보고 있는 동안에는 한 바퀴 돈 뒤 잠깐 쉬고 다시 한 바퀴 (마우스 · 손가락과 상관없이 저절로)
  * - 물결은 출렁이며 흐르고, 섬 둘레로 잔물결이 퍼짐
@@ -84,13 +84,14 @@ export function TasteMapIsland() {
         const b = stops[i + 1];
         const mx = (a[0] + b[0]) / 2;
         const my = (a[1] + b[1]) / 2;
-        const ctrl: [number, number] = [mx + (mx - VOLCANO[0]) * 0.45, my + (my - VOLCANO[1]) * 0.45];
+        const ctrl: [number, number] = [mx + (mx - VOLCANO[0]) * 0.3, my + (my - VOLCANO[1]) * 0.3];
         steps.push({ from: a, to: b, ctrl });
       }
       return steps;
     };
-    const MOVE = 1150;
-    const HOLD = 900;
+    // 집과 집 사이는 빠르게, 집 위에서는 잠깐 멈춰 들여다봄
+    const MOVE = 620;
+    const HOLD = 650;
 
     const tick = (now: number) => {
       let target: [number, number] = REST;
@@ -110,12 +111,10 @@ export function TasteMapIsland() {
             const q = (p: number, c: number, e: number) => (1 - u) * (1 - u) * p + 2 * (1 - u) * u * c + u * u * e;
             target = [q(st.from[0], st.ctrl[0], st.to[0]), q(st.from[1], st.ctrl[1], st.to[1])];
             // 움직이는 쪽으로 살짝 기울임
-            rot = Math.sin(u * Math.PI) * Math.sign(st.to[0] - st.from[0]) * 9;
+            rot = Math.sin(u * Math.PI) * Math.sign(st.to[0] - st.from[0]) * 7;
           } else {
-            // 집 위에서 이리저리 들여다봄
-            const h = (local - MOVE) / HOLD;
-            target = [st.to[0] + Math.sin(h * Math.PI * 2) * 14, st.to[1] + Math.sin(h * Math.PI * 4) * 6];
-            rot = Math.sin(h * Math.PI * 2) * 4;
+            // 집 위에 딱 멈춤
+            target = st.to;
           }
         }
       }
