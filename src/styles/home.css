@@ -208,8 +208,8 @@
 .find__gehage .story__scene { margin-top: 0; }
 /* 입체 소라게 + 말풍선 한 장 (한국어) */
 .find__gehage .story__scene-art { display: block; width: clamp(260px, 30vw, 380px); height: auto; }
-/* 소라게 몸(그림 폭의 34% 지점)이 글 가운데 오도록 오른쪽으로 — 말풍선은 오른쪽으로 비켜 남 */
-.find__gehage .story__scene-art { translate: 16% 0; }
+/* 소라게 몸(그림 폭의 35% 지점)이 글 가운데 오도록 오른쪽으로 — 말풍선은 오른쪽으로 비켜 남 */
+.find__gehage .story__scene-art { translate: 15% 0; }
 .find__gehage .story__title { font-size: clamp(22px, 2.2vw, 28px); }
 .find__gehage .story__body { font-size: clamp(15px, 1.4vw, 17px); line-height: 1.75; }
 @media (max-width: 899px) {

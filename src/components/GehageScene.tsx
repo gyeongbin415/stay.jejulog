@@ -12,7 +12,7 @@ const BUBBLE_PATH = 'M54.6 100.6 A100 52 0 1 0 30.1 87.8 Q29 110 14 126 Q38 117 
 export function GehageScene({ bubbleId = 'story-bubble-fill' }: { bubbleId?: string }) {
   const { lang, ui } = useContent();
   if (lang === 'ko') {
-    // 받은 그림 그대로 — 입체 소라게 + 말풍선('오늘은 어떤 집에서 묵어볼까?') 한 장, 바깥 배경만 뺌
+    // 받은 그림 그대로 — 입체 소라게 + 말풍선('오늘은 어떤 집으로 이사갈까?') 한 장, 바깥 배경만 뺌
     return (
       <div className="story__scene">
         <img className="story__scene-art" src={sceneUrl} alt={ui.test.storyBubble.replace('\n', ' ')} />
