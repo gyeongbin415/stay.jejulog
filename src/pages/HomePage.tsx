@@ -32,6 +32,7 @@ export function HomePage() {
       {/* 대문(체크인 · 체크아웃) 대신 집 내부를 메인에서 바로 둘러봅니다 */}
       <HousePage embedded />
       <FindYourStay />
+      <InsideRooms />
       <CheckOut />
     </>
   );
@@ -348,10 +349,6 @@ function FindYourStay() {
           <a className="btn" href={href.test()} data-track="find_cta">
             {SITE.findYourStay.cta} <span className="arrow" aria-hidden="true">→</span>
           </a>
-          {/* 테스트 버튼 밑 한 칸 더 — 웹진 인스타그램 페이지(숙소 게시물)로 */}
-          <a className="btn" href={href.insta()} data-track="find_rooms">
-            {SITE.findYourStay.rooms} <span className="arrow" aria-hidden="true">→</span>
-          </a>
         </div>
       </div>
     </section>
@@ -359,6 +356,24 @@ function FindYourStay() {
 }
 
 /* ── SECTION 04. CHECK OUT — 마무리: 맺음 문구 · 다시 둘러보기 ─────────────────────────────── */
+/* ── 방 내부 둘러보기 — 테스트 칸 밑 한 칸 더: 인스타그램 페이지(숙소 게시물 사진)로 ── */
+function InsideRooms() {
+  const { site: SITE } = useContent();
+  return (
+    <section id="inside" className="find find--inside" data-tone="light" aria-labelledby="inside-title">
+      <div className="find__inner wrap">
+        <div className="find__copy">
+          <p className="label">INSTAGRAM</p>
+          <h2 id="inside-title" className="section-head__title">{SITE.findYourStay.rooms}</h2>
+          <a className="btn" href={href.insta()} data-track="inside_instagram">
+            {SITE.checkOut.instagram} <span className="arrow" aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function CheckOut() {
   const { site: SITE } = useContent();
   const c = SITE.checkOut;
@@ -379,9 +394,6 @@ function CheckOut() {
         <div className="outro__actions">
           <a className="btn" href={href.house()} data-track="checkout_cta">
             {c.cta} <span className="arrow" aria-hidden="true">→</span>
-          </a>
-          <a className="btn" href={href.insta()} data-track="checkout_instagram">
-            {c.instagram} <span className="arrow" aria-hidden="true">→</span>
           </a>
         </div>
       </div>

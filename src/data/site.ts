@@ -40,7 +40,7 @@ export const SITE = {
     label: 'FIND YOUR STAY',
     title: ['당신의 취향에 맞는', '제주 게스트하우스를 찾아보세요.'],
     cta: '테스트 바로가기',
-    rooms: '방 둘러보기',
+    rooms: '방 내부 둘러보기',
   },
 
   checkOut: {

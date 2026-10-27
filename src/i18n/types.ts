@@ -24,7 +24,7 @@ export interface SiteText {
     answerNote: string;
   };
   checkIn: { label: string; title: string[]; sub: string; cta: string };
-  /** rooms — 테스트 버튼 밑 '방 둘러보기'(웹진 인스타그램 페이지로) */
+  /** rooms — 테스트 칸 밑 새 칸 제목 '방 내부 둘러보기' (버튼은 인스타그램 보러가기) */
   findYourStay: { label: string; title: string[]; cta: string; rooms: string };
   /** 메인 마지막 마무리 — closing: 맺음말 */
   checkOut: { label: string; title: string[]; sub: string; cta: string; instagram: string; closing: string };
