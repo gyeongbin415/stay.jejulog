@@ -57,7 +57,7 @@ export const UI: Record<Lang, UiText> = {
     nav: { main: '메인', house: '게하 탐색', test: '취향 테스트', more: '더 많은 이야기', menuOpen: '메뉴 열기', menuClose: '메뉴 닫기', menu: '메뉴', mainNav: '주요 메뉴', toHome: (b) => `${b} 메인으로` },
     footer: { tagline: '우리가 몰랐던 제주 게스트하우스를 만나는 웹진', desc: '제주에서의 하루를 조금 다르게 보내는 방법.\n당신의 취향에 맞는 게스트하우스를 발견해 보세요.', followUs: 'FOLLOW US', madeBy: 'MADE BY' },
     app: { loadingStay: '게스트하우스를 불러오는 중…', loadingTest: '테스트를 준비하는 중…', notFound: '찾으시는 페이지가 없습니다.', toHome: '메인으로' },
-    map: { title: '취향 지도', open: '취향 지도 열기', cta: '취향 지도 보러가기',
+    map: { title: '취향 지도', open: '취향 지도 열기', cta: '지도 보러가기',
       pageTitle: '제주 게하 취향지도', sub: '책과 음악, 저녁 한 끼, 포틀럭과 모닥불까지 — 프로그램이 있는 제주 게스트하우스를 취향별로 골라 보세요.',
       all: '전체', filterAria: '취향 고르기', listAria: '게스트하우스 목록', webzineBadge: '웹진 소개', seeStay: '웹진에서 자세히 보기', kakao: '카카오맵', insta: '인스타그램',
       note: '위치는 카카오맵 장소 정보 기준이에요. 프로그램과 운영 여부는 방문 전에 숙소에 한 번 더 확인해 주세요.' },
