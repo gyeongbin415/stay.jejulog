@@ -125,6 +125,8 @@
 .result__actrow { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; width: min(100%, 460px); }
 .result__actrow .btn { justify-content: center; width: 100%; }
 .result__retry { min-width: min(100%, 220px); justify-content: center; }
+.result__actions .btn { gap: 7px; }
+.result__icon { flex: none; width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
 /* 휴대폰 — 저장하기 · 친구에게 공유하기 · 다시하기를 한 줄에 하나씩, 같은 폭으로 */
 @media (max-width: 559px) {
   .result__actrow { grid-template-columns: 1fr; width: min(100%, 340px); }

@@ -306,13 +306,16 @@ function Result({ result, shared, onRetry, focusRef }: { result: QuizResult; sha
       <div className="result__actions">
         <div className="result__actrow">
           <button type="button" className="btn btn--ghost" onClick={save} data-track="result_save">
+            <ActIcon name="save" />
             {t.save}
           </button>
           <button type="button" className="btn btn--ghost" onClick={share} data-track="result_share">
+            <ActIcon name="share" />
             {t.share}
           </button>
         </div>
         <button type="button" className="btn btn--ghost result__retry" onClick={onRetry} data-track="result_retry">
+          <ActIcon name="retry" />
           {t.retry}
         </button>
         <p className="result__status" role="status">{status}</p>
@@ -321,8 +324,19 @@ function Result({ result, shared, onRetry, focusRef }: { result: QuizResult; sha
   );
 }
 
+/** 결과 버튼 아이콘 — 저장(내려받기) · 공유 · 다시하기(되돌리기), 글자색 선으로 */
+function ActIcon({ name }: { name: 'save' | 'share' | 'retry' }) {
+  return (
+    <svg className="result__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      {name === 'save' && <path d="M12 4v11m-5-5 5 5 5-5M5 19h14" />}
+      {name === 'share' && <path d="M12 15V4m-4 4 4-4 4 4M7 11H6a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-7a1 1 0 0 0-1-1h-1" />}
+      {name === 'retry' && <path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3M4.5 4v3.5H8" />}
+    </svg>
+  );
+}
+
 /**
- * 결과 카드 — 소라게 캐릭터 · 캐릭터 이름 · 게스트하우스 이름 · 한 줄 소개 · 자세히 보기 버튼
+ * 결과 카드 — 소라게 캐릭터 · 캐릭터 이름 · 게스트하우스 이름 · 자세히 보기 버튼
  * 캐릭터 그림은 src/assets/characters/hermit-*.webp (data/characterArt.ts)
  */
 function Pick({ rank, caption, id }: { rank: string; caption: string; id: ProgramId }) {
