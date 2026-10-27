@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect, useLayoutEffect, useRef } from 'react';
 import { useRoute, scrollToSection, parseHash, routeKey } from './lib/router';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
+import { MapFab, MapPage } from './components/MapFab';
 import { HomePage } from './pages/HomePage';
 import { HousePage } from './pages/HousePage';
 import { useContent } from './i18n';
@@ -47,6 +48,8 @@ export function App() {
       m = { title: `${ui.nav.test} | ${SITE_NAME}`, description: ui.test.storyBody.replace(/\n/g, ' '), path: '#/test' };
     } else if (route.name === 'insta') {
       m = { title: `${ui.insta.title} | ${SITE_NAME}`, description: INSTA_PROFILE.bio.join(' '), path: '#/instagram' };
+    } else if (route.name === 'map') {
+      m = { title: `${ui.map.title} | ${SITE_NAME}`, description: site.description, path: '#/map' };
     }
     applyPageMeta(m);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -121,6 +124,8 @@ export function App() {
             </Suspense>
           ) : route.name === 'house' ? (
             <HousePage />
+          ) : route.name === 'map' ? (
+            <MapPage />
           ) : route.name === 'home' ? (
             <HomePage />
           ) : (
@@ -134,6 +139,8 @@ export function App() {
           )}
         </div>
       </main>
+      {/* 취향 지도 동그라미 — 모든 페이지 오른쪽 아래 (지도 페이지에서는 숨김) */}
+      {route.name !== 'map' && <MapFab />}
       <Footer />
     </>
   );

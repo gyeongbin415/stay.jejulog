@@ -13,6 +13,8 @@ export interface UiText {
   footer: { tagline: string; madeBy: string };
   app: { loadingStay: string; loadingTest: string; notFound: string; toHome: string };
   /** 웹진 안 인스타그램 페이지 */
+  /** 취향 지도 — 오른쪽 아래 동그라미 버튼 · 페이지(내용은 준비 중) */
+  map: { title: string; open: string; soon: string };
   insta: { title: string; loading: string; posts: string; followers: string; following: string; follow: string; message: string; postsTab: string; gridAria: string; close: string; prev: string; next: string; likes: (n: number) => string; comments: (n: number) => string; seeStay: string };
   home: { srTitle: string; wordsAria: string; opening: string; findSub: (n: number) => string; typesAria: string;
     /** 메인 사진 띠 — 상세페이지에서 빠진 사진 둘의 대체 텍스트 */
@@ -54,6 +56,7 @@ export const UI: Record<Lang, UiText> = {
     nav: { main: '메인', house: '게하 탐색', test: '취향 테스트', more: '더 많은 이야기', menuOpen: '메뉴 열기', menuClose: '메뉴 닫기', menu: '메뉴', mainNav: '주요 메뉴', toHome: (b) => `${b} 메인으로` },
     footer: { tagline: '우리가 몰랐던 제주 게스트하우스를 만나는 웹진', madeBy: 'MADE BY' },
     app: { loadingStay: '게스트하우스를 불러오는 중…', loadingTest: '테스트를 준비하는 중…', notFound: '찾으시는 페이지가 없습니다.', toHome: '메인으로' },
+    map: { title: '취향 지도', open: '취향 지도 열기', soon: '취향 지도를 준비하고 있어요.' },
     insta: { title: '스테이 제주로그 인스타그램', loading: '인스타그램을 불러오는 중…', posts: '게시물', followers: '팔로워', following: '팔로잉', follow: '팔로우', message: '메시지 보내기', postsTab: '게시물', gridAria: '게시물 목록', close: '닫기', prev: '이전 사진', next: '다음 사진', likes: (n) => `좋아요 ${n}개`, comments: (n) => `댓글 ${n}개`, seeStay: '웹진에서 이 숙소 보기' },
     home: {
       srTitle: '제주 게스트하우스 공간 탐험 웹진',
@@ -119,6 +122,7 @@ export const UI: Record<Lang, UiText> = {
     nav: { main: 'Home', house: 'Explore', test: 'Taste Test', more: 'More Stories', menuOpen: 'Open menu', menuClose: 'Close menu', menu: 'Menu', mainNav: 'Main menu', toHome: (b) => `${b} home` },
     footer: { tagline: 'A webzine for meeting the Jeju guesthouses we never knew', madeBy: 'MADE BY' },
     app: { loadingStay: 'Loading the guesthouse…', loadingTest: 'Preparing the test…', notFound: 'We couldn’t find that page.', toHome: 'Back to home' },
+    map: { title: 'Taste Map', open: 'Open the taste map', soon: 'The taste map is on its way.' },
     insta: { title: 'STAY JEJULOG on Instagram', loading: 'Loading Instagram…', posts: 'posts', followers: 'followers', following: 'following', follow: 'Follow', message: 'Message', postsTab: 'Posts', gridAria: 'Posts', close: 'Close', prev: 'Previous photo', next: 'Next photo', likes: (n) => `${n} likes`, comments: (n) => `${n} comments`, seeStay: 'See this stay in the webzine' },
     home: {
       srTitle: 'A webzine for exploring Jeju guesthouses',
@@ -184,6 +188,7 @@ export const UI: Record<Lang, UiText> = {
     nav: { main: '首页', house: '探索民宿', test: '喜好测试', more: '更多故事', menuOpen: '打开菜单', menuClose: '关闭菜单', menu: '菜单', mainNav: '主菜单', toHome: (b) => `返回${b}首页` },
     footer: { tagline: '遇见我们不曾了解的济州民宿的杂志', madeBy: 'MADE BY' },
     app: { loadingStay: '正在加载民宿…', loadingTest: '正在准备测试…', notFound: '找不到您要的页面。', toHome: '返回首页' },
+    map: { title: '喜好地图', open: '打开喜好地图', soon: '喜好地图正在准备中。' },
     insta: { title: 'STAY JEJULOG 的 Instagram', loading: '正在加载 Instagram…', posts: '帖子', followers: '粉丝', following: '关注', follow: '关注', message: '发消息', postsTab: '帖子', gridAria: '帖子列表', close: '关闭', prev: '上一张', next: '下一张', likes: (n) => `${n} 次赞`, comments: (n) => `${n} 条评论`, seeStay: '在杂志中查看这家民宿' },
     home: {
       srTitle: '济州民宿空间探索杂志',
