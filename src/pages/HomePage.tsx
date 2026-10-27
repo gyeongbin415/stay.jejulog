@@ -413,7 +413,11 @@ function InsideRooms() {
           <div className="more__copy">
             <p className="label">MORE STORIES</p>
             <h2 id="inside-title" className="more__title pre">{ui.home.moreTitle}</h2>
-            <p className="more__sub">{ui.home.moreSub}</p>
+            {/* 집 둘러보기의 안내(주황 점이 깜빡이는 둥근 상자)와 같은 모양 */}
+            <p className="explore__hint more__hint">
+              <span className="explore__dot" aria-hidden="true" />
+              {ui.home.moreSub}
+            </p>
           </div>
           {/* 인스타그램 게시물 표지 사진 — 세 칸 격자, 누르면 웹진 인스타그램 페이지에서 그 게시물이 바로 열림 */}
           <ul className="more__grid">
