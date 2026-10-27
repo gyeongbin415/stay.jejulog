@@ -251,19 +251,20 @@ function Result({ result, shared, onRetry, focusRef }: { result: QuizResult; sha
       <header className="result__head">
         {shared && <p className="label">{t.sharedLabel}</p>}
         <p className="result__lead">{t.lead}</p>
-        {/* 1위 — 캐릭터 이름(…하게) · 게스트하우스 이름 · 캐릭터 그림 */}
+        {/* 1위 — 캐릭터 이름(…하게) · 추천 이유 · 한 줄 소개 · 캐릭터 그림 · 게스트하우스 이름 */}
         <h1 id="test-title" ref={focusRef} tabIndex={-1} className="result__type">
           {site.characters[result.main]}
         </h1>
-        <p className="result__place">{programById[result.main].report.place.name}</p>
+        {/* 추천 이유 — 실제 고른 답변으로, 캐릭터 이름 바로 밑 */}
+        {reasonPicks.length > 0 && <p className="result__reason">{t.reasonLine(reasonPicks)}</p>}
         {/* 게하 한 줄 소개 — 숙소 페이지 BASIC INFORMATION 과 같은 문장 */}
         {programById[result.main].report.oneLine && <p className="result__oneline">{programById[result.main].report.oneLine}</p>}
         <div className="result__hero">
           <span className="result__rank">BEST 1<span className="visually-hidden"> {t.bestCaption}</span></span>
           <img src={characterArt[result.main]} alt="" />
         </div>
-        {/* 추천 이유 — '자세히 알아보기' 바로 앞, 실제 고른 답변으로 */}
-        {reasonPicks.length > 0 && <p className="result__reason">{t.reasonLine(reasonPicks)}</p>}
+        {/* 게스트하우스 이름 — '자세히 알아보기' 바로 위 */}
+        <p className="result__place">{programById[result.main].report.place.name}</p>
         <a className="btn" href={href.stay(result.main)} data-track={`result_best01_${result.main}`}>
           {t.detail} <span className="arrow" aria-hidden="true">→</span>
         </a>
