@@ -2,7 +2,7 @@ import type { ProgramId } from './types';
 
 /**
  * 스테이 제주로그 인스타그램(@stay.jejulog) — 웹진 안 '인스타그램' 페이지에 그대로 옮긴 모습.
- * 2026년 10월 27일 계정 화면 기준 (게시물 8 · 팔로워 37 · 팔로잉 7). 사진은 public/insta/ 에.
+ * 2026년 10월 27일 계정 화면 기준 (게시물 8 · 팔로워 37 · 팔로잉 7 · 좋아요 · 댓글 수). 사진은 public/insta/ 에 — 표지 post-N.jpg, 게시물 속 사진 전부 pN/01.webp ….
  * 글은 게시물 원문 그대로이고, stay 는 같은 숙소를 다룬 웹진 상세페이지입니다.
  */
 export const INSTA_PROFILE = {
@@ -16,18 +16,24 @@ export const INSTA_PROFILE = {
 };
 
 export interface InstaPost {
+  /** 격자에 보이는 표지 (640px) */
   img: string;
+  /** 넘겨 보는 사진 장수 — public/insta/p{번호}/01.webp … (1080px) */
+  slides: number;
   alt: string;
   date: string;
   stay?: ProgramId;
-  likes?: number;
-  comments?: number;
+  likes: number;
+  comments: number;
   caption: string;
 }
 
 export const INSTA_POSTS: InstaPost[] = [
   {
     img: 'insta/post-1.jpg',
+    slides: 10,
+    likes: 3,
+    comments: 0,
     alt: '와인과 요리가 차려진 식탁 사진 위에 ‘365일 내내 크리스마스 같은 제주’라고 적힌 카드뉴스 표지',
     date: '2026-10-25',
     stay: 'wine',
@@ -59,6 +65,9 @@ export const INSTA_POSTS: InstaPost[] = [
   },
   {
     img: 'insta/post-2.jpg',
+    slides: 9,
+    likes: 3,
+    comments: 5,
     alt: '창가 공방 작업대 사진 위에 ‘제주에서 만든 나만의 반지’라고 적힌 카드뉴스 표지',
     date: '2026-10-22',
     stay: 'craft',
@@ -86,6 +95,9 @@ export const INSTA_POSTS: InstaPost[] = [
   },
   {
     img: 'insta/post-3.jpg',
+    slides: 8,
+    likes: 3,
+    comments: 0,
     alt: '조명이 켜진 주방과 식탁 사진 위에 ‘제주에서 먹는 따뜻한 저녁’이라고 적힌 카드뉴스 표지',
     date: '2026-10-20',
     stay: 'homemeal',
@@ -115,6 +127,9 @@ export const INSTA_POSTS: InstaPost[] = [
   },
   {
     img: 'insta/post-4.jpg',
+    slides: 7,
+    likes: 3,
+    comments: 0,
     alt: '노을 진 하늘 아래 캠핑 텐트와 의자 사진 위에 ‘텐트 없이 즐기는 제주 캠핑’이라고 적힌 카드뉴스 표지',
     date: '2026-10-21',
     stay: 'camping',
@@ -148,6 +163,9 @@ export const INSTA_POSTS: InstaPost[] = [
   },
   {
     img: 'insta/post-5.jpg',
+    slides: 9,
+    likes: 3,
+    comments: 0,
     alt: '풍력발전기가 보이는 바닷가 산책로를 달리는 사람들 사진 위에 ‘러닝메이트가 생기는 애월의 아지트’라고 적힌 카드뉴스 표지',
     date: '2026-10-15',
     stay: 'running',
@@ -179,11 +197,12 @@ export const INSTA_POSTS: InstaPost[] = [
   },
   {
     img: 'insta/post-6.jpg',
+    slides: 14,
+    likes: 186,
+    comments: 4,
     alt: '책이 가득한 책장과 창가 사진 위에 ‘사랑이 어려워서, 제주에 왔습니다’라고 적힌 카드뉴스 표지',
     date: '2026-10-14',
     stay: 'book',
-    likes: 186,
-    comments: 4,
     caption: `💌 낯선 사람들과 속마음을 나누는 숙소가 있다고?
 
 —
@@ -213,6 +232,9 @@ export const INSTA_POSTS: InstaPost[] = [
   },
   {
     img: 'insta/post-7.jpg',
+    slides: 11,
+    likes: 3,
+    comments: 3,
     alt: '스크린 앞에서 머그잔을 든 손 사진 위에 ‘숙소가 영화관이라면 믿겠어?’라고 적힌 카드뉴스 표지',
     date: '2026-10-13',
     stay: 'cinema',
@@ -246,10 +268,11 @@ export const INSTA_POSTS: InstaPost[] = [
   },
   {
     img: 'insta/post-8.jpg',
-    alt: '‘게스트하우스’ 간판이 걸린 옛 가게 건물 사진 위에 ‘제주에서 찾은 아날로그 휴식’이라고 적힌 카드뉴스 표지',
-    date: '2026-10-12',
+    slides: 8,
     likes: 181,
     comments: 14,
+    alt: '‘게스트하우스’ 간판이 걸린 옛 가게 건물 사진 위에 ‘제주에서 찾은 아날로그 휴식’이라고 적힌 카드뉴스 표지',
+    date: '2026-10-12',
     caption: `🏷️ 제주에 이런 아날로그 감성 숙소가 있다고?
 
 —

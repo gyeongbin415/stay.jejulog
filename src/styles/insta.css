@@ -74,3 +74,21 @@
   .insta-modal__body { overflow: visible; }
   .insta-modal__close { top: 6px; right: 8px; color: #fff; text-shadow: 0 1px 4px rgba(0, 0, 0, .6); z-index: 1; }
 }
+
+/* 여러 장 게시물 — 격자 오른쪽 위 표시 */
+.insta-grid__multi { position: absolute; top: 8px; right: 8px; color: #fff; filter: drop-shadow(0 0 2px rgba(0, 0, 0, .45)); pointer-events: none; }
+
+/* 크게 보기 — 한 장씩 넘기기 (화살표 · 점) */
+.insta-modal__media { position: relative; }
+.insta-modal__nav {
+  position: absolute; top: 50%; translate: 0 -50%;
+  display: grid; place-items: center; width: 30px; height: 30px; padding: 0 0 3px;
+  border: 0; border-radius: 50%; background: rgba(255, 255, 255, .85); color: #262626;
+  font-size: 24px; line-height: 1; cursor: pointer; box-shadow: 0 0 5px rgba(0, 0, 0, .2);
+}
+.insta-modal__nav:hover { background: #fff; }
+.insta-modal__nav--prev { left: 12px; }
+.insta-modal__nav--next { right: 12px; }
+.insta-modal__dots { position: absolute; left: 50%; bottom: 14px; translate: -50% 0; display: flex; gap: 4px; }
+.insta-modal__dots i { width: 6px; height: 6px; border-radius: 50%; background: rgba(255, 255, 255, .45); }
+.insta-modal__dots i.is-on { background: #fff; }
