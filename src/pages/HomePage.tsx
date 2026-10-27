@@ -7,7 +7,7 @@ import { useReducedMotion } from '../lib/motion';
 import { HousePage } from './HousePage';
 import { GehageScene } from '../components/GehageScene';
 import { INSTA_POSTS } from '../data/insta';
-import tasteMapUrl from '../assets/taste-map.webp';
+import tasteMapUrl from '../assets/taste-map-island.webp';
 import introNightUrl from '../assets/intro-night.webp';
 import stripWine from '../assets/strip/rooftop-dinner.webp';
 import stripRun from '../assets/strip/saewol-run.webp';
@@ -382,11 +382,16 @@ function FindYourStay() {
 function TasteMapBanner() {
   const { ui } = useContent();
   return (
-    <section id="tastemap" className="find find--map" data-tone="light" aria-label={ui.map.title}>
+    <section id="tastemap" className="find find--map" data-tone="light" aria-labelledby="tastemap-title">
       <div className="find__inner wrap">
+        {/* 제목 — 다른 칸처럼 작은 라벨 + 굵은 제목 (그림 속 글씨는 빼고) */}
+        <div className="tastemap__head">
+          <p className="label">TASTE MAP</p>
+          <h2 id="tastemap-title" className="section-head__title">{ui.map.pageTitle}</h2>
+        </div>
         {/* 그림 · 밑의 버튼 모두 눌림 — 버튼으로 누를 수 있다는 걸 알 수 있게 */}
         <a className="tastemap" href={href.map()} data-track="home_taste_map">
-          <img src={tasteMapUrl} alt="" width={1100} height={708} loading="lazy" decoding="async" />
+          <img src={tasteMapUrl} alt="" width={1098} height={521} loading="lazy" decoding="async" />
           <span className="btn tastemap__cta">
             {ui.map.cta} <span className="tastemap__arrow" aria-hidden="true">→</span>
           </span>

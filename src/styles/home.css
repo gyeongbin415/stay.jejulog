@@ -220,7 +220,8 @@
 .find--inside .find__inner { border-top: 1px solid rgba(58, 55, 53, .12); padding-top: clamp(56px, 9vh, 96px); }
 /* 제주 게하 취향지도 — 테스트 칸과 MORE STORIES 사이, 가는 선 사이 가운데 그림 (누르면 취향 지도 페이지) */
 .find--map .find__inner { display: grid; justify-items: center; border-top: 1px solid rgba(58, 55, 53, .12); padding: clamp(40px, 7vh, 80px) 0; }
-.tastemap { display: block; width: min(84%, 460px); border-radius: 18px; transition: transform var(--t-hover) var(--ease); }
+.tastemap__head { display: grid; justify-items: center; gap: 16px; text-align: center; margin-bottom: clamp(20px, 3vh, 32px); }
+.tastemap { display: block; width: min(88%, 500px); border-radius: 18px; transition: transform var(--t-hover) var(--ease); }
 .tastemap { display: grid; justify-items: center; gap: clamp(14px, 2.5vh, 22px); text-decoration: none; }
 .tastemap img { display: block; width: 100%; height: auto; }
 .tastemap__arrow { transition: transform var(--t-hover) var(--ease); }
