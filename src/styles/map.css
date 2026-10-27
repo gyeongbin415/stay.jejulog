@@ -9,6 +9,12 @@
 /* 레이어 버튼 — 가로로 넘겨 보기 */
 .tmap__filters { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 14px; scrollbar-width: none; }
 .tmap__filters::-webkit-scrollbar { display: none; }
+/* 마우스로 끌어 넘길 수 있다는 표시 */
+@media (hover: hover) and (pointer: fine) {
+  .tmap__filters { cursor: grab; user-select: none; }
+  .tmap__filters.is-dragging { cursor: grabbing; }
+  .tmap__filters.is-dragging .tmap__chip { pointer-events: none; }
+}
 .tmap__chip {
   flex: none; display: inline-flex; align-items: center; gap: 6px; height: 38px; padding: 0 14px;
   border: 1px solid rgba(58, 55, 53, .18); border-radius: 999px; background: #fff; color: var(--ink);

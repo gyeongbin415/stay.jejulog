@@ -21,6 +21,72 @@ export default function MapPage() {
   const [filter, setFilter] = useState<Filter>('all');
   const [active, setActive] = useState<string | null>(null);
   const mapEl = useRef<HTMLDivElement>(null);
+  const chipsEl = useRef<HTMLDivElement>(null);
+
+  // 취향 버튼 줄 — 넓은 화면에서도 마우스로 끌거나(드래그) 휠을 굴려 옆으로 넘김
+  useEffect(() => {
+    const el = chipsEl.current;
+    if (!el) return;
+    let down = false;
+    let startX = 0;
+    let startLeft = 0;
+    let moved = false;
+    const onDown = (e: PointerEvent) => {
+      if (e.pointerType !== 'mouse' || e.button !== 0) return;
+      down = true;
+      moved = false;
+      startX = e.clientX;
+      startLeft = el.scrollLeft;
+    };
+    const onMove = (e: PointerEvent) => {
+      if (!down) return;
+      const dx = e.clientX - startX;
+      if (!moved && Math.abs(dx) > 4) {
+        moved = true;
+        el.classList.add('is-dragging');
+        el.setPointerCapture(e.pointerId);
+      }
+      if (moved) el.scrollLeft = startLeft - dx;
+    };
+    const onUp = (e: PointerEvent) => {
+      if (!down) return;
+      down = false;
+      el.classList.remove('is-dragging');
+      if (el.hasPointerCapture(e.pointerId)) el.releasePointerCapture(e.pointerId);
+    };
+    // 끈 다음에는 버튼이 눌리지 않게
+    const onClick = (e: MouseEvent) => {
+      if (moved) {
+        e.preventDefault();
+        e.stopPropagation();
+        moved = false;
+      }
+    };
+    // 세로 휠도 옆으로 — 끝까지 가면 페이지가 내려가도록 그때만 막음
+    const onWheel = (e: WheelEvent) => {
+      if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
+      const max = el.scrollWidth - el.clientWidth;
+      if (max <= 0) return;
+      const next = Math.min(max, Math.max(0, el.scrollLeft + e.deltaY));
+      if (next === el.scrollLeft) return;
+      e.preventDefault();
+      el.scrollLeft = next;
+    };
+    el.addEventListener('pointerdown', onDown);
+    el.addEventListener('pointermove', onMove);
+    el.addEventListener('pointerup', onUp);
+    el.addEventListener('pointercancel', onUp);
+    el.addEventListener('click', onClick, true);
+    el.addEventListener('wheel', onWheel, { passive: false });
+    return () => {
+      el.removeEventListener('pointerdown', onDown);
+      el.removeEventListener('pointermove', onMove);
+      el.removeEventListener('pointerup', onUp);
+      el.removeEventListener('pointercancel', onUp);
+      el.removeEventListener('click', onClick, true);
+      el.removeEventListener('wheel', onWheel);
+    };
+  }, []);
   const mapRef = useRef<L.Map | null>(null);
   const markers = useRef<Map<string, L.CircleMarker>>(new Map());
 
@@ -97,7 +163,7 @@ export default function MapPage() {
         <p className="tmap__sub">{t.sub}</p>
       </header>
 
-      <div className="tmap__filters wrap" role="group" aria-label={t.filterAria}>
+      <div ref={chipsEl} className="tmap__filters wrap" role="group" aria-label={t.filterAria}>
         <button type="button" className="tmap__chip" aria-pressed={filter === 'all'} onClick={() => setFilter('all')}>
           {t.all} <span className="tmap__n">{found.length}</span>
         </button>
