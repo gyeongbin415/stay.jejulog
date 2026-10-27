@@ -11,7 +11,6 @@ import stripRun from '../assets/strip/saewol-run.webp';
 import stripFlower from '../assets/strip/kokoko-flower.webp';
 import stripCamp from '../assets/strip/camp-table.webp';
 import stripMallow from '../assets/strip/fire-marshmallow.webp';
-import stripDome from '../assets/strip/dome-tent.webp';
 import stripCandle from '../assets/strip/candle-dinner.webp';
 import stripLpWall from '../assets/strip/lp-wall.webp';
 import stripLiving from '../assets/strip/attic-living.webp';
@@ -298,7 +297,6 @@ const STRIP: { src: string; h: number; y: number; r: number; photo: string }[] =
   { src: stripWine, h: 92, y: -3, r: -2, photo: 'rooftop-dinner' },
   { src: stripRun, h: 100, y: 2, r: 1.5, photo: 'run' },
   { src: stripCandle, h: 98, y: 2, r: -1.5, photo: 'candle' },
-  { src: stripDome, h: 93, y: -3, r: 1, photo: 'dome' },
   { src: stripFlower, h: 96, y: -4, r: 2.5, photo: 'kokoko-flower' },
   { src: stripNight, h: 91, y: 3, r: -2, photo: 'night' },
   { src: stripDinner, h: 100, y: 0, r: 2, photo: 'susu-dinner-table' },
