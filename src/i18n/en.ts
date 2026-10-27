@@ -19,7 +19,7 @@ export const EN: ContentPack = {
       time: '23:40',
       question: 'What words come to mind\nwhen you hear “guesthouse”?',
       words: ['Parties', 'Flirting', 'Drinks', 'Romance'],
-      turn: 'The guesthouse you know\nisn’t the whole story.',
+      turn: 'What you know as\n“a Jeju guesthouse”\nisn’t the whole story.',
     },
 
     problem: {

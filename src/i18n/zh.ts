@@ -16,7 +16,7 @@ export const ZH: ContentPack = {
       time: '23:40',
       question: '提起“民宿”，\n你会想到哪些词？',
       words: ['派对', '搭讪', '喝酒', '异性'],
-      turn: '你所知道的民宿，\n并不是全部。',
+      turn: '你所知道的\n“济州民宿”\n并不是全部。',
     },
 
     problem: {
