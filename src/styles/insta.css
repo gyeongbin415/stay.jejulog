@@ -37,9 +37,6 @@
 .insta-grid__item { position: relative; display: block; width: 100%; padding: 0; border: 0; background: var(--ig-gray); aspect-ratio: 4 / 5; cursor: pointer; overflow: hidden; }
 .insta-grid__item img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .insta-grid__item:focus-visible { outline: 3px solid var(--ig-blue); outline-offset: -3px; }
-.insta-grid__hover { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 28px; background: rgba(0, 0, 0, .3); color: #fff; font-size: 16px; font-weight: 700; opacity: 0; transition: opacity .15s; }
-.insta-grid__hover span { display: inline-flex; align-items: center; gap: 6px; }
-@media (hover: hover) { .insta-grid__item:hover .insta-grid__hover { opacity: 1; } }
 
 /* 게시물 크게 보기 */
 .insta-modal { position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center; padding: 48px 16px; background: rgba(0, 0, 0, .65); }

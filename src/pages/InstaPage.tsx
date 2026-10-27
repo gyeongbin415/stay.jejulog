@@ -58,10 +58,6 @@ export default function InstaPage() {
             <button type="button" className="insta-grid__item" onClick={() => setOpen(i)} data-track={`insta_post_${i + 1}`}>
               <img src={post.img} alt={post.alt} loading={i < 6 ? 'eager' : 'lazy'} />
               {post.slides > 1 && <CarouselIcon />}
-              <span className="insta-grid__hover" aria-hidden="true">
-                <span><HeartIcon /> {post.likes}</span>
-                <span><BubbleIcon /> {post.comments}</span>
-              </span>
             </button>
           </li>
         ))}
@@ -177,20 +173,6 @@ function GridIcon() {
   return (
     <svg viewBox="0 0 24 24" width="12" height="12" aria-hidden="true" focusable="false">
       <path fill="none" stroke="currentColor" strokeWidth="2" d="M3 3h18v18H3zM9 3v18M15 3v18M3 9h18M3 15h18" />
-    </svg>
-  );
-}
-function HeartIcon() {
-  return (
-    <svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true" focusable="false">
-      <path fill="currentColor" d="M12 21s-7.5-4.6-9.6-9.2C.8 8.3 3 4.5 6.7 4.5c2.1 0 3.6 1.1 5.3 3 1.7-1.9 3.2-3 5.3-3 3.7 0 5.9 3.8 4.3 7.3C19.5 16.4 12 21 12 21z" />
-    </svg>
-  );
-}
-function BubbleIcon() {
-  return (
-    <svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true" focusable="false">
-      <path fill="currentColor" d="M12 3C6.5 3 2 6.9 2 11.6c0 2.3 1.1 4.4 2.9 5.9L4 21l4.2-2.1c1.2.4 2.5.6 3.8.6 5.5 0 10-3.9 10-8.6S17.5 3 12 3z" />
     </svg>
   );
 }
