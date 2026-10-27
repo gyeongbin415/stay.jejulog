@@ -78,6 +78,8 @@
       <div id="boot-loader" role="status" aria-label="불러오는 중">
         <img class="art" src="loading-crab.webp" alt="" width="636" height="361" />
         <img class="text" src="loading-text.webp" alt="" width="514" height="76" />
+        <!-- 영어 · 중국어로 고른 사람에게는 그 언어 글씨 그림으로 -->
+        <script>try{var bl=localStorage.getItem('jejulog:lang'),bt={en:[589,82],zh:[567,76]}[bl];if(bt){var bi=document.querySelector('#boot-loader .text');bi.src='loading-text-'+bl+'.webp';bi.width=bt[0];bi.height=bt[1];bi.style.width='calc(clamp(200px, 61vw, 260px) * '+bt[0]/514+')';}}catch(e){}</script>
         <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
       </div>
       <main style="max-width: 720px; margin: 0 auto; padding: 96px 20px; font-family: sans-serif; line-height: 1.7; color: #111; background: #FAFAF3;">

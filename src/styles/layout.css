@@ -112,7 +112,7 @@
 .loader { min-height: 80vh; display: grid; place-content: center; justify-items: center; padding: 120px var(--gutter); background: var(--bg); }
 .loader__art { display: block; width: clamp(190px, 56vw, 240px); height: auto; } /* 받은 화면 크기 — 375px 폭에서 약 210px */
 /* 글씨 — 375px 폭에서 약 230px (소라게 밑 30px) */
-.loader__text { display: block; width: clamp(200px, 61vw, 260px); height: auto; margin-top: 30px; }
+.loader__text { display: block; width: calc(clamp(200px, 61vw, 260px) * var(--k, 1)); height: auto; margin-top: 30px; }
 .loader__dots { display: flex; gap: 9px; margin-top: 16px; }
 /* 점 — 하나씩 순서대로 켜졌다가 모두 꺼지고 다시 (1.8초 한 바퀴) */
 .loader__dots i { width: 10px; height: 10px; border-radius: 50%; background: #E4BC99; animation: loader-dot1 1.8s steps(1, end) infinite; }
