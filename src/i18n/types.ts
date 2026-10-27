@@ -77,7 +77,7 @@ export interface ExperienceText {
 
 export interface QuizText {
   /** 키는 문항 id (q1 ~ q10) — 선택지는 A · B 두 갈래 */
-  questions: Record<string, { context: string; q: string; options: { A: string; B: string; C?: string; D?: string } }>;
+  questions: Record<string, { context: string; q: string; options: { A: string; B: string; C?: string; D?: string }; tags?: { A: string; B: string } }>;
   types: Record<TypeId, { name: string; en: string; description: string; travelStyle: string[] }>;
 }
 

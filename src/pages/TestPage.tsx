@@ -192,10 +192,11 @@ function Result({ result, shared, onRetry, focusRef }: { result: QuizResult; sha
   const { ui, site, programById, experiences, questions } = useContent();
   const t = ui.test;
   // 추천 이유 — 1위 숙소에 점수를 가장 많이 준 실제 답변 둘 (지금 언어의 선택지 문장으로)
-  const reasonPicks = [...result.evidence]
+  // 추천 근거 해시태그 — 1위 숙소 점수에 가장 크게 보탠 답 3개의 태그
+  const reasonTags = [...result.evidence]
     .sort((a, b) => (b.option.programs[result.main] ?? 0) - (a.option.programs[result.main] ?? 0))
-    .slice(0, 2)
-    .map(({ question, option }) => questions.find((q) => q.id === question.id)?.options.find((o) => o.key === option.key)?.text ?? option.text);
+    .slice(0, 3)
+    .map(({ question, option }) => questions.find((q) => q.id === question.id)?.options.find((o) => o.key === option.key)?.tag ?? option.tag);
   const [status, setStatus] = useState('');
   const [second, third] = result.subs;
 
@@ -255,8 +256,8 @@ function Result({ result, shared, onRetry, focusRef }: { result: QuizResult; sha
         <h1 id="test-title" ref={focusRef} tabIndex={-1} className="result__type">
           {site.characters[result.main]}
         </h1>
-        {/* 추천 이유 — 실제 고른 답변으로, 캐릭터 이름 바로 밑 */}
-        {reasonPicks.length > 0 && <p className="result__reason">{t.reasonLine(reasonPicks)}</p>}
+        {/* 추천 근거 — 실제 고른 답에서 나온 해시태그 3개, 캐릭터 이름 바로 밑 */}
+        {reasonTags.length > 0 && <p className="result__reason result__reason--tags">{reasonTags.map((tg) => `#${tg}`).join(' ')}</p>}
         {/* 게하 한 줄 소개 — 숙소 페이지 BASIC INFORMATION 과 같은 문장 */}
         {programById[result.main].report.oneLine && <p className="result__oneline">{programById[result.main].report.oneLine}</p>}
         <div className="result__hero">

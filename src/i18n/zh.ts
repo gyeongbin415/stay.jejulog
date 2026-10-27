@@ -555,6 +555,7 @@ export const ZH: ContentPack = {
   quiz: {
     questions: {
       q1: {
+        tags: { A: '休息', B: '人情味' },
         context: '心仪的济州民宿',
         q: '济州的民宿，我喜欢这样的地方。',
         options: {
@@ -563,6 +564,7 @@ export const ZH: ContentPack = {
         },
       },
       q2: {
+        tags: { A: '独处时光', B: '主动打招呼' },
         context: '在休息区遇到房客',
         q: '办理入住！休息区已经有先到的房客。',
         options: {
@@ -571,6 +573,7 @@ export const ZH: ContentPack = {
         },
       },
       q3: {
+        tags: { A: '一日课程', B: '雨中济州' },
         context: '下一整天雨的日子',
         q: '天气预报说一整天都会下雨。',
         options: {
@@ -579,6 +582,7 @@ export const ZH: ContentPack = {
         },
       },
       q4: {
+        tags: { A: '家常饭', B: '葡萄酒晚餐' },
         context: '今天的晚餐',
         q: '今天晚餐吃什么？',
         options: {
@@ -587,6 +591,7 @@ export const ZH: ContentPack = {
         },
       },
       q5: {
+        tags: { A: '电影', B: '黑胶' },
         context: '晚饭后在民宿',
         q: '吃完晚饭，在民宿里只做一件事的话？',
         options: {
@@ -595,6 +600,7 @@ export const ZH: ContentPack = {
         },
       },
       q6: {
+        tags: { A: '深度对话', B: '篝火闲聊' },
         context: '夜晚的聊天',
         q: '晚上和大家聊天的话？',
         options: {
@@ -603,6 +609,7 @@ export const ZH: ContentPack = {
         },
       },
       q7: {
+        tags: { A: '早起型', B: '夜猫子' },
         context: '旅行中的作息',
         q: '旅行时的我是？',
         options: {
@@ -611,6 +618,7 @@ export const ZH: ContentPack = {
         },
       },
       q8: {
+        tags: { A: '山丘日出', B: '海岸跑步' },
         context: '清晨出门的话',
         q: '如果一大早出门？',
         options: {
@@ -619,6 +627,7 @@ export const ZH: ContentPack = {
         },
       },
       q9: {
+        tags: { A: '亲手制作', B: '风景照' },
         context: '想留下的济州纪念',
         q: '想留作济州纪念的是？',
         options: {
@@ -627,6 +636,7 @@ export const ZH: ContentPack = {
         },
       },
       q10: {
+        tags: { A: '一杯葡萄酒', B: '热乎饭' },
         context: '和初次见面的人',
         q: '如果和初次见面的人只能一起做一件事？',
         options: {

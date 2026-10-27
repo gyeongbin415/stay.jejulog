@@ -23,6 +23,8 @@ import type { ArtKey, ProgramId, TypeId } from './types';
 export interface QuizOption {
   key: 'A' | 'B' | 'C' | 'D';
   text: string;
+  /** 결과 화면 해시태그 — 이 답을 고르면 붙는 한 단어 */
+  tag: string;
   types: Partial<Record<TypeId, number>>;
   programs: Partial<Record<ProgramId, number>>;
 }
@@ -41,8 +43,8 @@ export const QUESTIONS: QuizQuestion[] = [
     context: '마음이 가는 제주 게하',
     q: '제주 게하, 나는 이런 곳이 좋다.',
     options: [
-      { key: 'A', text: '조용히 푹 쉬다 오는 곳', types: { collector: 2 }, programs: { cinema: 3, lp: 3, craft: 1, flower: 1 } },
-      { key: 'B', text: '사람 사는 냄새 나는 곳', types: { maker: 1, keeper: 1 }, programs: { book: 3, homemeal: 2, wine: 2, camping: 2, running: 1 } },
+      { key: 'A', tag: '쉼', text: '조용히 푹 쉬다 오는 곳', types: { collector: 2 }, programs: { cinema: 3, lp: 3, craft: 1, flower: 1 } },
+      { key: 'B', tag: '사람냄새', text: '사람 사는 냄새 나는 곳', types: { maker: 1, keeper: 1 }, programs: { book: 3, homemeal: 2, wine: 2, camping: 2, running: 1 } },
     ],
   },
   {
@@ -50,8 +52,8 @@ export const QUESTIONS: QuizQuestion[] = [
     context: '체크인 후 라운지에서',
     q: '체크인! 라운지에 먼저 온 게스트가 있다.',
     options: [
-      { key: 'A', text: '눈인사만 하고 방으로 직행', types: { collector: 2 }, programs: { craft: 3, cinema: 2, flower: 1 } },
-      { key: 'B', text: '“어디서 오셨어요?” 먼저 말 건다', types: { keeper: 1, adventurer: 1 }, programs: { wine: 3, homemeal: 1, running: 1, camping: 1 } },
+      { key: 'A', tag: '혼자만의시간', text: '눈인사만 하고 방으로 직행', types: { collector: 2 }, programs: { craft: 3, cinema: 2, flower: 1 } },
+      { key: 'B', tag: '먼저인사', text: '“어디서 오셨어요?” 먼저 말 건다', types: { keeper: 1, adventurer: 1 }, programs: { wine: 3, homemeal: 1, running: 1, camping: 1 } },
     ],
   },
   {
@@ -59,8 +61,8 @@ export const QUESTIONS: QuizQuestion[] = [
     context: '하루 종일 비 오는 날',
     q: '하루 종일 비 소식이다.',
     options: [
-      { key: 'A', text: '숙소에서 원데이 클래스 듣기', types: { maker: 2 }, programs: { craft: 2, flower: 1 } },
-      { key: 'B', text: '비 와도 나간다, 비 오는 제주 찍으러', types: { adventurer: 2 }, programs: { camping: 1 } },
+      { key: 'A', tag: '원데이클래스', text: '숙소에서 원데이 클래스 듣기', types: { maker: 2 }, programs: { craft: 2, flower: 1 } },
+      { key: 'B', tag: '비오는제주', text: '비 와도 나간다, 비 오는 제주 찍으러', types: { adventurer: 2 }, programs: { camping: 1 } },
     ],
   },
   {
@@ -68,8 +70,8 @@ export const QUESTIONS: QuizQuestion[] = [
     context: '오늘 저녁 메뉴',
     q: '오늘 저녁 메뉴는?',
     options: [
-      { key: 'A', text: '사장님이 차려주는 집밥 한 상', types: { maker: 2 }, programs: { homemeal: 2 } },
-      { key: 'B', text: '와인 곁들인 양식 디너', types: { keeper: 2 }, programs: { wine: 1, running: 1 } },
+      { key: 'A', tag: '집밥', text: '사장님이 차려주는 집밥 한 상', types: { maker: 2 }, programs: { homemeal: 2 } },
+      { key: 'B', tag: '와인디너', text: '와인 곁들인 양식 디너', types: { keeper: 2 }, programs: { wine: 1, running: 1 } },
     ],
   },
   {
@@ -77,8 +79,8 @@ export const QUESTIONS: QuizQuestion[] = [
     context: '저녁 먹고 숙소에서',
     q: '저녁 먹고, 숙소에서 하나만 한다면?',
     options: [
-      { key: 'A', text: '다 같이 영화 한 편', types: { keeper: 2 }, programs: { cinema: 3 } },
-      { key: 'B', text: 'LP로 음악 듣기', types: { collector: 2 }, programs: { lp: 3 } },
+      { key: 'A', tag: '영화', text: '다 같이 영화 한 편', types: { keeper: 2 }, programs: { cinema: 3 } },
+      { key: 'B', tag: 'LP', text: 'LP로 음악 듣기', types: { collector: 2 }, programs: { lp: 3 } },
     ],
   },
   {
@@ -86,8 +88,8 @@ export const QUESTIONS: QuizQuestion[] = [
     context: '밤에 나누는 이야기',
     q: '밤에 사람들이랑 얘기한다면?',
     options: [
-      { key: 'A', text: '책 한 구절로 시작하는 깊은 얘기', types: { collector: 2 }, programs: { book: 3 } },
-      { key: 'B', text: '모닥불 앞에서 가벼운 수다', types: { adventurer: 1, keeper: 1 }, programs: { camping: 2, running: 2 } },
+      { key: 'A', tag: '깊은대화', text: '책 한 구절로 시작하는 깊은 얘기', types: { collector: 2 }, programs: { book: 3 } },
+      { key: 'B', tag: '불멍수다', text: '모닥불 앞에서 가벼운 수다', types: { adventurer: 1, keeper: 1 }, programs: { camping: 2, running: 2 } },
     ],
   },
   {
@@ -95,8 +97,8 @@ export const QUESTIONS: QuizQuestion[] = [
     context: '여행에서의 하루 리듬',
     q: '여행 가서 나는?',
     options: [
-      { key: 'A', text: '일찍 일어나는 아침형', types: { adventurer: 2 }, programs: { homemeal: 2, flower: 2, running: 1 } },
-      { key: 'B', text: '늦게까지 깨어 있는 밤형', types: { collector: 2 }, programs: { lp: 3, book: 3, cinema: 1, wine: 1 } },
+      { key: 'A', tag: '아침형', text: '일찍 일어나는 아침형', types: { adventurer: 2 }, programs: { homemeal: 2, flower: 2, running: 1 } },
+      { key: 'B', tag: '밤형', text: '늦게까지 깨어 있는 밤형', types: { collector: 2 }, programs: { lp: 3, book: 3, cinema: 1, wine: 1 } },
     ],
   },
   {
@@ -104,8 +106,8 @@ export const QUESTIONS: QuizQuestion[] = [
     context: '아침 일찍 나간다면',
     q: '아침 일찍 나간다면?',
     options: [
-      { key: 'A', text: '오름 올라 일출 보기', types: { adventurer: 2 }, programs: { flower: 3 } },
-      { key: 'B', text: '해안도로 따라 달리기', types: { adventurer: 2 }, programs: { running: 3 } },
+      { key: 'A', tag: '오름일출', text: '오름 올라 일출 보기', types: { adventurer: 2 }, programs: { flower: 3 } },
+      { key: 'B', tag: '해안러닝', text: '해안도로 따라 달리기', types: { adventurer: 2 }, programs: { running: 3 } },
     ],
   },
   {
@@ -113,8 +115,8 @@ export const QUESTIONS: QuizQuestion[] = [
     context: '제주 기념으로 남길 것',
     q: '제주 기념으로 남기고 싶은 건?',
     options: [
-      { key: 'A', text: '내 손으로 만든 것', types: { maker: 2 }, programs: { craft: 3, flower: 1 } },
-      { key: 'B', text: '제주 풍경 속 내 사진', types: { adventurer: 2 }, programs: { camping: 3 } },
+      { key: 'A', tag: '손으로만든것', text: '내 손으로 만든 것', types: { maker: 2 }, programs: { craft: 3, flower: 1 } },
+      { key: 'B', tag: '풍경사진', text: '제주 풍경 속 내 사진', types: { adventurer: 2 }, programs: { camping: 3 } },
     ],
   },
   {
@@ -122,8 +124,8 @@ export const QUESTIONS: QuizQuestion[] = [
     context: '처음 만난 사람과 함께할 것',
     q: '처음 만난 사람과 딱 하나만 함께한다면?',
     options: [
-      { key: 'A', text: '와인 한 잔', types: { keeper: 3 }, programs: { wine: 2, running: 1 } },
-      { key: 'B', text: '따뜻한 밥 한 끼', types: { maker: 3 }, programs: { homemeal: 2, camping: 1 } },
+      { key: 'A', tag: '와인한잔', text: '와인 한 잔', types: { keeper: 3 }, programs: { wine: 2, running: 1 } },
+      { key: 'B', tag: '따뜻한밥', text: '따뜻한 밥 한 끼', types: { maker: 3 }, programs: { homemeal: 2, camping: 1 } },
     ],
   },
 ];

@@ -581,6 +581,7 @@ export const EN: ContentPack = {
   quiz: {
     questions: {
       q1: {
+        tags: { A: 'Rest', B: 'PeopleVibes' },
         context: 'the Jeju guesthouse you’re drawn to',
         q: 'A Jeju guesthouse I love is one that’s…',
         options: {
@@ -589,6 +590,7 @@ export const EN: ContentPack = {
         },
       },
       q2: {
+        tags: { A: 'MeTime', B: 'SayHi' },
         context: 'meeting guests in the lounge',
         q: 'Check-in! A few guests are already in the lounge.',
         options: {
@@ -597,6 +599,7 @@ export const EN: ContentPack = {
         },
       },
       q3: {
+        tags: { A: 'OneDayClass', B: 'RainyJeju' },
         context: 'a day of nonstop rain',
         q: 'Rain is forecast all day.',
         options: {
@@ -605,6 +608,7 @@ export const EN: ContentPack = {
         },
       },
       q4: {
+        tags: { A: 'HomeMeal', B: 'WineDinner' },
         context: 'tonight’s dinner',
         q: 'What’s for dinner tonight?',
         options: {
@@ -613,6 +617,7 @@ export const EN: ContentPack = {
         },
       },
       q5: {
+        tags: { A: 'MovieNight', B: 'Vinyl' },
         context: 'after dinner at the guesthouse',
         q: 'After dinner, if you could do just one thing at the guesthouse…',
         options: {
@@ -621,6 +626,7 @@ export const EN: ContentPack = {
         },
       },
       q6: {
+        tags: { A: 'DeepTalk', B: 'Campfire' },
         context: 'late-night conversations',
         q: 'Talking with people at night, I’d rather…',
         options: {
@@ -629,6 +635,7 @@ export const EN: ContentPack = {
         },
       },
       q7: {
+        tags: { A: 'EarlyBird', B: 'NightOwl' },
         context: 'your rhythm on a trip',
         q: 'When I travel, I’m…',
         options: {
@@ -637,6 +644,7 @@ export const EN: ContentPack = {
         },
       },
       q8: {
+        tags: { A: 'OreumSunrise', B: 'CoastalRun' },
         context: 'heading out early',
         q: 'If you head out early in the morning…',
         options: {
@@ -645,6 +653,7 @@ export const EN: ContentPack = {
         },
       },
       q9: {
+        tags: { A: 'Handmade', B: 'JejuSnaps' },
         context: 'a keepsake from Jeju',
         q: 'What I want to keep as a Jeju souvenir is…',
         options: {
@@ -653,6 +662,7 @@ export const EN: ContentPack = {
         },
       },
       q10: {
+        tags: { A: 'AGlassOfWine', B: 'WarmMeal' },
         context: 'sharing one thing with someone new',
         q: 'If you could share just one thing with someone you just met…',
         options: {

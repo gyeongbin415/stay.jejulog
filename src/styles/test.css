@@ -74,6 +74,8 @@
 .result__oneline { max-width: 24em; margin-top: -2px; font-size: clamp(14.5px, 1.4vw, 16px); line-height: 1.65; letter-spacing: -0.02em; color: var(--ink-soft); text-wrap: balance; }
 /* 추천 이유 — 내가 고른 답변을 그대로 인용 */
 .result__reason { max-width: 30em; margin-inline: auto; padding: 10px 16px; border-radius: var(--radius); background: rgba(240, 136, 58, .1); font-size: clamp(14px, 1.3vw, 15.5px); font-weight: 500; line-height: 1.6; color: var(--ink); text-wrap: balance; }
+/* 해시태그 — 한 줄로, 메인 주황 */
+.result__reason--tags { padding: 9px 18px; font-weight: 600; letter-spacing: -0.01em; color: var(--orange-ink); word-spacing: .3em; }
 /* 1위 캐릭터 그림 — 배경 없이 오린 소라게, 비율 그대로 */
 .result__hero { position: relative; width: min(100%, 400px); margin-top: 10px; padding-top: 36px; }
 .result__hero img { display: block; width: clamp(180px, 20vw, 220px); height: auto; margin: 0 auto; } /* 이야기 화면 소라게와 비슷한 크기 */

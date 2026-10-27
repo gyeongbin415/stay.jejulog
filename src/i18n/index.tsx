@@ -143,7 +143,7 @@ function build(lang: Lang): Content {
   const floors = <F extends { id: keyof ContentPack['floors']; name: string }>(list: F[]) => list.map((f) => ({ ...f, name: pack.floors[f.id] ?? f.name }));
   const questions = QUESTIONS.map((q) => {
     const t = pack.quiz.questions[q.id];
-    return t ? { ...q, context: t.context, q: t.q, options: q.options.map((o) => ({ ...o, text: t.options[o.key] ?? o.text })) } : q;
+    return t ? { ...q, context: t.context, q: t.q, options: q.options.map((o) => ({ ...o, text: t.options[o.key] ?? o.text, tag: t.tags?.[o.key as 'A' | 'B'] ?? o.tag })) } : q;
   });
   const types = Object.fromEntries(
     (Object.keys(TYPES) as TypeId[]).map((id) => [id, { ...TYPES[id], ...pack.quiz.types[id] }]),
