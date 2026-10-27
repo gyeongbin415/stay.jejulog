@@ -109,10 +109,10 @@
 @media (min-width: 900px) { .mapfab { right: 28px; bottom: 28px; width: 68px; height: 68px; } .mapfab svg { width: 32px; height: 32px; } }
 
 /* 로딩 화면 — 소라게 그림 · 밑에 점 세 개(주황 점이 한 칸씩 옮겨 감) */
-.loader { min-height: 80vh; display: grid; place-content: center; justify-items: center; gap: clamp(18px, 3vh, 28px); padding: 120px var(--gutter); background: var(--bg); }
-.loader__art { display: block; width: min(78vw, 420px); height: auto; }
-.loader__dots { display: flex; gap: 14px; }
-.loader__dots i { width: 14px; height: 14px; border-radius: 50%; background: #E4BC99; animation: loader-dot 1.2s infinite; }
+.loader { min-height: 80vh; display: grid; place-content: center; justify-items: center; gap: 12px; padding: 120px var(--gutter); background: var(--bg); }
+.loader__art { display: block; width: clamp(150px, 40vw, 190px); height: auto; } /* 보통 로딩 아이콘처럼 작게 — 글씨는 읽히는 정도 */
+.loader__dots { display: flex; gap: 8px; }
+.loader__dots i { width: 8px; height: 8px; border-radius: 50%; background: #E4BC99; animation: loader-dot 1.2s infinite; }
 .loader__dots i:nth-child(2) { animation-delay: .4s; }
 .loader__dots i:nth-child(3) { animation-delay: .8s; }
 @keyframes loader-dot { 0%, 33% { background: #F58E4B; } 34%, 100% { background: #E4BC99; } }
