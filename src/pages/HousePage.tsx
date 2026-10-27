@@ -56,12 +56,6 @@ export function HousePage({ embedded = false }: { embedded?: boolean }) {
           ))}
         </Title>
         <p className="explore__sub pre">{SITE.explore.sub}</p>
-        {/* 먼저 볼거리 셋 — 링크 없이 글자만 */}
-        <ul className="explore__picks" aria-label={ui.house.picksAria}>
-          {ui.house.picks.map((label) => (
-            <li key={label}>{label}</li>
-          ))}
-        </ul>
         <p className="explore__hint">
           <span className="explore__dot" aria-hidden="true" />
           {SITE.explore.hint}
