@@ -232,7 +232,8 @@
 .more__copy { display: grid; justify-items: center; gap: 14px; }
 /* 넓은 화면 — 테스트 칸(왼쪽 글 · 오른쪽 그림)과 거울처럼: 왼쪽 사진 격자, 오른쪽 글(왼쪽 맞춤, 테스트 칸과 같은 제목 크기) */
 @media (min-width: 900px) {
-  .more { grid-template-columns: minmax(0, 560px) minmax(0, 1fr); align-items: center; justify-items: start; column-gap: clamp(48px, 7vw, 120px); text-align: left; }
+  /* 사진 · 글을 한 덩어리로 화면 가운데에 */
+  .more { grid-template-columns: minmax(0, 560px) minmax(0, max-content); justify-content: center; align-items: center; justify-items: start; column-gap: clamp(48px, 6vw, 104px); text-align: left; }
   .more__grid { grid-column: 1; grid-row: 1; width: 100%; margin: 0; }
   .more__copy { grid-column: 2; grid-row: 1; justify-items: start; gap: 16px; }
   .more__title { font-size: clamp(27px, 3.8vw, 46px); line-height: 1.32; letter-spacing: -0.025em; }
