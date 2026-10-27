@@ -7,6 +7,7 @@ import { useReducedMotion } from '../lib/motion';
 import { HousePage } from './HousePage';
 import { GehageScene } from '../components/GehageScene';
 import { INSTA_POSTS } from '../data/insta';
+import tasteMapUrl from '../assets/taste-map.webp';
 import introNightUrl from '../assets/intro-night.webp';
 import stripWine from '../assets/strip/rooftop-dinner.webp';
 import stripRun from '../assets/strip/saewol-run.webp';
@@ -36,6 +37,7 @@ export function HomePage() {
       {/* 대문(체크인 · 체크아웃) 대신 집 내부를 메인에서 바로 둘러봅니다 */}
       <HousePage embedded />
       <FindYourStay />
+      <TasteMapBanner />
       <InsideRooms />
       <CheckOut />
     </>
@@ -376,6 +378,20 @@ function FindYourStay() {
 }
 
 /* ── SECTION 04. CHECK OUT — 마무리: 맺음 문구 · 다시 둘러보기 ─────────────────────────────── */
+/* ── 제주 게하 취향지도 — 테스트 칸과 MORE STORIES 사이, 받은 그림 그대로 · 누르면 취향 지도 페이지 ── */
+function TasteMapBanner() {
+  const { ui } = useContent();
+  return (
+    <section id="tastemap" className="find find--map" data-tone="light" aria-label={ui.map.title}>
+      <div className="find__inner wrap">
+        <a className="tastemap" href={href.map()} data-track="home_taste_map">
+          <img src={tasteMapUrl} alt={ui.map.open} width={1100} height={708} loading="lazy" decoding="async" />
+        </a>
+      </div>
+    </section>
+  );
+}
+
 /* ── 방 내부 둘러보기 — 테스트 칸 밑 한 칸 더: 인스타그램 페이지(숙소 게시물 사진)로 ── */
 function InsideRooms() {
   const { ui } = useContent();

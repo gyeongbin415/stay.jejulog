@@ -141,7 +141,7 @@
 .intro[data-phase="reveal"] .problem__head, .intro[data-phase="reveal"] .problem__inner > .strip { transition-delay: .55s; } /* 제목 · 사진 · 문장이 한꺼번에 */
 .intro[data-phase="reveal"] .problem__answer { transition-delay: .55s; }
 .problem__head { display: grid; gap: 14px; align-content: start; }
-.problem__title { font-family: var(--f-home); font-size: clamp(30px, 4.6vw, 58px); font-weight: 700; line-height: 1.32; letter-spacing: -0.03em; }
+.problem__title { font-family: var(--f-home); font-size: clamp(27px, 3.8vw, 46px); font-weight: 700; line-height: 1.32; letter-spacing: -0.025em; } /* 메인 검정 큰 제목은 모두 같은 크기 · 두께 (section-head__title 과 같게) */
 .problem__title span { display: block; }
 
 /* 문제 두 가지 */
@@ -203,7 +203,7 @@
 .find__copy { display: grid; gap: 16px; justify-items: start; }
 .find__copy .btn { margin-top: 12px; }
 /* 테스트 칸 — 왼쪽 글 · 오른쪽 소라게 게하게 소개 (좁은 화면은 글 밑으로) */
-.find:not(.find--inside) .find__inner { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: clamp(40px, 6vw, 96px); }
+.find:not(.find--inside):not(.find--map) .find__inner { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: clamp(40px, 6vw, 96px); }
 .find__gehage { gap: 10px; margin: 0; padding: 0 clamp(0px, 4vw, 80px) 0 0; }
 .find__gehage .story__scene { margin-top: 0; }
 /* 입체 소라게 + 말풍선 한 장 (한국어) */
@@ -213,14 +213,20 @@
 .find__gehage .story__title { font-size: clamp(22px, 2.2vw, 28px); }
 .find__gehage .story__body { font-size: clamp(15px, 1.4vw, 17px); line-height: 1.75; }
 @media (max-width: 899px) {
-  .find:not(.find--inside) .find__inner { grid-template-columns: 1fr; }
+  .find:not(.find--inside):not(.find--map) .find__inner { grid-template-columns: 1fr; }
   .find__gehage { padding: 0; }
 }
 /* 방 내부 둘러보기 — 테스트 칸 바로 밑, 같은 배경에 가는 선으로 칸 나눔 */
 .find--inside .find__inner { border-top: 1px solid rgba(58, 55, 53, .12); padding-top: clamp(56px, 9vh, 96px); }
+/* 제주 게하 취향지도 — 테스트 칸과 MORE STORIES 사이, 가는 선 사이 가운데 그림 (누르면 취향 지도 페이지) */
+.find--map .find__inner { display: grid; justify-items: center; border-top: 1px solid rgba(58, 55, 53, .12); padding: clamp(40px, 7vh, 80px) 0; }
+.tastemap { display: block; width: min(84%, 460px); border-radius: 18px; transition: transform var(--t-hover) var(--ease); }
+.tastemap img { display: block; width: 100%; height: auto; }
+.tastemap:hover { transform: translateY(-3px); }
+.tastemap:focus-visible { outline: 3px solid var(--orange); outline-offset: 6px; }
 /* 제주 게하의 더 많은 이야기 — 가운데 정렬 · 버튼 글자 옆 오른쪽 위 화살표 */
 .more { display: grid; justify-items: center; gap: 14px; text-align: center; }
-.more__title { margin: 0; font-family: var(--f-home); font-size: clamp(22px, 2.6vw, 32px); font-weight: 700; line-height: 1.35; letter-spacing: -0.03em; }
+.more__title { margin: 0; font-family: var(--f-home); font-size: clamp(27px, 3.8vw, 46px); font-weight: 700; line-height: 1.32; letter-spacing: -0.025em; }
 .more__sub { margin: 0; font-size: clamp(15px, 1.5vw, 18px); line-height: 1.65; color: var(--ink-soft); text-wrap: balance; }
 .more__btn { gap: 8px; margin-top: 10px; }
 /* 인스타그램 표지 사진 — 세 칸 격자(4:5), 인스타 화면처럼 사이 4px */
