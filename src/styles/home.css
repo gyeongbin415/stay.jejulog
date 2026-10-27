@@ -234,4 +234,6 @@
 .outro .btn:hover { background: #F5A266; border-color: #F5A266; }
 
 /* 전환 문장 가운데 줄 — ‘제주 게스트하우스’를 크고 선명한 주황으로 (윗줄과는 붙여서) */
-.intro__turn-em { font-size: 1.75em; line-height: 1.15; margin-top: -.35em; white-space: nowrap; color: #FF8A1F; text-shadow: 0 0 40px rgba(255, 138, 31, .45); }
+.intro__turn-em { font-size: 1.75em; line-height: 1.15; margin-top: -.5em; white-space: nowrap; color: #FF8A1F; text-shadow: 0 0 40px rgba(255, 138, 31, .45); }
+/* 마지막 줄 '전부가 아닙니다.' — 첫 줄보다 크게 */
+.intro__turn-end { font-size: 1.3em; }

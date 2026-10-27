@@ -210,8 +210,8 @@ function Intro() {
 
         {/* 줄마다 — 따옴표로 시작하는 줄(‘제주 게스트하우스’)은 크고 진하게 */}
         <p className="intro__turn">
-          {SITE.intro.turn.split('\n').map((line) => (
-            <span key={line} className={/^[‘“]/.test(line) ? 'intro__turn-em' : undefined}>
+          {SITE.intro.turn.split('\n').map((line, i, all) => (
+            <span key={line} className={/^[‘“]/.test(line) ? 'intro__turn-em' : i === all.length - 1 ? 'intro__turn-end' : undefined}>
               {line}
             </span>
           ))}
