@@ -210,6 +210,48 @@
 .find__gehage .story__scene-art { display: block; width: clamp(260px, 30vw, 380px); height: auto; }
 /* 소라게 몸(그림 폭의 35% 지점)이 글 가운데 오도록 오른쪽으로 — 말풍선은 오른쪽으로 비켜 남 */
 .find__gehage .story__scene-art { translate: 15% 0; }
+
+/* ── 움직이는 게하게 — 소라게 · 말풍선 · 느낌표 세 겹(같은 900×616 캔버스라 겹치면 받은 그림 그대로) ── */
+.gehage { position: relative; aspect-ratio: 900 / 616; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.gehage img { position: absolute; inset: 0; width: 100%; height: 100%; user-select: none; -webkit-user-drag: none; }
+/* 소라게 — 화면에 들어오면 왼쪽에서 뒤뚱뒤뚱 걸어 들어오고, 그 뒤로도 제자리에서 뒤뚱 (발끝을 축으로) */
+.gehage__crab {
+  transform-origin: 33% 95%;
+  opacity: 0; translate: -16% 0;
+  transition: opacity .5s var(--ease), translate 1.1s cubic-bezier(.3, .7, .3, 1);
+}
+.gehage.is-on .gehage__crab { opacity: 1; translate: 0 0; animation: gehage-walk .34s ease-in-out 4 alternate, gehage-idle 2.6s ease-in-out 1.4s infinite; }
+@keyframes gehage-walk { from { transform: rotate(-3.5deg) translateY(0); } to { transform: rotate(3.5deg) translateY(-1.2%); } }
+@keyframes gehage-idle {
+  0%, 100% { transform: rotate(0) scale(1, 1); }
+  25% { transform: rotate(-1.4deg) scale(1.01, .99); }
+  50% { transform: rotate(0) scale(.995, 1.012); }
+  75% { transform: rotate(1.4deg) scale(1.01, .99); }
+}
+/* 말풍선 — 꼬리 끝에서 톡 튀어나온 뒤 둥실둥실 */
+.gehage__bubble { transform-origin: 57% 45%; opacity: 0; scale: .35; transition: opacity .25s var(--ease), scale .55s cubic-bezier(.34, 1.7, .5, 1); }
+.gehage.is-on .gehage__bubble { opacity: 1; scale: 1; transition-delay: 1.15s; animation: gehage-float 3.4s ease-in-out 1.9s infinite; }
+@keyframes gehage-float { 0%, 100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-1.6%) rotate(-.6deg); } }
+/* 집게 옆 느낌표 — 반짝반짝 */
+.gehage__marks { transform-origin: 60% 63%; opacity: 0; }
+.gehage.is-on .gehage__marks { animation: gehage-ping 1.5s ease-out 1.6s infinite; }
+@keyframes gehage-ping { 0% { opacity: 0; scale: .55; } 25% { opacity: 1; scale: 1.12; } 45%, 75% { opacity: 1; scale: 1; } 100% { opacity: 0; scale: 1; } }
+/* 누르거나 마우스를 올리면 — 몸을 흔들며 반가워함 */
+.gehage.is-on.is-poke .gehage__crab { animation: gehage-wiggle .7s ease-in-out; }
+.gehage.is-on.is-poke .gehage__bubble { animation: gehage-nudge .7s ease-in-out; }
+@keyframes gehage-wiggle {
+  0%, 100% { transform: rotate(0) scale(1); }
+  15% { transform: rotate(-6deg) scale(1.03, .96); }
+  35% { transform: rotate(5deg) translateY(-3%) scale(.98, 1.04); }
+  55% { transform: rotate(-3deg) scale(1.02, .98); }
+  75% { transform: rotate(2deg); }
+}
+@keyframes gehage-nudge { 0%, 100% { transform: rotate(0); } 30% { transform: rotate(-3deg) translateY(-2%); } 60% { transform: rotate(2deg); } }
+/* 다른 언어(그린 말풍선) — 소라게만 제자리 뒤뚱 */
+.gehage-walk { transform-origin: 40% 95%; animation: gehage-idle 2.6s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .gehage img, .gehage-walk { animation: none !important; transition: none !important; opacity: 1 !important; translate: none !important; scale: none !important; }
+}
 .find__gehage .story__title { font-size: clamp(27px, 3.8vw, 46px); line-height: 1.32; letter-spacing: -0.025em; } /* 메인 큰 제목과 같은 크기 · 두께 */
 .find__gehage .story__body { font-size: clamp(15px, 1.4vw, 17px); line-height: 1.75; }
 @media (max-width: 899px) {

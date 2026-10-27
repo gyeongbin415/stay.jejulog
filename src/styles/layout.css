@@ -110,7 +110,10 @@
 
 /* 로딩 화면 — 소라게 그림 · 밑에 점 세 개(주황 점이 한 칸씩 옮겨 감) */
 .loader { min-height: 80vh; display: grid; place-content: center; justify-items: center; padding: 120px var(--gutter); background: var(--bg); }
-.loader__art { display: block; width: clamp(190px, 56vw, 240px); height: auto; } /* 받은 화면 크기 — 375px 폭에서 약 210px */
+.loader__art { display: block; width: clamp(190px, 56vw, 240px); height: auto; transform-origin: 62% 92%; animation: loader-walk .42s ease-in-out infinite alternate; } /* 받은 화면 크기 — 375px 폭에서 약 210px */
+/* 게하게가 지도를 들고 뒤뚱뒤뚱 걸어가는 느낌 */
+@keyframes loader-walk { from { transform: rotate(-2deg) translateY(0); } to { transform: rotate(2deg) translateY(-3px); } }
+@media (prefers-reduced-motion: reduce) { .loader__art { animation: none; } }
 /* 글씨 — 375px 폭에서 약 230px (소라게 밑 30px) */
 .loader__text { display: block; width: calc(clamp(200px, 61vw, 260px) * var(--k, 1)); height: auto; margin-top: 30px; }
 .loader__dots { display: flex; gap: 9px; margin-top: 16px; }

@@ -209,7 +209,7 @@ export const PROGRAMS: Program[] = [
         {
           name: '오름 일출 투어',
           info: [{ label: '가격', value: '28,000원' }, { label: '시간', value: '시간 조율' }],
-          photo: { src: 'photos/kokoko-sunrise-v2.jpg', art: 'oreum', alt: '오름 위에서 해가 떠오르는 하늘과 바다를 바라보는 여행자', caption: '오름 위에서 맞는 아침' },
+          photo: { src: 'photos/kokoko-sunrise-v3.jpg', art: 'oreum', alt: '오름 위에서 해가 떠오르는 하늘과 바다를 바라보는 여행자', caption: '오름 위에서 맞는 아침' },
           text: ['이른 아침, 제주에서 가이드 일을 전문적으로 하고 있는 마을 주민분과 함께 일출이 아름다운 오름에 오르는 프로그램이 준비되어 있다. 제주에서 새벽을 맞이하는 특별함을 느낄 수 있으며 아름다운 풍경은 물론 제주만의 일상과 분위기를 가까이에서 느껴볼 수 있다.'],
         },
       ],

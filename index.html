@@ -55,7 +55,9 @@
     <link rel="preload" as="image" href="loading-crab.webp" />
     <style>
       #boot-loader { position: fixed; inset: 0; z-index: 200; display: grid; place-content: center; justify-items: center; background: #FAFAF3; }
-      #boot-loader .art { display: block; width: clamp(190px, 56vw, 240px); height: auto; }
+      #boot-loader .art { display: block; width: clamp(190px, 56vw, 240px); height: auto; transform-origin: 62% 92%; animation: boot-walk .42s ease-in-out infinite alternate; }
+      @keyframes boot-walk { from { transform: rotate(-2deg) translateY(0); } to { transform: rotate(2deg) translateY(-3px); } }
+      @media (prefers-reduced-motion: reduce) { #boot-loader .art { animation: none; } }
       #boot-loader .text { display: block; width: clamp(200px, 61vw, 260px); height: auto; margin-top: 30px; }
       #boot-loader .dots { display: flex; gap: 9px; margin-top: 16px; }
       #boot-loader .dots i { width: 10px; height: 10px; border-radius: 50%; background: #E4BC99; animation: boot-dot1 1.8s steps(1, end) infinite; }
