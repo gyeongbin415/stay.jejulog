@@ -215,7 +215,7 @@ export const PROGRAMS: Program[] = [
       ],
       editorProfile: {
         title: '혼자만의 시간도 중요한 에디터',
-        avatar: 'photos/editor-flower-v3.jpg',
+        avatar: 'photos/editor-flower-v4.jpg',
         tags: ['조용한여행', '소소한대화', '여유로운일정'],
         about: ['사람이 붐비는 곳보다는 조용하고 한적한 분위기를 선호해요. 적당한 계획 속에서 혼자만의 시간을 여유롭게 보내고, 가끔은 소소한 대화도 좋아해요.'],
       },
@@ -277,7 +277,7 @@ export const PROGRAMS: Program[] = [
       ],
       editorProfile: {
         title: '아날로그 감성을 즐기는 에디터',
-        avatar: 'photos/editor-lp-v3.jpg',
+        avatar: 'photos/editor-lp-v4.jpg',
         tags: ['낭만여행', '음악감상', '아날로그감성'],
         about: ['여행에서는 감성적인 공간을 찾아가 낭만 있는 시간을 보내는 걸 좋아해요. 쉬거나 이동할 때 음악을 즐겨 듣고, 아날로그 감성을 좋아해요.'],
       },
@@ -399,7 +399,7 @@ export const PROGRAMS: Program[] = [
       ],
       editorProfile: {
         title: '내 손으로 특별한 추억을 만들고 싶은 에디터',
-        avatar: 'photos/editor-craft-v3.jpg',
+        avatar: 'photos/editor-craft-v4.jpg',
         tags: ['체험형여행', '나만의기념품', '취향기록'],
         about: [
           '관광지를 둘러보는 것보다 직접 무언가를 경험하는 여행을 좋아해요. 기성품보다 나만의 취향과 추억이 담긴 기념품을 오래 간직하고 싶어요.',
@@ -523,7 +523,7 @@ export const PROGRAMS: Program[] = [
       ],
       editorProfile: {
         title: '혼자도 함께도 좋은 에디터',
-        avatar: 'photos/editor-homemeal-v3.jpg',
+        avatar: 'photos/editor-homemeal-v4.jpg',
         tags: ['느긋한여행', '함께먹는저녁', '혼자도함께도'],
         about: ['서두르지 않고 느긋하게 머무는 여행을 좋아해요. 저녁 한 끼는 누군가와 함께 먹고 싶고, 혼자만의 시간도 함께하는 시간도 모두 소중해요.'],
       },
@@ -581,7 +581,7 @@ export const PROGRAMS: Program[] = [
       ],
       editorProfile: {
         title: '혼자 여행에 도전해 본 에디터',
-        avatar: 'photos/editor-wine-v3.jpg',
+        avatar: 'photos/editor-wine-v4.jpg',
         tags: ['다해보는여행', '새로운경험', '혼행도전'],
         about: [
           '여행지에서 할 수 있는 특별한 경험이라면 놓치고 싶지 않아요. 혼자 여행하는 걸 즐기는 편은 아니지만, 새로운 경험에 도전하고 싶어 혼자 제주로 떠났어요.',
