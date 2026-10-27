@@ -96,9 +96,12 @@
 .menu__list a:hover { color: var(--forest); padding-left: 10px; }
 .menu__list a[aria-current="page"] { color: var(--forest); }@keyframes fade-in { from { opacity: 0; } }
 
-/* 취향 지도 동그라미 — 모든 페이지 오른쪽 아래 (메뉴보다 아래 층) */
-.mapfab {
+/* 오른쪽 아래 동그라미 버튼 — 위 취향 지도 · 아래 인스타그램 (메뉴보다 아래 층) */
+.fabs {
   position: fixed; right: max(16px, env(safe-area-inset-right)); bottom: max(16px, env(safe-area-inset-bottom)); z-index: 90;
+  display: grid; gap: 12px;
+}
+.mapfab {
   display: grid; place-items: center; width: 60px; height: 60px; border-radius: 50%;
   background: #fff; color: var(--orange-ink); box-shadow: 0 4px 16px rgba(58, 55, 53, .18);
   transition: transform var(--t-hover) var(--ease), box-shadow var(--t-hover) var(--ease);
@@ -106,7 +109,8 @@
 .mapfab:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(58, 55, 53, .22); }
 .mapfab:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; }
 .mapfab svg { width: 28px; height: 28px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linejoin: round; stroke-linecap: round; }
-@media (min-width: 900px) { .mapfab { right: 28px; bottom: 28px; width: 68px; height: 68px; } .mapfab svg { width: 32px; height: 32px; } }
+.mapfab__dot { fill: currentColor; stroke: none; }
+@media (min-width: 900px) { .fabs { right: 28px; bottom: 28px; gap: 14px; } .mapfab { width: 68px; height: 68px; } .mapfab svg { width: 32px; height: 32px; } }
 
 /* 로딩 화면 — 소라게 그림 · 밑에 점 세 개(주황 점이 한 칸씩 옮겨 감) */
 .loader { min-height: 80vh; display: grid; place-content: center; justify-items: center; padding: 120px var(--gutter); background: var(--bg); }

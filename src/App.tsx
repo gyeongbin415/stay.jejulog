@@ -144,7 +144,7 @@ export function App() {
         </div>
       </main>
       {/* 취향 지도 동그라미 — 모든 페이지 오른쪽 아래 (지도 페이지에서는 숨김) */}
-      {route.name !== 'map' && <MapFab />}
+      <MapFab showMap={route.name !== 'map'} showInsta={route.name !== 'insta'} />
       <Footer />
     </>
   );
