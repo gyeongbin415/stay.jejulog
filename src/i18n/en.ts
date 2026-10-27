@@ -112,7 +112,7 @@ export const EN: ContentPack = {
       join: {
         who: 'You can join the wine dinner party without staying here. The morning run is for those who sign up.',
         how: 'To join only the party, ask ahead by Instagram DM or phone. Rooms can be booked by searching “새애월” on Naver.',
-        linkLabels: ['Instagram @sae_aewol', 'Naver booking'],
+        linkLabels: ['Instagram', 'Naver booking'],
       },
       programs: [
         {
@@ -178,7 +178,7 @@ export const EN: ContentPack = {
       join: {
         who: 'Screenings are a program for guests staying here.',
         how: 'Write the film you’d like to see on the board, and the screening starts at 8 PM. Rooms are booked through Naver Booking.',
-        linkLabels: ['Instagram @jejushym', 'Naver booking'],
+        linkLabels: ['Instagram', 'Naver booking'],
       },
       programs: [
         {
@@ -215,7 +215,7 @@ export const EN: ContentPack = {
       join: {
         who: 'The flower class runs Monday to Saturday at 2 PM and can be joined by reservation. Guests join the sunrise oreum tour by booking ahead.',
         how: 'Class sign-ups and questions go through Instagram DM.',
-        linkLabels: ['Instagram @cococolife'],
+        linkLabels: ['Instagram'],
       },
       programs: [
         {
@@ -275,7 +275,7 @@ export const EN: ContentPack = {
       join: {
         who: 'The listening gathering runs as a package that includes your stay and dinner, open to ages 20 to 38 (as of the October 2026 session).',
         how: 'Fill in the sign-up form opened for each session and pay the fee. Your booking is done once you get a confirmation text. Questions go through Instagram DM.',
-        linkLabels: ['Instagram @seolon_zip', 'Booking links'],
+        linkLabels: ['Instagram', 'Booking links'],
       },
       programs: [
         {
@@ -331,7 +331,7 @@ export const EN: ContentPack = {
       join: {
         who: 'The conversation gathering ‘To the Oreum’ meets every evening at 8.',
         how: 'Sign up by text on the day; it usually goes ahead with two or more people (based on visitor reviews). Rooms are booked through Naver Booking.',
-        linkLabels: ['Instagram @jejubookhome', 'Official blog', 'Naver booking'],
+        linkLabels: ['Instagram', 'Official blog', 'Naver booking'],
       },
       programs: [
         {
@@ -385,7 +385,7 @@ export const EN: ContentPack = {
       join: {
         who: 'You can join the wooden ring class without staying here. The regular fee is KRW 32,000, discounted to KRW 29,000 for Seureureu Guesthouse guests.',
         how: 'Book the workshop ‘Ujugonggan’ through Naver Booking or by phone.',
-        linkLabels: ['Workshop Instagram @sspace_jeju', 'Naver booking', 'Official blog'],
+        linkLabels: ['Workshop Instagram', 'Naver booking', 'Official blog'],
       },
       introQuote: '“Honestly, the wood ring studio came before the guesthouse.”',
       programs: [
@@ -430,7 +430,7 @@ export const EN: ContentPack = {
       join: {
         who: 'The snap photo shoot is run by a photo studio (@studiopastel_).',
         how: 'For the shoot, contact the studio by Instagram DM, KakaoTalk or phone. Rooms are booked through Naver Booking.',
-        linkLabels: ['Instagram @mr_shuimpyo__', 'Naver booking', 'Studio @studiopastel_'],
+        linkLabels: ['Instagram', 'Naver booking', 'Studio Instagram'],
       },
       programs: [
         {
@@ -485,7 +485,7 @@ export const EN: ContentPack = {
       join: {
         who: 'The Simple Dinner goes ahead when enough people sign up.',
         how: 'Sign up for dinner ahead of time by text. Rooms can be booked from the booking link on the Instagram profile.',
-        linkLabels: ['Instagram @soosoohouse', 'Naver booking'],
+        linkLabels: ['Instagram', 'Naver booking'],
       },
       programs: [
         {
@@ -545,7 +545,7 @@ export const EN: ContentPack = {
       join: {
         who: 'Guests staying here get booking priority for the winery dinner.',
         how: 'On the morning of your stay you get a text; book within the stated time (based on visitor reviews). Outside alcohol isn’t allowed.',
-        linkLabels: ['Instagram @rooftop_guesthouse', 'Booking link'],
+        linkLabels: ['Instagram', 'Booking link'],
       },
       programs: [
         {

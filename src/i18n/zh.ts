@@ -107,7 +107,7 @@ export const ZH: ContentPack = {
       join: {
         who: '不住宿也可以参加葡萄酒晚宴派对。晨跑只限报名的人参加。',
         how: '只参加派对的话，请提前通过 Instagram 私信或电话咨询。住宿可在 Naver 搜索“새애월”预订。',
-        linkLabels: ['Instagram @sae_aewol', 'Naver 预订'],
+        linkLabels: ['Instagram', 'Naver 预订'],
       },
       programs: [
         {
@@ -173,7 +173,7 @@ export const ZH: ContentPack = {
       join: {
         who: '电影放映是为住客准备的项目。',
         how: '把想看的电影写在留言板上报名，晚上8点开始放映。住宿通过 Naver 预订。',
-        linkLabels: ['Instagram @jejushym', 'Naver 预订'],
+        linkLabels: ['Instagram', 'Naver 预订'],
       },
       programs: [
         {
@@ -208,7 +208,7 @@ export const ZH: ContentPack = {
       join: {
         who: '花艺课周一至周六下午2点，预约即可体验。日出山丘之旅由住客提前预约参加。',
         how: '课程报名与咨询请通过 Instagram 私信。',
-        linkLabels: ['Instagram @cococolife'],
+        linkLabels: ['Instagram'],
       },
       programs: [
         {
@@ -264,7 +264,7 @@ export const ZH: ContentPack = {
       join: {
         who: '聆听聚会以包含住宿和晚餐的套餐形式进行，限满20至38岁（以2026年10月场次说明为准）。',
         how: '填写每场开放的报名表并汇款，收到确认短信即预约完成。咨询请通过 Instagram 私信。',
-        linkLabels: ['Instagram @seolon_zip', '预约链接'],
+        linkLabels: ['Instagram', '预约链接'],
       },
       programs: [
         {
@@ -320,7 +320,7 @@ export const ZH: ContentPack = {
       join: {
         who: '对话聚会“致山丘”每天晚上8点举行。',
         how: '当天发短信报名，通常2人以上即可进行（据住客评价）。住宿通过 Naver 预订。',
-        linkLabels: ['Instagram @jejubookhome', '官方博客', 'Naver 预订'],
+        linkLabels: ['Instagram', '官方博客', 'Naver 预订'],
       },
       programs: [
         {
@@ -370,7 +370,7 @@ export const ZH: ContentPack = {
       join: {
         who: '不住宿也可以参加木戒指课程。一般参加费为32,000韩元，스르르民宿住客享29,000韩元优惠价。',
         how: '可通过 Naver 预订或电话向工坊“宇宙空间”预约。',
-        linkLabels: ['工坊 Instagram @sspace_jeju', 'Naver 预订', '官方博客'],
+        linkLabels: ['工坊 Instagram', 'Naver 预订', '官方博客'],
       },
       introQuote: '“其实，比起民宿，木戒指工坊才是先有的。”',
       programs: [
@@ -413,7 +413,7 @@ export const ZH: ContentPack = {
       join: {
         who: '快照拍摄由摄影工作室（@studiopastel_）负责。',
         how: '拍摄咨询请通过 Instagram 私信、KakaoTalk 或电话联系工作室。住宿通过 Naver 预订。',
-        linkLabels: ['Instagram @mr_shuimpyo__', 'Naver 预订', '工作室 @studiopastel_'],
+        linkLabels: ['Instagram', 'Naver 预订', '工作室 Instagram'],
       },
       programs: [
         {
@@ -464,7 +464,7 @@ export const ZH: ContentPack = {
       join: {
         who: '“朴素的晚餐”在报名人数足够时进行。',
         how: '晚餐请提前发短信报名。住宿可通过 Instagram 主页上的预订链接预订。',
-        linkLabels: ['Instagram @soosoohouse', 'Naver 预订'],
+        linkLabels: ['Instagram', 'Naver 预订'],
       },
       programs: [
         {
@@ -520,7 +520,7 @@ export const ZH: ContentPack = {
       join: {
         who: '酒庄晚宴优先接受住客预约。',
         how: '住宿当天早上会收到通知短信，请在规定时间内预约（据住客评价）。不可自带酒水。',
-        linkLabels: ['Instagram @rooftop_guesthouse', '预约链接'],
+        linkLabels: ['Instagram', '预约链接'],
       },
       programs: [
         {
