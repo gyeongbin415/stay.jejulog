@@ -14,7 +14,7 @@ export const TASTE_LAYERS: { id: TasteLayer; ko: string; en: string; zh: string;
   { id: 'dinner', ko: '집밥·디너', en: 'Home meals & dinner', zh: '家常饭·晚餐', color: '#E0752D' },
   { id: 'potluck', ko: '포틀럭·불멍', en: 'Potluck & campfire', zh: '聚餐·篝火', color: '#C2432F' },
   { id: 'active', ko: '자연·액티비티', en: 'Nature & activity', zh: '自然·活动', color: '#2C7FB8' },
-  { id: 'class', ko: '클래스·웰니스', en: 'Class & wellness', zh: '课程·身心', color: '#B8860B' },
+  { id: 'class', ko: '클래스', en: 'Class', zh: '课程', color: '#B8860B' },
   { id: 'rest', ko: '조용한 휴식', en: 'Quiet rest', zh: '安静休息', color: '#6B7A70' },
 ];
 
