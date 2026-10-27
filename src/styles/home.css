@@ -255,9 +255,10 @@
 .intro__turn-em { font-size: 1.75em; line-height: 1.15; margin-top: -.5em; white-space: nowrap; color: #FF8A1F; text-shadow: 0 0 40px rgba(255, 138, 31, .45); }
 /* 마지막 줄 '전부가 아닙니다.' — 첫 줄보다 크게 */
 .intro__turn-end { font-size: 1.3em; }
-/* 휴대폰 — 받은 화면 그대로: 글자 크기 첫 줄 27 · 가운데 42 · 끝 줄 34px(375px 폭 기준), 줄 사이 70px 남짓 고르게 */
+/* 휴대폰 — 한눈에 들어오게: 375px 폭 기준 첫 줄 22 · 가운데 34 · 끝 줄 26px
+   (가운데 줄이 화면 폭의 2/3 남짓), 줄 사이 54px 고르게 */
 @media (max-width: 639px) {
-  .intro__turn { font-size: 7.3vw; gap: .85em; }
-  .intro__turn-em { font-size: 1.52em; margin-top: .12em; }
-  .intro__turn-end { font-size: 1.23em; }
+  .intro__turn { font-size: clamp(19px, 5.9vw, 30px); gap: .78em; }
+  .intro__turn-em { font-size: 1.55em; margin-top: .08em; }
+  .intro__turn-end { font-size: 1.2em; }
 }
