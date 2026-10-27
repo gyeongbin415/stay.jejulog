@@ -294,7 +294,7 @@ export const EN: ContentPack = {
             { label: 'Schedule', value: 'Every other month (once every two months)' },
             { label: 'Price', value: 'Announced separately for each session' },
           ],
-          photos: [{ alt: 'An LP with a flower-patterned label spinning on a turntable in a wooden audio cabinet', caption: 'The turntable at the listening gathering' }],
+          photos: [{ alt: 'Six LP album covers displayed in two rows on wooden stands against a brown wall', caption: 'LP albums on the wall' }],
           text: [
             'Held once every two months, the listening gathering is a program built around a single musician. Guests listen to that artist’s songs together and share what they felt, getting to know each other’s taste in music. Even travelers meeting for the first time in Jeju grow closer naturally through the music they share.',
           ],

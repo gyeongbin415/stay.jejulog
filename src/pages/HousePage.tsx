@@ -21,15 +21,15 @@ const VIEW_KEY = 'jejulog:house-view';
 const IMG_W = 1087;
 const IMG_H = 1447;
 const SPOTS: { id: ProgramId; room: [number, number, number, number]; tag: [number, number, number]; center?: boolean }[] = [
-  { id: 'craft', room: [145, 80, 944, 359], tag: [543, 133, 155], center: true },
-  { id: 'book', room: [145, 370, 536, 620], tag: [151, 380, 89] },
-  { id: 'flower', room: [550, 370, 944, 620], tag: [561, 380, 140] },
-  { id: 'cinema', room: [145, 630, 536, 886], tag: [153, 641, 113] },
-  { id: 'lp', room: [550, 630, 944, 886], tag: [559, 641, 101] },
-  { id: 'homemeal', room: [145, 896, 536, 1131], tag: [153, 907, 113] },
-  { id: 'wine', room: [550, 896, 944, 1131], tag: [563, 908, 109] },
-  { id: 'camping', room: [130, 1166, 531, 1413], tag: [141, 1172, 156] },
-  { id: 'running', room: [553, 1167, 956, 1413], tag: [561, 1172, 108] },
+  { id: 'craft', room: [146, 70, 941, 345], tag: [544, 124, 156], center: true },
+  { id: 'book', room: [146, 358, 535, 603], tag: [154, 369, 85] },
+  { id: 'flower', room: [550, 358, 941, 603], tag: [561, 369, 138] },
+  { id: 'cinema', room: [146, 617, 535, 857], tag: [155, 628, 108] },
+  { id: 'lp', room: [550, 617, 941, 857], tag: [561, 628, 97] },
+  { id: 'homemeal', room: [146, 870, 535, 1106], tag: [154, 882, 111] },
+  { id: 'wine', room: [550, 870, 941, 1106], tag: [561, 882, 109] },
+  { id: 'camping', room: [131, 1138, 534, 1387], tag: [142, 1144, 156] },
+  { id: 'running', room: [552, 1138, 955, 1387], tag: [560, 1144, 110] },
 ];
 const pct = (v: number, of: number) => `${(v / of) * 100}%`;
 

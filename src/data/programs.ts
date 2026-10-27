@@ -271,7 +271,7 @@ export const PROGRAMS: Program[] = [
         {
           name: '리스닝 모임',
           info: [{ label: '일정', value: '격월 진행 (두 달에 한 번)' }, { label: '가격', value: '회차별 별도 공지' }],
-          photo: { src: 'photos/seoron-listening.jpg', art: 'lp', alt: '나무 오디오 장식장 위 턴테이블에서 꽃 그림 라벨의 LP가 돌아가는 모습', caption: '리스닝 모임의 턴테이블' },
+          photo: { src: 'photos/seoron-listening-v2.jpg', art: 'lp', alt: '갈색 벽에 나무 받침으로 두 줄 진열된 LP 앨범 재킷 여섯 장', caption: '벽에 진열된 LP 앨범', ratio: '7 / 5' },
           text: ['두 달에 한 번 열리는 리스닝 모임은 한 명의 뮤지션을 주제로 음악을 감상하는 프로그램입니다. 해당 뮤지션의 곡을 함께 듣고 느낀 점을 나누며 서로의 음악 취향을 알아갑니다. 제주에서 처음 만난 여행자들도 음악이라는 공통점으로 자연스럽게 가까워지는 시간입니다.'],
         },
       ],

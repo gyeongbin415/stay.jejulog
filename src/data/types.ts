@@ -19,6 +19,8 @@ export interface PhotoData {
   art: ArtKey;
   /** 사진 아래 캡션 (선택) */
   caption?: string;
+  /** 프로그램 사진 한 장일 때 화면 비율 (예: '7 / 5') — 비우면 4 / 3 */
+  ratio?: string;
 }
 
 export type ProgramId =
