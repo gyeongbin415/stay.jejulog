@@ -192,7 +192,6 @@ function PostModal({ n, post, onClose }: { n: number; post: InstaPost; onClose: 
             </p>
           </div>
           <footer className="insta-modal__foot">
-            <p className="insta-modal__likes">{t.likes(post.likes)} · {t.comments(post.comments)}</p>
             <time dateTime={post.date}>{date}</time>
             {post.stay && (
               <a className="insta-modal__stay" href={href.stay(post.stay)} data-track={`insta_to_stay_${post.stay}`}>
