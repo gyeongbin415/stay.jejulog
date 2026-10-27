@@ -217,7 +217,9 @@
   .find__gehage { padding: 0; }
 }
 /* 방 내부 둘러보기 — 테스트 칸 바로 밑, 같은 배경에 가는 선으로 칸 나눔 */
-.find--inside .find__inner { border-top: 1px solid rgba(58, 55, 53, .12); padding-top: clamp(56px, 9vh, 96px); }
+/* MORE STORIES 칸은 메인 바탕색 — 위 하늘색 칸과 색이 갈리니 구분선은 뺌 */
+.find.find--inside { background: #FAFAF3; }
+.find--inside .find__inner { padding-top: clamp(56px, 9vh, 96px); }
 /* 제주 게하 취향지도 — 테스트 칸과 MORE STORIES 사이, 가는 선 사이 가운데 그림 (누르면 취향 지도 페이지) */
 /* 메인 지도 칸만 옅은 하늘색(파스텔) — 위 칸과 색이 갈리니 구분선은 뺌 */
 .find.find--map { background: #E9F4F9; }
