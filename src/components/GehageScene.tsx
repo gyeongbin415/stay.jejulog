@@ -1,24 +1,21 @@
 import { useContent } from '../i18n';
 import gehageUrl from '../assets/gehage.png';
-import storyCrabUrl from '../assets/gehage-story-crab.webp';
-import storyBubbleUrl from '../assets/gehage-story-bubble.webp';
+import sceneUrl from '../assets/gehage-3d.webp';
 
 /** 말풍선 모양 — 타원 몸통(가운데 112,58 · 반지름 100×52)과 왼쪽 아래로 뻗은 꼬리 */
 const BUBBLE_PATH = 'M54.6 100.6 A100 52 0 1 0 30.1 87.8 Q29 110 14 126 Q38 117 54.6 100.6 Z';
 
 /**
- * 짐을 메고 지도를 든 여행자 소라게 게하게 + 말풍선 — 취향 테스트 첫 화면 · 메인 FIND YOUR STAY 에 같이 씀
- * 한국어는 시안 그림에서 소라게 · 말풍선을 따로 떼어 (배경만 뺌) 소라게는 가운데, 말풍선은 오른쪽 위에 작게.
- * 다른 언어는 글자를 바꿀 수 있게 그린 말풍선
+ * 짐을 메고 지도를 든 여행자 소라게 게하게 + 말풍선 — 메인 FIND YOUR STAY 칸
+ * 한국어는 받은 입체 그림 한 장(소라게 + 말풍선). 다른 언어는 글자를 바꿀 수 있게 그린 말풍선
  */
 export function GehageScene({ bubbleId = 'story-bubble-fill' }: { bubbleId?: string }) {
   const { lang, ui } = useContent();
   if (lang === 'ko') {
+    // 받은 그림 그대로 — 입체 소라게 + 말풍선('오늘은 어떤 집에서 묵어볼까?') 한 장, 바깥 배경만 뺌
     return (
       <div className="story__scene">
-        <img className="story__char story__char--art" src={storyCrabUrl} alt="" aria-hidden="true" />
-        {/* 받은 말풍선 그림 그대로 ('오늘은 어떤 집으로 이사갈까?', 배경만 뺌) */}
-        <img className="story__bubble-art" src={storyBubbleUrl} alt={ui.test.storyBubble.replace('\n', ' ')} />
+        <img className="story__scene-art" src={sceneUrl} alt={ui.test.storyBubble.replace('\n', ' ')} />
       </div>
     );
   }

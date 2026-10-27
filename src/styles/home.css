@@ -205,9 +205,9 @@
 /* 테스트 칸 — 왼쪽 글 · 오른쪽 소라게 게하게 소개 (좁은 화면은 글 밑으로) */
 .find:not(.find--inside) .find__inner { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: clamp(40px, 6vw, 96px); }
 .find__gehage { gap: 10px; margin: 0; padding: 0 clamp(0px, 4vw, 80px) 0 0; }
-.find__gehage .story__scene { margin-top: clamp(40px, 5vw, 60px); }
-.find__gehage .story__char--art { width: clamp(170px, 20vw, 250px); }
-.find__gehage .story__bubble-art { width: clamp(130px, 62%, 190px); }
+.find__gehage .story__scene { margin-top: 0; }
+/* 입체 소라게 + 말풍선 한 장 (한국어) */
+.find__gehage .story__scene-art { display: block; width: clamp(260px, 30vw, 380px); height: auto; }
 .find__gehage .story__title { font-size: clamp(22px, 2.2vw, 28px); }
 .find__gehage .story__body { font-size: clamp(15px, 1.4vw, 17px); line-height: 1.75; }
 @media (max-width: 899px) {
