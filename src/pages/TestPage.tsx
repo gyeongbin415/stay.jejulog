@@ -181,7 +181,8 @@ function Result({ result, shared, onRetry, focusRef }: { result: QuizResult; sha
 
   // 결과 이미지 한 장 — 저장하기 · 인스타그램 공유에 같이 씀
   const resultFile = async () => {
-    const ranked = [result.main, second?.id, third?.id].filter(Boolean) as ProgramId[];
+    // 저장 · 인스타 공유 이미지는 1위(BEST 1)만
+    const ranked: ProgramId[] = [result.main];
     const blob = await makeResultImage({
       lead: t.lead,
       brand: `${site.brandEn} · ${site.brand}`,
@@ -268,9 +269,15 @@ function Result({ result, shared, onRetry, focusRef }: { result: QuizResult; sha
         <p className="result__place">{programById[result.main].report.place.name}</p>
         {/* 게하 한 줄 소개 — 숙소 페이지 BASIC INFORMATION 과 같은 문장, 이름 바로 밑 */}
         {programById[result.main].report.oneLine && <p className="result__oneline">{programById[result.main].report.oneLine}</p>}
-        <a className="btn" href={href.stay(result.main)} data-track={`result_best01_${result.main}`}>
-          {t.detail} <span className="arrow" aria-hidden="true">→</span>
-        </a>
+        {/* 자세히 알아보기 · 그 오른쪽 저장(아이콘만) */}
+        <div className="result__cta">
+          <a className="btn" href={href.stay(result.main)} data-track={`result_best01_${result.main}`}>
+            {t.detail} <span className="arrow" aria-hidden="true">→</span>
+          </a>
+          <button type="button" className="result__save" onClick={save} aria-label={t.save} title={t.save} data-track="result_save">
+            <ActIcon name="save" />
+          </button>
+        </div>
       </header>
 
       <ol className="result__picks">
@@ -279,7 +286,7 @@ function Result({ result, shared, onRetry, focusRef }: { result: QuizResult; sha
         {third && <Pick rank="BEST 3" caption={t.thirdCaption} id={third.id} />}
       </ol>
 
-      {/* 내 결과 공유하기(카카오톡 · X · 링크) · 저장하기 — 2 · 3순위 카드 바로 밑 */}
+      {/* 내 결과 공유하기(카카오톡 · 인스타그램 · X) — 2 · 3순위 카드 바로 밑 */}
       <div className="result__actions">
         <div className="share">
           <p className="share__title">{t.shareTitle}</p>
@@ -295,10 +302,6 @@ function Result({ result, shared, onRetry, focusRef }: { result: QuizResult; sha
             </button>
           </div>
         </div>
-        <button type="button" className="btn btn--ghost result__save" onClick={save} data-track="result_save">
-          <ActIcon name="save" />
-          {t.save}
-        </button>
         <p className="result__status" role="status">{status}</p>
       </div>
 

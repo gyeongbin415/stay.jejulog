@@ -65,11 +65,13 @@ export async function makeResultImage(input: ResultImageInput): Promise<Blob> {
 
   const canvas = document.createElement('canvas');
   canvas.width = W;
-  canvas.height = H;
+  // 1위만 담을 때는 2 · 3위 자리 없이 짧게
+  const h = input.picks.length > 1 ? H : 1020;
+  canvas.height = h;
   const ctx = canvas.getContext('2d');
   if (!ctx) throw new Error('canvas');
   ctx.fillStyle = C.bg;
-  ctx.fillRect(0, 0, W, H);
+  ctx.fillRect(0, 0, W, h);
   ctx.textAlign = 'center';
   ctx.textBaseline = 'alphabetic';
 
@@ -127,7 +129,7 @@ export async function makeResultImage(input: ResultImageInput): Promise<Blob> {
   // 바닥 — 브랜드
   ctx.fillStyle = C.soft;
   ctx.font = `500 22px ${FONT}`;
-  ctx.fillText(input.brand, W / 2, H - 42);
+  ctx.fillText(input.brand, W / 2, h - 42);
 
   return new Promise((resolve, reject) => canvas.toBlob((b) => (b ? resolve(b) : reject(new Error('blob'))), 'image/png'));
 }

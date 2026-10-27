@@ -80,11 +80,11 @@
 .result__tags { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 0; padding: 0; list-style: none; }
 .result__tag { padding: 7px 14px; border-radius: 999px; background: rgba(240, 136, 58, .1); font-size: clamp(14px, 1.3vw, 15.5px); font-weight: 600; line-height: 1.3; letter-spacing: -0.01em; color: var(--orange-ink); }
 /* 1위 캐릭터 그림 — 배경 없이 오린 소라게, 비율 그대로 */
-.result__hero { position: relative; width: min(100%, 400px); margin-top: 10px; padding-top: 36px; }
+.result__hero { position: relative; width: min(100%, 400px); margin-top: 10px; padding-top: 48px; }
 .result__hero img { display: block; width: clamp(180px, 20vw, 220px); height: auto; margin: 0 auto; } /* 이야기 화면 소라게와 비슷한 크기 */
 /* 넓은 화면 — BEST 1 은 BEST 2 · 3(170px)보다 크게 */
 @media (min-width: 768px) { .result__hero img { width: 300px; } }
-.result__rank { position: absolute; left: 50%; top: 0; translate: -50% 0; padding: 5px 0; white-space: nowrap; font-size: clamp(16px, 1.6vw, 19px); font-weight: 700; letter-spacing: .1em; color: var(--orange-ink); }
+.result__rank { position: absolute; left: 50%; top: 0; translate: -50% 0; padding: 5px 0; white-space: nowrap; font-size: clamp(21px, 2.3vw, 27px); font-weight: 700; letter-spacing: .1em; color: var(--orange-ink); }
 .result__head .btn { margin-top: 10px; }
 
 .result__picks { display: grid; gap: 20px; }
@@ -147,5 +147,9 @@
 .share__btn--x svg { width: 24px; height: 24px; }
 .share__btn--insta { background: radial-gradient(circle at 30% 107%, #FDF497 0%, #FDF497 5%, #FD5949 45%, #D6249F 60%, #285AEB 90%); }
 .share__btn--insta svg { width: 28px; height: 28px; }
-.result__save { min-width: min(100%, 220px); margin-top: 6px; }
+/* 자세히 알아보기 · 저장(아이콘만, 같은 높이 동그라미) */
+.result__cta { display: flex; align-items: center; justify-content: center; gap: 10px; }
+.result__save { display: grid; place-items: center; flex: none; width: 46px; height: 46px; padding: 0; border: 1.5px solid var(--orange); border-radius: 50%; background: transparent; color: var(--orange-ink); cursor: pointer; transition: background var(--t-hover) var(--ease); }
+.result__save:hover { background: rgba(240, 136, 58, .12); }
+.result__save .result__icon { width: 20px; height: 20px; }
 .result__status { text-align: center; font-size: 14px; color: var(--ink-soft); min-height: 1.6em; }
