@@ -450,7 +450,12 @@ function CheckOut() {
           </h2>
         </header>
 
-        <p className="outro__closing pre">{c.closing}</p>
+        {/* 빈 줄(\n\n)로 나눈 두 문장 — 빈 줄 한 칸 대신 반 줄쯤만 띄움 */}
+        <p className="outro__closing pre">
+          {c.closing.split('\n\n').map((part) => (
+            <span key={part} className="outro__para">{part}</span>
+          ))}
+        </p>
         {/* 다시 둘러보기 · 그 아래 인스타그램 보러가기 */}
         <div className="outro__actions">
           <a className="btn" href={href.house()} data-track="checkout_cta">

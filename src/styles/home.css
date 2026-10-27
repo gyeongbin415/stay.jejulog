@@ -281,6 +281,8 @@
 .outro__title { font-family: var(--f-home); font-weight: 700; font-size: clamp(27px, 3.8vw, 46px); line-height: 1.32; letter-spacing: -0.025em; } /* 메인 큰 제목과 같은 크기 · 두께 */
 .outro__title span { display: block; }
 .outro__closing { font-family: var(--f-home); font-weight: 500; font-size: clamp(17px, 1.8vw, 22px); line-height: 1.75; margin-top: 12px; }
+.outro__para { display: block; }
+.outro__para + .outro__para { margin-top: .6em; }
 .outro__actions { display: grid; justify-items: start; gap: 14px; margin-top: clamp(24px, 5vh, 48px); }
 /* 다시 둘러보기 — 주황 바탕 · 검정 글씨 */
 .outro .btn { font-size: 15px; color: #111111; background: var(--orange); border-color: var(--orange); }
