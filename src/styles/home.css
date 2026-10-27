@@ -269,7 +269,29 @@
 .tastemap__head { display: grid; justify-items: center; gap: 16px; text-align: center; margin-bottom: clamp(20px, 3vh, 32px); }
 .tastemap { display: block; width: min(88%, 500px); border-radius: 18px; transition: transform var(--t-hover) var(--ease); }
 .tastemap { display: grid; justify-items: center; gap: clamp(14px, 2.5vh, 22px); text-decoration: none; }
-.tastemap img { display: block; width: 100%; height: auto; }
+/* 움직이는 섬 — 섬 · 물결 · 잔물결 · 돋보기를 같은 1448×770 판에 겹침 */
+.tmi { position: relative; width: 100%; aspect-ratio: 1448 / 770; }
+.tmi img { position: absolute; display: block; user-select: none; -webkit-user-drag: none; }
+.tmi__base, .tmi__shore { inset: 0; width: 100%; height: 100%; }
+/* 섬 둘레로 퍼지며 사라지는 잔물결 (두 겹이 번갈아) */
+.tmi__shore { transform-origin: 53.4% 46.6%; opacity: 0; animation: tmi-shore 3.6s ease-out infinite; }
+.tmi__shore--late { animation-delay: 1.8s; }
+@keyframes tmi-shore { 0% { transform: scale(1); opacity: .95; } 100% { transform: scale(1.06, 1.09); opacity: 0; } }
+/* 물결 — 옆으로 흐르며 살짝 오르내림 */
+.tmi__wave { position: absolute; overflow: visible; animation: tmi-bob 2.6s ease-in-out var(--d, 0s) infinite alternate; }
+.tmi__wave-line { fill: none; stroke: #69B6F3; stroke-width: 5.4; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; animation: tmi-flow 1.9s linear var(--d, 0s) infinite; }
+.tmi__wave-line { stroke-width: clamp(2.2px, .55vw, 3.6px); }
+@keyframes tmi-flow { from { transform: translateX(0); } to { transform: translateX(-33.3px); } }
+@keyframes tmi-bob { from { transform: translateY(-6%); } to { transform: translateY(8%); } }
+/* 돋보기 — 유리 안은 아래 섬을 크게 (위치 · 확대는 스크립트가 매 장면 맞춤) */
+.tmi__mag { position: absolute; left: 0; top: 0; pointer-events: none; filter: drop-shadow(0 6px 8px rgba(58, 55, 53, .22)); }
+.tmi__lens { position: absolute; border-radius: 50%; background-color: #E9F4F9; background-repeat: no-repeat; overflow: hidden; }
+/* 유리 반짝임 */
+.tmi__lens::after { content: ''; position: absolute; inset: 0; border-radius: 50%; background: radial-gradient(circle at 32% 28%, rgba(255, 255, 255, .55), rgba(255, 255, 255, 0) 38%), radial-gradient(circle at 70% 78%, rgba(255, 255, 255, .18), rgba(255, 255, 255, 0) 30%); box-shadow: inset 0 0 0 2px rgba(255, 255, 255, .35), inset 0 -6px 14px rgba(58, 55, 53, .12); }
+.tmi__frame { position: absolute; inset: 0; width: 100%; height: 100%; }
+@media (prefers-reduced-motion: reduce) {
+  .tmi__shore, .tmi__wave, .tmi__wave-line { animation: none; }
+}
 .tastemap__arrow { transition: transform var(--t-hover) var(--ease); }
 .tastemap:hover { transform: translateY(-3px); }
 .tastemap:hover .tastemap__cta { background: #F5A266; border-color: #F5A266; }
@@ -334,10 +356,10 @@
    '전부가 아닙니다.' 만 크게 · 로고 색(#D46A1F)으로 눈에 들어오게 */
 .intro__turn > span { font-size: 1.15em; }
 .intro__turn-em { line-height: 1.15; margin-top: -.55em; white-space: nowrap; color: #FFFFFF; } /* 윗줄 '당신이 알고 있는'에 붙여서 */
-.intro__turn > .intro__turn-end { font-size: 1.75em; line-height: 1.15; margin-top: .05em; color: #D46A1F; }
+.intro__turn > .intro__turn-end { font-size: 1.75em; line-height: 1.15; margin-top: .3em; color: #D46A1F; }
 /* '당신이 알고 있는 ‘제주 게스트하우스’'가 먼저 뜨고, 잠시 뒤 '전부가 아닙니다.' */
 .intro__turn-end { opacity: 0; transform: translateY(12px); transition: opacity .7s var(--ease), transform .7s var(--ease-out); }
-.intro[data-phase="turn"] .intro__turn-end { opacity: 1; transform: none; transition-delay: 1.5s; }
+.intro[data-phase="turn"] .intro__turn-end { opacity: 1; transform: none; transition-delay: .85s; }
 .intro--static .intro__turn-end { opacity: 1; transform: none; }
 /* 휴대폰 — 375px 폭 기준 앞 두 줄 25 · 끝 줄 38px */
 @media (max-width: 639px) {

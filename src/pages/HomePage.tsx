@@ -6,7 +6,7 @@ import { useReducedMotion } from '../lib/motion';
 import { HousePage } from './HousePage';
 import { GehageScene } from '../components/GehageScene';
 import { INSTA_POSTS } from '../data/insta';
-import tasteMapUrl from '../assets/taste-map-island.webp';
+import { TasteMapIsland } from '../components/TasteMapIsland';
 import introNightUrl from '../assets/intro-night.webp';
 import stripWine from '../assets/strip/rooftop-dinner.webp';
 import stripRun from '../assets/strip/saewol-run.webp';
@@ -72,12 +72,12 @@ function Intro() {
 
   useEffect(() => {
     if (reduced || seenRef.current) return;
-    // 질문만 1.5초(생각할 시간) → 단어 0.65초 간격 → 1초 뒤 전환 문구 → 3.6초 뒤 문제 정의
-    // (전환 문구는 두 줄 먼저, 1.5초 뒤 '전부가 아닙니다.' — 마지막 줄도 읽을 시간을 둠)
+    // 질문만 1.5초(생각할 시간) → 단어 0.65초 간격 → 1초 뒤 전환 문구 → 3초 뒤 문제 정의
+    // (전환 문구는 두 줄 먼저, 0.85초 뒤 '전부가 아닙니다.' — 마지막 줄도 읽을 시간을 둠)
     // (예전 '시야가 좁아짐' 단계는 뺐습니다 — 같은 시각에 두 단계를 한꺼번에 넘김)
     const at = Array.from({ length: total }, (_, i) => 1500 + i * 650);
     const last = at[at.length - 1];
-    at.push(last + 1000, last + 1000, last + 4600);
+    at.push(last + 1000, last + 1000, last + 4000);
     // 화면에 실제로 보이는 동안만 시간을 셉니다 — 공유 링크가 뒤에서 미리 불러와질 때 혼자 끝나 버리지 않도록
     // (requestAnimationFrame 은 안 보이는 창 · 프레임에서 멈추고, 인트로 무대가 화면에 반 이상 보일 때만 셈)
     let visible = false;
@@ -377,7 +377,7 @@ function FindYourStay() {
 }
 
 /* ── SECTION 04. CHECK OUT — 마무리: 맺음 문구 · 다시 둘러보기 ─────────────────────────────── */
-/* ── 제주 게하 취향지도 — 테스트 칸과 MORE STORIES 사이, 받은 그림 그대로 · 누르면 취향 지도 페이지 ── */
+/* ── 제주 게하 취향지도 — 테스트 칸과 MORE STORIES 사이, 받은 섬 그림 위로 돋보기가 움직임 · 누르면 취향 지도 페이지 ── */
 function TasteMapBanner() {
   const { ui } = useContent();
   return (
@@ -390,7 +390,8 @@ function TasteMapBanner() {
         </div>
         {/* 그림 · 밑의 버튼 모두 눌림 — 버튼으로 누를 수 있다는 걸 알 수 있게 */}
         <a className="tastemap" href={href.map()} data-track="home_taste_map">
-          <img src={tasteMapUrl} alt="" width={1098} height={521} loading="lazy" decoding="async" />
+          {/* 섬 위를 돋보기가 집집마다 찾아다니는 움직이는 그림 */}
+          <TasteMapIsland />
           <span className="btn tastemap__cta">
             {ui.map.cta} <span className="tastemap__arrow" aria-hidden="true">→</span>
           </span>

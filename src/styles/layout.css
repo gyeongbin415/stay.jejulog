@@ -100,7 +100,10 @@
 .fabs {
   position: fixed; right: max(16px, env(safe-area-inset-right)); bottom: max(16px, env(safe-area-inset-bottom)); z-index: 90;
   display: grid; gap: 12px;
+  transition: opacity .5s var(--ease), translate .5s var(--ease-out), visibility 0s;
 }
+/* 메인 인트로 동안은 숨김 */
+.fabs.is-hidden { opacity: 0; translate: 0 12px; visibility: hidden; pointer-events: none; transition: opacity .3s var(--ease), translate .3s var(--ease), visibility 0s .3s; }
 .mapfab {
   display: grid; place-items: center; width: 60px; height: 60px; border-radius: 50%;
   background: #fff; color: var(--orange-ink); box-shadow: 0 4px 16px rgba(58, 55, 53, .18);
