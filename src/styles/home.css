@@ -229,9 +229,9 @@
 .outro__title span { display: block; }
 .outro__closing { font-family: var(--f-home); font-weight: 500; font-size: clamp(17px, 1.8vw, 22px); line-height: 1.75; margin-top: 12px; }
 .outro__actions { display: grid; justify-items: start; gap: 14px; margin-top: clamp(24px, 5vh, 48px); }
-/* 다시 둘러보기 · 인스타그램 보러가기 — FIND YOUR STAY 배경과 같은 크림색 버튼 */
-.outro .btn { font-size: 15px; color: var(--orange); background: #F8ECDA; border-color: #F8ECDA; }
-.outro .btn:hover { background: #FFF6EA; border-color: #FFF6EA; }
+/* 다시 둘러보기 — 주황 바탕 · 크림색 글씨 */
+.outro .btn { font-size: 15px; color: #F8ECDA; background: var(--orange); border-color: var(--orange); }
+.outro .btn:hover { background: #F5A266; border-color: #F5A266; }
 
 /* 전환 문장 가운데 줄 — ‘제주 게스트하우스’를 크고 선명한 주황으로 */
 .intro__turn-em { font-size: 1.75em; line-height: 1.15; white-space: nowrap; color: #FF8A1F; text-shadow: 0 0 40px rgba(255, 138, 31, .45); }
