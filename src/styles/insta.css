@@ -66,7 +66,9 @@
   .insta-modal { padding: 0; align-items: stretch; }
   .insta-modal__card { grid-template-columns: 1fr; grid-template-rows: auto minmax(0, 1fr) auto; width: 100%; max-height: none; height: 100%; border-radius: 0; overflow-y: auto; }
   .insta-modal__card { display: flex; flex-direction: column; }
-  .insta-modal__media img { max-height: 70vh; }
+  /* 휴대폰 — 사진을 화면 폭 가득, 원래 비율(4:5) 그대로 */
+  .insta-modal__media { flex: none; aspect-ratio: 4 / 5; }
+  .insta-modal__media img { width: 100%; height: 100%; object-fit: cover; }
   .insta-modal__side { border-left: 0; }
   .insta-modal__body { overflow: visible; }
   .insta-modal__close { top: 6px; right: 8px; color: #fff; text-shadow: 0 1px 4px rgba(0, 0, 0, .6); z-index: 1; }

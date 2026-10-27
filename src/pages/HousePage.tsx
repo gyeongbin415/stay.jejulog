@@ -15,21 +15,21 @@ type View = 'house' | 'list';
 const VIEW_KEY = 'jejulog:house-view';
 
 /**
- * 그림(1087 × 1447) 속 방 자리 · 이름표 자리 — 그림 픽셀 기준
- * room: 방 네모 [x1, y1, x2, y2] / tag: 이름표 자리 [x, y] — 그림에 있던 이름표 자리 (center — 가운데 기준)
+ * 그림(1088 × 1446, 바깥 배경은 투명) 속 방 자리 · 이름표 자리 — 그림 픽셀 기준
+ * room: 방 네모 [x1, y1, x2, y2] / tag: 그림 속 이름표를 덮는 자리 [x, y, 최소 너비] (center — 가운데 기준)
  */
-const IMG_W = 1087;
-const IMG_H = 1447;
-const SPOTS: { id: ProgramId; room: [number, number, number, number]; tag: [number, number]; center?: boolean }[] = [
-  { id: 'craft', room: [146, 70, 941, 345], tag: [544, 124], center: true },
-  { id: 'book', room: [146, 358, 535, 603], tag: [154, 369] },
-  { id: 'flower', room: [550, 358, 941, 603], tag: [561, 369] },
-  { id: 'cinema', room: [146, 617, 535, 857], tag: [155, 628] },
-  { id: 'lp', room: [550, 617, 941, 857], tag: [561, 628] },
-  { id: 'homemeal', room: [146, 870, 535, 1106], tag: [154, 882] },
-  { id: 'wine', room: [550, 870, 941, 1106], tag: [561, 882] },
-  { id: 'camping', room: [131, 1138, 534, 1387], tag: [142, 1144] },
-  { id: 'running', room: [552, 1138, 955, 1387], tag: [560, 1144] },
+const IMG_W = 1088;
+const IMG_H = 1446;
+const SPOTS: { id: ProgramId; room: [number, number, number, number]; tag: [number, number, number]; center?: boolean }[] = [
+  { id: 'craft', room: [144, 75, 943, 348], tag: [543, 135, 122], center: true },
+  { id: 'book', room: [144, 362, 537, 605], tag: [155, 378, 66] },
+  { id: 'flower', room: [552, 362, 943, 605], tag: [565, 378, 95] },
+  { id: 'cinema', room: [144, 620, 537, 859], tag: [155, 636, 84] },
+  { id: 'lp', room: [552, 620, 943, 859], tag: [566, 636, 70] },
+  { id: 'homemeal', room: [144, 874, 537, 1109], tag: [155, 890, 85] },
+  { id: 'wine', room: [552, 874, 943, 1109], tag: [565, 890, 83] },
+  { id: 'camping', room: [130, 1140, 536, 1391], tag: [143, 1156, 120] },
+  { id: 'running', room: [553, 1140, 958, 1391], tag: [566, 1155, 89] },
 ];
 const pct = (v: number, of: number) => `${(v / of) * 100}%`;
 
@@ -103,7 +103,7 @@ export function HousePage({ embedded = false }: { embedded?: boolean }) {
       <nav className="house3d" aria-label={ui.house.houseAria}>
         <div className="house3d__frame">
           <img className="house3d__img" src={houseUrl} width={IMG_W} height={IMG_H} alt={ui.house.houseAria} loading="lazy" decoding="async" />
-          {SPOTS.map(({ id, room: [x1, y1, x2, y2], tag: [tx, ty], center }) => {
+          {SPOTS.map(({ id, room: [x1, y1, x2, y2], tag: [tx, ty, tw], center }) => {
             const e = experienceById[id];
             const place = programById[id].report.place.name;
             return (
@@ -115,11 +115,11 @@ export function HousePage({ embedded = false }: { embedded?: boolean }) {
                   data-track={`house_${id}`}
                   style={{ left: pct(x1, IMG_W), top: pct(y1, IMG_H), width: pct(x2 - x1, IMG_W), height: pct(y2 - y1, IMG_H) }}
                 />
-                {/* 이름표 — 그림에서 지운 자리에 HTML 로 (언어 전환 · 호버 때 주황) */}
+                {/* 이름표 — 그림 속 이름표 위에 같은 크기로 덮음 (언어 전환 · 호버 때 주황) */}
                 <span
                   className={`house3d__tag${center ? ' house3d__tag--center' : ''}`}
                   aria-hidden="true"
-                  style={{ left: `calc(var(--u) * ${tx})`, top: `calc(var(--u) * ${ty})` }}
+                  style={{ left: `calc(var(--u) * ${tx})`, top: `calc(var(--u) * ${ty})`, minWidth: `calc(var(--u) * ${tw})` }}
                 >
                   <span>{e.label}</span>
                   <span className="house3d__place">{place}</span>
