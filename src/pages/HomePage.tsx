@@ -381,8 +381,9 @@ function InsideRooms() {
   return (
     <section id="inside" className="find find--inside" data-tone="light" aria-labelledby="inside-title">
       <div className="find__inner wrap">
-        {/* 가운데 정렬 — 제목 · 한 줄 · 인스타그램 버튼(오른쪽 위 화살표), 색은 그대로 */}
+        {/* 가운데 정렬 — 작은 라벨 · 제목 · 한 줄 · 인스타그램 버튼(오른쪽 위 화살표), 색은 그대로 */}
         <div className="more">
+          <p className="label">MORE STORIES</p>
           <h2 id="inside-title" className="more__title">{ui.home.moreTitle}</h2>
           <p className="more__sub">{ui.home.moreSub}</p>
           <a className="btn more__btn" href={href.insta()} data-track="inside_instagram">
