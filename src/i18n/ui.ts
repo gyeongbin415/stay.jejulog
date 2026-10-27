@@ -16,7 +16,7 @@ export interface UiText {
   insta: { title: string; loading: string; posts: string; followers: string; following: string; follow: string; message: string; postsTab: string; gridAria: string; close: string; prev: string; next: string; likes: (n: number) => string; comments: (n: number) => string; seeStay: string };
   home: { srTitle: string; wordsAria: string; opening: string; findSub: (n: number) => string; typesAria: string;
     /** 메인 사진 띠 — 상세페이지에서 빠진 사진 둘의 대체 텍스트 */
-    stripRunAlt: string; stripLoungeAlt: string; stripCampAlt: string; stripMallowAlt: string; stripDomeAlt: string; stripCandleAlt: string; stripLpWallAlt: string };
+    stripRunAlt: string; stripLoungeAlt: string; stripCampAlt: string; stripMallowAlt: string; stripDomeAlt: string; stripCandleAlt: string; stripLpWallAlt: string; stripLivingAlt: string; stripRingAlt: string };
   house: { viewGroup: string; viewHouse: string; viewList: string; houseAria: string; listAria: string; roomAria: (no: string, label: string, place: string) => string };
   photo: { pending: string };
   stay: {
@@ -60,6 +60,8 @@ export const UI: Record<Lang, UiText> = {
       stripDomeAlt: '해 진 뒤 불빛이 새어 나오는 돔 텐트 안에 둘러앉은 게스트들',
       stripCandleAlt: '촛불 켜진 긴 테이블에 차려진 스파클링 와인과 파스타, 리소토, 라타투이, 샐러드',
       stripLpWallAlt: '나무 칸 벽면에 가득 꽂힌 LP 앨범과 그 아래 놓인 턴테이블 오디오',
+      stripLivingAlt: '나무 서까래 지붕 아래 큰 창과 LP, 책장, 좌식 테이블이 놓인 다락 거실',
+      stripRingAlt: '풍력발전기가 보이는 노을 진 바다를 배경으로 손끝에 든 반지',
       wordsAria: '게스트하우스 하면 흔히 떠올리는 것들',
       opening: '들어가는 중 — 바로 입장',
       findSub: (n) => `${n}가지 질문으로 찾는 나의 제주 게스트하우스`,
@@ -118,6 +120,8 @@ export const UI: Record<Lang, UiText> = {
       stripDomeAlt: 'Guests gathered inside a glowing dome tent after dusk',
       stripCandleAlt: 'Sparkling wine, pasta, risotto, ratatouille and salad on a long candlelit table',
       stripLpWallAlt: 'A wall of wooden cubbies filled with LP records above a turntable stereo',
+      stripLivingAlt: 'An attic living room under slatted wooden rafters with a big window, LPs, bookshelves and a low table',
+      stripRingAlt: 'A ring held up against a sunset sea with wind turbines on the horizon',
       wordsAria: 'What people usually picture when they hear “guesthouse”',
       opening: 'Opening — go straight in',
       findSub: (n) => `Find your Jeju guesthouse in ${n} questions`,
@@ -176,6 +180,8 @@ export const UI: Record<Lang, UiText> = {
       stripDomeAlt: '天黑后透出灯光的圆顶帐篷里围坐的客人',
       stripCandleAlt: '点着蜡烛的长桌上摆着起泡酒、意面、烩饭、普罗旺斯炖菜和沙拉',
       stripLpWallAlt: '木格墙上摆满黑胶唱片，下方放着唱机音响',
+      stripLivingAlt: '木条屋顶下的阁楼客厅，有大窗、黑胶唱片、书架和矮桌',
+      stripRingAlt: '以晚霞中望得见风力发电机的大海为背景，指尖捏着的戒指',
       wordsAria: '提起民宿，人们常会想到的事',
       opening: '正在开门 — 直接进入',
       findSub: (n) => `用${n}个问题找到我的济州民宿`,
