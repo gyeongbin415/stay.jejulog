@@ -384,8 +384,12 @@ function TasteMapBanner() {
   return (
     <section id="tastemap" className="find find--map" data-tone="light" aria-label={ui.map.title}>
       <div className="find__inner wrap">
+        {/* 그림 · 밑의 버튼 모두 눌림 — 버튼으로 누를 수 있다는 걸 알 수 있게 */}
         <a className="tastemap" href={href.map()} data-track="home_taste_map">
-          <img src={tasteMapUrl} alt={ui.map.open} width={1100} height={708} loading="lazy" decoding="async" />
+          <img src={tasteMapUrl} alt="" width={1100} height={708} loading="lazy" decoding="async" />
+          <span className="btn tastemap__cta">
+            {ui.map.cta} <span className="tastemap__arrow" aria-hidden="true">→</span>
+          </span>
         </a>
       </div>
     </section>
