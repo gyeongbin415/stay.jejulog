@@ -3,6 +3,7 @@ import { useRoute, scrollToSection, parseHash, routeKey } from './lib/router';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { MapFab, MapPage } from './components/MapFab';
+import { Loader } from './components/Loader';
 import { HomePage } from './pages/HomePage';
 import { HousePage } from './pages/HousePage';
 import { useContent } from './i18n';
@@ -111,15 +112,15 @@ export function App() {
       <main id="main" tabIndex={-1}>
         <div className="page" key={key}>
           {route.name === 'stay' ? (
-            <Suspense fallback={<div className="page-loading" role="status">{ui.app.loadingStay}</div>}>
+            <Suspense fallback={<Loader label={ui.app.loadingStay} />}>
               <StayPage id={route.id} />
             </Suspense>
           ) : route.name === 'test' ? (
-            <Suspense fallback={<div className="page-loading" role="status">{ui.app.loadingTest}</div>}>
+            <Suspense fallback={<Loader label={ui.app.loadingTest} />}>
               <TestPage sharedCode={route.query.get('r')} mine={route.query.get('me') === '1'} />
             </Suspense>
           ) : route.name === 'insta' ? (
-            <Suspense fallback={<div className="page-loading" role="status">{ui.insta.loading}</div>}>
+            <Suspense fallback={<Loader label={ui.insta.loading} />}>
               <InstaPage post={Number(route.query.get('post')) || null} />
             </Suspense>
           ) : route.name === 'house' ? (
