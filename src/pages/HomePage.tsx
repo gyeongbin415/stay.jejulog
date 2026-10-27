@@ -363,7 +363,7 @@ function InsideRooms() {
     <section id="inside" className="find find--inside" data-tone="light" aria-labelledby="inside-title">
       <div className="find__inner wrap">
         <div className="find__copy">
-          <p className="label">INSTAGRAM</p>
+          <p className="label">LOOK INSIDE</p>
           <h2 id="inside-title" className="section-head__title">{SITE.findYourStay.rooms}</h2>
           <a className="btn" href={href.insta()} data-track="inside_instagram">
             {SITE.checkOut.instagram} <span className="arrow" aria-hidden="true">→</span>
