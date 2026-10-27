@@ -251,8 +251,10 @@ export default function StayPage({ id }: { id: ProgramId }) {
           <a className="btn btn--ghost btn--back" href={href.stay(prev.id)} data-track={`stay_${id}_prev_${prev.id}`}>
             {t.prevStay} <span className="arrow" aria-hidden="true">←</span>
           </a>
-          <a className="btn btn--ghost" href={href.house()} data-track={`stay_${id}_back_house`}>
-            {t.backToHouse}
+          {/* 집 아이콘 + '집' 한 글자 (읽어 주는 이름은 '집 둘러보기' 그대로) */}
+          <a className="btn btn--ghost stay-nav__house" href={href.house()} aria-label={t.backToHouse} data-track={`stay_${id}_back_house`}>
+            <Icon name="home" />
+            <span aria-hidden="true">{t.houseShort}</span>
           </a>
           <a className="btn btn--ghost" href={href.stay(next.id)} data-track={`stay_${id}_next_${next.id}`}>
             {t.nextStay} <span className="arrow" aria-hidden="true">→</span>

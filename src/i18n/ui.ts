@@ -29,7 +29,7 @@ export interface UiText {
     editorTitle: string; editorOneLine: string; travelStyle: string; likedIt: string; forWhom: string;
     joinLabel: string; joinTitle: string; joinWho: string; joinHow: string; joinLinks: string;
     editorAvatarAlt: string;
-    recommendTitle: string; backToHouse: string; prevStay: string; nextStay: string; toTest: string; booking: string; navAria: string;
+    recommendTitle: string; backToHouse: string; houseShort: string; prevStay: string; nextStay: string; toTest: string; booking: string; navAria: string;
   };
   test: {
     title: string; sub: (n: number) => string;
@@ -88,7 +88,7 @@ export const UI: Record<Lang, UiText> = {
       editorTitle: '에디터가 직접 머물러 봤어요', editorAvatarAlt: '스테이로그 로고 티셔츠를 입은 에디터 일러스트', editorOneLine: '에디터의 한 줄 소개', travelStyle: '에디터 여행 성향',
       likedIt: '이런 점이 좋았어요', forWhom: '이런 사람에게 추천해요',
       joinLabel: 'BEFORE YOU GO', joinTitle: '참여 전 확인', joinWho: '참여 대상', joinHow: '참여 방법', joinLinks: '최신 안내',
-      recommendTitle: '이런 분께 추천합니다', backToHouse: '집 둘러보기', prevStay: '이전 게하', nextStay: '다음 게하', toTest: '나에게 맞는 게하 찾기', booking: '예약 정보 보기', navAria: '다른 게스트하우스',
+      recommendTitle: '이런 분께 추천합니다', backToHouse: '집 둘러보기', houseShort: '집', prevStay: '이전', nextStay: '다음', toTest: '나에게 맞는 게하 찾기', booking: '예약 정보 보기', navAria: '다른 게스트하우스',
     },
     test: {
       title: '당신의 제주 취향을\n찾아보세요.',
@@ -154,7 +154,7 @@ export const UI: Record<Lang, UiText> = {
       editorTitle: 'Our editor stayed here', editorAvatarAlt: 'Illustration of the editor wearing a Stay Log T-shirt', editorOneLine: 'About the editor', travelStyle: "Editor's travel style",
       likedIt: 'What I loved', forWhom: 'Who it’s for',
       joinLabel: 'BEFORE YOU GO', joinTitle: 'Before you join', joinWho: 'Who can join', joinHow: 'How to join', joinLinks: 'Latest info',
-      recommendTitle: 'Recommended for', backToHouse: 'Explore the house', prevStay: 'Previous', nextStay: 'Next', toTest: 'Find the stay that fits you', booking: 'Booking info', navAria: 'Other guesthouses',
+      recommendTitle: 'Recommended for', backToHouse: 'Explore the house', houseShort: 'House', prevStay: 'Previous', nextStay: 'Next', toTest: 'Find the stay that fits you', booking: 'Booking info', navAria: 'Other guesthouses',
     },
     test: {
       title: 'Find your\nJeju taste.',
@@ -220,7 +220,7 @@ export const UI: Record<Lang, UiText> = {
       editorTitle: '编辑亲自入住体验', editorAvatarAlt: '穿着 Stay Log 标志T恤的编辑插画', editorOneLine: '编辑简介', travelStyle: '编辑的旅行风格',
       likedIt: '我喜欢的地方', forWhom: '推荐给这样的人',
       joinLabel: 'BEFORE YOU GO', joinTitle: '参加前确认', joinWho: '参加对象', joinHow: '参加方式', joinLinks: '最新信息',
-      recommendTitle: '推荐给这样的你', backToHouse: '逛逛这栋房子', prevStay: '上一家民宿', nextStay: '下一家民宿', toTest: '找到适合我的民宿', booking: '预订信息', navAria: '其他民宿',
+      recommendTitle: '推荐给这样的你', backToHouse: '逛逛这栋房子', houseShort: '房子', prevStay: '上一家', nextStay: '下一家', toTest: '找到适合我的民宿', booking: '预订信息', navAria: '其他民宿',
     },
     test: {
       title: '找到你的\n济州旅行喜好。',
