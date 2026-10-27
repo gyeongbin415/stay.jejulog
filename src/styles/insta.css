@@ -48,6 +48,8 @@
 .insta-modal__side { display: flex; flex-direction: column; min-height: 0; border-left: 1px solid var(--ig-line); }
 .insta-modal__head { display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-bottom: 1px solid var(--ig-line); }
 .insta-modal__head img, .insta-modal__body img { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--ig-line); }
+.insta-modal__profile { display: flex; align-items: center; gap: 12px; color: inherit; text-decoration: none; }
+.insta-modal__profile:hover strong { color: var(--ig-sub); }
 .insta-modal__body { flex: 1; overflow-y: auto; padding: 16px; }
 .insta-modal__caption { margin: 0; white-space: pre-line; word-break: keep-all; overflow-wrap: anywhere; }
 .insta-modal__caption strong { font-weight: 600; margin-right: 4px; }

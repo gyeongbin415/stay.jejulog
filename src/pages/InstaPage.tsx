@@ -190,9 +190,21 @@ function PostModal({ n, post, onClose }: { n: number; post: InstaPost; onClose: 
           )}
         </div>
         <div className="insta-modal__side">
+          {/* 프로필 사진 · 아이디 — 누르면 게시물을 닫고 계정 첫 화면(프로필 · 격자)으로 */}
           <header className="insta-modal__head">
-            <img src={INSTA_PROFILE.avatar} alt="" />
-            <strong>{INSTA_PROFILE.handle}</strong>
+            <a
+              className="insta-modal__profile"
+              href={href.insta()}
+              onClick={(e) => {
+                e.preventDefault();
+                onClose();
+                window.scrollTo({ top: 0 });
+              }}
+              data-track="insta_modal_profile"
+            >
+              <img src={INSTA_PROFILE.avatar} alt="" />
+              <strong>{INSTA_PROFILE.handle}</strong>
+            </a>
           </header>
           <div className="insta-modal__body">
             <p className="insta-modal__caption">
