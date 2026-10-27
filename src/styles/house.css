@@ -182,14 +182,14 @@
 .house3d__room:focus-visible::after { box-shadow: inset 0 0 0 3px #F39A2B; }
 /* 다락 — 지붕 박공 모양대로만 눌림 */
 .house3d__room--craft { clip-path: polygon(49.3% 0, 100% 87%, 100% 100%, 0 100%, 0 87%); }
-/* 이름표 — 그림 속 흰 알약을 덮는 같은 크기 알약, 호버 때 메인 주황 */
+/* 이름표 — 그림에서 지운 이름표 자리에 작은 흰 알약, 호버 때 메인 주황 */
 .house3d__tag {
   position: absolute; pointer-events: none;
   display: inline-flex; align-items: center; justify-content: center;
-  height: max(22px, calc(var(--u) * 67)); padding: 0 max(9px, calc(var(--u) * 20));
+  height: max(20px, calc(var(--u) * 48)); padding: 0 max(8px, calc(var(--u) * 15));
   border-radius: 999px; background: #F7F4EE; color: #2B2826;
-  box-shadow: 0 calc(var(--u) * 3) calc(var(--u) * 8) rgba(58, 55, 53, .18);
-  font-size: max(11px, calc(var(--u) * 31)); font-weight: 700; line-height: 1; letter-spacing: -0.02em; white-space: nowrap;
+  box-shadow: 0 calc(var(--u) * 2) calc(var(--u) * 6) rgba(58, 55, 53, .16);
+  font-size: max(10.5px, calc(var(--u) * 23)); font-weight: 700; line-height: 1; letter-spacing: -0.02em; white-space: nowrap;
   transition: background var(--t-hover) var(--ease), color var(--t-hover) var(--ease);
 }
 .house3d__tag--center { translate: -50% 0; }
