@@ -13,6 +13,9 @@ import stripFlower from '../assets/strip/kokoko-flower.webp';
 import stripFire from '../assets/strip/saewol-fire.webp';
 import stripLp from '../assets/strip/seoron-lp.webp';
 import stripLounge from '../assets/strip/lounge-window.webp';
+import stripCamp from '../assets/strip/camp-table.webp';
+import stripMallow from '../assets/strip/fire-marshmallow.webp';
+import stripDome from '../assets/strip/dome-tent.webp';
 import stripDinner from '../assets/strip/susu-dinner-table.webp';
 import stripSnap from '../assets/strip/mureung-snap.webp';
 import stripLibrary from '../assets/strip/bookhome-library.webp';
@@ -288,20 +291,23 @@ function Problem() {
  * 사진 띠 — 게스트하우스 장면을 세로 사진으로, 조금씩 겹치고 살짝 기울여 한 줄로 늘어놓고
  * 오른쪽에서 밀려 들어온 뒤 계속 왼쪽으로 흘러갑니다. (같은 줄을 두 번 이어 붙여 끊김 없이 돕니다)
  * h 는 띠 높이 대비 %, y 는 위아래 어긋남(%), r 은 기울기(도).
- * photo 는 같은 사진이 쓰인 상세페이지 사진 파일 이름 — 대체 텍스트를 거기서 가져옵니다. (run · lounge 는 상세에 없어 ui 문구)
+ * photo 는 같은 사진이 쓰인 상세페이지 사진 파일 이름 — 대체 텍스트를 거기서 가져옵니다. (run · lounge · camp · mallow · dome 은 상세에 없어 ui 문구)
  */
 const STRIP: { src: string; h: number; y: number; r: number; photo: string }[] = [
   { src: stripWine, h: 92, y: -3, r: -2, photo: 'rooftop-dinner' },
   { src: stripRun, h: 100, y: 2, r: 1.5, photo: 'run' },
   { src: stripCinema, h: 86, y: 5, r: -1, photo: 'shym-cinema' },
+  { src: stripDome, h: 93, y: -3, r: 1, photo: 'dome' },
   { src: stripFlower, h: 96, y: -4, r: 2.5, photo: 'kokoko-flower' },
   { src: stripFire, h: 88, y: 4, r: -2.5, photo: 'saewol-fire' },
   { src: stripLp, h: 98, y: -2, r: 1, photo: 'seoron-lp' },
   { src: stripLounge, h: 90, y: 5, r: -1.5, photo: 'lounge' },
   { src: stripDinner, h: 100, y: 0, r: 2, photo: 'susu-dinner-table' },
   { src: stripSnap, h: 87, y: -5, r: -1, photo: 'mureung-snap' },
+  { src: stripCamp, h: 97, y: 2, r: 2, photo: 'camp' },
   { src: stripLibrary, h: 94, y: 3, r: 1.5, photo: 'bookhome-library' },
   { src: stripSunrise, h: 90, y: -2, r: -2, photo: 'kokoko-sunrise' },
+  { src: stripMallow, h: 95, y: 4, r: 1.5, photo: 'mallow' },
 ];
 
 function PhotoStrip() {
@@ -309,6 +315,9 @@ function PhotoStrip() {
   const alt = (key: string) => {
     if (key === 'run') return ui.home.stripRunAlt;
     if (key === 'lounge') return ui.home.stripLoungeAlt;
+    if (key === 'camp') return ui.home.stripCampAlt;
+    if (key === 'mallow') return ui.home.stripMallowAlt;
+    if (key === 'dome') return ui.home.stripDomeAlt;
     for (const g of programs.flatMap((p) => p.report.programs ?? [])) {
       const hit = [g.photo, ...(g.photos ?? [])].find((ph) => ph?.src?.includes(key));
       if (hit) return hit.alt;
