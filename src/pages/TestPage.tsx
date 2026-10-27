@@ -279,11 +279,11 @@ function Result({ result, shared, onRetry, focusRef }: { result: QuizResult; sha
             <button type="button" className="share__btn share__btn--kakao" onClick={shareKakao} aria-label={t.shareKakao} title={t.shareKakao} data-track="result_share_kakao">
               <ShareIcon name="kakao" />
             </button>
-            <button type="button" className="share__btn share__btn--x" onClick={shareX} aria-label={t.shareX} title={t.shareX} data-track="result_share_x">
-              <ShareIcon name="x" />
-            </button>
             <button type="button" className="share__btn share__btn--insta" onClick={shareInsta} aria-label={t.shareInsta} title={t.shareInsta} data-track="result_share_instagram">
               <ShareIcon name="insta" />
+            </button>
+            <button type="button" className="share__btn share__btn--x" onClick={shareX} aria-label={t.shareX} title={t.shareX} data-track="result_share_x">
+              <ShareIcon name="x" />
             </button>
           </div>
         </div>
