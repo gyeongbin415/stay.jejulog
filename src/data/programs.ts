@@ -81,7 +81,7 @@ export const PROGRAMS: Program[] = [
       join: {
         who: '와인 디너 파티는 숙박하지 않아도 참여할 수 있어요. 아침 러닝은 신청한 사람만 함께 달려요.',
         how: '파티만 참여하려면 인스타그램 DM이나 전화로 미리 문의해요. 숙소 예약은 네이버에서 ‘새애월’을 검색하면 돼요.',
-        links: [{ label: '인스타그램', url: 'https://www.instagram.com/sae_aewol/' }, { label: '네이버 예약', url: 'https://naver.me/xnOPiEBP' }],
+        links: [{ label: '인스타그램', url: 'https://www.instagram.com/sae_aewol/' }],
       },
       oneLine: '와인으로 물드는 저녁, 바닷바람으로 시작하는 아침을 만날 수 있는 숙소',
       programs: [
@@ -148,7 +148,7 @@ export const PROGRAMS: Program[] = [
       join: {
         who: '영화 상영은 투숙객을 위한 프로그램이에요.',
         how: '보고 싶은 영화를 보드에 적어 신청하면 저녁 8시에 상영이 시작돼요. 숙소 예약은 네이버 예약으로 받아요.',
-        links: [{ label: '인스타그램', url: 'https://www.instagram.com/jejushym/' }, { label: '네이버 예약', url: 'https://naver.me/Fvn7KHzj' }],
+        links: [{ label: '인스타그램', url: 'https://www.instagram.com/jejushym/' }],
       },
       oneLine: '매일 저녁, 작은 영화관에서 게스트들과 영화 한 편을 함께 감상할 수 있는 숙소',
       introLabel: '프로그램 기획 의도',
@@ -258,7 +258,7 @@ export const PROGRAMS: Program[] = [
       join: {
         who: '리스닝 모임은 숙박과 저녁 식사가 포함된 패키지로 운영되고, 만 20세부터 만 38세까지 이용할 수 있어요 (2026년 10월 회차 안내 기준).',
         how: '회차마다 열리는 신청 폼을 작성하고 참가비를 입금한 뒤, 확정 문자를 받으면 예약이 끝나요. 문의는 인스타그램 DM으로 받아요.',
-        links: [{ label: '인스타그램', url: 'https://www.instagram.com/seolon_zip/' }, { label: '예약 링크 모음', url: 'https://litt.ly/seolon_zip' }],
+        links: [{ label: '인스타그램', url: 'https://www.instagram.com/seolon_zip/' }],
       },
       oneLine: 'LP를 감상하며 사람들과 취향을 나누고, 제주의 밤을 느긋하게 즐길 수 있는 숙소',
       programs: [
@@ -320,7 +320,7 @@ export const PROGRAMS: Program[] = [
       join: {
         who: '대화 모임 ‘오름에게’는 매일 저녁 8시에 열려요.',
         how: '모임은 당일 문자로 신청하고, 보통 2명 이상 모이면 진행돼요 (방문 후기 기준). 숙소 예약은 네이버 예약으로 받아요.',
-        links: [{ label: '인스타그램', url: 'https://www.instagram.com/jejubookhome/' }, { label: '공식 블로그', url: 'https://blog.naver.com/jejubookhome' }, { label: '네이버 예약', url: 'https://naver.me/Gywdy5MD' }],
+        links: [{ label: '인스타그램', url: 'https://www.instagram.com/jejubookhome/' }, { label: '공식 블로그', url: 'https://blog.naver.com/jejubookhome' }],
       },
       oneLine: '책을 매개로 낯선 사람들과 다양한 사랑에 대해 이야기 나눌 수 있는 숙소',
       introLabel: '프로그램 기획 의도',
@@ -380,7 +380,7 @@ export const PROGRAMS: Program[] = [
       join: {
         who: '나무반지 클래스는 숙박하지 않아도 참여할 수 있어요. 일반 참가비는 32,000원이고, 스르르 게스트하우스 투숙객은 29,000원으로 할인돼요.',
         how: '공방 ‘우주공간’에 네이버 예약이나 전화로 예약해요.',
-        links: [{ label: '공방 인스타그램', url: 'https://www.instagram.com/sspace_jeju/' }, { label: '네이버 예약', url: 'https://naver.me/FzSViPnX' }, { label: '공식 블로그', url: 'https://blog.naver.com/woodworking_sspace' }],
+        links: [{ label: '공방 인스타그램', url: 'https://www.instagram.com/sspace_jeju/' }, { label: '공식 블로그', url: 'https://blog.naver.com/woodworking_sspace' }],
       },
       oneLine: '제주에서 세상에 하나뿐인 나무반지를 만들며 특별한 하루를 보낼 수 있는 숙소',
       introLabel: '프로그램 기획 의도',
@@ -440,7 +440,7 @@ export const PROGRAMS: Program[] = [
       join: {
         who: '스냅 사진 촬영은 사진 스튜디오(@studiopastel_)가 진행해요.',
         how: '촬영 문의는 스튜디오에 인스타그램 DM·카카오톡·전화로 해요. 숙소 예약은 네이버 예약으로 받아요.',
-        links: [{ label: '인스타그램', url: 'https://www.instagram.com/mr_shuimpyo__/' }, { label: '네이버 예약', url: 'https://m.place.naver.com/accommodation/1024146961' }, { label: '스튜디오 인스타그램', url: 'https://www.instagram.com/studiopastel_/' }],
+        links: [{ label: '인스타그램', url: 'https://www.instagram.com/mr_shuimpyo__/' }, { label: '스튜디오 인스타그램', url: 'https://www.instagram.com/studiopastel_/' }],
       },
       oneLine: '일상에서 벗어나 온전한 쉼을 누리기 좋은 곳이며 한적한 무릉리 마을에 자리한 숙소',
       programs: [
@@ -503,7 +503,7 @@ export const PROGRAMS: Program[] = [
       join: {
         who: '수수한 저녁은 신청 인원이 충분할 때 진행돼요.',
         how: '저녁 식사는 문자로 미리 신청해요. 숙소 예약은 인스타그램 프로필의 예약 링크에서 할 수 있어요.',
-        links: [{ label: '인스타그램', url: 'https://www.instagram.com/soosoohouse/' }, { label: '네이버 예약', url: 'https://naver.me/5R4HxdWs' }],
+        links: [{ label: '인스타그램', url: 'https://www.instagram.com/soosoohouse/' }],
       },
       oneLine: '사장님이 직접 차려주신 집밥을 함께 나눠 먹으며 마음까지 따뜻해지는 숙소',
       introLabel: '프로그램 기획 의도',
@@ -566,7 +566,7 @@ export const PROGRAMS: Program[] = [
       join: {
         who: '와이너리 디너는 투숙객에게 예약 우선권이 있어요.',
         how: '숙박 당일 아침에 오는 안내 문자를 받고, 정해진 시간 안에 예약해요 (방문 후기 기준). 외부 주류는 가져갈 수 없어요.',
-        links: [{ label: '인스타그램', url: 'https://www.instagram.com/rooftop_guesthouse/' }, { label: '예약 링크', url: 'https://linkon.id/rooftop' }],
+        links: [{ label: '인스타그램', url: 'https://www.instagram.com/rooftop_guesthouse/' }],
       },
       oneLine: '게스트들이 한 테이블에 모여 와이너리 디너로 특별한 시간을 보낼 수 있는 숙소',
       introLabel: '프로그램 기획 의도',

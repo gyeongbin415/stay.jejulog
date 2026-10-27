@@ -93,7 +93,7 @@ export default function MapPage() {
   return (
     <section className="tmap" data-tone="light" aria-labelledby="map-title">
       <header className="tmap__head wrap">
-        <p className="label">TASTE MAP</p>
+        <p className="label">AROUND JEJU</p>
         <h1 id="map-title" className="tmap__title">{t.pageTitle}</h1>
         <p className="tmap__sub">{t.sub}</p>
       </header>

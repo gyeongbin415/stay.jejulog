@@ -386,8 +386,8 @@ function TasteMapBanner() {
       <div className="find__inner wrap">
         {/* 제목 — 다른 칸처럼 작은 라벨 + 굵은 제목 (그림 속 글씨는 빼고) */}
         <div className="tastemap__head">
-          <p className="label">TASTE MAP</p>
-          <h2 id="tastemap-title" className="section-head__title">{ui.map.pageTitle}</h2>
+          <p className="label">AROUND JEJU</p>
+          <h2 id="tastemap-title" className="section-head__title pre">{ui.map.homeTitle}</h2>
         </div>
         {/* 그림 · 밑의 버튼 모두 눌림 — 버튼으로 누를 수 있다는 걸 알 수 있게 */}
         <a className="tastemap" href={href.map()} data-track="home_taste_map">

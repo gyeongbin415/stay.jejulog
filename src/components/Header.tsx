@@ -111,6 +111,8 @@ const MENU = [
   { key: 'home', en: 'HOME', to: href.home() },
   { key: 'house', en: 'EXPLORE', to: href.house() },
   { key: 'test', en: 'TEST', to: href.test() },
+  // 제주 게스트하우스 지도
+  { key: 'map', en: 'MAP', to: href.map() },
   // 제주 게하의 더 많은 이야기 — 웹진 인스타그램 페이지
   { key: 'insta', en: 'INSTAGRAM', to: href.insta() },
 ] as const;
@@ -118,7 +120,7 @@ const MENU = [
 function Menu({ route, onClose }: { route: Route; onClose: () => void }) {
   const ref = useRef<HTMLDivElement>(null);
   const { ui } = useContent();
-  const labels = { home: ui.nav.main, house: ui.nav.house, test: ui.nav.test, insta: ui.nav.more };
+  const labels = { home: ui.nav.main, house: ui.nav.house, test: ui.nav.test, map: ui.nav.map, insta: ui.nav.more };
 
   useEffect(() => {
     const prev = document.activeElement as HTMLElement | null;

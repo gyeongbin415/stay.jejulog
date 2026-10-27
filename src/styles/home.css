@@ -86,9 +86,9 @@
   opacity: 0; transition: opacity .8s var(--ease) .3s;
 }
 .intro__turn {
-  z-index: 3; position: absolute; inset: 0 var(--gutter); display: grid; place-content: center; justify-items: center; gap: .9em; text-align: center;
+  z-index: 3; position: absolute; inset: 0 var(--gutter); display: grid; place-content: center; justify-items: center; gap: .78em; text-align: center;
   font-family: var(--f-home); font-weight: 800; font-size: clamp(21px, 3.4vw, 46px); line-height: 1.3; letter-spacing: -0.035em;
-  color: #E79457; text-shadow: 0 0 34px rgba(240, 136, 58, .3);
+  color: #E79457;
   pointer-events: none; opacity: 0; transform: translateY(16px);
   transition: opacity .8s var(--ease) .35s, transform .8s var(--ease-out) .35s;
 }
@@ -282,13 +282,11 @@
 .outro .btn:hover { background: #F5A266; border-color: #F5A266; }
 
 /* 전환 문장 가운데 줄 — ‘제주 게스트하우스’를 크고 선명한 주황으로 (윗줄과는 붙여서) */
-.intro__turn-em { font-size: 1.75em; line-height: 1.15; margin-top: -.5em; white-space: nowrap; color: #FF8A1F; text-shadow: 0 0 40px rgba(255, 138, 31, .45); }
+.intro__turn-em { font-size: 1.55em; line-height: 1.15; margin-top: .08em; white-space: nowrap; color: #FF8A1F; }
 /* 마지막 줄 '전부가 아닙니다.' — 첫 줄보다 크게 */
-.intro__turn-end { font-size: 1.3em; }
+.intro__turn-end { font-size: 1.2em; }
 /* 휴대폰 — 한눈에 들어오게: 375px 폭 기준 첫 줄 22 · 가운데 34 · 끝 줄 26px
    (가운데 줄이 화면 폭의 2/3 남짓), 줄 사이 54px 고르게 */
 @media (max-width: 639px) {
-  .intro__turn { font-size: clamp(19px, 5.9vw, 30px); gap: .78em; }
-  .intro__turn-em { font-size: 1.55em; margin-top: .08em; }
-  .intro__turn-end { font-size: 1.2em; }
+  .intro__turn { font-size: clamp(19px, 5.9vw, 30px); }
 }

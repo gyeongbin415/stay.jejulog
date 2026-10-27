@@ -140,6 +140,11 @@
 .footer__insta svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 2; }
 .footer__insta .footer__dot { fill: currentColor; stroke: none; }
 .footer__names { display: grid; gap: 2px; color: #F6F3ED; }
+/* 웹 — 만든 사람 다섯 명을 한 줄로 */
+@media (min-width: 900px) {
+  .footer__names { display: flex; flex-wrap: wrap; column-gap: .3em; }
+  .footer__names span + span::before { content: '· '; }
+}
 
 /* ── 공통 섹션 머리 ─────────────────────────────── */
 .section-head { display: grid; gap: 14px; }
