@@ -12,7 +12,9 @@ export interface UiText {
   nav: { main: string; house: string; test: string; menuOpen: string; menuClose: string; menu: string; mainNav: string; toHome: (brand: string) => string };
   footer: { tagline: string; madeBy: string };
   app: { loadingStay: string; loadingTest: string; notFound: string; toHome: string };
-  home: { srTitle: string; wordsAria: string; opening: string; findSub: (n: number) => string; typesAria: string };
+  home: { srTitle: string; wordsAria: string; opening: string; findSub: (n: number) => string; typesAria: string;
+    /** 메인 사진 띠 — 상세페이지에서 빠진 사진 둘의 대체 텍스트 */
+    stripRunAlt: string; stripSwimAlt: string };
   house: { viewGroup: string; viewHouse: string; viewList: string; houseAria: string; listAria: string; roomAria: (no: string, label: string, place: string) => string;
     /** ROOM TOUR 설명 아래 미리보기 링크 셋 — 나무반지 · 영화 · 집밥 순서 */
     picks: [string, string, string]; picksAria: string };
@@ -22,6 +24,7 @@ export interface UiText {
     programStory: string; programDetails: string; content: string; note: string;
     editorTitle: string; editorOneLine: string; travelStyle: string; likedIt: string; forWhom: string;
     joinLabel: string; joinTitle: string; joinWho: string; joinHow: string; joinLinks: string;
+    editorAvatarAlt: string;
     recommendTitle: string; backToHouse: string; prevStay: string; nextStay: string; toTest: string; booking: string; navAria: string;
   };
   test: {
@@ -49,6 +52,8 @@ export const UI: Record<Lang, UiText> = {
     app: { loadingStay: '게스트하우스를 불러오는 중…', loadingTest: '테스트를 준비하는 중…', notFound: '찾으시는 페이지가 없습니다.', toHome: '메인으로' },
     home: {
       srTitle: '제주 게스트하우스 공간 탐험 웹진',
+      stripRunAlt: '맑은 날 애월 바닷가 산책로를 따라 달리는 게스트들 (얼굴 흐림 처리)',
+      stripSwimAlt: '풍력발전기가 보이는 푸른 바다에서 손을 흔드는 게스트들 (얼굴 흐림 처리)',
       wordsAria: '게스트하우스 하면 흔히 떠올리는 것들',
       opening: '들어가는 중 — 바로 입장',
       findSub: (n) => `${n}가지 질문으로 찾는 나의 제주 게스트하우스`,
@@ -64,7 +69,7 @@ export const UI: Record<Lang, UiText> = {
     stay: {
       basicInfo: '기본 정보', placeName: '숙소명', address: '주소', mainPrograms: '주요 프로그램', usage: '이용 정보',
       programStory: '프로그램 이야기', programDetails: '프로그램 소개', content: '체험 내용', note: '참고사항',
-      editorTitle: '에디터가 직접 머물러 봤어요', editorOneLine: '에디터의 한 줄 소개', travelStyle: '에디터 여행 성향',
+      editorTitle: '에디터가 직접 머물러 봤어요', editorAvatarAlt: '스테이로그 로고 티셔츠를 입은 에디터 일러스트', editorOneLine: '에디터의 한 줄 소개', travelStyle: '에디터 여행 성향',
       likedIt: '이런 점이 좋았어요', forWhom: '이런 사람에게 추천해요',
       joinLabel: 'BEFORE YOU GO', joinTitle: '참여 전 확인', joinWho: '참여 대상', joinHow: '참여 방법', joinLinks: '최신 안내',
       recommendTitle: '이런 분께 추천합니다', backToHouse: '집 둘러보기', prevStay: '이전 게하', nextStay: '다음 게하', toTest: '나에게 맞는 게하 찾기', booking: '예약 정보 보기', navAria: '다른 게스트하우스',
@@ -100,6 +105,8 @@ export const UI: Record<Lang, UiText> = {
     app: { loadingStay: 'Loading the guesthouse…', loadingTest: 'Preparing the test…', notFound: 'We couldn’t find that page.', toHome: 'Back to home' },
     home: {
       srTitle: 'A webzine for exploring Jeju guesthouses',
+      stripRunAlt: 'Guests running along the Aewol seaside path on a clear day (faces blurred)',
+      stripSwimAlt: 'Guests waving from the blue sea with wind turbines in the distance (faces blurred)',
       wordsAria: 'What people usually picture when they hear “guesthouse”',
       opening: 'Opening — go straight in',
       findSub: (n) => `Find your Jeju guesthouse in ${n} questions`,
@@ -115,7 +122,7 @@ export const UI: Record<Lang, UiText> = {
     stay: {
       basicInfo: 'Basic information', placeName: 'Guesthouse', address: 'Address', mainPrograms: 'Programs', usage: 'Hours & fees',
       programStory: 'The story behind it', programDetails: 'Programs', content: 'What you’ll do', note: 'Good to know',
-      editorTitle: 'Our editor stayed here', editorOneLine: 'About the editor', travelStyle: "Editor's travel style",
+      editorTitle: 'Our editor stayed here', editorAvatarAlt: 'Illustration of the editor wearing a Stay Log T-shirt', editorOneLine: 'About the editor', travelStyle: "Editor's travel style",
       likedIt: 'What I loved', forWhom: 'Who it’s for',
       joinLabel: 'BEFORE YOU GO', joinTitle: 'Before you join', joinWho: 'Who can join', joinHow: 'How to join', joinLinks: 'Latest info',
       recommendTitle: 'Recommended for', backToHouse: 'Explore the house', prevStay: 'Previous', nextStay: 'Next', toTest: 'Find the stay that fits you', booking: 'Booking info', navAria: 'Other guesthouses',
@@ -151,6 +158,8 @@ export const UI: Record<Lang, UiText> = {
     app: { loadingStay: '正在加载民宿…', loadingTest: '正在准备测试…', notFound: '找不到您要的页面。', toHome: '返回首页' },
     home: {
       srTitle: '济州民宿空间探索杂志',
+      stripRunAlt: '晴天里沿着涯月海边步道奔跑的客人（面部已模糊处理）',
+      stripSwimAlt: '在望得见风力发电机的蔚蓝海水中挥手的客人（面部已模糊处理）',
       wordsAria: '提起民宿，人们常会想到的事',
       opening: '正在开门 — 直接进入',
       findSub: (n) => `用${n}个问题找到我的济州民宿`,
@@ -166,7 +175,7 @@ export const UI: Record<Lang, UiText> = {
     stay: {
       basicInfo: '基本信息', placeName: '民宿名称', address: '地址', mainPrograms: '主要活动', usage: '时间与费用',
       programStory: '活动的故事', programDetails: '活动介绍', content: '体验内容', note: '注意事项',
-      editorTitle: '编辑亲自入住体验', editorOneLine: '编辑简介', travelStyle: '编辑的旅行风格',
+      editorTitle: '编辑亲自入住体验', editorAvatarAlt: '穿着 Stay Log 标志T恤的编辑插画', editorOneLine: '编辑简介', travelStyle: '编辑的旅行风格',
       likedIt: '我喜欢的地方', forWhom: '推荐给这样的人',
       joinLabel: 'BEFORE YOU GO', joinTitle: '参加前确认', joinWho: '参加对象', joinHow: '参加方式', joinLinks: '最新信息',
       recommendTitle: '推荐给这样的你', backToHouse: '逛逛这栋房子', prevStay: '上一家民宿', nextStay: '下一家民宿', toTest: '找到适合我的民宿', booking: '预订信息', navAria: '其他民宿',

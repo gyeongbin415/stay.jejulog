@@ -148,7 +148,7 @@ export default function StayPage({ id }: { id: ProgramId }) {
               {editor && (
                 <div className="stay-editor__profile">
                   {editor.avatar ? (
-                    <img src={editor.avatar} alt="" className="stay-editor__avatar" />
+                    <img src={editor.avatar} alt={t.editorAvatarAlt} className="stay-editor__avatar" />
                   ) : (
                     <span className="stay-editor__avatar stay-editor__avatar--line" aria-hidden="true">
                       <svg viewBox="0 0 76 76" focusable="false">

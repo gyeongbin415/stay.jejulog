@@ -51,7 +51,7 @@ export function LangProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     document.documentElement.lang = HTML_LANG[lang];
-    document.title = UI[lang].docTitle;
+    // 탭 제목은 페이지마다 App(applyPageMeta)에서 바꿉니다
     const skip = document.querySelector('.skip-link');
     if (skip) skip.textContent = UI[lang].skip;
   }, [lang]);

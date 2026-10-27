@@ -281,30 +281,41 @@ function Problem() {
  * 사진 띠 — 게스트하우스 장면을 세로 사진으로, 조금씩 겹치고 살짝 기울여 한 줄로 늘어놓고
  * 오른쪽에서 밀려 들어온 뒤 계속 왼쪽으로 흘러갑니다. (같은 줄을 두 번 이어 붙여 끊김 없이 돕니다)
  * h 는 띠 높이 대비 %, y 는 위아래 어긋남(%), r 은 기울기(도).
+ * photo 는 같은 사진이 쓰인 상세페이지 사진 파일 이름 — 대체 텍스트를 거기서 가져옵니다. (run · swim 은 상세에서 빠져 ui 문구)
  */
-const STRIP: { src: string; h: number; y: number; r: number }[] = [
-  { src: stripWine, h: 92, y: -3, r: -2 },
-  { src: stripRun, h: 100, y: 2, r: 1.5 },
-  { src: stripCinema, h: 86, y: 5, r: -1 },
-  { src: stripFlower, h: 96, y: -4, r: 2.5 },
-  { src: stripFire, h: 88, y: 4, r: -2.5 },
-  { src: stripLp, h: 98, y: -2, r: 1 },
-  { src: stripWorkshop, h: 90, y: 5, r: -1.5 },
-  { src: stripDinner, h: 100, y: 0, r: 2 },
-  { src: stripSnap, h: 87, y: -5, r: -1 },
-  { src: stripLibrary, h: 94, y: 3, r: 1.5 },
-  { src: stripSunrise, h: 90, y: -2, r: -2 },
-  { src: stripSwim, h: 97, y: 2, r: 2 },
+const STRIP: { src: string; h: number; y: number; r: number; photo: string }[] = [
+  { src: stripWine, h: 92, y: -3, r: -2, photo: 'rooftop-dinner' },
+  { src: stripRun, h: 100, y: 2, r: 1.5, photo: 'run' },
+  { src: stripCinema, h: 86, y: 5, r: -1, photo: 'shym-cinema' },
+  { src: stripFlower, h: 96, y: -4, r: 2.5, photo: 'kokoko-flower' },
+  { src: stripFire, h: 88, y: 4, r: -2.5, photo: 'saewol-fire' },
+  { src: stripLp, h: 98, y: -2, r: 1, photo: 'seoron-lp' },
+  { src: stripWorkshop, h: 90, y: 5, r: -1.5, photo: 'srr-workshop' },
+  { src: stripDinner, h: 100, y: 0, r: 2, photo: 'susu-dinner-table' },
+  { src: stripSnap, h: 87, y: -5, r: -1, photo: 'mureung-snap' },
+  { src: stripLibrary, h: 94, y: 3, r: 1.5, photo: 'bookhome-library' },
+  { src: stripSunrise, h: 90, y: -2, r: -2, photo: 'kokoko-sunrise' },
+  { src: stripSwim, h: 97, y: 2, r: 2, photo: 'swim' },
 ];
 
 function PhotoStrip() {
+  const { ui, programs } = useContent();
+  const alt = (key: string) => {
+    if (key === 'run') return ui.home.stripRunAlt;
+    if (key === 'swim') return ui.home.stripSwimAlt;
+    for (const g of programs.flatMap((p) => p.report.programs ?? [])) {
+      const hit = [g.photo, ...(g.photos ?? [])].find((ph) => ph?.src?.includes(key));
+      if (hit) return hit.alt;
+    }
+    return '';
+  };
   return (
     <div className="strip" aria-hidden="true">
       <div className="strip__track">
         {[0, 1].map((loop) =>
           STRIP.map((p) => (
             <span key={`${loop}-${p.src}`} className="strip__item" style={{ height: `${p.h}%`, '--y': `${p.y}%`, '--r': `${p.r}deg` } as CSSProperties}>
-              <img src={p.src} alt="" />
+              <img src={p.src} alt={loop === 0 ? alt(p.photo) : ''} />
             </span>
           )),
         )}
