@@ -248,16 +248,15 @@ export default function StayPage({ id }: { id: ProgramId }) {
       <nav className="stay-nav wrap" data-tone="light" aria-label={t.navAria}>
         {/* 위: 이전 게하 · 집 둘러보기 · 다음 게하 (한 줄) / 아래: 나에게 맞는 게하 찾기 */}
         <div className="stay-nav__row">
-          <a className="btn btn--ghost btn--back" href={href.stay(prev.id)} data-track={`stay_${id}_prev_${prev.id}`}>
-            {t.prevStay} <span className="arrow" aria-hidden="true">←</span>
+          {/* 글자 없이 ← · 집 · → 아이콘만 (읽어 주는 이름은 그대로) */}
+          <a className="btn btn--ghost stay-nav__icon" href={href.stay(prev.id)} aria-label={t.prevStay} title={t.prevStay} data-track={`stay_${id}_prev_${prev.id}`}>
+            <span className="arrow" aria-hidden="true">←</span>
           </a>
-          {/* 집 아이콘 + '집' 한 글자 (읽어 주는 이름은 '집 둘러보기' 그대로) */}
-          <a className="btn btn--ghost stay-nav__house" href={href.house()} aria-label={t.backToHouse} data-track={`stay_${id}_back_house`}>
+          <a className="btn btn--ghost stay-nav__icon" href={href.house()} aria-label={t.backToHouse} title={t.backToHouse} data-track={`stay_${id}_back_house`}>
             <Icon name="home" />
-            <span aria-hidden="true">{t.houseShort}</span>
           </a>
-          <a className="btn btn--ghost" href={href.stay(next.id)} data-track={`stay_${id}_next_${next.id}`}>
-            {t.nextStay} <span className="arrow" aria-hidden="true">→</span>
+          <a className="btn btn--ghost stay-nav__icon" href={href.stay(next.id)} aria-label={t.nextStay} title={t.nextStay} data-track={`stay_${id}_next_${next.id}`}>
+            <span className="arrow" aria-hidden="true">→</span>
           </a>
         </div>
         <a className="btn" href={href.test()} data-track={`stay_${id}_to_test`}>
