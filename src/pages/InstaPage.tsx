@@ -10,11 +10,19 @@ import '../styles/insta.css';
  * 스테이 제주로그 계정(@stay.jejulog) 화면을 웹진 안에서 같은 모습으로 보여 줍니다.
  * 게시물을 누르면 인스타처럼 크게 열리고 글 전체를 읽을 수 있습니다.
  */
-export default function InstaPage() {
+export default function InstaPage({ post = null }: { post?: number | null }) {
   const { ui, lang } = { ...useContent(), ...useLang() };
   const t = ui.insta;
   const p = INSTA_PROFILE;
-  const [open, setOpen] = useState<number | null>(null);
+  // 메인 MORE STORIES 썸네일로 들어오면(#/instagram?post=N) 그 게시물을 바로 크게
+  const pick = (n: number | null) => (n && n >= 1 && n <= INSTA_POSTS.length ? n - 1 : null);
+  const [open, setOpenState] = useState<number | null>(() => pick(post));
+  useEffect(() => setOpenState(pick(post)), [post]);
+  const setOpen = (i: number | null) => {
+    setOpenState(i);
+    // 닫으면 주소의 게시물 번호도 지움 (새로고침 때 다시 열리지 않게)
+    if (i == null && post) history.replaceState(history.state, '', href.insta());
+  };
   const { following, extra, toggle } = useFollow();
   const fmt = new Intl.NumberFormat(lang === 'zh' ? 'zh-CN' : lang);
 

@@ -59,7 +59,8 @@ export const href = {
   house: () => '#/?to=explore',
   stay: (id: ProgramId) => `#/stay/${id}`,
   test: () => '#/test',
-  insta: () => '#/instagram',
+  /** post — 몇 번째 게시물을 바로 크게 열지 (1부터) */
+  insta: (post?: number) => (post ? `#/instagram?post=${post}` : '#/instagram'),
   result: (code: string) => `#/test?r=${code}`,
   myResult: (code: string) => `#/test?r=${code}&me=1`,
 };

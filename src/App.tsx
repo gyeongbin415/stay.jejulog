@@ -117,7 +117,7 @@ export function App() {
             </Suspense>
           ) : route.name === 'insta' ? (
             <Suspense fallback={<div className="page-loading" role="status">{ui.insta.loading}</div>}>
-              <InstaPage />
+              <InstaPage post={Number(route.query.get('post')) || null} />
             </Suspense>
           ) : route.name === 'house' ? (
             <HousePage />

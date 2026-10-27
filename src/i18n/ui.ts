@@ -70,7 +70,7 @@ export const UI: Record<Lang, UiText> = {
       wordsAria: '게스트하우스 하면 흔히 떠올리는 것들',
       opening: '들어가는 중 — 바로 입장',
       findSub: (n) => `${n}가지 질문으로 찾는 나의 제주 게스트하우스`,
-      moreTitle: '제주 게하의 더 많은 이야기', moreSub: '웹진에 담지 못한 제주 게하의 다양한 경험을 만나보세요.', moreCta: '인스타그램에서 더 보기',
+      moreTitle: '제주 게스트하우스의\n더 많은 이야기', moreSub: '웹진에 담지 못한 제주 게하의 다양한 경험을 만나보세요.', moreCta: '인스타그램에서 더 보기',
       typesAria: '네 가지 여행 취향',
     },
     house: {

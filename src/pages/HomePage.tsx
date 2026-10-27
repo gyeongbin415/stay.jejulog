@@ -382,25 +382,21 @@ function InsideRooms() {
   return (
     <section id="inside" className="find find--inside" data-tone="light" aria-labelledby="inside-title">
       <div className="find__inner wrap">
-        {/* 가운데 정렬 — 작은 라벨 · 제목 · 한 줄 · 인스타그램 버튼(오른쪽 위 화살표), 색은 그대로 */}
+        {/* 가운데 정렬 — 작은 라벨 · 제목(두 줄) · 한 줄 · 인스타 게시물 표지 격자, 색은 그대로 */}
         <div className="more">
           <p className="label">MORE STORIES</p>
-          <h2 id="inside-title" className="more__title">{ui.home.moreTitle}</h2>
+          <h2 id="inside-title" className="more__title pre">{ui.home.moreTitle}</h2>
           <p className="more__sub">{ui.home.moreSub}</p>
-          {/* 인스타그램 게시물 표지 사진만 — 세 칸 격자 (누르는 곳 아님) */}
+          {/* 인스타그램 게시물 표지 사진 — 세 칸 격자, 누르면 웹진 인스타그램 페이지에서 그 게시물이 바로 열림 */}
           <ul className="more__grid">
-            {INSTA_POSTS.map((p) => (
+            {INSTA_POSTS.map((p, i) => (
               <li key={p.img}>
-                <img src={p.img} alt={p.alt} loading="lazy" decoding="async" />
+                <a href={href.insta(i + 1)} data-track={`inside_thumb_${i + 1}`}>
+                  <img src={p.img} alt={p.alt} loading="lazy" decoding="async" />
+                </a>
               </li>
             ))}
           </ul>
-          <a className="btn more__btn" href={href.insta()} data-track="inside_instagram">
-            {ui.home.moreCta}
-            <svg className="more__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-              <path d="M7 17 17 7M9 7h8v8" />
-            </svg>
-          </a>
         </div>
       </div>
     </section>
