@@ -447,7 +447,7 @@ export const PROGRAMS: Program[] = [
         {
           name: '스냅 사진 촬영',
           info: [{ label: '가격', value: '50,000원' }, { label: '시간', value: '시간 조율' }],
-          photo: { src: 'photos/mureung-snap.jpg', art: 'oreum', alt: '하얀 메밀꽃이 핀 들판에 서 있는 여행자의 뒷모습', caption: '메밀꽃밭 스냅' },
+          photo: { src: 'photos/mureung-snap-v2.jpg', art: 'oreum', alt: '하얀 메밀꽃이 핀 들판에 서 있는 여행자의 뒷모습', caption: '메밀꽃밭 스냅' },
           text: ['사장님이 직접 발로 뛰며 찾은 제주의 계절별 명소에서 스냅사진을 촬영해 주신다. 편안한 분위기 속에서 어느새 어색함은 사라지고, 아름다운 제주 풍경을 바라보며 여행의 특별한 순간을 추억으로 남길 수 있는 1석 2조 프로그램이다.'],
           note: '시간, 장소 조율 가능',
         },
