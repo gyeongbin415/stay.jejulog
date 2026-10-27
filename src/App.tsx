@@ -7,9 +7,11 @@ import { HousePage } from './pages/HousePage';
 import { useContent } from './i18n';
 import { track } from './lib/track';
 import { applyPageMeta, SITE_NAME, type PageMeta } from './lib/seo';
+import { INSTA_PROFILE } from './data/insta';
 
 const StayPage = lazy(() => import('./pages/StayPage'));
 const TestPage = lazy(() => import('./pages/TestPage'));
+const InstaPage = lazy(() => import('./pages/InstaPage'));
 
 export function App() {
   const route = useRoute();
@@ -43,6 +45,8 @@ export function App() {
       m = { title: `${ui.nav.house} — ${site.explore.title.join(' ')} | ${SITE_NAME}`, description: site.explore.sub, path: '#/house' };
     } else if (route.name === 'test') {
       m = { title: `${ui.nav.test} | ${SITE_NAME}`, description: ui.test.storyBody.replace(/\n/g, ' '), path: '#/test' };
+    } else if (route.name === 'insta') {
+      m = { title: `${ui.insta.title} | ${SITE_NAME}`, description: INSTA_PROFILE.bio.join(' '), path: '#/instagram' };
     }
     applyPageMeta(m);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -110,6 +114,10 @@ export function App() {
           ) : route.name === 'test' ? (
             <Suspense fallback={<div className="page-loading" role="status">{ui.app.loadingTest}</div>}>
               <TestPage sharedCode={route.query.get('r')} mine={route.query.get('me') === '1'} />
+            </Suspense>
+          ) : route.name === 'insta' ? (
+            <Suspense fallback={<div className="page-loading" role="status">{ui.insta.loading}</div>}>
+              <InstaPage />
             </Suspense>
           ) : route.name === 'house' ? (
             <HousePage />

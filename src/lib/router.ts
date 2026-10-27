@@ -9,6 +9,7 @@ import { PROGRAM_BY_ID } from '../data/programs';
      PAGE 02  #/house               집 내부 탐색
      PAGE 03  #/stay/<프로그램 id>   게스트하우스 상세 (예전 주소 #/use/<id> 도 열립니다)
      PAGE 04  #/test                취향 테스트
+     PAGE 05  #/instagram           인스타그램 (@stay.jejulog 계정 화면을 웹진 안에서)
      메인 안의 특정 위치             #/?to=checkin   (to = 섹션 id)
      공유받은 테스트 결과             #/test?r=ABCDABC
      내가 방금 본 결과                #/test?r=ABCDABC&me=1  (숙소 페이지에서 뒤로 가기로 돌아오는 자리)
@@ -19,6 +20,7 @@ export type Route =
   | { name: 'house'; query: URLSearchParams }
   | { name: 'stay'; id: ProgramId; query: URLSearchParams }
   | { name: 'test'; query: URLSearchParams }
+  | { name: 'insta'; query: URLSearchParams }
   | { name: 'notfound'; query: URLSearchParams };
 
 export function parseHash(hash = window.location.hash): Route {
@@ -30,6 +32,7 @@ export function parseHash(hash = window.location.hash): Route {
   // 집 내부는 메인 페이지 안 섹션으로 옮겼습니다 — 예전 주소 #/house 는 메인의 그 자리로
   if (parts[0] === 'house') return { name: 'home', query: new URLSearchParams('to=explore') };
   if (parts[0] === 'test') return { name: 'test', query };
+  if (parts[0] === 'instagram') return { name: 'insta', query };
   if ((parts[0] === 'stay' || parts[0] === 'use') && parts[1] && parts[1] in PROGRAM_BY_ID) {
     return { name: 'stay', id: parts[1] as ProgramId, query };
   }
@@ -56,6 +59,7 @@ export const href = {
   house: () => '#/?to=explore',
   stay: (id: ProgramId) => `#/stay/${id}`,
   test: () => '#/test',
+  insta: () => '#/instagram',
   result: (code: string) => `#/test?r=${code}`,
   myResult: (code: string) => `#/test?r=${code}&me=1`,
 };

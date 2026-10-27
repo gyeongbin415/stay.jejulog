@@ -1,0 +1,76 @@
+/* ==================================================================
+   인스타그램 — @stay.jejulog 계정 화면을 웹진 안에서 같은 모습으로
+   (인스타 웹 프로필: 흰 바탕 · 시스템 글꼴 · 3칸 격자)
+================================================================== */
+.insta {
+  --ig-ink: #000; --ig-sub: #737373; --ig-line: #DBDBDB; --ig-blue: #0095F6; --ig-gray: #EFEFEF;
+  max-width: 935px; margin: 0 auto;
+  padding: calc(var(--header) + clamp(16px, 4vh, 36px)) clamp(0px, 3vw, 20px) clamp(48px, 8vh, 88px);
+  background: #fff; color: var(--ig-ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  font-size: 14px; line-height: 18px;
+}
+.page:has(> .insta) { background: #fff; }
+
+/* 프로필 머리 */
+.insta-head { display: grid; grid-template-columns: auto 1fr; gap: clamp(20px, 6vw, 96px); align-items: start; padding: 0 16px clamp(24px, 4vh, 44px); }
+.insta-head__avatar { width: clamp(77px, 18vw, 150px); aspect-ratio: 1; margin-left: clamp(0px, 4vw, 60px); border-radius: 50%; overflow: hidden; border: 1px solid var(--ig-line); }
+.insta-head__avatar img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.insta-head__main { display: grid; gap: 18px; min-width: 0; }
+.insta-head__row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; }
+.insta-head__handle { margin: 0; font-size: 20px; line-height: 25px; font-weight: 400; }
+.insta-btn { height: 32px; padding: 0 16px; border: 0; border-radius: 8px; background: var(--ig-blue); color: #fff; font: inherit; font-weight: 600; cursor: pointer; }
+.insta-btn:hover { background: #1877F2; }
+.insta-btn--ghost { background: var(--ig-gray); color: var(--ig-ink); }
+.insta-btn--ghost:hover { background: #DBDBDB; }
+.insta-head__stats { display: flex; gap: 40px; margin: 0; padding: 0; list-style: none; font-size: 16px; }
+.insta-head__stats strong { font-weight: 600; }
+.insta-head__bio p { margin: 0; white-space: pre-line; }
+.insta-head__name { font-weight: 600; }
+
+/* 탭 — 게시물 */
+.insta-tabs { display: flex; justify-content: center; border-top: 1px solid var(--ig-line); }
+.insta-tabs__tab { display: inline-flex; align-items: center; gap: 6px; height: 52px; margin-top: -1px; border-top: 1px solid var(--ig-ink); font-size: 12px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
+
+/* 격자 — 세 칸, 4:5 */
+.insta-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; margin: 0; padding: 0; list-style: none; }
+.insta-grid__item { position: relative; display: block; width: 100%; padding: 0; border: 0; background: var(--ig-gray); aspect-ratio: 4 / 5; cursor: pointer; overflow: hidden; }
+.insta-grid__item img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.insta-grid__item:focus-visible { outline: 3px solid var(--ig-blue); outline-offset: -3px; }
+.insta-grid__hover { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 28px; background: rgba(0, 0, 0, .3); color: #fff; font-size: 16px; font-weight: 700; opacity: 0; transition: opacity .15s; }
+.insta-grid__hover span { display: inline-flex; align-items: center; gap: 6px; }
+@media (hover: hover) { .insta-grid__item:hover .insta-grid__hover { opacity: 1; } }
+
+/* 게시물 크게 보기 */
+.insta-modal { position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center; padding: 48px 16px; background: rgba(0, 0, 0, .65); }
+.insta-modal__close { position: fixed; top: 10px; right: 14px; width: 40px; height: 40px; border: 0; background: none; color: #fff; font-size: 34px; line-height: 1; cursor: pointer; }
+.insta-modal__card { display: grid; grid-template-columns: minmax(0, 1fr) 340px; grid-template-rows: minmax(0, 1fr); width: min(100%, 980px); height: min(calc(100vh - 96px), 760px); background: #fff; border-radius: 4px; overflow: hidden; color: var(--ig-ink); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; font-size: 14px; line-height: 18px; }
+.insta-modal__media { background: #000; display: flex; align-items: center; justify-content: center; min-height: 0; }
+.insta-modal__media img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.insta-modal__side { display: flex; flex-direction: column; min-height: 0; border-left: 1px solid var(--ig-line); }
+.insta-modal__head { display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-bottom: 1px solid var(--ig-line); }
+.insta-modal__head img, .insta-modal__body img { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--ig-line); }
+.insta-modal__body { flex: 1; overflow-y: auto; padding: 16px; }
+.insta-modal__caption { margin: 0; white-space: pre-line; word-break: keep-all; overflow-wrap: anywhere; }
+.insta-modal__caption strong { font-weight: 600; margin-right: 4px; }
+.insta-modal__foot { display: grid; gap: 6px; padding: 12px 16px 16px; border-top: 1px solid var(--ig-line); }
+.insta-modal__likes { margin: 0; font-weight: 600; }
+.insta-modal__foot time { font-size: 12px; color: var(--ig-sub); }
+.insta-modal__stay { justify-self: start; margin-top: 4px; color: var(--ig-blue); font-weight: 600; text-decoration: none; }
+.insta-modal__stay:hover { text-decoration: underline; }
+
+/* 휴대폰 — 머리는 사진 옆에 아이디 · 버튼, 아래에 숫자 · 소개 / 게시물은 위아래로 */
+@media (max-width: 735px) {
+  .insta { padding-inline: 0; }
+  .insta-head { gap: 20px; padding-inline: 16px; }
+  .insta-head__avatar { margin-left: 0; }
+  .insta-head__stats { gap: 24px; font-size: 14px; }
+  .insta-grid { gap: 2px; }
+  .insta-modal { padding: 0; align-items: stretch; }
+  .insta-modal__card { grid-template-columns: 1fr; grid-template-rows: auto minmax(0, 1fr) auto; width: 100%; max-height: none; height: 100%; border-radius: 0; overflow-y: auto; }
+  .insta-modal__card { display: flex; flex-direction: column; }
+  .insta-modal__media img { max-height: 70vh; }
+  .insta-modal__side { border-left: 0; }
+  .insta-modal__body { overflow: visible; }
+  .insta-modal__close { top: 6px; right: 8px; color: #fff; text-shadow: 0 1px 4px rgba(0, 0, 0, .6); z-index: 1; }
+}

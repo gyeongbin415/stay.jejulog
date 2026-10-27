@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type CSSProperties } from 'react';
-import { SITE as SITE_KO, INSTAGRAM_URL } from '../data/site';
+import { SITE as SITE_KO } from '../data/site';
 import { QUESTIONS } from '../data/quiz';
 import { useContent } from '../i18n';
 import { href } from '../lib/router';
@@ -369,7 +369,7 @@ function CheckOut() {
           <a className="btn" href={href.house()} data-track="checkout_cta">
             {c.cta} <span className="arrow" aria-hidden="true">→</span>
           </a>
-          <a className="btn" href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" data-track="checkout_instagram">
+          <a className="btn" href={href.insta()} data-track="checkout_instagram">
             {c.instagram} <span className="arrow" aria-hidden="true">→</span>
           </a>
         </div>
