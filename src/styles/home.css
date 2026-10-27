@@ -289,6 +289,10 @@
 .intro__turn-em { font-size: 1.55em; line-height: 1.15; margin-top: .08em; white-space: nowrap; color: #FF8A1F; }
 /* 마지막 줄 '전부가 아닙니다.' — 첫 줄보다 크게 */
 .intro__turn-end { font-size: 1.2em; }
+/* '당신이 알고 있는 ‘제주 게스트하우스’'가 먼저 뜨고, 잠시 뒤 '전부가 아닙니다.' */
+.intro__turn-end { opacity: 0; transform: translateY(12px); transition: opacity .7s var(--ease), transform .7s var(--ease-out); }
+.intro[data-phase="turn"] .intro__turn-end { opacity: 1; transform: none; transition-delay: 1.5s; }
+.intro--static .intro__turn-end { opacity: 1; transform: none; }
 /* 휴대폰 — 한눈에 들어오게: 375px 폭 기준 첫 줄 22 · 가운데 34 · 끝 줄 26px
    (가운데 줄이 화면 폭의 2/3 남짓), 줄 사이 54px 고르게 */
 @media (max-width: 639px) {
