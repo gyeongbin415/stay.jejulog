@@ -216,6 +216,12 @@
 }
 /* 방 내부 둘러보기 — 테스트 칸 바로 밑, 같은 배경에 가는 선으로 칸 나눔 */
 .find--inside .find__inner { border-top: 1px solid rgba(58, 55, 53, .12); padding-top: clamp(56px, 9vh, 96px); }
+/* 제주 게하의 더 많은 이야기 — 가운데 정렬 · 버튼 글자 옆 오른쪽 위 화살표 */
+.more { display: grid; justify-items: center; gap: 14px; text-align: center; }
+.more__title { margin: 0; font-family: var(--f-home); font-size: clamp(22px, 2.6vw, 32px); font-weight: 700; line-height: 1.35; letter-spacing: -0.03em; }
+.more__sub { margin: 0; font-size: clamp(15px, 1.5vw, 18px); line-height: 1.65; color: var(--ink-soft); text-wrap: balance; }
+.more__btn { gap: 8px; margin-top: 10px; }
+.more__icon { flex: none; width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
 /* 보조 설명 — 중요한 문구가 아니라 작게 */
 .find .section-head__sub { font-size: 14.5px; line-height: 1.65; }
 

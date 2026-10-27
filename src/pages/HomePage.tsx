@@ -377,15 +377,19 @@ function FindYourStay() {
 /* ── SECTION 04. CHECK OUT — 마무리: 맺음 문구 · 다시 둘러보기 ─────────────────────────────── */
 /* ── 방 내부 둘러보기 — 테스트 칸 밑 한 칸 더: 인스타그램 페이지(숙소 게시물 사진)로 ── */
 function InsideRooms() {
-  const { site: SITE } = useContent();
+  const { ui } = useContent();
   return (
     <section id="inside" className="find find--inside" data-tone="light" aria-labelledby="inside-title">
       <div className="find__inner wrap">
-        <div className="find__copy">
-          <p className="label">ROOM VIEW</p>
-          <h2 id="inside-title" className="section-head__title">{SITE.findYourStay.rooms}</h2>
-          <a className="btn" href={href.insta()} data-track="inside_instagram">
-            {SITE.checkOut.instagram} <span className="arrow" aria-hidden="true">→</span>
+        {/* 가운데 정렬 — 제목 · 한 줄 · 인스타그램 버튼(오른쪽 위 화살표), 색은 그대로 */}
+        <div className="more">
+          <h2 id="inside-title" className="more__title">{ui.home.moreTitle}</h2>
+          <p className="more__sub">{ui.home.moreSub}</p>
+          <a className="btn more__btn" href={href.insta()} data-track="inside_instagram">
+            {ui.home.moreCta}
+            <svg className="more__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M7 17 17 7M9 7h8v8" />
+            </svg>
           </a>
         </div>
       </div>
