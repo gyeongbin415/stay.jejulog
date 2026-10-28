@@ -156,7 +156,7 @@ export const PROGRAMS: Program[] = [
         {
           name: '작은 영화관',
           info: [{ label: '가격', value: '별도 참가비 없음' }, { label: '시간', value: '오후 8시' }],
-          photo: { src: 'photos/shym-cinema.jpg', art: 'cinema', alt: '어두운 상영실에서 큰 스크린을 바라보며 나무 소파에 앉은 여행객들', caption: '매일 밤의 작은 영화관' },
+          photo: { src: 'photos/shym-cinema-v2.jpg', art: 'cinema', alt: '촛불 켜진 어두운 상영실에서 큰 스크린으로 영화를 보는 모습, 창밖으로 불빛 비치는 나무', caption: '매일 밤의 작은 영화관' },
           text: ['매일 저녁 8시 최대 9명이 함께하는 작은 영화관에서 무료 상영이 시작된다. 보고 싶은 영화를 신청하면 사장님이 한 편을 골라 대형 스크린에 올린다. 상영 후에는 인상 깊었던 장면을 이야기하거나 각자의 감상을 간직하며 조용히 밤을 마무리할 수 있다.'],
         },
       ],
