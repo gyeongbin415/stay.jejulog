@@ -3,6 +3,7 @@ import { useContent } from '../i18n';
 import type { ProgramId } from '../data/types';
 import { href } from '../lib/router';
 import { ExpIcon } from '../components/ExpIcon';
+import { gaAttrs } from '../lib/gaParams';
 import houseUrl from '../assets/house-3d.webp';
 import houseBgUrl from '../assets/house-wide-bg.webp';
 import houseWideUrl from '../assets/house-3d-wide.webp';
@@ -121,7 +122,7 @@ export function HousePage({ embedded = false }: { embedded?: boolean }) {
           <ol className="explist__grid">
             {listed.map((e) => (
               <li key={e.id}>
-                <a className="explist__item" href={href.stay(e.id)} data-track={`house_list_${e.id}`}>
+                <a className="explist__item" href={href.stay(e.id)} data-track={`house_list_${e.id}`} {...gaAttrs(e.id)}>
                   <span className="explist__name">{e.label}</span>
                   <span className="explist__place">{listPlace(e.id, programById[e.id].report.place.name)}</span>
                   <ExpIcon id={e.id} className="explist__icon" />
@@ -148,6 +149,7 @@ export function HousePage({ embedded = false }: { embedded?: boolean }) {
                   href={href.stay(id)}
                   aria-label={ui.house.roomAria(e.no, e.label, place)}
                   data-track={`house_${id}`}
+                  {...gaAttrs(id)}
                   style={{ left: pct(x1, IMG_W), top: pct(y1, IMG_H), width: pct(x2 - x1, IMG_W), height: pct(y2 - y1, IMG_H) }}
                 />
                 {/* 이름표 — 그림 속 이름표 위에 같은 크기로 덮음 (언어 전환 · 호버 때 주황) */}

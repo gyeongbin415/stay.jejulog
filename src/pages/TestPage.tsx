@@ -4,6 +4,7 @@ import { useContent } from '../i18n';
 import type { ProgramId } from '../data/types';
 import { scoreQuiz, decodeAnswers, type AnswerKey, type QuizResult } from '../lib/scoring';
 import { characterArt } from '../data/characterArt';
+import { gaAttrs } from '../lib/gaParams';
 import { href } from '../lib/router';
 import { prefersReducedMotion } from '../lib/motion';
 import { track } from '../lib/track';
@@ -30,6 +31,8 @@ export default function TestPage({ sharedCode, mine = false }: { sharedCode: str
   // 직전 단계 — 처음 열릴 때(뒤로 가기로 돌아올 때 포함)는 위로 올리지 않도록 단계가 실제로 바뀔 때만 움직입니다
   const prevStep = useRef(step);
   const timer = useRef(0);
+  /** 테스트 시작 시각 — 결과까지 걸린 시간(quiz_result 의 duration_sec) */
+  const startedAt = useRef(0);
 
   useEffect(() => {
     const decoded = decodeAnswers(sharedCode);
@@ -43,7 +46,10 @@ export default function TestPage({ sharedCode, mine = false }: { sharedCode: str
 
   // 들어오자마자 첫 질문부터 (게하게 소개는 메인 FIND YOUR STAY 칸에)
   useEffect(() => {
-    if (!shared) track('quiz_start');
+    if (!shared) {
+      startedAt.current = Date.now();
+      track('quiz_start');
+    }
   }, []);
 
   // 문항이 바뀌면 질문으로 초점을 옮기고 화면 위쪽에 맞춥니다.
@@ -60,7 +66,9 @@ export default function TestPage({ sharedCode, mine = false }: { sharedCode: str
     setStep('result');
     // 주소에 내 결과를 남겨 둡니다 — 숙소 페이지로 갔다가 뒤로 가기를 누르면 이 결과로 돌아옴
     history.replaceState(history.state, '', href.myResult(r.code));
-    track('quiz_result', { type: r.type, best: r.main, code: r.code });
+    // duration_sec — 첫 문항이 뜬 뒤 결과까지 걸린 초 (공유받은 결과처럼 시작이 없으면 빼고 보냄)
+    const sec = startedAt.current ? Math.round((Date.now() - startedAt.current) / 1000) : null;
+    track('quiz_result', { type: r.type, best: r.main, code: r.code, ...(sec != null ? { duration_sec: sec } : null) });
   };
 
   const choose = (qi: number, key: AnswerKey) => {
@@ -84,6 +92,7 @@ export default function TestPage({ sharedCode, mine = false }: { sharedCode: str
     setIsShared(false);
     setStep(0);
     history.replaceState(history.state, '', href.test());
+    startedAt.current = Date.now();
     track('quiz_start');
   };
 
@@ -284,7 +293,7 @@ function Result({ result, shared, onRetry, focusRef }: { result: QuizResult; sha
         {programById[result.main].report.oneLine && <p className="result__oneline">{programById[result.main].report.oneLine}</p>}
         {/* 자세히 알아보기 · 그 오른쪽 저장(아이콘만) */}
         <div className="result__cta">
-          <a className="btn" href={href.stay(result.main)} data-track={`result_best01_${result.main}`}>
+          <a className="btn" href={href.stay(result.main)} data-track={`result_best01_${result.main}`} {...gaAttrs(result.main, 1)}>
             {t.detail} <span className="arrow" aria-hidden="true">→</span>
           </a>
           <button type="button" className="result__save" onClick={save} aria-label={t.save} title={t.save} data-track="result_save">
@@ -402,7 +411,7 @@ function Pick({ rank, caption, id }: { rank: string; caption: string; id: Progra
       </div>
       <p className="pick__charname">{site.characters[id]}</p>
       <h2 className="pick__name">{p.report.place.name}</h2>
-      <a className="btn" href={href.stay(id)} data-track={`result_${rank.toLowerCase().replace(' ', '')}_${id}`}>
+      <a className="btn" href={href.stay(id)} data-track={`result_${rank.toLowerCase().replace(' ', '')}_${id}`} {...gaAttrs(id, Number(rank.replace(/\D/g, '')))}>
         {ui.test.detail} <span className="arrow" aria-hidden="true">→</span>
       </a>
     </li>

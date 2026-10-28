@@ -1,7 +1,10 @@
+import { useEffect } from 'react';
 import { useContent } from '../i18n';
 import type { ProgramId } from '../data/types';
 import { href } from '../lib/router';
 import { Photo } from '../components/Photo';
+import { track } from '../lib/track';
+import { gaParams } from '../lib/gaParams';
 
 /** 프로그램 정보 라벨을 상세페이지 공통 용어로 (한국어) */
 const INFO_LABEL: Record<string, string> = { 시간: '운영 시간', 가격: '참가 비용', '시간 · 가격': '운영 시간 · 참가 비용' };
@@ -14,6 +17,28 @@ const INFO_LABEL: Record<string, string> = { 시간: '운영 시간', 가격: '�
 export default function StayPage({ id }: { id: ProgramId }) {
   const { ui, lang, programById, experienceById, experiences } = useContent();
   const t = ui.stay;
+  // GA4 — 상세페이지 스크롤 50 · 90%(scroll_detail) · 10초 이상 머묾(view_detail_10s). 페이지(숙소)마다 한 번씩
+  useEffect(() => {
+    const params = gaParams(id);
+    const sent = new Set<number>();
+    const onScroll = () => {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      if (max <= 0) return;
+      const pct = (window.scrollY / max) * 100;
+      for (const depth of [50, 90]) {
+        if (pct >= depth && !sent.has(depth)) {
+          sent.add(depth);
+          track('scroll_detail', { scroll_depth: depth, ...params });
+        }
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    const stayTimer = window.setTimeout(() => track('view_detail_10s', params), 10000);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.clearTimeout(stayTimer);
+    };
+  }, [id]);
   const p = programById[id];
   const e = experienceById[id];
   const EXPERIENCES = experiences;

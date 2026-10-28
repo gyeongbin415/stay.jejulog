@@ -21,7 +21,15 @@ export function installClickTracking() {
     'click',
     (e) => {
       const el = (e.target as HTMLElement | null)?.closest<HTMLElement>('[data-track]');
-      if (el) track('click', { track: el.dataset.track });
+      if (!el) return;
+      // GA4 매개변수 — data-ga-guesthouse · data-ga-program · data-ga-rank 가 있으면 함께 (lib/gaParams.ts)
+      const d = el.dataset;
+      track('click', {
+        track: d.track,
+        ...(d.gaGuesthouse ? { guesthouse_name: d.gaGuesthouse } : null),
+        ...(d.gaProgram ? { program_type: d.gaProgram } : null),
+        ...(d.gaRank ? { result_rank: Number(d.gaRank) } : null),
+      });
     },
     { capture: true },
   );
