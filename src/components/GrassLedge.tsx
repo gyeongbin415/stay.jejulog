@@ -51,7 +51,7 @@ export function GrassLedge() {
           </linearGradient>
         </defs>
         {/* 잔디 윗면 · 모래 */}
-        <rect width="1440" height="46" fill="#C4C463" />
+        <rect width="1440" height="46" style={{ fill: 'var(--ledge-grass)' }} />
         <rect y="46" width="1440" height="84" fill="#F8ECDA" />
         {/* 모래 바람 결 — 아주 옅은 곡선 */}
         {RIPPLES.map(([x, y, w], i) => (

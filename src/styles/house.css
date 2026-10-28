@@ -177,6 +177,9 @@
 /* 넓은 화면 — 한 층 세 칸 그림 (1572 × 1196) */
 /* 다락 지붕 모양 — 세 칸 그림은 꼭대기가 49.9% */
 .house3d__frame { position: relative; width: var(--w); margin-inline: auto; }
+/* 넓은 화면 — 가로 그림 한 장을 화면 폭에 꽉 차게 (양옆 풍경까지 그림 안에 있음) */
+.house3d--wide { --w: 100vw; }
+.house3d--wide .house3d__room--craft { clip-path: polygon(50% 0, 100% 96%, 100% 100%, 0 100%, 0 96%); }
 .house3d__img { display: block; width: 100%; height: auto; }
 /* 방 — 투명 링크 (네모 테두리는 키보드로 고를 때만) */
 .house3d__room { position: absolute; display: block; outline: none; -webkit-tap-highlight-color: transparent; }
