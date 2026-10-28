@@ -388,9 +388,9 @@
 }
 .outro .label { letter-spacing: .16em; color: #E0702B; }
 .outro__closing { color: #5F5A55; }
-/* 휴대폰 — 로고를 크게(화면 절반쯤), 글 아래 오른쪽 · 버튼 옆으로. 아래 여백을 그림 속 반짝이 높이만큼 둬 버튼과 안 겹치게 */
+/* 휴대폰 — 로고는 화면 1/3 남짓 크기로 글 아래 오른쪽 · 버튼 옆에. 아래 여백을 그림 속 반짝이 높이만큼 둬 버튼과 안 겹치게 */
 @media (max-width: 699px) {
-  .outro { --bgh: min(82vw, 430px); min-height: 0; }
+  .outro { --bgh: min(62vw, 330px); min-height: 0; }
   .outro .outro__inner { padding-bottom: max(var(--bgh) * .683 - 64px, var(--bgh) * .465 + 14px); } /* 로고 윗선은 설명 글 아래, 반짝이는 버튼 아래로 */
 }
 .outro__inner { display: grid; justify-items: start; text-align: left; gap: clamp(18px, 2.6vh, 28px); padding: clamp(56px, 9vh, 96px) 0 clamp(60px, 10vh, 104px); } /* 글 양에 맞게 칸을 줄임 */
