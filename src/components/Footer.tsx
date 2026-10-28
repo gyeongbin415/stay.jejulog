@@ -1,4 +1,6 @@
+import type { CSSProperties } from 'react';
 import { useContent } from '../i18n';
+import footerBgUrl from '../assets/footer-stay.webp';
 
 /** 만든 사람 — 가나다순, 화면에는 세 명 · 두 명 두 줄로 */
 const TEAM = ['강성민', '김다혜', '김민서', '남경빈', '여시원'];
@@ -6,11 +8,12 @@ const TEAM_ROWS = [TEAM.slice(0, 3), TEAM.slice(3)];
 
 /**
  * 맨 아래 — 스테이 제주로그 · 두 줄 소개 / 가는 선 / FOLLOW US(인스타그램) · MADE BY(만든 사람)
+ * 배경은 받은 그림 한 장(크림 종이 · 찢어진 종이 · 초록 언덕 위 stay Log 집 로고) — 글은 왼쪽 위 크림 자리, 로고는 오른쪽 아래
  */
 export function Footer() {
   const { site, ui } = useContent();
   return (
-    <footer className="footer" data-tone="dark">
+    <footer className="footer" data-tone="light" style={{ '--footer-bg': `url(${footerBgUrl})` } as CSSProperties}>
       <div className="footer__inner wrap">
         <div className="footer__about">
           <p className="footer__title">{site.brand}</p>
