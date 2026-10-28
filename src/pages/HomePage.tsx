@@ -299,17 +299,17 @@ function Problem() {
  */
 const STRIP: { src: string; h: number; y: number; r: number; photo: string }[] = [
   { src: stripSeaRun, h: 98, y: -3, r: -2, photo: 'searun' },
-  { src: stripCat, h: 94, y: 2, r: 1.5, photo: 'cat' },
-  { src: stripCamp, h: 96, y: -4, r: -1.5, photo: 'camp' },
-  { src: stripBuckwheat, h: 99, y: 3, r: 2, photo: 'buckwheat' },
-  { src: stripLpWall, h: 91, y: -2, r: -2, photo: 'lpwall' },
-  { src: stripPotluck, h: 97, y: 4, r: 1.5, photo: 'potluck' },
-  { src: stripTea, h: 92, y: -3, r: -1, photo: 'tea' },
-  { src: stripGuitar, h: 96, y: 2, r: 1.5, photo: 'guitar' },
-  { src: stripMallow, h: 94, y: -2, r: -1.5, photo: 'mallow' },
-  { src: stripSunrise, h: 90, y: -4, r: -2, photo: 'kokoko-sunrise' },
-  { src: stripDinner, h: 100, y: 3, r: 1, photo: 'susu-dinner-table' },
+  { src: stripLpWall, h: 92, y: 3, r: 1.5, photo: 'lpwall' },
+  { src: stripCat, h: 95, y: -2, r: -1.5, photo: 'cat' },
+  { src: stripMallow, h: 93, y: 4, r: 2, photo: 'mallow' },
+  { src: stripBuckwheat, h: 99, y: -4, r: -2, photo: 'buckwheat' },
+  { src: stripTea, h: 91, y: 2, r: 1.5, photo: 'tea' },
+  { src: stripGuitar, h: 96, y: -3, r: -1, photo: 'guitar' },
+  { src: stripCamp, h: 94, y: 3, r: 2, photo: 'camp' },
+  { src: stripSunrise, h: 90, y: -2, r: -2, photo: 'kokoko-sunrise' },
+  { src: stripDinner, h: 100, y: 4, r: 1, photo: 'susu-dinner-table' },
   { src: stripLiving, h: 95, y: -1, r: -1.5, photo: 'living' },
+  { src: stripPotluck, h: 97, y: 2, r: 1.5, photo: 'potluck' },
 ];
 
 function PhotoStrip() {
