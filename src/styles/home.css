@@ -295,12 +295,6 @@
 .tmi__shore { transform-origin: 53.4% 46.6%; opacity: 0; animation: tmi-shore 3.6s ease-out infinite; }
 .tmi__shore--late { animation-delay: 1.8s; }
 @keyframes tmi-shore { 0% { transform: scale(1); opacity: .95; } 100% { transform: scale(1.06, 1.09); opacity: 0; } }
-/* 물결 — 옆으로 흐르며 살짝 오르내림 */
-.tmi__wave { position: absolute; overflow: visible; animation: tmi-bob 2.6s ease-in-out var(--d, 0s) infinite alternate; }
-.tmi__wave-line { fill: none; stroke: #69B6F3; stroke-width: 5.4; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; animation: tmi-flow 1.9s linear var(--d, 0s) infinite; }
-.tmi__wave-line { stroke-width: clamp(2.2px, .55vw, 3.6px); }
-@keyframes tmi-flow { from { transform: translateX(0); } to { transform: translateX(-33.3px); } }
-@keyframes tmi-bob { from { transform: translateY(-6%); } to { transform: translateY(8%); } }
 /* 돋보기 — 유리 안은 아래 섬을 크게 (위치 · 확대는 스크립트가 매 장면 맞춤) */
 .tmi__mag { position: absolute; left: 0; top: 0; pointer-events: none; filter: drop-shadow(0 6px 8px rgba(58, 55, 53, .22)); }
 .tmi__lens { position: absolute; border-radius: 50%; background-color: #E9F4F9; background-repeat: no-repeat; overflow: hidden; }
@@ -308,7 +302,7 @@
 .tmi__lens::after { content: ''; position: absolute; inset: 0; border-radius: 50%; background: radial-gradient(circle at 32% 28%, rgba(255, 255, 255, .55), rgba(255, 255, 255, 0) 38%), radial-gradient(circle at 70% 78%, rgba(255, 255, 255, .18), rgba(255, 255, 255, 0) 30%); box-shadow: inset 0 0 0 2px rgba(255, 255, 255, .35), inset 0 -6px 14px rgba(58, 55, 53, .12); }
 .tmi__frame { position: absolute; inset: 0; width: 100%; height: 100%; }
 @media (prefers-reduced-motion: reduce) {
-  .tmi__shore, .tmi__wave, .tmi__wave-line { animation: none; }
+  .tmi__shore { animation: none; }
 }
 .tastemap__arrow { transition: transform var(--t-hover) var(--ease); }
 .tastemap:hover { transform: translateY(-3px); }

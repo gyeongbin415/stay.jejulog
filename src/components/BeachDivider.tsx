@@ -57,6 +57,11 @@ export function BeachDivider() {
             <stop offset=".45" stopColor="#FFFFFF" stopOpacity=".35" />
             <stop offset="1" stopColor="#FFFFFF" stopOpacity="0" />
           </linearGradient>
+          <linearGradient id="beach-wet" gradientUnits="userSpaceOnUse" x1="0" y1="96" x2="0" y2="168">
+            <stop offset="0" stopColor="#E8C691" />
+            <stop offset=".6" stopColor="#E8C691" />
+            <stop offset="1" stopColor="#E8C691" stopOpacity="0" />
+          </linearGradient>
         </defs>
         {/* 바다 */}
         <rect width="1440" height="260" fill="url(#beach-sea)" />
@@ -65,8 +70,10 @@ export function BeachDivider() {
           <path d="M120 222 q60 -14 130 -2 M520 236 q70 -16 150 -4 M960 214 q60 -12 120 0 M1250 238 q60 -14 140 -2 M-200 214 q60 -12 120 0" />
           <path d="M1560 222 q60 -14 130 -2 M1960 236 q70 -16 150 -4" />
         </g>
-        {/* 젖은 모래 — 파도가 빠지면 드러남 */}
-        <path d={`${foam(116, 22, 40)} L1500 158 L-60 158 Z`} fill="#E8C691" />
+        {/* 모래 · 파도는 위로 올려 바다를 넓게 */}
+        <g transform="translate(0 -26)">
+        {/* 젖은 모래 — 파도가 빠지면 드러남 (아래 끝은 흐려져 바다와 일자 경계가 안 생기게) */}
+        <path d={`${foam(116, 22, 40)} L1500 168 L-60 168 Z`} fill="url(#beach-wet)" />
         {/* 모래사장 */}
         <path className="beach__sand" d={`${foam(128, 22, 40)} L1500 -10 L-60 -10 Z`} fill="url(#beach-sand)" />
         {/* 모래알 · 조약돌 · 조개 */}
@@ -99,6 +106,7 @@ export function BeachDivider() {
           {[[60, 150, 4], [250, 146, 3], [520, 152, 5], [760, 148, 3], [1040, 150, 4], [1300, 146, 3], [700, 214, 3], [380, 222, 2.5], [1180, 218, 3]].map(([x, y, r], i) => (
             <circle key={i} cx={x} cy={y} r={r} fill="#FFFFFF" />
           ))}
+        </g>
         </g>
       </svg>
     </div>

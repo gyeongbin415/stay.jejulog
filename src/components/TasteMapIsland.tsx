@@ -1,4 +1,4 @@
-import { useEffect, useRef, type CSSProperties } from 'react';
+import { useEffect, useRef } from 'react';
 import { useReducedMotion } from '../lib/motion';
 import baseUrl from '../assets/taste-map-base.webp';
 import shoreUrl from '../assets/taste-map-shore.webp';
@@ -9,7 +9,7 @@ import magUrl from '../assets/taste-map-magnifier.webp';
  * - 화면에 들어오면 돋보기가 집 → 집으로 빠르게 옮겨 가며 집마다 잠깐 멈추고(한라산은 비켜 감), 끝나면 오른쪽 집 위에서 쉼
  * - 돋보기 유리 안은 그 아래 섬을 진짜로 크게 보여 줌 (그림을 확대해 유리 모양으로 오려 냄)
  * - 보고 있는 동안에는 한 바퀴 돈 뒤 잠깐 쉬고 다시 한 바퀴 (마우스 · 손가락과 상관없이 저절로)
- * - 물결은 출렁이며 흐르고, 섬 둘레로 잔물결이 퍼짐
+ * - 섬 둘레로 잔물결이 퍼짐
  * 동작 줄이기 설정이면 돋보기는 쉬는 자리에 멈춰 있음
  */
 const W = 1448;
@@ -24,25 +24,6 @@ const HOUSES: [number, number][] = [
 ];
 const REST: [number, number] = [1106, 286];
 const VOLCANO: [number, number] = [728, 330];
-// 물결 다섯 개 (그림에서 뺀 자리)
-const WAVES = [
-  { x: 1280, y: 100, w: 101, h: 20 },
-  { x: 303, y: 143, w: 96, h: 17 },
-  { x: 78, y: 353, w: 89, h: 17 },
-  { x: 1178, y: 558, w: 112, h: 20 },
-  { x: 187, y: 598, w: 100, h: 19 },
-];
-// 물결 한 줄 — 한 굽이(33.3) 넓이의 사인 곡선을 다섯 굽이 이어 그림 (옆으로 한 굽이씩 흘러감)
-const WAVE_PATH = (() => {
-  const pts: string[] = [];
-  for (let i = 0; i <= 200; i++) {
-    const x = -33.3 + (i / 200) * 166.6;
-    const y = 10 - 5.2 * Math.sin((x / 33.3) * Math.PI * 2);
-    pts.push(`${i ? 'L' : 'M'}${x.toFixed(2)} ${y.toFixed(2)}`);
-  }
-  return pts.join(' ');
-})();
-
 const ease = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 
 export function TasteMapIsland() {
@@ -177,30 +158,6 @@ export function TasteMapIsland() {
       <img className="tmi__shore" src={shoreUrl} alt="" width={W} height={H} />
       <img className="tmi__shore tmi__shore--late" src={shoreUrl} alt="" width={W} height={H} />
       <img className="tmi__base" src={baseUrl} alt="" width={W} height={H} decoding="async" />
-      {WAVES.map((w, i) => (
-        <svg
-          key={i}
-          className="tmi__wave"
-          viewBox="0 0 100 20"
-          preserveAspectRatio="none"
-          style={{ left: pct(w.x, W), top: pct(w.y - 3, H), width: pct(w.w, W), height: pct(w.h + 6, H), '--d': `${-i * 0.37}s` } as CSSProperties}
-        >
-          <defs>
-            <linearGradient id={`tmi-fade-${i}`} x1="0" x2="1">
-              <stop offset="0" stopColor="#fff" stopOpacity="0" />
-              <stop offset=".14" stopColor="#fff" />
-              <stop offset=".86" stopColor="#fff" />
-              <stop offset="1" stopColor="#fff" stopOpacity="0" />
-            </linearGradient>
-            <mask id={`tmi-mask-${i}`}>
-              <rect x="0" y="0" width="100" height="20" fill={`url(#tmi-fade-${i})`} />
-            </mask>
-          </defs>
-          <g mask={`url(#tmi-mask-${i})`}>
-            <path className="tmi__wave-line" d={WAVE_PATH} />
-          </g>
-        </svg>
-      ))}
       <div
         ref={mag}
         className="tmi__mag"
