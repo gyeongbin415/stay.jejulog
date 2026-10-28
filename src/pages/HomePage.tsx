@@ -7,6 +7,7 @@ import { HousePage } from './HousePage';
 import { GehageScene } from '../components/GehageScene';
 import { INSTA_POSTS } from '../data/insta';
 import { TasteMapIsland } from '../components/TasteMapIsland';
+import { BeachDivider } from '../components/BeachDivider';
 import introNightUrl from '../assets/intro-night.webp';
 import stripWine from '../assets/strip/rooftop-dinner.webp';
 import stripRun from '../assets/strip/saewol-run.webp';
@@ -382,6 +383,8 @@ function TasteMapBanner() {
   const { ui } = useContent();
   return (
     <section id="tastemap" className="find find--map" data-tone="light" aria-labelledby="tastemap-title">
+      {/* 위 '게하게' 칸 모래사장에서 파도를 지나 바다로 */}
+      <BeachDivider />
       <div className="find__inner wrap">
         {/* 제목 — 다른 칸처럼 작은 라벨 + 굵은 제목 (그림 속 글씨는 빼고) */}
         <div className="tastemap__head">
