@@ -64,6 +64,9 @@
 /* 메인 페이지 안 — 문제 정의 바로 다음 섹션 */
 /* 문제 정의 화면 아래 빈 자리로 살짝 끌어올려 두 섹션 사이 간격을 줄임 */
 .explore.explore--home { position: relative; z-index: 5; padding-top: clamp(40px, 7vh, 80px); } /* SCROLL 표시 아래 공백 */
+/* 메인 집 칸 — 제목 뒤까지 하늘: 위는 페이지 색에서 시작해 그림 맨 위 하늘색으로 이어짐 */
+.explore.explore--home { background: linear-gradient(to bottom, var(--bg) 0, #A3CEE6 clamp(140px, 24vh, 240px)) top / 100% 100% no-repeat, #A3CEE6; }
+.explore--home .explore__hint, .explore--home .explore__toggle { background: rgba(255, 255, 255, .7); }
 .explore__hint, .explore__toggle { background: rgba(255, 255, 255, .6); }
 
 .house { position: relative; }
