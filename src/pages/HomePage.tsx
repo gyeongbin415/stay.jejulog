@@ -20,6 +20,8 @@ import stripMallow from '../assets/strip/fire-marshmallow.webp';
 import stripWinePour from '../assets/strip/wine-pour.webp';
 import stripRingWork from '../assets/strip/ring-workshop.webp';
 import stripCliff from '../assets/strip/seongsan-cliff.webp';
+import stripCrater from '../assets/strip/crater-view.webp';
+import stripPuppy from '../assets/strip/rooftop-puppy.webp';
 import stripSeaRun from '../assets/strip/seaside-run.webp';
 import stripGuitar from '../assets/strip/guitar-corner.webp';
 import stripDinner from '../assets/strip/susu-dinner-table.webp';
@@ -303,16 +305,18 @@ const STRIP: { src: string; h: number; y: number; r: number; photo: string }[] =
   { src: stripSeaRun, h: 98, y: -3, r: -2, photo: 'searun' },
   { src: stripMallow, h: 93, y: 3, r: 1.5, photo: 'mallow' },
   { src: stripCat, h: 94, y: -2, r: -1.5, photo: 'cat' },
-  { src: stripPotluck, h: 97, y: 4, r: 2, photo: 'potluck' },
-  { src: stripBuckwheat, h: 99, y: -4, r: -2, photo: 'buckwheat' },
-  { src: stripLpWall, h: 92, y: 2, r: 1.5, photo: 'lpwall' },
-  { src: stripCliff, h: 99, y: -3, r: -1.5, photo: 'cliff' },
+  { src: stripCrater, h: 99, y: 4, r: 2, photo: 'crater' },
+  { src: stripLpWall, h: 92, y: -3, r: -1.5, photo: 'lpwall' },
+  { src: stripPuppy, h: 96, y: 2, r: 1.5, photo: 'puppy' },
+  { src: stripPotluck, h: 97, y: -4, r: -2, photo: 'potluck' },
+  { src: stripBuckwheat, h: 99, y: 3, r: 2, photo: 'buckwheat' },
   { src: stripLiving, h: 95, y: -1, r: -1, photo: 'living' },
-  { src: stripWinePour, h: 95, y: 3, r: 2, photo: 'winepour' },
-  { src: stripRingWork, h: 97, y: -2, r: -1.5, photo: 'ringwork' },
-  { src: stripTea, h: 91, y: -3, r: -1.5, photo: 'tea' },
-  { src: stripSunrise, h: 90, y: 4, r: 1, photo: 'kokoko-sunrise' },
-  { src: stripGuitar, h: 96, y: -2, r: -2, photo: 'guitar' },
+  { src: stripWinePour, h: 95, y: 3, r: 1.5, photo: 'winepour' },
+  { src: stripCliff, h: 99, y: -3, r: -1.5, photo: 'cliff' },
+  { src: stripRingWork, h: 97, y: 2, r: 2, photo: 'ringwork' },
+  { src: stripSunrise, h: 90, y: -2, r: -2, photo: 'kokoko-sunrise' },
+  { src: stripTea, h: 91, y: 4, r: 1, photo: 'tea' },
+  { src: stripGuitar, h: 96, y: -2, r: -1.5, photo: 'guitar' },
   { src: stripDinner, h: 100, y: 2, r: 1.5, photo: 'susu-dinner-table' },
 ];
 
@@ -337,6 +341,8 @@ function PhotoStrip() {
     if (key === 'winepour') return ui.home.stripWinePourAlt;
     if (key === 'ringwork') return ui.home.stripRingWorkAlt;
     if (key === 'cliff') return ui.home.stripCliffAlt;
+    if (key === 'crater') return ui.home.stripCraterAlt;
+    if (key === 'puppy') return ui.home.stripPuppyAlt;
     for (const g of programs.flatMap((p) => p.report.programs ?? [])) {
       const hit = [g.photo, ...(g.photos ?? [])].find((ph) => ph?.src?.includes(key));
       if (hit) return hit.alt;
