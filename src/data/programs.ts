@@ -574,7 +574,7 @@ export const PROGRAMS: Program[] = [
         {
           name: '와이너리 디너',
           info: [{ label: '가격', value: '30,000원' }, { label: '시간', value: '오후 8시' }],
-          photo: { src: 'photos/rooftop-dinner.jpg', art: 'wine', alt: '촛불이 켜진 식탁 위 라타투이, 리조또, 파스타, 수육, 샐러드와 스파클링 와인', caption: '와이너리 디너' },
+          photo: { src: 'photos/rooftop-dinner-v2.jpg', art: 'wine', alt: '촛불이 켜진 식탁 위 라타투이, 리조또, 파스타, 수육, 샐러드와 스파클링 와인', caption: '와이너리 디너' },
           text: ['제주도에서 나는 식재료로 만든 감바스, 리조또, 파스타, 스테이크 그리고 와인이 제공되는 와이너리 디너로, 메뉴는 매번 달라진다. 사장님의 요리 설명과 함께 다른 게스트들과 한 테이블에 둘러앉아 와인을 곁들이며 이야기를 나누고 식사할 수 있다.'],
           note: '와이너리 디너는 예약제로 운영되며, 예약은 체크인 문자에 대한 답변으로 신청',
         },
