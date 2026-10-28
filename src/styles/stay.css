@@ -68,6 +68,7 @@
 /* ── 04. PROGRAM DETAILS — 사진과 글을 번갈아 ─────────────────────────────── */
 .stay-programs__list { display: grid; gap: clamp(56px, 9vh, 96px); }
 .program { display: grid; gap: 28px; }
+.program__head + .program__media { margin-top: -10px; } /* 휴대폰 — 제목과 사진은 가깝게 (예전 간격 18px) */
 .program__media .photo { border-radius: var(--radius); overflow: hidden; }
 /* 프로그램 번호 · 제목 — 사진 바로 위 */
 .program__head { display: grid; gap: 6px; margin-bottom: 18px; }
@@ -84,9 +85,13 @@
 .program__note strong { font-size: var(--t-label); font-weight: 600; letter-spacing: .04em; color: var(--orange-ink); }
 @media (min-width: 900px) {
   .stay-programs { display: grid; grid-template-columns: 220px 1fr; column-gap: 48px; }
-  .program { grid-template-columns: 1.05fr 1fr; column-gap: 48px; align-items: start; }
-  .program:nth-child(even) .program__media { order: 2; }
-  .program__media { position: sticky; top: calc(var(--header) + 24px); }
+  /* 웹 — 위 줄: 번호 · 제목(사진 쪽) / 아래 줄: 사진과 글을 같은 윗선에서 시작 */
+  .program { grid-template-columns: 1.05fr 1fr; column-gap: 48px; row-gap: 0; align-items: start; }
+  .program__head { grid-row: 1; grid-column: 1; }
+  .program__media, .program__head + .program__media { grid-row: 2; grid-column: 1; margin-top: 0; position: sticky; top: calc(var(--header) + 24px); }
+  .program__body { grid-row: 2; grid-column: 2; }
+  .program:nth-child(even) .program__head, .program:nth-child(even) .program__media { grid-column: 2; }
+  .program:nth-child(even) .program__body { grid-column: 1; }
 }
 
 /* ── 05. EDITOR'S PICK ─────────────────────────────── */

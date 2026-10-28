@@ -305,8 +305,8 @@ export const PROGRAMS: Program[] = [
     ],
     hint: '책장을 넘기면 에디터의 공간 기록이 나타납니다.',
     tryLabel: '서점숙소 들여다보기',
-    // 간판(서점숙소 @bookhome)이 사진 오른쪽에 있어 세로로 긴 휴대폰 화면에서도 글씨가 다 보이게 오른쪽 기준으로
-    hero: { src: 'photos/bookhome-sign-v2.jpg', focus: '80% 50%', art: 'book', alt: "흰 외벽에 그려진 '서점숙소 @bookhome' 로고와 파란 하늘", caption: '서점숙소' },
+    // 간판(서점숙소 @bookhome)이 사진 오른쪽 아래에 있어 — 휴대폰(좌우가 잘림)은 오른쪽, 웹(위아래가 잘림)은 아래쪽 기준으로 글씨가 다 보이게
+    hero: { src: 'photos/bookhome-sign-v2.jpg', focus: '80% 78%', art: 'book', alt: "흰 외벽에 그려진 '서점숙소 @bookhome' 로고와 파란 하늘", caption: '서점숙소' },
     gallery: [
       { art: 'window', alt: '책방 겸 라운지에 드는 오후의 빛 (샘플 이미지)', caption: '오후 세 시의 책장' },
       { art: 'stone-house', alt: '돌담 안쪽의 작은 책방 입구 (샘플 이미지)', caption: '책방 입구' },

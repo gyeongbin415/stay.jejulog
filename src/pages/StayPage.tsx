@@ -92,11 +92,12 @@ export default function StayPage({ id }: { id: ProgramId }) {
           <ol className="stay-programs__list">
             {programs.map((g, i) => (
               <li key={g.name} className="program">
+                {/* 번호 · 제목 — 웹에서는 사진 · 글 위 한 줄로 따로 두어 사진 윗선과 오른쪽 글 윗선이 맞게 */}
+                <div className="program__head">
+                  <p className="program__no">{String(i + 1).padStart(2, '0')}</p>
+                  <h3 className="program__name">{g.name}</h3>
+                </div>
                 <div className="program__media">
-                  <div className="program__head">
-                    <p className="program__no">{String(i + 1).padStart(2, '0')}</p>
-                    <h3 className="program__name">{g.name}</h3>
-                  </div>
                   {g.photos ? (
                     <div className="program__pair">
                       {g.photos.map((ph) => (
