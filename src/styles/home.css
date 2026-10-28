@@ -399,7 +399,7 @@
 .outro__title span { display: block; }
 .outro__closing { font-family: var(--f-home); font-weight: 500; font-size: clamp(17px, 1.8vw, 22px); line-height: 1.75; margin-top: 4px; }
 .outro__para { display: block; }
-.outro__para + .outro__para { margin-top: .6em; }
+.outro__para + .outro__para { margin-top: 0; } /* 두 줄 간격은 '게하게' 소개 두 줄처럼 줄 높이(1.75)만 */
 .outro__actions { display: grid; justify-items: start; gap: 14px; margin-top: clamp(8px, 2vh, 20px); }
 /* 다시 둘러보기 — 주황 바탕 · 검정 글씨 */
 .outro .btn { font-size: 15px; color: #111111; background: var(--orange); border-color: var(--orange); }
