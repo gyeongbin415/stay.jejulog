@@ -27,8 +27,8 @@ export interface Experience {
 
 /** 집 순서 그대로 — 다락 → 3F → 2F → 1F → 마당 (no 는 숙소 번호 STAY 01 ~ 09) */
 export const EXPERIENCES: Experience[] = [
-  { id: 'craft', no: '01', label: '반지공방', short: '반지', en: 'CRAFT', room: 'attic' },
-  { id: 'book', no: '02', label: '책', short: '책', en: 'BOOK', room: 'living' },
+  { id: 'craft', no: '02', label: '반지공방', short: '반지', en: 'CRAFT', room: 'attic' },
+  { id: 'book', no: '01', label: '책', short: '책', en: 'BOOK', room: 'living' },
   { id: 'flower', no: '03', label: '꽃꽂이', short: '꽃', en: 'FLOWER', room: 'kitchen' },
   { id: 'cinema', no: '04', label: '영화', short: '영화', en: 'CINEMA', room: 'living' },
   { id: 'lp', no: '05', label: 'LP', short: 'LP', en: 'LP', room: 'living' },
