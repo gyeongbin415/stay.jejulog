@@ -20,7 +20,7 @@ export interface UiText {
   insta: { title: string; loading: string; posts: string; followers: string; following: string; follow: string; message: string; postsTab: string; gridAria: string; close: string; prev: string; next: string; likes: (n: number) => string; comments: (n: number) => string; seeStay: string };
   home: { srTitle: string; wordsAria: string; opening: string; findSub: (n: number) => string; typesAria: string;
     /** 메인 사진 띠 — 상세페이지에서 빠진 사진 둘의 대체 텍스트 */
-    stripRunAlt: string; stripLoungeAlt: string; stripCampAlt: string; stripMallowAlt: string; stripDomeAlt: string; stripCandleAlt: string; stripLpWallAlt: string; stripLivingAlt: string; stripRingAlt: string; stripPotluckAlt: string; stripCatAlt: string; stripBuckwheatAlt: string; stripTeaAlt: string; stripSeaRunAlt: string; stripGuitarAlt: string; stripWinePourAlt: string;
+    stripRunAlt: string; stripLoungeAlt: string; stripCampAlt: string; stripMallowAlt: string; stripDomeAlt: string; stripCandleAlt: string; stripLpWallAlt: string; stripLivingAlt: string; stripRingAlt: string; stripPotluckAlt: string; stripCatAlt: string; stripBuckwheatAlt: string; stripTeaAlt: string; stripSeaRunAlt: string; stripGuitarAlt: string; stripWinePourAlt: string; stripRingWorkAlt: string;
     /** 인스타그램 칸 — 웹진에 못 담은 이야기 */
     moreTitle: string; moreSub: string; moreCta: string };
   house: { viewGroup: string; viewHouse: string; viewList: string; houseAria: string; listAria: string; roomAria: (no: string, label: string, place: string) => string };
@@ -75,7 +75,7 @@ export const UI: Record<Lang, UiText> = {
       stripLpWallAlt: '나무 칸 벽면에 가득 꽂힌 LP 앨범과 그 아래 놓인 턴테이블 오디오',
       stripLivingAlt: '나무 서까래 지붕 아래 큰 창과 LP, 책장, 좌식 테이블이 놓인 다락 거실',
       stripRingAlt: '풍력발전기가 보이는 노을 진 바다를 배경으로 손끝에 든 반지',
-      stripPotluckAlt: '돌담 아래 꼬마전구 불빛이 켜진 포틀럭 저녁 식탁', stripCatAlt: '고양이가 잠든 테이블 위에서 꽃을 꽂는 꽃꽂이 시간', stripBuckwheatAlt: '비 내리는 메밀꽃밭을 분홍 우산을 쓰고 걷는 여행자', stripTeaAlt: '햇살 드는 나무 테라스에서 얼음 띄운 차 한 잔', stripSeaRunAlt: '풍력발전기가 보이는 바닷가 산책로를 함께 달리는 러너들', stripGuitarAlt: '책장과 기타, 손글씨 편지가 붙은 벽이 있는 아늑한 방 한쪽', stripWinePourAlt: '촛불 켜진 식탁 위로 와인을 따르는 저녁, 포도 걸이와 과일 · 하몽 플래터',
+      stripPotluckAlt: '돌담 아래 꼬마전구 불빛이 켜진 포틀럭 저녁 식탁', stripCatAlt: '고양이가 잠든 테이블 위에서 꽃을 꽂는 꽃꽂이 시간', stripBuckwheatAlt: '비 내리는 메밀꽃밭을 분홍 우산을 쓰고 걷는 여행자', stripTeaAlt: '햇살 드는 나무 테라스에서 얼음 띄운 차 한 잔', stripSeaRunAlt: '풍력발전기가 보이는 바닷가 산책로를 함께 달리는 러너들', stripGuitarAlt: '책장과 기타, 손글씨 편지가 붙은 벽이 있는 아늑한 방 한쪽', stripWinePourAlt: '촛불 켜진 식탁 위로 와인을 따르는 저녁, 포도 걸이와 과일 · 하몽 플래터', stripRingWorkAlt: '창가 작업대에서 스탠드 불빛 아래 나무반지를 다듬는 모습',
       wordsAria: '게스트하우스 하면 흔히 떠올리는 것들',
       opening: '들어가는 중 — 바로 입장',
       findSub: (n) => `${n}가지 질문으로 찾는 나의 제주 게스트하우스`,
@@ -145,7 +145,7 @@ export const UI: Record<Lang, UiText> = {
       stripLpWallAlt: 'A wall of wooden cubbies filled with LP records above a turntable stereo',
       stripLivingAlt: 'An attic living room under slatted wooden rafters with a big window, LPs, bookshelves and a low table',
       stripRingAlt: 'A ring held up against a sunset sea with wind turbines on the horizon',
-      stripPotluckAlt: 'A potluck dinner table under string lights beside a stone wall', stripCatAlt: 'Arranging flowers on a table where a cat is napping', stripBuckwheatAlt: 'A traveler with a pink umbrella walking through a buckwheat field in the rain', stripTeaAlt: 'A glass of iced tea on a sunlit wooden deck', stripSeaRunAlt: 'Runners jogging together along a seaside path with wind turbines offshore', stripGuitarAlt: 'A cozy corner with a bookshelf, a guitar and handwritten letters on the wall', stripWinePourAlt: 'Wine being poured at a candlelit table with a grape stand and a fruit and ham platter',
+      stripPotluckAlt: 'A potluck dinner table under string lights beside a stone wall', stripCatAlt: 'Arranging flowers on a table where a cat is napping', stripBuckwheatAlt: 'A traveler with a pink umbrella walking through a buckwheat field in the rain', stripTeaAlt: 'A glass of iced tea on a sunlit wooden deck', stripSeaRunAlt: 'Runners jogging together along a seaside path with wind turbines offshore', stripGuitarAlt: 'A cozy corner with a bookshelf, a guitar and handwritten letters on the wall', stripWinePourAlt: 'Wine being poured at a candlelit table with a grape stand and a fruit and ham platter', stripRingWorkAlt: 'Sanding a wooden ring under a desk lamp at a window-side workbench',
       wordsAria: 'What people usually picture when they hear “guesthouse”',
       opening: 'Opening — go straight in',
       findSub: (n) => `Find your Jeju guesthouse in ${n} questions`,
@@ -215,7 +215,7 @@ export const UI: Record<Lang, UiText> = {
       stripLpWallAlt: '木格墙上摆满黑胶唱片，下方放着唱机音响',
       stripLivingAlt: '木条屋顶下的阁楼客厅，有大窗、黑胶唱片、书架和矮桌',
       stripRingAlt: '以晚霞中望得见风力发电机的大海为背景，指尖捏着的戒指',
-      stripPotluckAlt: '石墙下串灯亮起的聚餐晚桌', stripCatAlt: '猫咪熟睡的桌边，正在插花', stripBuckwheatAlt: '撑着粉色雨伞走过雨中荞麦花田的旅人', stripTeaAlt: '阳光洒落的木露台上，一杯加冰的茶', stripSeaRunAlt: '远处有风车的海边步道上一起跑步的人们', stripGuitarAlt: '书架、吉他和贴满手写信的墙，温馨的房间一角', stripWinePourAlt: '烛光餐桌上倒葡萄酒的夜晚，葡萄挂架与水果火腿拼盘',
+      stripPotluckAlt: '石墙下串灯亮起的聚餐晚桌', stripCatAlt: '猫咪熟睡的桌边，正在插花', stripBuckwheatAlt: '撑着粉色雨伞走过雨中荞麦花田的旅人', stripTeaAlt: '阳光洒落的木露台上，一杯加冰的茶', stripSeaRunAlt: '远处有风车的海边步道上一起跑步的人们', stripGuitarAlt: '书架、吉他和贴满手写信的墙，温馨的房间一角', stripWinePourAlt: '烛光餐桌上倒葡萄酒的夜晚，葡萄挂架与水果火腿拼盘', stripRingWorkAlt: '窗边工作台的台灯下打磨木戒指',
       wordsAria: '提起民宿，人们常会想到的事',
       opening: '正在开门 — 直接进入',
       findSub: (n) => `用${n}个问题找到我的济州民宿`,
