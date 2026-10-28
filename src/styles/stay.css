@@ -68,7 +68,7 @@
 /* ── 04. PROGRAM DETAILS — 사진과 글을 번갈아 ─────────────────────────────── */
 .stay-programs__list { display: grid; gap: clamp(56px, 9vh, 96px); }
 .program { display: grid; gap: 28px; }
-.program__head + .program__media { margin-top: -10px; } /* 휴대폰 — 제목과 사진은 가깝게 (예전 간격 18px) */
+.program__head + .program__media { margin-top: -28px; } /* 휴대폰 — 제목과 사진은 가깝게 (제목 아래 18px 만) */
 .program__media .photo { border-radius: var(--radius); overflow: hidden; }
 /* 프로그램 번호 · 제목 — 사진 바로 위 */
 .program__head { display: grid; gap: 6px; margin-bottom: 18px; }
