@@ -15,32 +15,6 @@ const PEBBLES: [number, number, number, number, string][] = [
   [700, 118, 11, 7, '#C9A27C'], [960, 142, 12, 7, '#8C96A6'], [1050, 126, 7, 5, '#9EA6B2'], [1265, 134, 10, 7, '#8C8F98'],
   [1395, 120, 9, 6, '#A9B0BC'], [300, 70, 6, 4, '#B9A28A'], [1110, 92, 7, 5, '#B9A28A'],
 ];
-// 색을 밝게(+) · 어둡게(-) 섞기
-const shade = (hex: string, t: number) => {
-  const n = parseInt(hex.slice(1), 16);
-  const ch = [n >> 16, (n >> 8) & 255, n & 255].map((c) => Math.round(t >= 0 ? c + (255 - c) * t : c * (1 + t)));
-  return `rgb(${ch.join(',')})`;
-};
-// 가리비 조개 — 경첩(0,14)에서 위로 펼쳐진 부채꼴, 가장자리는 골마다 볼록볼록
-const RIBS = 7;
-const SHELL_R = 24;
-const rimPt = (k: number, r: number) => {
-  const a = ((-158 + (k / RIBS) * 136) * Math.PI) / 180;
-  return [Math.cos(a) * r, 14 + Math.sin(a) * r] as const;
-};
-const SHELL_BODY = (() => {
-  let d = `M0 14 L${rimPt(0, SHELL_R).map((v) => v.toFixed(1)).join(' ')}`;
-  for (let k = 0; k < RIBS; k++) {
-    const [cx, cy] = rimPt(k + 0.5, SHELL_R + 4.5);
-    const [ex, ey] = rimPt(k + 1, SHELL_R);
-    d += ` Q${cx.toFixed(1)} ${cy.toFixed(1)} ${ex.toFixed(1)} ${ey.toFixed(1)}`;
-  }
-  return `${d} Z`;
-})();
-// 골(능선) — 골마다 그늘 선, 바로 옆에 빛 받는 선
-const SHELL_RIDGES = Array.from({ length: RIBS - 1 }, (_, k) => rimPt(k + 1, SHELL_R - 1));
-const SHELL_LIGHTS = Array.from({ length: RIBS }, (_, k) => rimPt(k + 0.5, SHELL_R + 2));
-
 // 모래알
 const GRAINS = Array.from({ length: 70 }, (_, i) => {
   const x = (i * 211) % 1440;
@@ -133,30 +107,12 @@ export function BeachDivider() {
           </g>
         ))}
         {SHELLS.map((sh, i) => (
-          <g key={i} transform={`translate(${sh.x} ${sh.y}) rotate(${sh.r}) scale(${sh.s * 1.4})`}>
-            {/* 조개 몸 — 왼쪽 위에서 빛을 받아 볼록하게 */}
-            <defs>
-              <radialGradient id={`beach-shell-${i}`} cx="38%" cy="30%" r="80%">
-                <stop offset="0" stopColor={shade(sh.c, .55)} />
-                <stop offset=".45" stopColor={sh.c} />
-                <stop offset="1" stopColor={shade(sh.c, -.22)} />
-              </radialGradient>
-            </defs>
-            {/* 모래에 드리운 그림자 */}
-            <ellipse cx="4" cy="17" rx="17" ry="5" fill="rgba(120, 88, 50, .22)" />
-            <path d={SHELL_BODY} fill="rgba(120, 88, 50, .18)" transform="translate(3 3)" />
-            <path d={SHELL_BODY} fill={`url(#beach-shell-${i})`} stroke={shade(sh.c, -.35)} strokeWidth="1" strokeOpacity=".45" strokeLinejoin="round" />
-            {/* 골 — 그늘 선 + 빛 받는 선 */}
-            {SHELL_RIDGES.map(([x, y], k) => (
-              <path key={`r${k}`} d={`M0 13 L${x.toFixed(1)} ${y.toFixed(1)}`} stroke={shade(sh.c, -.3)} strokeWidth="1.8" strokeLinecap="round" opacity=".55" />
-            ))}
-            {SHELL_LIGHTS.map(([x, y], k) => (
-              <path key={`l${k}`} d={`M0 10 L${(x * .86).toFixed(1)} ${(14 + (y - 14) * .86).toFixed(1)}`} stroke="#FFFFFF" strokeWidth="1.2" strokeLinecap="round" opacity=".38" />
-            ))}
-            {/* 경첩 날개 */}
-            <path d="M-8 12 L-12 18 Q0 20 12 18 L8 12 Q0 14 -8 12 Z" fill={shade(sh.c, -.12)} stroke={shade(sh.c, -.35)} strokeWidth=".8" strokeOpacity=".5" />
-            {/* 반짝임 */}
-            <ellipse cx="-7" cy="-2" rx="4" ry="2.2" transform="rotate(-35 -7 -2)" fill="#FFFFFF" opacity=".45" />
+          <g key={i} transform={`translate(${sh.x} ${sh.y}) rotate(${sh.r}) scale(${sh.s})`}>
+            {/* 가리비 조개 — 그림자 + 부채꼴 몸 + 골 + 아래 꼭지 */}
+            <path d="M0 14 C-20 8 -24 -10 -12 -18 C-6 -22 6 -22 12 -18 C24 -10 20 8 0 14 Z" fill="rgba(120, 88, 50, .2)" transform="translate(3 4)" />
+            <path d="M0 14 C-20 8 -24 -10 -12 -18 C-6 -22 6 -22 12 -18 C24 -10 20 8 0 14 Z" fill={sh.c} />
+            <path d="M0 12 L-12 -14 M0 12 L-5 -18 M0 12 L2 -19 M0 12 L8 -17 M0 12 L14 -12" stroke="rgba(0,0,0,.18)" strokeWidth="1.6" strokeLinecap="round" fill="none" />
+            <path d="M-6 12 h12 l-2 6 h-8 Z" fill={sh.c} opacity=".85" />
           </g>
         ))}
         {/* 하얀 거품 — 밀려왔다 빠짐 (두 겹, 엇박자) */}
