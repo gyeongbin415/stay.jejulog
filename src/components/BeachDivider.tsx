@@ -4,11 +4,11 @@
  * 화면 폭이 달라도 찌그러지지 않게 가운데를 기준으로 잘라 보여 줌 (동작 줄이기 설정이면 멈춤)
  */
 const SHELLS: { x: number; y: number; r: number; c: string; s: number }[] = [
-  { x: 92, y: 66, r: -18, c: '#E98A5E', s: 1.1 },
-  { x: 1340, y: 70, r: 14, c: '#B9A3E3', s: 1.15 },
+  { x: 92, y: 84, r: -18, c: '#E98A5E', s: 1.1 },
+  { x: 1340, y: 86, r: 14, c: '#B9A3E3', s: 1.15 },
   { x: 1188, y: 112, r: -8, c: '#8FCFB4', s: .9 },
-  { x: 560, y: 54, r: 10, c: '#F3B07B', s: .8 },
-  { x: 860, y: 40, r: -12, c: '#E98A5E', s: .75 },
+  { x: 560, y: 86, r: 10, c: '#F3B07B', s: .8 },
+  { x: 860, y: 80, r: -12, c: '#E98A5E', s: .75 },
 ];
 const PEBBLES: [number, number, number, number, string][] = [
   [180, 92, 13, 8, '#8C96A6'], [150, 118, 9, 6, '#A9B0BC'], [410, 108, 14, 9, '#8A8F99'], [436, 118, 8, 5, '#B5BAC2'],
@@ -40,7 +40,7 @@ export function BeachDivider() {
       <svg viewBox="0 0 1440 260" preserveAspectRatio="xMidYMid slice" shapeRendering="geometricPrecision">
         <defs>
           {/* 위쪽은 '게하게' 칸 바탕색 그대로 시작해 천천히 모래색으로 (경계 선이 안 보이게) */}
-          <linearGradient id="beach-sand" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="160">
+          <linearGradient id="beach-sand" gradientUnits="userSpaceOnUse" x1="0" y1="50" x2="0" y2="175">
             <stop offset="0" stopColor="#F8ECDA" />
             <stop offset=".3" stopColor="#F8EAD5" />
             <stop offset=".7" stopColor="#F5DFC0" />
@@ -71,7 +71,7 @@ export function BeachDivider() {
           <path d="M1560 222 q60 -14 130 -2 M1960 236 q70 -16 150 -4" />
         </g>
         {/* 모래 · 파도는 위로 올려 바다를 넓게 */}
-        <g transform="translate(0 -26)">
+        <g transform="translate(0 -50)">
         {/* 젖은 모래 — 파도가 빠지면 드러남 (아래 끝은 흐려져 바다와 일자 경계가 안 생기게) */}
         <path d={`${foam(116, 22, 40)} L1500 168 L-60 168 Z`} fill="url(#beach-wet)" />
         {/* 모래사장 */}
