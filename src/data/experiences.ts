@@ -27,16 +27,16 @@ export interface Experience {
 
 /** 집 순서 그대로 — 다락 → 3F → 2F → 1F → 마당 (no 는 숙소 번호 STAY 01 ~ 09) */
 export const EXPERIENCES: Experience[] = [
-  { id: 'craft', no: '02', label: '반지공방', short: '반지', en: 'CRAFT', room: 'attic' },
-  { id: 'book', no: '01', label: '책', short: '책', en: 'BOOK', room: 'living' },
-  { id: 'flower', no: '03', label: '꽃꽂이', short: '꽃', en: 'FLOWER', room: 'kitchen' },
-  { id: 'cinema', no: '04', label: '영화', short: '영화', en: 'CINEMA', room: 'living' },
-  { id: 'lp', no: '05', label: 'LP', short: 'LP', en: 'LP', room: 'living' },
-  { id: 'homemeal', no: '06', label: '집밥', short: '밥', en: 'HOME MEAL', room: 'kitchen', headline: '낯선 제주에서, 따뜻한 집밥을 먹는 방법' },
-  { id: 'wine', no: '07', label: '와인', short: '와인', en: 'WINE', room: 'kitchen' },
+  { id: 'craft', no: '03', label: '반지공방', short: '반지', en: 'CRAFT', room: 'attic' },
+  { id: 'book', no: '08', label: '책', short: '책', en: 'BOOK', room: 'living' },
+  { id: 'flower', no: '02', label: '꽃꽂이', short: '꽃', en: 'FLOWER', room: 'kitchen' },
+  { id: 'cinema', no: '09', label: '영화', short: '영화', en: 'CINEMA', room: 'living' },
+  { id: 'lp', no: '01', label: 'LP', short: 'LP', en: 'LP', room: 'living' },
+  { id: 'homemeal', no: '07', label: '집밥', short: '밥', en: 'HOME MEAL', room: 'kitchen', headline: '낯선 제주에서, 따뜻한 집밥을 먹는 방법' },
+  { id: 'wine', no: '06', label: '와인', short: '와인', en: 'WINE', room: 'kitchen' },
   // 무릉쉼표 — 스냅사진 · 포틀럭 파티 & 불멍 (기존 id 는 camping)
-  { id: 'camping', no: '08', label: '스냅사진', short: '스냅', en: 'SNAP', room: 'yard', headline: '제주의 계절을 사진으로 남기는 방법' },
-  { id: 'running', no: '09', label: '러닝', short: '러닝', en: 'RUNNING', room: 'yard' },
+  { id: 'camping', no: '05', label: '스냅사진', short: '스냅', en: 'SNAP', room: 'yard', headline: '제주의 계절을 사진으로 남기는 방법' },
+  { id: 'running', no: '04', label: '러닝', short: '러닝', en: 'RUNNING', room: 'yard' },
 ];
 
 export const EXPERIENCE_BY_ID = Object.fromEntries(EXPERIENCES.map((e) => [e.id, e])) as Record<ProgramId, Experience>;
