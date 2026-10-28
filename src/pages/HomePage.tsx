@@ -11,20 +11,16 @@ import { BeachDivider } from '../components/BeachDivider';
 import { GrassLedge } from '../components/GrassLedge';
 import introNightUrl from '../assets/intro-night.webp';
 import stripWine from '../assets/strip/rooftop-dinner.webp';
-import stripRun from '../assets/strip/saewol-run.webp';
 import stripCamp from '../assets/strip/camp-table.webp';
 import stripMallow from '../assets/strip/fire-marshmallow.webp';
 import stripCandle from '../assets/strip/candle-dinner.webp';
 import stripLpWall from '../assets/strip/lp-wall.webp';
 import stripLiving from '../assets/strip/attic-living.webp';
-import stripRing from '../assets/strip/sunset-ring.webp';
 import stripPotluck from '../assets/strip/potluck-wall.webp';
 import stripCat from '../assets/strip/flower-cat.webp';
 import stripBuckwheat from '../assets/strip/buckwheat-umbrella.webp';
 import stripTea from '../assets/strip/iced-tea.webp';
 import stripDinner from '../assets/strip/susu-dinner-table.webp';
-import stripSnap from '../assets/strip/mureung-snap.webp';
-import stripLibrary from '../assets/strip/bookhome-library.webp';
 import stripSunrise from '../assets/strip/kokoko-sunrise.webp';
 
 /**
@@ -303,21 +299,17 @@ function Problem() {
  */
 const STRIP: { src: string; h: number; y: number; r: number; photo: string }[] = [
   { src: stripWine, h: 92, y: -3, r: -2, photo: 'rooftop-dinner' },
-  { src: stripRun, h: 100, y: 2, r: 1.5, photo: 'run' },
-  { src: stripLpWall, h: 89, y: -4, r: -1.5, photo: 'lpwall' },
-  { src: stripCat, h: 95, y: 3, r: 2, photo: 'cat' },
-  { src: stripCamp, h: 97, y: -2, r: -2, photo: 'camp' },
-  { src: stripLibrary, h: 94, y: 4, r: 1, photo: 'bookhome-library' },
-  { src: stripBuckwheat, h: 99, y: -3, r: -1.5, photo: 'buckwheat' },
-  { src: stripCandle, h: 92, y: 2, r: 1.5, photo: 'candle' },
-  { src: stripRing, h: 91, y: -4, r: -2, photo: 'ring' },
-  { src: stripPotluck, h: 97, y: 3, r: 2, photo: 'potluck' },
-  { src: stripSnap, h: 87, y: -1, r: -1, photo: 'mureung-snap' },
-  { src: stripMallow, h: 95, y: 2, r: 1.5, photo: 'mallow' },
-  { src: stripTea, h: 93, y: -3, r: -2, photo: 'tea' },
-  { src: stripDinner, h: 100, y: 0, r: -2, photo: 'susu-dinner-table' },
-  { src: stripSunrise, h: 90, y: -2, r: 2, photo: 'kokoko-sunrise' },
-  { src: stripLiving, h: 96, y: 4, r: -1.5, photo: 'living' },
+  { src: stripCat, h: 98, y: 2, r: 1.5, photo: 'cat' },
+  { src: stripCamp, h: 94, y: -4, r: -1.5, photo: 'camp' },
+  { src: stripBuckwheat, h: 99, y: 3, r: 2, photo: 'buckwheat' },
+  { src: stripCandle, h: 92, y: -2, r: -2, photo: 'candle' },
+  { src: stripLpWall, h: 90, y: 4, r: 1.5, photo: 'lpwall' },
+  { src: stripPotluck, h: 97, y: -3, r: -1, photo: 'potluck' },
+  { src: stripTea, h: 93, y: 2, r: 1.5, photo: 'tea' },
+  { src: stripMallow, h: 95, y: -4, r: -2, photo: 'mallow' },
+  { src: stripSunrise, h: 90, y: 3, r: 1, photo: 'kokoko-sunrise' },
+  { src: stripDinner, h: 100, y: -1, r: -1.5, photo: 'susu-dinner-table' },
+  { src: stripLiving, h: 96, y: 4, r: 2, photo: 'living' },
 ];
 
 function PhotoStrip() {
