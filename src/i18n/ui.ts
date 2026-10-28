@@ -17,7 +17,7 @@ export interface UiText {
   map: { title: string; open: string; cta: string;
     pageTitle: string; homeTitle: string; sub: string; all: string; filterAria: string; listAria: string; webzineBadge: string; seeStay: string; kakao: string; insta: string; note: string;
     search: string; searchAria: string; searchClear: string; noResult: string };
-  insta: { title: string; loading: string; posts: string; followers: string; following: string; follow: string; message: string; postsTab: string; gridAria: string; close: string; prev: string; next: string; likes: (n: number) => string; comments: (n: number) => string; seeStay: string };
+  insta: { title: string; loading: string; posts: string; followers: string; following: string; follow: string; message: string; postsTab: string; gridAria: string; close: string; prev: string; next: string; likes: (n: number) => string; comments: (n: number) => string; seeStay: string; back: string };
   home: { srTitle: string; wordsAria: string; opening: string; findSub: (n: number) => string; typesAria: string;
     /** 메인 사진 띠 — 상세페이지에서 빠진 사진 둘의 대체 텍스트 */
     stripRunAlt: string; stripLoungeAlt: string; stripCampAlt: string; stripMallowAlt: string; stripDomeAlt: string; stripCandleAlt: string; stripLpWallAlt: string; stripLivingAlt: string; stripRingAlt: string; stripPotluckAlt: string; stripCatAlt: string; stripBuckwheatAlt: string; stripTeaAlt: string; stripSeaRunAlt: string; stripGuitarAlt: string; stripWinePourAlt: string; stripRingWorkAlt: string; stripCliffAlt: string; stripCraterAlt: string; stripPuppyAlt: string; stripSeaSitAlt: string; stripForestAlt: string; stripCosmosAlt: string; stripCalendarAlt: string;
@@ -63,7 +63,7 @@ export const UI: Record<Lang, UiText> = {
       all: '전체', filterAria: '취향 고르기', listAria: '게스트하우스 목록', webzineBadge: '웹진 소개', seeStay: '웹진에서 자세히 보기', kakao: '카카오맵', insta: '인스타그램',
       note: '위치는 카카오맵 장소 정보 기준이에요. 프로그램과 운영 여부는 방문 전에 숙소에 한 번 더 확인해 주세요.',
       search: '예: 제주시 한림읍', searchAria: '지역이나 게스트하우스 이름으로 찾기', searchClear: '검색어 지우기', noResult: '찾는 곳이 없어요. 다른 지역이나 이름으로 찾아보세요.' },
-    insta: { title: '스테이 제주로그 인스타그램', loading: '인스타그램을 불러오는 중…', posts: '게시물', followers: '팔로워', following: '팔로잉', follow: '팔로우', message: '메시지 보내기', postsTab: '게시물', gridAria: '게시물 목록', close: '닫기', prev: '이전 사진', next: '다음 사진', likes: (n) => `좋아요 ${n}개`, comments: (n) => `댓글 ${n}개`, seeStay: '웹진에서 이 숙소 보기' },
+    insta: { title: '스테이 제주로그 인스타그램', loading: '인스타그램을 불러오는 중…', posts: '게시물', followers: '팔로워', following: '팔로잉', follow: '팔로우', message: '메시지 보내기', postsTab: '게시물', gridAria: '게시물 목록', close: '닫기', prev: '이전 사진', next: '다음 사진', likes: (n) => `좋아요 ${n}개`, comments: (n) => `댓글 ${n}개`, seeStay: '웹진에서 이 숙소 보기', back: '뒤로 가기' },
     home: {
       srTitle: '제주 게스트하우스 공간 탐험 웹진',
       stripRunAlt: '맑은 날 애월 바닷가 산책로를 따라 달리는 게스트들 (얼굴 흐림 처리)',
@@ -133,7 +133,7 @@ export const UI: Record<Lang, UiText> = {
       all: 'All', filterAria: 'Choose a taste', listAria: 'Guesthouse list', webzineBadge: 'In the webzine', seeStay: 'Read more in the webzine', kakao: 'Kakao Map', insta: 'Instagram',
       note: 'Locations follow Kakao Map place data. Please check programs and opening with each stay before you visit. Descriptions of places outside the webzine are in Korean.',
       search: 'e.g. 제주시 한림읍', searchAria: 'Search by area or guesthouse name', searchClear: 'Clear search', noResult: 'No places found. Try another area or name.' },
-    insta: { title: 'STAY JEJULOG on Instagram', loading: 'Loading Instagram…', posts: 'posts', followers: 'followers', following: 'following', follow: 'Follow', message: 'Message', postsTab: 'Posts', gridAria: 'Posts', close: 'Close', prev: 'Previous photo', next: 'Next photo', likes: (n) => `${n} likes`, comments: (n) => `${n} comments`, seeStay: 'See this stay in the webzine' },
+    insta: { title: 'STAY JEJULOG on Instagram', loading: 'Loading Instagram…', posts: 'posts', followers: 'followers', following: 'following', follow: 'Follow', message: 'Message', postsTab: 'Posts', gridAria: 'Posts', close: 'Close', prev: 'Previous photo', next: 'Next photo', likes: (n) => `${n} likes`, comments: (n) => `${n} comments`, seeStay: 'See this stay in the webzine', back: 'Go back' },
     home: {
       srTitle: 'A webzine for exploring Jeju guesthouses',
       stripRunAlt: 'Guests running along the Aewol seaside path on a clear day (faces blurred)',
@@ -203,7 +203,7 @@ export const UI: Record<Lang, UiText> = {
       all: '全部', filterAria: '选择喜好', listAria: '民宿列表', webzineBadge: '杂志介绍', seeStay: '在杂志中查看详情', kakao: 'Kakao 地图', insta: 'Instagram',
       note: '位置依据 Kakao 地图的地点信息。出发前请再向民宿确认活动与营业情况。杂志外民宿的介绍为韩文。',
       search: '例：제주시 한림읍', searchAria: '按地区或民宿名称搜索', searchClear: '清除搜索', noResult: '没有找到相关地点，请换个地区或名称试试。' },
-    insta: { title: 'STAY JEJULOG 的 Instagram', loading: '正在加载 Instagram…', posts: '帖子', followers: '粉丝', following: '关注', follow: '关注', message: '发消息', postsTab: '帖子', gridAria: '帖子列表', close: '关闭', prev: '上一张', next: '下一张', likes: (n) => `${n} 次赞`, comments: (n) => `${n} 条评论`, seeStay: '在杂志中查看这家民宿' },
+    insta: { title: 'STAY JEJULOG 的 Instagram', loading: '正在加载 Instagram…', posts: '帖子', followers: '粉丝', following: '关注', follow: '关注', message: '发消息', postsTab: '帖子', gridAria: '帖子列表', close: '关闭', prev: '上一张', next: '下一张', likes: (n) => `${n} 次赞`, comments: (n) => `${n} 条评论`, seeStay: '在杂志中查看这家民宿', back: '返回' },
     home: {
       srTitle: '济州民宿空间探索杂志',
       stripRunAlt: '晴天里沿着涯月海边步道奔跑的客人（面部已模糊处理）',

@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect, useLayoutEffect, useRef } from 'react';
-import { useRoute, scrollToSection, parseHash, routeKey } from './lib/router';
+import { useRoute, jumpToSection, parseHash, routeKey } from './lib/router';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { MapFab } from './components/MapFab';
@@ -87,7 +87,7 @@ export function App() {
     keyRef.current = key;
     const to = route.query.get('to');
     if (route.name === 'home' && to) {
-      requestAnimationFrame(() => scrollToSection(to));
+      jumpToSection(to);
       history.replaceState(history.state, '', '#/');
     } else if (route.name === 'home' || route.name === 'house') {
       window.scrollTo(0, positions.current[key] ?? 0);

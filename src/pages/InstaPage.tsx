@@ -28,6 +28,10 @@ export default function InstaPage({ post = null }: { post?: number | null }) {
     if (i == null && post) history.replaceState(history.state, '', href.insta());
   };
   const { following, extra, toggle } = useFollow();
+  // 뒤로 — 메인의 인스타 사진 칸(MORE STORIES)으로 바로 (메인 맨 위가 아니라)
+  const goBack = () => {
+    location.hash = href.home('inside');
+  };
   const fmt = new Intl.NumberFormat(lang === 'zh' ? 'zh-CN' : lang);
 
   return (
@@ -35,7 +39,15 @@ export default function InstaPage({ post = null }: { post?: number | null }) {
       <h1 id="insta-title" className="visually-hidden">{t.title}</h1>
       {/* 인스타 앱 프로필처럼 — 맨 위 아이디 / 테 두른 프로필 사진 옆에 이름 · 숫자(숫자 위, 이름 아래) / 분류 · 소개 / 팔로우 */}
       <header className="insta-head">
-        <p className="insta-head__handle">{p.handle}</p>
+        <div className="insta-head__bar">
+          {/* 뒤로 — 메인의 인스타 사진 칸(MORE STORIES)으로 */}
+          <button type="button" className="insta-head__back" onClick={goBack} aria-label={t.back} data-track="insta_back">
+            <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true" focusable="false">
+              <path d="M15 4.5 7.5 12l7.5 7.5" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
+          <p className="insta-head__handle">{p.handle}</p>
+        </div>
         <div className="insta-head__top">
           <div className="insta-head__avatar">
             <img src={p.avatar} alt="" width={150} height={150} />

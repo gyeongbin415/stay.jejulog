@@ -69,6 +69,29 @@ export const href = {
   myResult: (code: string) => `#/test?r=${code}&me=1`,
 };
 
+/**
+ * 다른 화면에서 메인의 섹션으로 돌아올 때 — 부드럽게 굴리면 사진이 늦게 뜨며 높이가 바뀌어 중간에 멈추므로
+ * 바로 그 자리로 옮기고, 자리가 맞을 때까지 몇 프레임 다시 맞춤
+ */
+export function jumpToSection(id: string) {
+  let tries = 0;
+  const go = () => {
+    const el = document.getElementById(id);
+    if (el) {
+      const y = el.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo(0, y);
+      if (Math.abs(el.getBoundingClientRect().top) <= 2 && tries > 6) {
+        const focusTarget = el.querySelector<HTMLElement>('h2, h1, [data-focus]') ?? el;
+        if (!focusTarget.hasAttribute('tabindex')) focusTarget.setAttribute('tabindex', '-1');
+        focusTarget.focus({ preventScroll: true });
+        return;
+      }
+    }
+    if (tries++ < 40) requestAnimationFrame(go);
+  };
+  requestAnimationFrame(go);
+}
+
 /** 메인 안의 섹션으로 이동 (동작 줄이기 설정이면 즉시 이동) */
 export function scrollToSection(id: string) {
   const el = document.getElementById(id);
