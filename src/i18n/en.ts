@@ -396,7 +396,7 @@ export const EN: ContentPack = {
             { label: 'Time', value: '11:00 AM, 1:00 PM or 3:00 PM (choose one)' },
           ],
           photos: [
-            { alt: 'A studio workbench along the window, set with desk lamps and work mats', caption: 'The workbench by the window' },
+            { alt: 'A sunlit workbench with a tray of sample wooden rings, engraving designs, a hand filling in an order sheet, and sanding and carving tools', caption: 'Choosing a ring and filling in the order sheet' },
           ],
           text: [
             'Make a special keepsake of your own in Jeju. Choose any combination of 11 special woods and 7 designs, and decide everything from the size to the engraved message to suit your taste. Carve and smooth the wood for about 1 to 1.5 hours, and you’ll have a wooden ring like no other in the world.',
