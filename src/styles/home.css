@@ -302,13 +302,13 @@
 }
 .tastemap:hover { transform: translateY(-3px); }
 /* 누르라는 안내 — 둥근 옅은 상자 (버튼 대신) */
-.tastemap__hint { display: inline-flex; align-items: center; gap: 10px; margin: 0; font-size: clamp(15px, 1.4vw, 17px); font-weight: 600; color: #2F7A83; letter-spacing: -0.01em; }
+.tastemap__hint { display: inline-flex; align-items: center; gap: 8px; margin: 0; font-size: clamp(15px, 1.4vw, 17px); font-weight: 600; color: #2F7A83; letter-spacing: -0.01em; }
 /* 청록 동그라미 속 하얀 지도 핀 — 둘레로 물결이 퍼져 눈에 띄게 */
-.tastemap__pin { position: relative; display: grid; place-items: center; flex: none; width: 34px; height: 34px; border-radius: 50%; background: #2F7A83; color: #fff; }
-.tastemap__pin svg { width: 20px; height: 20px; fill: currentColor; animation: tastemap-hop 1.8s ease-in-out infinite; }
+.tastemap__pin { position: relative; display: grid; place-items: center; flex: none; width: 26px; height: 26px; border-radius: 50%; background: #2F7A83; color: #fff; }
+.tastemap__pin svg { width: 15px; height: 15px; fill: currentColor; animation: tastemap-hop 1.8s ease-in-out infinite; }
 .tastemap__pin::before, .tastemap__pin::after { content: ''; position: absolute; inset: 0; border-radius: 50%; border: 2px solid #2F7A83; opacity: 0; animation: tastemap-ring 1.8s ease-out infinite; }
 .tastemap__pin::after { animation-delay: .9s; }
-@keyframes tastemap-ring { 0% { transform: scale(1); opacity: .7; } 100% { transform: scale(1.9); opacity: 0; } }
+@keyframes tastemap-ring { 0% { transform: scale(1); opacity: .7; } 100% { transform: scale(1.6); opacity: 0; } }
 @keyframes tastemap-hop { 0%, 55%, 100% { transform: translateY(0); } 25% { transform: translateY(-3px); } }
 @media (prefers-reduced-motion: reduce) { .tastemap__pin svg, .tastemap__pin::before, .tastemap__pin::after { animation: none; } }
 .tastemap:focus-visible { outline: 3px solid var(--orange); outline-offset: 6px; }
