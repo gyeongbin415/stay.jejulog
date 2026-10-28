@@ -391,13 +391,11 @@ function TasteMapBanner() {
           <p className="label">AROUND JEJU</p>
           <h2 id="tastemap-title" className="section-head__title pre">{ui.map.homeTitle}</h2>
         </div>
-        {/* 그림 · 밑의 버튼 모두 눌림 — 버튼으로 누를 수 있다는 걸 알 수 있게 */}
-        <a className="tastemap" href={href.map()} data-track="home_taste_map">
+        {/* 그림 전체가 눌림 — 밑의 안내로 누를 수 있다는 걸 알려 줌 */}
+        <a className="tastemap" href={href.map()} data-track="home_taste_map" aria-label={ui.map.open}>
           {/* 섬 위를 돋보기가 집집마다 찾아다니는 움직이는 그림 */}
           <TasteMapIsland />
-          <span className="btn tastemap__cta">
-            {ui.map.cta} <span className="tastemap__arrow" aria-hidden="true">→</span>
-          </span>
+          <span className="tastemap__hint">{ui.map.cta}</span>
         </a>
       </div>
     </section>

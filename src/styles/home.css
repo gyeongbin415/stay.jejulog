@@ -300,10 +300,10 @@
 @media (prefers-reduced-motion: reduce) {
   .tmi__shore { animation: none; }
 }
-.tastemap__arrow { transition: transform var(--t-hover) var(--ease); }
 .tastemap:hover { transform: translateY(-3px); }
-.tastemap:hover .tastemap__cta { background: #F5A266; border-color: #F5A266; }
-.tastemap:hover .tastemap__arrow { transform: translateX(3px); }
+/* 누르라는 안내 — 둥근 옅은 상자 (버튼 대신) */
+.tastemap__hint { display: inline-block; padding: 8px 16px; border-radius: 999px; background: rgba(255, 255, 255, .55); font-size: var(--t-small); color: var(--ink-soft); }
+.tastemap:hover .tastemap__hint { background: rgba(255, 255, 255, .8); color: var(--ink); }
 .tastemap:focus-visible { outline: 3px solid var(--orange); outline-offset: 6px; }
 /* 제주 게하의 더 많은 이야기 — 가운데 정렬 · 버튼 글자 옆 오른쪽 위 화살표 */
 .more { display: grid; justify-items: center; gap: 14px; text-align: center; }
