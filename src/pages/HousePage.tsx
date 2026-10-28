@@ -18,39 +18,39 @@ const VIEW_KEY = 'jejulog:house-view';
 
 /**
  * 그림(바깥 배경은 투명) 속 방 자리 · 이름표 자리 — 그림 픽셀 기준
- * room: 방 네모 [x1, y1, x2, y2] / tag: 그림 속 이름표를 덮는 자리 [x, y, 최소 너비] (center — 가운데 기준)
- * 휴대폰은 한 층에 두 칸(1088 × 1446), 넓은 화면은 같은 그림을 잘라 이어 붙인 한 층 세 칸(1572 × 1196)
- *  — 나무반지(다락) · 스냅사진 · 러닝(마당)은 그대로, 가운데 여섯 칸만 책 · 꽃꽂이 · 영화 / LP · 집밥 · 와인
+ * room: 방 네모 [x1, y1, x2, y2] / tag: 이름표 자리 [x, y, 최소 너비] (center — 가운데 기준)
+ * 휴대폰은 한 층에 두 칸(914 × 1153), 넓은 화면은 같은 그림을 잘라 이어 붙인 한 층 세 칸(1337 × 963)
+ *  — 책(다락) · 스냅사진 · 러닝(마당)은 그대로, 가운데 여섯 칸만 영화 · LP · 반지공방 / 꽃꽂이 · 집밥 · 와인
  * ground: 잔디색 땅이 시작되는 그림 높이
  */
 type Spot = { id: ProgramId; room: [number, number, number, number]; tag: [number, number, number]; center?: boolean };
 const HOUSES: Record<'narrow' | 'wide', { url: string; w: number; h: number; ground: number; spots: Spot[] }> = {
   narrow: {
-    url: houseUrl, w: 1088, h: 1446, ground: 978,
+    url: houseUrl, w: 914, h: 1153, ground: 586,
     spots: [
-      { id: 'craft', room: [144, 75, 943, 348], tag: [543, 135, 122], center: true },
-      { id: 'book', room: [144, 362, 537, 605], tag: [155, 378, 66] },
-      { id: 'flower', room: [552, 362, 943, 605], tag: [565, 378, 95] },
-      { id: 'cinema', room: [144, 620, 537, 859], tag: [155, 636, 84] },
-      { id: 'lp', room: [552, 620, 943, 859], tag: [566, 636, 70] },
-      { id: 'homemeal', room: [144, 874, 537, 1109], tag: [155, 890, 85] },
-      { id: 'wine', room: [552, 874, 943, 1109], tag: [565, 890, 83] },
-      { id: 'camping', room: [130, 1140, 536, 1391], tag: [143, 1156, 120] },
-      { id: 'running', room: [553, 1140, 958, 1391], tag: [566, 1155, 89] },
+      { id: 'book', room: [119, 103, 797, 291], tag: [456, 104, 66], center: true },
+      { id: 'cinema', room: [119, 305, 449, 500], tag: [132, 321, 84] },
+      { id: 'lp', room: [462, 305, 797, 500], tag: [475, 321, 70] },
+      { id: 'craft', room: [119, 514, 449, 700], tag: [132, 530, 100] },
+      { id: 'flower', room: [462, 514, 797, 700], tag: [475, 530, 95] },
+      { id: 'homemeal', room: [119, 714, 449, 893], tag: [132, 730, 85] },
+      { id: 'wine', room: [462, 714, 797, 893], tag: [475, 730, 83] },
+      { id: 'camping', room: [103, 915, 450, 1119], tag: [116, 929, 120] },
+      { id: 'running', room: [463, 915, 811, 1119], tag: [476, 929, 89] },
     ],
   },
   wide: {
-    url: houseWideUrl, w: 1572, h: 1196, ground: 728,
+    url: houseWideUrl, w: 1337, h: 963, ground: 586,
     spots: [
-      { id: 'craft', room: [144, 75, 1352, 348], tag: [740, 135, 122], center: true },
-      { id: 'book', room: [144, 363, 537, 606], tag: [155, 378, 66] },
-      { id: 'flower', room: [552, 363, 944, 606], tag: [565, 378, 95] },
-      { id: 'cinema', room: [959, 363, 1352, 606], tag: [970, 379, 84] },
-      { id: 'lp', room: [144, 620, 537, 860], tag: [158, 636, 70] },
-      { id: 'homemeal', room: [552, 620, 944, 860], tag: [563, 635, 85] },
-      { id: 'wine', room: [959, 620, 1352, 860], tag: [972, 635, 83] },
-      { id: 'camping', room: [334, 890, 740, 1141], tag: [347, 906, 120] },
-      { id: 'running', room: [757, 890, 1162, 1141], tag: [770, 905, 89] },
+      { id: 'book', room: [160, 103, 1181, 291], tag: [668, 104, 66], center: true },
+      { id: 'cinema', room: [160, 305, 490, 500], tag: [173, 321, 84] },
+      { id: 'lp', room: [503, 305, 838, 500], tag: [516, 321, 70] },
+      { id: 'craft', room: [851, 305, 1181, 500], tag: [864, 321, 100] },
+      { id: 'flower', room: [160, 514, 490, 700], tag: [173, 530, 95] },
+      { id: 'homemeal', room: [503, 514, 838, 700], tag: [516, 530, 85] },
+      { id: 'wine', room: [851, 514, 1181, 700], tag: [864, 530, 83] },
+      { id: 'camping', room: [315, 722, 662, 923], tag: [328, 736, 120] },
+      { id: 'running', room: [675, 722, 1023, 923], tag: [688, 736, 89] },
     ],
   },
 };
