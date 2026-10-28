@@ -17,6 +17,7 @@ import stripPotluck from '../assets/strip/potluck-wall.webp';
 import stripCat from '../assets/strip/flower-cat.webp';
 import stripBuckwheat from '../assets/strip/buckwheat-umbrella.webp';
 import stripTea from '../assets/strip/iced-tea.webp';
+import stripMallow from '../assets/strip/fire-marshmallow.webp';
 import stripSeaRun from '../assets/strip/seaside-run.webp';
 import stripGuitar from '../assets/strip/guitar-corner.webp';
 import stripDinner from '../assets/strip/susu-dinner-table.webp';
@@ -305,6 +306,7 @@ const STRIP: { src: string; h: number; y: number; r: number; photo: string }[] =
   { src: stripPotluck, h: 97, y: 4, r: 1.5, photo: 'potluck' },
   { src: stripTea, h: 92, y: -3, r: -1, photo: 'tea' },
   { src: stripGuitar, h: 96, y: 2, r: 1.5, photo: 'guitar' },
+  { src: stripMallow, h: 94, y: -2, r: -1.5, photo: 'mallow' },
   { src: stripSunrise, h: 90, y: -4, r: -2, photo: 'kokoko-sunrise' },
   { src: stripDinner, h: 100, y: 3, r: 1, photo: 'susu-dinner-table' },
   { src: stripLiving, h: 95, y: -1, r: -1.5, photo: 'living' },
