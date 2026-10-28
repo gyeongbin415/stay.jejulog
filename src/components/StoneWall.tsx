@@ -86,7 +86,7 @@ const CREVICE_TOP = Array.from({ length: 49 }, (_, i) => {
 export function StoneWall() {
   return (
     <div className="stonewall" aria-hidden="true">
-      <svg viewBox="0 0 1440 170" preserveAspectRatio="xMidYMid slice">
+      <svg viewBox="0 18 1440 152" preserveAspectRatio="xMidYMid slice">
         <defs>
           {/* 돌 — 위는 빛을 받아 밝고 아래로 갈수록 은은하게 어두워짐 (번들거림 · 덧그린 그림자 없이) */}
           {STONE_TONES.map(([hi, mid, lo], i) => (

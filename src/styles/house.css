@@ -167,7 +167,7 @@
    뒤 배경은 페이지 색, 땅(그림 y 978부터)은 잔디색으로 화면 양옆까지 깔아 둡니다. */
 .house3d {
   --w: min(660px, 100vw); --u: calc(var(--w) / var(--iw, 1088)); --pt: 8px;
-  padding: var(--pt) 0 clamp(48px, 8vh, 88px);
+  padding: var(--pt) 0 clamp(8px, 1.5vh, 16px); /* 마당 그림 밑 초록 땅은 짧게 — 바로 돌담으로 이어짐 */
   background: linear-gradient(to bottom, var(--bg) calc(var(--pt) + var(--u) * var(--ground, 978)), #CDE8BD 0);
 }
 /* 넓은 화면 — 한 층 세 칸 그림 (1572 × 1196) */
