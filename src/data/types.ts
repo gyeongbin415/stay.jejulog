@@ -19,6 +19,8 @@ export interface PhotoData {
   art: ArtKey;
   /** 사진 아래 캡션 (선택) */
   caption?: string;
+  /** 칸에 맞춰 잘릴 때 남길 자리 (CSS object-position, 예: '80% 50%' — 간판 글씨가 잘리지 않게) */
+  focus?: string;
   /** 프로그램 사진 한 장일 때 화면 비율 (예: '7 / 5') — 비우면 4 / 3 */
   ratio?: string;
 }

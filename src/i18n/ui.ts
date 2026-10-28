@@ -44,7 +44,7 @@ export interface UiText {
     bestCaption: string; nextCaption: string; thirdCaption: string; othersLabel: string; othersTitle: string; expType: string; reason: string; myPicks: string; detail: string;
     retry: string; share: string; shared: string; copied: string; canceled: string;
     /** 결과 공유 — 제목 · 카카오톡 · X · 링크 복사, 카톡은 공유 창이 없으면 링크 복사로 */
-    shareTitle: string; shareKakao: string; shareX: string; shareInsta: string; kakaoCopied: string; instaSaved: string; shareFailed: string;
+    shareTitle: string; shareKakao: string; shareX: string; shareInsta: string; kakaoCopied: string; instaSaved: string; instaCopied: string; shareFailed: string;
     save: string; saved: string; saveFailed: string;
     bestReason: (type: string) => string; nextRunnerUp: (type: string) => string; nextSameType: (type: string) => string;
   };
@@ -114,7 +114,7 @@ export const UI: Record<Lang, UiText> = {
       shared: '공유 창을 열었습니다.', copied: '결과 링크를 복사했습니다.', canceled: '공유를 취소했습니다.',
       shareTitle: '내 결과 공유하기', shareKakao: '카카오톡으로 공유', shareX: 'X로 공유', shareInsta: '인스타그램으로 공유',
       kakaoCopied: '결과 링크를 복사했습니다. 카카오톡 대화창에 붙여 넣어 주세요.',
-      instaSaved: '결과 이미지를 저장했습니다. 열리는 인스타그램에서 저장한 이미지를 올려 주세요.', shareFailed: '공유하지 못했습니다. 다시 눌러 주세요.',
+      instaSaved: '결과 이미지를 저장했습니다. 열리는 인스타그램에서 저장한 이미지를 올려 주세요.', instaCopied: '결과 링크를 복사했어요. 열리는 인스타그램에 붙여 넣어 공유해 보세요.', shareFailed: '공유하지 못했습니다. 다시 눌러 주세요.',
       bestReason: (t) => `‘${t}’ 취향에서 가장 높은 점수를 받은 곳.`,
       nextRunnerUp: (t) => `두 번째로 높게 나온 ‘${t}’ 성향에 어울리는 곳.`,
       nextSameType: (t) => `같은 ‘${t}’ 취향에서 함께 고른 곳.`,
@@ -184,7 +184,7 @@ export const UI: Record<Lang, UiText> = {
       shared: 'Opened the share sheet.', copied: 'Result link copied.', canceled: 'Sharing canceled.',
       shareTitle: 'Share my result', shareKakao: 'Share on KakaoTalk', shareX: 'Share on X', shareInsta: 'Share on Instagram',
       kakaoCopied: 'Result link copied. Paste it into a KakaoTalk chat.',
-      instaSaved: 'Result image saved. Post it from the Instagram that opens.', shareFailed: 'Couldn’t share. Please try again.',
+      instaSaved: 'Result image saved. Post it from the Instagram that opens.', instaCopied: 'Result link copied. Paste it into the Instagram that opens to share.', shareFailed: 'Couldn’t share. Please try again.',
       bestReason: (t) => `The top match for “${t}”.`,
       nextRunnerUp: (t) => `A fit for your second-strongest side, “${t}”.`,
       nextSameType: (t) => `Another pick for “${t}”.`,
@@ -254,7 +254,7 @@ export const UI: Record<Lang, UiText> = {
       shared: '已打开分享窗口。', copied: '已复制结果链接。', canceled: '已取消分享。',
       shareTitle: '分享我的结果', shareKakao: '分享到 KakaoTalk', shareX: '分享到 X', shareInsta: '分享到 Instagram',
       kakaoCopied: '已复制结果链接，请粘贴到 KakaoTalk 聊天中。',
-      instaSaved: '已保存结果图片，请在打开的 Instagram 中发布。', shareFailed: '分享失败，请再试一次。',
+      instaSaved: '已保存结果图片，请在打开的 Instagram 中发布。', instaCopied: '已复制结果链接，请粘贴到打开的 Instagram 中分享。', shareFailed: '分享失败，请再试一次。',
       bestReason: (t) => `在“${t}”喜好中得分最高的地方。`,
       nextRunnerUp: (t) => `适合你第二强的“${t}”倾向。`,
       nextSameType: (t) => `同为“${t}”喜好的另一个选择。`,

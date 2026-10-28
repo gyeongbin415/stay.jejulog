@@ -221,29 +221,21 @@ function Result({ result, shared, onRetry, focusRef }: { result: QuizResult; sha
       failed(err);
     }
   };
-  // 인스타그램 — 인스타는 링크 공유를 받지 않아 결과 이미지를 공유 창으로 (스토리 · 게시물 · DM 으로 바로)
-  //  이미지 공유가 안 되는 기기는 이미지를 내려받아 인스타그램에 올리게
-  //  휴대폰 공유 창이 없는 곳(카카오톡 · 앱 안 브라우저, 컴퓨터)은 이미지를 저장한 뒤
-  //  이 기기에 로그인된 인스타그램을 바로 엶 — 휴대폰은 인스타 앱 스토리 화면, 컴퓨터는 instagram.com 새 탭
-  const openInstagram = () => {
-    if (window.matchMedia('(pointer: coarse)').matches) window.location.href = 'instagram://story-camera';
-    else window.open('https://www.instagram.com/', '_blank', 'noopener,noreferrer');
-  };
-  const shareInsta = async () => {
-    try {
-      const file = await resultFile();
-      if (navigator.canShare?.({ files: [file] })) {
-        await navigator.share({ files: [file] });
-        setStatus(t.shared);
-      } else {
-        download(file);
-        setStatus(t.instaSaved);
-        setTimeout(openInstagram, 600);
-      }
-      hit('instagram');
-    } catch (err) {
-      failed(err);
+  // 인스타그램 — X 처럼 누르면 바로 인스타로: 휴대폰은 인스타 앱(스토리 화면), 컴퓨터는 instagram.com 새 탭.
+  //  인스타는 링크를 받아 주는 공유 주소가 없어 결과 링크를 복사해 두고, 인스타에서 붙여 넣게 (스토리 링크 스티커 · DM)
+  //  휴대폰에 인스타 앱이 없으면 잠시 뒤 instagram.com 으로
+  const shareInsta = () => {
+    navigator.clipboard?.writeText(url).catch(() => {});
+    if (window.matchMedia('(pointer: coarse)').matches) {
+      window.location.href = 'instagram://story-camera';
+      setTimeout(() => {
+        if (!document.hidden) window.location.href = 'https://www.instagram.com/';
+      }, 1500);
+    } else {
+      window.open('https://www.instagram.com/', '_blank', 'noopener,noreferrer');
     }
+    setStatus(t.instaCopied);
+    hit('instagram');
   };
   const shareX = () => {
     window.open(`https://x.com/intent/post?url=${encodeURIComponent(url)}`, '_blank', 'noopener,noreferrer');

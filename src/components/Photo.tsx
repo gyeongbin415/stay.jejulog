@@ -27,7 +27,7 @@ export function Photo({ photo, fallback, ratio, caption, className = '', style, 
     <figure className={`photo${has ? '' : ' photo--art'} ${className}`} style={{ ...style, ...(ratio ? { aspectRatio: ratio } : null) }}>
       <div className="photo__frame">
         {has ? (
-          <img src={photo!.src} alt={photo!.alt} loading={eager ? 'eager' : 'lazy'} decoding="async" />
+          <img src={photo!.src} alt={photo!.alt} loading={eager ? 'eager' : 'lazy'} decoding="async" style={photo!.focus ? { objectPosition: photo!.focus } : undefined} />
         ) : (
           <>
             <RoomArt id={fallback} />
