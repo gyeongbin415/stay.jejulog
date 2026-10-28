@@ -10,7 +10,6 @@ import { TasteMapIsland } from '../components/TasteMapIsland';
 import { BeachDivider } from '../components/BeachDivider';
 import { GrassLedge } from '../components/GrassLedge';
 import introNightUrl from '../assets/intro-night.webp';
-import stripCamp from '../assets/strip/camp-table.webp';
 import stripLpWall from '../assets/strip/lp-wall.webp';
 import stripLiving from '../assets/strip/attic-living.webp';
 import stripPotluck from '../assets/strip/potluck-wall.webp';
@@ -18,6 +17,7 @@ import stripCat from '../assets/strip/flower-cat.webp';
 import stripBuckwheat from '../assets/strip/buckwheat-umbrella.webp';
 import stripTea from '../assets/strip/iced-tea.webp';
 import stripMallow from '../assets/strip/fire-marshmallow.webp';
+import stripWinePour from '../assets/strip/wine-pour.webp';
 import stripSeaRun from '../assets/strip/seaside-run.webp';
 import stripGuitar from '../assets/strip/guitar-corner.webp';
 import stripDinner from '../assets/strip/susu-dinner-table.webp';
@@ -299,17 +299,17 @@ function Problem() {
  */
 const STRIP: { src: string; h: number; y: number; r: number; photo: string }[] = [
   { src: stripSeaRun, h: 98, y: -3, r: -2, photo: 'searun' },
-  { src: stripLpWall, h: 92, y: 3, r: 1.5, photo: 'lpwall' },
-  { src: stripCat, h: 95, y: -2, r: -1.5, photo: 'cat' },
-  { src: stripMallow, h: 93, y: 4, r: 2, photo: 'mallow' },
+  { src: stripMallow, h: 93, y: 3, r: 1.5, photo: 'mallow' },
+  { src: stripCat, h: 94, y: -2, r: -1.5, photo: 'cat' },
+  { src: stripPotluck, h: 97, y: 4, r: 2, photo: 'potluck' },
   { src: stripBuckwheat, h: 99, y: -4, r: -2, photo: 'buckwheat' },
-  { src: stripTea, h: 91, y: 2, r: 1.5, photo: 'tea' },
-  { src: stripGuitar, h: 96, y: -3, r: -1, photo: 'guitar' },
-  { src: stripCamp, h: 94, y: 3, r: 2, photo: 'camp' },
-  { src: stripSunrise, h: 90, y: -2, r: -2, photo: 'kokoko-sunrise' },
-  { src: stripDinner, h: 100, y: 4, r: 1, photo: 'susu-dinner-table' },
-  { src: stripLiving, h: 95, y: -1, r: -1.5, photo: 'living' },
-  { src: stripPotluck, h: 97, y: 2, r: 1.5, photo: 'potluck' },
+  { src: stripLpWall, h: 92, y: 2, r: 1.5, photo: 'lpwall' },
+  { src: stripLiving, h: 95, y: -1, r: -1, photo: 'living' },
+  { src: stripWinePour, h: 95, y: 3, r: 2, photo: 'winepour' },
+  { src: stripTea, h: 91, y: -3, r: -1.5, photo: 'tea' },
+  { src: stripSunrise, h: 90, y: 4, r: 1, photo: 'kokoko-sunrise' },
+  { src: stripGuitar, h: 96, y: -2, r: -2, photo: 'guitar' },
+  { src: stripDinner, h: 100, y: 2, r: 1.5, photo: 'susu-dinner-table' },
 ];
 
 function PhotoStrip() {
@@ -330,6 +330,7 @@ function PhotoStrip() {
     if (key === 'tea') return ui.home.stripTeaAlt;
     if (key === 'searun') return ui.home.stripSeaRunAlt;
     if (key === 'guitar') return ui.home.stripGuitarAlt;
+    if (key === 'winepour') return ui.home.stripWinePourAlt;
     for (const g of programs.flatMap((p) => p.report.programs ?? [])) {
       const hit = [g.photo, ...(g.photos ?? [])].find((ph) => ph?.src?.includes(key));
       if (hit) return hit.alt;
