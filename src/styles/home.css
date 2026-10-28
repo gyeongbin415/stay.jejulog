@@ -270,12 +270,13 @@
 .beach { position: relative; display: block; height: clamp(170px, 22vw, 260px); margin-top: -3px; overflow: hidden; background: linear-gradient(#F8ECDA 50%, #B1E1E6 50%); } /* 위 칸 · 아래 바다와 이음새가 안 보이게 */
 .beach svg { display: block; width: 100%; height: 100%; }
 /* 하얀 거품 — 밀려왔다 빠짐 */
-.beach__foam { animation: beach-lap 5.2s ease-in-out infinite; }
-.beach__foam--back { animation-duration: 5.2s; animation-delay: -1.6s; }
+.beach__foam { animation: beach-lap 4.8s cubic-bezier(.45, 0, .35, 1) infinite; }
+.beach__foam--back { animation-delay: -1.3s; }
+/* 모래 쪽으로 쭉 밀려 올라왔다가 천천히 빠짐 */
 @keyframes beach-lap {
-  0%, 100% { transform: translate(0, 10px); }
-  45% { transform: translate(-14px, -8px); }
-  60% { transform: translate(-10px, -9px); }
+  0%, 100% { transform: translate(0, 16px); }
+  40% { transform: translate(-18px, -30px); }
+  55% { transform: translate(-14px, -32px); }
 }
 /* 바다 물결 줄 — 옆으로 흘러감 */
 .beach__streaks path { fill: none; stroke: #FFFFFF; stroke-width: 4; stroke-linecap: round; opacity: .75; }

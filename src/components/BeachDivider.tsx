@@ -39,15 +39,23 @@ export function BeachDivider() {
     <div className="beach" aria-hidden="true">
       <svg viewBox="0 0 1440 260" preserveAspectRatio="xMidYMid slice" shapeRendering="geometricPrecision">
         <defs>
-          <linearGradient id="beach-sand" x1="0" y1="0" x2="0" y2="1">
+          {/* 위쪽은 '게하게' 칸 바탕색 그대로 시작해 천천히 모래색으로 (경계 선이 안 보이게) */}
+          <linearGradient id="beach-sand" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="160">
             <stop offset="0" stopColor="#F8ECDA" />
-            <stop offset=".35" stopColor="#F8E6CC" />
+            <stop offset=".3" stopColor="#F8EAD5" />
+            <stop offset=".7" stopColor="#F5DFC0" />
             <stop offset="1" stopColor="#F0D3A8" />
           </linearGradient>
           <linearGradient id="beach-sea" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0" stopColor="#8FD0D8" />
             <stop offset=".45" stopColor="#A6DCE2" />
             <stop offset="1" stopColor="#B1E1E6" />
+          </linearGradient>
+          {/* 뒤 거품 — 아래로 갈수록 바다에 녹아듦 (밀려 올라가도 끝선이 안 보이게) */}
+          <linearGradient id="beach-wash" gradientUnits="userSpaceOnUse" x1="0" y1="140" x2="0" y2="230">
+            <stop offset="0" stopColor="#FFFFFF" stopOpacity=".6" />
+            <stop offset=".45" stopColor="#FFFFFF" stopOpacity=".35" />
+            <stop offset="1" stopColor="#FFFFFF" stopOpacity="0" />
           </linearGradient>
         </defs>
         {/* 바다 */}
@@ -58,7 +66,7 @@ export function BeachDivider() {
           <path d="M1560 222 q60 -14 130 -2 M1960 236 q70 -16 150 -4" />
         </g>
         {/* 젖은 모래 — 파도가 빠지면 드러남 */}
-        <path d={`${foam(116, 22, 40)} L1500 172 L-60 172 Z`} fill="#E8C691" />
+        <path d={`${foam(116, 22, 40)} L1500 158 L-60 158 Z`} fill="#E8C691" />
         {/* 모래사장 */}
         <path className="beach__sand" d={`${foam(128, 22, 40)} L1500 -10 L-60 -10 Z`} fill="url(#beach-sand)" />
         {/* 모래알 · 조약돌 · 조개 */}
@@ -80,7 +88,7 @@ export function BeachDivider() {
         ))}
         {/* 하얀 거품 — 밀려왔다 빠짐 (두 겹, 엇박자) */}
         <g className="beach__foam beach__foam--back">
-          <path d={`${foam(158, 14, 120)} L1500 200 L-60 200 Z`} fill="#FFFFFF" opacity=".55" />
+          <path d={`${foam(158, 14, 120)} L1500 260 L-60 260 Z`} fill="url(#beach-wash)" />
         </g>
         <g className="beach__foam">
           <path d={`${edge} L1500 182 Q1440 196 1380 186 Q1300 200 1220 188 Q1140 176 1060 192 Q980 204 900 188 Q820 178 740 194 Q660 206 580 190 Q500 178 420 194 Q340 206 260 190 Q180 178 100 192 Q20 202 -60 188 Z`} fill="#FFFFFF" />
