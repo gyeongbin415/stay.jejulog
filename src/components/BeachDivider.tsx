@@ -22,13 +22,21 @@ const GRAINS = Array.from({ length: 70 }, (_, i) => {
   return [x, y, 1.4 + ((i * 7) % 3) * 0.6] as const;
 });
 
-// 물가 거품 테두리 — 굽이치는 곡선
+// 물가 거품 테두리 — 굽이치는 곡선 (큰 굽이 + 잔물결 두 사인을 잘게 이어 꺾임 없이 부드럽게)
+const waveY = (x: number, base: number, amp: number, seed: number) =>
+  base - amp * (0.68 * Math.sin((x + seed) / 118) + 0.32 * Math.sin((x + seed) / 53 + 1.3));
 const foam = (base: number, amp: number, seed: number) => {
-  let d = `M-60 ${base}`;
-  for (let x = -60; x <= 1500; x += 120) {
-    const y1 = base - amp * Math.sin((x + seed) / 97);
-    const y2 = base + amp * 0.6 * Math.cos((x + seed) / 61);
-    d += ` Q${x + 60} ${y1.toFixed(1)} ${x + 120} ${y2.toFixed(1)}`;
+  let d = '';
+  for (let x = -60; x <= 1500; x += 6) {
+    d += `${d ? ' L' : 'M'}${x} ${waveY(x, base, amp, seed).toFixed(1)}`;
+  }
+  return d;
+};
+// 거품 아래 가장자리 — 오른쪽 끝에서 왼쪽으로 되돌아오는 같은 곡선
+const foamBack = (base: number, amp: number, seed: number) => {
+  let d = '';
+  for (let x = 1500; x >= -60; x -= 6) {
+    d += ` L${x} ${waveY(x, base, amp, seed).toFixed(1)}`;
   }
   return d;
 };
@@ -93,7 +101,7 @@ export function BeachDivider() {
           <path d={`${foam(158, 14, 120)} L1500 260 L-60 260 Z`} fill="url(#beach-wash)" />
         </g>
         <g className="beach__foam">
-          <path d={`${edge} L1500 182 Q1440 196 1380 186 Q1300 200 1220 188 Q1140 176 1060 192 Q980 204 900 188 Q820 178 740 194 Q660 206 580 190 Q500 178 420 194 Q340 206 260 190 Q180 178 100 192 Q20 202 -60 188 Z`} fill="#FFFFFF" />
+          <path d={`${edge}${foamBack(190, 10, 300)} Z`} fill="#FFFFFF" />
           {/* 거품 속 바다가 비치는 구멍 · 방울 */}
           {[[140, 168, 10], [330, 172, 7], [610, 166, 12], [880, 170, 8], [1130, 168, 10], [1360, 172, 7], [460, 176, 5], [1000, 178, 6]].map(([x, y, r], i) => (
             <ellipse key={i} cx={x} cy={y} rx={r * 1.8} ry={r * .7} fill="#A6DCE2" />
