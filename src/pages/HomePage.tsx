@@ -19,6 +19,7 @@ import stripTea from '../assets/strip/iced-tea.webp';
 import stripMallow from '../assets/strip/fire-marshmallow.webp';
 import stripWinePour from '../assets/strip/wine-pour.webp';
 import stripRingWork from '../assets/strip/ring-workshop.webp';
+import stripCliff from '../assets/strip/seongsan-cliff.webp';
 import stripSeaRun from '../assets/strip/seaside-run.webp';
 import stripGuitar from '../assets/strip/guitar-corner.webp';
 import stripDinner from '../assets/strip/susu-dinner-table.webp';
@@ -305,6 +306,7 @@ const STRIP: { src: string; h: number; y: number; r: number; photo: string }[] =
   { src: stripPotluck, h: 97, y: 4, r: 2, photo: 'potluck' },
   { src: stripBuckwheat, h: 99, y: -4, r: -2, photo: 'buckwheat' },
   { src: stripLpWall, h: 92, y: 2, r: 1.5, photo: 'lpwall' },
+  { src: stripCliff, h: 99, y: -3, r: -1.5, photo: 'cliff' },
   { src: stripLiving, h: 95, y: -1, r: -1, photo: 'living' },
   { src: stripWinePour, h: 95, y: 3, r: 2, photo: 'winepour' },
   { src: stripRingWork, h: 97, y: -2, r: -1.5, photo: 'ringwork' },
@@ -334,6 +336,7 @@ function PhotoStrip() {
     if (key === 'guitar') return ui.home.stripGuitarAlt;
     if (key === 'winepour') return ui.home.stripWinePourAlt;
     if (key === 'ringwork') return ui.home.stripRingWorkAlt;
+    if (key === 'cliff') return ui.home.stripCliffAlt;
     for (const g of programs.flatMap((p) => p.report.programs ?? [])) {
       const hit = [g.photo, ...(g.photos ?? [])].find((ph) => ph?.src?.includes(key));
       if (hit) return hit.alt;
