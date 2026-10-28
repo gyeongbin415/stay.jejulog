@@ -1,6 +1,6 @@
 /**
  * 잔디 판 두께(디오라마) — 집 칸 잔디밭과 '게하게' 칸 모래 사이
- * 마당을 두께 있는 잔디 판처럼: 살짝 튀어나온 잔디 턱 · 끝에 삐죽 나온 풀 → 옆면 흙(위는 빛 받아 밝고, 결이 진 층, 아래는 둥글게 진 테)
+ * 마당을 두께 있는 잔디 판처럼: 살짝 튀어나온 잔디 턱 → 옆면 흙(위는 빛 받아 밝고, 결이 진 층, 아래는 둥글게 진 테)
  * → 모래 위 은은한 그림자 → 촘촘한 모래알 · 바람 결 무늬 · 작은 조약돌
  * 취향 지도 섬 그림(두께 있는 섬)과 같은 입체 말투. 화면 폭이 달라도 찌그러지지 않게 가운데 기준으로 잘라 보여 줌
  */
@@ -24,8 +24,6 @@ const SOIL_BOTTOM = wavy(80, 1.8, 0);
 const STRATA = [wavy(58, 1.4, 1.3), wavy(69, 1.6, 2.1)];
 // 흙 알갱이
 const SOIL_GRAINS = Array.from({ length: 110 }, () => [rand() * 1440, 50 + rand() * 26, 0.7 + rand() * 1.3] as const);
-// 잔디 끝에 삐죽 나온 풀
-const TUFTS = Array.from({ length: 40 }, () => [rand() * 1440, 0.6 + rand() * 0.6] as const);
 // 모래알 — 판 가까이는 촘촘하게, 아래로 갈수록 성기게
 const SAND = Array.from({ length: 420 }, () => {
   const t = Math.pow(rand(), 1.6);
@@ -87,10 +85,6 @@ export function GrassLedge() {
         {/* 잔디 턱 — 살짝 튀어나온 가장자리 (밑면은 짙은 초록, 윗면은 밝은 테) */}
         <rect y="40" width="1440" height="6" rx="3" fill="#B6D9A0" />
         <rect y="39" width="1440" height="3.5" fill="#DDF0D0" />
-        {/* 잔디 끝에 삐죽 나온 풀 */}
-        {TUFTS.map(([x, s], i) => (
-          <path key={i} transform={`translate(${x.toFixed(1)} 42) scale(${s.toFixed(2)})`} d="M-6 2 C-5 -2 -7 -5 -9 -7 C-5 -5 -3 -2 -2 1 C-1 -3 0 -7 1 -10 C2 -6 2 -2 2 1 C3 -2 6 -4 9 -5 C6 -2 4 0 4 2 Z" fill={i % 2 ? '#9ACB7E' : '#86BE6C'} />
-        ))}
       </svg>
     </div>
   );
