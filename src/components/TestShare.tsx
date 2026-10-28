@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useContent } from '../i18n';
 import { href } from '../lib/router';
 import { track } from '../lib/track';
+import { openXPost } from '../lib/shareX';
 
 /**
  * 테스트 공유하기 — 메인 '테스트 바로가기' 밑. 취향 테스트 첫 화면 링크를 카카오톡 · X · 링크 복사로 나눔.
@@ -40,9 +41,10 @@ export function TestShare() {
       if ((err as Error)?.name !== 'AbortError') setStatus(t.testShareFailed);
     }
   };
+  // X — 문구 · 링크가 채워진 글쓰기 창으로 (휴대폰은 X 앱)
   const shareX = () => {
-    window.open(`https://x.com/intent/post?url=${encodeURIComponent(url)}`, '_blank', 'noopener,noreferrer');
     hit('x');
+    openXPost(t.testShareXText, url);
   };
   const copyLink = async () => {
     try {

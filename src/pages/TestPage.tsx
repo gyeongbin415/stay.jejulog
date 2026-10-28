@@ -8,6 +8,7 @@ import { href } from '../lib/router';
 import { prefersReducedMotion } from '../lib/motion';
 import { track } from '../lib/track';
 import { makeResultImage } from '../lib/resultImage';
+import { openXPost } from '../lib/shareX';
 import tripCrabUrl from '../assets/trip-crab.webp';
 import tripHouseUrl from '../assets/trip-house.webp';
 
@@ -225,10 +226,10 @@ function Result({ result, shared, onRetry, focusRef }: { result: QuizResult; sha
       failed(err);
     }
   };
-  // X — 결과 링크가 들어간 글쓰기 창을 새 탭으로
+  // X — 내 결과 문구 · 링크가 채워진 글쓰기 창으로 (휴대폰은 X 앱)
   const shareX = () => {
-    window.open(`https://x.com/intent/post?url=${encodeURIComponent(url)}`, '_blank', 'noopener,noreferrer');
     hit('x');
+    openXPost(t.xText(site.characters[result.main]), url);
   };
   // 링크 복사 — 결과 링크를 복사해 두고 원하는 곳(문자 · DM · 메모 등)에 붙여 넣게
   //  복사 기능을 못 쓰는 브라우저는 숨긴 글상자를 골라 복사
