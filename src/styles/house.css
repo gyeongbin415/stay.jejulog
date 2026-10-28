@@ -28,7 +28,7 @@
 .explore__toggle button[aria-pressed="true"] { background: var(--forest); color: var(--bg); }
 
 /* ── 전체보기 — 아홉 가지 경험을 이름으로 ─────────────────────────────── */
-.explist__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; max-width: 920px; margin-inline: auto; }
+.explist__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 1fr; gap: 10px; max-width: 920px; margin-inline: auto; } /* 모든 칸 같은 높이 */
 .explist__item {
   position: relative; display: grid; gap: 4px; height: 100%;
   padding: 16px 60px 18px 16px; border-radius: var(--radius);

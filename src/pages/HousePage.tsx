@@ -58,6 +58,8 @@ const HOUSES: Record<'narrow' | 'wide', { url: string; w: number; h: number; spo
   },
 };
 const pct = (v: number, of: number) => `${(v / of) * 100}%`;
+/** 목록 칸 숙소 이름 — 스르르는 ‘게스트하우스’를 빼고 짧게 (두 줄로 넘쳐 칸 높이가 달라지지 않게) */
+const listPlace = (id: ProgramId, name: string) => (id === 'craft' ? name.replace(/\s*(게스트하우스|Guesthouse)/g, '') : name);
 
 function readView(): View {
   try {
@@ -121,7 +123,7 @@ export function HousePage({ embedded = false }: { embedded?: boolean }) {
               <li key={e.id}>
                 <a className="explist__item" href={href.stay(e.id)} data-track={`house_list_${e.id}`}>
                   <span className="explist__name">{e.label}</span>
-                  <span className="explist__place">{programById[e.id].report.place.name}</span>
+                  <span className="explist__place">{listPlace(e.id, programById[e.id].report.place.name)}</span>
                   <ExpIcon id={e.id} className="explist__icon" />
                 </a>
               </li>
