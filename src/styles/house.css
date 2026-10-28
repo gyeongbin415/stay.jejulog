@@ -187,6 +187,12 @@
 /* 집이 작아 보이지 않게 그림을 화면보다 1.25배로 — 가운데 기준으로 양옆 풍경 · 맨 위 하늘 · 맨 아래 잔디를 조금씩 잘라 냄 (칸이 넘치는 부분은 숨김) */
 .house3d--wide { --w: 125vw; }
 .house3d--wide .house3d__frame { margin: calc(var(--w) * -0.05) 0 calc(var(--w) * -0.02) calc((100% - var(--w)) / 2); }
+/* 휴대폰 — 세로 그림도 1.25배로 키워 집을 크게. 가운데 기준으로 양옆 풍경 · 맨 위 하늘(굴뚝 연기 위) · 맨 아래 잔디를 조금씩 잘라 냄 */
+@media (max-width: 639px) {
+  .house3d:not(.house3d--wide) { --w: 125vw; }
+  .house3d:not(.house3d--wide) .house3d__frame { margin: calc(var(--w) * -0.12) 0 calc(var(--w) * -0.04) calc((100% - var(--w)) / 2); }
+  .explore--home .explore__head:has(+ .house3d:not(.house3d--wide)) { margin-bottom: 0; }
+}
 .house3d__img { display: block; width: 100%; height: auto; }
 /* 방 — 투명 링크 (네모 테두리는 키보드로 고를 때만) */
 .house3d__room { position: absolute; display: block; outline: none; -webkit-tap-highlight-color: transparent; }
