@@ -65,7 +65,7 @@
 /* 문제 정의 화면 아래 빈 자리로 살짝 끌어올려 두 섹션 사이 간격을 줄임 */
 .explore.explore--home { position: relative; z-index: 5; padding-top: clamp(40px, 7vh, 80px); } /* SCROLL 표시 아래 공백 */
 /* 메인 집 칸 — 제목 뒤까지 하늘: 위는 페이지 색에서 시작해 그림 맨 위 하늘색으로 이어짐 */
-.explore.explore--home { background: linear-gradient(to bottom, var(--bg) 0, #A3CEE6 clamp(140px, 24vh, 240px)) top / 100% 100% no-repeat, #A3CEE6; }
+.explore.explore--home { background: linear-gradient(to bottom, var(--bg) 0, #99D4F3 clamp(140px, 24vh, 240px)) top / 100% 100% no-repeat, #99D4F3; }
 .explore--home .explore__hint, .explore--home .explore__toggle { background: rgba(255, 255, 255, .7); }
 .explore__hint, .explore__toggle { background: rgba(255, 255, 255, .6); }
 
@@ -172,7 +172,7 @@
   --w: min(660px, 100vw); --u: calc(var(--w) / var(--iw, 1088)); --pt: 0px;
   position: relative; overflow: hidden; padding: 0;
   /* 그림보다 넓은 양옆 — 그림 가장자리의 하늘 · 바다 · 잔디 색을 줄 그대로 이어 깐 띠 */
-  background: url('../assets/house-side.webp') center / 100% 100% no-repeat, #BCB454;
+  background: url('../assets/house-side.webp') center / 100% 100% no-repeat, #C4C463;
 }
 /* 그림 양옆 끝은 옆 띠에 스르르 녹아들게 (넓은 화면에서만) */
 @media (min-width: 661px) {
@@ -187,7 +187,7 @@
 .house3d__room::after { content: ""; position: absolute; inset: 0; pointer-events: none; box-shadow: inset 0 0 0 0 #F39A2B; transition: box-shadow var(--t-hover) var(--ease); }
 .house3d__room:focus-visible::after { box-shadow: inset 0 0 0 3px #F39A2B; }
 /* 다락 — 지붕 박공 모양대로만 눌림 */
-.house3d__room--craft { clip-path: polygon(49.9% 0, 100% 80%, 100% 100%, 0 100%, 0 80%); }
+.house3d__room--craft { clip-path: polygon(49.9% 0, 100% 96%, 100% 100%, 0 100%, 0 96%); }
 /* 이름표 — 그림에서 지운 이름표 자리에 작은 흰 알약, 호버 때 메인 주황 */
 .house3d__tag {
   position: absolute; pointer-events: none;

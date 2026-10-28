@@ -23,15 +23,15 @@ type Spot = { id: ProgramId; room: [number, number, number, number]; tag: [numbe
 const HOUSE: { url: string; w: number; h: number; spots: Spot[] } = {
   url: houseUrl, w: 1088, h: 1445,
   spots: [
-    { id: 'craft', room: [222, 245, 865, 497], tag: [543, 300, 122], center: true },
-    { id: 'book', room: [221, 509, 536, 705], tag: [233, 522, 66] },
-    { id: 'flower', room: [551, 509, 865, 705], tag: [563, 522, 95] },
-    { id: 'cinema', room: [221, 717, 536, 910], tag: [233, 730, 84] },
-    { id: 'lp', room: [551, 717, 865, 910], tag: [563, 730, 70] },
-    { id: 'homemeal', room: [221, 922, 536, 1107], tag: [233, 935, 85] },
-    { id: 'wine', room: [551, 922, 865, 1107], tag: [563, 935, 83] },
-    { id: 'camping', room: [203, 1133, 538, 1348], tag: [216, 1146, 120] },
-    { id: 'running', room: [551, 1133, 860, 1348], tag: [563, 1146, 89] },
+    { id: 'craft', room: [227, 330, 860, 564], tag: [543, 392, 122], center: true },
+    { id: 'book', room: [227, 576, 536, 767], tag: [240, 589, 66] },
+    { id: 'flower', room: [551, 576, 860, 767], tag: [564, 589, 95] },
+    { id: 'cinema', room: [227, 778, 536, 961], tag: [240, 791, 84] },
+    { id: 'lp', room: [551, 778, 860, 961], tag: [564, 791, 70] },
+    { id: 'homemeal', room: [227, 973, 536, 1146], tag: [240, 986, 85] },
+    { id: 'wine', room: [551, 973, 860, 1146], tag: [564, 986, 83] },
+    { id: 'camping', room: [208, 1168, 537, 1348], tag: [221, 1181, 120] },
+    { id: 'running', room: [551, 1168, 878, 1348], tag: [564, 1181, 89] },
   ],
 };
 const pct = (v: number, of: number) => `${(v / of) * 100}%`;
