@@ -72,7 +72,7 @@
 .explore--home .explore__hint { margin-top: calc(var(--hint-gap) - 14px); }
 .explore--home .explore__head:has(+ .house3d) { position: relative; z-index: 1; margin-bottom: calc(min(660px, 100vw) * -0.15); }
 /* 웹 가로 그림은 지붕 위 하늘이 짧아 조금만 겹침 (버튼이 지붕 꼭대기에 닿지 않게) */
-.explore--home .explore__head:has(+ .house3d--wide) { margin-bottom: calc(100vw * -0.03); }
+.explore--home .explore__head:has(+ .house3d--wide) { margin-bottom: 0; }
 .explore--home .explore__hint, .explore--home .explore__toggle { background: rgba(255, 255, 255, .7); }
 .explore__hint, .explore__toggle { background: rgba(255, 255, 255, .6); }
 
@@ -184,7 +184,9 @@
 }
 .house3d__frame { position: relative; width: var(--w); margin-inline: auto; }
 /* 웹 — 양옆 풍경까지 그려진 가로 그림 한 장을 화면 폭에 꽉 차게 */
-.house3d--wide { --w: 100vw; }
+/* 집이 작아 보이지 않게 그림을 화면보다 1.25배로 — 가운데 기준으로 양옆 풍경 · 맨 위 하늘 · 맨 아래 잔디를 조금씩 잘라 냄 (칸이 넘치는 부분은 숨김) */
+.house3d--wide { --w: 125vw; }
+.house3d--wide .house3d__frame { margin: calc(var(--w) * -0.05) 0 calc(var(--w) * -0.02) calc((100% - var(--w)) / 2); }
 .house3d__img { display: block; width: 100%; height: auto; }
 /* 방 — 투명 링크 (네모 테두리는 키보드로 고를 때만) */
 .house3d__room { position: absolute; display: block; outline: none; -webkit-tap-highlight-color: transparent; }
