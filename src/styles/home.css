@@ -260,21 +260,21 @@
 }
 .find__gehage .story__title { font-size: clamp(27px, 3.8vw, 46px); line-height: 1.32; letter-spacing: -0.025em; } /* 메인 큰 제목과 같은 크기 · 두께 */
 /* 테스트 공유하기 — '테스트 바로가기' 밑, 제목 옆 공유 표시 · 동그란 버튼 셋 (카카오톡 · X · 링크 복사) */
-.tshare { display: grid; justify-items: center; gap: 14px; margin-top: clamp(28px, 4vh, 40px); }
-.tshare__title { display: inline-flex; align-items: center; gap: 8px; margin: 0; font-family: var(--f-home); font-size: clamp(17px, 1.7vw, 20px); font-weight: 700; letter-spacing: -0.03em; color: #3A3735; }
-.tshare__mark { width: 18px; height: 18px; fill: currentColor; }
-.tshare__row { display: flex; gap: 16px; }
-.tshare__btn { display: grid; place-items: center; width: 56px; height: 56px; padding: 0; border: 0; border-radius: 50%; cursor: pointer; transition: transform var(--t-hover) var(--ease), filter var(--t-hover) var(--ease); }
+.tshare { display: grid; justify-items: center; gap: 10px; margin-top: clamp(28px, 4vh, 40px); }
+.tshare__title { display: inline-flex; align-items: center; gap: 8px; margin: 0; font-family: var(--f-home); font-size: 15px; font-weight: 700; letter-spacing: -0.03em; color: #3A3735; }
+.tshare__mark { width: 15px; height: 15px; fill: currentColor; }
+.tshare__row { display: flex; gap: 12px; }
+.tshare__btn { display: grid; place-items: center; width: 42px; height: 42px; padding: 0; border: 0; border-radius: 50%; cursor: pointer; transition: transform var(--t-hover) var(--ease), filter var(--t-hover) var(--ease); }
 .tshare__btn:hover { transform: translateY(-2px); filter: brightness(1.05); }
 .tshare__btn:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; }
 .tshare__btn svg { display: block; }
 .tshare__btn--kakao { background: #FEE500; }
-.tshare__btn--kakao svg { width: 46px; height: 46px; }
+.tshare__btn--kakao svg { width: 34px; height: 34px; }
 .tshare__btn--x { background: #000; }
-.tshare__btn--x svg { width: 24px; height: 24px; }
+.tshare__btn--x svg { width: 18px; height: 18px; }
 .tshare__btn--link { background: #8C8781; color: #fff; }
-.tshare__btn--link svg { width: 26px; height: 26px; }
-.tshare__status { min-height: 1.5em; margin: 0; font-size: 13.5px; line-height: 1.5; color: var(--ink-soft); text-align: center; }
+.tshare__btn--link svg { width: 20px; height: 20px; }
+.tshare__status { min-height: 1.5em; margin: 0; font-size: 13px; line-height: 1.5; color: var(--ink-soft); text-align: center; }
 .find__gehage .story__body { font-size: clamp(15px, 1.4vw, 17px); line-height: 1.75; }
 @media (max-width: 899px) {
   .find:not(.find--inside):not(.find--map) .find__inner { grid-template-columns: 1fr; }
