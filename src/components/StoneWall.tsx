@@ -67,9 +67,9 @@ const GRASS = Array.from({ length: 16 }, () => [-20 + rand() * 1480, 50 + rand()
 const SAND = Array.from({ length: 60 }, () => [rand() * 1440, 142 + rand() * 26, 1 + rand() * 1.4] as const);
 
 const STONE_TONES = [
-  ['#8E8C90', '#6E6C70', '#55535A'],
-  ['#86848A', '#68666B', '#4F4D53'],
-  ['#959398', '#76747A', '#5B5960'],
+  ['#929095', '#77757A', '#626066'],
+  ['#8A888D', '#706E73', '#5C5A60'],
+  ['#9A989D', '#7E7C82', '#67656B'],
 ];
 
 export function StoneWall() {
@@ -77,24 +77,23 @@ export function StoneWall() {
     <div className="stonewall" aria-hidden="true">
       <svg viewBox="0 0 1440 170" preserveAspectRatio="xMidYMid slice">
         <defs>
+          {/* 돌 — 위는 빛을 받아 밝고 아래로 갈수록 은은하게 어두워짐 (번들거림 · 덧그린 그림자 없이) */}
           {STONE_TONES.map(([hi, mid, lo], i) => (
-            <radialGradient key={i} id={`stone-${i}`} cx="34%" cy="26%" r="85%">
+            <linearGradient key={i} id={`stone-${i}`} x1=".25" y1="0" x2=".6" y2="1">
               <stop offset="0" stopColor={hi} />
-              <stop offset=".5" stopColor={mid} />
+              <stop offset=".55" stopColor={mid} />
               <stop offset="1" stopColor={lo} />
-            </radialGradient>
+            </linearGradient>
           ))}
-          {/* 담 바로 밑은 조금 짙은 모래 띠, 아래로 '게하게' 칸 바탕색 */}
-          <linearGradient id="stone-sand" gradientUnits="userSpaceOnUse" x1="0" y1="110" x2="0" y2="170">
-            <stop offset="0" stopColor="#E9D4B4" />
-            <stop offset=".42" stopColor="#E9D4B4" />
-            <stop offset=".5" stopColor="#F8ECDA" />
+          {/* 담 밑 모래 — 돌 바로 아래만 살짝 짙고 아래로 자연스럽게 옅어짐 (경계선 없이) */}
+          <linearGradient id="stone-sand" gradientUnits="userSpaceOnUse" x1="0" y1="112" x2="0" y2="150">
+            <stop offset="0" stopColor="#EDDBBE" />
             <stop offset="1" stopColor="#F8ECDA" />
           </linearGradient>
         </defs>
         {/* 잔디(위) · 모래(아래) */}
-        <rect width="1440" height="110" fill="#CDE8BD" />
-        <rect y="110" width="1440" height="60" fill="url(#stone-sand)" />
+        <rect width="1440" height="100" fill="#CDE8BD" />
+        <rect y="100" width="1440" height="70" fill="url(#stone-sand)" />
         {/* 담 뒤로 삐져나온 풀 */}
         {GRASS.map(([x, y, s], i) => (
           <path key={i} transform={`translate(${x.toFixed(1)} ${y.toFixed(1)}) scale(${s.toFixed(2)})`} d="M0 10 C-2 4 -6 1 -8 -2 C-4 0 -2 3 0 6 C0 1 1 -4 3 -8 C3 -2 2 3 2 7 C4 3 7 1 10 0 C7 3 4 6 3 10 Z" fill={i % 2 ? '#9ACB7E' : '#86BE6C'} />
@@ -103,15 +102,12 @@ export function StoneWall() {
           <g key={r}>
             {row.map((st, i) => (
               <g key={i}>
-                {/* 돌 사이 어두운 틈 */}
-                <path d={st.d} fill="#4C4A50" transform="translate(1 2)" />
-                <path d={st.d} fill={`url(#stone-${st.g})`} />
-                {/* 숭숭 뚫린 구멍 */}
+                {/* 돌 — 가장자리는 아주 옅은 선으로만 구분 */}
+                <path d={st.d} fill={`url(#stone-${st.g})`} stroke="#5A585E" strokeWidth=".8" strokeOpacity=".35" />
+                {/* 숭숭 뚫린 구멍 — 진하기를 섞어 자연스럽게 */}
                 {st.pores.map(([px, py, rx, ry], k) => (
-                  <ellipse key={k} cx={px} cy={py} rx={rx} ry={ry} fill="#38363C" opacity=".85" />
+                  <ellipse key={k} cx={px} cy={py} rx={rx} ry={ry} fill="#403E44" opacity={k % 3 === 0 ? .45 : k % 3 === 1 ? .65 : .8} />
                 ))}
-                {/* 위쪽 빛 */}
-                <ellipse cx={st.x - st.w * 0.16} cy={st.y - 9} rx={st.w * 0.2} ry="3.5" fill="#FFFFFF" opacity=".18" />
               </g>
             ))}
           </g>
