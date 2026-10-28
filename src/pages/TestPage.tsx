@@ -226,10 +226,13 @@ function Result({ result, shared, onRetry, focusRef }: { result: QuizResult; sha
       failed(err);
     }
   };
-  // X — 내 결과 문구 · 링크가 채워진 글쓰기 창으로 (휴대폰은 X 앱)
+  // X — 내 결과 문구 · 링크가 채워진 글쓰기 창으로 (휴대폰은 X 앱).
+  //  링크는 결과별 미리보기 페이지(public/s/{결과}.html) — X 가 그 결과 소라게 · 이름 그림(s/{결과}.jpg)을 카드로 보여 주고,
+  //  누르면 웹진의 이 결과 화면으로 바로 넘어감
   const shareX = () => {
     hit('x');
-    openXPost(t.xText(site.characters[result.main]), url);
+    const cardUrl = `${window.location.origin}${window.location.pathname}s/${result.main}.html?r=${result.code}`;
+    openXPost(t.xText(site.characters[result.main]), cardUrl);
   };
   // 링크 복사 — 결과 링크를 복사해 두고 원하는 곳(문자 · DM · 메모 등)에 붙여 넣게
   //  복사 기능을 못 쓰는 브라우저는 숨긴 글상자를 골라 복사
