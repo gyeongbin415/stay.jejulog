@@ -1,5 +1,4 @@
 import { useContent } from '../i18n';
-import { href } from '../lib/router';
 
 /** 만든 사람 — 가나다순, 화면에는 세 명 · 두 명 두 줄로 */
 const TEAM = ['강성민', '김다혜', '김민서', '남경빈', '여시원'];
@@ -20,15 +19,15 @@ export function Footer() {
         <div className="footer__cols">
           <div className="footer__col">
             <p className="footer__label">{ui.footer.followUs}</p>
-            {/* 웹진 안 인스타그램 페이지로 */}
-            <a className="footer__insta" href={href.insta()} data-track="footer_instagram">
+            {/* 인스타그램 계정 — 링크 없이 글로만 */}
+            <p className="footer__insta">
               <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <rect x="3.5" y="3.5" width="17" height="17" rx="5" />
                 <circle cx="12" cy="12" r="4" />
                 <circle cx="17.2" cy="6.8" r="1" className="footer__dot" />
               </svg>
               @stay.jejulog
-            </a>
+            </p>
           </div>
           <div className="footer__col">
             <p className="footer__label">{ui.footer.madeBy}</p>
