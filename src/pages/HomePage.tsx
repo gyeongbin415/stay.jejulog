@@ -10,10 +10,7 @@ import { TasteMapIsland } from '../components/TasteMapIsland';
 import { BeachDivider } from '../components/BeachDivider';
 import { GrassLedge } from '../components/GrassLedge';
 import introNightUrl from '../assets/intro-night.webp';
-import stripWine from '../assets/strip/rooftop-dinner.webp';
 import stripCamp from '../assets/strip/camp-table.webp';
-import stripMallow from '../assets/strip/fire-marshmallow.webp';
-import stripCandle from '../assets/strip/candle-dinner.webp';
 import stripLpWall from '../assets/strip/lp-wall.webp';
 import stripLiving from '../assets/strip/attic-living.webp';
 import stripPotluck from '../assets/strip/potluck-wall.webp';
@@ -300,20 +297,17 @@ function Problem() {
  * photo 는 같은 사진이 쓰인 상세페이지 사진 파일 이름 — 대체 텍스트를 거기서 가져옵니다. (run · lounge · camp · mallow · dome · candle · lpwall · living · ring · potluck · cat · buckwheat 은 상세에 없어 ui 문구)
  */
 const STRIP: { src: string; h: number; y: number; r: number; photo: string }[] = [
-  { src: stripWine, h: 92, y: -3, r: -2, photo: 'rooftop-dinner' },
-  { src: stripSeaRun, h: 100, y: 2, r: 1.5, photo: 'searun' },
-  { src: stripCat, h: 98, y: 2, r: 1.5, photo: 'cat' },
-  { src: stripCamp, h: 94, y: -4, r: -1.5, photo: 'camp' },
+  { src: stripSeaRun, h: 98, y: -3, r: -2, photo: 'searun' },
+  { src: stripCat, h: 94, y: 2, r: 1.5, photo: 'cat' },
+  { src: stripCamp, h: 96, y: -4, r: -1.5, photo: 'camp' },
   { src: stripBuckwheat, h: 99, y: 3, r: 2, photo: 'buckwheat' },
-  { src: stripCandle, h: 92, y: -2, r: -2, photo: 'candle' },
-  { src: stripLpWall, h: 90, y: 4, r: 1.5, photo: 'lpwall' },
-  { src: stripPotluck, h: 97, y: -3, r: -1, photo: 'potluck' },
-  { src: stripTea, h: 93, y: 2, r: 1.5, photo: 'tea' },
-  { src: stripGuitar, h: 96, y: -2, r: -1.5, photo: 'guitar' },
-  { src: stripMallow, h: 95, y: -4, r: -2, photo: 'mallow' },
-  { src: stripSunrise, h: 90, y: 3, r: 1, photo: 'kokoko-sunrise' },
-  { src: stripDinner, h: 100, y: -1, r: -1.5, photo: 'susu-dinner-table' },
-  { src: stripLiving, h: 96, y: 4, r: 2, photo: 'living' },
+  { src: stripLpWall, h: 91, y: -2, r: -2, photo: 'lpwall' },
+  { src: stripPotluck, h: 97, y: 4, r: 1.5, photo: 'potluck' },
+  { src: stripTea, h: 92, y: -3, r: -1, photo: 'tea' },
+  { src: stripGuitar, h: 96, y: 2, r: 1.5, photo: 'guitar' },
+  { src: stripSunrise, h: 90, y: -4, r: -2, photo: 'kokoko-sunrise' },
+  { src: stripDinner, h: 100, y: 3, r: 1, photo: 'susu-dinner-table' },
+  { src: stripLiving, h: 95, y: -1, r: -1.5, photo: 'living' },
 ];
 
 function PhotoStrip() {
