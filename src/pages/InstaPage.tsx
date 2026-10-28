@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 import { useContent, useLang } from '../i18n';
 import { href } from '../lib/router';
 import { INSTA_POSTS, INSTA_PROFILE, type InstaPost } from '../data/insta';
+import { INSTA_TR } from '../data/insta.i18n';
 import '../styles/insta.css';
 
 /**
@@ -13,7 +14,10 @@ import '../styles/insta.css';
 export default function InstaPage({ post = null }: { post?: number | null }) {
   const { ui, lang } = { ...useContent(), ...useLang() };
   const t = ui.insta;
-  const p = INSTA_PROFILE;
+  // 영어 · 중국어 — 프로필 소개 · 게시물 글 · 표지 설명만 번역본으로 (사진 속 글씨는 그대로)
+  const tr = lang === 'ko' ? null : INSTA_TR[lang];
+  const p = tr ? { ...INSTA_PROFILE, name: tr.name, bio: tr.bio } : INSTA_PROFILE;
+  const posts = tr ? INSTA_POSTS.map((q) => ({ ...q, ...tr.posts[q.img] })) : INSTA_POSTS;
   // 메인 MORE STORIES 썸네일로 들어오면(#/instagram?post=N) 그 게시물을 바로 크게
   const pick = (n: number | null) => (n && n >= 1 && n <= INSTA_POSTS.length ? n - 1 : null);
   const [open, setOpenState] = useState<number | null>(() => pick(post));
@@ -61,7 +65,7 @@ export default function InstaPage({ post = null }: { post?: number | null }) {
       </div>
 
       <ul className="insta-grid" aria-label={t.gridAria}>
-        {INSTA_POSTS.map((post, i) => (
+        {posts.map((post, i) => (
           <li key={post.img}>
             <button type="button" className="insta-grid__item" onClick={() => setOpen(i)} data-track={`insta_post_${i + 1}`}>
               <img src={post.img} alt={post.alt} loading={i < 6 ? 'eager' : 'lazy'} />
@@ -71,7 +75,7 @@ export default function InstaPage({ post = null }: { post?: number | null }) {
         ))}
       </ul>
 
-      {open != null && <PostModal key={open} n={open + 1} post={INSTA_POSTS[open]} onClose={() => setOpen(null)} />}
+      {open != null && <PostModal key={open} n={open + 1} post={posts[open]} onClose={() => setOpen(null)} />}
     </section>
   );
 }
