@@ -70,6 +70,17 @@ export function BeachDivider() {
             <stop offset=".6" stopColor="#E8C691" />
             <stop offset="1" stopColor="#E8C691" stopOpacity="0" />
           </linearGradient>
+          {/* 앞 거품 — 위는 새하얗고 아래로 갈수록 살짝 물빛 (도톰한 거품 덩어리처럼) */}
+          <linearGradient id="beach-foam" gradientUnits="userSpaceOnUse" x1="0" y1="130" x2="0" y2="200">
+            <stop offset="0" stopColor="#FFFFFF" />
+            <stop offset=".55" stopColor="#FFFFFF" />
+            <stop offset="1" stopColor="#D6EEF1" />
+          </linearGradient>
+          {/* 거품 속 물웅덩이 — 위가 그늘지고 아래가 밝게 (움푹 들어간 느낌) */}
+          <linearGradient id="beach-hole" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stopColor="#86C8D1" />
+            <stop offset="1" stopColor="#B4E3E8" />
+          </linearGradient>
         </defs>
         {/* 바다 */}
         <rect width="1440" height="260" fill="url(#beach-sea)" />
@@ -79,18 +90,26 @@ export function BeachDivider() {
         <path d={`${foam(116, 22, 40)} L1500 168 L-60 168 Z`} fill="url(#beach-wet)" />
         {/* 모래사장 */}
         <path className="beach__sand" d={`${foam(128, 22, 40)} L1500 -10 L-60 -10 Z`} fill="url(#beach-sand)" />
+        {/* 물이 닿는 모래 끝 — 살짝 진한 선으로 턱이 진 느낌 */}
+        <path d={foam(129, 22, 40)} fill="none" stroke="#D9AE72" strokeWidth="3" strokeLinecap="round" opacity=".55" />
         {/* 모래알 · 조약돌 · 조개 */}
         <g className="beach__grains">
           {GRAINS.map(([x, y, r], i) => (
             <circle key={i} cx={x} cy={y} r={r} fill={i % 3 ? '#D9B892' : '#C9A27C'} opacity=".7" />
           ))}
         </g>
+        {/* 조약돌 — 아래 그림자 + 돌 + 위쪽 하이라이트 */}
         {PEBBLES.map(([x, y, rx, ry, c], i) => (
-          <ellipse key={i} cx={x} cy={y} rx={rx} ry={ry} fill={c} />
+          <g key={i}>
+            <ellipse cx={x + 2} cy={y + ry * .75} rx={rx * 1.05} ry={ry * .55} fill="rgba(120, 88, 50, .2)" />
+            <ellipse cx={x} cy={y} rx={rx} ry={ry} fill={c} />
+            <ellipse cx={x - rx * .3} cy={y - ry * .35} rx={rx * .45} ry={ry * .3} fill="#FFFFFF" opacity=".35" />
+          </g>
         ))}
         {SHELLS.map((sh, i) => (
           <g key={i} transform={`translate(${sh.x} ${sh.y}) rotate(${sh.r}) scale(${sh.s})`}>
-            {/* 가리비 조개 — 부채꼴 몸 + 골 + 아래 꼭지 */}
+            {/* 가리비 조개 — 그림자 + 부채꼴 몸 + 골 + 아래 꼭지 */}
+            <path d="M0 14 C-20 8 -24 -10 -12 -18 C-6 -22 6 -22 12 -18 C24 -10 20 8 0 14 Z" fill="rgba(120, 88, 50, .2)" transform="translate(3 4)" />
             <path d="M0 14 C-20 8 -24 -10 -12 -18 C-6 -22 6 -22 12 -18 C24 -10 20 8 0 14 Z" fill={sh.c} />
             <path d="M0 12 L-12 -14 M0 12 L-5 -18 M0 12 L2 -19 M0 12 L8 -17 M0 12 L14 -12" stroke="rgba(0,0,0,.18)" strokeWidth="1.6" strokeLinecap="round" fill="none" />
             <path d="M-6 12 h12 l-2 6 h-8 Z" fill={sh.c} opacity=".85" />
@@ -101,10 +120,12 @@ export function BeachDivider() {
           <path d={`${foam(158, 14, 120)} L1500 260 L-60 260 Z`} fill="url(#beach-wash)" />
         </g>
         <g className="beach__foam">
-          <path d={`${edge}${foamBack(190, 10, 300)} Z`} fill="#FFFFFF" />
+          {/* 거품이 물에 드리운 그림자 — 거품 바로 아래 진한 물빛 */}
+          <path d={`${edge}${foamBack(198, 10, 300)} Z`} fill="#8FCCD5" opacity=".6" transform="translate(0 4)" />
+          <path d={`${edge}${foamBack(190, 10, 300)} Z`} fill="url(#beach-foam)" />
           {/* 거품 속 바다가 비치는 구멍 · 방울 */}
           {[[140, 168, 10], [330, 172, 7], [610, 166, 12], [880, 170, 8], [1130, 168, 10], [1360, 172, 7], [460, 176, 5], [1000, 178, 6]].map(([x, y, r], i) => (
-            <ellipse key={i} cx={x} cy={y} rx={r * 1.8} ry={r * .7} fill="#A6DCE2" />
+            <ellipse key={i} cx={x} cy={y} rx={r * 1.8} ry={r * .7} fill="url(#beach-hole)" />
           ))}
           {[[60, 150, 4], [250, 146, 3], [520, 152, 5], [760, 148, 3], [1040, 150, 4], [1300, 146, 3], [700, 214, 3], [380, 222, 2.5], [1180, 218, 3]].map(([x, y, r], i) => (
             <circle key={i} cx={x} cy={y} r={r} fill="#FFFFFF" />
