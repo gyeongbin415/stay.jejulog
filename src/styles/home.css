@@ -247,6 +247,10 @@
   75% { transform: rotate(2deg); }
 }
 @keyframes gehage-nudge { 0%, 100% { transform: rotate(0); } 30% { transform: rotate(-3deg) translateY(-2%); } 60% { transform: rotate(2deg); } }
+/* 메인 '게하게' 칸 — 소라게는 처음부터 제자리(걸어 들어오지 않음), 스크롤해 오면 말풍선만 톡 나타남 */
+.find__gehage .gehage__crab { opacity: 1; translate: 0 0; transition: none; }
+.find__gehage .gehage.is-on:not(.is-poke) .gehage__crab { animation: gehage-idle 2.6s ease-in-out infinite; }
+.find__gehage .gehage.is-on:not(.is-poke) .gehage__bubble { transition-delay: .15s; animation-delay: .9s; }
 /* 다른 언어(그린 말풍선) — 소라게만 제자리 뒤뚱 */
 .gehage-walk { transform-origin: 40% 95%; animation: gehage-idle 2.6s ease-in-out infinite; }
 @media (prefers-reduced-motion: reduce) {
