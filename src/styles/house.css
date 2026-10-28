@@ -68,8 +68,8 @@
 /* 페이지 색 → 하늘색을 길고 부드럽게 (처음과 끝은 천천히 바뀌는 S자) */
 .explore.explore--home { --sky-fade: clamp(160px, 24vh, 240px); padding-top: calc(var(--sky-fade) - 24px); background: linear-gradient(to bottom, var(--bg) 0%, color-mix(in oklab, var(--bg), #99D4F3 2.8%) 10%, color-mix(in oklab, var(--bg), #99D4F3 10.4%) 20%, color-mix(in oklab, var(--bg), #99D4F3 21.6%) 30%, color-mix(in oklab, var(--bg), #99D4F3 35.2%) 40%, color-mix(in oklab, var(--bg), #99D4F3 50.0%) 50%, color-mix(in oklab, var(--bg), #99D4F3 64.8%) 60%, color-mix(in oklab, var(--bg), #99D4F3 78.4%) 70%, color-mix(in oklab, var(--bg), #99D4F3 89.6%) 80%, color-mix(in oklab, var(--bg), #99D4F3 97.2%) 90%, #99D4F3 100%) top / 100% var(--sky-fade) no-repeat, #99D4F3; } /* 하늘이 다 짙어진 뒤에 글이 시작 */
 /* 글을 집 가까이 — 집 그림 맨 위 빈 하늘(굴뚝 연기 위) 쪽으로 내려 겹침 (버튼은 그림 위에서 눌림) */
-/* 라벨 · 제목 · 설명만 위로 — 안내 상자 · 집/목록 버튼은 제자리 (올린 만큼 안내 위를 띄움) */
-.explore--home .explore__hint { margin-top: 36px; }
+/* 제목 글 → 안내 상자 간격은 메인 세 칸(ROOM TOUR · AROUND JEJU · MORE STORIES) 모두 --hint-gap 하나로 (제목 칸 gap 14px 를 뺀 만큼) */
+.explore--home .explore__hint { margin-top: calc(var(--hint-gap) - 14px); }
 .explore--home .explore__head:has(+ .house3d) { position: relative; z-index: 1; margin-bottom: calc(min(660px, 100vw) * -0.15); }
 .explore--home .explore__hint, .explore--home .explore__toggle { background: rgba(255, 255, 255, .7); }
 .explore__hint, .explore__toggle { background: rgba(255, 255, 255, .6); }
@@ -149,6 +149,7 @@
 /* ── ~639px : 휴대폰 — 칸이 작아지므로 이름표는 경험 이름만 ─────────────────────────────── */
 @media (max-width: 639px) {
   .explore__head { gap: 8px; margin-bottom: 18px; }
+  .explore--home .explore__hint { margin-top: calc(var(--hint-gap) - 8px); }
   .explore__sub { font-size: 15.5px; }
   .explore__hint { font-size: 12.5px; padding: 6px 12px; margin-top: 2px; }
   .explore { padding-top: calc(var(--header) + 22px); }

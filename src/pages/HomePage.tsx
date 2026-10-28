@@ -10,6 +10,7 @@ import { TasteMapIsland } from '../components/TasteMapIsland';
 import { BeachDivider } from '../components/BeachDivider';
 import { GrassLedge } from '../components/GrassLedge';
 import introNightUrl from '../assets/intro-night.webp';
+import checkoutBgUrl from '../assets/checkout-stay.webp';
 import stripLpWall from '../assets/strip/lp-wall.webp';
 import stripPotluck from '../assets/strip/potluck-wall.webp';
 import stripCat from '../assets/strip/flower-cat.webp';
@@ -512,7 +513,8 @@ function CheckOut() {
   const { site: SITE } = useContent();
   const c = SITE.checkOut;
   return (
-    <section id="checkout" className="outro" data-tone="dark" aria-labelledby="checkout-title">
+    // 배경 — 받은 그림 한 장(크림 종이 · 초록 언덕 위 stay Log 집 로고). 글은 왼쪽 크림 자리, 로고는 오른쪽 아래
+    <section id="checkout" className="outro" data-tone="light" aria-labelledby="checkout-title" style={{ '--outro-bg': `url(${checkoutBgUrl})` } as CSSProperties}>
       <div className="outro__inner wrap">
         <header className="outro__head">
           <p className="label">{c.label}</p>
