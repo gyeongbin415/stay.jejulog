@@ -9,6 +9,7 @@ import { INSTA_POSTS } from '../data/insta';
 import { TasteMapIsland } from '../components/TasteMapIsland';
 import { BeachDivider } from '../components/BeachDivider';
 import { GrassLedge } from '../components/GrassLedge';
+import { TestShare } from '../components/TestShare';
 import introNightUrl from '../assets/intro-night.webp';
 import checkoutBgUrl from '../assets/checkout-stay.webp';
 import stripLpWall from '../assets/strip/lp-wall.webp';
@@ -398,6 +399,8 @@ function FindYourStay() {
           <a className="btn" href={href.test()} data-track="find_cta">
             {SITE.findYourStay.cta} <span className="arrow" aria-hidden="true">→</span>
           </a>
+          {/* 테스트 공유하기 — 카카오톡 · X · 링크 복사 */}
+          <TestShare />
         </div>
       </div>
     </section>

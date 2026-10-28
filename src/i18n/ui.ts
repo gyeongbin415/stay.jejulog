@@ -22,7 +22,9 @@ export interface UiText {
     /** 메인 사진 띠 — 상세페이지에서 빠진 사진 둘의 대체 텍스트 */
     stripRunAlt: string; stripLoungeAlt: string; stripCampAlt: string; stripMallowAlt: string; stripDomeAlt: string; stripCandleAlt: string; stripLpWallAlt: string; stripLivingAlt: string; stripRingAlt: string; stripPotluckAlt: string; stripCatAlt: string; stripBuckwheatAlt: string; stripTeaAlt: string; stripSeaRunAlt: string; stripGuitarAlt: string; stripWinePourAlt: string; stripRingWorkAlt: string; stripCliffAlt: string; stripCraterAlt: string; stripPuppyAlt: string; stripSeaSitAlt: string; stripForestAlt: string; stripCosmosAlt: string; stripCalendarAlt: string;
     /** 인스타그램 칸 — 웹진에 못 담은 이야기 */
-    moreTitle: string; moreSub: string; moreCta: string };
+    moreTitle: string; moreSub: string; moreCta: string;
+    /** 테스트 공유하기 — 메인 '테스트 바로가기' 밑 */
+    testShareTitle: string; testShareKakao: string; testShareX: string; testShareLink: string; testShareCopied: string; testShareKakaoCopied: string; testShareFailed: string };
   house: { viewGroup: string; viewHouse: string; viewList: string; houseAria: string; listAria: string; roomAria: (no: string, label: string, place: string) => string };
   photo: { pending: string };
   stay: {
@@ -79,7 +81,7 @@ export const UI: Record<Lang, UiText> = {
       wordsAria: '게스트하우스 하면 흔히 떠올리는 것들',
       opening: '들어가는 중 — 바로 입장',
       findSub: (n) => `${n}가지 질문으로 찾는 나의 제주 게스트하우스`,
-      moreTitle: '제주 게스트하우스의\n더 많은 이야기', moreSub: '궁금한 문구를 눌러 숨은 이야기를 펼쳐 보세요.', moreCta: '인스타그램에서 더 보기',
+      moreTitle: '제주 게스트하우스의\n더 많은 이야기', moreSub: '궁금한 문구를 눌러 숨은 이야기를 펼쳐 보세요.', moreCta: '인스타그램에서 더 보기', testShareTitle: '테스트 공유하기', testShareKakao: '카카오톡으로 공유', testShareX: 'X로 공유', testShareLink: '링크 복사', testShareCopied: '테스트 링크를 복사했어요. 원하는 곳에 붙여 넣어 공유해 보세요.', testShareKakaoCopied: '테스트 링크를 복사했어요. 카카오톡 대화창에 붙여 넣어 주세요.', testShareFailed: '공유하지 못했어요. 다시 한 번 눌러 주세요.',
       typesAria: '네 가지 여행 취향',
     },
     house: {
@@ -148,7 +150,7 @@ export const UI: Record<Lang, UiText> = {
       wordsAria: 'What people usually picture when they hear “guesthouse”',
       opening: 'Opening — go straight in',
       findSub: (n) => `Find your Jeju guesthouse in ${n} questions`,
-      moreTitle: 'More stories from Jeju guesthouses', moreSub: 'Tap a headline that catches your eye to unfold its hidden story.', moreCta: 'See more on Instagram',
+      moreTitle: 'More stories from Jeju guesthouses', moreSub: 'Tap a headline that catches your eye to unfold its hidden story.', moreCta: 'See more on Instagram', testShareTitle: 'Share the test', testShareKakao: 'Share on KakaoTalk', testShareX: 'Share on X', testShareLink: 'Copy link', testShareCopied: 'Test link copied. Paste it anywhere to share.', testShareKakaoCopied: 'Test link copied. Paste it into a KakaoTalk chat.', testShareFailed: 'Couldn’t share. Please try again.',
       typesAria: 'Four travel tastes',
     },
     house: {
@@ -217,7 +219,7 @@ export const UI: Record<Lang, UiText> = {
       wordsAria: '提起民宿，人们常会想到的事',
       opening: '正在开门 — 直接进入',
       findSub: (n) => `用${n}个问题找到我的济州民宿`,
-      moreTitle: '济州民宿的更多故事', moreSub: '点开感兴趣的标题，看看藏在里面的故事吧。', moreCta: '在 Instagram 查看更多',
+      moreTitle: '济州民宿的更多故事', moreSub: '点开感兴趣的标题，看看藏在里面的故事吧。', moreCta: '在 Instagram 查看更多', testShareTitle: '分享测试', testShareKakao: '分享到 KakaoTalk', testShareX: '分享到 X', testShareLink: '复制链接', testShareCopied: '已复制测试链接，粘贴到任意地方即可分享。', testShareKakaoCopied: '已复制测试链接，请粘贴到 KakaoTalk 聊天中。', testShareFailed: '分享失败，请再试一次。',
       typesAria: '四种旅行喜好',
     },
     house: {
