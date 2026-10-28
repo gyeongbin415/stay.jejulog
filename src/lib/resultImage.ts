@@ -3,26 +3,25 @@ import { characterArt } from '../data/characterArt';
 
 /**
  * 취향 테스트 결과를 한 장의 이미지(1080 × 1350, 인스타그램 세로 비율)로 그립니다.
- * 위: 나의 여행 취향은 → 1위 캐릭터 이름 · 게스트하우스 이름 / 가운데: 1위 소라게 크게 / 아래: 2 · 3위 소라게 나란히.
+ * 결과 화면과 같은 차례 — 나의 게스트하우스 취향은 → 캐릭터 이름 → 해시태그 셋 → BEST 1 → 소라게 →
+ * 게스트하우스 이름 → 한 줄 소개, 맨 아래 브랜드.
  * 캐릭터 그림은 src/assets/characters/hermit-*.webp (data/characterArt.ts) 를 그대로 씁니다.
  */
-export interface ResultImagePick {
-  id: ProgramId;
-  rank: string;
-  charName: string;
-  place: string;
-}
-
 export interface ResultImageInput {
+  id: ProgramId;
   lead: string;
+  title: string;
+  tags: string[];
+  rank: string;
+  place: string;
+  oneLine?: string;
   brand: string;
-  picks: ResultImagePick[];
 }
 
 const W = 1080;
 const H = 1350;
 const FONT = '"Pretendard Variable", Pretendard, sans-serif';
-const C = { bg: '#FAFAF3', card: '#FDF6EA', ink: '#111111', soft: '#686A64', orange: '#D46A1F', line: '#E4E3D8' };
+const C = { bg: '#FAFAF3', ink: '#111111', soft: '#686A64', orange: '#D46A1F', tagBg: '#FCEBDD' };
 
 function loadImage(src: string) {
   return new Promise<HTMLImageElement>((resolve, reject) => {
@@ -33,7 +32,7 @@ function loadImage(src: string) {
   });
 }
 
-/** 가운데 정렬 글 — 폭을 넘으면 낱말 단위로 줄을 나눕니다 */
+/** 가운데 정렬 글 — 폭을 넘으면 낱말 단위로 줄을 나눕니다. 줄 수를 돌려줌 */
 function text(ctx: CanvasRenderingContext2D, str: string, x: number, y: number, maxW: number, lineH: number) {
   const words = str.split(' ');
   const lines: string[] = [];
@@ -59,77 +58,79 @@ function roundRect(ctx: CanvasRenderingContext2D, x: number, y: number, w: numbe
 
 export async function makeResultImage(input: ResultImageInput): Promise<Blob> {
   // Pretendard 가 그림에 쓰이도록 미리 불러 둡니다 (그림에 들어갈 글자를 함께 넘겨 필요한 조각만)
-  const glyphs = [input.lead, input.brand, ...input.picks.flatMap((p) => [p.rank, p.charName, p.place])].join('');
-  await Promise.all(['500 32px "Pretendard Variable"', '700 32px "Pretendard Variable"', '800 32px "Pretendard Variable"'].map((f) => document.fonts.load(f, glyphs).catch(() => null)));
-  const imgs = await Promise.all(input.picks.map((p) => loadImage(characterArt[p.id]).catch(() => null)));
+  const glyphs = [input.lead, input.title, ...input.tags, input.rank, input.place, input.oneLine ?? '', input.brand].join('');
+  await Promise.all(['500 32px "Pretendard Variable"', '600 32px "Pretendard Variable"', '700 32px "Pretendard Variable"', '800 32px "Pretendard Variable"'].map((f) => document.fonts.load(f, glyphs).catch(() => null)));
+  const img = await loadImage(characterArt[input.id]).catch(() => null);
 
   const canvas = document.createElement('canvas');
   canvas.width = W;
-  // 1위만 담을 때는 2 · 3위 자리 없이 짧게
-  const h = input.picks.length > 1 ? H : 1020;
-  canvas.height = h;
+  canvas.height = H;
   const ctx = canvas.getContext('2d');
   if (!ctx) throw new Error('canvas');
   ctx.fillStyle = C.bg;
-  ctx.fillRect(0, 0, W, h);
+  ctx.fillRect(0, 0, W, H);
   ctx.textAlign = 'center';
   ctx.textBaseline = 'alphabetic';
 
   // 머리 — 나의 게스트하우스 취향은
   ctx.fillStyle = C.soft;
-  ctx.font = `500 32px ${FONT}`;
-  ctx.fillText(input.lead, W / 2, 140);
-  // 1위 — 캐릭터 이름 · 게스트하우스 이름 · 큰 캐릭터
-  const [first, ...rest] = input.picks;
-  if (first) {
-    ctx.fillStyle = C.orange;
-    ctx.font = `800 64px ${FONT}`;
-    text(ctx, first.charName, W / 2, 245, 940, 74);
-    ctx.fillStyle = C.ink;
-    ctx.font = `500 32px ${FONT}`;
-    ctx.fillText(first.place, W / 2, 302);
-  }
-  // 소라게 그림은 배경 없이 오린 것 — 카드 안 상자에 비율 그대로 맞춰 가운데에
-  const cardY = 350;
-  const firstH = 560;
-  const fit = (img: HTMLImageElement, x: number, y: number, w: number, h: number) => {
-    const s = Math.min(w / img.width, h / img.height);
-    const dw = img.width * s, dh = img.height * s;
-    ctx.drawImage(img, x + (w - dw) / 2, y + (h - dh) / 2, dw, dh);
-  };
-  roundRect(ctx, W / 2 - 340, cardY, 680, firstH, 32, C.card);
-  if (imgs[0]) fit(imgs[0], W / 2 - 300, cardY + 40, 600, firstH - 70);
-  if (first) {
-    roundRect(ctx, W / 2 - 318, cardY + 22, 150, 48, 24, '#FFFFFF');
-    ctx.fillStyle = C.orange;
-    ctx.font = `700 22px ${FONT}`;
-    ctx.fillText(first.rank, W / 2 - 243, cardY + 54);
+  ctx.font = `500 34px ${FONT}`;
+  ctx.fillText(input.lead, W / 2, 120);
+  // 캐릭터 이름 (…하게)
+  ctx.fillStyle = C.orange;
+  ctx.font = `800 70px ${FONT}`;
+  const titleLines = text(ctx, input.title, W / 2, 215, 960, 84);
+  let y = 215 + (titleLines - 1) * 84;
+
+  // 해시태그 — 연한 주황 알약, 가운데 한 줄
+  if (input.tags.length) {
+    ctx.font = `600 30px ${FONT}`;
+    const pads = 28, gap = 16, pillH = 62;
+    const widths = input.tags.map((tg) => ctx.measureText(`#${tg}`).width + pads * 2);
+    const total = widths.reduce((a, b) => a + b, 0) + gap * (widths.length - 1);
+    let x = (W - total) / 2;
+    const top = y + 50;
+    input.tags.forEach((tg, i) => {
+      roundRect(ctx, x, top, widths[i], pillH, pillH / 2, C.tagBg);
+      ctx.fillStyle = C.orange;
+      ctx.fillText(`#${tg}`, x + widths[i] / 2, top + 41);
+      x += widths[i] + gap;
+    });
+    y = top + pillH;
   }
 
-  // 2 · 3위 — 나란히
-  const smallY = cardY + firstH + 40;
-  rest.slice(0, 2).forEach((p, i) => {
-    const x = 90 + i * 460;
-    roundRect(ctx, x, smallY, 440, 250, 28, C.card);
-    const img = imgs[i + 1];
-    if (img) fit(img, x + 14, smallY + 20, 196, 210);
-    ctx.textAlign = 'left';
-    ctx.fillStyle = C.orange;
-    ctx.font = `700 20px ${FONT}`;
-    ctx.fillText(p.rank, x + 222, smallY + 70);
-    ctx.fillStyle = C.ink;
-    ctx.font = `700 27px ${FONT}`;
-    const n = text(ctx, p.charName, x + 222, smallY + 112, 200, 36);
-    ctx.fillStyle = C.orange;
-    ctx.font = `500 22px ${FONT}`;
-    ctx.fillText(p.place, x + 222, smallY + 112 + n * 36 + 6);
-    ctx.textAlign = 'center';
-  });
+  // BEST 1
+  ctx.fillStyle = C.orange;
+  ctx.font = `700 44px ${FONT}`;
+  if ('letterSpacing' in ctx) (ctx as CanvasRenderingContext2D & { letterSpacing: string }).letterSpacing = '5px';
+  ctx.fillText(input.rank, W / 2, y + 100);
+  if ('letterSpacing' in ctx) (ctx as CanvasRenderingContext2D & { letterSpacing: string }).letterSpacing = '0px';
+
+  // 소라게 — 배경 없이 오린 그림을 상자에 비율 그대로 맞춰 가운데에
+  const boxTop = y + 130;
+  const boxH = 1350 - boxTop - 330;
+  if (img) {
+    const s = Math.min(760 / img.width, boxH / img.height);
+    const dw = img.width * s, dh = img.height * s;
+    ctx.drawImage(img, (W - dw) / 2, boxTop + (boxH - dh) / 2, dw, dh);
+  }
+
+  // 게스트하우스 이름 · 한 줄 소개
+  let by = boxTop + boxH + 70;
+  ctx.fillStyle = C.ink;
+  ctx.font = `600 40px ${FONT}`;
+  ctx.fillText(input.place, W / 2, by);
+  if (input.oneLine) {
+    ctx.fillStyle = C.soft;
+    ctx.font = `500 31px ${FONT}`;
+    by += 64;
+    text(ctx, input.oneLine, W / 2, by, 820, 48);
+  }
 
   // 바닥 — 브랜드
   ctx.fillStyle = C.soft;
-  ctx.font = `500 22px ${FONT}`;
-  ctx.fillText(input.brand, W / 2, h - 42);
+  ctx.font = `500 24px ${FONT}`;
+  ctx.fillText(input.brand, W / 2, H - 44);
 
   return new Promise((resolve, reject) => canvas.toBlob((b) => (b ? resolve(b) : reject(new Error('blob'))), 'image/png'));
 }

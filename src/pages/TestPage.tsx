@@ -179,14 +179,18 @@ function Result({ result, shared, onRetry, focusRef }: { result: QuizResult; sha
     }
   };
 
-  // 결과 이미지 한 장 — 저장하기 · 인스타그램 공유에 같이 씀
+  // 결과 이미지 한 장 — 화면 위쪽 그대로(취향 · 캐릭터 이름 · 해시태그 · BEST 1 · 소라게 · 게하 이름 · 한 줄 소개)
   const resultFile = async () => {
-    // 저장 · 인스타 공유 이미지는 1위(BEST 1)만
-    const ranked: ProgramId[] = [result.main];
+    const id: ProgramId = result.main;
     const blob = await makeResultImage({
+      id,
       lead: t.lead,
+      title: site.characters[id],
+      tags: reasonTags,
+      rank: 'BEST 1',
+      place: programById[id].report.place.name,
+      oneLine: programById[id].report.oneLine,
       brand: `${site.brandEn} · ${site.brand}`,
-      picks: ranked.map((id, i) => ({ id, rank: `BEST ${i + 1}`, charName: site.characters[id], place: programById[id].report.place.name })),
     });
     return new File([blob], `jejulog-${result.code}.png`, { type: 'image/png' });
   };
