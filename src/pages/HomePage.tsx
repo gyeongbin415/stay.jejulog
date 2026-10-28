@@ -416,17 +416,17 @@ function TasteMapBanner() {
         <div className="tastemap__head">
           <p className="label">AROUND JEJU</p>
           <h2 id="tastemap-title" className="section-head__title pre">{ui.map.homeTitle}</h2>
-          {/* 누를 수 있다는 안내 — 제목 바로 밑 */}
-          <p className="tastemap__hint">
-            {/* 청록 동그라미 속 하얀 지도 핀 — 둘레로 물결이 퍼짐 */}
-            <span className="tastemap__pin" aria-hidden="true">
-              <svg viewBox="0 0 24 24" focusable="false">
-                <path d="M12 2.5a7 7 0 0 0-7 7c0 5.2 7 12 7 12s7-6.8 7-12a7 7 0 0 0-7-7Zm0 9.6a2.6 2.6 0 1 1 0-5.2 2.6 2.6 0 0 1 0 5.2Z" />
-              </svg>
-            </span>
-            {ui.map.cta}
-          </p>
         </div>
+        {/* 누를 수 있다는 안내 — 지도 바로 위 */}
+        <p className="tastemap__hint">
+          {/* 청록 동그라미 속 하얀 지도 핀 — 둘레로 물결이 퍼짐 */}
+          <span className="tastemap__pin" aria-hidden="true">
+            <svg viewBox="0 0 24 24" focusable="false">
+              <path d="M12 2.5a7 7 0 0 0-7 7c0 5.2 7 12 7 12s7-6.8 7-12a7 7 0 0 0-7-7Zm0 9.6a2.6 2.6 0 1 1 0-5.2 2.6 2.6 0 0 1 0 5.2Z" />
+            </svg>
+          </span>
+          {ui.map.cta}
+        </p>
         {/* 그림 전체가 눌림 */}
         <a className="tastemap" href={href.map()} data-track="home_taste_map" aria-label={ui.map.open}>
           {/* 섬 위를 돋보기가 집집마다 찾아다니는 움직이는 그림 */}

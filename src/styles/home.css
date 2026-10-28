@@ -301,7 +301,7 @@
 }
 @media (prefers-reduced-motion: reduce) { .beach__foam { animation: none; } }
 .find--map .find__inner { display: grid; justify-items: center; padding: clamp(40px, 7vh, 80px) 0 calc(clamp(40px, 7vh, 80px) + clamp(36px, 7vw, 72px) + 240px); } /* 아래 카드가 올라타는 만큼 더 비움 */
-.tastemap__head { display: grid; justify-items: center; gap: 16px; text-align: center; margin-bottom: clamp(48px, 7vh, 72px); } /* 지도를 제목에서 조금 더 아래로 */
+.tastemap__head { display: grid; justify-items: center; gap: 16px; text-align: center; margin-bottom: clamp(40px, 6vh, 64px); } /* 지도(와 바로 위 안내)를 제목에서 조금 더 아래로 */
 .tastemap { display: block; width: min(100%, 820px); border-radius: 18px; transition: transform var(--t-hover) var(--ease); }
 .tastemap { display: grid; justify-items: center; gap: clamp(14px, 2.5vh, 22px); text-decoration: none; }
 /* 움직이는 섬 — 섬 · 물결 · 잔물결 · 돋보기를 같은 1448×770 판에 겹침 */
@@ -323,7 +323,7 @@
 }
 .tastemap:hover { transform: translateY(-3px); }
 /* 누르라는 안내 — 둥근 옅은 상자 (버튼 대신) */
-.tastemap__hint { display: inline-flex; align-items: center; gap: 7px; margin: 0; font-size: clamp(15px, 1.4vw, 17px); font-weight: 600; color: #2F7A83; letter-spacing: -0.01em; }
+.tastemap__hint { display: inline-flex; align-items: center; gap: 7px; margin: 0 0 clamp(10px, 1.6vh, 16px); font-size: clamp(15px, 1.4vw, 17px); font-weight: 600; color: #2F7A83; letter-spacing: -0.01em; }
 /* 청록 동그라미 속 하얀 지도 핀 — 둘레로 물결이 퍼져 눈에 띄게 */
 .tastemap__pin { position: relative; display: grid; place-items: center; flex: none; width: 21px; height: 21px; border-radius: 50%; background: #2F7A83; color: #fff; }
 .tastemap__pin svg { width: 12px; height: 12px; fill: currentColor; animation: tastemap-hop 1.8s ease-in-out infinite; }
