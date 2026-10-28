@@ -392,11 +392,12 @@ function TasteMapBanner() {
           <h2 id="tastemap-title" className="section-head__title pre">{ui.map.homeTitle}</h2>
           {/* 누를 수 있다는 안내 — 제목 바로 밑 */}
           <p className="tastemap__hint">
-            {/* 손가락으로 누르는 모양 — 살짝 톡톡 */}
-            <svg className="tastemap__tap" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-              <path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V10m0-.5a1.5 1.5 0 0 1 3 0v1m0 0a1.5 1.5 0 0 1 3 0v4.5a5 5 0 0 1-5 5h-1.6a5 5 0 0 1-3.9-1.9L4.4 15a1.6 1.6 0 0 1 2.4-2.1L9 15" />
-              <path d="M5.5 5.5 4 4M8 2.5V1M12.5 4 14 2.5" />
-            </svg>
+            {/* 청록 동그라미 속 하얀 지도 핀 — 둘레로 물결이 퍼짐 */}
+            <span className="tastemap__pin" aria-hidden="true">
+              <svg viewBox="0 0 24 24" focusable="false">
+                <path d="M12 2.5a7 7 0 0 0-7 7c0 5.2 7 12 7 12s7-6.8 7-12a7 7 0 0 0-7-7Zm0 9.6a2.6 2.6 0 1 1 0-5.2 2.6 2.6 0 0 1 0 5.2Z" />
+              </svg>
+            </span>
             {ui.map.cta}
           </p>
         </div>
