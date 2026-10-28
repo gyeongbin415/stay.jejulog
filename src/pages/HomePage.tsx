@@ -18,7 +18,7 @@ import stripTea from '../assets/strip/iced-tea.webp';
 import stripMallow from '../assets/strip/fire-marshmallow.webp';
 import stripWinePour from '../assets/strip/wine-pour.webp';
 import stripRingWork from '../assets/strip/ring-workshop.webp';
-import stripCliff from '../assets/strip/seongsan-cliff.webp';
+import stripCosmos from '../assets/strip/cosmos-field.webp';
 import stripCrater from '../assets/strip/crater-view.webp';
 import stripPuppy from '../assets/strip/rooftop-puppy.webp';
 import stripSeaSit from '../assets/strip/seaside-sit.webp';
@@ -312,7 +312,7 @@ const STRIP: { src: string; h: number; y: number; r: number; photo: string }[] =
   { src: stripRingWork, h: 97, y: 2, r: 2, photo: 'ringwork' },
   { src: stripBuckwheat, h: 99, y: -3, r: -2, photo: 'buckwheat' },
   { src: stripLpWall, h: 92, y: 3, r: 1.5, photo: 'lpwall' },
-  { src: stripCliff, h: 99, y: -3, r: -1.5, photo: 'cliff' },
+  { src: stripCosmos, h: 99, y: -3, r: -1.5, photo: 'cosmos' },
   { src: stripCat, h: 94, y: 2, r: 1.5, photo: 'cat' },
   { src: stripMallow, h: 93, y: -3, r: -1.5, photo: 'mallow' },
   { src: stripPuppy, h: 96, y: 2, r: 1.5, photo: 'puppy' },
@@ -343,7 +343,7 @@ function PhotoStrip() {
     if (key === 'guitar') return ui.home.stripGuitarAlt;
     if (key === 'winepour') return ui.home.stripWinePourAlt;
     if (key === 'ringwork') return ui.home.stripRingWorkAlt;
-    if (key === 'cliff') return ui.home.stripCliffAlt;
+    if (key === 'cosmos') return ui.home.stripCosmosAlt;
     if (key === 'crater') return ui.home.stripCraterAlt;
     if (key === 'puppy') return ui.home.stripPuppyAlt;
     if (key === 'seasit') return ui.home.stripSeaSitAlt;

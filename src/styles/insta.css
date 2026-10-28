@@ -44,7 +44,7 @@
 .insta-modal__close { position: fixed; top: 10px; right: 14px; width: 40px; height: 40px; border: 0; background: none; color: #fff; font-size: 34px; line-height: 1; cursor: pointer; }
 .insta-modal__card { display: grid; grid-template-columns: minmax(0, 1fr) 340px; grid-template-rows: minmax(0, 1fr); width: min(100%, 980px); height: min(calc(100vh - 96px), 760px); background: #fff; border-radius: 4px; overflow: hidden; color: var(--ig-ink); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; font-size: 14px; line-height: 18px; }
 .insta-modal__media { background: #000; display: flex; align-items: center; justify-content: center; min-height: 0; }
-.insta-modal__media img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.insta-modal__media img, .insta-modal__media video { display: block; width: 100%; height: 100%; object-fit: contain; }
 .insta-modal__side { display: flex; flex-direction: column; min-height: 0; border-left: 1px solid var(--ig-line); }
 .insta-modal__head { display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-bottom: 1px solid var(--ig-line); }
 .insta-modal__head img, .insta-modal__body img { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--ig-line); }
@@ -72,7 +72,7 @@
   .insta-modal__card { display: flex; flex-direction: column; }
   /* 휴대폰 — 사진을 화면 폭 가득, 원래 비율(4:5) 그대로 */
   .insta-modal__media { flex: none; aspect-ratio: 4 / 5; }
-  .insta-modal__media img { width: 100%; height: 100%; object-fit: cover; }
+  .insta-modal__media img, .insta-modal__media video { width: 100%; height: 100%; object-fit: cover; }
   .insta-modal__side { border-left: 0; }
   .insta-modal__body { overflow: visible; }
   .insta-modal__close { top: 6px; right: 8px; color: #fff; text-shadow: 0 1px 4px rgba(0, 0, 0, .6); z-index: 1; }

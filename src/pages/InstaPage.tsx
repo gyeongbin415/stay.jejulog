@@ -78,12 +78,30 @@ export default function InstaPage({ post = null }: { post?: number | null }) {
 
 /**
  * 팔로우 — 웹진에서 누른 팔로우가 방문자 모두에게 쌓여 보이도록 공용 카운터(abacus.jasoncameron.dev)에 기록합니다.
- * 카운터는 올리기만 되므로 '팔로우'와 '팔로우 취소'를 따로 세고, 화면 숫자 = 실제 팔로워 + 팔로우 − 취소.
- * 한 브라우저는 한 번만 — 팔로우한 상태를 이 브라우저에 기억합니다. 카운터에 닿지 못하면 내 팔로우만 반영.
+ * 카운터는 올리기만 되므로 '팔로우'와 '팔로우 취소'를 따로 세고, 화면 숫자 = 기준값(1,113) + 팔로우 − 취소.
+ * 10/28 까지 쌓인 팔로우는 기준값에 넣었으므로 카운터 이름을 새로(-2) 시작합니다.
+ * 날짜가 바뀌어도 줄지 않게 — 내 팔로우 상태와 마지막으로 본 카운터 값을 이 브라우저에 계속 기억하고,
+ * 카운터가 늦거나 닿지 않아도 기억한 값으로 보여 줍니다 (카운터는 늘기만 하므로 더 큰 값을 씀).
  */
 const COUNTER = 'https://abacus.jasoncameron.dev';
 const NS = 'stay-jejulog';
+const KEYS = { up: 'insta-follow-2', down: 'insta-unfollow-2' } as const;
 const FOLLOW_KEY = 'jejulog:insta-following';
+const COUNTS_KEY = 'jejulog:insta-follow-counts';
+type Counts = { up: number; down: number };
+
+function readCounts(): Counts {
+  try {
+    const c = JSON.parse(localStorage.getItem(COUNTS_KEY) ?? '');
+    if (typeof c?.up === 'number' && typeof c?.down === 'number') return c;
+  } catch {
+    /* 처음이거나 기억하지 못함 */
+  }
+  return { up: 0, down: 0 };
+}
+
+/** 카운터 주소 — 4초 안에 답이 없으면 포기(기억한 값 그대로) */
+const ask = (path: string) => fetch(`${COUNTER}/${path}`, { signal: AbortSignal.timeout(4000) }).then((r) => r.json());
 
 function useFollow() {
   const [following, setFollowing] = useState(() => {
@@ -93,15 +111,27 @@ function useFollow() {
       return false;
     }
   });
-  const [counts, setCounts] = useState<{ up: number; down: number } | null>(null);
+  const [counts, setCountsState] = useState<Counts>(readCounts);
+  // 늘기만 하는 값이라 더 큰 쪽을 남기고, 이 브라우저에 저장
+  const merge = (next: Partial<Counts>) =>
+    setCountsState((c) => {
+      const m = { up: Math.max(c.up, next.up ?? 0), down: Math.max(c.down, next.down ?? 0) };
+      try {
+        localStorage.setItem(COUNTS_KEY, JSON.stringify(m));
+      } catch {
+        /* 기억하지 못해도 화면은 그대로 */
+      }
+      return m;
+    });
   useEffect(() => {
     let alive = true;
-    Promise.all(['insta-follow', 'insta-unfollow'].map((k) => fetch(`${COUNTER}/get/${NS}/${k}`).then((r) => r.json())))
-      .then(([u, d]) => alive && setCounts({ up: u.value ?? 0, down: d.value ?? 0 }))
+    Promise.all([ask(`get/${NS}/${KEYS.up}`), ask(`get/${NS}/${KEYS.down}`)])
+      .then(([u, d]) => alive && merge({ up: u.value ?? 0, down: d.value ?? 0 }))
       .catch(() => {});
     return () => {
       alive = false;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const toggle = () => {
     const next = !following;
@@ -112,19 +142,18 @@ function useFollow() {
       /* 기억하지 못해도 숫자는 그대로 */
     }
     const key = next ? 'up' : 'down';
-    setCounts((c) => c && { ...c, [key]: c[key] + 1 }); // 먼저 화면에 반영
-    fetch(`${COUNTER}/hit/${NS}/${next ? 'insta-follow' : 'insta-unfollow'}`)
-      .then((r) => r.json())
-      .then((j) => typeof j.value === 'number' && setCounts((c) => c && { ...c, [key]: j.value }))
+    merge({ [key]: counts[key] + 1 }); // 먼저 화면에 반영
+    ask(`hit/${NS}/${KEYS[key]}`)
+      .then((j) => typeof j.value === 'number' && merge({ [key]: j.value }))
       .catch(() => {});
   };
-  // 카운터를 못 읽었으면 내 팔로우만 +1
-  const extra = counts ? Math.max(0, counts.up - counts.down) : following ? 1 : 0;
+  // 기준값 아래로는 내려가지 않음 (예전에 팔로우한 사람이 취소해도 1,113 아래로는 X)
+  const extra = Math.max(0, counts.up - counts.down);
   return { following, extra, toggle };
 }
 
 /** 게시물 속 사진 — public/insta/p{n}/01.webp … (n 은 게시물 번호, 1부터) */
-const slideSrc = (n: number, k: number) => `insta/p${n}/${String(k + 1).padStart(2, '0')}.webp`;
+const slideSrc = (n: number, k: number, ext = 'webp') => `insta/p${n}/${String(k + 1).padStart(2, '0')}.${ext}`;
 
 function PostModal({ n, post, onClose }: { n: number; post: InstaPost; onClose: () => void }) {
   const { ui, lang } = { ...useContent(), ...useLang() };
@@ -172,7 +201,21 @@ function PostModal({ n, post, onClose }: { n: number; post: InstaPost; onClose: 
             touchX.current = null;
           }}
         >
-          <img src={slideSrc(n, idx)} alt={idx === 0 ? post.alt : `${post.alt} — ${idx + 1} / ${post.slides}`} />
+          {/* 인스타에서 영상인 장은 영상 그대로 — 소리 없이 저절로 반복 재생 */}
+          {post.videos?.includes(idx + 1) ? (
+            <video
+              key={idx}
+              src={slideSrc(n, idx, 'mp4')}
+              poster={slideSrc(n, idx)}
+              autoPlay
+              muted
+              loop
+              playsInline
+              aria-label={`${post.alt} — ${idx + 1} / ${post.slides}`}
+            />
+          ) : (
+            <img src={slideSrc(n, idx)} alt={idx === 0 ? post.alt : `${post.alt} — ${idx + 1} / ${post.slides}`} />
+          )}
           {idx > 0 && (
             <button type="button" className="insta-modal__nav insta-modal__nav--prev" onClick={() => go(-1)} aria-label={t.prev}>
               <span aria-hidden="true">‹</span>

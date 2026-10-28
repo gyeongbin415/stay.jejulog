@@ -11,8 +11,8 @@ export const INSTA_PROFILE = {
   bio: ['🏡 에디터가 직접 머물고 기록하는 제주 숙소', '📖 소규모 게하부터 숨은 취향 스테이까지'],
   avatar: 'insta/profile.jpg',
   posts: 11,
-  /** 팔로워 기준값 — 팀 요청으로 화면에 1,113명이 보이도록 (1,110 + 10/27 시점 웹진 팔로우 3). 실제 계정 팔로워는 37명 */
-  followers: 1110,
+  /** 팔로워 기준값 — 팀 요청으로 1,113명 (10/28 까지 웹진에서 누른 팔로우까지 모두 넣은 값). 이후 웹진 팔로우는 이 위에 더해짐. 실제 계정 팔로워는 37명 */
+  followers: 1113,
   following: 7,
 };
 
@@ -21,6 +21,8 @@ export interface InstaPost {
   img: string;
   /** 넘겨 보는 사진 장수 — public/insta/p{번호}/01.webp … (1080px) */
   slides: number;
+  /** 영상인 장 번호(1부터) — public/insta/p{번호}/04.mp4 처럼 같은 이름의 mp4, 같은 이름 webp 는 첫 장면 */
+  videos?: number[];
   alt: string;
   date: string;
   stay?: ProgramId;
@@ -33,6 +35,7 @@ export const INSTA_POSTS: InstaPost[] = [
   {
     img: 'insta/post-1.jpg',
     slides: 9,
+    videos: [4],
     likes: 4,
     comments: 0,
     alt: '불이 켜진 LP 선반과 턴테이블 사진 위에 ‘LP 들으러 게하 왔어요’라고 적힌 카드뉴스 표지',
