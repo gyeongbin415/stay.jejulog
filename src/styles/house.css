@@ -171,13 +171,8 @@
 .house3d {
   --w: min(660px, 100vw); --u: calc(var(--w) / var(--iw, 1088)); --pt: 0px;
   position: relative; overflow: hidden; padding: 0;
-  /* 그림보다 넓은 양옆 — 그림 가장자리의 하늘 · 바다 · 잔디 색을 줄 그대로 이어 깐 띠 */
-  /* 그림 높이(1445)에 딱 맞춰 위에서부터 — 하늘 → 수평선 → 바다 → 잔디 (그림 가장자리에서 잰 색) */
-  background: linear-gradient(to bottom, #99D4F2 0%, #A0D7F2 8.3%, #A8DBF0 16.6%, #B9DDEC 24.9%, #CBE1E5 33.2%, #E2E2D7 41.5%, #F5E3C9 47.1%, #F9E0C4 51.2%, #B7CDD3 52.6%, #6DB4D9 54.7%, #72B6D6 58.1%, #AFC197 60.9%, #C4C462 63.7%) top / 100% calc(var(--u) * 1445) no-repeat, #C4C462;
-}
-/* 그림 양옆 끝은 옆 띠에 스르르 녹아들게 (넓은 화면에서만) */
-@media (min-width: 661px) {
-  .house3d__img { -webkit-mask-image: linear-gradient(to right, transparent, #000 9%, #000 91%, transparent); mask-image: linear-gradient(to right, transparent, #000 9%, #000 91%, transparent); }
+  /* 넓은 화면 양옆 — 가운데 집 그림과 높이 · 수평선을 맞춰 이어 그린 제주 풍경 한 장 (집 그림과 같은 높이로 가운데 정렬) */
+  background: url('../assets/house-wide-bg.webp') center top / auto 100% no-repeat, #C4C462;
 }
 /* 넓은 화면 — 한 층 세 칸 그림 (1572 × 1196) */
 /* 다락 지붕 모양 — 세 칸 그림은 꼭대기가 49.9% */

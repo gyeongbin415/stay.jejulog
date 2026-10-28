@@ -11,7 +11,6 @@ import { BeachDivider } from '../components/BeachDivider';
 import { GrassLedge } from '../components/GrassLedge';
 import introNightUrl from '../assets/intro-night.webp';
 import stripLpWall from '../assets/strip/lp-wall.webp';
-import stripLiving from '../assets/strip/attic-living.webp';
 import stripPotluck from '../assets/strip/potluck-wall.webp';
 import stripCat from '../assets/strip/flower-cat.webp';
 import stripBuckwheat from '../assets/strip/buckwheat-umbrella.webp';
@@ -311,7 +310,6 @@ const STRIP: { src: string; h: number; y: number; r: number; photo: string }[] =
   { src: stripPuppy, h: 96, y: 2, r: 1.5, photo: 'puppy' },
   { src: stripPotluck, h: 97, y: -4, r: -2, photo: 'potluck' },
   { src: stripBuckwheat, h: 99, y: 3, r: 2, photo: 'buckwheat' },
-  { src: stripLiving, h: 95, y: -1, r: -1, photo: 'living' },
   { src: stripWinePour, h: 95, y: 3, r: 1.5, photo: 'winepour' },
   { src: stripCliff, h: 99, y: -3, r: -1.5, photo: 'cliff' },
   { src: stripRingWork, h: 97, y: 2, r: 2, photo: 'ringwork' },
