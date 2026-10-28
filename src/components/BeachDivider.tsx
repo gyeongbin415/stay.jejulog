@@ -41,6 +41,23 @@ const foamBack = (base: number, amp: number, seed: number) => {
   return d;
 };
 
+// 너울 띠 — 위아래 가장자리가 같은 굽이로 출렁이는 긴 띠 (옆으로 흘러도 끊기지 않게 화면 두 배 넓이)
+const SWELL = (base: number, amp: number, seed: number) => {
+  const top: string[] = [];
+  const bot: string[] = [];
+  for (let x = -60; x <= 2000; x += 10) {
+    const y = base + amp * Math.sin(((x + seed) / 240) * Math.PI * 2);
+    top.push(`${x} ${(y - 9).toFixed(1)}`);
+    bot.unshift(`${x} ${(y + 9 + amp * 0.4 * Math.sin(((x + seed) / 120) * Math.PI * 2)).toFixed(1)}`);
+  }
+  return `M${top.join(' L')} L${bot.join(' L')} Z`;
+};
+// 윤슬 [x, y, 크기, 시작 시간]
+const GLINTS: [number, number, number, number][] = [
+  [120, 214, 1, 0], [330, 238, .8, 1.2], [520, 206, 1.1, .5], [700, 244, .7, 2], [880, 218, 1, .9],
+  [1060, 236, .9, 1.7], [1240, 208, 1.1, .3], [1390, 240, .8, 2.3], [260, 196, .7, 1.5], [980, 196, .7, 2.6],
+];
+
 export function BeachDivider() {
   const edge = foam(150, 20, 0);
   return (
@@ -84,6 +101,17 @@ export function BeachDivider() {
         </defs>
         {/* 바다 */}
         <rect width="1440" height="260" fill="url(#beach-sea)" />
+        {/* 너울 — 반투명 물결 덩어리 두 겹이 엇갈려 흘러가며 출렁 */}
+        <g className="beach__swell">
+          <path d={SWELL(196, 7, 0)} fill="#FFFFFF" opacity=".22" />
+        </g>
+        <g className="beach__swell beach__swell--slow">
+          <path d={SWELL(228, 6, 160)} fill="#7FC3CC" opacity=".18" />
+        </g>
+        {/* 윤슬 — 햇빛에 반짝이는 작은 빛 */}
+        {GLINTS.map(([x, y, s, d], i) => (
+          <path key={i} className="beach__glint" style={{ animationDelay: `${d}s` }} transform={`translate(${x} ${y}) scale(${s})`} d="M0 -7 L1.4 -1.4 L7 0 L1.4 1.4 L0 7 L-1.4 1.4 L-7 0 L-1.4 -1.4 Z" fill="#FFFFFF" />
+        ))}
         {/* 모래 · 파도는 위로 올려 바다를 넓게 */}
         <g transform="translate(0 -50)">
         {/* 젖은 모래 — 파도가 빠지면 드러남 (아래 끝은 흐려져 바다와 일자 경계가 안 생기게) */}
