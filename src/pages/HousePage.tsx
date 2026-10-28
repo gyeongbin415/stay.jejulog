@@ -5,6 +5,8 @@ import { href } from '../lib/router';
 import { ExpIcon } from '../components/ExpIcon';
 import houseUrl from '../assets/house-3d.webp';
 import houseBgUrl from '../assets/house-wide-bg.webp';
+import houseWideUrl from '../assets/house-3d-wide.webp';
+import { useMediaQuery } from '../lib/motion';
 
 /**
  * PAGE 02 — 집 내부 탐색 (EXPLORE)
@@ -16,24 +18,43 @@ type View = 'house' | 'list';
 const VIEW_KEY = 'jejulog:house-view';
 
 /**
- * 받은 그림 한 장(제주 풍경 배경 + 집, 1088 × 1445) 속 방 자리 · 이름표 자리 — 그림 픽셀 기준
- * room: 방 네모 [x1, y1, x2, y2] / tag: 이름표 자리 [x, y, 최소 너비] (center — 가운데 기준)
- * 다락 반지공방 · 3F 책 · 꽃꽂이 · 2F 영화 · LP · 1F 집밥 · 와인 · 마당 스냅사진 · 러닝 — 휴대폰 · 넓은 화면 모두 같은 그림
+ * 받은 그림 두 장 속 방 자리 · 이름표 자리 — 그림 픽셀 기준
+ * room: 방 네모 [x1, y1, x2, y2] / tag: 이름표 자리 [x, y, 최소 너비] (center — 가운데 기준, 다락)
+ * 다락 책 · 3F 반지공방 · 꽃꽂이 · 2F 영화 · LP · 1F 집밥 · 와인 · 마당 스냅사진 · 러닝
+ * 휴대폰(좁은 화면) — 세로 그림, 웹(넓은 화면) — 양옆 풍경까지 그려진 가로 그림을 화면 폭에 꽉 차게
  */
 type Spot = { id: ProgramId; room: [number, number, number, number]; tag: [number, number, number]; center?: boolean };
-const HOUSE: { url: string; w: number; h: number; spots: Spot[] } = {
-  url: houseUrl, w: 1088, h: 1445,
-  spots: [
-    { id: 'craft', room: [227, 330, 860, 564], tag: [543, 392, 122], center: true },
-    { id: 'book', room: [227, 576, 536, 767], tag: [240, 589, 66] },
-    { id: 'flower', room: [551, 576, 860, 767], tag: [564, 589, 95] },
-    { id: 'cinema', room: [227, 778, 536, 961], tag: [240, 791, 84] },
-    { id: 'lp', room: [551, 778, 860, 961], tag: [564, 791, 70] },
-    { id: 'homemeal', room: [227, 973, 536, 1146], tag: [240, 986, 85] },
-    { id: 'wine', room: [551, 973, 860, 1146], tag: [564, 986, 83] },
-    { id: 'camping', room: [208, 1168, 537, 1348], tag: [221, 1181, 120] },
-    { id: 'running', room: [551, 1168, 878, 1348], tag: [564, 1181, 89] },
-  ],
+const HOUSES: Record<'narrow' | 'wide', { url: string; w: number; h: number; spots: Spot[] }> = {
+  // 휴대폰 — 세로 그림 (1089 × 1445)
+  narrow: {
+    url: houseUrl, w: 1089, h: 1445,
+    spots: [
+      { id: 'book', room: [227, 330, 860, 564], tag: [543, 392, 66], center: true },
+      { id: 'craft', room: [227, 576, 536, 767], tag: [240, 589, 122] },
+      { id: 'flower', room: [551, 576, 860, 767], tag: [564, 589, 95] },
+      { id: 'cinema', room: [227, 778, 536, 961], tag: [240, 791, 84] },
+      { id: 'lp', room: [551, 778, 860, 961], tag: [564, 791, 70] },
+      { id: 'homemeal', room: [227, 973, 536, 1146], tag: [240, 986, 85] },
+      { id: 'wine', room: [551, 973, 860, 1146], tag: [564, 986, 83] },
+      { id: 'camping', room: [208, 1168, 537, 1348], tag: [221, 1181, 120] },
+      { id: 'running', room: [551, 1168, 878, 1348], tag: [564, 1181, 89] },
+    ],
+  },
+  // 웹 — 가로 그림 (1536 × 1024)
+  wide: {
+    url: houseWideUrl, w: 1536, h: 1024,
+    spots: [
+      { id: 'book', room: [497, 130, 1038, 306], tag: [768, 175, 66], center: true },
+      { id: 'craft', room: [497, 316, 759, 471], tag: [509, 328, 122] },
+      { id: 'flower', room: [773, 316, 1038, 471], tag: [785, 328, 95] },
+      { id: 'cinema', room: [497, 481, 759, 632], tag: [509, 493, 84] },
+      { id: 'lp', room: [773, 481, 1038, 632], tag: [785, 493, 70] },
+      { id: 'homemeal', room: [497, 641, 759, 784], tag: [509, 653, 85] },
+      { id: 'wine', room: [773, 641, 1038, 784], tag: [785, 653, 83] },
+      { id: 'camping', room: [481, 801, 762, 952], tag: [493, 813, 120] },
+      { id: 'running', room: [771, 801, 1054, 952], tag: [783, 813, 89] },
+    ],
+  },
 };
 const pct = (v: number, of: number) => `${(v / of) * 100}%`;
 
@@ -56,7 +77,8 @@ export function HousePage({ embedded = false }: { embedded?: boolean }) {
   const listed = houseOrder.map((id) => experiences.find((e) => e.id === id)!).filter(Boolean);
   // 상세페이지에 다녀와도 보던 방식이 유지되도록 이 탭에서만 기억합니다.
   const [view, setView] = useState<View>(readView);
-  const house = HOUSE;
+  const wide = useMediaQuery('(min-width: 900px)');
+  const house = HOUSES[wide ? 'wide' : 'narrow'];
   const { w: IMG_W, h: IMG_H } = house;
   const choose = (v: View) => {
     setView(v);
@@ -107,7 +129,7 @@ export function HousePage({ embedded = false }: { embedded?: boolean }) {
         </nav>
       ) : (
       <nav
-        className="house3d"
+        className={`house3d${wide ? ' house3d--wide' : ''}`}
         aria-label={ui.house.houseAria}
         style={{ '--iw': IMG_W, '--house-bg': `url(${houseBgUrl})` } as CSSProperties}
       >
@@ -119,7 +141,7 @@ export function HousePage({ embedded = false }: { embedded?: boolean }) {
             return (
               <span key={id} className="house3d__spot">
                 <a
-                  className={`house3d__room house3d__room--${id}`}
+                  className={`house3d__room house3d__room--${id}${center ? ' house3d__room--attic' : ''}`}
                   href={href.stay(id)}
                   aria-label={ui.house.roomAria(e.no, e.label, place)}
                   data-track={`house_${id}`}
