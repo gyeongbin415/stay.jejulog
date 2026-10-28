@@ -210,6 +210,8 @@ function Intro() {
 
   return (
     <section ref={ref} id="intro" className={`intro${reduced ? ' intro--static' : ''}`} data-step={Math.min(shown, total)} data-phase={phase} data-tone={revealed ? 'light' : 'dark'} aria-labelledby="intro-title">
+      {/* 메뉴 '메인'이 오는 자리 — 인트로를 끝까지 내린 곳, CHECK IN 화면이 다 열린 상태 */}
+      {!reduced && <span id="checkin" className="intro__anchor" />}
       <div className="intro__stage">
         <NightScene />
 
@@ -237,6 +239,8 @@ function Intro() {
 
         {/* 밝은 화면이 서서히 떠오르며 — 문제 정의 */}
         <div id="problem" className="intro__reveal">
+          {/* 동작 줄이기 설정이면 고정 없이 펼쳐지므로 CHECK IN 자리는 여기 */}
+          {reduced && <span id="checkin" />}
           <Problem />
           {/* 아래로 내려 보라는 표시 */}
           <p className="intro__scroll" aria-hidden="true">

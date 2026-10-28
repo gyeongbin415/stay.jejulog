@@ -14,6 +14,8 @@
   background: var(--night); color: var(--cream);
 }
 .intro__stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
+/* 메뉴 '메인'이 오는 자리 — 고정 무대가 끝나는 곳(인트로 높이 − 한 화면) */
+.intro__anchor { position: absolute; top: calc(100% - 100vh); left: 0; width: 1px; height: 1px; pointer-events: none; }
 
 /* 배경 — 흐릿한 불빛과 사람들 */
 .intro__scene { position: absolute; inset: 0; }

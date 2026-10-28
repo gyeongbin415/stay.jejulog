@@ -94,7 +94,7 @@
 }
 .menu__list .label { font-family: var(--f-sans); }
 .menu__list a:hover { color: var(--forest); padding-left: 10px; }
-.menu__list a[aria-current="page"] { color: var(--forest); }@keyframes fade-in { from { opacity: 0; } }
+@keyframes fade-in { from { opacity: 0; } }
 
 /* 오른쪽 아래 동그라미 버튼 — 위 취향 지도 · 아래 인스타그램 (메뉴보다 아래 층) */
 .fabs {

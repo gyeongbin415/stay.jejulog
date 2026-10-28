@@ -108,7 +108,8 @@ function LangSwitch() {
 }
 
 const MENU = [
-  { key: 'home', en: 'HOME', to: href.home() },
+  // 메인 — 인트로 다음 CHECK IN 화면(사진 띠 · '게스트하우스에서 이런 하루')으로
+  { key: 'home', en: 'HOME', to: href.home('checkin') },
   { key: 'house', en: 'EXPLORE', to: href.house() },
   // 메뉴는 상세 화면 대신 메인 안의 그 칸으로 — 취향 테스트 안내 · 취향 지도 · 더 많은 이야기(인스타그램)
   { key: 'test', en: 'TEST', to: href.home('find') },
