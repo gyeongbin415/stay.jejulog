@@ -239,7 +239,7 @@ export const INSTA_POSTS: InstaPost[] = [
   {
     img: 'insta/post-7.jpg',
     slides: 9,
-    videos: [6, 7, 8],
+    videos: [6, 7],
     videoHold: { 6: 4.3 },
     likes: 3,
     comments: 0,
