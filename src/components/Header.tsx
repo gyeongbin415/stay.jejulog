@@ -110,11 +110,10 @@ function LangSwitch() {
 const MENU = [
   { key: 'home', en: 'HOME', to: href.home() },
   { key: 'house', en: 'EXPLORE', to: href.house() },
-  { key: 'test', en: 'TEST', to: href.test() },
-  // 제주 게스트하우스 지도
-  { key: 'map', en: 'MAP', to: href.map() },
-  // 제주 게하의 더 많은 이야기 — 웹진 인스타그램 페이지
-  { key: 'insta', en: 'INSTAGRAM', to: href.insta() },
+  // 메뉴는 상세 화면 대신 메인 안의 그 칸으로 — 취향 테스트 안내 · 취향 지도 · 더 많은 이야기(인스타그램)
+  { key: 'test', en: 'TEST', to: href.home('find') },
+  { key: 'map', en: 'MAP', to: href.home('tastemap') },
+  { key: 'insta', en: 'INSTAGRAM', to: href.home('inside') },
 ] as const;
 
 function Menu({ route, onClose }: { route: Route; onClose: () => void }) {
