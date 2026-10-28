@@ -52,10 +52,10 @@
 .tmap-pop { display: grid; gap: 3px; font-family: var(--f-home); }
 .tmap-pop p { margin: 0 !important; }
 .tmap-pop__layer { font-size: 12px; font-weight: 700; }
-.tmap-pop__name { font-size: 16px; font-weight: 700; color: #111; }
+.tmap-pop .tmap-pop__name { margin-top: 6px !important; font-size: 16px; font-weight: 700; color: #111; } /* 위 분류 글과 띄움 */
 .tmap-pop__area { font-size: 12.5px; color: #6b6660; }
-.tmap-pop__desc { margin-top: 4px !important; font-size: 13px; line-height: 1.55; color: #3a3735; }
-.tmap-pop__links { display: flex; flex-wrap: wrap; gap: 6px 12px; margin-top: 6px !important; }
+.tmap-pop .tmap-pop__desc { margin-top: 10px !important; font-size: 13px; line-height: 1.55; color: #3a3735; }
+.tmap-pop .tmap-pop__links { display: flex; flex-wrap: wrap; gap: 6px 12px; margin-top: 6px !important; }
 .tmap-pop__links a { color: #C25A1C; font-weight: 700; font-size: 13px; text-decoration: none; }
 .tmap-pop__links a:hover { text-decoration: underline; }
 .leaflet-container { font-family: var(--f-home); }
