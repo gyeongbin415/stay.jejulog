@@ -38,7 +38,7 @@ const RIPPLES = Array.from({ length: 14 }, () => [rand() * 1440, 100 + rand() * 
 export function GrassLedge() {
   return (
     <div className="ledge" aria-hidden="true">
-      <svg viewBox="0 0 1440 130" preserveAspectRatio="xMidYMid slice">
+      <svg viewBox="0 34 1440 96" preserveAspectRatio="xMidYMin slice">
         <defs>
           <linearGradient id="ledge-soil" gradientUnits="userSpaceOnUse" x1="0" y1="44" x2="0" y2="82">
             <stop offset="0" stopColor="#A47A4E" />
@@ -49,9 +49,12 @@ export function GrassLedge() {
             <stop offset="0" stopColor="#B49372" stopOpacity=".55" />
             <stop offset="1" stopColor="#F8ECDA" stopOpacity="0" />
           </linearGradient>
+          <linearGradient id="ledge-lip" gradientUnits="userSpaceOnUse" x1="0" y1="34" x2="0" y2="42">
+            <stop offset="0" stopColor="#7F8A3C" stopOpacity="0" />
+            <stop offset="1" stopColor="#7F8A3C" stopOpacity=".55" />
+          </linearGradient>
         </defs>
-        {/* 잔디 윗면 · 모래 */}
-        <rect width="1440" height="46" style={{ fill: 'var(--ledge-grass)' }} />
+        {/* 모래 (턱 위는 비워 둬 집 그림 잔디가 보임) */}
         <rect y="46" width="1440" height="84" fill="#F8ECDA" />
         {/* 모래 바람 결 — 아주 옅은 곡선 */}
         {RIPPLES.map(([x, y, w], i) => (
@@ -82,9 +85,10 @@ export function GrassLedge() {
         ))}
         {/* 아래 테 — 둥글게 말려 들어가는 그늘 */}
         <path d={`M${SOIL_BOTTOM.join(' L')}`} fill="none" stroke="#6B4C2C" strokeWidth="2.4" opacity=".55" transform="translate(0 -1.2)" />
-        {/* 잔디 턱 — 살짝 튀어나온 가장자리 (밑면은 짙은 초록, 윗면은 밝은 테) */}
-        <rect y="40" width="1440" height="6" rx="3" fill="#9EA544" />
-        <rect y="39" width="1440" height="3.5" fill="#CCCB70" />
+        {/* 잔디 턱 — 그림 잔디밭 끝이 살짝 말려 내려간 가장자리 (위는 그림 쪽으로 옅어지고, 아래는 짙은 초록) */}
+        <rect y="34" width="1440" height="8" fill="url(#ledge-lip)" />
+        <rect y="41" width="1440" height="5" rx="2.5" fill="#7F8A3C" />
+        <rect y="41" width="1440" height="1.6" fill="#A6AE55" opacity=".8" />
       </svg>
     </div>
   );

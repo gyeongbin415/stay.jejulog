@@ -4,8 +4,7 @@ import type { ProgramId } from '../data/types';
 import { href } from '../lib/router';
 import { ExpIcon } from '../components/ExpIcon';
 import houseUrl from '../assets/house-3d.webp';
-import houseWideUrl from '../assets/house-3d-wide.webp';
-import { useMediaQuery } from '../lib/motion';
+import houseBgUrl from '../assets/house-wide-bg.webp';
 
 /**
  * PAGE 02 — 집 내부 탐색 (EXPLORE)
@@ -22,37 +21,19 @@ const VIEW_KEY = 'jejulog:house-view';
  * 다락 반지공방 · 3F 책 · 꽃꽂이 · 2F 영화 · LP · 1F 집밥 · 와인 · 마당 스냅사진 · 러닝 — 휴대폰 · 넓은 화면 모두 같은 그림
  */
 type Spot = { id: ProgramId; room: [number, number, number, number]; tag: [number, number, number]; center?: boolean };
-const HOUSES: Record<'narrow' | 'wide', { url: string; w: number; h: number; spots: Spot[] }> = {
-  // 휴대폰 — 세로 그림 (1088 × 1445)
-  narrow: {
-    url: houseUrl, w: 1088, h: 1445,
-    spots: [
-      { id: 'craft', room: [227, 330, 860, 564], tag: [543, 392, 122], center: true },
-      { id: 'book', room: [227, 576, 536, 767], tag: [240, 589, 66] },
-      { id: 'flower', room: [551, 576, 860, 767], tag: [564, 589, 95] },
-      { id: 'cinema', room: [227, 778, 536, 961], tag: [240, 791, 84] },
-      { id: 'lp', room: [551, 778, 860, 961], tag: [564, 791, 70] },
-      { id: 'homemeal', room: [227, 973, 536, 1146], tag: [240, 986, 85] },
-      { id: 'wine', room: [551, 973, 860, 1146], tag: [564, 986, 83] },
-      { id: 'camping', room: [208, 1168, 537, 1348], tag: [221, 1181, 120] },
-      { id: 'running', room: [551, 1168, 878, 1348], tag: [564, 1181, 89] },
-    ],
-  },
-  // 넓은 화면 — 가로 그림 한 장 (1536 × 1024), 화면 폭에 꽉 차게
-  wide: {
-    url: houseWideUrl, w: 1536, h: 1024,
-    spots: [
-      { id: 'craft', room: [507, 170, 1028, 345], tag: [768, 218, 122], center: true },
-      { id: 'book', room: [507, 357, 762, 504], tag: [519, 369, 66] },
-      { id: 'flower', room: [775, 357, 1028, 504], tag: [787, 369, 95] },
-      { id: 'cinema', room: [507, 515, 762, 657], tag: [519, 527, 84] },
-      { id: 'lp', room: [775, 515, 1028, 657], tag: [787, 527, 70] },
-      { id: 'homemeal', room: [507, 666, 762, 806], tag: [519, 678, 85] },
-      { id: 'wine', room: [775, 666, 1028, 806], tag: [787, 678, 83] },
-      { id: 'camping', room: [468, 830, 762, 980], tag: [480, 842, 120] },
-      { id: 'running', room: [775, 830, 1070, 980], tag: [787, 842, 89] },
-    ],
-  },
+const HOUSE: { url: string; w: number; h: number; spots: Spot[] } = {
+  url: houseUrl, w: 1088, h: 1445,
+  spots: [
+    { id: 'craft', room: [227, 330, 860, 564], tag: [543, 392, 122], center: true },
+    { id: 'book', room: [227, 576, 536, 767], tag: [240, 589, 66] },
+    { id: 'flower', room: [551, 576, 860, 767], tag: [564, 589, 95] },
+    { id: 'cinema', room: [227, 778, 536, 961], tag: [240, 791, 84] },
+    { id: 'lp', room: [551, 778, 860, 961], tag: [564, 791, 70] },
+    { id: 'homemeal', room: [227, 973, 536, 1146], tag: [240, 986, 85] },
+    { id: 'wine', room: [551, 973, 860, 1146], tag: [564, 986, 83] },
+    { id: 'camping', room: [208, 1168, 537, 1348], tag: [221, 1181, 120] },
+    { id: 'running', room: [551, 1168, 878, 1348], tag: [564, 1181, 89] },
+  ],
 };
 const pct = (v: number, of: number) => `${(v / of) * 100}%`;
 
@@ -75,8 +56,7 @@ export function HousePage({ embedded = false }: { embedded?: boolean }) {
   const listed = houseOrder.map((id) => experiences.find((e) => e.id === id)!).filter(Boolean);
   // 상세페이지에 다녀와도 보던 방식이 유지되도록 이 탭에서만 기억합니다.
   const [view, setView] = useState<View>(readView);
-  const wide = useMediaQuery('(min-width: 900px)');
-  const house = HOUSES[wide ? 'wide' : 'narrow'];
+  const house = HOUSE;
   const { w: IMG_W, h: IMG_H } = house;
   const choose = (v: View) => {
     setView(v);
@@ -127,9 +107,9 @@ export function HousePage({ embedded = false }: { embedded?: boolean }) {
         </nav>
       ) : (
       <nav
-        className={`house3d${wide ? ' house3d--wide' : ''}`}
+        className="house3d"
         aria-label={ui.house.houseAria}
-        style={{ '--iw': IMG_W } as CSSProperties}
+        style={{ '--iw': IMG_W, '--house-bg': `url(${houseBgUrl})` } as CSSProperties}
       >
         <div className="house3d__frame">
           <img className="house3d__img" src={house.url} width={IMG_W} height={IMG_H} alt={ui.house.houseAria} loading="lazy" decoding="async" />

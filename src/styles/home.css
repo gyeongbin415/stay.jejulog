@@ -280,10 +280,8 @@
 .find.find--map { background: #B1E1E6; }
 .find--map .tmi__lens { background-color: #B1E1E6; }
 /* 잔디 판 두께(디오라마) — 집 칸 잔디밭과 '게하게' 칸 모래 사이 (위 칸과 이음새가 안 보이게 살짝 겹침) */
-.ledge { position: relative; display: block; height: clamp(72px, 9vw, 130px); margin-top: -2px; overflow: hidden; background: linear-gradient(var(--ledge-grass) 30%, #F8ECDA 30%); }
-/* 잔디 판 윗면 — 바로 위 집 그림 맨 아래 잔디색과 같게 (휴대폰 세로 그림 · 넓은 화면 가로 그림) */
-:root { --ledge-grass: #93A456; }
-@media (min-width: 900px) { :root { --ledge-grass: #B2B655; } }
+/* 따로 칠한 잔디 띠 없이 — 집 그림 잔디밭이 곧바로 판 가장자리(턱)로 이어지게, 판 윗부분을 그림 맨 아래에 살짝 겹침 */
+.ledge { position: relative; z-index: 6; display: block; height: clamp(53px, 6.65vw, 96px); margin-top: calc(-1 * max(.35vw, 2.8px) - 6px); overflow: hidden; }
 .ledge svg { display: block; width: 100%; height: 100%; }
 /* 모래사장 → 파도 → 바다 */
 .beach { position: relative; display: block; height: clamp(170px, 22vw, 260px); margin-top: -3px; overflow: hidden; background: linear-gradient(#F8ECDA 50%, #B1E1E6 50%); } /* 위 칸 · 아래 바다와 이음새가 안 보이게 */

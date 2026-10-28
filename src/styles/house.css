@@ -65,7 +65,10 @@
 /* 문제 정의 화면 아래 빈 자리로 살짝 끌어올려 두 섹션 사이 간격을 줄임 */
 .explore.explore--home { position: relative; z-index: 5; padding-top: clamp(40px, 7vh, 80px); } /* SCROLL 표시 아래 공백 */
 /* 메인 집 칸 — 제목 뒤까지 하늘: 위는 페이지 색에서 시작해 그림 맨 위 하늘색으로 이어짐 */
-.explore.explore--home { padding-top: calc(clamp(90px, 14vh, 140px) + 36px); background: linear-gradient(to bottom, var(--bg) 0, #99D4F3 clamp(90px, 14vh, 140px)) top / 100% 100% no-repeat, #99D4F3; } /* 하늘이 다 짙어진 뒤에 글이 시작 */
+/* 페이지 색 → 하늘색을 길고 부드럽게 (처음과 끝은 천천히 바뀌는 S자) */
+.explore.explore--home { --sky-fade: clamp(160px, 24vh, 240px); padding-top: calc(var(--sky-fade) + 12px); background: linear-gradient(to bottom, var(--bg) 0%, color-mix(in oklab, var(--bg), #99D4F3 2.8%) 10%, color-mix(in oklab, var(--bg), #99D4F3 10.4%) 20%, color-mix(in oklab, var(--bg), #99D4F3 21.6%) 30%, color-mix(in oklab, var(--bg), #99D4F3 35.2%) 40%, color-mix(in oklab, var(--bg), #99D4F3 50.0%) 50%, color-mix(in oklab, var(--bg), #99D4F3 64.8%) 60%, color-mix(in oklab, var(--bg), #99D4F3 78.4%) 70%, color-mix(in oklab, var(--bg), #99D4F3 89.6%) 80%, color-mix(in oklab, var(--bg), #99D4F3 97.2%) 90%, #99D4F3 100%) top / 100% var(--sky-fade) no-repeat, #99D4F3; } /* 하늘이 다 짙어진 뒤에 글이 시작 */
+/* 글을 집 가까이 — 집 그림 맨 위 빈 하늘(굴뚝 연기 위) 쪽으로 내려 겹침 (버튼은 그림 위에서 눌림) */
+.explore--home .explore__head:has(+ .house3d) { position: relative; z-index: 1; margin-bottom: calc(min(660px, 100vw) * -0.15); }
 .explore--home .explore__hint, .explore--home .explore__toggle { background: rgba(255, 255, 255, .7); }
 .explore__hint, .explore__toggle { background: rgba(255, 255, 255, .6); }
 
@@ -171,15 +174,10 @@
 .house3d {
   --w: min(660px, 100vw); --u: calc(var(--w) / var(--iw, 1088)); --pt: 0px;
   position: relative; overflow: hidden; padding: 0;
-  /* 넓은 화면 양옆 — 가운데 집 그림과 높이 · 수평선을 맞춰 이어 그린 제주 풍경 한 장 (집 그림과 같은 높이로 가운데 정렬) */
-  background: url('../assets/house-wide-bg.webp') center top / auto 100% no-repeat, #C4C462;
+  /* 넓은 화면 양옆 — 받은 가로 그림의 풍경(하늘 · 바다 · 돌담 · 잔디)을 세로 집 그림과 높이 · 수평선을 맞춰 이어 붙인 한 장 (가운데는 집 그림 그대로) */
+  background: var(--house-bg) center top / auto 100% no-repeat, #C4C462; /* 그림 주소는 HousePage 에서 넘김 */
 }
-/* 넓은 화면 — 한 층 세 칸 그림 (1572 × 1196) */
-/* 다락 지붕 모양 — 세 칸 그림은 꼭대기가 49.9% */
 .house3d__frame { position: relative; width: var(--w); margin-inline: auto; }
-/* 넓은 화면 — 가로 그림 한 장을 화면 폭에 꽉 차게 (양옆 풍경까지 그림 안에 있음) */
-.house3d--wide { --w: 100vw; }
-.house3d--wide .house3d__room--craft { clip-path: polygon(50% 0, 100% 96%, 100% 100%, 0 100%, 0 96%); }
 .house3d__img { display: block; width: 100%; height: auto; }
 /* 방 — 투명 링크 (네모 테두리는 키보드로 고를 때만) */
 .house3d__room { position: absolute; display: block; outline: none; -webkit-tap-highlight-color: transparent; }
