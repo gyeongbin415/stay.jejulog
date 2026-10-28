@@ -221,26 +221,27 @@ function Result({ result, shared, onRetry, focusRef }: { result: QuizResult; sha
       failed(err);
     }
   };
-  // 인스타그램 — X 처럼 누르면 바로 인스타로: 휴대폰은 인스타 앱(스토리 화면), 컴퓨터는 instagram.com 새 탭.
-  //  인스타는 링크를 받아 주는 공유 주소가 없어 결과 링크를 복사해 두고, 인스타에서 붙여 넣게 (스토리 링크 스티커 · DM)
-  //  휴대폰에 인스타 앱이 없으면 잠시 뒤 instagram.com 으로
-  const shareInsta = () => {
-    navigator.clipboard?.writeText(url).catch(() => {});
-    if (window.matchMedia('(pointer: coarse)').matches) {
-      window.location.href = 'instagram://story-camera';
-      setTimeout(() => {
-        if (!document.hidden) window.location.href = 'https://www.instagram.com/';
-      }, 1500);
-    } else {
-      window.open('https://www.instagram.com/', '_blank', 'noopener,noreferrer');
+  // 링크 복사 — 결과 링크를 복사해 두고 원하는 곳(문자 · DM · 메모 등)에 붙여 넣게
+  //  복사 기능을 못 쓰는 브라우저는 숨긴 글상자를 골라 복사
+  const copyLink = async () => {
+    try {
+      if (navigator.clipboard?.writeText) await navigator.clipboard.writeText(url);
+      else {
+        const ta = document.createElement('textarea');
+        ta.value = url;
+        ta.setAttribute('readonly', '');
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        ta.remove();
+      }
+      setStatus(t.linkCopied);
+      hit('link');
+    } catch (err) {
+      failed(err);
     }
-    setStatus(t.instaCopied);
-    hit('instagram');
-  };
-  const shareX = () => {
-    window.open(`https://x.com/intent/post?url=${encodeURIComponent(url)}`, '_blank', 'noopener,noreferrer');
-    setStatus(t.shared);
-    hit('x');
   };
 
   return (
@@ -293,11 +294,8 @@ function Result({ result, shared, onRetry, focusRef }: { result: QuizResult; sha
             <button type="button" className="share__btn share__btn--kakao" onClick={shareKakao} aria-label={t.shareKakao} title={t.shareKakao} data-track="result_share_kakao">
               <ShareIcon name="kakao" />
             </button>
-            <button type="button" className="share__btn share__btn--insta" onClick={shareInsta} aria-label={t.shareInsta} title={t.shareInsta} data-track="result_share_instagram">
-              <ShareIcon name="insta" />
-            </button>
-            <button type="button" className="share__btn share__btn--x" onClick={shareX} aria-label={t.shareX} title={t.shareX} data-track="result_share_x">
-              <ShareIcon name="x" />
+            <button type="button" className="share__btn share__btn--link" onClick={copyLink} aria-label={t.shareLink} title={t.shareLink} data-track="result_share_link">
+              <ShareIcon name="link" />
             </button>
           </div>
         </div>
@@ -345,7 +343,7 @@ function ActIcon({ name }: { name: 'save' | 'retry' }) {
 }
 
 /** 공유 동그라미 버튼 그림 — 카카오톡(노랑 바탕 · 갈색 말풍선 TALK) · X 로고 · 인스타그램(카메라) */
-function ShareIcon({ name }: { name: 'kakao' | 'x' | 'insta' }) {
+function ShareIcon({ name }: { name: 'kakao' | 'link' }) {
   if (name === 'kakao') {
     return (
       <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
@@ -354,18 +352,11 @@ function ShareIcon({ name }: { name: 'kakao' | 'x' | 'insta' }) {
       </svg>
     );
   }
-  if (name === 'x') {
-    return (
-      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-        <path d="M17.75 3h3.07l-6.7 7.66L22 21h-6.17l-4.83-6.32L5.47 21H2.4l7.17-8.19L2 3h6.33l4.37 5.77L17.75 3zm-1.08 16.18h1.7L7.4 4.73H5.58l11.09 14.45z" fill="#fff" />
-      </svg>
-    );
-  }
+  // 사슬 고리 두 개 — 링크 복사
   return (
-    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="#fff" strokeWidth="2">
-      <rect x="3.5" y="3.5" width="17" height="17" rx="5" />
-      <circle cx="12" cy="12" r="4" />
-      <circle cx="17.2" cy="6.8" r="1" fill="#fff" stroke="none" />
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M10 14a4.5 4.5 0 0 0 6.4 0l3-3a4.5 4.5 0 0 0-6.4-6.4l-1.2 1.2" />
+      <path d="M14 10a4.5 4.5 0 0 0-6.4 0l-3 3a4.5 4.5 0 0 0 6.4 6.4l1.2-1.2" />
     </svg>
   );
 }
