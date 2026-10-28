@@ -65,7 +65,7 @@
 /* 문제 정의 화면 아래 빈 자리로 살짝 끌어올려 두 섹션 사이 간격을 줄임 */
 .explore.explore--home { position: relative; z-index: 5; padding-top: clamp(40px, 7vh, 80px); } /* SCROLL 표시 아래 공백 */
 /* 메인 집 칸 — 제목 뒤까지 하늘: 위는 페이지 색에서 시작해 그림 맨 위 하늘색으로 이어짐 */
-.explore.explore--home { background: linear-gradient(to bottom, var(--bg) 0, #99D4F3 clamp(140px, 24vh, 240px)) top / 100% 100% no-repeat, #99D4F3; }
+.explore.explore--home { padding-top: calc(clamp(90px, 14vh, 140px) + 36px); background: linear-gradient(to bottom, var(--bg) 0, #99D4F3 clamp(90px, 14vh, 140px)) top / 100% 100% no-repeat, #99D4F3; } /* 하늘이 다 짙어진 뒤에 글이 시작 */
 .explore--home .explore__hint, .explore--home .explore__toggle { background: rgba(255, 255, 255, .7); }
 .explore__hint, .explore__toggle { background: rgba(255, 255, 255, .6); }
 
