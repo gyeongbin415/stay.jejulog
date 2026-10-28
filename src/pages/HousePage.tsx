@@ -154,7 +154,7 @@ export function HousePage({ embedded = false }: { embedded?: boolean }) {
                 <span
                   className={`house3d__tag${center ? ' house3d__tag--center' : ''}`}
                   aria-hidden="true"
-                  style={{ left: `calc(var(--u) * ${tx})`, top: `calc(var(--u) * ${ty})`, minWidth: `calc(var(--u) * ${tw})` }}
+                  style={{ left: `calc(var(--u) * ${tx})`, top: `calc(var(--u) * ${ty})`, minWidth: `calc(var(--tu, var(--u)) * ${tw})` }}
                 >
                   <span>{e.label}</span>
                   <span className="house3d__place">{place}</span>

@@ -185,7 +185,7 @@
 .house3d__frame { position: relative; width: var(--w); margin-inline: auto; }
 /* 웹 — 양옆 풍경까지 그려진 가로 그림 한 장을 화면 폭에 꽉 차게 */
 /* 집이 작아 보이지 않게 그림을 화면보다 1.12배로 — 가운데 기준으로 양옆 풍경 · 맨 위 하늘 · 맨 아래 잔디를 조금씩 잘라 냄 (칸이 넘치는 부분은 숨김) */
-.house3d--wide { --w: 112vw; }
+.house3d--wide { --w: 112vw; --tu: calc(var(--u) * .7); } /* 이름표는 그림만큼 커지지 않게 70% (--tu) */
 .house3d--wide .house3d__frame { margin: calc(var(--w) * -0.05) 0 calc(var(--w) * -0.02) calc((100% - var(--w)) / 2); }
 /* 휴대폰 — 세로 그림도 1.25배로 키워 집을 크게. 가운데 기준으로 양옆 풍경 · 맨 위 하늘(굴뚝 연기 위) · 맨 아래 잔디를 조금씩 잘라 냄 */
 @media (max-width: 639px) {
@@ -204,10 +204,10 @@
 .house3d__tag {
   position: absolute; pointer-events: none;
   display: inline-flex; align-items: center; justify-content: center;
-  height: max(20px, calc(var(--u) * 48)); padding: 0 max(8px, calc(var(--u) * 15));
+  height: max(20px, calc(var(--tu, var(--u)) * 48)); padding: 0 max(8px, calc(var(--tu, var(--u)) * 15));
   border-radius: 999px; background: #F7F4EE; color: #2B2826;
-  box-shadow: 0 calc(var(--u) * 2) calc(var(--u) * 6) rgba(58, 55, 53, .16);
-  font-size: max(10.5px, calc(var(--u) * 23)); font-weight: 700; line-height: 1; letter-spacing: -0.02em; white-space: nowrap;
+  box-shadow: 0 calc(var(--tu, var(--u)) * 2) calc(var(--tu, var(--u)) * 6) rgba(58, 55, 53, .16);
+  font-size: max(10.5px, calc(var(--tu, var(--u)) * 23)); font-weight: 700; line-height: 1; letter-spacing: -0.02em; white-space: nowrap;
   transition: background var(--t-hover) var(--ease), color var(--t-hover) var(--ease);
 }
 .house3d__tag--center { translate: -50% 0; }
