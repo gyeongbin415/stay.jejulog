@@ -20,6 +20,8 @@ import stripPotluck from '../assets/strip/potluck-wall.webp';
 import stripCat from '../assets/strip/flower-cat.webp';
 import stripBuckwheat from '../assets/strip/buckwheat-umbrella.webp';
 import stripTea from '../assets/strip/iced-tea.webp';
+import stripSeaRun from '../assets/strip/seaside-run.webp';
+import stripGuitar from '../assets/strip/guitar-corner.webp';
 import stripDinner from '../assets/strip/susu-dinner-table.webp';
 import stripSunrise from '../assets/strip/kokoko-sunrise.webp';
 
@@ -299,6 +301,7 @@ function Problem() {
  */
 const STRIP: { src: string; h: number; y: number; r: number; photo: string }[] = [
   { src: stripWine, h: 92, y: -3, r: -2, photo: 'rooftop-dinner' },
+  { src: stripSeaRun, h: 100, y: 2, r: 1.5, photo: 'searun' },
   { src: stripCat, h: 98, y: 2, r: 1.5, photo: 'cat' },
   { src: stripCamp, h: 94, y: -4, r: -1.5, photo: 'camp' },
   { src: stripBuckwheat, h: 99, y: 3, r: 2, photo: 'buckwheat' },
@@ -306,6 +309,7 @@ const STRIP: { src: string; h: number; y: number; r: number; photo: string }[] =
   { src: stripLpWall, h: 90, y: 4, r: 1.5, photo: 'lpwall' },
   { src: stripPotluck, h: 97, y: -3, r: -1, photo: 'potluck' },
   { src: stripTea, h: 93, y: 2, r: 1.5, photo: 'tea' },
+  { src: stripGuitar, h: 96, y: -2, r: -1.5, photo: 'guitar' },
   { src: stripMallow, h: 95, y: -4, r: -2, photo: 'mallow' },
   { src: stripSunrise, h: 90, y: 3, r: 1, photo: 'kokoko-sunrise' },
   { src: stripDinner, h: 100, y: -1, r: -1.5, photo: 'susu-dinner-table' },
@@ -328,6 +332,8 @@ function PhotoStrip() {
     if (key === 'cat') return ui.home.stripCatAlt;
     if (key === 'buckwheat') return ui.home.stripBuckwheatAlt;
     if (key === 'tea') return ui.home.stripTeaAlt;
+    if (key === 'searun') return ui.home.stripSeaRunAlt;
+    if (key === 'guitar') return ui.home.stripGuitarAlt;
     for (const g of programs.flatMap((p) => p.report.programs ?? [])) {
       const hit = [g.photo, ...(g.photos ?? [])].find((ph) => ph?.src?.includes(key));
       if (hit) return hit.alt;
