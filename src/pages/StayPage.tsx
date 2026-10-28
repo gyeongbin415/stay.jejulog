@@ -235,7 +235,10 @@ export default function StayPage({ id }: { id: ProgramId }) {
 
       {/* 07. NAVIGATION — 예약 링크는 데이터에 있을 때만 */}
       <nav className="stay-nav wrap" data-tone="light" aria-label={t.navAria}>
-        {/* 위: 이전 게하 · 집 둘러보기 · 다음 게하 (한 줄) / 아래: 나에게 맞는 게하 찾기 */}
+        {/* 위: 나에게 맞는 게하 찾기 / 아래: 이전 게하 · 집 둘러보기 · 다음 게하 (한 줄) */}
+        <a className="btn" href={href.test()} data-track={`stay_${id}_to_test`}>
+          {t.toTest} <span className="arrow" aria-hidden="true">→</span>
+        </a>
         <div className="stay-nav__row">
           {/* 글자 없이 ← · 집 · → 아이콘만 (읽어 주는 이름은 그대로) */}
           <a className="btn btn--ghost stay-nav__icon" href={href.stay(prev.id)} aria-label={t.prevStay} title={t.prevStay} data-track={`stay_${id}_prev_${prev.id}`}>
@@ -248,9 +251,6 @@ export default function StayPage({ id }: { id: ProgramId }) {
             <span className="arrow" aria-hidden="true">→</span>
           </a>
         </div>
-        <a className="btn" href={href.test()} data-track={`stay_${id}_to_test`}>
-          {t.toTest} <span className="arrow" aria-hidden="true">→</span>
-        </a>
         {r.bookingUrl && (
           <a className="btn" href={r.bookingUrl} target="_blank" rel="noopener noreferrer" data-track={`stay_${id}_booking`}>
             {t.booking} <span className="arrow" aria-hidden="true">↗</span>
