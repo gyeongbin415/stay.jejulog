@@ -19,6 +19,7 @@ import stripMallow from '../assets/strip/fire-marshmallow.webp';
 import stripWinePour from '../assets/strip/wine-pour.webp';
 import stripRingWork from '../assets/strip/ring-workshop.webp';
 import stripCosmos from '../assets/strip/cosmos-field.webp';
+import stripCalendar from '../assets/strip/calendar-wall.webp';
 import stripCrater from '../assets/strip/crater-view.webp';
 import stripPuppy from '../assets/strip/rooftop-puppy.webp';
 import stripSeaSit from '../assets/strip/seaside-sit.webp';
@@ -305,22 +306,23 @@ function Problem() {
 // 색감이 비슷한 사진끼리 붙지 않게 — 사진마다 평균 색(밝기 · 따뜻함 · 위아래 반쪽)을 재서 이웃끼리 가장 다르게 놓은 순서 (강아지는 마시멜로와 일출 사이)
 const STRIP: { src: string; h: number; y: number; r: number; photo: string }[] = [
   { src: stripSeaRun, h: 98, y: -3, r: -2, photo: 'searun' },
-  { src: stripGuitar, h: 96, y: 2, r: 1.5, photo: 'guitar' },
-  { src: stripCrater, h: 99, y: -4, r: -2, photo: 'crater' },
-  { src: stripPotluck, h: 97, y: 4, r: 2, photo: 'potluck' },
-  { src: stripSeaSit, h: 98, y: -3, r: -1.5, photo: 'seasit' },
   { src: stripRingWork, h: 97, y: 2, r: 2, photo: 'ringwork' },
   { src: stripBuckwheat, h: 99, y: -3, r: -2, photo: 'buckwheat' },
   { src: stripLpWall, h: 92, y: 3, r: 1.5, photo: 'lpwall' },
-  { src: stripCosmos, h: 99, y: -3, r: -1.5, photo: 'cosmos' },
-  { src: stripCat, h: 94, y: 2, r: 1.5, photo: 'cat' },
-  { src: stripMallow, h: 93, y: -3, r: -1.5, photo: 'mallow' },
-  { src: stripPuppy, h: 96, y: 2, r: 1.5, photo: 'puppy' },
-  { src: stripSunrise, h: 90, y: -2, r: -2, photo: 'kokoko-sunrise' },
-  { src: stripDinner, h: 100, y: 2, r: 1.5, photo: 'susu-dinner-table' },
-  { src: stripTea, h: 91, y: -4, r: -1, photo: 'tea' },
+  { src: stripSeaSit, h: 98, y: -3, r: -1.5, photo: 'seasit' },
+  { src: stripGuitar, h: 96, y: 2, r: 1.5, photo: 'guitar' },
+  { src: stripCrater, h: 99, y: -4, r: -2, photo: 'crater' },
+  { src: stripWinePour, h: 95, y: 3, r: 1.5, photo: 'winepour' },
+  { src: stripCat, h: 94, y: -2, r: -1.5, photo: 'cat' },
+  { src: stripCosmos, h: 99, y: 3, r: 1.5, photo: 'cosmos' },
+  { src: stripPotluck, h: 97, y: -4, r: -2, photo: 'potluck' },
   { src: stripForest, h: 96, y: 3, r: 1.5, photo: 'forest' },
-  { src: stripWinePour, h: 95, y: -3, r: -1.5, photo: 'winepour' },
+  { src: stripCalendar, h: 95, y: -3, r: -1.5, photo: 'calendar' },
+  { src: stripMallow, h: 93, y: 3, r: 1.5, photo: 'mallow' },
+  { src: stripPuppy, h: 96, y: -2, r: -1.5, photo: 'puppy' },
+  { src: stripSunrise, h: 90, y: 2, r: 2, photo: 'kokoko-sunrise' },
+  { src: stripDinner, h: 100, y: -2, r: -1.5, photo: 'susu-dinner-table' },
+  { src: stripTea, h: 91, y: 4, r: 1, photo: 'tea' },
 ];
 
 function PhotoStrip() {
@@ -344,6 +346,7 @@ function PhotoStrip() {
     if (key === 'winepour') return ui.home.stripWinePourAlt;
     if (key === 'ringwork') return ui.home.stripRingWorkAlt;
     if (key === 'cosmos') return ui.home.stripCosmosAlt;
+    if (key === 'calendar') return ui.home.stripCalendarAlt;
     if (key === 'crater') return ui.home.stripCraterAlt;
     if (key === 'puppy') return ui.home.stripPuppyAlt;
     if (key === 'seasit') return ui.home.stripSeaSitAlt;
