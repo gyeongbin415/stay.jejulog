@@ -143,8 +143,8 @@
 .share__btn svg { display: block; }
 .share__btn--kakao { background: #FEE500; }
 .share__btn--kakao svg { width: 46px; height: 46px; }
-/* 링크 복사 — 메인 주황 동그라미에 흰 사슬 고리 */
-.share__btn--link { background: var(--orange); color: #fff; }
+/* 링크 복사 — 회색 동그라미에 흰 사슬 고리 */
+.share__btn--link { background: #8C8781; color: #fff; }
 .share__btn--link svg { width: 26px; height: 26px; }
 /* 자세히 알아보기 · 저장(아이콘만, 같은 높이 동그라미) */
 /* 자세히 알아보기는 그대로 가운데, 저장 아이콘은 그 오른쪽에 붙음 */
