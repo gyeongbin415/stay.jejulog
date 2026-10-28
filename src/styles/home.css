@@ -261,7 +261,17 @@
 /* 방 내부 둘러보기 — 테스트 칸 바로 밑, 같은 배경에 가는 선으로 칸 나눔 */
 /* MORE STORIES 칸은 메인 바탕색 — 위 하늘색 칸과 색이 갈리니 구분선은 뺌 */
 /* MORE STORIES — 위 바다 칸 위로 살짝 올라탄 둥근 카드 */
-.find.find--inside { --sheet-r: clamp(36px, 7vw, 72px); position: relative; z-index: 2; background: #FAFAF3; margin-top: calc(-1 * var(--sheet-r)); border-radius: var(--sheet-r) var(--sheet-r) 0 0; }
+.find.find--inside {
+  --sheet-r: clamp(36px, 7vw, 72px);
+  position: relative; z-index: 2; background: #FAFAF3;
+  /* 바다 칸 위로 올라탐 — 올라오기 전 내려가 있는 140px 만큼 더 겹쳐 둠 (그 아래도 바다가 이어지게) */
+  margin-top: calc(-1 * var(--sheet-r) - 140px);
+  border-radius: var(--sheet-r) var(--sheet-r) 0 0;
+  /* 스크롤하면 아래에서 쓱 올라옴 (--rise 0 → 1) */
+  transform: translateY(calc((1 - var(--rise, 1)) * 140px));
+  box-shadow: 0 -14px 40px rgba(31, 84, 92, .18), 0 -2px 10px rgba(31, 84, 92, .08);
+  will-change: transform;
+}
 .find--inside .find__inner { padding-top: clamp(56px, 9vh, 96px); }
 /* 제주 게하 취향지도 — 테스트 칸과 MORE STORIES 사이, 가는 선 사이 가운데 그림 (누르면 취향 지도 페이지) */
 /* 메인 지도 칸은 바다 — 위 칸(모래)에서 파도를 지나 바다색으로 */
@@ -280,7 +290,7 @@
   55% { transform: translate(-14px, -32px); }
 }
 @media (prefers-reduced-motion: reduce) { .beach__foam { animation: none; } }
-.find--map .find__inner { display: grid; justify-items: center; padding: clamp(40px, 7vh, 80px) 0 calc(clamp(40px, 7vh, 80px) + clamp(36px, 7vw, 72px)); } /* 아래 카드가 올라타는 만큼 더 비움 */
+.find--map .find__inner { display: grid; justify-items: center; padding: clamp(40px, 7vh, 80px) 0 calc(clamp(40px, 7vh, 80px) + clamp(36px, 7vw, 72px) + 140px); } /* 아래 카드가 올라타는 만큼 더 비움 */
 .tastemap__head { display: grid; justify-items: center; gap: 16px; text-align: center; margin-bottom: clamp(20px, 3vh, 32px); }
 .tastemap { display: block; width: min(88%, 500px); border-radius: 18px; transition: transform var(--t-hover) var(--ease); }
 .tastemap { display: grid; justify-items: center; gap: clamp(14px, 2.5vh, 22px); text-decoration: none; }
