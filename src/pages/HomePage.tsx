@@ -22,6 +22,7 @@ import stripRingWork from '../assets/strip/ring-workshop.webp';
 import stripCliff from '../assets/strip/seongsan-cliff.webp';
 import stripCrater from '../assets/strip/crater-view.webp';
 import stripPuppy from '../assets/strip/rooftop-puppy.webp';
+import stripSeaSit from '../assets/strip/seaside-sit.webp';
 import stripSeaRun from '../assets/strip/seaside-run.webp';
 import stripGuitar from '../assets/strip/guitar-corner.webp';
 import stripDinner from '../assets/strip/susu-dinner-table.webp';
@@ -316,6 +317,7 @@ const STRIP: { src: string; h: number; y: number; r: number; photo: string }[] =
   { src: stripRingWork, h: 97, y: 2, r: 2, photo: 'ringwork' },
   { src: stripSunrise, h: 90, y: -2, r: -2, photo: 'kokoko-sunrise' },
   { src: stripTea, h: 91, y: 4, r: 1, photo: 'tea' },
+  { src: stripSeaSit, h: 98, y: -3, r: -1.5, photo: 'seasit' },
   { src: stripGuitar, h: 96, y: -2, r: -1.5, photo: 'guitar' },
   { src: stripDinner, h: 100, y: 2, r: 1.5, photo: 'susu-dinner-table' },
 ];
@@ -343,6 +345,7 @@ function PhotoStrip() {
     if (key === 'cliff') return ui.home.stripCliffAlt;
     if (key === 'crater') return ui.home.stripCraterAlt;
     if (key === 'puppy') return ui.home.stripPuppyAlt;
+    if (key === 'seasit') return ui.home.stripSeaSitAlt;
     for (const g of programs.flatMap((p) => p.report.programs ?? [])) {
       const hit = [g.photo, ...(g.photos ?? [])].find((ph) => ph?.src?.includes(key));
       if (hit) return hit.alt;
