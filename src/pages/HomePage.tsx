@@ -434,6 +434,13 @@ function TasteMapBanner() {
 }
 
 /* ── 방 내부 둘러보기 — 테스트 칸 밑 한 칸 더: 인스타그램 페이지(숙소 게시물 사진)로 ── */
+/**
+ * 메인 MORE STORIES 격자에 놓을 인스타 게시물 순서 — INSTA_POSTS 번호(0부터).
+ * 첫 줄 서론 · 코코코 · 반지 / 둘째 줄 러닝 · 텐트 캠핑 · 365일 크리스마스 / 셋째 줄 집밥 저녁 · 책 · 영화관 (하모 제주는 빠짐)
+ * 인스타그램 페이지는 계정과 같은 최신순 그대로.
+ */
+const MORE_ORDER = [0, 1, 3, 6, 5, 2, 4, 7, 8];
+
 function InsideRooms() {
   const { ui } = useContent();
   const reduced = useReducedMotion();
@@ -481,9 +488,9 @@ function InsideRooms() {
               {ui.home.moreSub}
             </p>
           </div>
-          {/* 인스타그램 게시물 표지 사진 — 최근 9개만 세 칸 × 세 줄 격자, 누르면 웹진 인스타그램 페이지에서 그 게시물이 바로 열림 */}
+          {/* 인스타그램 게시물 표지 사진 — 9개 세 칸 × 세 줄 격자(순서는 MORE_ORDER), 누르면 웹진 인스타그램 페이지에서 그 게시물이 바로 열림 */}
           <ul className="more__grid">
-            {INSTA_POSTS.slice(0, 9).map((p, i) => (
+            {MORE_ORDER.map((i) => [INSTA_POSTS[i], i] as const).map(([p, i]) => (
               <li key={p.img}>
                 <a href={href.insta(i + 1)} data-track={`inside_thumb_${i + 1}`}>
                   <img src={p.img} alt={p.alt} loading="lazy" decoding="async" />
