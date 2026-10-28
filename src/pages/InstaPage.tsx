@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useContent, useLang } from '../i18n';
 import { href } from '../lib/router';
-import { INSTA_POSTS, INSTA_PROFILE, type InstaPost } from '../data/insta';
+import { INSTA_ORDER, INSTA_POSTS, INSTA_PROFILE, type InstaPost } from '../data/insta';
 import { INSTA_TR } from '../data/insta.i18n';
 import '../styles/insta.css';
 
@@ -77,10 +77,11 @@ export default function InstaPage({ post = null }: { post?: number | null }) {
       </div>
 
       <ul className="insta-grid" aria-label={t.gridAria}>
-        {posts.map((post, i) => (
+        {/* 메인 MORE STORIES 와 같은 차례로 (여는 번호 i 는 INSTA_POSTS 차례 그대로) */}
+        {INSTA_ORDER.map((i) => [posts[i], i] as const).map(([post, i], k) => (
           <li key={post.img}>
             <button type="button" className="insta-grid__item" onClick={() => setOpen(i)} data-track={`insta_post_${i + 1}`}>
-              <img src={post.img} alt={post.alt} loading={i < 6 ? 'eager' : 'lazy'} />
+              <img src={post.img} alt={post.alt} loading={k < 6 ? 'eager' : 'lazy'} />
               {post.slides > 1 && <CarouselIcon />}
             </button>
           </li>

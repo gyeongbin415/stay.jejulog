@@ -345,3 +345,10 @@ export const INSTA_POSTS: InstaPost[] = [
 ✍🏻 Editor W`,
   },
 ];
+
+/**
+ * 게시물을 보여 줄 차례 — INSTA_POSTS 번호(0부터). 메인 MORE STORIES 격자와 웹진 인스타그램 페이지 격자가 같은 차례.
+ * 첫 줄 서론 · 코코코 · 반지 / 둘째 줄 러닝 · 텐트 캠핑 · 365일 크리스마스 / 셋째 줄 집밥 저녁 · 책 · 영화관
+ * (게시물 사진 폴더 pN · 주소 #/instagram?post=N 의 번호는 INSTA_POSTS 차례 그대로라 바뀌지 않음)
+ */
+export const INSTA_ORDER = [0, 1, 3, 6, 5, 2, 4, 7, 8];
