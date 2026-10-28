@@ -16,17 +16,16 @@ export default function StayPage({ id }: { id: ProgramId }) {
   const t = ui.stay;
   const p = programById[id];
   const e = experienceById[id];
-  // 상세페이지 차례 — STAY 번호(no) 순서
-  const STAY_ORDER = [...experiences].sort((a, b) => a.no.localeCompare(b.no));
+  const EXPERIENCES = experiences;
   const r = p.report;
   const programs = r.programs ?? [];
   const editor = r.editorProfile;
   const hasEditor = Boolean(editor || r.experience.length);
   const hasStory = Boolean(p.intro || r.introQuote);
-  // 이전 · 다음 게하 — STAY 번호 순서대로(메인 MORE STORIES 와 같은 차례), 마지막 다음은 처음으로
-  const at = STAY_ORDER.findIndex((x) => x.id === id);
-  const next = STAY_ORDER[(at + 1) % STAY_ORDER.length];
-  const prev = STAY_ORDER[(at - 1 + STAY_ORDER.length) % STAY_ORDER.length];
+  // 다음 게하 — 9곳 순서대로, 마지막 다음은 처음으로
+  const at = EXPERIENCES.findIndex((x) => x.id === id);
+  const next = EXPERIENCES[(at + 1) % EXPERIENCES.length];
+  const prev = EXPERIENCES[(at - 1 + EXPERIENCES.length) % EXPERIENCES.length];
 
   return (
     <article className="stay" aria-labelledby="stay-title">

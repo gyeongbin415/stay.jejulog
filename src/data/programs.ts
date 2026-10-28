@@ -46,7 +46,7 @@ export const PROGRAMS: Program[] = [
   {
     id: 'running',
     pageId: 'A-01',
-    no: '04',
+    no: '09',
     en: 'RUNNING',
     title: '제주의 바다를 달리는 방법',
     verb: '달리다',
@@ -114,7 +114,7 @@ export const PROGRAMS: Program[] = [
   {
     id: 'cinema',
     pageId: 'A-02',
-    no: '09',
+    no: '04',
     en: 'CINEMA',
     title: '스크린을 통해 몰입을 찾는 방법',
     verb: '바라보다',
@@ -166,7 +166,7 @@ export const PROGRAMS: Program[] = [
   {
     id: 'flower',
     pageId: 'A-03',
-    no: '02',
+    no: '03',
     en: 'FLOWER',
     title: '꽃으로 하루를 채우는 방법',
     verb: '만들다',
@@ -229,7 +229,7 @@ export const PROGRAMS: Program[] = [
   {
     id: 'lp',
     pageId: 'A-04',
-    no: '01',
+    no: '05',
     en: 'LP',
     title: 'LP로 제주의 밤을 즐기는 방법',
     verb: '듣다',
@@ -291,7 +291,7 @@ export const PROGRAMS: Program[] = [
   {
     id: 'book',
     pageId: 'A-05',
-    no: '08',
+    no: '01',
     en: 'BOOK',
     title: '낯선 사람과 책으로 이야기를 나누는 방법',
     verb: '읽다',
@@ -346,7 +346,7 @@ export const PROGRAMS: Program[] = [
   {
     id: 'craft',
     pageId: 'A-06',
-    no: '03',
+    no: '02',
     en: 'CRAFT',
     title: '내 손끝에서 깎여 나가는 여행의 잡념',
     verb: '만들다',
@@ -416,7 +416,7 @@ export const PROGRAMS: Program[] = [
   {
     id: 'camping',
     pageId: 'A-07',
-    no: '05',
+    no: '08',
     en: 'CAMPING',
     title: '모닥불 앞에 모이는 방법',
     verb: '머물다',
@@ -466,7 +466,7 @@ export const PROGRAMS: Program[] = [
   {
     id: 'homemeal',
     pageId: 'A-08',
-    no: '07',
+    no: '06',
     en: 'HOME MEAL',
     title: '집밥 한 끼로 낯선 사람과 가까워지는 방법',
     verb: '나누다',
@@ -538,7 +538,7 @@ export const PROGRAMS: Program[] = [
   {
     id: 'wine',
     pageId: 'A-09',
-    no: '06',
+    no: '07',
     en: 'WINE',
     title: '와인 한 잔으로 제주의 저녁을 즐기는 방법',
     verb: '기울이다',
