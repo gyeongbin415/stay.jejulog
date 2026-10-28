@@ -225,6 +225,11 @@ function Result({ result, shared, onRetry, focusRef }: { result: QuizResult; sha
       failed(err);
     }
   };
+  // X — 결과 링크가 들어간 글쓰기 창을 새 탭으로
+  const shareX = () => {
+    window.open(`https://x.com/intent/post?url=${encodeURIComponent(url)}`, '_blank', 'noopener,noreferrer');
+    hit('x');
+  };
   // 링크 복사 — 결과 링크를 복사해 두고 원하는 곳(문자 · DM · 메모 등)에 붙여 넣게
   //  복사 기능을 못 쓰는 브라우저는 숨긴 글상자를 골라 복사
   const copyLink = async () => {
@@ -298,6 +303,9 @@ function Result({ result, shared, onRetry, focusRef }: { result: QuizResult; sha
             <button type="button" className="share__btn share__btn--kakao" onClick={shareKakao} aria-label={t.shareKakao} title={t.shareKakao} data-track="result_share_kakao">
               <ShareIcon name="kakao" />
             </button>
+            <button type="button" className="share__btn share__btn--x" onClick={shareX} aria-label={t.shareX} title={t.shareX} data-track="result_share_x">
+              <ShareIcon name="x" />
+            </button>
             <button type="button" className="share__btn share__btn--link" onClick={copyLink} aria-label={t.shareLink} title={t.shareLink} data-track="result_share_link">
               <ShareIcon name="link" />
             </button>
@@ -347,12 +355,19 @@ function ActIcon({ name }: { name: 'save' | 'retry' }) {
 }
 
 /** 공유 동그라미 버튼 그림 — 카카오톡(노랑 바탕 · 갈색 말풍선 TALK) · X 로고 · 인스타그램(카메라) */
-function ShareIcon({ name }: { name: 'kakao' | 'link' }) {
+function ShareIcon({ name }: { name: 'kakao' | 'x' | 'link' }) {
   if (name === 'kakao') {
     return (
       <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
         <path d="M24 11c-9.4 0-17 5.9-17 13.2 0 4.7 3.1 8.8 7.8 11.1l-1.6 5.9c-.1.5.4.9.8.6l7-4.6c1 .1 2 .2 3 .2 9.4 0 17-5.9 17-13.2S33.4 11 24 11z" fill="#3A1D1D" />
         <text x="24" y="27.8" textAnchor="middle" fontSize="10" fontWeight="800" fontFamily="Arial, sans-serif" fill="#FEE500" letterSpacing=".3">TALK</text>
+      </svg>
+    );
+  }
+  if (name === 'x') {
+    return (
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M17.75 3h3.07l-6.7 7.66L22 21h-6.17l-4.83-6.32L5.47 21H2.4l7.17-8.19L2 3h6.33l4.37 5.77L17.75 3zm-1.08 16.18h1.7L7.4 4.73H5.58l11.09 14.45z" fill="#fff" />
       </svg>
     );
   }

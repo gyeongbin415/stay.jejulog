@@ -143,6 +143,8 @@
 .share__btn svg { display: block; }
 .share__btn--kakao { background: #FEE500; }
 .share__btn--kakao svg { width: 46px; height: 46px; }
+.share__btn--x { background: #000; }
+.share__btn--x svg { width: 24px; height: 24px; }
 /* 링크 복사 — 회색 동그라미에 흰 사슬 고리 */
 .share__btn--link { background: #8C8781; color: #fff; }
 .share__btn--link svg { width: 26px; height: 26px; }
