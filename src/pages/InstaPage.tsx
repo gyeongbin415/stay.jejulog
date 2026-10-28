@@ -16,7 +16,7 @@ export default function InstaPage({ post = null }: { post?: number | null }) {
   const t = ui.insta;
   // 영어 · 중국어 — 프로필 소개 · 게시물 글 · 표지 설명만 번역본으로 (사진 속 글씨는 그대로)
   const tr = lang === 'ko' ? null : INSTA_TR[lang];
-  const p = tr ? { ...INSTA_PROFILE, name: tr.name, bio: tr.bio } : INSTA_PROFILE;
+  const p = tr ? { ...INSTA_PROFILE, name: tr.name, category: tr.category, bio: tr.bio } : INSTA_PROFILE;
   const posts = tr ? INSTA_POSTS.map((q) => ({ ...q, ...tr.posts[q.img] })) : INSTA_POSTS;
   // 메인 MORE STORIES 썸네일로 들어오면(#/instagram?post=N) 그 게시물을 바로 크게
   const pick = (n: number | null) => (n && n >= 1 && n <= INSTA_POSTS.length ? n - 1 : null);
@@ -33,29 +33,29 @@ export default function InstaPage({ post = null }: { post?: number | null }) {
   return (
     <section className="insta" aria-labelledby="insta-title">
       <h1 id="insta-title" className="visually-hidden">{t.title}</h1>
+      {/* 인스타 앱 프로필처럼 — 맨 위 아이디 / 테 두른 프로필 사진 옆에 이름 · 숫자(숫자 위, 이름 아래) / 분류 · 소개 / 팔로우 */}
       <header className="insta-head">
-        <div className="insta-head__avatar">
-          <img src={p.avatar} alt="" width={150} height={150} />
-        </div>
-        <div className="insta-head__main">
-          <div className="insta-head__row">
-            <p className="insta-head__handle">{p.handle}</p>
-            <div className="insta-head__btns">
-              <button type="button" className={`insta-btn${following ? ' insta-btn--ghost' : ''}`} aria-pressed={following} onClick={toggle} data-track="insta_follow">
-                {following ? t.following : t.follow}
-              </button>
-            </div>
+        <p className="insta-head__handle">{p.handle}</p>
+        <div className="insta-head__top">
+          <div className="insta-head__avatar">
+            <img src={p.avatar} alt="" width={150} height={150} />
           </div>
-          <ul className="insta-head__stats">
-            <li><strong>{fmt.format(p.posts)}</strong> {t.posts}</li>
-            <li><strong>{fmt.format(p.followers + extra)}</strong> {t.followers}</li>
-            <li><strong>{fmt.format(p.following)}</strong> {t.following}</li>
-          </ul>
-          <div className="insta-head__bio">
+          <div className="insta-head__main">
             <p className="insta-head__name">{p.name}</p>
-            {p.bio.map((l) => <p key={l}>{l}</p>)}
+            <ul className="insta-head__stats">
+              <li><strong>{fmt.format(posts.length)}</strong> {t.posts}</li>
+              <li><strong>{fmt.format(p.followers + extra)}</strong> {t.followers}</li>
+              <li><strong>{fmt.format(p.following)}</strong> {t.following}</li>
+            </ul>
           </div>
         </div>
+        <div className="insta-head__bio">
+          <p className="insta-head__category">{p.category}</p>
+          {p.bio.map((l) => <p key={l}>{l}</p>)}
+        </div>
+        <button type="button" className={`insta-btn insta-head__follow${following ? ' insta-btn--ghost' : ''}`} aria-pressed={following} onClick={toggle} data-track="insta_follow">
+          {following ? t.following : t.follow}
+        </button>
       </header>
 
       <div className="insta-tabs" role="presentation">

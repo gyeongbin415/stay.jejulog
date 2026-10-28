@@ -13,21 +13,25 @@
 }
 .page:has(> .insta) { background: #fff; }
 
-/* 프로필 머리 */
-.insta-head { display: grid; grid-template-columns: auto 1fr; gap: clamp(20px, 6vw, 96px); align-items: start; padding: 0 16px clamp(24px, 4vh, 44px); }
-.insta-head__avatar { width: clamp(77px, 18vw, 150px); aspect-ratio: 1; margin-left: clamp(0px, 4vw, 60px); border-radius: 50%; overflow: hidden; border: 1px solid var(--ig-line); }
-.insta-head__avatar img { display: block; width: 100%; height: 100%; object-fit: cover; }
-.insta-head__main { display: grid; gap: 18px; min-width: 0; }
-.insta-head__row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; }
-.insta-head__handle { margin: 0; font-size: 20px; line-height: 25px; font-weight: 400; }
+/* 프로필 머리 — 인스타 앱 프로필처럼: 맨 위 굵은 아이디 / 회색 테 두른 사진 옆에 이름 · 숫자 세 칸(숫자 위, 이름 아래) / 회색 분류 · 소개 / 팔로우 버튼 */
+.insta-head { display: grid; gap: 14px; max-width: 640px; margin: 0 auto; padding: 0 16px clamp(24px, 4vh, 40px); }
+.insta-head__handle { margin: 0 0 6px; font-size: clamp(22px, 2.4vw, 28px); line-height: 1.2; font-weight: 700; letter-spacing: -0.01em; }
+.insta-head__top { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: clamp(20px, 5vw, 44px); }
+.insta-head__avatar { width: clamp(88px, 22vw, 136px); aspect-ratio: 1; border-radius: 50%; overflow: hidden; padding: 3px; background: #fff; box-shadow: 0 0 0 3px #DCE0E6; }
+.insta-head__avatar img { display: block; width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+.insta-head__main { display: grid; gap: 12px; min-width: 0; }
+.insta-head__name { margin: 0; font-size: clamp(15px, 1.6vw, 18px); line-height: 1.35; font-weight: 500; word-break: keep-all; }
+.insta-head__stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin: 0; padding: 0; list-style: none; font-size: 14px; line-height: 1.3; }
+.insta-head__stats li { display: grid; justify-items: start; gap: 2px; }
+.insta-head__stats strong { font-size: clamp(17px, 1.8vw, 20px); font-weight: 600; }
+.insta-head__bio { display: grid; gap: 2px; }
+.insta-head__bio p { margin: 0; white-space: pre-line; font-size: 14px; line-height: 1.5; }
+.insta-head__bio .insta-head__category { color: var(--ig-sub); }
 .insta-btn { height: 32px; padding: 0 16px; border: 0; border-radius: 8px; background: var(--ig-blue); color: #fff; font: inherit; font-weight: 600; cursor: pointer; }
 .insta-btn:hover { background: #1877F2; }
 .insta-btn--ghost { background: var(--ig-gray); color: var(--ig-ink); }
 .insta-btn--ghost:hover { background: #DBDBDB; }
-.insta-head__stats { display: flex; gap: 40px; margin: 0; padding: 0; list-style: none; font-size: 16px; }
-.insta-head__stats strong { font-weight: 600; }
-.insta-head__bio p { margin: 0; white-space: pre-line; }
-.insta-head__name { font-weight: 600; }
+.insta-head__follow { width: 100%; margin-top: 4px; }
 
 /* 탭 — 게시물 */
 .insta-tabs { display: flex; justify-content: center; border-top: 1px solid var(--ig-line); }
@@ -63,9 +67,6 @@
 /* 휴대폰 — 머리는 사진 옆에 아이디 · 버튼, 아래에 숫자 · 소개 / 게시물은 위아래로 */
 @media (max-width: 735px) {
   .insta { padding-inline: 0; }
-  .insta-head { gap: 20px; padding-inline: 16px; }
-  .insta-head__avatar { margin-left: 0; }
-  .insta-head__stats { gap: 24px; font-size: 14px; }
   .insta-grid { gap: 2px; }
   .insta-modal { padding: 0; align-items: stretch; }
   .insta-modal__card { grid-template-columns: 1fr; grid-template-rows: auto minmax(0, 1fr) auto; width: 100%; max-height: none; height: 100%; border-radius: 0; overflow-y: auto; }

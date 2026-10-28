@@ -4,7 +4,7 @@
  * 숙소 이름은 상세페이지 번역(en.ts · zh.ts)과 같게. 게시물은 표지 파일(img)로 짝지음.
  */
 type PostText = { alt: string; caption: string };
-type InstaText = { name: string; bio: string[]; posts: Record<string, PostText> };
+type InstaText = { name: string; category: string; bio: string[]; posts: Record<string, PostText> };
 
 const EN_SIGN = `Stay Jejulog — Jeju stays our editors stay at and record |
 @stay.jejulog`;
@@ -14,6 +14,7 @@ const ZH_SIGN = `编辑亲自入住并记录的 Stay Jejulog |
 export const INSTA_TR: Record<'en' | 'zh', InstaText> = {
   en: {
     name: 'Stay Jejulog | Jeju stays · guesthouses',
+    category: 'Magazine',
     bio: ['🏡 Jeju stays our editors stay at and record themselves', '📖 From small guesthouses to hidden stays for every taste'],
     posts: {
       'insta/post-1.jpg': {
@@ -262,6 +263,7 @@ ${EN_SIGN}
   },
   zh: {
     name: 'Stay Jejulog｜济州住宿 · 民宿',
+    category: '杂志',
     bio: ['🏡 编辑亲自入住并记录的济州住宿', '📖 从小型民宿到小众宝藏住宿'],
     posts: {
       'insta/post-1.jpg': {
