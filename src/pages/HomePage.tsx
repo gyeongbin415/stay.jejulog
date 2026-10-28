@@ -429,8 +429,8 @@ function InsideRooms() {
       raf = 0;
       const vh = window.innerHeight;
       // 카드가 아래로 내려가 있는 만큼을 빼고 원래 자리 기준으로 계산
-      const top = el.getBoundingClientRect().top - (1 - Number(el.style.getPropertyValue('--rise') || 1)) * 140;
-      const p = Math.min(1, Math.max(0, (vh - top) / (vh * 0.45)));
+      const top = el.getBoundingClientRect().top - (1 - Number(el.style.getPropertyValue('--rise') || 1)) * 240;
+      const p = Math.min(1, Math.max(0, (vh - top) / (vh * 0.6)));
       el.style.setProperty('--rise', p.toFixed(3));
     };
     const onScroll = () => {
