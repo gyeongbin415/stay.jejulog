@@ -301,7 +301,7 @@
 }
 @media (prefers-reduced-motion: reduce) { .beach__foam { animation: none; } }
 .find--map .find__inner { display: grid; justify-items: center; padding: clamp(40px, 7vh, 80px) 0 calc(clamp(40px, 7vh, 80px) + clamp(36px, 7vw, 72px) + 240px); } /* 아래 카드가 올라타는 만큼 더 비움 */
-.tastemap__head { display: grid; justify-items: center; gap: 16px; text-align: center; margin-bottom: clamp(20px, 3vh, 32px); }
+.tastemap__head { display: grid; justify-items: center; gap: 16px; text-align: center; margin-bottom: clamp(48px, 7vh, 72px); } /* 지도를 제목에서 조금 더 아래로 */
 .tastemap { display: block; width: min(100%, 820px); border-radius: 18px; transition: transform var(--t-hover) var(--ease); }
 .tastemap { display: grid; justify-items: center; gap: clamp(14px, 2.5vh, 22px); text-decoration: none; }
 /* 움직이는 섬 — 섬 · 물결 · 잔물결 · 돋보기를 같은 1448×770 판에 겹침 */

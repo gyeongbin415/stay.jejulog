@@ -303,26 +303,27 @@ function Problem() {
  * h 는 띠 높이 대비 %, y 는 위아래 어긋남(%), r 은 기울기(도).
  * photo 는 같은 사진이 쓰인 상세페이지 사진 파일 이름 — 대체 텍스트를 거기서 가져옵니다. (run · lounge · camp · mallow · dome · candle · lpwall · living · ring · potluck · cat · buckwheat 은 상세에 없어 ui 문구)
  */
-// 색감이 비슷한 사진끼리 붙지 않게 — 사진마다 평균 색(밝기 · 따뜻함 · 위아래 반쪽)을 재서 이웃끼리 가장 다르게 놓은 순서 (강아지는 마시멜로와 일출 사이, 분화구는 포트럭과 숲길 사이)
+// 색 순서대로 — 초록(메밀밭 · 코스모스 · 숲길 · 분화구) → 주황(일출 · 일력 벽 · 모닥불 · 아이스티 · 포트럭 · 꽃과 고양이)
+// → 파랑(바다 달리기 · 방파제 · 강아지) → 갈색(LP 벽 · 반지 공방 · 저녁 식탁 · 기타 · 와인). 초록 · 파랑이 모자란 끝부분은 주황 · 갈색이 번갈아
 const STRIP: { src: string; h: number; y: number; r: number; photo: string }[] = [
-  { src: stripSeaRun, h: 98, y: -3, r: -2, photo: 'searun' },
-  { src: stripRingWork, h: 97, y: 2, r: 2, photo: 'ringwork' },
   { src: stripBuckwheat, h: 99, y: -3, r: -2, photo: 'buckwheat' },
+  { src: stripSunrise, h: 90, y: 2, r: 2, photo: 'kokoko-sunrise' },
+  { src: stripSeaRun, h: 98, y: -3, r: -2, photo: 'searun' },
   { src: stripLpWall, h: 92, y: 3, r: 1.5, photo: 'lpwall' },
-  { src: stripSeaSit, h: 98, y: -3, r: -1.5, photo: 'seasit' },
-  { src: stripGuitar, h: 96, y: 2, r: 1.5, photo: 'guitar' },
-  { src: stripWinePour, h: 95, y: -3, r: -1.5, photo: 'winepour' },
-  { src: stripCat, h: 94, y: 2, r: 1.5, photo: 'cat' },
   { src: stripCosmos, h: 99, y: -3, r: -1.5, photo: 'cosmos' },
-  { src: stripPotluck, h: 97, y: 4, r: 2, photo: 'potluck' },
-  { src: stripCrater, h: 99, y: -4, r: -2, photo: 'crater' },
-  { src: stripForest, h: 96, y: 3, r: 1.5, photo: 'forest' },
-  { src: stripCalendar, h: 95, y: -3, r: -1.5, photo: 'calendar' },
+  { src: stripCalendar, h: 95, y: 3, r: 1.5, photo: 'calendar' },
+  { src: stripSeaSit, h: 98, y: -3, r: -1.5, photo: 'seasit' },
+  { src: stripRingWork, h: 97, y: 2, r: 2, photo: 'ringwork' },
+  { src: stripForest, h: 96, y: -3, r: -1.5, photo: 'forest' },
   { src: stripMallow, h: 93, y: 3, r: 1.5, photo: 'mallow' },
   { src: stripPuppy, h: 96, y: -2, r: -1.5, photo: 'puppy' },
-  { src: stripSunrise, h: 90, y: 2, r: 2, photo: 'kokoko-sunrise' },
-  { src: stripDinner, h: 100, y: -2, r: -1.5, photo: 'susu-dinner-table' },
+  { src: stripDinner, h: 100, y: 2, r: 1.5, photo: 'susu-dinner-table' },
+  { src: stripCrater, h: 99, y: -4, r: -2, photo: 'crater' },
   { src: stripTea, h: 91, y: 4, r: 1, photo: 'tea' },
+  { src: stripGuitar, h: 96, y: -2, r: -1.5, photo: 'guitar' },
+  { src: stripPotluck, h: 97, y: 4, r: 2, photo: 'potluck' },
+  { src: stripWinePour, h: 95, y: -3, r: -1.5, photo: 'winepour' },
+  { src: stripCat, h: 94, y: 2, r: 1.5, photo: 'cat' },
 ];
 
 function PhotoStrip() {
