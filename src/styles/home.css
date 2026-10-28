@@ -397,6 +397,8 @@
 .outro__head { display: grid; justify-items: start; gap: 16px; }
 .outro__title { font-family: var(--f-home); font-weight: 700; font-size: clamp(27px, 3.8vw, 46px); line-height: 1.32; letter-spacing: -0.025em; } /* 메인 큰 제목과 같은 크기 · 두께 */
 .outro__title span { display: block; }
+/* 웹 — 제목 조각들을 한 줄로 (휴대폰은 조각마다 줄 바꿈) */
+@media (min-width: 700px) { .outro__title span { display: inline; } .outro__title span + span::before { content: " "; } }
 .outro__closing { font-family: var(--f-home); font-weight: 500; font-size: clamp(17px, 1.8vw, 22px); line-height: 1.75; margin-top: 4px; }
 .outro__para { display: block; }
 .outro__para + .outro__para { margin-top: 0; } /* 두 줄 간격은 '게하게' 소개 두 줄처럼 줄 높이(1.75)만 */

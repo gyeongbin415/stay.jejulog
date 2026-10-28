@@ -23,6 +23,8 @@ export function App() {
   const query = route.query.toString();
   const keyRef = useRef(key);
   const positions = useRef<Record<string, number>>({});
+  /** 바로 전에 보던 화면 이름 — 기억한 자리가 없을 때(새로고침 등) 메인 어느 칸으로 돌아갈지 정함 */
+  const prevName = useRef<string | null>(null);
 
   // 페이지별 title · description · SNS 미리보기 · 구조화 데이터 — 모두 그 페이지에 보이는 내용에서 가져옵니다.
   // (화면 이동 기록보다 먼저 바꿔 두어야 page_title 에 새 제목이 실립니다)
@@ -89,8 +91,19 @@ export function App() {
     if (route.name === 'home' && to) {
       jumpToSection(to);
       history.replaceState(history.state, '', '#/');
+    } else if (route.name === 'home' && positions.current[key] == null && (prevName.current === 'map' || prevName.current === 'insta')) {
+      // 기억한 자리가 없으면(지도 · 인스타 페이지에서 새로고침한 뒤 뒤로 가기 등) 그 페이지로 들어가던 칸으로
+      jumpToSection(prevName.current === 'map' ? 'tastemap' : 'inside');
     } else if (route.name === 'home' || route.name === 'house') {
-      window.scrollTo(0, positions.current[key] ?? 0);
+      // 지도 · 인스타 · 숙소 페이지에서 뒤로 가기로 메인에 돌아오면 보던 자리(예: 취향 지도 칸)로 —
+      // 휴대폰은 사진이 늦게 떠 페이지가 아직 짧을 수 있어 자리가 맞을 때까지 몇 프레임 다시 맞춤
+      const y = positions.current[key] ?? 0;
+      let tries = 0;
+      const go = () => {
+        window.scrollTo(0, y);
+        if (Math.abs(window.scrollY - y) > 2 && tries++ < 60) requestAnimationFrame(go);
+      };
+      go();
     } else if (route.name === 'test' && route.query.get('r')) {
       // 숙소 페이지에서 뒤로 가기로 결과에 돌아오면 보던 자리로 — 결과 화면이 그려질 때까지 몇 프레임 다시 맞춤
       const y = positions.current[key] ?? 0;
@@ -104,6 +117,7 @@ export function App() {
       window.scrollTo(0, 0);
     }
     if (route.name !== 'home') document.getElementById('main')?.focus({ preventScroll: true });
+    prevName.current = route.name;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [key, query, route.visit]);
 
