@@ -23,6 +23,8 @@ export interface InstaPost {
   slides: number;
   /** 영상인 장 번호(1부터) — public/insta/p{번호}/04.mp4 처럼 같은 이름의 mp4, 같은 이름 webp 는 첫 장면 */
   videos?: number[];
+  /** 한 번만 재생하고 멈출 영상 — 장 번호: 멈출 초 (발자국이 끝까지 찍힌 순간. 영상 맨 끝은 발자국이 지워져서 그 직전) */
+  videoHold?: Record<number, number>;
   alt: string;
   date: string;
   stay?: ProgramId;
@@ -237,6 +239,8 @@ export const INSTA_POSTS: InstaPost[] = [
   {
     img: 'insta/post-7.jpg',
     slides: 9,
+    videos: [6, 7, 8],
+    videoHold: { 6: 4.3 },
     likes: 3,
     comments: 0,
     alt: '풍력발전기가 보이는 바닷가 산책로를 달리는 사람들 사진 위에 ‘러닝메이트가 생기는 애월의 아지트’라고 적힌 카드뉴스 표지',

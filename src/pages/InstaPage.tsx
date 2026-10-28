@@ -201,7 +201,7 @@ function PostModal({ n, post, onClose }: { n: number; post: InstaPost; onClose: 
             touchX.current = null;
           }}
         >
-          {/* 인스타에서 영상인 장은 영상 그대로 — 소리 없이 저절로 반복 재생 */}
+          {/* 인스타에서 영상인 장은 영상 그대로 — 소리 없이 저절로 반복 재생 (videoHold 에 적힌 장은 한 번 돌고 그 초에 멈춤) */}
           {post.videos?.includes(idx + 1) ? (
             <video
               key={idx}
@@ -209,7 +209,15 @@ function PostModal({ n, post, onClose }: { n: number; post: InstaPost; onClose: 
               poster={slideSrc(n, idx)}
               autoPlay
               muted
-              loop
+              loop={post.videoHold?.[idx + 1] == null}
+              onTimeUpdate={(e) => {
+                const hold = post.videoHold?.[idx + 1];
+                const v = e.currentTarget;
+                if (hold != null && v.currentTime >= hold) {
+                  v.pause();
+                  v.currentTime = hold;
+                }
+              }}
               playsInline
               aria-label={`${post.alt} — ${idx + 1} / ${post.slides}`}
             />
