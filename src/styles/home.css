@@ -383,10 +383,10 @@
 .outro .label { letter-spacing: .16em; color: #E0702B; }
 .outro__inner > * { width: min(100%, 520px, 44vw - var(--gutter)); }
 .outro__closing { color: #5F5A55; }
-/* 휴대폰 — 글은 위에 칸 폭대로, 그림은 아래쪽에 크게 (로고가 글 밑에 오도록 아래 여백을 그림 높이만큼) */
+/* 휴대폰 — 세로 그림(위는 크림 종이, 아래 오른쪽에 로고). 칸 폭에 맞춰 아래에 붙이고, 글은 위 크림 자리에 (로고가 글 밑에 오도록 아래 여백) */
 @media (max-width: 699px) {
-  .outro { min-height: 0; background-size: 170% auto; background-position: 80% bottom; }
-  .outro .outro__inner { padding-bottom: 70vw; }
+  .outro { min-height: calc(100vw * 1449 / 1087); background-image: var(--outro-bg-m); background-size: 100% auto; background-position: center bottom; }
+  .outro .outro__inner { padding-bottom: 58vw; }
   .outro__inner > * { width: 100%; }
 }
 .outro__inner { display: grid; justify-items: start; text-align: left; gap: clamp(18px, 2.6vh, 28px); padding: clamp(56px, 9vh, 96px) 0 clamp(60px, 10vh, 104px); } /* 글 양에 맞게 칸을 줄임 */
