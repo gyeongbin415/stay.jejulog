@@ -278,11 +278,7 @@
   40% { transform: translate(-18px, -30px); }
   55% { transform: translate(-14px, -32px); }
 }
-/* 바다 물결 줄 — 옆으로 흘러감 */
-.beach__streaks path { fill: none; stroke: #FFFFFF; stroke-width: 4; stroke-linecap: round; opacity: .75; }
-.beach__streaks { animation: beach-drift 9s linear infinite; }
-@keyframes beach-drift { from { transform: translateX(0); } to { transform: translateX(-1440px); } }
-@media (prefers-reduced-motion: reduce) { .beach__foam, .beach__streaks { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .beach__foam { animation: none; } }
 .find--map .find__inner { display: grid; justify-items: center; padding: clamp(40px, 7vh, 80px) 0; }
 .tastemap__head { display: grid; justify-items: center; gap: 16px; text-align: center; margin-bottom: clamp(20px, 3vh, 32px); }
 .tastemap { display: block; width: min(88%, 500px); border-radius: 18px; transition: transform var(--t-hover) var(--ease); }

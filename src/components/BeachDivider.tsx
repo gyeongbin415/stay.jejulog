@@ -65,11 +65,6 @@ export function BeachDivider() {
         </defs>
         {/* 바다 */}
         <rect width="1440" height="260" fill="url(#beach-sea)" />
-        {/* 바다 물결 줄 — 옆으로 흘러감 */}
-        <g className="beach__streaks">
-          <path d="M120 222 q60 -14 130 -2 M520 236 q70 -16 150 -4 M960 214 q60 -12 120 0 M1250 238 q60 -14 140 -2 M-200 214 q60 -12 120 0" />
-          <path d="M1560 222 q60 -14 130 -2 M1960 236 q70 -16 150 -4" />
-        </g>
         {/* 모래 · 파도는 위로 올려 바다를 넓게 */}
         <g transform="translate(0 -50)">
         {/* 젖은 모래 — 파도가 빠지면 드러남 (아래 끝은 흐려져 바다와 일자 경계가 안 생기게) */}
