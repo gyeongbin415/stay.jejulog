@@ -481,9 +481,9 @@ function InsideRooms() {
               {ui.home.moreSub}
             </p>
           </div>
-          {/* 인스타그램 게시물 표지 사진 — 세 칸 격자, 누르면 웹진 인스타그램 페이지에서 그 게시물이 바로 열림 */}
+          {/* 인스타그램 게시물 표지 사진 — 최근 9개만 세 칸 × 세 줄 격자, 누르면 웹진 인스타그램 페이지에서 그 게시물이 바로 열림 */}
           <ul className="more__grid">
-            {INSTA_POSTS.map((p, i) => (
+            {INSTA_POSTS.slice(0, 9).map((p, i) => (
               <li key={p.img}>
                 <a href={href.insta(i + 1)} data-track={`inside_thumb_${i + 1}`}>
                   <img src={p.img} alt={p.alt} loading="lazy" decoding="async" />
