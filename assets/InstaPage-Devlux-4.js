@@ -1,4 +1,4 @@
-import{c as e,f as t,i as n,m as r,o as i,p as a,r as o,s}from"./index-UtObS-ZZ.js";var c=r(),l=a(),u=`Stay Jejulog — Jeju stays our editors stay at and record |
+import{c as e,f as t,i as n,m as r,o as i,p as a,r as o,s}from"./index-ClKTFjM4.js";var c=r(),l=a(),u=`Stay Jejulog — Jeju stays our editors stay at and record |
 @stay.jejulog`,d=`编辑亲自入住并记录的 Stay Jejulog |
 @stay.jejulog`,f={en:{name:`Stay Jejulog | Jeju stays · guesthouses`,category:`Magazine`,bio:[`🏡 Jeju stays our editors stay at and record themselves`,`📖 From small guesthouses to hidden stays for every taste`],posts:{"insta/post-1.jpg":{alt:`Card-news cover reading ‘I came to a guesthouse to listen to LPs’ over a photo of a lit LP shelf and turntable`,caption:`A guesthouse in Jeju where you can listen to LPs and share your taste?
 
