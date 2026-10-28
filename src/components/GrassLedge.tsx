@@ -51,7 +51,7 @@ export function GrassLedge() {
           </linearGradient>
         </defs>
         {/* 잔디 윗면 · 모래 */}
-        <rect width="1440" height="46" fill="#CDE8BD" />
+        <rect width="1440" height="46" fill="#B4B54E" />
         <rect y="46" width="1440" height="84" fill="#F8ECDA" />
         {/* 모래 바람 결 — 아주 옅은 곡선 */}
         {RIPPLES.map(([x, y, w], i) => (
@@ -83,8 +83,8 @@ export function GrassLedge() {
         {/* 아래 테 — 둥글게 말려 들어가는 그늘 */}
         <path d={`M${SOIL_BOTTOM.join(' L')}`} fill="none" stroke="#6B4C2C" strokeWidth="2.4" opacity=".55" transform="translate(0 -1.2)" />
         {/* 잔디 턱 — 살짝 튀어나온 가장자리 (밑면은 짙은 초록, 윗면은 밝은 테) */}
-        <rect y="40" width="1440" height="6" rx="3" fill="#B6D9A0" />
-        <rect y="39" width="1440" height="3.5" fill="#DDF0D0" />
+        <rect y="40" width="1440" height="6" rx="3" fill="#9EA544" />
+        <rect y="39" width="1440" height="3.5" fill="#CCCB70" />
       </svg>
     </div>
   );

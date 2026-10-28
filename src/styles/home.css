@@ -167,7 +167,7 @@
 /* 사진 띠 — 세로 사진이 조금씩 겹쳐 화면 양 끝까지, 오른쪽에서 밀려 들어온 뒤 계속 왼쪽으로 흘러감 */
 .problem__inner:has(.strip) { padding-bottom: clamp(100px, 16vh, 160px); gap: clamp(18px, 3vh, 32px); } /* 아래 SCROLL 과 넉넉히 */
 .strip { margin-inline: calc(50% - 50vw); height: clamp(130px, 31vh, 340px); padding-block: 10px; overflow: hidden; } /* 위아래 여백 — 기운 모서리가 잘리지 않게 */
-.strip__track { display: flex; align-items: center; width: max-content; height: 100%; animation: strip-flow 9.5s linear infinite; }
+.strip__track { display: flex; align-items: center; width: max-content; height: 100%; animation: strip-flow 16s linear infinite; } /* 천천히 흘러감 */
 .strip__item { flex: none; aspect-ratio: 3 / 4; margin-left: clamp(-22px, -1.5vw, -10px); overflow: hidden; background: #F1E3D8; box-shadow: 0 2px 8px rgba(40, 30, 20, .1); opacity: .92; transform: translateY(var(--y, 0)) rotate(var(--r, 0deg)); } /* 살짝 비치게 — 겹친 사진이 은은하게 */
 .strip__item:nth-child(odd) { z-index: 1; }
 .strip__item img { display: block; width: 100%; height: 100%; object-fit: cover; }
@@ -280,7 +280,7 @@
 .find.find--map { background: #B1E1E6; }
 .find--map .tmi__lens { background-color: #B1E1E6; }
 /* 잔디 판 두께(디오라마) — 집 칸 잔디밭과 '게하게' 칸 모래 사이 (위 칸과 이음새가 안 보이게 살짝 겹침) */
-.ledge { position: relative; display: block; height: clamp(72px, 9vw, 130px); margin-top: -2px; overflow: hidden; background: linear-gradient(#CDE8BD 30%, #F8ECDA 30%); }
+.ledge { position: relative; display: block; height: clamp(72px, 9vw, 130px); margin-top: -2px; overflow: hidden; background: linear-gradient(#B4B54E 30%, #F8ECDA 30%); }
 .ledge svg { display: block; width: 100%; height: 100%; }
 /* 모래사장 → 파도 → 바다 */
 .beach { position: relative; display: block; height: clamp(170px, 22vw, 260px); margin-top: -3px; overflow: hidden; background: linear-gradient(#F8ECDA 50%, #B1E1E6 50%); } /* 위 칸 · 아래 바다와 이음새가 안 보이게 */

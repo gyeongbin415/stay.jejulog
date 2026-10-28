@@ -12,14 +12,16 @@ import { GrassLedge } from '../components/GrassLedge';
 import introNightUrl from '../assets/intro-night.webp';
 import stripWine from '../assets/strip/rooftop-dinner.webp';
 import stripRun from '../assets/strip/saewol-run.webp';
-import stripFlower from '../assets/strip/kokoko-flower.webp';
 import stripCamp from '../assets/strip/camp-table.webp';
 import stripMallow from '../assets/strip/fire-marshmallow.webp';
 import stripCandle from '../assets/strip/candle-dinner.webp';
 import stripLpWall from '../assets/strip/lp-wall.webp';
 import stripLiving from '../assets/strip/attic-living.webp';
 import stripRing from '../assets/strip/sunset-ring.webp';
-import stripNight from '../assets/strip/night-tents.webp';
+import stripPotluck from '../assets/strip/potluck-wall.webp';
+import stripCat from '../assets/strip/flower-cat.webp';
+import stripBuckwheat from '../assets/strip/buckwheat-umbrella.webp';
+import stripTea from '../assets/strip/iced-tea.webp';
 import stripDinner from '../assets/strip/susu-dinner-table.webp';
 import stripSnap from '../assets/strip/mureung-snap.webp';
 import stripLibrary from '../assets/strip/bookhome-library.webp';
@@ -297,23 +299,25 @@ function Problem() {
  * 사진 띠 — 게스트하우스 장면을 세로 사진으로, 조금씩 겹치고 살짝 기울여 한 줄로 늘어놓고
  * 오른쪽에서 밀려 들어온 뒤 계속 왼쪽으로 흘러갑니다. (같은 줄을 두 번 이어 붙여 끊김 없이 돕니다)
  * h 는 띠 높이 대비 %, y 는 위아래 어긋남(%), r 은 기울기(도).
- * photo 는 같은 사진이 쓰인 상세페이지 사진 파일 이름 — 대체 텍스트를 거기서 가져옵니다. (run · lounge · camp · mallow · dome · candle · lpwall · living · ring · night 은 상세에 없어 ui 문구)
+ * photo 는 같은 사진이 쓰인 상세페이지 사진 파일 이름 — 대체 텍스트를 거기서 가져옵니다. (run · lounge · camp · mallow · dome · candle · lpwall · living · ring · potluck · cat · buckwheat 은 상세에 없어 ui 문구)
  */
 const STRIP: { src: string; h: number; y: number; r: number; photo: string }[] = [
   { src: stripWine, h: 92, y: -3, r: -2, photo: 'rooftop-dinner' },
   { src: stripRun, h: 100, y: 2, r: 1.5, photo: 'run' },
   { src: stripLpWall, h: 89, y: -4, r: -1.5, photo: 'lpwall' },
-  { src: stripNight, h: 95, y: 3, r: 2, photo: 'night' },
+  { src: stripCat, h: 95, y: 3, r: 2, photo: 'cat' },
   { src: stripCamp, h: 97, y: -2, r: -2, photo: 'camp' },
-  { src: stripFlower, h: 90, y: 4, r: 2.5, photo: 'kokoko-flower' },
-  { src: stripLibrary, h: 94, y: -3, r: -1, photo: 'bookhome-library' },
-  { src: stripCandle, h: 98, y: 2, r: 1.5, photo: 'candle' },
+  { src: stripLibrary, h: 94, y: 4, r: 1, photo: 'bookhome-library' },
+  { src: stripBuckwheat, h: 99, y: -3, r: -1.5, photo: 'buckwheat' },
+  { src: stripCandle, h: 92, y: 2, r: 1.5, photo: 'candle' },
   { src: stripRing, h: 91, y: -4, r: -2, photo: 'ring' },
-  { src: stripSnap, h: 87, y: 3, r: 1, photo: 'mureung-snap' },
-  { src: stripMallow, h: 95, y: -1, r: -1.5, photo: 'mallow' },
-  { src: stripDinner, h: 100, y: 0, r: 2, photo: 'susu-dinner-table' },
-  { src: stripSunrise, h: 90, y: -2, r: -2, photo: 'kokoko-sunrise' },
-  { src: stripLiving, h: 96, y: 4, r: 1.5, photo: 'living' },
+  { src: stripPotluck, h: 97, y: 3, r: 2, photo: 'potluck' },
+  { src: stripSnap, h: 87, y: -1, r: -1, photo: 'mureung-snap' },
+  { src: stripMallow, h: 95, y: 2, r: 1.5, photo: 'mallow' },
+  { src: stripTea, h: 93, y: -3, r: -2, photo: 'tea' },
+  { src: stripDinner, h: 100, y: 0, r: -2, photo: 'susu-dinner-table' },
+  { src: stripSunrise, h: 90, y: -2, r: 2, photo: 'kokoko-sunrise' },
+  { src: stripLiving, h: 96, y: 4, r: -1.5, photo: 'living' },
 ];
 
 function PhotoStrip() {
@@ -328,7 +332,10 @@ function PhotoStrip() {
     if (key === 'lpwall') return ui.home.stripLpWallAlt;
     if (key === 'living') return ui.home.stripLivingAlt;
     if (key === 'ring') return ui.home.stripRingAlt;
-    if (key === 'night') return ui.home.stripNightAlt;
+    if (key === 'potluck') return ui.home.stripPotluckAlt;
+    if (key === 'cat') return ui.home.stripCatAlt;
+    if (key === 'buckwheat') return ui.home.stripBuckwheatAlt;
+    if (key === 'tea') return ui.home.stripTeaAlt;
     for (const g of programs.flatMap((p) => p.report.programs ?? [])) {
       const hit = [g.photo, ...(g.photos ?? [])].find((ph) => ph?.src?.includes(key));
       if (hit) return hit.alt;

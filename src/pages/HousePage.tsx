@@ -21,12 +21,12 @@ const VIEW_KEY = 'jejulog:house-view';
  * room: 방 네모 [x1, y1, x2, y2] / tag: 이름표 자리 [x, y, 최소 너비] (center — 가운데 기준)
  * 휴대폰은 한 층에 두 칸(914 × 1153), 넓은 화면은 같은 그림을 잘라 이어 붙인 한 층 세 칸(1337 × 963)
  *  — 책(다락) · 스냅사진 · 러닝(마당)은 그대로, 가운데 여섯 칸만 영화 · LP · 반지공방 / 꽃꽂이 · 집밥 · 와인
- * ground: 잔디색 땅이 시작되는 그림 높이
+ * ground: 배경 그림의 잔디가 시작되는 높이 — 집 1층 바닥(마당 그림 바로 위)
  */
 type Spot = { id: ProgramId; room: [number, number, number, number]; tag: [number, number, number]; center?: boolean };
 const HOUSES: Record<'narrow' | 'wide', { url: string; w: number; h: number; ground: number; spots: Spot[] }> = {
   narrow: {
-    url: houseUrl, w: 914, h: 1153, ground: 586,
+    url: houseUrl, w: 914, h: 1153, ground: 905,
     spots: [
       { id: 'book', room: [119, 103, 797, 291], tag: [456, 104, 66], center: true },
       { id: 'cinema', room: [119, 305, 449, 500], tag: [132, 321, 84] },
@@ -40,7 +40,7 @@ const HOUSES: Record<'narrow' | 'wide', { url: string; w: number; h: number; gro
     ],
   },
   wide: {
-    url: houseWideUrl, w: 1337, h: 963, ground: 586,
+    url: houseWideUrl, w: 1337, h: 963, ground: 712,
     spots: [
       { id: 'book', room: [160, 103, 1181, 291], tag: [668, 104, 66], center: true },
       { id: 'cinema', room: [160, 305, 490, 500], tag: [173, 321, 84] },
