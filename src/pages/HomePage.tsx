@@ -8,6 +8,7 @@ import { GehageScene } from '../components/GehageScene';
 import { INSTA_POSTS } from '../data/insta';
 import { TasteMapIsland } from '../components/TasteMapIsland';
 import { BeachDivider } from '../components/BeachDivider';
+import { StoneWall } from '../components/StoneWall';
 import introNightUrl from '../assets/intro-night.webp';
 import stripWine from '../assets/strip/rooftop-dinner.webp';
 import stripRun from '../assets/strip/saewol-run.webp';
@@ -354,6 +355,8 @@ function FindYourStay() {
   const { site: SITE, ui } = useContent();
   return (
     <section id="find" className="find" data-tone="light" aria-labelledby="find-title">
+      {/* 위 집 칸 잔디밭과 이 칸 모래 사이 — 제주 돌담 */}
+      <StoneWall />
       <div className="find__inner wrap">
         <div className="find__copy">
           <p className="label">{SITE.findYourStay.label}</p>
