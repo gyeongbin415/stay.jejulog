@@ -11,7 +11,6 @@ import { BeachDivider } from '../components/BeachDivider';
 import { GrassLedge } from '../components/GrassLedge';
 import introNightUrl from '../assets/intro-night.webp';
 import checkoutBgUrl from '../assets/checkout-stay.webp';
-import checkoutBgMobileUrl from '../assets/checkout-stay-m.webp';
 import stripLpWall from '../assets/strip/lp-wall.webp';
 import stripPotluck from '../assets/strip/potluck-wall.webp';
 import stripCat from '../assets/strip/flower-cat.webp';
@@ -514,8 +513,8 @@ function CheckOut() {
   const { site: SITE } = useContent();
   const c = SITE.checkOut;
   return (
-    // 배경 — 받은 그림(크림 종이 · 초록 언덕 위 stay Log 집 로고). 웹은 가로 그림(글 왼쪽 · 로고 오른쪽 아래), 휴대폰은 세로 그림(글 위 · 로고 아래)
-    <section id="checkout" className="outro" data-tone="light" aria-labelledby="checkout-title" style={{ '--outro-bg': `url(${checkoutBgUrl})`, '--outro-bg-m': `url(${checkoutBgMobileUrl})` } as CSSProperties}>
+    // 배경 — 받은 그림(크림 종이 · 찢어진 종이 · 초록 언덕 위 stay Log 집 로고)을 오른쪽 아래에. 글은 왼쪽 위, 로고는 글 아래 오른쪽 (휴대폰은 버튼 오른쪽 아래)
+    <section id="checkout" className="outro" data-tone="light" aria-labelledby="checkout-title" style={{ '--outro-bg': `url(${checkoutBgUrl})` } as CSSProperties}>
       <div className="outro__inner wrap">
         <header className="outro__head">
           <p className="label">{c.label}</p>

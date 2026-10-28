@@ -20,7 +20,8 @@ const VIEW_KEY = 'jejulog:house-view';
 /**
  * 받은 그림 두 장 속 방 자리 · 이름표 자리 — 그림 픽셀 기준
  * room: 방 네모 [x1, y1, x2, y2] / tag: 이름표 자리 [x, y, 최소 너비] (center — 가운데 기준, 다락)
- * 다락 책 · 3F 반지공방 · 꽃꽂이 · 2F 영화 · LP · 1F 집밥 · 와인 · 마당 스냅사진 · 러닝
+ * 휴대폰: 다락 책 · 3F 반지공방 · 꽃꽂이 · 2F 영화 · LP · 1F 집밥 · 와인 · 마당 스냅사진 · 러닝
+ * 웹: 다락 책 · 위층 반지공방 · 꽃꽂이 · 영화 · 아래층 LP · 집밥 · 와인 · 마당 스냅사진 · 러닝
  * 휴대폰(좁은 화면) — 세로 그림, 웹(넓은 화면) — 양옆 풍경까지 그려진 가로 그림을 화면 폭에 꽉 차게
  */
 type Spot = { id: ProgramId; room: [number, number, number, number]; tag: [number, number, number]; center?: boolean };
@@ -40,19 +41,19 @@ const HOUSES: Record<'narrow' | 'wide', { url: string; w: number; h: number; spo
       { id: 'running', room: [551, 1168, 878, 1348], tag: [564, 1181, 89] },
     ],
   },
-  // 웹 — 가로 그림 (1536 × 1024)
+  // 웹 — 가로 그림 (1536 × 1024) · 다락 1칸 + 한 층에 세 칸씩 두 층 + 마당 2칸
   wide: {
     url: houseWideUrl, w: 1536, h: 1024,
     spots: [
-      { id: 'book', room: [497, 130, 1038, 306], tag: [768, 175, 66], center: true },
-      { id: 'craft', room: [497, 316, 759, 471], tag: [509, 328, 122] },
-      { id: 'flower', room: [773, 316, 1038, 471], tag: [785, 328, 95] },
-      { id: 'cinema', room: [497, 481, 759, 632], tag: [509, 493, 84] },
-      { id: 'lp', room: [773, 481, 1038, 632], tag: [785, 493, 70] },
-      { id: 'homemeal', room: [497, 641, 759, 784], tag: [509, 653, 85] },
-      { id: 'wine', room: [773, 641, 1038, 784], tag: [785, 653, 83] },
-      { id: 'camping', room: [481, 801, 762, 952], tag: [493, 813, 120] },
-      { id: 'running', room: [771, 801, 1054, 952], tag: [783, 813, 89] },
+      { id: 'book', room: [362, 165, 1165, 378], tag: [764, 205, 66], center: true },
+      { id: 'craft', room: [355, 392, 612, 555], tag: [367, 404, 122] },
+      { id: 'flower', room: [626, 392, 880, 555], tag: [638, 404, 95] },
+      { id: 'cinema', room: [892, 392, 1165, 555], tag: [904, 404, 84] },
+      { id: 'lp', room: [355, 568, 612, 735], tag: [367, 580, 70] },
+      { id: 'homemeal', room: [626, 568, 880, 735], tag: [638, 580, 85] },
+      { id: 'wine', room: [892, 568, 1165, 735], tag: [904, 580, 83] },
+      { id: 'camping', room: [350, 755, 757, 942], tag: [362, 767, 120] },
+      { id: 'running', room: [768, 755, 1172, 942], tag: [780, 767, 89] },
     ],
   },
 };

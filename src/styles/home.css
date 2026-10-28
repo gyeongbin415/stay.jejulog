@@ -350,12 +350,12 @@
 .more__grid a:hover img { transform: scale(1.03); }
 .more__grid a:focus-visible { outline: 3px solid var(--orange); outline-offset: -3px; }
 .more__copy { display: grid; justify-items: center; gap: 14px; }
-/* 넓은 화면 — 테스트 칸(왼쪽 글 · 오른쪽 그림)과 거울처럼: 왼쪽 사진 격자, 오른쪽 글(왼쪽 맞춤, 테스트 칸과 같은 제목 크기) */
+/* 넓은 화면 — 테스트 칸(왼쪽 글 · 오른쪽 그림)과 같은 배치: 왼쪽 글(왼쪽 맞춤, 테스트 칸과 같은 제목 크기), 오른쪽 사진 격자 */
 @media (min-width: 900px) {
   /* 사진 · 글을 한 덩어리로 화면 가운데에 */
-  .more { grid-template-columns: minmax(0, 560px) minmax(0, max-content); justify-content: center; align-items: center; justify-items: start; column-gap: clamp(48px, 6vw, 104px); text-align: left; }
-  .more__grid { grid-column: 1; grid-row: 1; width: 100%; margin: 0; }
-  .more__copy { grid-column: 2; grid-row: 1; justify-items: start; gap: 16px; }
+  .more { grid-template-columns: minmax(0, max-content) minmax(0, 560px); justify-content: center; align-items: center; justify-items: start; column-gap: clamp(48px, 6vw, 104px); text-align: left; }
+  .more__grid { grid-column: 2; grid-row: 1; width: 100%; margin: 0; }
+  .more__copy { grid-column: 1; grid-row: 1; justify-items: start; gap: 16px; }
   .more__copy .more__hint { margin-top: calc(var(--hint-gap) - 14px); }
   .more__title { font-size: clamp(27px, 3.8vw, 46px); line-height: 1.32; letter-spacing: -0.025em; }
 }
@@ -379,15 +379,19 @@
 
 /* ── CHECK OUT — 메인 마지막 마무리 (인트로와 같은 현무암 먹색으로 처음과 끝을 맞춤) ─────────────────────────────── */
 /* 배경 — 받은 그림 한 장을 오른쪽 아래 기준으로 꽉 채움. 글은 왼쪽 크림 자리에, 로고와 안 겹치게 폭을 그림 절반 안쪽으로 */
-.outro { background: #FEFDF9 var(--outro-bg) right bottom / cover no-repeat; color: #2B2826; letter-spacing: normal; min-height: clamp(420px, 42vw, 640px); }
+/* 배경 — 받은 가로 그림(비탈을 왼쪽으로 이어 그려 넓힌 것)을 오른쪽 아래에 높이 --bgh 로 붙임.
+   그림 속 로고는 오른쪽 아래(그림 높이의 위 32% 아래), 글은 왼쪽 위 크림 자리 — 칸 높이를 그림보다 조금 크게 해 제목이 로고 위에 오게 */
+.outro {
+  --bgh: min(49vw, 562px);
+  background: #FEFDF9 var(--outro-bg) right bottom / auto var(--bgh) no-repeat; color: #2B2826; letter-spacing: normal;
+  min-height: calc(var(--bgh) + 40px);
+}
 .outro .label { letter-spacing: .16em; color: #E0702B; }
-.outro__inner > * { width: min(100%, 520px, 44vw - var(--gutter)); }
 .outro__closing { color: #5F5A55; }
-/* 휴대폰 — 세로 그림(위는 크림 종이, 아래 오른쪽에 로고). 칸 폭에 맞춰 아래에 붙이고, 글은 위 크림 자리에 (로고가 글 밑에 오도록 아래 여백) */
+/* 휴대폰 — 로고를 크게(화면 절반쯤), 글 아래 오른쪽 · 버튼 옆으로. 아래 여백을 그림 속 반짝이 높이만큼 둬 버튼과 안 겹치게 */
 @media (max-width: 699px) {
-  .outro { min-height: calc(100vw * 1449 / 1087); background-image: var(--outro-bg-m); background-size: 100% auto; background-position: center bottom; }
-  .outro .outro__inner { padding-bottom: 58vw; }
-  .outro__inner > * { width: 100%; }
+  .outro { --bgh: min(82vw, 430px); min-height: 0; }
+  .outro .outro__inner { padding-bottom: max(var(--bgh) * .683 - 64px, var(--bgh) * .465 + 14px); } /* 로고 윗선은 설명 글 아래, 반짝이는 버튼 아래로 */
 }
 .outro__inner { display: grid; justify-items: start; text-align: left; gap: clamp(18px, 2.6vh, 28px); padding: clamp(56px, 9vh, 96px) 0 clamp(60px, 10vh, 104px); } /* 글 양에 맞게 칸을 줄임 */
 .outro__head { display: grid; justify-items: start; gap: 16px; }

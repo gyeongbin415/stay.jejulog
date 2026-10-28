@@ -46,7 +46,7 @@ export const EN: ContentPack = {
 
     checkOut: {
       label: 'CHECK OUT',
-      title: ['What kind of day do you want on your next Jeju trip?'],
+      title: ['What kind of day would you like to spend in Jeju?'],
       sub: 'Beyond parties, guesthouses hold\nall kinds of experiences\nwaiting to match your taste.',
       cta: 'Look around again',
       instagram: 'See us on Instagram',
