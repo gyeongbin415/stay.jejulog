@@ -2,7 +2,7 @@ import type { ProgramId } from './types';
 
 /**
  * 스테이 제주로그 인스타그램(@stay.jejulog) — 웹진 안 '인스타그램' 페이지에 그대로 옮긴 모습.
- * 2026년 10월 27일 계정 화면 기준 (게시물 8 · 팔로워 37 · 팔로잉 7 · 좋아요 · 댓글 수). 사진은 public/insta/ 에 — 표지 post-N.jpg, 게시물 속 사진 전부 pN/01.webp ….
+ * 2026년 10월 27일 계정 화면 기준 (팔로워 37 · 팔로잉 7 · 좋아요 · 댓글 수), 10월 28일 최근 게시물 2개(서론 · 코코코)를 맨 앞에 더함 — 게시물 수 11. 사진은 public/insta/ 에 — 표지 post-N.jpg, 게시물 속 사진 전부 pN/01.webp ….
  * 글은 게시물 원문 그대로이고, stay 는 같은 숙소를 다룬 웹진 상세페이지입니다.
  */
 export const INSTA_PROFILE = {
@@ -10,7 +10,7 @@ export const INSTA_PROFILE = {
   name: '스테이 제주로그 | 제주 숙소 · 게스트하우스',
   bio: ['🏡 에디터가 직접 머물고 기록하는 제주 숙소', '📖 소규모 게하부터 숨은 취향 스테이까지'],
   avatar: 'insta/profile.jpg',
-  posts: 8,
+  posts: 11,
   /** 팔로워 기준값 — 팀 요청으로 화면에 1,113명이 보이도록 (1,110 + 10/27 시점 웹진 팔로우 3). 실제 계정 팔로워는 37명 */
   followers: 1110,
   following: 7,
@@ -32,6 +32,75 @@ export interface InstaPost {
 export const INSTA_POSTS: InstaPost[] = [
   {
     img: 'insta/post-1.jpg',
+    slides: 9,
+    likes: 4,
+    comments: 0,
+    alt: '불이 켜진 LP 선반과 턴테이블 사진 위에 ‘LP 들으러 게하 왔어요’라고 적힌 카드뉴스 표지',
+    date: '2026-10-28',
+    stay: 'lp',
+    caption: `제주에서 LP 음악을 들으며 취향을 나눌 수 있는 게스트하우스가 있다고?
+
+—
+
+🏠 서론게스트하우스
+
+사장님이 수집한 다양한 LP를 감상하고, 좋아하는 음악을 함께 들으며 여행자들과 취향을 나눠보세요.
+
+―
+
+📍 서론게스트하우스 (서귀포시 안덕면 사계신항로39번길 17-13)
+▪ 체크인 17:00 / 체크아웃 11:00
+▪ LP 청음 시간
+▪ 매달 새로운 질문지로 생각 나누기
+▪ 두 달에 한 번 리스닝 모임
+
+🍊 TIP
+• LP 음악과 아날로그 감성을 좋아하는 분께 추천!
+• 새로운 사람들과 생각과 취향을 나눌 수 있어요.
+
+―
+
+에디터가 직접 머물고 기록하는 스테이 제주로그 |
+@stay.jejulog
+✍🏻 Editor G & M`,
+  },
+  {
+    img: 'insta/post-2.jpg',
+    slides: 8,
+    likes: 3,
+    comments: 2,
+    alt: '돌담과 슬레이트 지붕의 제주 집 사진 위에 ‘여자 혼자 제주, 이 게하 어때?’라고 적힌 카드뉴스 표지',
+    date: '2026-10-27',
+    stay: 'flower',
+    caption: `여자 혼자서도 안심하고 이용할 수 있는 게하가 있다고?
+
+—
+
+🏠 코코코 게스트하우스
+
+혼자서도 편안하게, 잔잔하고 힐링되는 하루를  
+제주에서 보내고 싶은 분들을 위한 숙소
+
+—
+
+📍 코코코 게스트하우스 (제주시 구좌읍 상하도길 44-1)
+▪ 체크인 15:00 / 체크아웃 11:00
+▪ 제주의 꽃으로 만드는 꽃꽃이 클래스
+▪ 마을 주민분과 함께하는 오름 일출 투어
+▪ 여성 전용 1인실 숙소
+
+🍊 TIP
+• 4마리의 귀여운 고양이가 상주하고 있어요😺
+• 늦은 밤 도착 시 픽업 서비스를 해주시고 있어요
+
+—
+
+에디터가 직접 머물고 기록하는 스테이 제주로그 |
+@stay.jejulog
+✍🏻 Editor D`,
+  },
+  {
+    img: 'insta/post-3.jpg',
     slides: 10,
     likes: 3,
     comments: 0,
@@ -65,7 +134,7 @@ export const INSTA_POSTS: InstaPost[] = [
 ✍🏻 Editor S`,
   },
   {
-    img: 'insta/post-2.jpg',
+    img: 'insta/post-4.jpg',
     slides: 9,
     likes: 3,
     comments: 5,
@@ -95,7 +164,7 @@ export const INSTA_POSTS: InstaPost[] = [
 ✍🏻 Editor W`,
   },
   {
-    img: 'insta/post-3.jpg',
+    img: 'insta/post-5.jpg',
     slides: 8,
     likes: 3,
     comments: 0,
@@ -127,7 +196,7 @@ export const INSTA_POSTS: InstaPost[] = [
 ✍🏻 Editor M`,
   },
   {
-    img: 'insta/post-4.jpg',
+    img: 'insta/post-6.jpg',
     slides: 7,
     likes: 3,
     comments: 0,
@@ -163,7 +232,7 @@ export const INSTA_POSTS: InstaPost[] = [
 ✍🏻 Editor D`,
   },
   {
-    img: 'insta/post-5.jpg',
+    img: 'insta/post-7.jpg',
     slides: 9,
     likes: 3,
     comments: 0,
@@ -197,7 +266,7 @@ export const INSTA_POSTS: InstaPost[] = [
 ✍🏻 Editor G`,
   },
   {
-    img: 'insta/post-6.jpg',
+    img: 'insta/post-8.jpg',
     slides: 14,
     likes: 186,
     comments: 4,
@@ -232,7 +301,7 @@ export const INSTA_POSTS: InstaPost[] = [
 ✍🏻 Editor S`,
   },
   {
-    img: 'insta/post-7.jpg',
+    img: 'insta/post-9.jpg',
     slides: 11,
     likes: 3,
     comments: 3,
@@ -268,7 +337,7 @@ export const INSTA_POSTS: InstaPost[] = [
 ✍🏻 Editor W`,
   },
   {
-    img: 'insta/post-8.jpg',
+    img: 'insta/post-10.jpg',
     slides: 8,
     likes: 181,
     comments: 14,
