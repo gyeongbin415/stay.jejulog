@@ -160,16 +160,8 @@ export default function MapPage() {
       <header className="tmap__head wrap">
         {/* 메인의 게하 탐색 · 취향 테스트 칸으로 — 버튼 대신 작은 글자 링크 */}
         <nav className="tmap__jump" aria-label={ui.nav.mainNav}>
-          <a href={href.house()} data-track="map_to_house">
-            {/* 집 */}
-            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 7.2 8 2.8l5.5 4.4M4 6.2v7h3v-3.4h2v3.4h3v-7" /></svg>
-            {ui.nav.house}
-          </a>
-          <a href={href.home('find')} data-track="map_to_test">
-            {/* 체크 표시 */}
-            <svg viewBox="0 0 16 16" aria-hidden="true"><rect x="2.5" y="2.5" width="11" height="11" rx="2.5" /><path d="m5.3 8.2 1.9 1.9 3.6-3.8" /></svg>
-            {ui.nav.test}
-          </a>
+          <a href={href.house()} data-track="map_to_house">{ui.nav.house}<span aria-hidden="true"> →</span></a>
+          <a href={href.home('find')} data-track="map_to_test">{ui.nav.test}<span aria-hidden="true"> →</span></a>
         </nav>
         <p className="label">AROUND JEJU</p>
         <h1 id="map-title" className="tmap__title">{t.pageTitle}</h1>
