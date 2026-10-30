@@ -20,6 +20,8 @@ function testPage(): Plugin {
     },
     closeBundle() {
       const html = readFileSync(resolve(outDir, 'index.html'), 'utf8')
+        // 스크립트로 <base> 를 넣으면 브라우저가 그 전에 test/assets/… 를 먼저 찾아 헛걸음하므로, 테스트 페이지에는 처음부터 태그로
+        .replace(/<script>[^<]*createElement\('base'\)[^<]*<\/script>/, '<base href="../" />')
         .replace(`<link rel="canonical" href="${SITE_URL}" />`, `<link rel="canonical" href="${SITE_URL}test/" />`)
         .replace(`<meta property="og:url" content="${SITE_URL}" />`, `<meta property="og:url" content="${SITE_URL}test/" />`)
         .replace(/<title>[^<]*<\/title>/, '<title>취향 테스트 | STAY JEJULOG</title>');
