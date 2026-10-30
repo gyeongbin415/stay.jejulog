@@ -5,7 +5,7 @@ import type { ProgramId } from '../data/types';
 import { scoreQuiz, decodeAnswers, type AnswerKey, type QuizResult } from '../lib/scoring';
 import { characterArt } from '../data/characterArt';
 import { gaAttrs } from '../lib/gaParams';
-import { href } from '../lib/router';
+import { absUrl, href } from '../lib/router';
 import { prefersReducedMotion } from '../lib/motion';
 import { track } from '../lib/track';
 import { makeResultImage } from '../lib/resultImage';
@@ -216,7 +216,7 @@ function Result({ result, shared, onRetry, focusRef }: { result: QuizResult; sha
   };
 
   // 결과 공유 — 지금 쓰는 기기의 공유 창으로 (휴대폰이면 카카오톡 · 인스타그램 앱이 목록에 바로 뜸)
-  const url = `${window.location.origin}${window.location.pathname}${href.result(result.code)}`;
+  const url = absUrl(href.result(result.code));
   const hit = (via: string) => track('result_share', { via });
   const failed = (err: unknown) => setStatus((err as Error)?.name === 'AbortError' ? t.canceled : t.shareFailed);
   // 카카오톡 — 결과 링크를 공유 창으로 (링크만 보냄, 제목 · 설명 문장은 함께 보내지 않음)
@@ -240,7 +240,7 @@ function Result({ result, shared, onRetry, focusRef }: { result: QuizResult; sha
   //  누르면 웹진의 이 결과 화면으로 바로 넘어감
   const shareX = () => {
     hit('x');
-    const cardUrl = `${window.location.origin}${window.location.pathname}s/${result.main}.html?r=${result.code}`;
+    const cardUrl = absUrl(`s/${result.main}.html?r=${result.code}`);
     openXPost(t.xText(site.characters[result.main]), cardUrl);
   };
   // 링크 복사 — 결과 링크를 복사해 두고 원하는 곳(문자 · DM · 메모 등)에 붙여 넣게

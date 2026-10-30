@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useContent } from '../i18n';
-import { href } from '../lib/router';
+import { absUrl, href } from '../lib/router';
 import { track } from '../lib/track';
 import { openXPost } from '../lib/shareX';
 
@@ -12,7 +12,7 @@ export function TestShare() {
   const { ui } = useContent();
   const t = ui.home;
   const [status, setStatus] = useState('');
-  const url = `${window.location.origin}${window.location.pathname}${href.test()}`;
+  const url = absUrl(href.test());
   const hit = (via: string) => track('test_share', { via });
 
   const copy = async () => {

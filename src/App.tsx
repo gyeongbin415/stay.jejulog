@@ -49,7 +49,7 @@ export function App() {
     } else if (route.name === 'house') {
       m = { title: `${ui.nav.house} — ${site.explore.title.join(' ')} | ${SITE_NAME}`, description: site.explore.sub, path: '#/house' };
     } else if (route.name === 'test') {
-      m = { title: `${ui.nav.test} | ${SITE_NAME}`, description: ui.test.storyBody.replace(/\n/g, ' '), path: '#/test' };
+      m = { title: `${ui.nav.test} | ${SITE_NAME}`, description: ui.test.storyBody.replace(/\n/g, ' '), path: 'test/' };
     } else if (route.name === 'insta') {
       m = { title: `${ui.insta.title} | ${SITE_NAME}`, description: INSTA_PROFILE.bio.join(' '), path: '#/instagram' };
     } else if (route.name === 'map') {
