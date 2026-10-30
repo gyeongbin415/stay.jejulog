@@ -2,7 +2,7 @@
 <html lang="ko">
   <head>
     <!-- 취향 테스트 주소(…/test/)로 열리면 사진 · 파일 · 링크를 메인 주소 기준으로 찾도록 (빌드 때 이 파일이 test/index.html 로 한 벌 더 놓임) -->
-    <script>/\/test\/(index\.html)?$/.test(location.pathname)&&document.head.appendChild(Object.assign(document.createElement('base'),{href:'../'}))</script>
+    <base href="../" />
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
