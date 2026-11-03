@@ -435,15 +435,21 @@
 
 
 /* ── 메인 폴더 — CHECK IN 아래 탭 달린 폴더 넷, 스크롤마다 하나씩 올라왔다 내려감 (components/HomeFolders.tsx) ─────────────────────────────── */
-.folders { --tab-h: 40px; --step: 30px; --slope: 16px; position: absolute; inset: 0; z-index: 6; pointer-events: none; opacity: 0; visibility: hidden; transition: opacity .5s var(--ease), visibility 0s linear .5s; }
+/* 종이 질감 — 아주 옅은 잡티 · 결 (색은 폴더마다 --fc 그대로) */
+.folders {
+  --tab-h: 36px; --step: 6px; --slope: 10px; --edge: 3%;
+  --paper-tex: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .32 0 0 0 0 .27 0 0 0 0 .2 0 0 0 .13 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.012 .09' numOctaves='2' seed='4'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .16 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E");
+  position: absolute; inset: 0; z-index: 6; pointer-events: none; opacity: 0; visibility: hidden; transition: opacity .5s var(--ease), visibility 0s linear .5s;
+}
 .intro[data-phase="reveal"] .folders { opacity: 1; visibility: visible; transition: opacity .8s var(--ease) .9s; }
-/* 폴더 한 장 — 쉴 때는 탭만 화면 아래에 촘촘히 겹쳐 보이고(뒤 탭은 앞 탭이 글씨 바로 밑까지만 가림), 올라오면 상단 바 아래까지
+/* 폴더 한 장 — 인덱스 카드처럼: 탭 넷이 위에 나란히, 카드는 몇 px 씩만 어긋나게 거의 포개 깔아 둠. 올라오면 상단 바 아래까지
    탭 · 몸통이 한 덩어리로 보이게 그림자는 폴더 전체 모양에 */
 .folder {
   --peek: calc(var(--tab-h) + (3 - var(--i)) * var(--step));
   position: absolute; left: 0; right: 0; top: calc(var(--header) + 8px); bottom: 0; z-index: calc(1 + var(--i));
   display: flex; flex-direction: column;
-  filter: drop-shadow(0 -2px 3px rgba(58, 55, 53, .12));
+  filter: drop-shadow(0 -1px 2px rgba(58, 55, 53, .14));
   transform: translateY(calc(100% - var(--peek))); transition: transform .7s cubic-bezier(.65, 0, .35, 1);
 }
 .folder.is-up { z-index: 10; transform: translateY(0); }
@@ -451,28 +457,38 @@
 .folder--test { --fc: #F5E2A0; }
 .folder--map { --fc: #C4E3E6; }
 .folder--guest { --fc: #CFE0B4; }
-/* 탭 — 서류 폴더처럼 양옆이 비스듬히 내려와 몸통에 이어짐, 폴더마다 옆으로 비켜 남 */
+/* 탭 — 네 칸 나란히, 양옆이 둥글게 비스듬히 내려와 몸통에 이어지고 옆 탭과 살짝 겹침 (글씨는 안 겹침) */
 .folder__tab {
   pointer-events: auto; position: relative; z-index: 1;
-  display: flex; align-items: center; gap: 7px; flex: none;
-  width: 28%; height: var(--tab-h); margin: 0 0 -1px calc(5% + var(--i) * 15%); padding: 0 6px; /* 마지막 탭이 오른쪽 아래 동그라미 버튼에 가리지 않게 왼쪽으로 모음 */
-  background: var(--fc); border: 0; border-radius: 10px 10px 0 0;
-  font-family: var(--f-home); font-size: 13.5px; font-weight: 800; letter-spacing: -0.03em; color: var(--ink); text-align: left; white-space: nowrap; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; flex: none;
+  width: calc((100% - var(--edge) * 2) / 4 - var(--slope) * 2 + 4px); height: var(--tab-h);
+  margin: 0 0 -1px calc(var(--edge) + var(--i) * (100% - var(--edge) * 2) / 4 + var(--slope) - 2px); padding: 0 2px;
+  background: var(--paper-tex), var(--fc); border-radius: 9px 9px 0 0;
+  font-family: var(--f-home); font-size: 12.5px; font-weight: 800; letter-spacing: -0.03em; color: var(--ink); white-space: nowrap;
 }
 .folder__tab::before, .folder__tab::after {
   content: ''; position: absolute; z-index: -1; top: 0; bottom: 0; width: calc(var(--slope) * 2);
-  background: var(--fc); transform-origin: bottom;
+  background: var(--paper-tex), var(--fc); transform-origin: bottom;
 }
-.folder__tab::before { left: calc(var(--slope) * -1); border-radius: 10px 0 0 0; transform: skewX(-24deg); }
-.folder__tab::after { right: calc(var(--slope) * -1); border-radius: 0 10px 0 0; transform: skewX(24deg); }
-.folder__no { font-size: 10px; font-weight: 700; letter-spacing: .08em; opacity: .55; }
+.folder__tab::before { left: calc(var(--slope) * -1); border-radius: 12px 0 0 0; transform: skewX(-22deg); }
+.folder__tab::after { right: calc(var(--slope) * -1); border-radius: 0 12px 0 0; transform: skewX(22deg); }
+/* 탭 글씨(누르면 그 폴더로) · 올라온 폴더만 옆에 X(누르면 내림) */
+.folder__pick { flex: 1; display: flex; align-items: center; justify-content: center; gap: 7px; min-width: 0; height: 100%; padding: 0; background: none; border: 0; font: inherit; color: inherit; letter-spacing: inherit; text-align: left; white-space: nowrap; cursor: pointer; }
+.folder__close { flex: none; display: grid; place-items: center; width: 26px; height: 26px; margin-left: 4px; padding: 0; border: 0; border-radius: 50%; background: #fff; color: var(--ink); cursor: pointer; transition: transform var(--t-hover) var(--ease); }
+.folder__close:hover { transform: scale(1.08); }
+.folder__close svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; }
+/* 올라와도 탭 크기는 그대로 — X 는 탭 바로 오른쪽 바깥에 */
+.folder.is-up .folder__close { position: absolute; left: calc(100% + var(--slope) + 6px); top: 50%; translate: 0 -50%; margin: 0; box-shadow: 0 1px 4px rgba(58, 55, 53, .18); }
+/* 맨 오른쪽 방명록 탭은 화면 밖으로 나가지 않게 X 를 왼쪽에 (휴대폰) */
+@media (max-width: 899px) { .folder--guest.is-up .folder__close { left: auto; right: calc(100% + var(--slope) + 6px); } }
+.folder__no { display: none; font-size: 10px; font-weight: 700; letter-spacing: .08em; opacity: .55; }
 .folder__en { display: none; margin-left: auto; font-size: 10px; font-weight: 700; letter-spacing: .16em; opacity: .55; }
 /* 몸통 — 위 가장자리에 접힌 듯 옅은 빛 · 그늘, 그림 · 제목 · 버튼은 가운데 */
 .folder__body {
   pointer-events: auto; flex: 1; display: grid; align-content: center; justify-items: center; gap: clamp(16px, 2.6vh, 24px);
   padding: 24px var(--gutter) calc(24px + env(safe-area-inset-bottom)); overflow: hidden; text-align: center;
-  background: linear-gradient(rgba(255, 255, 255, .28), rgba(255, 255, 255, 0) 3px, rgba(58, 55, 53, .05) 4px, rgba(58, 55, 53, 0) 14px), var(--fc);
-  border-radius: 14px 14px 0 0; color: var(--ink); /* 인트로의 밝은 글자색이 이어지지 않게 */
+  background: linear-gradient(rgba(255, 255, 255, .28), rgba(255, 255, 255, 0) 3px, rgba(58, 55, 53, .05) 4px, rgba(58, 55, 53, 0) 14px), var(--paper-tex), var(--fc);
+  border-radius: 10px 10px 0 0; color: var(--ink); /* 인트로의 밝은 글자색이 이어지지 않게 */
 }
 .folder__body .label { margin: 0; }
 .folder__body .section-head__title { margin: 0; }
@@ -480,12 +496,14 @@
 .folder__body .tastemap { width: auto; }
 .folder__body .gnote__art { width: auto; }
 /* CHECK IN 글이 아래 탭들과 겹치지 않게 */
-.intro .problem__inner:has(.strip) { padding-bottom: calc(40px + 3 * 30px + 24px); }
+.intro .problem__inner:has(.strip) { padding-bottom: calc(36px + 3 * 6px + 24px); }
 @media (min-width: 900px) {
-  .folders { --tab-h: 48px; --step: 36px; --slope: 20px; }
-  .folder__tab { width: 22%; margin-left: calc(5% + var(--i) * 18%); font-size: 17px; padding: 0 10px; }
+  .folders { --tab-h: 46px; --step: 8px; --slope: 18px; --edge: 6%; }
+  .folder__tab { font-size: 16px; padding: 0 14px; }
+  .folder__pick { justify-content: flex-start; }
+  .folder__no { display: inline; }
   .folder__en { display: inline; }
-  .intro .problem__inner:has(.strip) { padding-bottom: calc(48px + 3 * 36px + 24px); }
+  .intro .problem__inner:has(.strip) { padding-bottom: calc(46px + 3 * 8px + 24px); }
 }
 /* 동작 줄이기 — 고정 없이 네 폴더를 차례로 펼침 */
 .folders--still { position: relative; inset: auto; opacity: 1; visibility: visible; }

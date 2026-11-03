@@ -110,13 +110,15 @@ function Intro() {
   const step = reduced ? REVEAL : steps[k];
   /** 올라와 있는 폴더 (없으면 -1) */
   const open = step > REVEAL ? step - REVEAL - 1 : -1;
-  /** 탭을 누르면 그 폴더 단계 자리로 */
-  const pick = (i: number) => {
+  /** 단계 자리로 바로 옮김 — 폴더 움직임은 폴더가 맡음 (부드럽게 굴리면 사이 폴더가 잠깐씩 올라왔다 내려감)
+   *  폴더를 누르면 그 폴더 단계, X 를 누르면 CHECK IN 단계(폴더가 다 내려감) */
+  const toStep = (at: number) => {
     const el = ref.current;
     if (!el) return;
-    const y = el.getBoundingClientRect().top + window.scrollY + (CHECKIN_AT + 1 + i) * STEP_VH * window.innerHeight;
-    window.scrollTo({ top: y, behavior: 'smooth' });
+    const y = el.getBoundingClientRect().top + window.scrollY + at * STEP_VH * window.innerHeight;
+    window.scrollTo({ top: y, behavior: 'instant' as ScrollBehavior });
   };
+  const pick = (i: number) => toStep(CHECKIN_AT + 1 + i);
   const shown = step;
   const revealed = !reduced && step >= REVEAL;
   const phase = reduced ? 'static'
@@ -233,7 +235,7 @@ function Intro() {
           <Problem />
         </div>
         {/* CHECK IN 아래 — 탭 달린 폴더 넷 (스크롤마다 하나씩 올라옴) */}
-        {!reduced && <HomeFolders open={open} onPick={pick} />}
+        {!reduced && <HomeFolders open={open} onPick={pick} onClose={() => toStep(CHECKIN_AT)} />}
       </div>
       {reduced && <HomeFolders open={-1} onPick={() => {}} still />}
     </section>

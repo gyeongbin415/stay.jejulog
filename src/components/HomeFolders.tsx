@@ -23,8 +23,8 @@ const Arrow = () => (
   </svg>
 );
 
-/** open — 올라와 있는 폴더(0 · 1 · 2 · 3, 없으면 -1) · onPick — 탭을 눌렀을 때 */
-export function HomeFolders({ open, onPick, still = false }: { open: number; onPick: (i: number) => void; still?: boolean }) {
+/** open — 올라와 있는 폴더(0 · 1 · 2 · 3, 없으면 -1) · onPick — 폴더를 눌렀을 때 · onClose — 올라온 폴더의 X */
+export function HomeFolders({ open, onPick, onClose = () => {}, still = false }: { open: number; onPick: (i: number) => void; onClose?: () => void; still?: boolean }) {
   const { site: SITE, ui } = useContent();
 
   const bodies: { label: string; en: string; body: ReactNode }[] = [
@@ -106,13 +106,30 @@ export function HomeFolders({ open, onPick, still = false }: { open: number; onP
           style={{ '--i': i } as CSSProperties}
           aria-labelledby={`folder-tab-${i}`}
           data-tone="light"
+          // 깔려 있는 폴더는 어디를 눌러도(탭 · 보이는 몸통) 그 폴더가 올라옴 — 속 링크로는 가지 않음
+          onClickCapture={(e) => {
+            if (still || open === i) return;
+            e.preventDefault();
+            e.stopPropagation();
+            onPick(i);
+          }}
         >
-          <button type="button" id={`folder-tab-${i}`} className="folder__tab" onClick={() => onPick(i)} aria-expanded={open === i} data-track={`home_folder_${FOLDER_KEYS[i]}`}>
-            <span className="folder__no">0{i + 1}</span>
-            {b.label}
-            <span className="folder__en">{b.en}</span>
-          </button>
-          <div className="folder__body" inert={!still && open !== i}>
+          <div className="folder__tab">
+            <button type="button" id={`folder-tab-${i}`} className="folder__pick" onClick={() => onPick(i)} aria-expanded={open === i} data-track={`home_folder_${FOLDER_KEYS[i]}`}>
+              <span className="folder__no">0{i + 1}</span>
+              {b.label}
+              <span className="folder__en">{b.en}</span>
+            </button>
+            {/* 올라온 폴더 — 탭 글씨 옆 X 로 내림 */}
+            {!still && open === i && (
+              <button type="button" className="folder__close" onClick={onClose} aria-label={ui.deck.close(b.label)} data-track={`home_folder_close_${FOLDER_KEYS[i]}`}>
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M6 6l12 12M18 6 6 18" />
+                </svg>
+              </button>
+            )}
+          </div>
+          <div className="folder__body">
             {b.body}
           </div>
         </section>
