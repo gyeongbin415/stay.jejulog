@@ -14,7 +14,7 @@ import noteUrl from '../assets/guest-note.png';
      — 종이에 큰 제목 · 작은 문장 · 손글씨 메모 (cover — HomePage 에서 넘김)
    · 스크롤을 한 번 내릴 때마다 맨 위 장이 왼쪽 가장자리를 축으로 책장처럼 넘어가고 다음 폴더가 드러남
      (단계는 인트로가 맡음 — HomePage Intro 의 STEPS 끝에 폴더 넷)
-   · 폴더 — 오른쪽 옆 세로 탭([ 01 게하 탐색 ], 위에서부터 차례로 어긋나 모두 보임) · 안에 접힌 자국 있는 종이:
+   · 폴더 — 오른쪽 옆 세로 탭(이름만, 위에서부터 차례로 어긋나 모두 보임) · 안에 접힌 자국 있는 종이:
      [ 번호 ] · 항목 이름 : 굵은 문장 · 기울인 메모 · 버튼, 오른쪽 위에 클립으로 끼운 폴라로이드 사진
    · 탭을 누르면 그 폴더까지 넘어감. 그림 · 버튼을 누르면 상세페이지로
    · 동작 줄이기 설정이면 고정 없이 네 폴더를 차례로 펼쳐 보여 줌
@@ -91,10 +91,10 @@ export function HomeFolders({ open, onPick, still = false, cover }: { open: numb
           aria-labelledby={`folder-tab-${i}`}
           data-tone="light"
         >
-          {/* 오른쪽 옆 세로 탭 — [ 01 게하 탐색 ] */}
+          {/* 오른쪽 옆 세로 탭 — 이름만 (게하 탐색) */}
           <div className="folder__tab">
             <button type="button" id={`folder-tab-${i}`} className="folder__pick" onClick={() => onPick(i)} aria-expanded={open === i} data-track={`home_folder_${FOLDER_KEYS[i]}`}>
-              [ 0{i + 1} {c.label} ]
+              {c.label}
             </button>
           </div>
           {/* 종이 — 접힌 자국, 서류철 같은 글 배치 (드러난 폴더만 누를 수 있음) */}

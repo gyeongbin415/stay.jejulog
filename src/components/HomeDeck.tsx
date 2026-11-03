@@ -1,6 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
-import { createPortal } from 'react-dom';
-import { useContent } from '../i18n';
+import { useEffect, useRef } from 'react';
 import '../styles/deck.css';
 
 /* ------------------------------------------------------------------
@@ -14,13 +12,6 @@ import '../styles/deck.css';
 ------------------------------------------------------------------- */
 
 export const HOME_PANELS = ['intro', 'checkout'] as const;
-/** 오른쪽 점 — 인트로 처음 · 폴더 넷(인트로 안 단계 자리, HomePage) · 체크아웃 */
-const MARKS = ['intro', 'roomtour', 'find', 'tastemap', 'guest', 'checkout'] as const;
-/** 자리 이름의 페이지 스크롤 값 */
-const topOf = (id: string) => {
-  const el = document.getElementById(id);
-  return el ? el.getBoundingClientRect().top + window.scrollY : 0;
-};
 
 /** 넘어가는 시간(ms) */
 const DUR = 700;
@@ -54,9 +45,6 @@ const blocked = (target: EventTarget | null) => {
 };
 
 export function HomeDeck() {
-  const { ui } = useContent();
-  const t = ui.deck;
-  const [index, setIndex] = useState(0);
   const go = useRef<(k: number, toEnd?: boolean) => void>(() => {});
   const goY = useRef<(y: number) => void>(() => {});
 
@@ -204,58 +192,24 @@ export function HomeDeck() {
       if (Math.abs(v) > 0.1) coast(v, gg.top, gg.end);
     };
 
-    // 오른쪽 점 — 지금 지나온 마지막 자리
-    let raf = 0;
-    const onScroll = () => {
-      if (raf) return;
-      raf = requestAnimationFrame(() => {
-        raf = 0;
-        const y = window.scrollY + 2;
-        let k = 0;
-        MARKS.forEach((id, i) => {
-          if (topOf(id) <= y) k = i;
-        });
-        setIndex(k);
-      });
-    };
-    onScroll();
-
     const opts = { passive: false } as AddEventListenerOptions;
     window.addEventListener('wheel', onWheel, opts);
     window.addEventListener('touchstart', onStart, { passive: true });
     window.addEventListener('touchmove', onMove, opts);
     window.addEventListener('touchend', onEnd);
     window.addEventListener('touchcancel', onEnd);
-    window.addEventListener('scroll', onScroll, { passive: true });
     document.documentElement.classList.add('has-fullpage');
     return () => {
       stop();
-      cancelAnimationFrame(raf);
       window.removeEventListener('wheel', onWheel, opts);
       window.removeEventListener('touchstart', onStart);
       window.removeEventListener('touchmove', onMove, opts);
       window.removeEventListener('touchend', onEnd);
       window.removeEventListener('touchcancel', onEnd);
-      window.removeEventListener('scroll', onScroll);
       document.documentElement.classList.remove('has-fullpage');
     };
   }, []);
 
-  // 화면에 바로 고정 — 페이지 등장 애니메이션(transform) 안에 두면 화면이 아니라 페이지에 붙으므로 body 에
-  return createPortal(
-    <nav className="deckdots" aria-label={t.aria}>
-      {MARKS.map((id, k) => (
-        <button
-          key={id}
-          type="button"
-          className={`deckdots__dot${k === index ? ' is-on' : ''}`}
-          aria-label={t[id]}
-          aria-current={k === index ? 'true' : undefined}
-          onClick={() => goY.current(topOf(id))}
-          data-track={`deck_dot_${id}`}
-        />
-      ))}
-    </nav>,
-    document.body,
-  );
+  // 화면에 그리는 것은 없음 (오른쪽 점은 뺌) — 손짓 · 휠로 넘기는 동작만
+  return null;
 }

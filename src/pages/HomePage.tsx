@@ -294,7 +294,29 @@ function Problem() {
   );
 }
 
-/** 처음 장 — 뒤에 타자 친 서류, 마닐라 폴더(왼쪽 세로 탭), 앞에 구멍 뚫린 종이를 검은 집게가 물고 있음 · 큰 제목 · 작은 문장 · 손글씨 메모 */
+/** 처음 장 집게가 물고 있는 사진 — 이 사진들이 한 장씩 차례로 */
+const CASE_PHOTOS = [stripSeaSit, stripCosmos, stripLpWall, stripSunrise, stripDinner, stripCrater, stripPuppy, stripTea, stripForest, stripPotluck, stripGuitar, stripMallow];
+/** 사진이 바뀌는 간격(ms) */
+const CASE_EVERY = 2800;
+
+/** 집게가 물고 있는 사진 한 장 — 몇 초마다 다음 사진으로 스르르 바뀜 (동작 줄이기 설정이면 첫 사진 그대로) */
+function CasePhoto() {
+  const reduced = useReducedMotion();
+  const [i, setI] = useState(0);
+  useEffect(() => {
+    if (reduced) return;
+    const id = window.setInterval(() => setI((n) => (n + 1) % CASE_PHOTOS.length), CASE_EVERY);
+    return () => window.clearInterval(id);
+  }, [reduced]);
+  return (
+    <span className="ccase__photo" aria-hidden="true">
+      {/* 바뀔 때 새 사진이 위에 스르르 */}
+      <img key={CASE_PHOTOS[i]} src={CASE_PHOTOS[i]} alt="" />
+    </span>
+  );
+}
+
+/** 처음 장 — 뒤에 타자 친 서류, 마닐라 폴더(왼쪽 세로 탭), 앞에 구멍 뚫린 종이를 검은 집게가 사진과 함께 물고 있음 · 큰 제목 · 작은 문장 · 손글씨 메모 */
 function CoverCase() {
   const { site: SITE } = useContent();
   return (
@@ -309,6 +331,7 @@ function CoverCase() {
       </div>
       <div className="ccase__paper">
         <span className="ccase__holes" aria-hidden="true" />
+        <CasePhoto />
         <span className="ccase__clip" aria-hidden="true" />
         <h2 className="ccase__title">{SITE.problem.title[0]}</h2>
         <p className="ccase__sub">{SITE.problem.title[1]}</p>
