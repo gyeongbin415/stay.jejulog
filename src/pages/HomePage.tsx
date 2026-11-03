@@ -210,8 +210,13 @@ function Intro() {
           ))}
         </p>
 
+        {/* 첫 화면부터 — 아래로 내려 보라는 표시 (SCROLL + 꺾쇠, 끝 화면의 표시와 같은 모양) */}
         <p className="intro__hint" aria-hidden="true">
-          <i />
+          <span>SCROLL</span>
+          <b className="intro__chev">
+            <span />
+            <span />
+          </b>
         </p>
 
         {/* 밝은 화면이 서서히 떠오르며 — 문제 정의 */}
@@ -219,14 +224,6 @@ function Intro() {
           {/* 동작 줄이기 설정이면 고정 없이 펼쳐지므로 CHECK IN 자리는 여기 */}
           {reduced && <span id="checkin" />}
           <Problem />
-          {/* 아래로 내려 보라는 표시 */}
-          <p className="intro__scroll" aria-hidden="true">
-            <span>SCROLL</span>
-            <b className="intro__chev">
-              <span />
-              <span />
-            </b>
-          </p>
         </div>
       </div>
     </section>

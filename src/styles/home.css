@@ -70,13 +70,12 @@
 
 .intro__hint {
   z-index: 2; position: absolute; left: 50%; bottom: 40px; translate: -50% 0;
-  display: grid; justify-items: center; gap: 12px;
-  font-family: var(--mono); font-size: 13px; letter-spacing: .14em; color: rgba(246, 243, 237, .62);
+  display: grid; justify-items: center; gap: 8px; margin: 0;
+  font-family: var(--f-sans); font-size: 11px; font-weight: 600; letter-spacing: .24em; color: rgba(246, 243, 237, .66);
   transition: opacity .5s var(--ease);
 }
-.intro__hint i { width: 1px; height: 30px; background: linear-gradient(rgba(246, 243, 237, .62), transparent); transform-origin: top; animation: scroll-line 2s var(--ease) infinite; }
-@keyframes scroll-line { 0% { transform: scaleY(0); } 50% { transform: scaleY(1); } 100% { transform: scaleY(1); opacity: 0; } }
-.intro[data-phase="all"] .intro__hint, .intro[data-phase="iris"] .intro__hint { opacity: 0; }
+.intro__hint .intro__chev span { width: 7px; height: 7px; }
+.intro:is([data-phase="all"], [data-phase="iris"], [data-phase="turn"], [data-phase="reveal"]) .intro__hint { opacity: 0; }
 
 /* 어둠 속 전환 — 장면이 사라지고 한 문장 */
 .intro[data-phase="turn"] .intro__scene, .intro[data-phase="reveal"] .intro__scene,
@@ -125,10 +124,10 @@
   transition: opacity .9s var(--ease), visibility 0s .9s;
 }
 .intro[data-phase="reveal"] .intro__reveal { opacity: 1; visibility: visible; transition: opacity .9s var(--ease); }
-/* SCROLL — 화면 아래 가운데, 문구가 다 뜬 뒤 나타나는 글자와 아래 꺾쇠 */
+/* (예전 밝은 화면 SCROLL 표시 — 마크업은 뺌) */
 .intro__scroll { position: absolute; left: 50%; bottom: clamp(18px, 4vh, 36px); translate: -50% 0; display: grid; justify-items: center; gap: 7px; margin: 0; font-family: var(--f-sans); font-size: 9px; font-weight: 600; letter-spacing: .22em; color: #9C9E98; opacity: 0; transition: opacity .8s var(--ease); } /* 조금 연한 회색 */
 .intro[data-phase="reveal"] .intro__scroll { opacity: 1; transition-delay: 1.4s; }
-/* SCROLL 아래 꺾쇠 두 개 — 차례로 깜빡임 */
+/* SCROLL 아래 꺾쇠 두 개 — 차례로 깜빡임 (첫 화면 안내) */
 .intro__chev { display: grid; justify-items: center; }
 .intro__chev span { display: block; width: 6px; height: 6px; margin-top: -2px; border-right: 1.3px solid currentColor; border-bottom: 1.3px solid currentColor; rotate: 45deg; opacity: .25; animation: scroll-chev 1.6s var(--ease) infinite; }
 .intro__chev span:nth-child(2) { animation-delay: .2s; }

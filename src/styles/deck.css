@@ -12,8 +12,9 @@ html.has-fullpage, html.has-fullpage body { overscroll-behavior-y: none; }
 /* 오른쪽 점 — 지금 칸만 주황 */
 .deckdots {
   position: fixed; right: 6px; top: 50%; z-index: 40; translate: 0 -50%;
-  display: grid; gap: 2px;
+  display: grid; gap: 2px; transition: opacity .3s var(--ease), visibility .3s;
 }
+.deckdots.is-hidden { opacity: 0; visibility: hidden; }
 .deckdots__dot { display: grid; place-items: center; width: 20px; height: 20px; padding: 0; }
 .deckdots__dot::before {
   content: ''; width: 6px; height: 6px; border-radius: 3px; background: rgba(104, 106, 100, .38);

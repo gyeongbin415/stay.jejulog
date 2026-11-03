@@ -14,6 +14,8 @@ import '../styles/deck.css';
 ------------------------------------------------------------------- */
 
 export const HOME_PANELS = ['intro', 'roomtour', 'find', 'tastemap', 'guest', 'checkout'] as const;
+/** 오른쪽 점 — 집부터 체크아웃까지 (인트로에서는 점을 숨김) */
+const DOT_PANELS: Panels = ['roomtour', 'find', 'tastemap', 'guest', 'checkout'];
 type Panels = readonly string[];
 
 /** 넘어가는 시간(ms) */
@@ -211,7 +213,9 @@ export function HomeDeck({ panels = HOME_PANELS, dots = true, onPastEnd }: { pan
       if (raf) return;
       raf = requestAnimationFrame(() => {
         raf = 0;
-        setIndex(current(panels, window.scrollY + window.innerHeight / 2));
+        // 페이지 맨 밑(짧은 마지막 칸)이면 마지막 칸 — 점이 그 앞 칸에 켜져 있지 않게
+        const atEnd = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2;
+        setIndex(atEnd ? panels.length - 1 : current(panels, window.scrollY + window.innerHeight / 2));
       });
     };
     onScroll();
@@ -240,8 +244,8 @@ export function HomeDeck({ panels = HOME_PANELS, dots = true, onPastEnd }: { pan
   if (!dots) return null;
   // 화면에 바로 고정 — 페이지 등장 애니메이션(transform) 안에 두면 화면이 아니라 페이지에 붙으므로 body 에
   return createPortal(
-    <nav className="deckdots" aria-label={t.aria}>
-      {panels.map((id, k) => (
+    <nav className={`deckdots${DOT_PANELS.includes(panels[index]) ? '' : ' is-hidden'}`} aria-label={t.aria}>
+      {panels.map((id, k) => !DOT_PANELS.includes(id) ? null : (
         <button
           key={id}
           type="button"

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useContent, useLang } from '../i18n';
-import { href } from '../lib/router';
+import { goBack as routerBack, href } from '../lib/router';
 import { INSTA_ORDER, INSTA_POSTS, INSTA_PROFILE, type InstaPost } from '../data/insta';
 import { INSTA_TR } from '../data/insta.i18n';
 import '../styles/insta.css';
@@ -28,10 +28,8 @@ export default function InstaPage({ post = null }: { post?: number | null }) {
     if (i == null && post) history.replaceState(history.state, '', href.insta());
   };
   const { following, extra, toggle } = useFollow();
-  // 뒤로 — 메인의 방명록 칸으로 바로 (예전 인스타 사진 칸 MORE STORIES 자리, 메인 맨 위가 아니라)
-  const goBack = () => {
-    location.hash = href.home('guest');
-  };
+  // 뒤로 — 들어오기 전 화면 · 그 자리 그대로 (링크로 바로 들어와 앞 화면이 없으면 메인으로)
+  const goBack = () => routerBack(href.home());
   const fmt = new Intl.NumberFormat(lang === 'zh' ? 'zh-CN' : lang);
 
   return (
@@ -40,7 +38,7 @@ export default function InstaPage({ post = null }: { post?: number | null }) {
       {/* 인스타 앱 프로필처럼 — 맨 위 아이디 / 테 두른 프로필 사진 옆에 이름 · 숫자(숫자 위, 이름 아래) / 분류 · 소개 / 팔로우 */}
       <header className="insta-head">
         <div className="insta-head__bar">
-          {/* 뒤로 — 메인의 인스타 사진 칸(MORE STORIES)으로 */}
+          {/* 뒤로 — 들어오기 전 화면 그 자리로 */}
           <button type="button" className="insta-head__back" onClick={goBack} aria-label={t.back} data-track="insta_back">
             <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true" focusable="false">
               <path d="M15 4.5 7.5 12l7.5 7.5" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />

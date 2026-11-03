@@ -11,7 +11,7 @@ const FALLBACK: Partial<Record<Route['name'], string>> = {
   stay: href.house(),
   house: href.home('roomtour'),
   map: href.home('tastemap'),
-  insta: href.home('guest'),
+  insta: href.home(),
   test: href.home('find'),
   guest: href.home('guest'),
 };
