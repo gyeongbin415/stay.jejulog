@@ -169,8 +169,6 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
   const [sending, setSending] = useState(false);
   const [error, setError] = useState('');
   const [showAll, setShowAll] = useState(false);
-  /** 아래 바에서 손가락을 댄 높이 — 위로 밀면 열고 아래로 밀면 접음 */
-  const sheetY = useRef<number | null>(null);
   const ref = useRef<HTMLDivElement>(null);
   const areaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -243,8 +241,9 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
 
   return (
     <div className={`gwrite gwrite--${phase}${inline ? ' gwrite--inline' : ''}`} role={inline ? undefined : 'dialog'} aria-modal={inline ? undefined : true} aria-label={t.open} ref={ref} tabIndex={-1}>
+      {/* 답 쓰는 카드에서는 위쪽 줄을 빼고 카드를 위로 */}
+      {(phase !== 'write' || !inline) && (
       <header className="gwrite__top">
-        {/* 답 쓰는 카드에서는 빼고 카드만 크게 */}
         {phase !== 'write' && <p className="gwrite__brand">GUEST NOTE</p>}
         {!inline && (
           <button type="button" className="gwrite__close" onClick={onClose} data-track="guest_close">
@@ -253,6 +252,7 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
           </button>
         )}
       </header>
+      )}
 
       {phase === 'intro' && (
         <button type="button" className="gwrite__intro" onClick={() => setPhase('pick')}>
@@ -312,8 +312,8 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
       {/* 질문 목록 — 마음에 드는 질문만 골라 적기 */}
       {phase === 'list' && (
         <div className="gwrite__body wrap">
-          <button type="button" className="gwrite__step gwrite__back" onClick={() => setPhase('pick')} data-track="guest_list_back">
-            <span aria-hidden="true">‹ </span>{t.toModes}
+          <button type="button" className="btn gwrite__submit gwrite__back" onClick={() => setPhase('pick')} data-track="guest_list_back">
+            {t.toModes}
           </button>
           <p className="gwrite__hand" aria-hidden="true">MY JEJU NOTE</p>
           <h2 className="gwrite__pick-title">{t.pickTitle}</h2>
@@ -357,10 +357,36 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
       {phase === 'write' && (
         <>
           <div className="gwrite__body wrap">
-            <p className="gwrite__hand" aria-hidden="true">MY JEJU NOTE</p>
+            <div className="gwrite__headrow">
+              <p className="gwrite__hand" aria-hidden="true">MY JEJU NOTE</p>
+              {/* 나의 답 ⇄ 다른 사람들의 답 (그 질문에 남긴 답 수) */}
+              <div className="gwrite__tabs" role="tablist">
+                <button type="button" role="tab" className="gwrite__tab" aria-selected={!showAll} onClick={() => setShowAll(false)} data-track="guest_tab_mine">
+                  {t.myTab}
+                </button>
+                <button type="button" role="tab" className="gwrite__tab" aria-selected={showAll} onClick={() => setShowAll(true)} data-track="guest_tab_others">
+                  {t.othersTab} <span className="gwrite__tab-n">{list.length.toLocaleString()}</span>
+                </button>
+              </div>
+            </div>
             <div className="gwrite__card" key={step}>
               <p className="gwrite__no">{step === FREE ? 'FREE NOTE' : `Q${step + 1}`}</p>
               <label className="gwrite__q" htmlFor="gwrite-answer">{step === FREE ? t.freeBtn : t.questions[step]}</label>
+              {showAll ? (
+                list.length ? (
+                  <ul className="gwrite__others">
+                    {list.map((a, i) => (
+                      <li key={i}>
+                        <q>{a.text}</q>
+                        <small>{t.otherBy(a.name)}</small>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="gwrite__others-empty">{t.emptyAnswers}</p>
+                )
+              ) : (
+              <>
               <textarea
                 id="gwrite-answer"
                 ref={areaRef}
@@ -372,10 +398,12 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
                 onChange={(e) => setAnswer(e.target.value)}
               />
               <p className="gwrite__len" aria-hidden="true">{answers[step].length} / {step === FREE ? MAX_FREE : MAX_ANSWER}</p>
+              </>
+              )}
             </div>
             <nav className="gwrite__nav">
-              <button type="button" className="gwrite__step" onClick={back}>
-                <span aria-hidden="true">‹ </span>{step === FREE ? t.toModes : t.toList}
+              <button type="button" className="btn gwrite__submit" onClick={back}>
+                {step === FREE ? t.toModes : t.toList}
               </button>
               <button type="button" className="btn gwrite__submit" onClick={back} data-track={step === FREE ? 'guest_done_free' : `guest_done_q${step + 1}`}>
                 {t.doneAnswer}
@@ -383,42 +411,6 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
             </nav>
           </div>
 
-          {/* 다른 사람들의 답 — 방명록 칸 맨 아래 바(왼쪽 제목 · 오른쪽 'N명 답 보기'), 누르거나 손가락으로 위로 밀면 이 질문의 답 전부가 올라옴(아래로 밀면 접힘)
-              내리는 동안은 화면 아래에 붙어 있다가 칸 끝에서 멈춤 — 푸터를 덮지 않게 */}
-          <aside className={`gwrite__sheet${showAll ? ' is-open' : ''}`} data-noswipe>
-            {/* 손가락으로 미는 건 바 머리에서만 — 펼친 목록은 위아래로 넘겨 볼 수 있게 */}
-            <button
-              type="button"
-              className="gwrite__sheet-head"
-              onClick={() => setShowAll((v) => !v)}
-              onTouchStart={(e) => (sheetY.current = e.touches[0].clientY)}
-              onTouchEnd={(e) => {
-                const y0 = sheetY.current;
-                sheetY.current = null;
-                if (y0 == null) return;
-                const dy = e.changedTouches[0].clientY - y0;
-                if (dy < -30) setShowAll(true);
-                else if (dy > 30) setShowAll(false);
-              }}
-              aria-expanded={showAll}
-              data-track="guest_others"
-            >
-              <span className="gwrite__grip" aria-hidden="true" />
-              <span className="gwrite__sheet-title">{t.othersTitle}</span>
-              <span className="gwrite__all-btn">{showAll ? t.hideAll : list.length ? t.seeAll(list.length) : t.othersNone}</span>
-            </button>
-            {showAll && (
-              <ul className="gwrite__all">
-                {!list.length && <li className="gwrite__all-empty">{t.emptyAnswers}</li>}
-                {list.map((a, i) => (
-                  <li key={i}>
-                    <q>{a.text}</q>
-                    <small>{t.otherBy(a.name)}</small>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </aside>
         </>
       )}
 
