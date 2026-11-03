@@ -118,6 +118,10 @@ function Menu({ route, onClose }: { route: Route; onClose: () => void }) {
   const ref = useRef<HTMLDivElement>(null);
   const { ui } = useContent();
   const labels = { home: ui.nav.main, house: ui.nav.house, test: ui.nav.test, map: ui.nav.map, insta: ui.nav.more, guest: ui.nav.guest };
+  // PC 메인은 콘텐츠 고르기 하나만 — 테스트 · 지도 · 방명록 메뉴는 메인 칸 대신 상세 페이지로
+  const wide = typeof window !== 'undefined' && window.matchMedia('(min-width: 900px)').matches;
+  const DETAIL: Partial<Record<string, string>> = { test: href.test(), map: href.map(), guest: href.guest() };
+  const toOf = (m: (typeof MENU)[number]) => (wide && DETAIL[m.key]) || m.to;
 
   useEffect(() => {
     const prev = document.activeElement as HTMLElement | null;
@@ -159,7 +163,7 @@ function Menu({ route, onClose }: { route: Route; onClose: () => void }) {
         <ul className="menu__list">
           {MENU.map((m) => (
             <li key={m.key}>
-              <a href={m.to} onClick={onClose} data-track={`menu_${m.key}`} aria-current={route.name === m.key ? 'page' : undefined}>
+              <a href={toOf(m)} onClick={onClose} data-track={`menu_${m.key}`} aria-current={route.name === m.key ? 'page' : undefined}>
                 <span>{labels[m.key]}</span>
                 <span className="label label--muted">{m.en}</span>
               </a>

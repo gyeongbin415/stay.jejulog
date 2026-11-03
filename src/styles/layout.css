@@ -127,12 +127,6 @@
 .mapfab:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; }
 .mapfab svg { width: 28px; height: 28px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linejoin: round; stroke-linecap: round; }
 .mapfab__dot { fill: currentColor; stroke: none; }
-/* 취향 테스트 — 흰 동그라미 안 뽑기 기계, 몇 초마다 달그락 흔들려 눌러 보고 싶게 */
-.mapfab--test { background: #fff; }
-.mapfab--test img { width: auto; height: 68%; pointer-events: none; transform-origin: 50% 92%; animation: fab-rattle 4.5s ease-in-out infinite; }
-.mapfab--test:hover img { animation-duration: .9s; }
-@keyframes fab-rattle { 0%, 80%, 100% { rotate: 0deg; } 84% { rotate: -12deg; } 88% { rotate: 9deg; } 92% { rotate: -6deg; } 96% { rotate: 3deg; } }
-@media (prefers-reduced-motion: reduce) { .mapfab--test img { animation: none; } }
 @media (min-width: 900px) { .fabs { right: 28px; bottom: 28px; gap: 14px; } .mapfab { width: 68px; height: 68px; } .mapfab svg { width: 32px; height: 32px; } }
 
 /* 로딩 화면 — 소라게 그림 · 밑에 점 세 개(주황 점이 한 칸씩 옮겨 감) */

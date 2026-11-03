@@ -82,7 +82,8 @@ export function ContentPicker() {
 
   return (
     <section id="roomtour" className="picker" data-tone="light" aria-labelledby="roomtour-title">
-      <h2 id="roomtour-title" className="picker__title">{SITE.explore.title.join(' ')}</h2>
+      {/* 제목 — 화면에는 안 보이고 화면 낭독기용으로만 */}
+      <h2 id="roomtour-title" className="visually-hidden">{SITE.explore.title.join(' ')}</h2>
       <ul className="picker__list" ref={list}>
         {items.map((it) => (
           <li key={it.key} className={`picker__item picker__item--${it.key}`}>

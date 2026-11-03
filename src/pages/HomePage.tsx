@@ -32,7 +32,8 @@ import stripSunrise from '../assets/strip/kokoko-sunrise.webp';
 
 /**
  * PAGE 01 — 메인 (하나의 세로 스크롤)
- * INTRO → 집(휴대폰) · 콘텐츠 고르기(PC) → FIND YOUR STAY → 취향 지도 → 방명록 → CHECK OUT
+ * 휴대폰: INTRO → 집 → FIND YOUR STAY → 취향 지도 → 방명록 → CHECK OUT (한 장씩 넘겨봄)
+ * PC: INTRO → 콘텐츠 고르기(집 · 테스트 · 지도 · 방명록) 만
  */
 export function HomePage() {
   const { site: SITE, ui } = useContent();
@@ -43,14 +44,20 @@ export function HomePage() {
     <>
       <h1 className="visually-hidden">{SITE.brand} {SITE.brandEn} — {ui.home.srTitle}</h1>
       <Intro />
-      {/* 휴대폰은 집 그림 + 버튼(누르면 게하 탐색 #/house), PC 는 네 콘텐츠(집 · 테스트 · 지도 · 방명록)를 고르는 그림 — 누르면 커지며 상세로 */}
-      {mobile ? <RoomTour /> : <ContentPicker />}
-      <FindYourStay />
-      <TasteMapBanner />
-      {/* 방명록 — 질문 5개에 답하는 노트
-          (예전 MORE STORIES 인스타그램 사진 칸은 메인에서 뺌 — 인스타그램 페이지 #/instagram 은 그대로) */}
-      <GuestNotes />
-      <CheckOut />
+      {/* PC 는 네 콘텐츠(집 · 테스트 · 지도 · 방명록)를 고르는 그림 하나만 — 누르면 커지며 상세로 */}
+      {!mobile && <ContentPicker />}
+      {/* 휴대폰은 집 그림 + 버튼(누르면 게하 탐색 #/house) → 테스트 → 지도 → 방명록 → CHECK OUT */}
+      {mobile && (
+        <>
+          <RoomTour />
+          <FindYourStay />
+          <TasteMapBanner />
+          {/* 방명록 — 질문 5개에 답하는 노트
+              (예전 MORE STORIES 인스타그램 사진 칸은 메인에서 뺌 — 인스타그램 페이지 #/instagram 은 그대로) */}
+          <GuestNotes />
+          <CheckOut />
+        </>
+      )}
       {/* 인트로보다 뒤에 둬야 손짓 처리도 인트로 다음 차례 (인트로가 단계를 넘긴 손짓은 넘기지 않음) */}
       {mobile && !reduced && <HomeDeck />}
     </>
