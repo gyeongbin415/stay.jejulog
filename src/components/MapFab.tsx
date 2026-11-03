@@ -69,7 +69,8 @@ export function MapFab({ showMap = true, showInsta = true, showHouse = false, sh
         </a>
       )}
       {showInsta && (
-        <a className="mapfab" href={href.insta()} aria-label={ui.insta.title} title={ui.insta.title} data-track="insta_fab">
+        // 취향지도 페이지(게하 탐색 · 취향 테스트 버튼이 함께 있을 때)에서는 셋 다 주황 바탕으로 맞춤
+        <a className={`mapfab${showHouse || showTest ? ' mapfab--accent' : ''}`} href={href.insta()} aria-label={ui.insta.title} title={ui.insta.title} data-track="insta_fab">
           <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
             <rect x="3.5" y="3.5" width="17" height="17" rx="5" />
             <circle cx="12" cy="12" r="4" />
