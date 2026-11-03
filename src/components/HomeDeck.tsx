@@ -5,7 +5,7 @@ import '../styles/deck.css';
 
 /* ------------------------------------------------------------------
    휴대폰 세로 넘겨보기(풀페이지)
-     · 메인 — 인트로 → 체크아웃 → 그림 모음 (점 없음) · 그림 모음에서 더 내리면 둘러보기 페이지로 넘어감(onPastEnd)
+     · 메인 — 인트로 → 그림 모음 → 체크아웃 (점 없음) · 체크아웃에서 더 내리면 둘러보기 페이지로 넘어감(onPastEnd)
      · 둘러보기 페이지(#/tour) — 집 → 취향 테스트 → 취향 지도 → 방명록
    · 칸마다 화면 높이 한 장. 손가락을 위로 밀면 지금 칸이 위로 밀려나며 다음 칸이 아래에서 올라옴 (0.7초 ease-in-out)
    · 칸 안 내용이 길면 칸 안에서 먼저 스크롤 — 끝(맨 아래 · 맨 위)에 닿은 뒤 한 번 더 밀어야 넘어감
@@ -15,7 +15,7 @@ import '../styles/deck.css';
    · 페이지 스크롤은 그대로(window) — 상단 바 색 · 메뉴로 칸 찾아가기 · 뒤로 가기 자리 기억이 그대로 동작
 ------------------------------------------------------------------- */
 
-export const MAIN_PANELS = ['intro', 'checkout', 'cover'] as const;
+export const MAIN_PANELS = ['intro', 'cover', 'checkout'] as const;
 export const TOUR_PANELS = ['roomtour', 'find', 'tastemap', 'guest'] as const;
 type Panels = readonly string[];
 

@@ -102,6 +102,10 @@ export function App() {
     if ((route.name === 'home' || route.name === 'tour') && to) {
       jumpToSection(to);
       history.replaceState(history.state, '', route.name === 'tour' ? href.tour() : '#/');
+    } else if (route.name === 'tour' && prevName.current === 'home') {
+      // 메인(맨 밑 CHECK OUT)에서 내려 넘어오면 — 전에 보던 자리 말고 늘 첫 칸(집)부터 (같은 이동 알림이 한 번 더 와도 맨 위로)
+      positions.current[key] = 0;
+      window.scrollTo(0, 0);
     } else if ((route.name === 'home' || route.name === 'tour') && positions.current[key] == null && (prevName.current === 'map' || prevName.current === 'insta')) {
       // 기억한 자리가 없으면(지도 · 인스타 페이지에서 새로고침한 뒤 뒤로 가기 등) 그 페이지로 들어가던 칸으로
       jumpToSection(prevName.current === 'map' ? 'tastemap' : 'guest');

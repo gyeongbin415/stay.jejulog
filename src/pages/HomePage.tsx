@@ -33,19 +33,19 @@ import stripSunrise from '../assets/strip/kokoko-sunrise.webp';
 
 /**
  * PAGE 01 — 메인
- * 휴대폰: INTRO → CHECK OUT → 그림 모음 한 장(COVER) — 그림을 누르거나 더 내리면 둘러보기 페이지(#/tour)로
+ * 휴대폰: INTRO → 그림 모음 한 장(COVER, 2×2) → CHECK OUT — 그림을 누르거나 CHECK OUT 에서 더 내리면 둘러보기 페이지(#/tour)로
  * PC: INTRO → 콘텐츠 고르기 → FIND YOUR STAY → 취향 지도 → 방명록 → CHECK OUT (하나의 세로 스크롤)
  */
 export function HomePage() {
   const { site: SITE, ui } = useContent();
   const mobile = useMediaQuery('(max-width: 899px)');
   const reduced = useReducedMotion();
-  // 그림 모음에서 더 내리면 — 그림들이 위로 빠지며 둘러보기 페이지(집 칸부터)로
+  // 맨 밑 CHECK OUT 에서 더 내리면 — 칸이 위로 빠지며 둘러보기 페이지(집 칸부터)로
   const leaving = useRef(false);
   const toTour = () => {
     if (leaving.current) return;
     leaving.current = true;
-    document.getElementById('cover')?.classList.add('is-leaving');
+    document.getElementById('checkout')?.classList.add('is-leaving');
     window.setTimeout(() => {
       leaving.current = false;
       window.location.assign(absUrl(href.tour()));
@@ -57,8 +57,8 @@ export function HomePage() {
       <Intro />
       {mobile ? (
         <>
-          <CheckOut />
           <Cover />
+          <CheckOut />
         </>
       ) : (
         <Sections mobile={false} />
@@ -83,11 +83,11 @@ export function TourPage() {
   );
 }
 
-/** 메인(PC) · 둘러보기 페이지에 같이 쓰는 칸들 — 휴대폰 체크아웃은 메인에 */
+/** 메인(PC) · 둘러보기 페이지에 같이 쓰는 칸들 — 휴대폰 CHECK OUT 은 메인 맨 밑에 */
 function Sections({ mobile }: { mobile: boolean }) {
   return (
     <>
-      {/* 휴대폰은 집 그림 + 버튼(누르면 #/house), PC 는 네 콘텐츠(집 · 테스트 · 지도 · 방명록)를 고르는 그림 — 누르면 커지며 상세로 */}
+      {/* 휴대폰(둘러보기 페이지)은 집 그림 + 버튼(누르면 게하 탐색 #/house), PC 는 네 콘텐츠(집 · 테스트 · 지도 · 방명록)를 고르는 그림 — 누르면 커지며 상세로 */}
       {mobile ? <RoomTour /> : <ContentPicker />}
       <FindYourStay />
       <TasteMapBanner />
@@ -99,7 +99,7 @@ function Sections({ mobile }: { mobile: boolean }) {
   );
 }
 
-/* ── 휴대폰 메인 인트로 다음 — 글 없이 집 · 뽑기 기계 · 지도 · 공책 스티커만 흩어 붙인 한 장. 누르면 둘러보기 페이지(#/tour)의 그 칸으로 ── */
+/* ── 휴대폰 메인 인트로 다음 — 글 없이 집 · 뽑기 기계 · 지도 · 공책 스티커만 2×2 로 붙인 한 장. 누르면 둘러보기 페이지(#/tour)의 그 칸으로 ── */
 function Cover() {
   const { site: SITE, ui } = useContent();
   const items = [

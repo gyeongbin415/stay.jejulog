@@ -478,22 +478,25 @@
 .tastemap__img, .picker__item--map .picker__art > img { rotate: 2deg; }
 .gnote__art img, .picker__item--guest .picker__art > img { rotate: -2deg; }
 
-/* ── 휴대폰 첫 화면 — 스티커 그림 네 장만 (글 없음) ── */
-.cover { position: relative; height: 100vh; height: 100svh; min-height: 560px; overflow: hidden; background: var(--bg); }
-.cover__item { position: absolute; display: block; animation: cover-in .7s var(--ease) both; animation-delay: calc(var(--i) * .12s + .1s); }
+/* ── 휴대폰 메인 그림 모음 — 스티커 그림 네 장만 2×2 (글 없음) ── */
+.cover {
+  display: grid; grid-template-columns: 1fr 1fr; align-content: center; place-items: center; gap: clamp(20px, 4vh, 40px) 8px;
+  height: 100vh; height: 100svh; min-height: 560px; overflow: hidden; background: var(--bg);
+  padding: calc(var(--header) + 12px) 14px calc(96px + env(safe-area-inset-bottom, 0px)); /* 아래 — 오른쪽 아래 둥근 버튼 피해서 */
+}
+.cover__item { display: block; animation: cover-in .7s var(--ease) both; animation-delay: calc(var(--i) * .12s + .1s); }
 .cover__item img {
   display: block; width: 100%; height: auto; user-select: none;
   filter: drop-shadow(4px 0 0 #fff) drop-shadow(-4px 0 0 #fff) drop-shadow(0 4px 0 #fff) drop-shadow(0 -4px 0 #fff) drop-shadow(0 8px 12px rgba(58, 55, 53, .2));
   transition: scale var(--t-hover) var(--ease);
 }
 .cover__item:active img { scale: .97; }
-/* 자리 — 집(왼쪽 위) · 뽑기 기계(오른쪽 위) · 지도(가운데) · 공책(왼쪽 아래, 오른쪽 아래 둥근 버튼 피해서) */
-.cover__item--house { left: 5%; top: calc(var(--header, 64px) + 6%); width: 52%; rotate: -4deg; }
-.cover__item--test { right: 9%; top: calc(var(--header, 64px) + 2%); width: 30%; rotate: 5deg; }
-.cover__item--map { right: 13%; top: 39%; width: 62%; rotate: 3deg; }
-.cover__item--guest { left: 8%; top: 64%; width: 52%; rotate: -3deg; }
+/* 칸 — 집 · 뽑기 기계 / 지도 · 공책, 그림 넓이가 비슷해 보이게 */
+.cover__item--house { width: 104%; rotate: -4deg; }
+.cover__item--test { width: 70%; rotate: 4deg; }
+.cover__item--map { width: 106%; rotate: 3deg; }
+.cover__item--guest { width: 100%; rotate: -3deg; }
 @keyframes cover-in { from { opacity: 0; translate: 0 18px; scale: .92; } }
-/* 더 내리면 — 그림들이 차례로 위로 빠지고 둘러보기 페이지로 */
-.cover.is-leaving .cover__item { animation: cover-out .38s cubic-bezier(.5, 0, .75, 0) both; animation-delay: calc(var(--i) * .03s); }
-@keyframes cover-out { to { opacity: 0; translate: 0 -60px; } }
+/* 휴대폰 메인 맨 밑 CHECK OUT 에서 더 내리면 — 위로 빠지며 둘러보기 페이지로 */
+#checkout.is-leaving .outro__inner { opacity: 0; translate: 0 -48px; transition: opacity .38s ease, translate .38s cubic-bezier(.5, 0, .75, 0); }
 @media (prefers-reduced-motion: reduce) { .cover__item { animation: none; } }

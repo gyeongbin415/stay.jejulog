@@ -14,7 +14,7 @@ import { PROGRAM_BY_ID } from '../data/programs';
      PAGE 05  #/instagram           인스타그램 (@stay.jejulog 계정 화면을 웹진 안에서)
      PAGE 06  #/map                 취향 지도 (오른쪽 아래 동그라미 버튼 — 내용은 준비 중)
      PAGE 07  #/guest               방명록 (메인 방명록 칸과 같은 내용 — 휴대폰 넘겨보기의 네 번째 칸)
-     PAGE 08  #/tour                둘러보기 — 휴대폰 메인(인트로 → 체크아웃 → 그림 모음 한 장) 다음 칸들(집 · 테스트 · 지도 · 방명록)을 세로 넘겨보기로
+     PAGE 08  #/tour                둘러보기 — 휴대폰 메인(인트로 → 그림 모음 한 장 → 체크아웃) 다음 칸들(집 · 테스트 · 지도 · 방명록)을 세로 넘겨보기로
                                     #/tour?to=find 처럼 칸 id 를 주면 그 칸에서 시작. 휴대폰에서 #/?to=<이 칸들> 로 오면 여기로 옮김
      휴대폰에서는 집 · 테스트 · 지도 · 방명록 네 주소가 한 판으로 이어져 좌우로 넘겨봅니다 (components/Deck.tsx)
      메인 안의 특정 위치             #/?to=checkin   (to = 섹션 id)
@@ -118,10 +118,14 @@ export function useRoute() {
   const [route, setRoute] = useState(() => ({ ...parseHash(), visit: 0 }));
   useEffect(() => {
     // 해시가 바뀔 때 · 앞뒤로 갈 때(popstate) · 넘겨보기가 주소를 바꿨을 때(jl:route) — 같은 주소로 두 번 오면 한 번만
+    // (주소가 바뀌면 popstate · hashchange 가 거의 같이 오므로 0.1초 안에 같은 주소로 다시 오면 무시)
     let last = window.location.href;
+    let lastAt = 0;
     const on = (e: Event) => {
-      if (e.type !== 'hashchange' && window.location.href === last) return;
+      const now = performance.now();
+      if (window.location.href === last && (e.type !== 'hashchange' || now - lastAt < 100)) return;
       last = window.location.href;
+      lastAt = now;
       if (fixTestUrl()) return;
       movedInApp = true;
       setRoute((r) => ({ ...parseHash(), visit: r.visit + 1 }));
