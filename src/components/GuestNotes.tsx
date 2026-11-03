@@ -224,13 +224,6 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
     <div className={`gwrite gwrite--${phase}${inline ? ' gwrite--inline' : ''}`} role={inline ? undefined : 'dialog'} aria-modal={inline ? undefined : true} aria-label={t.open} ref={ref} tabIndex={-1}>
       <header className="gwrite__top">
         <p className="gwrite__brand">GUEST NOTE</p>
-        {(phase === 'pick' || phase === 'list' || phase === 'write') && (
-          <ol className="gwrite__bar" aria-hidden="true">
-            {answered.map((on, i) => (
-              <li key={i} className={on ? 'is-on' : undefined} />
-            ))}
-          </ol>
-        )}
         {!inline && (
           <button type="button" className="gwrite__close" onClick={onClose} data-track="guest_close">
             <span aria-hidden="true">×</span>
