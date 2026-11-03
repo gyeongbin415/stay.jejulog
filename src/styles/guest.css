@@ -88,7 +88,7 @@
 /* 아래 바 — 다른 사람들의 답 (방명록 칸 맨 아래 회색 바 · 위에 검은 선. 내리는 동안 화면 아래에 붙고 칸 끝에서 멈춤) */
 .gwrite__sheet {
   position: sticky; bottom: 0; z-index: 5; margin-top: auto;
-  background: #FDFCF9; border-top: 1.5px solid var(--ink); /* 방명록 바탕색(종이)보다 밝게 */
+  background: #FDFCF9; border: 1.5px solid var(--ink); border-bottom: 0; border-radius: 20px 20px 0 0; /* 방명록 바탕색(종이)보다 밝게 · 위 모서리 둥글게 */
 }
 .gwrite__sheet-head {
   position: relative; display: flex; align-items: center; justify-content: space-between; gap: 16px; width: 100%;
@@ -105,7 +105,11 @@ html:has(.gwrite--write) :is(.fabs, .backfab) { opacity: 0; visibility: hidden; 
 .gwrite__peek small, .gwrite__all small { font-size: 12px; color: var(--ink-soft); }
 .gwrite__peek--empty { font-size: 14px; color: var(--ink-soft); }
 .gwrite__all-btn { flex: none; font-size: 14px; font-weight: 600; color: #6B6762; }
-.gwrite__all { max-height: 46vh; overflow-y: auto; margin: 0; padding: 0 var(--gutter) 20px; list-style: none; }
+.gwrite__all { max-height: 52vh; overflow-y: auto; overscroll-behavior: contain; margin: 0; padding: 0 var(--gutter) 20px; list-style: none; animation: sheet-up .35s var(--ease) both; }
+.gwrite__all-empty { font-size: 14.5px; color: var(--ink-soft); }
+@keyframes sheet-up { from { opacity: 0; translate: 0 24px; } }
+.gwrite__sheet-head { touch-action: pan-x; }
+@media (prefers-reduced-motion: reduce) { .gwrite__all { animation: none; } }
 .gwrite__all li { display: grid; gap: 3px; padding: 12px 0; border-top: 1px solid var(--line); }
 .gwrite__all q { font-size: 15px; line-height: 1.55; }
 .gwrite q { quotes: '“' '”'; }

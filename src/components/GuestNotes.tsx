@@ -169,6 +169,8 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
   const [sending, setSending] = useState(false);
   const [error, setError] = useState('');
   const [showAll, setShowAll] = useState(false);
+  /** 아래 바에서 손가락을 댄 높이 — 위로 밀면 열고 아래로 밀면 접음 */
+  const sheetY = useRef<number | null>(null);
   const ref = useRef<HTMLDivElement>(null);
   const areaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -381,16 +383,33 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
             </nav>
           </div>
 
-          {/* 다른 사람들의 답 — 방명록 칸 맨 아래 바(왼쪽 제목 · 오른쪽 'N명 답 보기'), 누르면 이 질문의 답 전부가 위로 펼쳐짐
+          {/* 다른 사람들의 답 — 방명록 칸 맨 아래 바(왼쪽 제목 · 오른쪽 'N명 답 보기'), 누르거나 손가락으로 위로 밀면 이 질문의 답 전부가 올라옴(아래로 밀면 접힘)
               내리는 동안은 화면 아래에 붙어 있다가 칸 끝에서 멈춤 — 푸터를 덮지 않게 */}
-          <aside className={`gwrite__sheet${showAll ? ' is-open' : ''}`}>
-            <button type="button" className="gwrite__sheet-head" onClick={() => setShowAll((v) => !v)} aria-expanded={showAll} disabled={!list.length} data-track="guest_others">
+          <aside className={`gwrite__sheet${showAll ? ' is-open' : ''}`} data-noswipe>
+            {/* 손가락으로 미는 건 바 머리에서만 — 펼친 목록은 위아래로 넘겨 볼 수 있게 */}
+            <button
+              type="button"
+              className="gwrite__sheet-head"
+              onClick={() => setShowAll((v) => !v)}
+              onTouchStart={(e) => (sheetY.current = e.touches[0].clientY)}
+              onTouchEnd={(e) => {
+                const y0 = sheetY.current;
+                sheetY.current = null;
+                if (y0 == null) return;
+                const dy = e.changedTouches[0].clientY - y0;
+                if (dy < -30) setShowAll(true);
+                else if (dy > 30) setShowAll(false);
+              }}
+              aria-expanded={showAll}
+              data-track="guest_others"
+            >
               <span className="gwrite__grip" aria-hidden="true" />
               <span className="gwrite__sheet-title">{t.othersTitle}</span>
-              <span className="gwrite__all-btn">{list.length ? (showAll ? t.hideAll : t.seeAll(list.length)) : t.othersNone}</span>
+              <span className="gwrite__all-btn">{showAll ? t.hideAll : list.length ? t.seeAll(list.length) : t.othersNone}</span>
             </button>
             {showAll && (
               <ul className="gwrite__all">
+                {!list.length && <li className="gwrite__all-empty">{t.emptyAnswers}</li>}
                 {list.map((a, i) => (
                   <li key={i}>
                     <q>{a.text}</q>
