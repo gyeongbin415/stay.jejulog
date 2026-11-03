@@ -555,12 +555,12 @@ export const ZH: ContentPack = {
   quiz: {
     questions: {
       q1: {
-        tags: { A: '休息', B: '人情味' },
+        tags: { A: '休息', B: '一起热闹' },
         context: '心仪的济州民宿',
         q: '济州的民宿，我喜欢这样的地方。',
         options: {
-          A: '能安静地好好休息的地方',
-          B: '充满人情味的地方',
+          A: '安静休息的地方',
+          B: '大家一起热闹相处的地方',
         },
       },
       q2: {

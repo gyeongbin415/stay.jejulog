@@ -581,12 +581,12 @@ export const EN: ContentPack = {
   quiz: {
     questions: {
       q1: {
-        tags: { A: 'Rest', B: 'PeopleVibes' },
+        tags: { A: 'Rest', B: 'Together' },
         context: 'the Jeju guesthouse you’re drawn to',
         q: 'A Jeju guesthouse I love is one that’s…',
         options: {
-          A: 'A place to rest quietly and deeply',
-          B: 'A place that feels lived-in and full of people',
+          A: 'A place to rest quietly',
+          B: 'A place where everyone hangs out together',
         },
       },
       q2: {

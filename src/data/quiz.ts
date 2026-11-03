@@ -43,8 +43,8 @@ export const QUESTIONS: QuizQuestion[] = [
     context: '마음이 가는 제주 게하',
     q: '제주 게하, 나는 이런 곳이 좋다.',
     options: [
-      { key: 'A', tag: '쉼', text: '조용히 푹 쉬다 오는 곳', types: { collector: 2 }, programs: { cinema: 3, lp: 3, craft: 1, flower: 1 } },
-      { key: 'B', tag: '사람냄새', text: '사람 사는 냄새 나는 곳', types: { maker: 1, keeper: 1 }, programs: { book: 3, homemeal: 2, wine: 2, camping: 2, running: 1 } },
+      { key: 'A', tag: '쉼', text: '조용히 쉬다 오는 곳', types: { collector: 2 }, programs: { cinema: 3, lp: 3, craft: 1, flower: 1 } },
+      { key: 'B', tag: '어울림', text: '다같이 어울리는 곳', types: { maker: 1, keeper: 1 }, programs: { book: 3, homemeal: 2, wine: 2, camping: 2, running: 1 } },
     ],
   },
   {
