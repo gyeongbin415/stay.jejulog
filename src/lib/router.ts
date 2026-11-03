@@ -92,19 +92,50 @@ export function routeKey(r: Route) {
 /** 이번 방문에서 웹진 안 화면을 옮겨 다녔는지 — 뒤로 가기 버튼이 브라우저 뒤로 가도 웹진 밖으로 나가지 않는지 판단 */
 let movedInApp = false;
 
+/** 웹진 안에서 왔는지 — 같은 사이트의 앞 페이지(테스트 주소 ⇄ 메인처럼 페이지를 새로 여는 이동) */
+function fromSite() {
+  try {
+    return !!document.referrer && new URL(document.referrer).origin === window.location.origin;
+  } catch {
+    return false; /* 알 수 없는 주소면 밖에서 온 것으로 */
+  }
+}
+
+/** 페이지를 떠날 때 보던 화면 이름 — 새로 열린 페이지(테스트 주소 등)가 바로 앞이 메인이었는지 알 수 있게 이 탭에 저장 */
+const LEFT_KEY = 'jejulog-left';
+export function rememberLeaving() {
+  try {
+    sessionStorage.setItem(LEFT_KEY, parseHash().name);
+  } catch {
+    /* 저장 못 하면 메인으로 가서 기억한 자리로 */
+  }
+}
+/** 지금 화면 · 바로 앞 화면 이름 (페이지를 새로 열고 들어왔으면 떠나온 페이지의 화면) */
+let curName: string = parseHash().name;
+let prevName: string | null = (() => {
+  try {
+    return fromSite() ? sessionStorage.getItem(LEFT_KEY) : null;
+  } catch {
+    return null;
+  }
+})();
+
 /**
  * 뒤로 가기 — 웹진 안에서 왔으면(같은 화면 이동 · 테스트 주소에서 넘어옴) 브라우저 뒤로,
  * 공유 링크로 바로 들어온 것처럼 앞 화면이 없으면 fallback 으로
  */
 export function goBack(fallback: string) {
-  let fromSite = false;
-  try {
-    fromSite = !!document.referrer && new URL(document.referrer).origin === window.location.origin;
-  } catch {
-    /* 알 수 없는 주소면 밖에서 온 것으로 */
-  }
-  if (movedInApp || fromSite) window.history.back();
+  if (movedInApp || fromSite()) window.history.back();
   else window.location.assign(absUrl(fallback));
+}
+
+/**
+ * 상세 페이지(집 · 테스트 · 지도 · 방명록)의 뒤로 가기 — 메인에서 버튼을 눌러 바로 들어왔으면 브라우저 뒤로(메인이 보던 자리로),
+ * 다른 화면을 거쳐 왔거나 링크로 바로 들어왔으면 메인으로 가서 떠날 때 보던 자리로 (기억한 자리가 없으면 panel 칸)
+ */
+export function backToMain(panel: string) {
+  if (prevName === 'home') window.history.back();
+  else window.location.assign(absUrl(`#/?to=back&or=${panel}`));
 }
 
 /** 같은 주소로 다시 이동해도 반응하도록 이동 횟수를 함께 돌려줍니다 */
@@ -124,6 +155,8 @@ export function useRoute() {
       lastAt = now;
       if (fixTestUrl()) return;
       movedInApp = true;
+      const name = parseHash().name;
+      if (name !== curName) [prevName, curName] = [curName, name];
       setRoute((r) => ({ ...parseHash(), visit: r.visit + 1 }));
     };
     window.addEventListener('hashchange', on);

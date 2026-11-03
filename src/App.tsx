@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect, useLayoutEffect, useRef } from 'react';
-import { useRoute, jumpToSection, parseHash, routeKey, href } from './lib/router';
+import { useRoute, jumpToSection, parseHash, routeKey, href, rememberLeaving } from './lib/router';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { MapFab } from './components/MapFab';
@@ -20,15 +20,56 @@ const MapPage = lazy(() => import('./pages/MapPage'));
 
 /** 화면별 스크롤 자리 — 취향 테스트(따로 된 주소)처럼 페이지를 새로 여는 이동 뒤에도 남도록 이 탭에 저장 */
 const POS_KEY = 'jejulog-pos';
-/** 브라우저 뒤로(앞으로) 가기로 이 페이지가 다시 열렸으면 떠나기 전에 저장해 둔 자리부터 */
-const restoredPositions = (() => {
+/** 메인은 '어느 칸에서 얼마나 내려왔는지'로도 기억 — 돌아온 뒤 위쪽 사진이 늦게 떠 칸들이 밀려도 그 칸에 맞춤 */
+const ANCHOR_KEY = 'jejulog-anchor';
+type Anchor = { id: string; off: number };
+const stored = <T,>(k: string): T | null => {
   try {
-    const nav = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming | undefined;
-    return nav?.type === 'back_forward' ? (JSON.parse(sessionStorage.getItem(POS_KEY) || '{}') as Record<string, number>) : {};
+    return JSON.parse(sessionStorage.getItem(k) || 'null') as T | null;
   } catch {
-    return {};
+    return null;
+  }
+};
+/** 브라우저 뒤로(앞으로) 가기로 이 페이지가 다시 열렸으면 떠나기 전에 저장해 둔 자리부터 */
+const reopened = (() => {
+  try {
+    return (performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming | undefined)?.type === 'back_forward';
+  } catch {
+    return false;
   }
 })();
+const restoredPositions = (reopened && stored<Record<string, number>>(POS_KEY)) || {};
+const restoredAnchors = (reopened && stored<Record<string, Anchor>>(ANCHOR_KEY)) || {};
+
+/** 지금 화면 위 끝이 들어가 있는 칸(메인 안 id 달린 section)과 그 칸 위 끝에서 내려온 거리 */
+function anchorNow(): Anchor | null {
+  let a: Anchor | null = null;
+  document.querySelectorAll<HTMLElement>('#main section[id]').forEach((s) => {
+    const top = s.getBoundingClientRect().top;
+    if (top <= 1) a = { id: s.id, off: -top };
+  });
+  return a;
+}
+
+/** 기억한 자리로 — 사진이 늦게 떠 페이지 길이가 바뀌는 동안 계속 다시 맞추고, 길이가 잠잠해지면 멈춤 */
+function restoreTo(y: number, a?: Anchor | null) {
+  const target = () => {
+    const el = a && document.getElementById(a.id);
+    return el && a ? el.getBoundingClientRect().top + window.scrollY + a.off : y;
+  };
+  let tries = 0;
+  let still = 0;
+  let lastH = -1;
+  const go = () => {
+    const t = target();
+    window.scrollTo(0, t);
+    const h = document.documentElement.scrollHeight;
+    still = h === lastH && Math.abs(window.scrollY - t) <= 2 ? still + 1 : 0;
+    lastH = h;
+    if (still < 20 && tries++ < 150) requestAnimationFrame(go);
+  };
+  go();
+}
 
 export function App() {
   const route = useRoute();
@@ -37,6 +78,7 @@ export function App() {
   const query = route.query.toString();
   const keyRef = useRef(key);
   const positions = useRef<Record<string, number>>(restoredPositions);
+  const anchors = useRef<Record<string, Anchor>>(restoredAnchors);
   /** 바로 전에 보던 화면 이름 — 기억한 자리가 없을 때(새로고침 등) 메인 어느 칸으로 돌아갈지 정함 */
   const prevName = useRef<string | null>(null);
 
@@ -80,13 +122,18 @@ export function App() {
     if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
     const onScroll = () => {
       const k = routeKey(parseHash());
-      if (k === keyRef.current) positions.current[k] = window.scrollY;
+      if (k !== keyRef.current) return;
+      positions.current[k] = window.scrollY;
+      const a = k === 'home' ? anchorNow() : null;
+      if (a) anchors.current[k] = a;
     };
     // 페이지를 떠날 때(테스트 주소 ⇄ 메인) 기억한 자리를 저장 — 다른 페이지가 저장해 둔 자리는 그대로 두고 합침
     const onHide = () => {
+      rememberLeaving();
       try {
         const kept = JSON.parse(sessionStorage.getItem(POS_KEY) || '{}');
         sessionStorage.setItem(POS_KEY, JSON.stringify({ ...kept, ...positions.current }));
+        sessionStorage.setItem(ANCHOR_KEY, JSON.stringify({ ...stored<Record<string, Anchor>>(ANCHOR_KEY), ...anchors.current }));
       } catch {
         /* 저장 못 하면 돌아올 때 맨 위부터 */
       }
@@ -125,22 +172,21 @@ export function App() {
     // PC 메인은 콘텐츠 고르기 하나만 — 휴대폰 메인에만 있는 칸(테스트 · 지도 · 방명록 · 체크아웃)을 찾으면 고르기 칸으로
     const wide = window.matchMedia('(min-width: 900px)').matches;
     const onPage = (id: string) => (wide && ['find', 'tastemap', 'guest', 'checkout'].includes(id) ? 'roomtour' : id);
-    if (route.name === 'home' && to) {
-      jumpToSection(onPage(to));
+    // 상세 페이지의 뒤로 가기(다른 화면을 거쳐 왔을 때) — 메인을 떠날 때 보던 자리로, 기억이 없으면 그 페이지와 짝인 칸으로
+    const back = route.name === 'home' && to === 'back' ? positions.current.home ?? stored<Record<string, number>>(POS_KEY)?.home : undefined;
+    if (route.name === 'home' && to === 'back' && back != null) {
+      restoreTo(back, anchors.current.home ?? stored<Record<string, Anchor>>(ANCHOR_KEY)?.home);
+      history.replaceState(history.state, '', '#/');
+    } else if (route.name === 'home' && to) {
+      jumpToSection(onPage(to === 'back' ? route.query.get('or') || 'intro' : to));
       history.replaceState(history.state, '', '#/');
     } else if (route.name === 'home' && positions.current[key] == null && (prevName.current === 'map' || prevName.current === 'insta')) {
       // 기억한 자리가 없으면(지도 · 인스타 페이지에서 새로고침한 뒤 뒤로 가기 등) 그 페이지로 들어가던 칸으로
       jumpToSection(onPage(prevName.current === 'map' ? 'tastemap' : 'guest'));
     } else if (route.name === 'home' || route.name === 'house') {
       // 지도 · 인스타 · 숙소 페이지에서 뒤로 가기로 메인에 돌아오면 보던 자리(예: 취향 지도 칸)로 —
-      // 휴대폰은 사진이 늦게 떠 페이지가 아직 짧을 수 있어 자리가 맞을 때까지 몇 프레임 다시 맞춤
-      const y = positions.current[key] ?? 0;
-      let tries = 0;
-      const go = () => {
-        window.scrollTo(0, y);
-        if (Math.abs(window.scrollY - y) > 2 && tries++ < 60) requestAnimationFrame(go);
-      };
-      go();
+      // 휴대폰은 사진이 늦게 떠 칸들이 밀리므로 메인은 그 칸 기준으로, 자리가 잠잠해질 때까지 다시 맞춤
+      restoreTo(positions.current[key] ?? 0, route.name === 'home' ? anchors.current.home : null);
     } else if (route.name === 'test' && route.query.get('r')) {
       // 숙소 페이지에서 뒤로 가기로 결과에 돌아오면 보던 자리로 — 결과 화면이 그려질 때까지 몇 프레임 다시 맞춤
       const y = positions.current[key] ?? 0;
