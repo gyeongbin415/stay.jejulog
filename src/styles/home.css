@@ -491,6 +491,14 @@
 .folder__body .label { margin: 0; }
 .folder__body .section-head__title { margin: 0; }
 .folder__art, .folder__body .gnote__art .folder__art { display: block; width: var(--home-art); height: auto; }
+/* 스티커 — 그림 모양 따라 흰 테두리(사방으로 흰 그림자를 겹쳐 두름) · 살짝 기울이고 아래 옅은 그림자 */
+.folder__art {
+  filter: drop-shadow(4px 0 0 #fff) drop-shadow(-4px 0 0 #fff) drop-shadow(0 4px 0 #fff) drop-shadow(0 -4px 0 #fff) drop-shadow(0 8px 12px rgba(58, 55, 53, .2));
+  rotate: -2.5deg; transition: rotate .35s var(--ease), scale .35s var(--ease);
+}
+.folder--map .folder__art { rotate: 2deg; }
+.folder--guest .folder__art { rotate: -1.5deg; }
+.folder__body a:hover .folder__art { rotate: 0deg; scale: 1.03; }
 .folder__body .tastemap { width: auto; }
 .folder__body .gnote__art { width: auto; }
 /* CHECK IN 글이 아래 탭들과 겹치지 않게 */
