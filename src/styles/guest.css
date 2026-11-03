@@ -165,3 +165,25 @@
 .gcover__mark { font-size: clamp(11px, 1.6vw, 14px); font-weight: 800; letter-spacing: .3em; color: #2A1A10; opacity: .8; }
 .gcover__hint { padding: 14px 40px; background: #fff; border: 1.5px solid var(--ink); border-radius: 4px; box-shadow: 3px 4px 0 var(--ink); font-size: 15px; font-weight: 600; }
 @media (prefers-reduced-motion: reduce) { .gcover, .gcover__face { transition: none; } }
+
+/* ── 질문 고르기 — 마음에 드는 질문만 골라 적기 ─────────────────────────────── */
+.gwrite__pick-title { font-family: var(--f-home); font-size: clamp(21px, 2.6vw, 28px); font-weight: 700; letter-spacing: -0.02em; }
+.gwrite__pick-sub { margin-top: 6px; font-size: 14.5px; line-height: 1.6; color: var(--ink-soft); }
+.gwrite__picks { display: grid; gap: 12px; margin: 22px 0 0; padding: 0; list-style: none; }
+.gwrite__pick {
+  display: grid; grid-template-columns: auto 1fr auto; grid-template-areas: 'no q go' 'no state go'; align-items: center; column-gap: 14px; row-gap: 4px;
+  width: 100%; padding: 16px 18px; text-align: left;
+  background: #fff; border: 1.5px solid var(--ink); border-radius: 4px; box-shadow: 3px 4px 0 var(--ink);
+  transition: transform .15s var(--ease), box-shadow .15s var(--ease);
+}
+.gwrite__pick:hover { transform: translate(-1px, -1px); box-shadow: 4px 5px 0 var(--ink); }
+.gwrite__pick:active { transform: translate(2px, 3px); box-shadow: 1px 1px 0 var(--ink); }
+.gwrite__pick-no { grid-area: no; align-self: start; padding-top: 2px; font-size: 12.5px; font-weight: 700; letter-spacing: .06em; color: var(--ink-soft); }
+.gwrite__pick-q { grid-area: q; font-family: var(--f-home); font-size: 16.5px; font-weight: 700; line-height: 1.45; letter-spacing: -0.015em; }
+.gwrite__pick-state { grid-area: state; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 13.5px; color: var(--ink-soft); }
+.gwrite__pick-go { grid-area: go; font-size: 20px; color: var(--ink-soft); }
+.gwrite__pick.is-done { border-color: var(--forest); box-shadow: 3px 4px 0 var(--forest); }
+.gwrite__pick.is-done .gwrite__pick-state, .gwrite__pick.is-done .gwrite__pick-go { color: var(--forest); }
+.gwrite__send { display: grid; gap: 16px; margin-top: 26px; }
+.gwrite__send .gwrite__name { border-top: 0; padding-top: 0; }
+.gwrite__send .gwrite__submit { justify-self: end; }

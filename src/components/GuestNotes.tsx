@@ -11,7 +11,7 @@ import '../styles/guest.css';
    방명록(GUEST NOTE) — 메인 취향 지도와 CHECK OUT 사이
    · 입구 — 살짝 기운 공책 한 장에 여행자들의 답이 색 형광펜 줄로 흐릿하게 칠해져 있고, 아래 '나의 제주 노트 쓰기 · N명이 먼저 썼어요'
    · 누르면 화면 가득 — 공책 표지(끌어서 돌려 보거나 눌러서 펼치기) → 짧은 도입 문장
-     → 줄 노트 카드에 질문 3개를 하나씩 → 아래 칸에 다른 사람 답
+     → 질문 목록에서 마음에 드는 질문만 골라 줄 노트 카드에 적기 → 아래 칸에 다른 사람 답
 ------------------------------------------------------------------- */
 
 const QUESTIONS = 3;
@@ -173,15 +173,24 @@ function NoteCover({ onOpen }: { onOpen: () => void }) {
   );
 }
 
-/** 화면 가득 — 공책 표지 → 도입 문장 → 질문 카드 3장 → 다 썼어요 */
+/**
+ * 쓰던 답 · 이름 — 창을 닫았다 열거나 다른 화면에 다녀와도 그대로 (페이지가 열려 있는 동안, 남기고 나면 비움)
+ */
+const draft = { answers: Array<string>(QUESTIONS).fill(''), name: '' };
+
+/** 화면 가득 — 공책 표지 → 도입 문장 → 질문 고르기 ⇄ 줄 노트 카드 → 다 썼어요 */
 function GuestWriter({ notes, onClose, onSent }: { notes: GuestNote[]; onClose: () => void; onSent: () => void }) {
   const { ui, lang } = useContent();
   const t = ui.guest;
   const reduced = useReducedMotion();
-  const [phase, setPhase] = useState<'cover' | 'intro' | 'write' | 'done'>('cover');
+  const [phase, setPhase] = useState<'cover' | 'intro' | 'pick' | 'write' | 'done'>('cover');
   const [step, setStep] = useState(0);
-  const [answers, setAnswers] = useState<string[]>(() => Array(QUESTIONS).fill(''));
-  const [name, setName] = useState('');
+  const [answers, setAnswers] = useState<string[]>(() => [...draft.answers]);
+  const [name, setName] = useState(draft.name);
+  useEffect(() => {
+    draft.answers = [...answers];
+    draft.name = name;
+  }, [answers, name]);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState('');
   const [showAll, setShowAll] = useState(false);
@@ -191,7 +200,7 @@ function GuestWriter({ notes, onClose, onSent }: { notes: GuestNote[]; onClose: 
   // 도입 문장 두 줄을 읽을 시간 — 누르면 바로 넘어감
   useEffect(() => {
     if (phase !== 'intro') return;
-    const id = window.setTimeout(() => setPhase('write'), 3000);
+    const id = window.setTimeout(() => setPhase('pick'), 3000);
     return () => window.clearTimeout(id);
   }, [phase]);
 
@@ -219,7 +228,7 @@ function GuestWriter({ notes, onClose, onSent }: { notes: GuestNote[]; onClose: 
   const peek = useMemo(() => (list.length ? list[Math.floor(Math.random() * list.length)] : null), [list]);
 
   const setAnswer = (v: string) => setAnswers((a) => a.map((x, i) => (i === step ? v : x)));
-  const last = step === QUESTIONS - 1;
+  const answered = answers.map((a) => !!a.trim());
 
   const submit = async () => {
     const a = answers.map((x) => x.trim());
@@ -236,6 +245,8 @@ function GuestWriter({ notes, onClose, onSent }: { notes: GuestNote[]; onClose: 
       return;
     }
     track('guest_submit', { answered: a.filter(Boolean).length });
+    draft.answers = Array<string>(QUESTIONS).fill('');
+    draft.name = '';
     onSent();
     setPhase('done');
   };
@@ -244,10 +255,10 @@ function GuestWriter({ notes, onClose, onSent }: { notes: GuestNote[]; onClose: 
     <div className={`gwrite gwrite--${phase}`} role="dialog" aria-modal="true" aria-label={t.open} ref={ref} tabIndex={-1}>
       <header className="gwrite__top">
         <p className="gwrite__brand">GUEST NOTE</p>
-        {phase === 'write' && (
+        {(phase === 'pick' || phase === 'write') && (
           <ol className="gwrite__bar" aria-hidden="true">
-            {Array.from({ length: QUESTIONS }, (_, i) => (
-              <li key={i} className={i <= step ? 'is-on' : undefined} />
+            {answered.map((on, i) => (
+              <li key={i} className={on ? 'is-on' : undefined} />
             ))}
           </ol>
         )}
@@ -257,14 +268,55 @@ function GuestWriter({ notes, onClose, onSent }: { notes: GuestNote[]; onClose: 
         </button>
       </header>
 
-      {phase === 'cover' && <NoteCover onOpen={() => setPhase(reduced ? 'write' : 'intro')} />}
+      {phase === 'cover' && <NoteCover onOpen={() => setPhase(reduced ? 'pick' : 'intro')} />}
 
       {phase === 'intro' && (
-        <button type="button" className="gwrite__intro" onClick={() => setPhase('write')}>
+        <button type="button" className="gwrite__intro" onClick={() => setPhase('pick')}>
           {t.intro.map((l, i) => (
             <span key={l} style={{ '--i': i } as CSSProperties}>{l}</span>
           ))}
         </button>
+      )}
+
+      {/* 질문 고르기 — 마음에 드는 질문만 골라 적고, 하나 이상 적으면 이름과 함께 남기기 */}
+      {phase === 'pick' && (
+        <div className="gwrite__body wrap">
+          <p className="gwrite__hand" aria-hidden="true">MY JEJU NOTE</p>
+          <h2 className="gwrite__pick-title">{t.pickTitle}</h2>
+          <p className="gwrite__pick-sub pre">{t.pickSub}</p>
+          <ul className="gwrite__picks">
+            {t.questions.map((q, i) => (
+              <li key={i}>
+                <button
+                  type="button"
+                  className={`gwrite__pick${answered[i] ? ' is-done' : ''}`}
+                  onClick={() => {
+                    setStep(i);
+                    setPhase('write');
+                  }}
+                  data-track={`guest_pick_q${i + 1}`}
+                >
+                  <span className="gwrite__pick-no">Q{i + 1}</span>
+                  <span className="gwrite__pick-q">{q}</span>
+                  <span className="gwrite__pick-state">{answered[i] ? answers[i].trim() : t.pickWrite}</span>
+                  <span className="gwrite__pick-go" aria-hidden="true">{answered[i] ? '✓' : '›'}</span>
+                </button>
+              </li>
+            ))}
+          </ul>
+          {answered.some(Boolean) && (
+            <div className="gwrite__send">
+              <label className="gwrite__name">
+                <span>{t.nameLabel}</span>
+                <input maxLength={MAX_NAME} placeholder={t.namePlaceholder} value={name} onChange={(e) => setName(e.target.value)} />
+              </label>
+              <button type="button" className="btn gwrite__submit" onClick={submit} disabled={sending} data-track="guest_submit_btn">
+                {sending ? t.sending : t.submit}
+              </button>
+            </div>
+          )}
+          {error && <p className="gwrite__error" role="alert">{error}</p>}
+        </div>
       )}
 
       {phase === 'write' && (
@@ -272,7 +324,7 @@ function GuestWriter({ notes, onClose, onSent }: { notes: GuestNote[]; onClose: 
           <div className="gwrite__body wrap">
             <p className="gwrite__hand" aria-hidden="true">MY JEJU NOTE</p>
             <div className="gwrite__card" key={step}>
-              <p className="gwrite__no">{t.progress(step + 1, QUESTIONS)}</p>
+              <p className="gwrite__no">Q{step + 1}</p>
               <label className="gwrite__q" htmlFor="gwrite-answer">{t.questions[step]}</label>
               <textarea
                 id="gwrite-answer"
@@ -285,28 +337,15 @@ function GuestWriter({ notes, onClose, onSent }: { notes: GuestNote[]; onClose: 
                 onChange={(e) => setAnswer(e.target.value)}
               />
               <p className="gwrite__len" aria-hidden="true">{answers[step].length} / {MAX_ANSWER}</p>
-              {last && (
-                <label className="gwrite__name">
-                  <span>{t.nameLabel}</span>
-                  <input maxLength={MAX_NAME} placeholder={t.namePlaceholder} value={name} onChange={(e) => setName(e.target.value)} />
-                </label>
-              )}
             </div>
             <nav className="gwrite__nav">
-              <button type="button" className="gwrite__step" onClick={() => setStep((s) => s - 1)} disabled={step === 0}>
-                <span aria-hidden="true">‹ </span>{t.prev}
+              <button type="button" className="gwrite__step" onClick={() => setPhase('pick')}>
+                <span aria-hidden="true">‹ </span>{t.toList}
               </button>
-              {last ? (
-                <button type="button" className="btn gwrite__submit" onClick={submit} disabled={sending} data-track="guest_submit_btn">
-                  {sending ? t.sending : t.submit}
-                </button>
-              ) : (
-                <button type="button" className="gwrite__step" onClick={() => setStep((s) => s + 1)}>
-                  {answers[step].trim() ? t.next : t.skip}<span aria-hidden="true"> ›</span>
-                </button>
-              )}
+              <button type="button" className="btn gwrite__submit" onClick={() => setPhase('pick')} data-track={`guest_done_q${step + 1}`}>
+                {t.doneAnswer}
+              </button>
             </nav>
-            {error && <p className="gwrite__error" role="alert">{error}</p>}
           </div>
 
           {/* 다른 사람의 답 — 하나 살짝 보이고, 누르면 이 질문의 답 전부 */}

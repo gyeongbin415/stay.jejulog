@@ -24,7 +24,8 @@ export interface UiText {
     prev: string; skip: string; next: string; nameLabel: string; namePlaceholder: string; anon: string; submit: string; sending: string;
     needOne: string; failed: string; doneTitle: string; doneSub: string; doneClose: string; close: string;
     otherBy: (name: string) => string; seeAll: (n: number) => string; hideAll: string; emptyAnswers: string; localOnly: string; cloudAria: string;
-    coverHint: string; coverAria: string };
+    coverHint: string; coverAria: string;
+    pickTitle: string; pickSub: string; pickWrite: string; toList: string; doneAnswer: string };
   home: { srTitle: string; wordsAria: string; opening: string; findSub: (n: number) => string; typesAria: string;
     /** 메인 사진 띠 — 상세페이지에서 빠진 사진 둘의 대체 텍스트 */
     stripRunAlt: string; stripLoungeAlt: string; stripCampAlt: string; stripMallowAlt: string; stripDomeAlt: string; stripCandleAlt: string; stripLpWallAlt: string; stripLivingAlt: string; stripRingAlt: string; stripPotluckAlt: string; stripCatAlt: string; stripBuckwheatAlt: string; stripTeaAlt: string; stripSeaRunAlt: string; stripGuitarAlt: string; stripWinePourAlt: string; stripRingWorkAlt: string; stripCliffAlt: string; stripCraterAlt: string; stripPuppyAlt: string; stripSeaSitAlt: string; stripForestAlt: string; stripCosmosAlt: string; stripCalendarAlt: string;
@@ -85,6 +86,7 @@ export const UI: Record<Lang, UiText> = {
       otherBy: (name) => `${name}의 답`, seeAll: (n) => `${n.toLocaleString()}명 답 보기`, hideAll: '접기', emptyAnswers: '아직 이 질문에 남긴 답이 없어요.',
       localOnly: '지금은 준비 중이라 남긴 노트가 이 화면에만 보여요.', cloudAria: '여행자들이 남긴 노트',
       coverHint: '돌려 보거나, 눌러서 펼치기', coverAria: '나의 제주 노트 표지',
+      pickTitle: '어떤 질문에 답해 볼까요?', pickSub: '마음이 가는 질문만 골라 적어 보세요.\n하나만 적어도 괜찮아요.', pickWrite: '적어 보기', toList: '질문 목록', doneAnswer: '다 적었어요',
     },
     home: {
       srTitle: '제주 게스트하우스 공간 탐험 웹진',
@@ -167,6 +169,7 @@ export const UI: Record<Lang, UiText> = {
       otherBy: (name) => `— ${name}`, seeAll: (n) => `See all ${n.toLocaleString()} answers`, hideAll: 'Hide', emptyAnswers: 'No answers to this question yet.',
       localOnly: 'This is still being set up, so your note is only shown on this screen for now.', cloudAria: 'Notes left by travelers',
       coverHint: 'Turn it around, or tap to open', coverAria: 'My Jeju note cover',
+      pickTitle: 'Which question would you like to answer?', pickSub: 'Pick only the ones that speak to you.\nOne answer is enough.', pickWrite: 'Write', toList: 'Questions', doneAnswer: 'Done',
     },
     home: {
       srTitle: 'A webzine for exploring Jeju guesthouses',
@@ -249,6 +252,7 @@ export const UI: Record<Lang, UiText> = {
       otherBy: (name) => `${name} 的回答`, seeAll: (n) => `查看全部 ${n.toLocaleString()} 条回答`, hideAll: '收起', emptyAnswers: '这个问题还没有人回答。',
       localOnly: '目前仍在准备中，你的笔记暂时只显示在这个页面上。', cloudAria: '旅行者们留下的笔记',
       coverHint: '转一转，或点击翻开', coverAria: '我的济州笔记封面',
+      pickTitle: '想回答哪个问题？', pickSub: '只挑你喜欢的问题来写吧。\n写一个也没关系。', pickWrite: '写一写', toList: '问题列表', doneAnswer: '写好了',
     },
     home: {
       srTitle: '济州民宿空间探索杂志',
