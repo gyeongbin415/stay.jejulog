@@ -107,7 +107,6 @@ function Cover() {
       <p className="cover__hint">
         <span className="cover__dot" aria-hidden="true" />
         {ui.deck.coverHint}
-        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 3v9M4 8.5 8 12.5l4-4" /></svg>
       </p>
       {items.map((it, i) => (
         <a key={it.k} className={`cover__item cover__item--${it.k}`} href={it.to} aria-label={it.label} data-track={`cover_${it.k}`} style={{ '--i': i } as CSSProperties}>
