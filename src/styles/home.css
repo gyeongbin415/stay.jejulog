@@ -212,7 +212,7 @@
 /* 메인 그림(집 · 뽑기 기계 · 종이 지도 · 공책) 크기 — 넷 다 같은 폭 (뽑기 기계는 세로라 높이로 맞춤) */
 /* 메인 그림 넷 — 비율이 달라(가로 · 세로) 화면에서 차지하는 넓이가 같도록 폭을 그림마다 다르게 (집 폭 = --home-art 기준) */
 :root { --home-art: min(300px, 74vw); }
-.find__art { display: block; margin-bottom: 8px; transition: transform var(--t-hover) var(--ease); }
+.find__art { display: block; margin: 4px 0 8px; transition: transform var(--t-hover) var(--ease); }
 .find__art img { display: block; width: calc(var(--home-art) * .632); height: auto; }
 .find__art:hover { transform: translateY(-4px); }
 .find:not(.find--inside):not(.find--map) .find__inner { display: grid; justify-items: center; }
@@ -461,3 +461,12 @@
 /* 화면 가운데로 커지는 복사본 + 배경 덮개 */
 .pickzoom { position: fixed; inset: 0; z-index: 300; pointer-events: none; }
 .pickzoom__art { position: fixed; margin: 0; transform-origin: center; }
+
+/* ── 메인 그림 스티커 — 그림 모양 따라 흰 테두리(사방으로 흰 그림자를 겹쳐 두름) · 살짝 기울기 · 아래 옅은 그림자 (휴대폰 칸 · PC 고르기) ── */
+.roomtour__img, .find__art img, .tastemap__img, .gnote__art img, .picker__art > img {
+  filter: drop-shadow(4px 0 0 #fff) drop-shadow(-4px 0 0 #fff) drop-shadow(0 4px 0 #fff) drop-shadow(0 -4px 0 #fff) drop-shadow(0 8px 12px rgba(58, 55, 53, .2));
+}
+.roomtour__img, .picker__item--house .picker__art > img { rotate: -2.5deg; }
+.find__art img, .picker__item--test .picker__art > img { rotate: 3deg; }
+.tastemap__img, .picker__item--map .picker__art > img { rotate: 2deg; }
+.gnote__art img, .picker__item--guest .picker__art > img { rotate: -2deg; }

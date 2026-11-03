@@ -175,4 +175,7 @@
 .gwrite__send .gwrite__submit { justify-self: end; }
 
 /* 따로 된 방명록 페이지 — 상단 바 아래부터, 한 화면 높이 */
-.gnote--page { min-height: 100vh; min-height: 100svh; padding-top: calc(var(--header) + clamp(40px, 8vh, 80px)); }
+/* 방명록 페이지 — 표지 없이 쓰기 화면을 페이지 안에 바로 (상단 바 아래부터) */
+.gnote--page { min-height: 100vh; min-height: 100svh; padding: 0; background: var(--paper); }
+.gwrite--inline { position: relative; inset: auto; z-index: auto; min-height: 100vh; min-height: 100svh; padding-top: var(--header); overflow: visible; animation: none; }
+.gwrite--inline .gwrite__top { top: var(--header); }

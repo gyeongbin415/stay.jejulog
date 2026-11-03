@@ -1,19 +1,17 @@
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from 'react';
-import { createPortal } from 'react-dom';
 import { useContent } from '../i18n';
 import { useReducedMotion } from '../lib/motion';
 import { absUrl, href } from '../lib/router';
 import { track } from '../lib/track';
 import { GUESTBOOK_URL, MAX_ANSWER, MAX_NAME, fetchBoard, loadMine, postNote, type GuestBoard, type GuestNote } from '../data/guestbook';
-import logoUrl from '../assets/logo-staylog.png';
 import noteUrl from '../assets/guest-note.png';
 import '../styles/guest.css';
 
 /* ------------------------------------------------------------------
-   방명록(GUEST NOTE) — 메인 취향 지도와 CHECK OUT 사이
-   · 입구 — 칸 안에 공책 표지(끌어서 돌려 보거나 눌러서 펼치기), 아래 'N명이 먼저 썼어요'
-   · 펼치면 화면 가득 — 짧은 도입 문장
-     → 질문 목록에서 마음에 드는 질문만 골라 줄 노트 카드에 적기 → 아래 칸에 다른 사람 답
+   방명록(GUEST NOTE)
+   · 방명록 페이지(#/guest) — 표지 없이 들어오자마자 질문 고르기
+     → 마음에 드는 질문만 골라 줄 노트 카드에 적기 → 아래 칸에 다른 사람 답 → 이름과 함께 남기기
+   · 메인 칸(page 아님) — 받은 공책 그림(끌어서 돌려 보거나 누르면 방명록 페이지로) · '돌려 보거나, 눌러서 펼치기' 안내 상자
 ------------------------------------------------------------------- */
 
 const QUESTIONS = 3;
@@ -36,7 +34,6 @@ export function GuestNotes({ page = false }: { page?: boolean }) {
   const t = ui.guest;
   const [board, setBoard] = useState<GuestBoard | null>(null);
   const [mine, setMine] = useState<GuestNote[]>(loadMine);
-  const [open, setOpen] = useState(false);
 
   const reload = () => {
     fetchBoard().then((b) => b && setBoard(b));
@@ -53,39 +50,32 @@ export function GuestNotes({ page = false }: { page?: boolean }) {
   const unsynced = notes.length - (board?.notes.length ?? 0);
   const count = GUESTBOOK_URL ? (board?.count ?? 0) + unsynced : 0;
 
-  // 창을 닫으면 표지를 다시 닫힌 모습으로 (새로 그림)
-  const [coverKey, setCoverKey] = useState(0);
+  // 방명록 페이지 — 표지 없이 바로 쓰기 화면
+  if (page)
+    return (
+      <section id="guest" className="gnote gnote--page" data-tone="light" aria-label={t.title}>
+        <GuestWriter
+          inline
+          notes={notes}
+          onClose={() => {}}
+          onSent={() => {
+            setMine(loadMine());
+            reload();
+          }}
+        />
+      </section>
+    );
 
   return (
-    <section id="guest" className={`gnote${page ? ' gnote--page' : ''}`} data-tone="light" aria-labelledby="guest-title">
+    <section id="guest" className="gnote" data-tone="light" aria-labelledby="guest-title">
       <div className="gnote__inner wrap">
         <p className="label">GUEST NOTE</p>
         <h2 id="guest-title" className="visually-hidden">{t.title}</h2>
-        {/* 메인 — 받은 공책 그림(끌어서 돌려 보거나 누르면 방명록 페이지로) · 방명록 페이지 — 돌려 보거나 펼치는 표지(쓰기 창) */}
-        {page ? (
-          <NoteCover key={coverKey} onOpen={() => setOpen(true)} />
-        ) : (
-          <NoteArt />
-        )}
+        {/* 받은 공책 그림 — 끌어서 돌려 보거나 누르면 방명록 페이지로, 밑에 안내 상자 */}
+        <NoteArt />
         <p className="gnote__entry-count">{count > 0 ? t.count(count) : t.first}</p>
         {!GUESTBOOK_URL && mine.length > 0 && <p className="gnote__local">{t.localOnly}</p>}
       </div>
-      {/* 페이지 등장 애니메이션(transform) 안에 두면 화면이 아니라 페이지에 붙으므로 body 에 바로 그림 */}
-      {open &&
-        createPortal(
-          <GuestWriter
-            notes={notes}
-            onClose={() => {
-              setOpen(false);
-              setCoverKey((k) => k + 1);
-            }}
-            onSent={() => {
-              setMine(loadMine());
-              reload();
-            }}
-          />,
-          document.body,
-        )}
     </section>
   );
 }
@@ -134,76 +124,17 @@ function NoteArt() {
   );
 }
 
-/** 공책 표지 — 끌어서 돌려 보거나 눌러서 펼치기 */
-function NoteCover({ onOpen }: { onOpen: () => void }) {
-  const { ui } = useContent();
-  const t = ui.guest;
-  const reduced = useReducedMotion();
-  const [turn, setTurn] = useState(0);
-  const [opening, setOpening] = useState(false);
-  const drag = useRef<{ x: number; turn: number; moved: boolean } | null>(null);
-
-  const open = () => {
-    if (opening) return;
-    if (reduced) return onOpen();
-    setOpening(true);
-    window.setTimeout(onOpen, 850);
-  };
-
-  return (
-    <div className="gcover-wrap">
-      <button
-        type="button"
-        className={`gcover${opening ? ' is-opening' : ''}`}
-        data-noswipe
-        data-track="guest_open"
-        style={{ '--turn': `${turn}deg` } as CSSProperties}
-        aria-label={`${t.coverAria} — ${t.coverHint}`}
-        onPointerDown={(e) => {
-          drag.current = { x: e.clientX, turn, moved: false };
-          e.currentTarget.setPointerCapture(e.pointerId);
-        }}
-        onPointerMove={(e) => {
-          const d = drag.current;
-          if (!d) return;
-          const dx = e.clientX - d.x;
-          if (Math.abs(dx) > 4) d.moved = true;
-          setTurn(Math.max(-38, Math.min(38, d.turn + dx * 0.25)));
-        }}
-        onPointerUp={() => {
-          const d = drag.current;
-          drag.current = null;
-          if (d && !d.moved) open();
-        }}
-        onPointerCancel={() => (drag.current = null)}
-        onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && (e.preventDefault(), open())}
-      >
-        <span className="gcover__back" />
-        <span className="gcover__page" />
-        <span className="gcover__face">
-          <span className="gcover__hand">MY JEJU NOTE</span>
-          <span className="gcover__window">
-            <img src={logoUrl} alt="" draggable={false} />
-          </span>
-          <span className="gcover__mark">STAY JEJULOG</span>
-        </span>
-      </button>
-      <p className="gcover__hint">{t.coverHint}</p>
-    </div>
-  );
-}
-
 /**
  * 쓰던 답 · 이름 — 창을 닫았다 열거나 다른 화면에 다녀와도 그대로 (페이지가 열려 있는 동안, 남기고 나면 비움)
  */
 const draft = { answers: Array<string>(QUESTIONS).fill(''), name: '' };
 
-/** 화면 가득 — (칸에서 표지를 펼친 뒤) 도입 문장 → 질문 고르기 ⇄ 줄 노트 카드 → 다 썼어요 */
-function GuestWriter({ notes, onClose, onSent }: { notes: GuestNote[]; onClose: () => void; onSent: () => void }) {
+/** 질문 고르기 ⇄ 줄 노트 카드 → 다 썼어요 · inline — 방명록 페이지 안에 바로(창 · 도입 문장 · 닫기 없이) */
+function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestNote[]; onClose: () => void; onSent: () => void; inline?: boolean }) {
   const { ui, lang } = useContent();
   const t = ui.guest;
   const reduced = useReducedMotion();
-  const [phase, setPhase] = useState<'intro' | 'pick' | 'write' | 'done'>(reduced ? 'pick' : 'intro');
+  const [phase, setPhase] = useState<'intro' | 'pick' | 'write' | 'done'>(reduced || inline ? 'pick' : 'intro');
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<string[]>(() => [...draft.answers]);
   const [name, setName] = useState(draft.name);
@@ -224,8 +155,9 @@ function GuestWriter({ notes, onClose, onSent }: { notes: GuestNote[]; onClose: 
     return () => window.clearTimeout(id);
   }, [phase]);
 
-  // 열려 있는 동안 뒤 페이지는 멈추고, Esc 로 닫기
+  // 창으로 열려 있는 동안 뒤 페이지는 멈추고, Esc 로 닫기
   useEffect(() => {
+    if (inline) return;
     const prev = document.activeElement as HTMLElement | null;
     document.body.style.overflow = 'hidden';
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose();
@@ -236,7 +168,7 @@ function GuestWriter({ notes, onClose, onSent }: { notes: GuestNote[]; onClose: 
       document.removeEventListener('keydown', onKey);
       prev?.focus();
     };
-  }, [onClose]);
+  }, [onClose, inline]);
 
   useEffect(() => {
     if (phase === 'write') areaRef.current?.focus({ preventScroll: true });
@@ -270,9 +202,16 @@ function GuestWriter({ notes, onClose, onSent }: { notes: GuestNote[]; onClose: 
     onSent();
     setPhase('done');
   };
+  /** 다 쓴 뒤 — 창은 닫고, 방명록 페이지에서는 새 노트 쓰기로 */
+  const finish = () => {
+    if (!inline) return onClose();
+    setAnswers(Array<string>(QUESTIONS).fill(''));
+    setName('');
+    setPhase('pick');
+  };
 
   return (
-    <div className={`gwrite gwrite--${phase}`} role="dialog" aria-modal="true" aria-label={t.open} ref={ref} tabIndex={-1}>
+    <div className={`gwrite gwrite--${phase}${inline ? ' gwrite--inline' : ''}`} role={inline ? undefined : 'dialog'} aria-modal={inline ? undefined : true} aria-label={t.open} ref={ref} tabIndex={-1}>
       <header className="gwrite__top">
         <p className="gwrite__brand">GUEST NOTE</p>
         {(phase === 'pick' || phase === 'write') && (
@@ -282,10 +221,12 @@ function GuestWriter({ notes, onClose, onSent }: { notes: GuestNote[]; onClose: 
             ))}
           </ol>
         )}
-        <button type="button" className="gwrite__close" onClick={onClose} data-track="guest_close">
-          <span aria-hidden="true">×</span>
-          <span className="visually-hidden">{t.close}</span>
-        </button>
+        {!inline && (
+          <button type="button" className="gwrite__close" onClick={onClose} data-track="guest_close">
+            <span aria-hidden="true">×</span>
+            <span className="visually-hidden">{t.close}</span>
+          </button>
+        )}
       </header>
 
       {phase === 'intro' && (
@@ -411,7 +352,7 @@ function GuestWriter({ notes, onClose, onSent }: { notes: GuestNote[]; onClose: 
             </ul>
             <p className="gwrite__done-sub">{t.doneSub}</p>
           </div>
-          <button type="button" className="btn gwrite__submit" onClick={onClose}>{t.doneClose}</button>
+          <button type="button" className="btn gwrite__submit" onClick={finish}>{inline ? t.open : t.doneClose}</button>
         </div>
       )}
     </div>

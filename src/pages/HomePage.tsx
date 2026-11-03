@@ -380,11 +380,11 @@ function FindYourStay() {
     <section id="find" className="find" data-tone="light" aria-labelledby="find-title">
       <div className="find__inner wrap">
         <div className="find__copy">
+          <p className="label">{SITE.findYourStay.label}</p>
           {/* 뽑기 기계 그림 — 누르면 취향 테스트로 */}
           <a className="find__art" href={href.test()} aria-label={SITE.findYourStay.cta} data-track="find_art" tabIndex={-1}>
             <img src={gumballUrl} alt="" width={615} height={1086} loading="lazy" decoding="async" />
           </a>
-          <p className="label">{SITE.findYourStay.label}</p>
           <h2 id="find-title" className="section-head__title">
             {SITE.findYourStay.title.map((l) => (
               <span key={l}>{l}</span>
