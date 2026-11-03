@@ -435,13 +435,15 @@
 
 
 /* ── 메인 폴더 — CHECK IN 아래 탭 달린 폴더 넷, 스크롤마다 하나씩 올라왔다 내려감 (components/HomeFolders.tsx) ─────────────────────────────── */
-.folders { --tab-h: 46px; position: absolute; inset: 0; z-index: 6; pointer-events: none; opacity: 0; visibility: hidden; transition: opacity .5s var(--ease), visibility 0s linear .5s; }
+.folders { --tab-h: 40px; --step: 30px; --slope: 16px; position: absolute; inset: 0; z-index: 6; pointer-events: none; opacity: 0; visibility: hidden; transition: opacity .5s var(--ease), visibility 0s linear .5s; }
 .intro[data-phase="reveal"] .folders { opacity: 1; visibility: visible; transition: opacity .8s var(--ease) .9s; }
-/* 폴더 한 장 — 쉴 때는 탭(뒤 폴더일수록 더 위)만 화면 아래에 보이고, 올라오면 상단 바 아래까지 */
+/* 폴더 한 장 — 쉴 때는 탭만 화면 아래에 촘촘히 겹쳐 보이고(뒤 탭은 앞 탭이 글씨 바로 밑까지만 가림), 올라오면 상단 바 아래까지
+   탭 · 몸통이 한 덩어리로 보이게 그림자는 폴더 전체 모양에 */
 .folder {
-  --peek: calc((4 - var(--i)) * var(--tab-h));
+  --peek: calc(var(--tab-h) + (3 - var(--i)) * var(--step));
   position: absolute; left: 0; right: 0; top: calc(var(--header) + 8px); bottom: 0; z-index: calc(1 + var(--i));
   display: flex; flex-direction: column;
+  filter: drop-shadow(0 -2px 3px rgba(58, 55, 53, .12));
   transform: translateY(calc(100% - var(--peek))); transition: transform .7s cubic-bezier(.65, 0, .35, 1);
 }
 .folder.is-up { z-index: 10; transform: translateY(0); }
@@ -449,21 +451,28 @@
 .folder--test { --fc: #F5E2A0; }
 .folder--map { --fc: #C4E3E6; }
 .folder--guest { --fc: #CFE0B4; }
-/* 탭 — 폴더마다 옆으로 비켜 남 */
+/* 탭 — 서류 폴더처럼 양옆이 비스듬히 내려와 몸통에 이어짐, 폴더마다 옆으로 비켜 남 */
 .folder__tab {
   pointer-events: auto; position: relative; z-index: 1;
   display: flex; align-items: center; gap: 7px; flex: none;
-  width: 30%; height: var(--tab-h); margin: 0 0 -1px calc(2% + var(--i) * 15.5%); padding: 0 11px; /* 마지막 탭이 오른쪽 아래 동그라미 버튼에 가리지 않게 왼쪽으로 모음 */
-  background: var(--fc); border: 0; border-radius: 14px 14px 0 0; box-shadow: 0 -4px 12px rgba(58, 55, 53, .06);
+  width: 28%; height: var(--tab-h); margin: 0 0 -1px calc(5% + var(--i) * 15%); padding: 0 6px; /* 마지막 탭이 오른쪽 아래 동그라미 버튼에 가리지 않게 왼쪽으로 모음 */
+  background: var(--fc); border: 0; border-radius: 10px 10px 0 0;
   font-family: var(--f-home); font-size: 13.5px; font-weight: 800; letter-spacing: -0.03em; color: var(--ink); text-align: left; white-space: nowrap; cursor: pointer;
 }
+.folder__tab::before, .folder__tab::after {
+  content: ''; position: absolute; z-index: -1; top: 0; bottom: 0; width: calc(var(--slope) * 2);
+  background: var(--fc); transform-origin: bottom;
+}
+.folder__tab::before { left: calc(var(--slope) * -1); border-radius: 10px 0 0 0; transform: skewX(-24deg); }
+.folder__tab::after { right: calc(var(--slope) * -1); border-radius: 0 10px 0 0; transform: skewX(24deg); }
 .folder__no { font-size: 10px; font-weight: 700; letter-spacing: .08em; opacity: .55; }
 .folder__en { display: none; margin-left: auto; font-size: 10px; font-weight: 700; letter-spacing: .16em; opacity: .55; }
-/* 속 — 그림 · 제목 · 버튼을 가운데에 */
+/* 몸통 — 위 가장자리에 접힌 듯 옅은 빛 · 그늘, 그림 · 제목 · 버튼은 가운데 */
 .folder__body {
   pointer-events: auto; flex: 1; display: grid; align-content: center; justify-items: center; gap: clamp(16px, 2.6vh, 24px);
   padding: 24px var(--gutter) calc(24px + env(safe-area-inset-bottom)); overflow: hidden; text-align: center;
-  background: var(--fc); border-radius: 18px 18px 0 0; box-shadow: 0 -8px 22px rgba(58, 55, 53, .08); color: var(--ink); /* 인트로의 밝은 글자색이 이어지지 않게 */
+  background: linear-gradient(rgba(255, 255, 255, .28), rgba(255, 255, 255, 0) 3px, rgba(58, 55, 53, .05) 4px, rgba(58, 55, 53, 0) 14px), var(--fc);
+  border-radius: 14px 14px 0 0; color: var(--ink); /* 인트로의 밝은 글자색이 이어지지 않게 */
 }
 .folder__body .label { margin: 0; }
 .folder__body .section-head__title { margin: 0; }
@@ -471,12 +480,12 @@
 .folder__body .tastemap { width: auto; }
 .folder__body .gnote__art { width: auto; }
 /* CHECK IN 글이 아래 탭들과 겹치지 않게 */
-.intro .problem__inner:has(.strip) { padding-bottom: calc(4 * 46px + 24px); }
+.intro .problem__inner:has(.strip) { padding-bottom: calc(40px + 3 * 30px + 24px); }
 @media (min-width: 900px) {
-  .folders { --tab-h: 54px; }
-  .folder__tab { width: 24%; margin-left: calc(4% + var(--i) * 18%); font-size: 17px; padding: 0 20px; }
+  .folders { --tab-h: 48px; --step: 36px; --slope: 20px; }
+  .folder__tab { width: 22%; margin-left: calc(5% + var(--i) * 18%); font-size: 17px; padding: 0 10px; }
   .folder__en { display: inline; }
-  .intro .problem__inner:has(.strip) { padding-bottom: calc(4 * 54px + 24px); }
+  .intro .problem__inner:has(.strip) { padding-bottom: calc(48px + 3 * 36px + 24px); }
 }
 /* 동작 줄이기 — 고정 없이 네 폴더를 차례로 펼침 */
 .folders--still { position: relative; inset: auto; opacity: 1; visibility: visible; }
