@@ -2,14 +2,15 @@ import { useContent } from '../i18n';
 import { goBack, href, type Route } from '../lib/router';
 
 /**
- * 왼쪽 아래 뒤로 가기 동그라미 — 메인을 뺀 모든 페이지(숙소 상세 · 취향 지도 · 인스타그램 · 취향 테스트)
+ * 왼쪽 아래 뒤로 가기 동그라미 — 메인을 뺀 모든 페이지(집 · 숙소 상세 · 취향 지도 · 인스타그램 · 취향 테스트)
  * 오른쪽 아래 지도 · 인스타그램 동그라미(MapFab)와 짝.
  * 웹진 안에서 왔으면 브라우저 뒤로, 링크로 바로 들어와 앞 화면이 없으면 그 페이지로 들어오던 메인 칸으로.
  */
 const FALLBACK: Partial<Record<Route['name'], string>> = {
   stay: href.house(),
+  house: href.home('checkin'),
   map: href.home('tastemap'),
-  insta: href.home('inside'),
+  insta: href.home('guest'),
   test: href.home('find'),
 };
 

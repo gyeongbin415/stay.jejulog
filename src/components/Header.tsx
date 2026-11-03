@@ -114,7 +114,7 @@ const MENU = [
   // 메뉴는 상세 화면 대신 메인 안의 그 칸으로 — 취향 테스트 안내 · 취향 지도 · 더 많은 이야기(인스타그램)
   { key: 'test', en: 'TEST', to: href.home('find') },
   { key: 'map', en: 'MAP', to: href.home('tastemap') },
-  { key: 'insta', en: 'INSTAGRAM', to: href.home('inside') },
+  { key: 'insta', en: 'INSTAGRAM', to: href.insta() },
 ] as const;
 
 function Menu({ route, onClose }: { route: Route; onClose: () => void }) {

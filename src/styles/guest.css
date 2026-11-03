@@ -1,10 +1,9 @@
 /* ==================================================================
-   방명록(GUEST NOTE) — 메인 취향 지도와 MORE STORIES(인스타그램) 사이 (components/GuestNotes.tsx)
+   방명록(GUEST NOTE) — 메인 취향 지도와 CHECK OUT 사이 (components/GuestNotes.tsx)
 ================================================================== */
 
 /* ── 칸 — 공책 한 장 + 나의 제주 노트 쓰기 ─────────────────────────────── */
-/* 아래 MORE STORIES 둥근 카드가 이 칸 위로 올라탐(home.css .find--inside 의 margin-top) — 그만큼 아래 여백을 더 둠 */
-.gnote { padding: clamp(80px, 12vh, 128px) 0 calc(clamp(88px, 13vh, 136px) + clamp(36px, 7vw, 72px) + 240px); background: var(--paper); }
+.gnote { padding: clamp(80px, 12vh, 128px) 0 clamp(88px, 13vh, 136px); background: var(--paper); }
 .gnote__inner { display: grid; justify-items: center; gap: 18px; text-align: center; }
 .gnote__entry { display: grid; justify-items: center; gap: 6px; width: min(640px, 100%); padding: 0; background: none; border: 0; }
 .gnote__entry-title { margin-top: clamp(28px, 5vh, 48px); font-family: var(--f-home); font-size: clamp(22px, 2.6vw, 30px); font-weight: 800; letter-spacing: -0.03em; }

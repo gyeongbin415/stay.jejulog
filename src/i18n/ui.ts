@@ -18,7 +18,7 @@ export interface UiText {
     pageTitle: string; homeTitle: string; sub: string; all: string; filterAria: string; listAria: string; webzineBadge: string; seeStay: string; kakao: string; insta: string; note: string;
     search: string; searchAria: string; searchClear: string; noResult: string };
   insta: { title: string; loading: string; posts: string; followers: string; following: string; follow: string; message: string; postsTab: string; gridAria: string; close: string; prev: string; next: string; likes: (n: number) => string; comments: (n: number) => string; seeStay: string; back: string };
-  /** 방명록(GUEST NOTE) — 메인 취향 지도와 MORE STORIES 사이 · 질문 3개에 답하는 노트 */
+  /** 방명록(GUEST NOTE) — 메인 취향 지도와 CHECK OUT 사이 · 질문 3개에 답하는 노트 */
   guest: { title: string; sub: string; open: string; count: (n: number) => string; first: string;
     intro: string[]; questions: string[]; progress: (i: number, n: number) => string; placeholder: string;
     prev: string; skip: string; next: string; nameLabel: string; namePlaceholder: string; anon: string; submit: string; sending: string;

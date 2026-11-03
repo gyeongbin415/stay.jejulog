@@ -94,7 +94,7 @@ export function App() {
       history.replaceState(history.state, '', '#/');
     } else if (route.name === 'home' && positions.current[key] == null && (prevName.current === 'map' || prevName.current === 'insta')) {
       // 기억한 자리가 없으면(지도 · 인스타 페이지에서 새로고침한 뒤 뒤로 가기 등) 그 페이지로 들어가던 칸으로
-      jumpToSection(prevName.current === 'map' ? 'tastemap' : 'inside');
+      jumpToSection(prevName.current === 'map' ? 'tastemap' : 'guest');
     } else if (route.name === 'home' || route.name === 'house') {
       // 지도 · 인스타 · 숙소 페이지에서 뒤로 가기로 메인에 돌아오면 보던 자리(예: 취향 지도 칸)로 —
       // 휴대폰은 사진이 늦게 떠 페이지가 아직 짧을 수 있어 자리가 맞을 때까지 몇 프레임 다시 맞춤

@@ -28,9 +28,9 @@ export default function InstaPage({ post = null }: { post?: number | null }) {
     if (i == null && post) history.replaceState(history.state, '', href.insta());
   };
   const { following, extra, toggle } = useFollow();
-  // 뒤로 — 메인의 인스타 사진 칸(MORE STORIES)으로 바로 (메인 맨 위가 아니라)
+  // 뒤로 — 메인의 방명록 칸으로 바로 (예전 인스타 사진 칸 MORE STORIES 자리, 메인 맨 위가 아니라)
   const goBack = () => {
-    location.hash = href.home('inside');
+    location.hash = href.home('guest');
   };
   const fmt = new Intl.NumberFormat(lang === 'zh' ? 'zh-CN' : lang);
 

@@ -59,9 +59,14 @@ export function parseHash(hash = window.location.hash): Route {
   const [path, qs = ''] = raw.split('?');
   const query = new URLSearchParams(qs);
   const parts = path.split('/').filter(Boolean);
-  if (parts.length === 0) return query.get('r') || ON_TEST_PAGE ? { name: 'test', query } : { name: 'home', query };
-  // 집 내부는 메인 페이지 안 섹션으로 옮겼습니다 — 예전 주소 #/house 는 메인의 그 자리로
-  if (parts[0] === 'house') return { name: 'home', query: new URLSearchParams('to=explore') };
+  if (parts.length === 0) {
+    if (query.get('r') || ON_TEST_PAGE) return { name: 'test', query };
+    // 예전 주소 #/?to=explore(메인 안 집 칸)는 집 페이지로
+    if (query.get('to') === 'explore') return { name: 'house', query: new URLSearchParams() };
+    return { name: 'home', query };
+  }
+  // 집 내부 — 메인에서 빼서 따로 된 페이지
+  if (parts[0] === 'house') return { name: 'house', query };
   if (parts[0] === 'test') return { name: 'test', query };
   if (parts[0] === 'instagram') return { name: 'insta', query };
   if (parts[0] === 'map') return { name: 'map', query };
@@ -110,7 +115,7 @@ export function useRoute() {
 
 export const href = {
   home: (to?: string) => (to ? `#/?to=${to}` : '#/'),
-  house: () => '#/?to=explore',
+  house: () => '#/house',
   stay: (id: ProgramId) => `#/stay/${id}`,
   // 취향 테스트는 따로 된 주소 — 메인에서 누르면 test/ 로 넘어가고, 테스트 주소의 다른 링크(#/…)는 <base> 로 메인에 돌아감
   test: () => 'test/',

@@ -3,9 +3,7 @@ import { SITE as SITE_KO } from '../data/site';
 import { useContent } from '../i18n';
 import { href } from '../lib/router';
 import { useReducedMotion } from '../lib/motion';
-import { HousePage } from './HousePage';
 import { GehageScene } from '../components/GehageScene';
-import { INSTA_ORDER, INSTA_POSTS } from '../data/insta';
 import { TasteMapIsland } from '../components/TasteMapIsland';
 import { BeachDivider } from '../components/BeachDivider';
 import { GrassLedge } from '../components/GrassLedge';
@@ -42,13 +40,12 @@ export function HomePage() {
     <>
       <h1 className="visually-hidden">{SITE.brand} {SITE.brandEn} — {ui.home.srTitle}</h1>
       <Intro />
-      {/* 대문(체크인 · 체크아웃) 대신 집 내부를 메인에서 바로 둘러봅니다 */}
-      <HousePage embedded />
+      {/* 집 내부(게하 탐색)는 따로 된 페이지 #/house — 상단 '게하 탐색' · 메뉴 · CHECK OUT '다시 둘러보기'로 */}
       <FindYourStay />
       <TasteMapBanner />
-      {/* 방명록 — 질문 3개에 답하는 노트 (공책 한 장 → 표지 → 질문 카드), 그 아래 인스타그램 이야기 */}
+      {/* 방명록 — 질문 3개에 답하는 노트 (공책 한 장 → 표지 → 질문 카드)
+          (예전 MORE STORIES 인스타그램 사진 칸은 메인에서 뺌 — 인스타그램 페이지 #/instagram 은 그대로) */}
       <GuestNotes />
-      <InsideRooms />
       <CheckOut />
     </>
   );
@@ -461,71 +458,6 @@ function TasteMapBanner() {
           {/* 섬 위를 돋보기가 집집마다 찾아다니는 움직이는 그림 */}
           <TasteMapIsland />
         </a>
-      </div>
-    </section>
-  );
-}
-
-/* ── 방 내부 둘러보기 — 테스트 칸 밑 한 칸 더: 인스타그램 페이지(숙소 게시물 사진)로 ── */
-
-function InsideRooms() {
-  const { ui } = useContent();
-  const reduced = useReducedMotion();
-  const ref = useRef<HTMLElement>(null);
-  // 스크롤하는 만큼 카드가 바다 위로 쓱 올라옴 — 카드 위쪽이 화면 맨 아래에 닿을 때 0, 화면 55% 높이에 오면 1
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    if (reduced) {
-      el.style.setProperty('--rise', '1');
-      return;
-    }
-    let raf = 0;
-    const update = () => {
-      raf = 0;
-      const vh = window.innerHeight;
-      // 카드가 아래로 내려가 있는 만큼을 빼고 원래 자리 기준으로 계산
-      const top = el.getBoundingClientRect().top - (1 - Number(el.style.getPropertyValue('--rise') || 1)) * 240;
-      const p = Math.min(1, Math.max(0, (vh - top) / (vh * 0.6)));
-      el.style.setProperty('--rise', p.toFixed(3));
-    };
-    const onScroll = () => {
-      if (!raf) raf = requestAnimationFrame(update);
-    };
-    update();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', onScroll);
-      cancelAnimationFrame(raf);
-    };
-  }, [reduced]);
-  return (
-    <section ref={ref} id="inside" className="find find--inside" data-tone="light" aria-labelledby="inside-title">
-      <div className="find__inner wrap">
-        {/* 휴대폰 — 가운데 정렬로 글 밑에 격자 / 넓은 화면 — 테스트 칸과 거울처럼 왼쪽 사진 격자 · 오른쪽 글, 색은 그대로 */}
-        <div className="more">
-          <div className="more__copy">
-            <p className="label">MORE STORIES</p>
-            <h2 id="inside-title" className="more__title pre">{ui.home.moreTitle}</h2>
-            {/* 집 둘러보기의 안내(주황 점이 깜빡이는 둥근 상자)와 같은 모양 */}
-            <p className="explore__hint more__hint">
-              <span className="explore__dot" aria-hidden="true" />
-              {ui.home.moreSub}
-            </p>
-          </div>
-          {/* 인스타그램 게시물 표지 사진 — 9개 세 칸 × 세 줄 격자(순서는 INSTA_ORDER — 인스타그램 페이지와 같음), 누르면 웹진 인스타그램 페이지에서 그 게시물이 바로 열림 */}
-          <ul className="more__grid">
-            {INSTA_ORDER.map((i) => [INSTA_POSTS[i], i] as const).map(([p, i]) => (
-              <li key={p.img}>
-                <a href={href.insta(i + 1)} data-track={`inside_thumb_${i + 1}`}>
-                  <img src={p.img} alt={p.alt} loading="lazy" decoding="async" />
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
       </div>
     </section>
   );
