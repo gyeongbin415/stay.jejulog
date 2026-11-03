@@ -3,6 +3,7 @@ import { useRoute, jumpToSection, parseHash, routeKey } from './lib/router';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { MapFab } from './components/MapFab';
+import { BackFab } from './components/BackFab';
 import { Loader } from './components/Loader';
 import { HomePage } from './pages/HomePage';
 import { HousePage } from './pages/HousePage';
@@ -158,6 +159,8 @@ export function App() {
         </div>
       </main>
       {/* 취향 지도 동그라미 — 모든 페이지 오른쪽 아래 (지도 페이지에서는 숨김) */}
+      {/* 뒤로 가기 동그라미 — 메인을 뺀 모든 페이지 왼쪽 아래 */}
+      <BackFab route={route} />
       <MapFab showMap={route.name !== 'map'} showInsta={route.name !== 'insta'} showHouse={route.name === 'map'} showTest={route.name === 'map'} home={route.name === 'home'} />
       <Footer />
     </>

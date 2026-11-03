@@ -90,7 +90,7 @@ export function goBack(fallback: string) {
     /* 알 수 없는 주소면 밖에서 온 것으로 */
   }
   if (movedInApp || fromSite) window.history.back();
-  else window.location.hash = fallback;
+  else window.location.assign(absUrl(fallback));
 }
 
 /** 같은 주소로 다시 이동해도 반응하도록 이동 횟수를 함께 돌려줍니다 */

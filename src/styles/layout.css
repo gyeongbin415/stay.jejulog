@@ -110,6 +110,17 @@
   transition: transform var(--t-hover) var(--ease), box-shadow var(--t-hover) var(--ease);
 }
 .mapfab:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(58, 55, 53, .22); }
+/* 왼쪽 아래 뒤로 가기 — 메인을 뺀 모든 페이지 (components/BackFab.tsx), 오른쪽 동그라미와 같은 크기 · 그림자 */
+.backfab {
+  position: fixed; left: max(16px, env(safe-area-inset-left)); bottom: max(16px, env(safe-area-inset-bottom)); z-index: 90;
+  display: grid; place-items: center; width: 60px; height: 60px; border-radius: 50%;
+  background: #fff; color: var(--ink); box-shadow: 0 4px 16px rgba(58, 55, 53, .18);
+  transition: transform var(--t-hover) var(--ease), box-shadow var(--t-hover) var(--ease);
+}
+.backfab:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(58, 55, 53, .22); }
+.backfab:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; }
+.backfab svg { width: 28px; height: 28px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+@media (min-width: 900px) { .backfab { left: 28px; bottom: 28px; width: 68px; height: 68px; } .backfab svg { width: 30px; height: 30px; } }
 /* 취향지도 페이지의 게하 탐색 · 취향 테스트 — 주황 바탕 · 흰 아이콘 (인스타그램 버튼과 구분) */
 .mapfab--accent { background: var(--forest); color: #fff; }
 .mapfab--accent:hover { background: #B9561A; }

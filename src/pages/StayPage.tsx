@@ -1,8 +1,7 @@
 import { useEffect } from 'react';
-import { createPortal } from 'react-dom';
 import { useContent } from '../i18n';
 import type { ProgramId } from '../data/types';
-import { goBack, href } from '../lib/router';
+import { href } from '../lib/router';
 import { Photo } from '../components/Photo';
 import { track } from '../lib/track';
 import { gaParams } from '../lib/gaParams';
@@ -284,15 +283,6 @@ export default function StayPage({ id }: { id: ProgramId }) {
           </a>
         )}
       </nav>
-
-      {/* 왼쪽 아래 뒤로 가기 — 오른쪽 아래 지도 · 인스타그램 동그라미 버튼과 짝
-          (페이지 등장 애니메이션 안에 두면 화면이 아니라 페이지 맨 아래에 붙으므로 body 에 바로 그림) */}
-      {createPortal(
-        <button type="button" className="stay-back" onClick={() => goBack(href.house())} aria-label={t.back} data-track={`stay_${id}_back`}>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5.5 8.5 12l6.5 6.5" /></svg>
-        </button>,
-        document.body,
-      )}
     </article>
   );
 }

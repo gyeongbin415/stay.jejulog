@@ -159,15 +159,3 @@
   .stay-join { grid-template-columns: 220px 1fr; column-gap: 48px; align-items: start; }
   .stay-join__box { max-width: none; }
 }
-
-/* 왼쪽 아래 뒤로 가기 — 오른쪽 아래 지도 · 인스타그램 버튼(layout.css .mapfab)과 같은 크기 · 그림자 */
-.stay-back {
-  position: fixed; left: max(16px, env(safe-area-inset-left)); bottom: max(16px, env(safe-area-inset-bottom)); z-index: 90;
-  display: grid; place-items: center; width: 60px; height: 60px; border-radius: 50%;
-  background: #fff; color: var(--ink); box-shadow: 0 4px 16px rgba(58, 55, 53, .18);
-  transition: transform var(--t-hover) var(--ease), box-shadow var(--t-hover) var(--ease);
-}
-.stay-back:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(58, 55, 53, .22); }
-.stay-back:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; }
-.stay-back svg { width: 28px; height: 28px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-@media (min-width: 900px) { .stay-back { left: 28px; bottom: 28px; width: 68px; height: 68px; } .stay-back svg { width: 30px; height: 30px; } }
