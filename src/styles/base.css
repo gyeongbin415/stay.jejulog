@@ -22,7 +22,10 @@ body {
 }
 body::after {
   content: ''; position: fixed; inset: 0; z-index: 400; pointer-events: none; /* 누르기 · 스크롤은 그대로 통과 */
-  background-image: var(--paper-tex); opacity: .8;
+  background-image: var(--paper-tex); opacity: .8; transition: opacity .6s ease;
+}
+/* 인트로 어두운 밤 장면에서는 빼고, CHECK IN 밝은 화면부터 */
+body:has(.intro:not([data-phase="reveal"]):not(.intro--static))::after { opacity: 0;
 }
 img, svg { display: block; max-width: 100%; }
 a { color: inherit; }
