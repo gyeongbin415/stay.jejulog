@@ -55,71 +55,31 @@ export function HomePage() {
 
 /* ── SECTION 01. INTRO — 밤의 게스트하우스, 기존 인식 ─────────────────────────────── */
 /**
- * 화면을 고정해 두고 스크롤하는 만큼 장면이 진행됩니다.
+ * 화면을 고정해 두고 스크롤을 내릴 때마다 한 단계씩 장면이 진행됩니다 (저절로 넘어가지 않음).
  * 질문 → 01 파티. → 02 술. → 03 헌팅.
  * → 어둠 속 전환 문구 → 밝은 화면이 서서히 떠오르며 문제 정의(PROBLEM)
  * 동작 줄이기 설정이면 고정 없이 모든 문구를 한 번에 보여 줍니다.
  */
 const REVEAL = SITE_KO.intro.words.length + 3;
 /**
- * 이번 방문에서 인트로를 이미 봤는지 — 브라우저에 저장하지 않고 페이지가 열려 있는 동안만 기억합니다.
- * 사이트에 처음 들어왔을 때(새로 열기 · 새로고침)만 재생하고, 상세페이지에 다녀오거나 맨 위로 올라와도 다시 틀지 않습니다.
+ * 스크롤 단계 — 내릴 때마다 하나씩: 질문만(0) → 단어 1 · 2 · 3 → 전환 문구(total + 2) → 문제 정의 CHECK IN(REVEAL)
+ * (예전 '시야가 좁아짐' 단계 total + 1 은 건너뜀)
  */
-let introPlayed = false;
+const STEPS = [0, ...SITE_KO.intro.words.map((_, i) => i + 1), REVEAL - 1, REVEAL];
+/** 단계 하나에 내리는 거리 — 화면 높이의 0.6배 (인트로 높이 = 한 화면 + 단계 수 × 0.6 화면, home.css) */
+const STEP_VH = 0.6;
 function Intro() {
   const { site: SITE, ui } = useContent();
   const ref = useRef<HTMLElement>(null);
   const reduced = useReducedMotion();
   const total = SITE.intro.words.length;
-  // 스크롤 없이 시간에 맞춰 저절로 — 질문 → 파티 · 술 · 헌팅 → 전환 문구 → 문제 정의
-  // auto: 1 ~ total 은 나온 단어 수, total + 1 은 시야가 좁아짐, total + 2 는 전환 문구, REVEAL 은 문제 정의
-  const seenRef = useRef(introPlayed);
-  const [auto, setAuto] = useState(() => (seenRef.current ? REVEAL : 0));
-  // 자동 진행 중에 먼저 스크롤해 내려가도 바로 문제 정의
-  const [revealByScroll, setRevealByScroll] = useState(false);
-  // 아래로 내려갔다가 맨 위로 돌아오면 질문부터 다시 재생 (run 이 바뀌면 시간을 처음부터 셉니다)
-  const [run, setRun] = useState(0);
-
-  useEffect(() => {
-    if (reduced || seenRef.current) return;
-    // 질문만 1.5초(생각할 시간) → 단어 0.65초 간격 → 1초 뒤 전환 문구 → 3초 뒤 문제 정의
-    // (전환 문구는 두 줄 먼저, 0.85초 뒤 '전부가 아닙니다.' — 마지막 줄도 읽을 시간을 둠)
-    // (예전 '시야가 좁아짐' 단계는 뺐습니다 — 같은 시각에 두 단계를 한꺼번에 넘김)
-    const at = Array.from({ length: total }, (_, i) => 1500 + i * 650);
-    const last = at[at.length - 1];
-    at.push(last + 1000, last + 1000, last + 4000);
-    // 화면에 실제로 보이는 동안만 시간을 셉니다 — 공유 링크가 뒤에서 미리 불러와질 때 혼자 끝나 버리지 않도록
-    // (requestAnimationFrame 은 안 보이는 창 · 프레임에서 멈추고, 인트로 무대가 화면에 반 이상 보일 때만 셈)
-    let visible = false;
-    const io = 'IntersectionObserver' in window
-      ? new IntersectionObserver(([en]) => { visible = en.intersectionRatio >= 0.5; }, { threshold: [0, 0.5] })
-      : null;
-    // 섹션 전체(화면 2.6개 높이)가 아니라 화면에 고정된 무대를 봅니다
-    const stage = ref.current?.querySelector('.intro__stage');
-    if (io && stage) io.observe(stage);
-    else visible = true;
-    let elapsed = 0;
-    let prev = 0;
-    let raf = 0;
-    const tick = (now: number) => {
-      const dt = prev ? Math.min(100, now - prev) : 0;
-      prev = now;
-      if (visible && document.visibilityState === 'visible') elapsed += dt;
-      const n = at.filter((ms) => elapsed >= ms).length;
-      if (n) setAuto((cur) => Math.max(cur, n));
-      if (n < at.length) raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => {
-      cancelAnimationFrame(raf);
-      io?.disconnect();
-    };
-  }, [reduced, total, run]);
+  const last = STEPS.length - 1;
+  // 지금 몇 번째 단계까지 내렸는지 — 스크롤 위치로 정함 (올리면 되돌아감)
+  const [k, setK] = useState(0);
 
   useEffect(() => {
     if (reduced) return;
     let raf = 0;
-    let wentDown = false;
     const update = () => {
       raf = 0;
       const el = ref.current;
@@ -127,19 +87,9 @@ function Intro() {
       const range = el.offsetHeight - window.innerHeight;
       const p = range > 0 ? Math.min(1, Math.max(0, -el.getBoundingClientRect().top / range)) : 1;
       el.style.setProperty('--p', p.toFixed(3));
-      // 스크롤한 화면 수 기준 — 0.04 화면만 내려도 문제 정의 (문제 정의 화면은 약 0.3화면 머문 뒤 다음 섹션으로)
-      // 자동 진행이 끝나기 전에 내려가 버려도, 돌아오면 문제 정의가 열린 상태입니다
-      const s = p * range / window.innerHeight;
-      const reveal = s >= 0.04;
-      setRevealByScroll(reveal);
-      if (reveal) {
-        setAuto(REVEAL);
-        wentDown = true;
-      } else if (wentDown && s < 0.05 && !seenRef.current) {
-        wentDown = false;
-        setAuto(0);
-        setRun((r) => r + 1);
-      }
+      // 단계 자리의 40% 앞에서 미리 넘어감 — 조금만 내려도 다음 글이 올라옴
+      const s = -el.getBoundingClientRect().top / window.innerHeight;
+      setK(Math.max(0, Math.min(last, Math.floor(s / STEP_VH + 0.4))));
     };
     const onScroll = () => {
       if (!raf) raf = requestAnimationFrame(update);
@@ -152,10 +102,10 @@ function Intro() {
       window.removeEventListener('resize', onScroll);
       cancelAnimationFrame(raf);
     };
-  }, [reduced, total]);
+  }, [reduced, last]);
 
-  const step = revealByScroll ? REVEAL : auto;
-  const shown = reduced ? REVEAL : step;
+  const step = reduced ? REVEAL : STEPS[k];
+  const shown = step;
   const revealed = !reduced && step >= REVEAL;
   const phase = reduced ? 'static'
     : step === 0 ? 'start'
@@ -164,45 +114,52 @@ function Intro() {
     : step === total + 1 ? 'iris'
     : step === total + 2 ? 'turn' : 'reveal';
 
-  // 인트로 동안에도 스크롤은 막지 않습니다 — 먼저 내려가면 바로 문제 정의(CHECK IN) 화면이 열림 (revealByScroll)
-  // 다만 처음 화면에서 아래로 내리면 한 번에 지나쳐 버리지 않고 CHECK IN 화면(인트로 끝 자리, #checkin)에 먼저 멈춥니다.
-  // 휠 · 터치 · 키보드 모두. 멈춘 뒤 0.9초 동안은 관성으로 이어지는 휠 · 터치를 흘려보내지 않음
+  // 휠 · 손가락 · 키보드 한 번에 한 단계씩 — 관성으로 여러 단계를 한꺼번에 지나치지 않게, 옮긴 뒤 0.65초는 이어지는 스크롤을 흘려보냄
+  // (인트로 안에서만. CHECK IN 까지 다 나온 뒤 더 내리면 아래 칸으로 그대로)
   useEffect(() => {
     if (reduced) return;
     let holdUntil = 0;
     let startY = 0;
+    let fired = false;
     const holding = () => Date.now() < holdUntil;
     const inMenu = (t: EventTarget | null) => t instanceof Element && !!t.closest('.menu');
-    // 아직 CHECK IN 자리보다 위면 그 자리로 옮기고 true
-    const snap = () => {
-      const a = document.getElementById('checkin');
-      if (!a) return false;
-      const y = a.getBoundingClientRect().top + window.scrollY;
-      if (window.scrollY >= y - 2) return false;
-      setAuto(REVEAL);
-      window.scrollTo(0, y);
-      holdUntil = Date.now() + 900;
+    const top = () => (ref.current ? ref.current.getBoundingClientRect().top + window.scrollY : 0);
+    const posOf = (i: number) => top() + i * STEP_VH * window.innerHeight;
+    // dir 쪽으로 한 단계 옮겼으면 true (인트로 밖이면 false — 보통 스크롤)
+    const move = (dir: 1 | -1) => {
+      const y = window.scrollY;
+      const end = posOf(last);
+      if (y > end + 2) return false;
+      if (dir < 0 && y <= top() + 2) return false;
+      const cur = Math.max(0, Math.min(last, Math.round((y - top()) / (STEP_VH * window.innerHeight))));
+      const to = Math.max(0, Math.min(last, cur + dir));
+      if (dir > 0 && cur === last && Math.abs(y - end) <= 2) return false;
+      window.scrollTo(0, posOf(to));
+      holdUntil = Date.now() + 650;
       return true;
     };
     const onWheel = (e: WheelEvent) => {
-      if (inMenu(e.target) || e.ctrlKey) return;
-      if (holding() || (e.deltaY > 0 && snap())) e.preventDefault();
+      if (inMenu(e.target) || e.ctrlKey || Math.abs(e.deltaY) < 1) return;
+      if (holding() ? window.scrollY <= posOf(last) + 2 : move(e.deltaY > 0 ? 1 : -1)) e.preventDefault();
     };
     const onTouchStart = (e: TouchEvent) => {
       startY = e.touches[0]?.clientY ?? 0;
+      fired = false;
     };
     const onTouchMove = (e: TouchEvent) => {
       if (inMenu(e.target) || e.touches.length > 1) return;
-      const up = startY - (e.touches[0]?.clientY ?? startY); // 손가락을 위로 = 아래로 내림
-      if (holding() || (up > 8 && snap())) e.preventDefault();
+      const dy = startY - (e.touches[0]?.clientY ?? startY); // 손가락을 위로 = 아래로 내림
+      if (!fired && Math.abs(dy) > 12) fired = move(dy > 0 ? 1 : -1);
+      if (fired || (holding() && window.scrollY <= posOf(last) + 2)) e.preventDefault();
     };
-    const DOWN_KEYS = new Set(['ArrowDown', 'PageDown', ' ', 'End']);
+    const KEYS: Record<string, 1 | -1> = { ArrowDown: 1, PageDown: 1, ' ': 1, ArrowUp: -1, PageUp: -1 };
     const onKey = (e: KeyboardEvent) => {
       const t = e.target as HTMLElement | null;
-      if (!DOWN_KEYS.has(e.key) || inMenu(t) || t?.closest('input, textarea, select, [contenteditable]')) return;
+      const dir = KEYS[e.key];
+      if (!dir || inMenu(t) || t?.closest('input, textarea, select, [contenteditable]')) return;
       // 버튼 위 스페이스는 누르기 동작이라 그대로 둠
       if (e.key === ' ' && t?.closest('button')) return;
-      if (snap()) e.preventDefault();
+      if (move(e.shiftKey && e.key === ' ' ? -1 : dir)) e.preventDefault();
     };
     window.addEventListener('wheel', onWheel, { passive: false });
     window.addEventListener('touchstart', onTouchStart, { passive: true });
@@ -214,22 +171,15 @@ function Intro() {
       window.removeEventListener('touchmove', onTouchMove);
       window.removeEventListener('keydown', onKey);
     };
-  }, [reduced]);
+  }, [reduced, last]);
 
   // 밝은 문제 정의 화면이 열리면 상단 바 글자색도 다시 맞춥니다.
   useEffect(() => {
     window.dispatchEvent(new Event('scroll'));
   }, [revealed]);
 
-  // 한 번 끝까지 보면 이번 방문 동안은 다시 재생하지 않음
-  useEffect(() => {
-    if (!revealed) return;
-    introPlayed = true;
-    seenRef.current = true;
-  }, [revealed]);
-
   return (
-    <section ref={ref} id="intro" className={`intro${reduced ? ' intro--static' : ''}`} data-step={Math.min(shown, total)} data-phase={phase} data-tone={revealed ? 'light' : 'dark'} aria-labelledby="intro-title">
+    <section ref={ref} id="intro" className={`intro${reduced ? ' intro--static' : ''}`} style={{ '--steps': last } as CSSProperties} data-step={Math.min(shown, total)} data-phase={phase} data-tone={revealed ? 'light' : 'dark'} aria-labelledby="intro-title">
       {/* 메뉴 '메인'이 오는 자리 — 인트로를 끝까지 내린 곳, CHECK IN 화면이 다 열린 상태 */}
       {!reduced && <span id="checkin" className="intro__anchor" />}
       <div className="intro__stage">
