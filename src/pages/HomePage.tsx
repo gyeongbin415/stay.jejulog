@@ -5,9 +5,10 @@ import { href } from '../lib/router';
 import { useMediaQuery, useReducedMotion } from '../lib/motion';
 import { HomeDeck } from '../components/HomeDeck';
 import { ContentPicker } from '../components/ContentPicker';
-import { TasteMapIsland } from '../components/TasteMapIsland';
 import { GuestNotes } from '../components/GuestNotes';
-import houseUrl from '../assets/house-3d.webp';
+import houseUrl from '../assets/house-icon.png';
+import gumballUrl from '../assets/test-gumball.png';
+import tasteMapUrl from '../assets/taste-map-paper.png';
 import introNightUrl from '../assets/intro-night.webp';
 import checkoutBgUrl from '../assets/checkout-stay.webp';
 import stripLpWall from '../assets/strip/lp-wall.webp';
@@ -362,7 +363,7 @@ function RoomTour() {
   return (
     <section id="roomtour" className="roomtour" data-tone="light" aria-labelledby="roomtour-title">
       <a className="roomtour__link" href={href.house()} data-track="home_roomtour">
-        <img className="roomtour__img" src={houseUrl} alt="" width={1089} height={1445} loading="lazy" decoding="async" />
+        <img className="roomtour__img" src={houseUrl} alt="" width={900} height={630} loading="lazy" decoding="async" />
         <span className="roomtour__btn">
           <span id="roomtour-title">{e.title.join(' ')}</span>
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6.5 18.5 12 13 17.5" /></svg>
@@ -379,6 +380,10 @@ function FindYourStay() {
     <section id="find" className="find" data-tone="light" aria-labelledby="find-title">
       <div className="find__inner wrap">
         <div className="find__copy">
+          {/* 뽑기 기계 그림 — 누르면 취향 테스트로 */}
+          <a className="find__art" href={href.test()} aria-label={SITE.findYourStay.cta} data-track="find_art" tabIndex={-1}>
+            <img src={gumballUrl} alt="" width={615} height={1086} loading="lazy" decoding="async" />
+          </a>
           <p className="label">{SITE.findYourStay.label}</p>
           <h2 id="find-title" className="section-head__title">
             {SITE.findYourStay.title.map((l) => (
@@ -419,8 +424,8 @@ function TasteMapBanner() {
         </p>
         {/* 그림 전체가 눌림 */}
         <a className="tastemap" href={href.map()} data-track="home_taste_map" aria-label={ui.map.open}>
-          {/* 섬 위를 돋보기가 집집마다 찾아다니는 움직이는 그림 */}
-          <TasteMapIsland />
+          {/* 접힌 종이 제주 지도 그림 */}
+          <img className="tastemap__img" src={tasteMapUrl} alt="" width={1100} height={707} loading="lazy" decoding="async" />
         </a>
       </div>
     </section>

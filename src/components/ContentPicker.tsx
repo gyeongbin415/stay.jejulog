@@ -2,10 +2,10 @@ import { useRef, type MouseEvent } from 'react';
 import { useContent } from '../i18n';
 import { href } from '../lib/router';
 import { prefersReducedMotion } from '../lib/motion';
-import houseUrl from '../assets/house-3d.webp';
-import crabUrl from '../assets/gehage-crab.webp';
-import islandUrl from '../assets/taste-map-island.webp';
-import logoUrl from '../assets/logo-staylog.png';
+import houseUrl from '../assets/house-icon.png';
+import gumballUrl from '../assets/test-gumball.png';
+import tasteMapUrl from '../assets/taste-map-paper.png';
+import noteUrl from '../assets/guest-note.png';
 
 /* ------------------------------------------------------------------
    PC 메인 — 콘텐츠 고르기 (집 · 취향 테스트 · 취향 지도 · 방명록 공책)
@@ -64,28 +64,10 @@ export function ContentPicker() {
   const busy = useRef(false);
 
   const items = [
-    { key: 'house', en: 'EXPLORE', label: ui.nav.house, to: href.house(), art: <img src={houseUrl} alt="" width={1089} height={1445} loading="lazy" decoding="async" /> },
-    { key: 'test', en: 'TEST', label: ui.nav.test, to: href.test(), art: <img src={crabUrl} alt="" loading="lazy" decoding="async" /> },
-    { key: 'map', en: 'MAP', label: ui.deck.tastemap, to: href.map(), art: <img src={islandUrl} alt="" loading="lazy" decoding="async" /> },
-    {
-      key: 'guest',
-      en: 'GUESTBOOK',
-      label: ui.nav.guest,
-      to: href.guest(),
-      art: (
-        <span className="gcover picker__book">
-          <span className="gcover__back" />
-          <span className="gcover__page" />
-          <span className="gcover__face">
-            <span className="gcover__hand">MY JEJU NOTE</span>
-            <span className="gcover__window">
-              <img src={logoUrl} alt="" draggable={false} />
-            </span>
-            <span className="gcover__mark">STAY JEJULOG</span>
-          </span>
-        </span>
-      ),
-    },
+    { key: 'house', en: 'EXPLORE', label: ui.nav.house, to: href.house(), art: <img src={houseUrl} alt="" width={900} height={630} loading="lazy" decoding="async" /> },
+    { key: 'test', en: 'TEST', label: ui.nav.test, to: href.test(), art: <img src={gumballUrl} alt="" width={615} height={1086} loading="lazy" decoding="async" /> },
+    { key: 'map', en: 'MAP', label: ui.deck.tastemap, to: href.map(), art: <img src={tasteMapUrl} alt="" width={1100} height={707} loading="lazy" decoding="async" /> },
+    { key: 'guest', en: 'GUESTBOOK', label: ui.nav.guest, to: href.guest(), art: <img src={noteUrl} alt="" width={900} height={708} loading="lazy" decoding="async" /> },
   ];
 
   const onClick = (e: MouseEvent<HTMLAnchorElement>) => {

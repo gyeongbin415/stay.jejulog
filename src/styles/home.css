@@ -209,6 +209,11 @@
 /* 메인 테스트 칸 — 제목 · 버튼만 가운데에 (게하게 소개는 테스트 페이지 첫 화면) */
 .find:not(.find--inside):not(.find--map) .find__copy { justify-items: center; text-align: center; }
 .find__copy .btn { margin-top: 12px; }
+/* 메인 그림(집 · 뽑기 기계 · 종이 지도 · 공책) 크기 — 넷 다 같은 폭 (뽑기 기계는 세로라 높이로 맞춤) */
+:root { --home-art: min(320px, 76vw); }
+.find__art { display: block; margin-bottom: 8px; transition: transform var(--t-hover) var(--ease); }
+.find__art img { display: block; width: auto; height: calc(var(--home-art) * .7); }
+.find__art:hover { transform: translateY(-4px); }
 .find:not(.find--inside):not(.find--map) .find__inner { display: grid; justify-items: center; }
 /* 게하게 소개 — 테스트 페이지 첫 화면: 소라게 그림 · 이름 · 두 줄 이야기 · 시작 버튼 · 공유하기 */
 .find__gehage { gap: 10px; margin: 0 auto; padding: clamp(24px, 6vh, 64px) 0 clamp(40px, 8vh, 80px); }
@@ -299,28 +304,11 @@
 /* 제주 게하 취향지도 — 테스트 칸과 MORE STORIES 사이, 가는 선 사이 가운데 그림 (누르면 취향 지도 페이지) */
 /* 메인 지도 칸도 공통 배경 — 돋보기 속 빈 곳도 같은 색 */
 .find.find--map { background: var(--bg); }
-.find--map .tmi__lens { background-color: var(--bg); }
+.tastemap__img { display: block; width: 100%; height: auto; }
 .find--map .find__inner { display: grid; justify-items: center; padding: clamp(40px, 7vh, 80px) 0 calc(clamp(40px, 7vh, 80px) + clamp(36px, 7vw, 72px) + 240px); } /* 아래 카드가 올라타는 만큼 더 비움 */
 .tastemap__head { display: grid; justify-items: center; gap: 16px; text-align: center; margin-bottom: var(--hint-gap); } /* 제목 → 안내 간격 — 메인 세 칸 같은 값 */
-.tastemap { display: block; width: min(100%, 820px); border-radius: 18px; transition: transform var(--t-hover) var(--ease); }
+.tastemap { display: block; width: var(--home-art); border-radius: 18px; transition: transform var(--t-hover) var(--ease); }
 .tastemap { display: grid; justify-items: center; gap: clamp(14px, 2.5vh, 22px); text-decoration: none; }
-/* 움직이는 섬 — 섬 · 물결 · 잔물결 · 돋보기를 같은 1448×770 판에 겹침 */
-.tmi { position: relative; width: 100%; aspect-ratio: 1448 / 770; }
-.tmi img { position: absolute; display: block; user-select: none; -webkit-user-drag: none; }
-.tmi__base, .tmi__shore { inset: 0; width: 100%; height: 100%; }
-/* 섬 둘레로 퍼지며 사라지는 잔물결 (두 겹이 번갈아) */
-.tmi__shore { transform-origin: 53.4% 46.6%; opacity: 0; animation: tmi-shore 3.6s ease-out infinite; }
-.tmi__shore--late { animation-delay: 1.8s; }
-@keyframes tmi-shore { 0% { transform: scale(1); opacity: .95; } 100% { transform: scale(1.06, 1.09); opacity: 0; } }
-/* 돋보기 — 유리 안은 아래 섬을 크게 (위치 · 확대는 스크립트가 매 장면 맞춤) */
-.tmi__mag { position: absolute; left: 0; top: 0; pointer-events: none; filter: drop-shadow(0 6px 8px rgba(58, 55, 53, .22)); }
-.tmi__lens { position: absolute; border-radius: 50%; background-color: #E9F4F9; background-repeat: no-repeat; overflow: hidden; }
-/* 유리 반짝임 */
-.tmi__lens::after { content: ''; position: absolute; inset: 0; border-radius: 50%; background: radial-gradient(circle at 32% 28%, rgba(255, 255, 255, .55), rgba(255, 255, 255, 0) 38%), radial-gradient(circle at 70% 78%, rgba(255, 255, 255, .18), rgba(255, 255, 255, 0) 30%); box-shadow: inset 0 0 0 2px rgba(255, 255, 255, .35), inset 0 -6px 14px rgba(58, 55, 53, .12); }
-.tmi__frame { position: absolute; inset: 0; width: 100%; height: 100%; }
-@media (prefers-reduced-motion: reduce) {
-  .tmi__shore { animation: none; }
-}
 .tastemap:hover { transform: translateY(-3px); }
 /* 누르라는 안내 — 둥근 옅은 상자 (버튼 대신) */
 .tastemap__hint { display: inline-flex; align-items: center; gap: 7px; margin: 0 0 clamp(10px, 1.6vh, 16px); font-size: clamp(15px, 1.4vw, 17px); font-weight: 600; color: #2F7A83; letter-spacing: -0.01em; }
@@ -425,13 +413,11 @@
 }
 
 /* ── ROOM TOUR — CHECK IN 아래 집 그림 + 테두리 버튼 (누르면 집 페이지) ─────────────────────────────── */
-.roomtour { display: grid; justify-items: center; padding: clamp(40px, 7vh, 80px) var(--gutter) clamp(64px, 10vh, 112px); text-align: center; }
-.roomtour__link { display: grid; justify-items: center; gap: clamp(22px, 4vh, 34px); text-decoration: none; }
-/* 흰 테두리 사진(폴라로이드)처럼 살짝 기울여 — 둥실 떠 있음 */
+.roomtour { display: grid; justify-items: center; align-content: center; padding: clamp(40px, 7vh, 80px) var(--gutter) clamp(64px, 10vh, 112px); text-align: center; }
+.roomtour__link { display: grid; justify-items: center; align-content: center; gap: clamp(22px, 4vh, 34px); text-decoration: none; }
+/* 집 그림 — 테두리 · 바탕 없이 그림만, 둥실 떠 있음 */
 .roomtour__img {
-  box-sizing: content-box; width: min(300px, 62vw); height: auto;
-  padding: 10px 10px 36px; background: #fff; rotate: -3deg;
-  box-shadow: 0 2px 4px rgba(60, 40, 20, .08), 0 18px 34px rgba(80, 52, 30, .18);
+  display: block; width: var(--home-art); height: auto;
   animation: roomtour-float 4.5s ease-in-out infinite alternate;
   transition: scale .35s var(--ease);
 }
@@ -457,18 +443,13 @@
 .picker__item a { display: grid; justify-items: center; gap: 6px; text-decoration: none; color: var(--ink); }
 /* 그림 칸 — 네 그림을 같은 높이 안에 */
 .picker__art { display: grid; place-items: end center; width: 100%; height: var(--art-h); perspective: 900px; transition: transform .35s var(--ease); }
-.picker__art > img { width: auto; height: 100%; max-width: 100%; object-fit: contain; object-position: center bottom; filter: drop-shadow(0 14px 18px rgba(80, 52, 30, .14)); }
+.picker__art > img { width: auto; height: var(--art-h); max-width: 100%; object-fit: contain; object-position: center bottom; filter: drop-shadow(0 14px 18px rgba(80, 52, 30, .14)); }
 /* 집 — 메인 휴대폰 칸처럼 흰 테두리 사진(폴라로이드) */
-.picker__item--house .picker__art > img { width: auto; height: calc(var(--art-h) - 28px); max-width: none; box-sizing: content-box; padding: 6px 6px 22px; background: #fff; object-fit: cover; rotate: -3deg; filter: none; box-shadow: 0 2px 4px rgba(60, 40, 20, .08), 0 14px 26px rgba(80, 52, 30, .18); }
 .picker__name { margin-top: clamp(14px, 2vh, 22px); font-family: var(--f-home); font-size: clamp(17px, 1.6vw, 21px); font-weight: 800; letter-spacing: -0.02em; }
 /* 올리면 살짝 떠오름 */
 .picker__item a:hover .picker__art, .picker__item a:focus-visible .picker__art { transform: translateY(-10px) scale(1.05); }
 .picker__item a:hover .picker__name { text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 2px; }
 /* 공책 — 방명록 칸 표지와 같은 모양, 작게 */
-.picker__book { width: 86%; cursor: pointer; }
-.picker__book .gcover__hand { font-size: clamp(13px, 1.4vw, 19px); }
-.picker__book .gcover__mark { font-size: clamp(7px, .6vw, 9px); letter-spacing: .25em; }
-.picker__book .gcover__back { box-shadow: 0 16px 30px rgba(60, 40, 20, .22); }
 /* 누른 뒤 — 고르지 않은 그림 · 제목은 흐려지며 사라짐 */
 .picker__list.is-leaving .picker__item:not(.is-picked) { opacity: 0; filter: blur(6px); transform: scale(.94); }
 .picker:has(.is-leaving) .picker__title, .picker__item.is-picked .picker__name, .picker__item.is-picked .label { opacity: 0; filter: blur(4px); transition: opacity .4s var(--ease), filter .4s var(--ease); }

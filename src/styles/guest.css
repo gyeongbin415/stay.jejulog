@@ -6,6 +6,10 @@
 .gnote { padding: clamp(80px, 12vh, 128px) 0 clamp(88px, 13vh, 136px); background: var(--paper); }
 /* 메인에서는 위 지도 칸(하늘색) 위로 둥근 판처럼 올라와 겹침 — 양쪽 위 모서리 둥글게 */
 .gnote:not(.gnote--page) { --rise: clamp(32px, 5vw, 64px); background: var(--bg); position: relative; z-index: 1; margin-top: calc(-1 * var(--rise)); border-radius: var(--rise) var(--rise) 0 0; box-shadow: 0 -6px 18px rgba(58, 55, 53, .06); }
+/* 메인 공책 그림 — 받은 그림 그대로, 누르면 방명록 페이지로 */
+.gnote__art { display: block; width: var(--home-art); transition: transform var(--t-hover) var(--ease); }
+.gnote__art img { display: block; width: 100%; height: auto; }
+.gnote__art:hover { transform: translateY(-4px) rotate(-1deg); }
 .gnote__inner { display: grid; justify-items: center; gap: 18px; text-align: center; }
 .gnote__local { max-width: 26em; font-size: 12.5px; line-height: 1.6; color: var(--ink-soft); }
 
