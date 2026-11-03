@@ -387,7 +387,8 @@ function FindYourStay() {
           <a className="find__art" href={href.test()} aria-label={SITE.findYourStay.cta} data-track="find_art" tabIndex={-1}>
             <img src={gumballUrl} alt="" width={615} height={1086} loading="lazy" decoding="async" />
           </a>
-          <h2 id="find-title" className="section-head__title">
+          {/* 제목은 화면에서 빼고 화면 낭독기용으로만 */}
+          <h2 id="find-title" className="visually-hidden">
             {SITE.findYourStay.title.map((l) => (
               <span key={l}>{l}</span>
             ))}
