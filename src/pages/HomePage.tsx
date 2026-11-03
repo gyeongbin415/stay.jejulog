@@ -10,6 +10,7 @@ import { TasteMapIsland } from '../components/TasteMapIsland';
 import { BeachDivider } from '../components/BeachDivider';
 import { GrassLedge } from '../components/GrassLedge';
 import { TestShare } from '../components/TestShare';
+import { GuestNotes } from '../components/GuestNotes';
 import introNightUrl from '../assets/intro-night.webp';
 import checkoutBgUrl from '../assets/checkout-stay.webp';
 import stripLpWall from '../assets/strip/lp-wall.webp';
@@ -46,6 +47,8 @@ export function HomePage() {
       <FindYourStay />
       <TasteMapBanner />
       <InsideRooms />
+      {/* 방명록 — 질문 3개에 답하는 노트, 여행자들의 답이 떠다님 */}
+      <GuestNotes />
       <CheckOut />
     </>
   );

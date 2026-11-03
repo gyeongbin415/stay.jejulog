@@ -18,6 +18,12 @@ export interface UiText {
     pageTitle: string; homeTitle: string; sub: string; all: string; filterAria: string; listAria: string; webzineBadge: string; seeStay: string; kakao: string; insta: string; note: string;
     search: string; searchAria: string; searchClear: string; noResult: string };
   insta: { title: string; loading: string; posts: string; followers: string; following: string; follow: string; message: string; postsTab: string; gridAria: string; close: string; prev: string; next: string; likes: (n: number) => string; comments: (n: number) => string; seeStay: string; back: string };
+  /** 방명록(GUEST NOTE) — 메인 MORE STORIES 와 CHECK OUT 사이 · 질문 3개에 답하는 노트 */
+  guest: { title: string; sub: string; open: string; count: (n: number) => string; first: string;
+    intro: string[]; questions: string[]; progress: (i: number, n: number) => string; placeholder: string;
+    prev: string; skip: string; next: string; nameLabel: string; namePlaceholder: string; anon: string; submit: string; sending: string;
+    needOne: string; failed: string; doneTitle: string; doneSub: string; doneClose: string; close: string;
+    otherBy: (name: string) => string; seeAll: (n: number) => string; hideAll: string; emptyAnswers: string; localOnly: string; cloudAria: string };
   home: { srTitle: string; wordsAria: string; opening: string; findSub: (n: number) => string; typesAria: string;
     /** 메인 사진 띠 — 상세페이지에서 빠진 사진 둘의 대체 텍스트 */
     stripRunAlt: string; stripLoungeAlt: string; stripCampAlt: string; stripMallowAlt: string; stripDomeAlt: string; stripCandleAlt: string; stripLpWallAlt: string; stripLivingAlt: string; stripRingAlt: string; stripPotluckAlt: string; stripCatAlt: string; stripBuckwheatAlt: string; stripTeaAlt: string; stripSeaRunAlt: string; stripGuitarAlt: string; stripWinePourAlt: string; stripRingWorkAlt: string; stripCliffAlt: string; stripCraterAlt: string; stripPuppyAlt: string; stripSeaSitAlt: string; stripForestAlt: string; stripCosmosAlt: string; stripCalendarAlt: string;
@@ -66,6 +72,18 @@ export const UI: Record<Lang, UiText> = {
       note: '위치는 카카오맵 장소 정보 기준이에요. 프로그램과 운영 여부는 방문 전에 숙소에 한 번 더 확인해 주세요.',
       search: '예: 제주시 한림읍', searchAria: '지역이나 게스트하우스 이름으로 찾기', searchClear: '검색어 지우기', noResult: '찾는 곳이 없어요. 다른 지역이나 이름으로 찾아보세요.' },
     insta: { title: '스테이 제주로그 인스타그램', loading: '인스타그램을 불러오는 중…', posts: '게시물', followers: '팔로워', following: '팔로잉', follow: '팔로우', message: '메시지 보내기', postsTab: '게시물', gridAria: '게시물 목록', close: '닫기', prev: '이전 사진', next: '다음 사진', likes: (n) => `좋아요 ${n}개`, comments: (n) => `댓글 ${n}개`, seeStay: '웹진에서 이 숙소 보기', back: '뒤로 가기' },
+    guest: {
+      title: '제주에 두고 가는\n한 줄 노트', sub: '체크아웃 하기 전에,\n제주에서 보내고 싶은 하루를 짧게 남겨 주세요.',
+      open: '나의 제주 노트 쓰기', count: (n) => `${n.toLocaleString()}명이 먼저 썼어요`, first: '첫 번째 노트를 남겨 주세요',
+      intro: ['여행은 금방 끝나지만,', '그날의 마음은 오래 남으니까.'],
+      questions: ['제주에서 꼭 보내고 싶은 하루는?', '게스트하우스에서 만나고 싶은 사람은?', '제주에 두고 가고 싶은 한마디는?'],
+      progress: (i, n) => `Q${i} / ${n}`, placeholder: '나의 답변',
+      prev: '이전', skip: '건너뛰기', next: '다음', nameLabel: '이름', namePlaceholder: '비워 두면 익명의 여행자', anon: '익명의 여행자',
+      submit: '노트 남기기', sending: '남기는 중…', needOne: '한 칸 이상 적어 주세요.', failed: '지금은 남기지 못했어요. 잠시 뒤 다시 눌러 주세요.',
+      doneTitle: '노트를 남겼어요', doneSub: '다른 여행자들의 노트와 함께 이곳에 떠다닐 거예요.', doneClose: '다른 노트 보러 가기', close: '닫기',
+      otherBy: (name) => `${name}의 답`, seeAll: (n) => `${n.toLocaleString()}명 답 보기`, hideAll: '접기', emptyAnswers: '아직 이 질문에 남긴 답이 없어요.',
+      localOnly: '지금은 준비 중이라 남긴 노트가 이 화면에만 보여요.', cloudAria: '여행자들이 남긴 노트',
+    },
     home: {
       srTitle: '제주 게스트하우스 공간 탐험 웹진',
       stripRunAlt: '맑은 날 애월 바닷가 산책로를 따라 달리는 게스트들 (얼굴 흐림 처리)',
@@ -135,6 +153,18 @@ export const UI: Record<Lang, UiText> = {
       note: 'Locations follow Kakao Map place data. Please check programs and opening with each stay before you visit. Descriptions of places outside the webzine are in Korean.',
       search: 'e.g. 제주시 한림읍', searchAria: 'Search by area or guesthouse name', searchClear: 'Clear search', noResult: 'No places found. Try another area or name.' },
     insta: { title: 'STAY JEJULOG on Instagram', loading: 'Loading Instagram…', posts: 'posts', followers: 'followers', following: 'following', follow: 'Follow', message: 'Message', postsTab: 'Posts', gridAria: 'Posts', close: 'Close', prev: 'Previous photo', next: 'Next photo', likes: (n) => `${n} likes`, comments: (n) => `${n} comments`, seeStay: 'See this stay in the webzine', back: 'Go back' },
+    guest: {
+      title: 'A one-line note\nto leave in Jeju', sub: 'Before you check out,\nleave a few words about the day you’d like to spend in Jeju.',
+      open: 'Write my Jeju note', count: (n) => `${n.toLocaleString()} ${n === 1 ? 'traveler has' : 'travelers have'} written`, first: 'Be the first to leave a note',
+      intro: ['Trips end quickly,', 'but how that day felt stays with you.'],
+      questions: ['What kind of day do you want to spend in Jeju?', 'Who would you like to meet at a guesthouse?', 'What would you like to leave behind in Jeju?'],
+      progress: (i, n) => `Q${i} / ${n}`, placeholder: 'My answer',
+      prev: 'Back', skip: 'Skip', next: 'Next', nameLabel: 'Name', namePlaceholder: 'Leave blank to stay anonymous', anon: 'A traveler',
+      submit: 'Leave my note', sending: 'Sending…', needOne: 'Please answer at least one question.', failed: 'Couldn’t send your note. Please try again in a moment.',
+      doneTitle: 'Your note is in', doneSub: 'It will float here with notes from other travelers.', doneClose: 'See other notes', close: 'Close',
+      otherBy: (name) => `— ${name}`, seeAll: (n) => `See all ${n.toLocaleString()} answers`, hideAll: 'Hide', emptyAnswers: 'No answers to this question yet.',
+      localOnly: 'This is still being set up, so your note is only shown on this screen for now.', cloudAria: 'Notes left by travelers',
+    },
     home: {
       srTitle: 'A webzine for exploring Jeju guesthouses',
       stripRunAlt: 'Guests running along the Aewol seaside path on a clear day (faces blurred)',
@@ -204,6 +234,18 @@ export const UI: Record<Lang, UiText> = {
       note: '位置依据 Kakao 地图的地点信息。出发前请再向民宿确认活动与营业情况。杂志外民宿的介绍为韩文。',
       search: '例：제주시 한림읍', searchAria: '按地区或民宿名称搜索', searchClear: '清除搜索', noResult: '没有找到相关地点，请换个地区或名称试试。' },
     insta: { title: 'STAY JEJULOG 的 Instagram', loading: '正在加载 Instagram…', posts: '帖子', followers: '粉丝', following: '关注', follow: '关注', message: '发消息', postsTab: '帖子', gridAria: '帖子列表', close: '关闭', prev: '上一张', next: '下一张', likes: (n) => `${n} 次赞`, comments: (n) => `${n} 条评论`, seeStay: '在杂志中查看这家民宿', back: '返回' },
+    guest: {
+      title: '留在济州的\n一行笔记', sub: '退房之前，\n简单写下你想在济州度过的一天吧。',
+      open: '写下我的济州笔记', count: (n) => `已有 ${n.toLocaleString()} 人写下`, first: '来写下第一条笔记吧',
+      intro: ['旅行很快就会结束，', '但那天的心情会留很久。'],
+      questions: ['你最想在济州度过怎样的一天？', '你想在民宿遇见什么样的人？', '你想在济州留下什么话？'],
+      progress: (i, n) => `Q${i} / ${n}`, placeholder: '我的回答',
+      prev: '上一步', skip: '跳过', next: '下一步', nameLabel: '名字', namePlaceholder: '不填写则为匿名旅行者', anon: '匿名旅行者',
+      submit: '留下笔记', sending: '正在发送…', needOne: '请至少回答一个问题。', failed: '暂时无法留下笔记，请稍后再试。',
+      doneTitle: '笔记已留下', doneSub: '它会和其他旅行者的笔记一起在这里飘浮。', doneClose: '去看看其他笔记', close: '关闭',
+      otherBy: (name) => `${name} 的回答`, seeAll: (n) => `查看全部 ${n.toLocaleString()} 条回答`, hideAll: '收起', emptyAnswers: '这个问题还没有人回答。',
+      localOnly: '目前仍在准备中，你的笔记暂时只显示在这个页面上。', cloudAria: '旅行者们留下的笔记',
+    },
     home: {
       srTitle: '济州民宿空间探索杂志',
       stripRunAlt: '晴天里沿着涯月海边步道奔跑的客人（面部已模糊处理）',
