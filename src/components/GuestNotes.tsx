@@ -44,11 +44,13 @@ export function GuestNotes({ page = false }: { page?: boolean }) {
   useEffect(reload, []);
 
   // 시트에서 읽어 온 노트 + 아직 시트 목록에 안 보이는 내 노트(방금 남긴 것)를 맨 앞에
+  // 시트를 읽어 왔으면 내 노트는 방금(2분 안) 남긴 것만 — 시트에서 숨기거나 지운 노트는 내 기기에서도 사라지게
   const same = (n: GuestNote) => `${n.name}|${n.a.join('|')}`;
   const notes = useMemo(() => {
     const server = board?.notes ?? [];
     const seen = new Set(server.map(same));
-    return [...mine.filter((n) => !seen.has(same(n))).reverse(), ...server];
+    const recent = board ? mine.filter((n) => Date.now() - (n.t ?? 0) < 120000) : mine;
+    return [...recent.filter((n) => !seen.has(same(n))).reverse(), ...server];
   }, [board, mine]);
   const unsynced = notes.length - (board?.notes.length ?? 0);
   const count = GUESTBOOK_URL ? (board?.count ?? 0) + unsynced : 0;
