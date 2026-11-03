@@ -415,6 +415,7 @@
 
 /* ── ROOM TOUR — CHECK IN 아래 집 그림 + 테두리 버튼 (누르면 집 페이지) ─────────────────────────────── */
 .roomtour { display: grid; justify-items: center; align-content: center; padding: clamp(40px, 7vh, 80px) var(--gutter) clamp(64px, 10vh, 112px); text-align: center; }
+.roomtour__label { margin: 0 0 clamp(14px, 2.4vh, 22px); }
 .roomtour__link { display: grid; justify-items: center; align-content: center; gap: clamp(22px, 4vh, 34px); text-decoration: none; }
 /* 집 그림 — 테두리 · 바탕 없이 그림만, 둥실 떠 있음 */
 .roomtour__img {

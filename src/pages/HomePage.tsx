@@ -362,6 +362,8 @@ function RoomTour() {
   const e = SITE.explore;
   return (
     <section id="roomtour" className="roomtour" data-tone="light" aria-labelledby="roomtour-title">
+      {/* 그림 위 작은 라벨 — 다른 칸처럼 */}
+      <p className="label roomtour__label">{e.label}</p>
       <a className="roomtour__link" href={href.house()} data-track="home_roomtour">
         <img className="roomtour__img" src={houseUrl} alt="" width={900} height={630} loading="lazy" decoding="async" />
         <span className="roomtour__btn">
