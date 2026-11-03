@@ -10,7 +10,7 @@ export interface UiText {
   langLabel: string;
   skip: string;
   /** 휴대폰 넘겨보기 아래 메뉴 */
-  deck: { intro: string; roomtour: string; find: string; tastemap: string; guest: string; checkout: string; aria: string; coverHint: string };
+  deck: { intro: string; roomtour: string; find: string; tastemap: string; guest: string; checkout: string; aria: string };
   nav: { main: string; house: string; test: string; map: string; more: string; guest: string; menuOpen: string; menuClose: string; menu: string; mainNav: string; tour: string; toHome: (brand: string) => string };
   footer: { tagline: string; desc: string; followUs: string; madeBy: string };
   app: { loadingStay: string; loadingTest: string; notFound: string; toHome: string };
@@ -67,7 +67,7 @@ export const UI: Record<Lang, UiText> = {
     docTitle: 'STAY JEJULOG — 문 너머, 우리가 몰랐던 게스트하우스',
     langLabel: '언어',
     skip: '본문 바로가기',
-    deck: { intro: '처음', roomtour: '게하 탐색', find: '취향 테스트', tastemap: '취향 지도', guest: '방명록', checkout: '체크아웃', aria: '메인 넘겨보기', coverHint: '보고 싶은 그림을 누르거나, 아래로 내려 보세요' },
+    deck: { intro: '처음', roomtour: '게하 탐색', find: '취향 테스트', tastemap: '취향 지도', guest: '방명록', checkout: '체크아웃', aria: '메인 넘겨보기' },
     nav: { main: '메인', house: '게하 탐색', test: '취향 테스트', map: '지도', more: '인스타그램', guest: '방명록', menuOpen: '메뉴 열기', menuClose: '메뉴 닫기', menu: '메뉴', mainNav: '주요 메뉴', tour: '둘러보기', toHome: (b) => `${b} 메인으로` },
     footer: { tagline: '우리가 몰랐던 제주 게스트하우스를 만나는 웹진', desc: '제주에서의 하루를 조금 다르게 보내는 방법.\n당신의 취향에 맞는 게스트하우스를 발견해 보세요.', followUs: 'FOLLOW US', madeBy: 'MADE BY' },
     app: { loadingStay: '게스트하우스를 불러오는 중…', loadingTest: '테스트를 준비하는 중…', notFound: '찾으시는 페이지가 없습니다.', toHome: '메인으로' },
@@ -88,7 +88,7 @@ export const UI: Record<Lang, UiText> = {
       doneTitle: '노트를 남겼어요', doneSub: '다른 여행자들의 노트와 함께 이곳에 떠다닐 거예요.', doneClose: '다른 노트 보러 가기', close: '닫기',
       otherBy: (name) => `${name}의 답`, seeAll: (n) => `${n.toLocaleString()}명 답 보기`, hideAll: '접기', emptyAnswers: '아직 이 질문에 남긴 답이 없어요.',
       localOnly: '지금은 준비 중이라 남긴 노트가 이 화면에만 보여요.', cloudAria: '여행자들이 남긴 노트',
-      coverHint: '눌러서 펼치기', coverAria: '나의 제주 노트 표지',
+      coverHint: '제주에 어떤 마음을 남겨 볼까요?', coverAria: '나의 제주 노트 표지',
       pickTitle: '어떤 질문에 답해 볼까요?', pickSub: '마음이 가는 질문만 골라 적어 보세요.\n하나만 적어도 괜찮아요.', pickWrite: '적어 보기', toList: '질문 목록', doneAnswer: '다 적었어요',
     },
     home: {
@@ -151,7 +151,7 @@ export const UI: Record<Lang, UiText> = {
     docTitle: 'STAY JEJULOG — Beyond the door, the guesthouses we never knew',
     langLabel: 'Language',
     skip: 'Skip to content',
-    deck: { intro: 'Intro', roomtour: 'Explore', find: 'Taste Test', tastemap: 'Taste Map', guest: 'Guestbook', checkout: 'Check out', aria: 'Browse the main page', coverHint: 'Tap a picture, or scroll down' },
+    deck: { intro: 'Intro', roomtour: 'Explore', find: 'Taste Test', tastemap: 'Taste Map', guest: 'Guestbook', checkout: 'Check out', aria: 'Browse the main page' },
     nav: { main: 'Home', house: 'Explore', test: 'Taste Test', map: 'Map', more: 'Instagram', guest: 'Guestbook', menuOpen: 'Open menu', menuClose: 'Close menu', menu: 'Menu', mainNav: 'Main menu', tour: 'Look around', toHome: (b) => `${b} home` },
     footer: { tagline: 'A webzine for meeting the Jeju guesthouses we never knew', desc: 'A slightly different way to spend a day in Jeju.\nDiscover the guesthouse that fits your taste.', followUs: 'FOLLOW US', madeBy: 'MADE BY' },
     app: { loadingStay: 'Loading the guesthouse…', loadingTest: 'Preparing the test…', notFound: 'We couldn’t find that page.', toHome: 'Back to home' },
@@ -172,7 +172,7 @@ export const UI: Record<Lang, UiText> = {
       doneTitle: 'Your note is in', doneSub: 'It will float here with notes from other travelers.', doneClose: 'See other notes', close: 'Close',
       otherBy: (name) => `— ${name}`, seeAll: (n) => `See all ${n.toLocaleString()} answers`, hideAll: 'Hide', emptyAnswers: 'No answers to this question yet.',
       localOnly: 'This is still being set up, so your note is only shown on this screen for now.', cloudAria: 'Notes left by travelers',
-      coverHint: 'Tap to open', coverAria: 'My Jeju note cover',
+      coverHint: 'What will you leave in Jeju?', coverAria: 'My Jeju note cover',
       pickTitle: 'Which question would you like to answer?', pickSub: 'Pick only the ones that speak to you.\nOne answer is enough.', pickWrite: 'Write', toList: 'Questions', doneAnswer: 'Done',
     },
     home: {
@@ -235,7 +235,7 @@ export const UI: Record<Lang, UiText> = {
     docTitle: 'STAY JEJULOG — 门的那边，我们不曾了解的民宿',
     langLabel: '语言',
     skip: '跳到正文',
-    deck: { intro: '开始', roomtour: '探索民宿', find: '喜好测试', tastemap: '喜好地图', guest: '留言簿', checkout: '退房', aria: '翻阅首页', coverHint: '点击想看的图片，或向下滑动' },
+    deck: { intro: '开始', roomtour: '探索民宿', find: '喜好测试', tastemap: '喜好地图', guest: '留言簿', checkout: '退房', aria: '翻阅首页' },
     nav: { main: '首页', house: '探索民宿', test: '喜好测试', map: '地图', more: 'Instagram', guest: '留言簿', menuOpen: '打开菜单', menuClose: '关闭菜单', menu: '菜单', mainNav: '主菜单', tour: '四处看看', toHome: (b) => `返回${b}首页` },
     footer: { tagline: '遇见我们不曾了解的济州民宿的杂志', desc: '在济州度过与众不同一天的方法。\n发现适合你喜好的民宿吧。', followUs: 'FOLLOW US', madeBy: 'MADE BY' },
     app: { loadingStay: '正在加载民宿…', loadingTest: '正在准备测试…', notFound: '找不到您要的页面。', toHome: '返回首页' },
@@ -256,7 +256,7 @@ export const UI: Record<Lang, UiText> = {
       doneTitle: '笔记已留下', doneSub: '它会和其他旅行者的笔记一起在这里飘浮。', doneClose: '去看看其他笔记', close: '关闭',
       otherBy: (name) => `${name} 的回答`, seeAll: (n) => `查看全部 ${n.toLocaleString()} 条回答`, hideAll: '收起', emptyAnswers: '这个问题还没有人回答。',
       localOnly: '目前仍在准备中，你的笔记暂时只显示在这个页面上。', cloudAria: '旅行者们留下的笔记',
-      coverHint: '点击翻开', coverAria: '我的济州笔记封面',
+      coverHint: '要在济州留下怎样的心意呢？', coverAria: '我的济州笔记封面',
       pickTitle: '想回答哪个问题？', pickSub: '只挑你喜欢的问题来写吧。\n写一个也没关系。', pickWrite: '写一写', toList: '问题列表', doneAnswer: '写好了',
     },
     home: {

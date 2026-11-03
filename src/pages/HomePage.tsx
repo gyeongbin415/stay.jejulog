@@ -1,15 +1,14 @@
 import { useEffect, useRef, useState, type CSSProperties } from 'react';
 import { SITE as SITE_KO } from '../data/site';
 import { useContent } from '../i18n';
-import { absUrl, href } from '../lib/router';
+import { href } from '../lib/router';
 import { useMediaQuery, useReducedMotion } from '../lib/motion';
-import { HomeDeck, MAIN_PANELS } from '../components/HomeDeck';
+import { HomeDeck } from '../components/HomeDeck';
 import { ContentPicker } from '../components/ContentPicker';
 import { GuestNotes } from '../components/GuestNotes';
 import houseUrl from '../assets/house-icon.png';
 import gumballUrl from '../assets/test-gumball.png';
 import tasteMapUrl from '../assets/taste-map-paper.png';
-import noteUrl from '../assets/guest-note.png';
 import introNightUrl from '../assets/intro-night.webp';
 import checkoutBgUrl from '../assets/checkout-stay.webp';
 import stripLpWall from '../assets/strip/lp-wall.webp';
@@ -32,55 +31,19 @@ import stripDinner from '../assets/strip/susu-dinner-table.webp';
 import stripSunrise from '../assets/strip/kokoko-sunrise.webp';
 
 /**
- * PAGE 01 — 메인
- * 휴대폰: INTRO → 그림 모음 한 장(COVER, 2×2) — 그림을 누르거나 더 내리면 둘러보기 페이지(#/tour)로 (CHECK OUT 은 둘러보기 맨 끝)
- * PC: INTRO → 콘텐츠 고르기 → FIND YOUR STAY → 취향 지도 → 방명록 → CHECK OUT (하나의 세로 스크롤)
+ * PAGE 01 — 메인 (하나의 세로 스크롤)
+ * INTRO → 집(휴대폰) · 콘텐츠 고르기(PC) → FIND YOUR STAY → 취향 지도 → 방명록 → CHECK OUT
  */
 export function HomePage() {
   const { site: SITE, ui } = useContent();
+  // 휴대폰 — 칸을 한 장씩 위아래로 넘겨봄 (동작 줄이기 설정이면 보통 스크롤)
   const mobile = useMediaQuery('(max-width: 899px)');
   const reduced = useReducedMotion();
-  // 그림 모음에서 더 내리면 — 그림들이 위로 빠지며 둘러보기 페이지(집 칸부터)로
-  const leaving = useRef(false);
-  const toTour = () => {
-    if (leaving.current) return;
-    leaving.current = true;
-    document.getElementById('cover')?.classList.add('is-leaving');
-    window.setTimeout(() => {
-      leaving.current = false;
-      window.location.assign(absUrl(href.tour()));
-    }, 380);
-  };
   return (
     <>
       <h1 className="visually-hidden">{SITE.brand} {SITE.brandEn} — {ui.home.srTitle}</h1>
       <Intro />
-      {mobile ? <Cover /> : <Sections mobile={false} />}
-      {/* 인트로보다 뒤에 둬야 손짓 처리도 인트로 다음 차례 (인트로가 단계를 넘긴 손짓은 넘기지 않음) */}
-      {mobile && !reduced && <HomeDeck panels={MAIN_PANELS} dots={false} onPastEnd={toTour} />}
-    </>
-  );
-}
-
-/** PAGE 08 — 둘러보기(#/tour): 휴대폰 메인 그림 모음 다음 칸들. 휴대폰은 칸을 한 장씩 위아래로 넘겨봄 (동작 줄이기 설정이면 보통 스크롤) */
-export function TourPage() {
-  const { site: SITE, ui } = useContent();
-  const mobile = useMediaQuery('(max-width: 899px)');
-  const reduced = useReducedMotion();
-  return (
-    <>
-      <h1 className="visually-hidden">{ui.nav.tour} — {SITE.brand} {SITE.brandEn}</h1>
-      <Sections mobile={mobile} />
-      {mobile && !reduced && <HomeDeck />}
-    </>
-  );
-}
-
-/** 메인(PC) · 둘러보기 페이지에 같이 쓰는 칸들 */
-function Sections({ mobile }: { mobile: boolean }) {
-  return (
-    <>
-      {/* 휴대폰(둘러보기 페이지)은 집 그림 + 버튼(누르면 게하 탐색 #/house), PC 는 네 콘텐츠(집 · 테스트 · 지도 · 방명록)를 고르는 그림 — 누르면 커지며 상세로 */}
+      {/* 휴대폰은 집 그림 + 버튼(누르면 게하 탐색 #/house), PC 는 네 콘텐츠(집 · 테스트 · 지도 · 방명록)를 고르는 그림 — 누르면 커지며 상세로 */}
       {mobile ? <RoomTour /> : <ContentPicker />}
       <FindYourStay />
       <TasteMapBanner />
@@ -88,32 +51,9 @@ function Sections({ mobile }: { mobile: boolean }) {
           (예전 MORE STORIES 인스타그램 사진 칸은 메인에서 뺌 — 인스타그램 페이지 #/instagram 은 그대로) */}
       <GuestNotes />
       <CheckOut />
+      {/* 인트로보다 뒤에 둬야 손짓 처리도 인트로 다음 차례 (인트로가 단계를 넘긴 손짓은 넘기지 않음) */}
+      {mobile && !reduced && <HomeDeck />}
     </>
-  );
-}
-
-/* ── 휴대폰 메인 인트로 다음 — 글 없이 집 · 뽑기 기계 · 지도 · 공책 스티커만 2×2 로 붙인 한 장. 누르면 둘러보기 페이지(#/tour)의 그 칸으로 ── */
-function Cover() {
-  const { site: SITE, ui } = useContent();
-  const items = [
-    { k: 'house', src: houseUrl, w: 900, h: 630, to: href.tour('roomtour'), label: SITE.explore.title.join(' ') },
-    { k: 'test', src: gumballUrl, w: 615, h: 1086, to: href.tour('find'), label: SITE.findYourStay.cta },
-    { k: 'map', src: tasteMapUrl, w: 1100, h: 707, to: href.tour('tastemap'), label: ui.map.homeCta },
-    { k: 'guest', src: noteUrl, w: 900, h: 708, to: href.tour('guest'), label: ui.guest.coverAria },
-  ];
-  return (
-    <section id="cover" className="cover" data-tone="light" aria-label={ui.nav.tour}>
-      {/* 안내 — 그림을 누르거나 아래로 내리면 둘러보기 페이지로 */}
-      <p className="cover__hint">
-        <span className="cover__dot" aria-hidden="true" />
-        {ui.deck.coverHint}
-      </p>
-      {items.map((it, i) => (
-        <a key={it.k} className={`cover__item cover__item--${it.k}`} href={it.to} aria-label={it.label} data-track={`cover_${it.k}`} style={{ '--i': i } as CSSProperties}>
-          <img src={it.src} alt="" width={it.w} height={it.h} decoding="async" draggable={false} />
-        </a>
-      ))}
-    </section>
   );
 }
 

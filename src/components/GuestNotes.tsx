@@ -117,8 +117,10 @@ function NoteArt() {
       >
         <img src={noteUrl} alt="" width={900} height={708} loading="lazy" decoding="async" draggable={false} />
       </button>
-      <a className="gcover__hint" href={href.guest()} data-track="guest_cta">
-        {t.coverHint}
+      {/* 집 · 테스트 · 지도 칸과 같은 흰 테두리 버튼 — 질문 문구 */}
+      <a className="roomtour__btn find__cta" href={href.guest()} data-track="guest_cta">
+        <span>{t.coverHint}</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6.5 18.5 12 13 17.5" /></svg>
       </a>
     </div>
   );

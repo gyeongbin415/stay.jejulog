@@ -15,7 +15,7 @@
 .gnote__art:active { cursor: grabbing; }
 .gnote__art:hover { scale: 1.02; }
 .gnote__art img { display: block; width: 100%; height: auto; pointer-events: none; user-select: none; }
-.gnote__artwrap .gcover__hint { color: var(--ink); text-decoration: none; }
+.gnote__artwrap .find__cta { margin-top: 0; } /* 그림과의 간격은 칸의 gap 으로 (다른 칸과 같게) */
 .gnote__inner { display: grid; justify-items: center; gap: 18px; text-align: center; }
 .gnote__local { max-width: 26em; font-size: 12.5px; line-height: 1.6; color: var(--ink-soft); }
 

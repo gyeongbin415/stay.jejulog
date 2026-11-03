@@ -13,7 +13,6 @@ const FALLBACK: Partial<Record<Route['name'], string>> = {
   insta: href.home('guest'),
   test: href.home('find'),
   guest: href.home('guest'),
-  tour: href.home(),
 };
 
 export function BackFab({ route }: { route: Route }) {
