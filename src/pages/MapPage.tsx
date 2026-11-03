@@ -99,7 +99,9 @@ export default function MapPage() {
   // 지도 — 처음 한 번 만들고, 핀은 언어가 바뀌면 다시 그림
   useEffect(() => {
     if (!mapEl.current || mapRef.current) return;
-    const map = L.map(mapEl.current, { scrollWheelZoom: true, touchZoom: true, wheelPxPerZoomLevel: 90, zoomControl: false, attributionControl: true, zoomSnap: 0.25 }).setView([33.38, 126.55], 10);
+    // 휴대폰(손가락) — 한 손가락으로 밀면 지도 대신 페이지가 내려가게(지도 끌기 끔), 지도는 두 손가락으로 옮기기 · 확대
+    const touch = window.matchMedia('(pointer: coarse)').matches;
+    const map = L.map(mapEl.current, { dragging: !touch, scrollWheelZoom: true, touchZoom: true, wheelPxPerZoomLevel: 90, zoomControl: false, attributionControl: true, zoomSnap: 0.25 }).setView([33.38, 126.55], 10);
     L.control.zoom({ position: 'bottomright' }).addTo(map); // 지도 위에서 마우스 휠 · 두 손가락으로도 확대 · 축소
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
