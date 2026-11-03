@@ -6,6 +6,10 @@
 .gnote { padding: clamp(80px, 12vh, 128px) 0 clamp(88px, 13vh, 136px); background: var(--paper); }
 /* 메인에서는 다른 칸과 같은 공통 배경 */
 .gnote:not(.gnote--page) { background: var(--bg); }
+/* 메인 공책 — 방명록 페이지보다 작게 */
+.gnote:not(.gnote--page) .gcover { width: min(400px, 64vw); }
+.gnote:not(.gnote--page) .gcover__hand { font-size: clamp(18px, 3.6vw, 28px); }
+.gnote:not(.gnote--page) .gcover__mark { font-size: clamp(9px, 1.3vw, 12px); }
 .gnote__inner { display: grid; justify-items: center; gap: 18px; text-align: center; }
 .gnote__local { max-width: 26em; font-size: 12.5px; line-height: 1.6; color: var(--ink-soft); }
 
