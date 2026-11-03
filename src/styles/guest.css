@@ -170,6 +170,11 @@
 .gwrite__pick-go { grid-area: go; font-size: 20px; color: var(--ink-soft); }
 .gwrite__pick.is-done { border-color: var(--forest); box-shadow: 3px 4px 0 var(--forest); }
 .gwrite__pick.is-done .gwrite__pick-state, .gwrite__pick.is-done .gwrite__pick-go { color: var(--forest); }
+/* 처음 화면 두 버튼 — 조금 더 크게 */
+.gwrite__pick--mode { padding: 22px 20px; }
+.gwrite__pick--mode .gwrite__pick-no { padding-top: 0; font-size: 18px; color: var(--orange); }
+.gwrite__pick--mode .gwrite__pick-q { font-size: 18.5px; }
+.gwrite__back { margin: 4px 0 14px; padding-left: 0; }
 .gwrite__send { display: grid; gap: 16px; margin-top: 26px; }
 .gwrite__send .gwrite__name { border-top: 0; padding-top: 0; }
 .gwrite__send .gwrite__submit { justify-self: end; }

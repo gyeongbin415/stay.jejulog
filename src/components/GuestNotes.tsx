@@ -3,7 +3,7 @@ import { useContent } from '../i18n';
 import { useReducedMotion } from '../lib/motion';
 import { absUrl, href } from '../lib/router';
 import { track } from '../lib/track';
-import { GUESTBOOK_URL, MAX_ANSWER, MAX_NAME, fetchBoard, loadMine, postNote, type GuestBoard, type GuestNote } from '../data/guestbook';
+import { GUESTBOOK_URL, MAX_ANSWER, MAX_FREE, MAX_NAME, fetchBoard, loadMine, postNote, type GuestBoard, type GuestNote } from '../data/guestbook';
 import noteUrl from '../assets/guest-note.png';
 import '../styles/guest.css';
 
@@ -15,6 +15,9 @@ import '../styles/guest.css';
 ------------------------------------------------------------------- */
 
 const QUESTIONS = 5;
+/** 자유 노트 칸 — 답 배열에서 질문 5개 다음 · 전체 칸 수 */
+const FREE = QUESTIONS;
+const SLOTS = QUESTIONS + 1;
 
 type Answer = { text: string; name: string };
 
@@ -24,7 +27,7 @@ function answersOf(notes: GuestNote[], anon: string, q?: number): Answer[] {
   if (q != null) return notes.map((n) => pick(n, q)).filter((a) => a.text);
   // 한 사람 답이 몰리지 않게 — 첫 바퀴에 노트마다 답 하나씩(질문은 번갈아), 다음 바퀴에 그다음 답
   const out: Answer[] = [];
-  for (let j = 0; j < QUESTIONS; j++) notes.forEach((n, k) => out.push(pick(n, (k + j) % QUESTIONS)));
+  for (let j = 0; j < SLOTS; j++) notes.forEach((n, k) => out.push(pick(n, (k + j) % SLOTS)));
   return out.filter((a) => a.text);
 }
 
@@ -129,14 +132,14 @@ function NoteArt() {
 /**
  * 쓰던 답 · 이름 — 창을 닫았다 열거나 다른 화면에 다녀와도 그대로 (페이지가 열려 있는 동안, 남기고 나면 비움)
  */
-const draft = { answers: Array<string>(QUESTIONS).fill(''), name: '' };
+const draft = { answers: Array<string>(SLOTS).fill(''), name: '' };
 
-/** 질문 고르기 ⇄ 줄 노트 카드 → 다 썼어요 · inline — 방명록 페이지 안에 바로(창 · 도입 문장 · 닫기 없이) */
+/** 처음(자유롭게 적기 · 질문 골라 답하기) ⇄ 질문 목록 ⇄ 줄 노트 카드 → 다 썼어요 · inline — 방명록 페이지 안에 바로(창 · 도입 문장 · 닫기 없이) */
 function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestNote[]; onClose: () => void; onSent: () => void; inline?: boolean }) {
   const { ui, lang } = useContent();
   const t = ui.guest;
   const reduced = useReducedMotion();
-  const [phase, setPhase] = useState<'intro' | 'pick' | 'write' | 'done'>(reduced || inline ? 'pick' : 'intro');
+  const [phase, setPhase] = useState<'intro' | 'pick' | 'list' | 'write' | 'done'>(reduced || inline ? 'pick' : 'intro');
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<string[]>(() => [...draft.answers]);
   const [name, setName] = useState(draft.name);
@@ -183,6 +186,11 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
 
   const setAnswer = (v: string) => setAnswers((a) => a.map((x, i) => (i === step ? v : x)));
   const answered = answers.map((a) => !!a.trim());
+  const qCount = answered.slice(0, QUESTIONS).filter(Boolean).length;
+  /** 칸 이름 — 질문 또는 '자유롭게 남긴 말' */
+  const labelOf = (i: number) => (i === FREE ? t.freeLabel : t.questions[i]);
+  /** 카드에서 돌아갈 곳 — 자유 노트는 처음 화면, 질문은 질문 목록 */
+  const back = () => setPhase(step === FREE ? 'pick' : 'list');
 
   const submit = async () => {
     const a = answers.map((x) => x.trim());
@@ -199,7 +207,7 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
       return;
     }
     track('guest_submit', { answered: a.filter(Boolean).length });
-    draft.answers = Array<string>(QUESTIONS).fill('');
+    draft.answers = Array<string>(SLOTS).fill('');
     draft.name = '';
     onSent();
     setPhase('done');
@@ -207,7 +215,7 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
   /** 다 쓴 뒤 — 창은 닫고, 방명록 페이지에서는 새 노트 쓰기로 */
   const finish = () => {
     if (!inline) return onClose();
-    setAnswers(Array<string>(QUESTIONS).fill(''));
+    setAnswers(Array<string>(SLOTS).fill(''));
     setName('');
     setPhase('pick');
   };
@@ -216,7 +224,7 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
     <div className={`gwrite gwrite--${phase}${inline ? ' gwrite--inline' : ''}`} role={inline ? undefined : 'dialog'} aria-modal={inline ? undefined : true} aria-label={t.open} ref={ref} tabIndex={-1}>
       <header className="gwrite__top">
         <p className="gwrite__brand">GUEST NOTE</p>
-        {(phase === 'pick' || phase === 'write') && (
+        {(phase === 'pick' || phase === 'list' || phase === 'write') && (
           <ol className="gwrite__bar" aria-hidden="true">
             {answered.map((on, i) => (
               <li key={i} className={on ? 'is-on' : undefined} />
@@ -239,9 +247,61 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
         </button>
       )}
 
-      {/* 질문 고르기 — 마음에 드는 질문만 골라 적고, 하나 이상 적으면 이름과 함께 남기기 */}
+      {/* 처음 — 자유롭게 적기 · 질문 골라 답하기 두 버튼, 하나 이상 적으면 이름과 함께 남기기 */}
       {phase === 'pick' && (
         <div className="gwrite__body wrap">
+          <p className="gwrite__hand" aria-hidden="true">MY JEJU NOTE</p>
+          <h2 className="gwrite__pick-title">{t.modeTitle}</h2>
+          <p className="gwrite__pick-sub pre">{t.modeSub}</p>
+          <ul className="gwrite__picks">
+            <li>
+              <button
+                type="button"
+                className={`gwrite__pick gwrite__pick--mode${answered[FREE] ? ' is-done' : ''}`}
+                onClick={() => {
+                  setStep(FREE);
+                  setPhase('write');
+                }}
+                data-track="guest_mode_free"
+              >
+                <span className="gwrite__pick-no" aria-hidden="true">✎</span>
+                <span className="gwrite__pick-q">{t.freeBtn}</span>
+                <span className="gwrite__pick-state">{answered[FREE] ? answers[FREE].trim() : t.freeHint}</span>
+                <span className="gwrite__pick-go" aria-hidden="true">{answered[FREE] ? '✓' : '›'}</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" className={`gwrite__pick gwrite__pick--mode${qCount ? ' is-done' : ''}`} onClick={() => setPhase('list')} data-track="guest_mode_questions">
+                <span className="gwrite__pick-no" aria-hidden="true">Q</span>
+                <span className="gwrite__pick-q">{t.questionsBtn}</span>
+                <span className="gwrite__pick-state">{qCount ? t.questionsDone(qCount, QUESTIONS) : t.questionsHint(QUESTIONS)}</span>
+                <span className="gwrite__pick-go" aria-hidden="true">›</span>
+              </button>
+            </li>
+          </ul>
+          {answered.some(Boolean) && (
+            <div className="gwrite__send">
+              <label className="gwrite__name">
+                <span>{t.nameLabel}</span>
+                <input maxLength={MAX_NAME} placeholder={t.namePlaceholder} value={name} onChange={(e) => setName(e.target.value)} />
+              </label>
+              <button type="button" className="btn gwrite__submit" onClick={submit} disabled={sending} data-track="guest_submit_btn">
+                {sending ? t.sending : t.submit}
+              </button>
+            </div>
+          )}
+          {error && <p className="gwrite__error" role="alert">{error}</p>}
+          {/* 다른 여행자들이 남긴 노트 — 방명록 페이지에서만 */}
+          {inline && <NoteBoard notes={notes} />}
+        </div>
+      )}
+
+      {/* 질문 목록 — 마음에 드는 질문만 골라 적기 */}
+      {phase === 'list' && (
+        <div className="gwrite__body wrap">
+          <button type="button" className="gwrite__step gwrite__back" onClick={() => setPhase('pick')} data-track="guest_list_back">
+            <span aria-hidden="true">‹ </span>{t.toModes}
+          </button>
           <p className="gwrite__hand" aria-hidden="true">MY JEJU NOTE</p>
           <h2 className="gwrite__pick-title">{t.pickTitle}</h2>
           <p className="gwrite__pick-sub pre">{t.pickSub}</p>
@@ -277,8 +337,6 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
             </div>
           )}
           {error && <p className="gwrite__error" role="alert">{error}</p>}
-          {/* 다른 여행자들이 남긴 노트 — 방명록 페이지에서만 */}
-          {inline && <NoteBoard notes={notes} />}
         </div>
       )}
 
@@ -287,25 +345,25 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
           <div className="gwrite__body wrap">
             <p className="gwrite__hand" aria-hidden="true">MY JEJU NOTE</p>
             <div className="gwrite__card" key={step}>
-              <p className="gwrite__no">Q{step + 1}</p>
-              <label className="gwrite__q" htmlFor="gwrite-answer">{t.questions[step]}</label>
+              <p className="gwrite__no">{step === FREE ? 'FREE NOTE' : `Q${step + 1}`}</p>
+              <label className="gwrite__q" htmlFor="gwrite-answer">{step === FREE ? t.freeBtn : t.questions[step]}</label>
               <textarea
                 id="gwrite-answer"
                 ref={areaRef}
                 className="gwrite__a"
-                rows={3}
-                maxLength={MAX_ANSWER}
-                placeholder={t.placeholder}
+                rows={step === FREE ? 6 : 3}
+                maxLength={step === FREE ? MAX_FREE : MAX_ANSWER}
+                placeholder={step === FREE ? t.freePlaceholder : t.placeholder}
                 value={answers[step]}
                 onChange={(e) => setAnswer(e.target.value)}
               />
-              <p className="gwrite__len" aria-hidden="true">{answers[step].length} / {MAX_ANSWER}</p>
+              <p className="gwrite__len" aria-hidden="true">{answers[step].length} / {step === FREE ? MAX_FREE : MAX_ANSWER}</p>
             </div>
             <nav className="gwrite__nav">
-              <button type="button" className="gwrite__step" onClick={() => setPhase('pick')}>
-                <span aria-hidden="true">‹ </span>{t.toList}
+              <button type="button" className="gwrite__step" onClick={back}>
+                <span aria-hidden="true">‹ </span>{step === FREE ? t.toModes : t.toList}
               </button>
-              <button type="button" className="btn gwrite__submit" onClick={() => setPhase('pick')} data-track={`guest_done_q${step + 1}`}>
+              <button type="button" className="btn gwrite__submit" onClick={back} data-track={step === FREE ? 'guest_done_free' : `guest_done_q${step + 1}`}>
                 {t.doneAnswer}
               </button>
             </nav>
@@ -348,7 +406,7 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
               {answers.map((a, i) =>
                 a.trim() ? (
                   <li key={i}>
-                    <small>{t.questions[i]}</small>
+                    <small>{labelOf(i)}</small>
                     <span>{a.trim()}</span>
                   </li>
                 ) : null,
@@ -383,9 +441,9 @@ function NoteBoard({ notes }: { notes: GuestNote[] }) {
             <li key={`${n.t ?? ''}-${k}`} className="gboard__note" style={{ '--r': `${((k % 3) - 1) * 0.8}deg` } as CSSProperties}>
               <ul className="gwrite__mine">
                 {n.a.map((a, i) =>
-                  a.trim() && t.questions[i] ? (
+                  a.trim() && i <= FREE ? (
                     <li key={i}>
-                      <small>{t.questions[i]}</small>
+                      <small>{i === FREE ? t.freeLabel : t.questions[i]}</small>
                       <span>{a.trim()}</span>
                     </li>
                   ) : null,

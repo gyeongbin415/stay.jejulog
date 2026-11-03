@@ -29,7 +29,10 @@ export interface UiText {
     coverHint: string; coverAria: string;
     pickTitle: string; pickSub: string; pickWrite: string; toList: string; doneAnswer: string;
     /** 질문 고르기 아래 — 다른 여행자들이 남긴 노트 */
-    boardTitle: string; boardBy: (name: string) => string; boardMore: string };
+    boardTitle: string; boardBy: (name: string) => string; boardMore: string;
+    /** 첫 화면 두 버튼 — 자유롭게 적기 · 질문 골라 답하기 */
+    modeTitle: string; modeSub: string; freeBtn: string; freeHint: string; freeLabel: string; freePlaceholder: string;
+    questionsBtn: string; questionsHint: (n: number) => string; questionsDone: (k: number, n: number) => string; toModes: string };
   home: { srTitle: string; wordsAria: string; opening: string; findSub: (n: number) => string; typesAria: string;
     /** 메인 사진 띠 — 상세페이지에서 빠진 사진 둘의 대체 텍스트 */
     stripRunAlt: string; stripLoungeAlt: string; stripCampAlt: string; stripMallowAlt: string; stripDomeAlt: string; stripCandleAlt: string; stripLpWallAlt: string; stripLivingAlt: string; stripRingAlt: string; stripPotluckAlt: string; stripCatAlt: string; stripBuckwheatAlt: string; stripTeaAlt: string; stripSeaRunAlt: string; stripGuitarAlt: string; stripWinePourAlt: string; stripRingWorkAlt: string; stripCliffAlt: string; stripCraterAlt: string; stripPuppyAlt: string; stripSeaSitAlt: string; stripForestAlt: string; stripCosmosAlt: string; stripCalendarAlt: string;
@@ -93,6 +96,9 @@ export const UI: Record<Lang, UiText> = {
       coverHint: '제주에 어떤 마음을 남겨 볼까요?', coverAria: '나의 제주 노트 표지',
       pickTitle: '어떤 질문에 답해 볼까요?', pickSub: '마음이 가는 질문만 골라 적어 보세요.\n하나만 적어도 괜찮아요.', pickWrite: '적어 보기', toList: '질문 목록', doneAnswer: '다 적었어요',
       boardTitle: '모두의 노트', boardBy: (name) => `— ${name}`, boardMore: '노트 더 보기',
+      modeTitle: '어떻게 남겨 볼까요?', modeSub: '자유롭게 적거나,\n마음이 가는 질문을 골라 답해 보세요.',
+      freeBtn: '자유롭게 적기', freeHint: '하고 싶은 말을 마음대로', freeLabel: '자유롭게 남긴 말', freePlaceholder: '제주에서의 하루, 남기고 싶은 마음을 자유롭게 적어 보세요',
+      questionsBtn: '질문 골라 답하기', questionsHint: (n) => `${n}가지 질문 중 골라서`, questionsDone: (k, n) => `${n}개 중 ${k}개 답했어요`, toModes: '처음으로',
     },
     home: {
       srTitle: '제주 게스트하우스 공간 탐험 웹진',
@@ -178,6 +184,9 @@ export const UI: Record<Lang, UiText> = {
       coverHint: 'What will you leave in Jeju?', coverAria: 'My Jeju note cover',
       pickTitle: 'Which question would you like to answer?', pickSub: 'Pick only the ones that speak to you.\nOne answer is enough.', pickWrite: 'Write', toList: 'Questions', doneAnswer: 'Done',
       boardTitle: "Everyone's notes", boardBy: (name) => `— ${name}`, boardMore: 'See more notes',
+      modeTitle: 'How would you like to leave a note?', modeSub: 'Write freely,\nor pick a question to answer.',
+      freeBtn: 'Write freely', freeHint: 'Anything you want to say', freeLabel: 'Free note', freePlaceholder: 'Write anything about your day or your feelings in Jeju',
+      questionsBtn: 'Answer a question', questionsHint: (n) => `Choose from ${n} questions`, questionsDone: (k, n) => `${k} of ${n} answered`, toModes: 'Back',
     },
     home: {
       srTitle: 'A webzine for exploring Jeju guesthouses',
@@ -263,6 +272,9 @@ export const UI: Record<Lang, UiText> = {
       coverHint: '要在济州留下怎样的心意呢？', coverAria: '我的济州笔记封面',
       pickTitle: '想回答哪个问题？', pickSub: '只挑你喜欢的问题来写吧。\n写一个也没关系。', pickWrite: '写一写', toList: '问题列表', doneAnswer: '写好了',
       boardTitle: '大家的笔记', boardBy: (name) => `— ${name}`, boardMore: '查看更多笔记',
+      modeTitle: '想怎么留言呢？', modeSub: '可以自由书写，\n也可以挑个问题来回答。',
+      freeBtn: '自由书写', freeHint: '想说什么都可以', freeLabel: '自由留言', freePlaceholder: '自由写下在济州的一天或想留下的心情',
+      questionsBtn: '挑问题回答', questionsHint: (n) => `从${n}个问题中挑选`, questionsDone: (k, n) => `已回答 ${k} / ${n}`, toModes: '返回',
     },
     home: {
       srTitle: '济州民宿空间探索杂志',

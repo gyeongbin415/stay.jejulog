@@ -1,5 +1,5 @@
 /* ------------------------------------------------------------------
-   방명록(GUEST NOTE) — 방문자가 질문 5개에 짧게 답해 남기는 노트
+   방명록(GUEST NOTE) — 방문자가 질문 5개에 짧게 답하거나 자유롭게 적어 남기는 노트
    · 글은 팀 구글 스프레드시트에 쌓입니다 (Apps Script 웹 앱 — tools/guestbook/Code.gs 의 안내대로 배포)
    · GUESTBOOK_URL 이 비어 있으면 아직 연결 전 — 남긴 노트는 이 브라우저에만 보입니다
 ------------------------------------------------------------------- */
@@ -7,13 +7,14 @@
 /** Apps Script 웹 앱 주소 (…/exec) */
 export const GUESTBOOK_URL = '';
 
-/** 답 한 칸 · 이름 최대 글자 수 (Code.gs 와 같게) */
+/** 답 한 칸 · 자유 노트 · 이름 최대 글자 수 (Code.gs 와 같게) */
 export const MAX_ANSWER = 80;
+export const MAX_FREE = 200;
 export const MAX_NAME = 12;
 
 export interface GuestNote {
   name: string;
-  /** 질문 5개에 대한 답 (건너뛴 칸은 빈 글자) */
+  /** 질문 5개에 대한 답 + 마지막 칸은 자유 노트 (건너뛴 칸은 빈 글자) */
   a: string[];
   t?: number;
 }
