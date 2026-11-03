@@ -88,7 +88,7 @@ export const UI: Record<Lang, UiText> = {
       doneTitle: '노트를 남겼어요', doneSub: '다른 여행자들의 노트와 함께 이곳에 떠다닐 거예요.', doneClose: '다른 노트 보러 가기', close: '닫기',
       otherBy: (name) => `${name}의 답`, seeAll: (n) => `${n.toLocaleString()}명 답 보기`, hideAll: '접기', emptyAnswers: '아직 이 질문에 남긴 답이 없어요.',
       localOnly: '지금은 준비 중이라 남긴 노트가 이 화면에만 보여요.', cloudAria: '여행자들이 남긴 노트',
-      coverHint: '돌려 보거나, 눌러서 펼치기', coverAria: '나의 제주 노트 표지',
+      coverHint: '눌러서 펼치기', coverAria: '나의 제주 노트 표지',
       pickTitle: '어떤 질문에 답해 볼까요?', pickSub: '마음이 가는 질문만 골라 적어 보세요.\n하나만 적어도 괜찮아요.', pickWrite: '적어 보기', toList: '질문 목록', doneAnswer: '다 적었어요',
     },
     home: {
@@ -172,7 +172,7 @@ export const UI: Record<Lang, UiText> = {
       doneTitle: 'Your note is in', doneSub: 'It will float here with notes from other travelers.', doneClose: 'See other notes', close: 'Close',
       otherBy: (name) => `— ${name}`, seeAll: (n) => `See all ${n.toLocaleString()} answers`, hideAll: 'Hide', emptyAnswers: 'No answers to this question yet.',
       localOnly: 'This is still being set up, so your note is only shown on this screen for now.', cloudAria: 'Notes left by travelers',
-      coverHint: 'Turn it around, or tap to open', coverAria: 'My Jeju note cover',
+      coverHint: 'Tap to open', coverAria: 'My Jeju note cover',
       pickTitle: 'Which question would you like to answer?', pickSub: 'Pick only the ones that speak to you.\nOne answer is enough.', pickWrite: 'Write', toList: 'Questions', doneAnswer: 'Done',
     },
     home: {
@@ -256,7 +256,7 @@ export const UI: Record<Lang, UiText> = {
       doneTitle: '笔记已留下', doneSub: '它会和其他旅行者的笔记一起在这里飘浮。', doneClose: '去看看其他笔记', close: '关闭',
       otherBy: (name) => `${name} 的回答`, seeAll: (n) => `查看全部 ${n.toLocaleString()} 条回答`, hideAll: '收起', emptyAnswers: '这个问题还没有人回答。',
       localOnly: '目前仍在准备中，你的笔记暂时只显示在这个页面上。', cloudAria: '旅行者们留下的笔记',
-      coverHint: '转一转，或点击翻开', coverAria: '我的济州笔记封面',
+      coverHint: '点击翻开', coverAria: '我的济州笔记封面',
       pickTitle: '想回答哪个问题？', pickSub: '只挑你喜欢的问题来写吧。\n写一个也没关系。', pickWrite: '写一写', toList: '问题列表', doneAnswer: '写好了',
     },
     home: {
