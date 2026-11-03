@@ -75,7 +75,7 @@
   transition: opacity .5s var(--ease);
 }
 .intro__hint .intro__chev span { width: 7px; height: 7px; }
-.intro:is([data-phase="all"], [data-phase="iris"], [data-phase="turn"], [data-phase="reveal"]) .intro__hint { opacity: 0; }
+.intro:not([data-phase="start"]) .intro__hint { opacity: 0; } /* 내리기 시작하면(첫 단어부터) 사라짐 */
 
 /* 어둠 속 전환 — 장면이 사라지고 한 문장 */
 .intro[data-phase="turn"] .intro__scene, .intro[data-phase="reveal"] .intro__scene,
