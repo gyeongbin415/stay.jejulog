@@ -4,17 +4,23 @@ import { useContent } from '../i18n';
 import '../styles/deck.css';
 
 /* ------------------------------------------------------------------
-   휴대폰 메인 세로 넘겨보기(풀페이지) — 인트로 → 집 → 취향 테스트 → 취향 지도 → 방명록 → 체크아웃
+   휴대폰 메인 세로 넘겨보기(풀페이지) — 인트로(끝에 폴더 넷: 집 · 취향 테스트 · 취향 지도 · 방명록) → 체크아웃
    · 칸마다 화면 높이 한 장. 손가락을 위로 밀면 지금 칸이 위로 밀려나며 다음 칸이 아래에서 올라옴 (0.7초 ease-in-out)
    · 칸 안 내용이 길면 칸 안에서 먼저 스크롤 — 끝(맨 아래 · 맨 위)에 닿은 뒤 한 번 더 밀어야 넘어감
      (칸 안 스크롤 · 관성도 그 칸 끝에서 멈춤 — 여러 칸을 건너뛰지 않게)
-   · 인트로 안의 단계(질문 → 단어 → 전환 문구 → CHECK IN)는 인트로가 맡고, 다 나온 뒤 밀면 다음 칸
+   · 인트로 안의 단계(질문 → 단어 → 전환 문구 → CHECK IN → 폴더 하나씩)는 인트로가 맡고, 다 나온 뒤 밀면 다음 칸
    · 입력창 · 지도 위에서 시작한 손짓, 가로 손짓, 두 손가락(확대)은 그대로 둠
    · 페이지 스크롤은 그대로(window) — 상단 바 색 · 메뉴로 칸 찾아가기 · 뒤로 가기 자리 기억이 그대로 동작
 ------------------------------------------------------------------- */
 
-export const HOME_PANELS = ['intro', 'roomtour', 'find', 'tastemap', 'guest', 'checkout'] as const;
-type PanelId = (typeof HOME_PANELS)[number];
+export const HOME_PANELS = ['intro', 'checkout'] as const;
+/** 오른쪽 점 — 인트로 처음 · 폴더 넷(인트로 안 단계 자리, HomePage) · 체크아웃 */
+const MARKS = ['intro', 'roomtour', 'find', 'tastemap', 'guest', 'checkout'] as const;
+/** 자리 이름의 페이지 스크롤 값 */
+const topOf = (id: string) => {
+  const el = document.getElementById(id);
+  return el ? el.getBoundingClientRect().top + window.scrollY : 0;
+};
 
 /** 넘어가는 시간(ms) */
 const DUR = 700;
@@ -52,6 +58,7 @@ export function HomeDeck() {
   const t = ui.deck;
   const [index, setIndex] = useState(0);
   const go = useRef<(k: number, toEnd?: boolean) => void>(() => {});
+  const goY = useRef<(y: number) => void>(() => {});
 
   useEffect(() => {
     let busy = false;
@@ -63,13 +70,11 @@ export function HomeDeck() {
       anim = 0;
     };
 
-    // k 칸으로 넘김 — 위에서 내려오면 그 칸 맨 위, 아래에서 올라가면 그 칸 맨 아래(방금 지나온 자리와 이어지게)
-    go.current = (k, toEnd = false) => {
-      if (busy || k < 0 || k >= HOME_PANELS.length) return;
+    // y 자리로 부드럽게 옮김 (0.7초 ease-in-out)
+    goY.current = (y1) => {
+      if (busy) return;
       stop();
-      const b = bounds(k);
       const y0 = window.scrollY;
-      const y1 = toEnd ? b.end : b.top;
       if (Math.abs(y1 - y0) < 2) return;
       busy = true;
       const t0 = performance.now();
@@ -84,6 +89,12 @@ export function HomeDeck() {
         }
       };
       anim = requestAnimationFrame(step);
+    };
+    // k 칸으로 넘김 — 위에서 내려오면 그 칸 맨 위, 아래에서 올라가면 그 칸 맨 아래(방금 지나온 자리와 이어지게)
+    go.current = (k, toEnd = false) => {
+      if (k < 0 || k >= HOME_PANELS.length) return;
+      const b = bounds(k);
+      goY.current(toEnd ? b.end : b.top);
     };
     const next = (k: number, dir: 1 | -1) => {
       if (Date.now() < quietUntil) return;
@@ -193,13 +204,18 @@ export function HomeDeck() {
       if (Math.abs(v) > 0.1) coast(v, gg.top, gg.end);
     };
 
-    // 오른쪽 점 — 화면 가운데에 있는 칸
+    // 오른쪽 점 — 지금 지나온 마지막 자리
     let raf = 0;
     const onScroll = () => {
       if (raf) return;
       raf = requestAnimationFrame(() => {
         raf = 0;
-        setIndex(current(window.scrollY + window.innerHeight / 2));
+        const y = window.scrollY + 2;
+        let k = 0;
+        MARKS.forEach((id, i) => {
+          if (topOf(id) <= y) k = i;
+        });
+        setIndex(k);
       });
     };
     onScroll();
@@ -228,14 +244,14 @@ export function HomeDeck() {
   // 화면에 바로 고정 — 페이지 등장 애니메이션(transform) 안에 두면 화면이 아니라 페이지에 붙으므로 body 에
   return createPortal(
     <nav className="deckdots" aria-label={t.aria}>
-      {HOME_PANELS.map((id: PanelId, k) => (
+      {MARKS.map((id, k) => (
         <button
           key={id}
           type="button"
           className={`deckdots__dot${k === index ? ' is-on' : ''}`}
           aria-label={t[id]}
           aria-current={k === index ? 'true' : undefined}
-          onClick={() => go.current(k)}
+          onClick={() => goY.current(topOf(id))}
           data-track={`deck_dot_${id}`}
         />
       ))}

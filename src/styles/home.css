@@ -433,29 +433,52 @@
 .roomtour__link:active .roomtour__btn { transform: translate(2px, 3px); box-shadow: 1px 1px 0 var(--ink); }
 @media (prefers-reduced-motion: reduce) { .roomtour__img { animation: none; } }
 
-/* ── PC 메인 콘텐츠 고르기 — 집 · 취향 테스트 · 취향 지도 · 방명록 공책 (components/ContentPicker.tsx) ─────────────────────────────── */
-.picker { --art-h: clamp(150px, 15vw, 220px); display: grid; justify-items: center; gap: clamp(36px, 6vh, 64px); padding: clamp(64px, 10vh, 112px) var(--gutter) clamp(72px, 12vh, 128px); text-align: center; }
-.picker__title { font-family: var(--f-home); font-size: clamp(22px, 2.4vw, 30px); font-weight: 800; letter-spacing: -0.03em; transition: opacity .45s var(--ease), filter .45s var(--ease); }
-.picker__list { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); align-items: end; gap: clamp(20px, 3.5vw, 56px); width: min(1180px, 100%); margin: 0; padding: 0; list-style: none; }
-.picker__item { transition: opacity .5s var(--ease), filter .5s var(--ease), transform .5s var(--ease); }
-.picker__item a { display: grid; justify-items: center; gap: 6px; text-decoration: none; color: var(--ink); }
-/* 그림 칸 — 네 그림을 같은 높이 안에 */
-.picker__art { display: grid; place-items: end center; width: 100%; height: var(--art-h); perspective: 900px; transition: transform .35s var(--ease); }
-.picker__art > img { width: auto; height: 100%; max-width: 100%; object-fit: contain; object-position: center bottom; filter: drop-shadow(0 14px 18px rgba(80, 52, 30, .14)); }
-/* 집 — 메인 휴대폰 칸처럼 흰 테두리 사진(폴라로이드) */
-.picker__item--house .picker__art > img { width: auto; height: calc(var(--art-h) - 28px); max-width: none; box-sizing: content-box; padding: 6px 6px 22px; background: #fff; object-fit: cover; rotate: -3deg; filter: none; box-shadow: 0 2px 4px rgba(60, 40, 20, .08), 0 14px 26px rgba(80, 52, 30, .18); }
-.picker__name { margin-top: clamp(14px, 2vh, 22px); font-family: var(--f-home); font-size: clamp(17px, 1.6vw, 21px); font-weight: 800; letter-spacing: -0.02em; }
-/* 올리면 살짝 떠오름 */
-.picker__item a:hover .picker__art, .picker__item a:focus-visible .picker__art { transform: translateY(-10px) scale(1.05); }
-.picker__item a:hover .picker__name { text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 2px; }
-/* 공책 — 방명록 칸 표지와 같은 모양, 작게 */
-.picker__book { width: 86%; cursor: pointer; }
-.picker__book .gcover__hand { font-size: clamp(13px, 1.4vw, 19px); }
-.picker__book .gcover__mark { font-size: clamp(7px, .6vw, 9px); letter-spacing: .25em; }
-.picker__book .gcover__back { box-shadow: 0 16px 30px rgba(60, 40, 20, .22); }
-/* 누른 뒤 — 고르지 않은 그림 · 제목은 흐려지며 사라짐 */
-.picker__list.is-leaving .picker__item:not(.is-picked) { opacity: 0; filter: blur(6px); transform: scale(.94); }
-.picker:has(.is-leaving) .picker__title, .picker__item.is-picked .picker__name, .picker__item.is-picked .label { opacity: 0; filter: blur(4px); transition: opacity .4s var(--ease), filter .4s var(--ease); }
-/* 화면 가운데로 커지는 복사본 + 배경 덮개 */
-.pickzoom { position: fixed; inset: 0; z-index: 300; pointer-events: none; }
-.pickzoom__art { position: fixed; margin: 0; transform-origin: center; }
+
+/* ── 메인 폴더 — CHECK IN 아래 탭 달린 폴더 넷, 스크롤마다 하나씩 올라왔다 내려감 (components/HomeFolders.tsx) ─────────────────────────────── */
+.folders { --tab-h: 46px; position: absolute; inset: 0; z-index: 6; pointer-events: none; opacity: 0; visibility: hidden; transition: opacity .5s var(--ease), visibility 0s linear .5s; }
+.intro[data-phase="reveal"] .folders { opacity: 1; visibility: visible; transition: opacity .8s var(--ease) .9s; }
+/* 폴더 한 장 — 쉴 때는 탭(뒤 폴더일수록 더 위)만 화면 아래에 보이고, 올라오면 상단 바 아래까지 */
+.folder {
+  --peek: calc((4 - var(--i)) * var(--tab-h));
+  position: absolute; left: 0; right: 0; top: calc(var(--header) + 8px); bottom: 0; z-index: calc(1 + var(--i));
+  display: flex; flex-direction: column;
+  transform: translateY(calc(100% - var(--peek))); transition: transform .7s cubic-bezier(.65, 0, .35, 1);
+}
+.folder.is-up { z-index: 10; transform: translateY(0); }
+.folder--house { --fc: #F7D3B2; }
+.folder--test { --fc: #F5E2A0; }
+.folder--map { --fc: #C4E3E6; }
+.folder--guest { --fc: #CFE0B4; }
+/* 탭 — 폴더마다 옆으로 비켜 남 */
+.folder__tab {
+  pointer-events: auto; position: relative; z-index: 1;
+  display: flex; align-items: center; gap: 7px; flex: none;
+  width: 30%; height: var(--tab-h); margin: 0 0 -1px calc(2% + var(--i) * 15.5%); padding: 0 11px; /* 마지막 탭이 오른쪽 아래 동그라미 버튼에 가리지 않게 왼쪽으로 모음 */
+  background: var(--fc); border: 0; border-radius: 14px 14px 0 0; box-shadow: 0 -4px 12px rgba(58, 55, 53, .06);
+  font-family: var(--f-home); font-size: 13.5px; font-weight: 800; letter-spacing: -0.03em; color: var(--ink); text-align: left; white-space: nowrap; cursor: pointer;
+}
+.folder__no { font-size: 10px; font-weight: 700; letter-spacing: .08em; opacity: .55; }
+.folder__en { display: none; margin-left: auto; font-size: 10px; font-weight: 700; letter-spacing: .16em; opacity: .55; }
+/* 속 — 그림 · 제목 · 버튼을 가운데에 */
+.folder__body {
+  pointer-events: auto; flex: 1; display: grid; align-content: center; justify-items: center; gap: clamp(16px, 2.6vh, 24px);
+  padding: 24px var(--gutter) calc(24px + env(safe-area-inset-bottom)); overflow: hidden; text-align: center;
+  background: var(--fc); border-radius: 18px 18px 0 0; box-shadow: 0 -8px 22px rgba(58, 55, 53, .08); color: var(--ink); /* 인트로의 밝은 글자색이 이어지지 않게 */
+}
+.folder__body .label { margin: 0; }
+.folder__body .section-head__title { margin: 0; }
+.folder__art, .folder__body .gnote__art .folder__art { display: block; width: var(--home-art); height: auto; }
+.folder__body .tastemap { width: auto; }
+.folder__body .gnote__art { width: auto; }
+/* CHECK IN 글이 아래 탭들과 겹치지 않게 */
+.intro .problem__inner:has(.strip) { padding-bottom: calc(4 * 46px + 24px); }
+@media (min-width: 900px) {
+  .folders { --tab-h: 54px; }
+  .folder__tab { width: 24%; margin-left: calc(4% + var(--i) * 18%); font-size: 17px; padding: 0 20px; }
+  .folder__en { display: inline; }
+  .intro .problem__inner:has(.strip) { padding-bottom: calc(4 * 54px + 24px); }
+}
+/* 동작 줄이기 — 고정 없이 네 폴더를 차례로 펼침 */
+.folders--still { position: relative; inset: auto; opacity: 1; visibility: visible; }
+.folders--still .folder { position: relative; top: auto; transform: none; margin-top: -20px; }
+.folders--still .folder__body { padding-block: 56px; }
