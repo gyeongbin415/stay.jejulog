@@ -211,8 +211,8 @@
 .find__copy .btn { margin-top: 12px; }
 /* 메인 그림(집 · 뽑기 기계 · 종이 지도 · 공책) 크기 — 넷 다 같은 폭 (뽑기 기계는 세로라 높이로 맞춤) */
 /* 메인 그림 넷 — 비율이 달라(가로 · 세로) 화면에서 차지하는 넓이가 같도록 폭을 그림마다 다르게 (집 폭 = --home-art 기준) */
-:root { --home-art: min(300px, 74vw); }
-.find__art { display: block; margin: 4px 0 8px; transition: transform var(--t-hover) var(--ease); }
+:root { --home-art: min(300px, 74vw); --art-gap: clamp(36px, 5.5vh, 52px); /* 그림 ↔ 버튼 간격 — 네 칸 같게 */ }
+.find__art { display: block; margin: 4px 0 0; transition: transform var(--t-hover) var(--ease); }
 .find__art img { display: block; width: calc(var(--home-art) * .632); height: auto; }
 .find__art:hover { transform: translateY(-4px); }
 .find:not(.find--inside):not(.find--map) .find__inner { display: grid; justify-items: center; }
@@ -416,7 +416,7 @@
 /* ── ROOM TOUR — CHECK IN 아래 집 그림 + 테두리 버튼 (누르면 집 페이지) ─────────────────────────────── */
 .roomtour { display: grid; justify-items: center; align-content: center; padding: clamp(40px, 7vh, 80px) var(--gutter) clamp(64px, 10vh, 112px); text-align: center; }
 .roomtour__label { margin: 0 0 clamp(14px, 2.4vh, 22px); }
-.roomtour__link { display: grid; justify-items: center; align-content: center; gap: clamp(22px, 4vh, 34px); text-decoration: none; }
+.roomtour__link { display: grid; justify-items: center; align-content: center; gap: var(--art-gap); text-decoration: none; }
 /* 집 그림 — 테두리 · 바탕 없이 그림만, 둥실 떠 있음 */
 .roomtour__img {
   display: block; width: var(--home-art); height: auto;
@@ -436,7 +436,8 @@
 .roomtour__link:hover .roomtour__btn svg { translate: 4px 0; }
 .roomtour__link:active .roomtour__btn { transform: translate(2px, 3px); box-shadow: 1px 1px 0 var(--ink); }
 /* 테스트 칸 버튼 — 집 칸 버튼과 같은 모양, 올리면 살짝 떠오름 */
-.find__cta { margin-top: 14px; text-decoration: none; }
+.find__cta { margin-top: calc(var(--art-gap) - 16px); text-decoration: none; } /* 테스트 칸은 글 사이 기본 간격(16px)이 있어 그만큼 빼고 */
+.find--map .find__cta { margin-top: var(--art-gap); }
 .find__cta:hover { transform: translate(-1px, -1px); box-shadow: 4px 5px 0 var(--ink); }
 .find__cta:hover svg { translate: 4px 0; }
 .find__cta:active { transform: translate(2px, 3px); box-shadow: 1px 1px 0 var(--ink); }

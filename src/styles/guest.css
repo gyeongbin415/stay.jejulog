@@ -7,7 +7,7 @@
 /* 메인에서는 다른 칸과 같은 공통 배경 (위 칸과 매끄럽게 이어짐) */
 .gnote:not(.gnote--page) { background: var(--bg); }
 /* 메인 공책 그림 — 받은 그림 그대로, 누르면 방명록 페이지로 */
-.gnote__artwrap { display: grid; justify-items: center; gap: clamp(28px, 5vh, 48px); perspective: 1200px; }
+.gnote__artwrap { display: grid; justify-items: center; gap: var(--art-gap); perspective: 1200px; }
 .gnote__art {
   display: block; width: calc(var(--home-art) * .944); padding: 0; border: 0; background: none; cursor: grab; touch-action: pan-y;
   transform: rotateY(var(--turn, 0deg)); transition: transform .5s var(--ease), scale var(--t-hover) var(--ease);
