@@ -62,7 +62,14 @@
 .tmap-pop .tmap-pop__name { margin-top: 6px !important; font-size: 16px; font-weight: 700; color: #111; } /* 위 분류 글과 띄움 */
 .tmap-pop__area { font-size: 12.5px; color: #6b6660; }
 .tmap-pop .tmap-pop__desc { margin-top: 10px !important; font-size: 13px; line-height: 1.55; color: #3a3735; }
-.tmap-pop .tmap-pop__links { display: flex; flex-wrap: wrap; gap: 6px 12px; margin-top: 6px !important; }
-.tmap-pop__links a { color: #C25A1C; font-weight: 700; font-size: 13px; text-decoration: none; }
-.tmap-pop__links a:hover { text-decoration: underline; }
+.tmap-pop .tmap-pop__links { display: flex; flex-wrap: wrap; gap: 6px 12px; margin-top: 12px !important; }
+/* 웹진에서 자세히 보기 — 글자 링크는 잘 안 보여 눌러지는 버튼으로 (주황 바탕 · 흰 글자, 말풍선 폭에 꽉 차게) */
+.tmap-pop .tmap-pop__links a {
+  flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  min-height: 40px; padding: 9px 16px; border-radius: 999px;
+  background: var(--forest); color: #fff; font-weight: 700; font-size: 13.5px; text-decoration: none;
+  box-shadow: 0 2px 8px rgba(212, 106, 31, .28); transition: background .2s, transform .1s;
+}
+.tmap-pop .tmap-pop__links a:hover { background: #B9561A; color: #fff; }
+.tmap-pop .tmap-pop__links a:active { transform: translateY(1px); }
 .leaflet-container { font-family: var(--f-home); }
