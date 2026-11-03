@@ -474,6 +474,8 @@
 .roomtour__img, .find__art img, .tastemap__img, .gnote__art img, .picker__art > img {
   filter: drop-shadow(4px 0 0 #fff) drop-shadow(-4px 0 0 #fff) drop-shadow(0 4px 0 #fff) drop-shadow(0 -4px 0 #fff) drop-shadow(0 8px 12px rgba(58, 55, 53, .2));
 }
+/* 테스트 그림은 그림에 흰 테두리가 이미 있어서 테두리 한 겹 빼고 그림자만 */
+.find__art img, .picker__item--test .picker__art > img { filter: drop-shadow(0 8px 12px rgba(58, 55, 53, .2)); }
 .roomtour__img, .picker__item--house .picker__art > img { rotate: -2.5deg; }
 .find__art img, .picker__item--test .picker__art > img { rotate: 3deg; }
 .tastemap__img, .picker__item--map .picker__art > img { rotate: 2deg; }
