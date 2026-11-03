@@ -2,8 +2,10 @@
    휴대폰 메인 세로 넘겨보기(풀페이지) — components/HomeDeck.tsx
 ================================================================== */
 
-/* 칸마다 화면 높이 한 장 (메인의 각 칸) — 지도 칸은 내용 높이대로(아래 방명록 칸과 사이가 벌어지지 않게) */
+/* 칸마다 화면 높이 한 장 (메인의 각 칸) */
 html.has-fullpage :is(#roomtour, #find, #guest, #checkout) { min-height: 100vh; min-height: 100svh; }
+/* 테스트 · 지도 칸 — 한 화면에 그 칸만, 내용은 화면 가운데에 */
+html.has-fullpage :is(#find, #tastemap) { display: flex; flex-direction: column; justify-content: center; min-height: 100vh; min-height: 100svh; }
 /* 당겨서 새로고침 · 끝에서 튕기는 동작이 넘김과 겹치지 않게 */
 html.has-fullpage, html.has-fullpage body { overscroll-behavior-y: none; }
 

@@ -5,9 +5,7 @@ import { href } from '../lib/router';
 import { useMediaQuery, useReducedMotion } from '../lib/motion';
 import { HomeDeck } from '../components/HomeDeck';
 import { ContentPicker } from '../components/ContentPicker';
-import { GehageScene } from '../components/GehageScene';
 import { TasteMapIsland } from '../components/TasteMapIsland';
-import { TestShare } from '../components/TestShare';
 import { GuestNotes } from '../components/GuestNotes';
 import houseUrl from '../assets/house-3d.webp';
 import introNightUrl from '../assets/intro-night.webp';
@@ -376,7 +374,7 @@ function RoomTour() {
 
 /* ── SECTION 03. FIND YOUR STAY — 취향 테스트 안내 ─────────────────────────────── */
 function FindYourStay() {
-  const { site: SITE, ui } = useContent();
+  const { site: SITE } = useContent();
   return (
     <section id="find" className="find" data-tone="light" aria-labelledby="find-title">
       <div className="find__inner wrap">
@@ -387,20 +385,10 @@ function FindYourStay() {
               <span key={l}>{l}</span>
             ))}
           </h2>
-        </div>
-        {/* 테스트 첫 화면의 소라게 게하게 소개 — 그림 · 이름 · 두 줄 이야기 그대로, 그 밑에 테스트 버튼 */}
-        <div className="find__gehage story">
-          {/* 그림을 누르면 취향 테스트로 */}
-          <a className="find__art" href={href.test()} data-track="find_art" aria-label={ui.nav.test}>
-            <GehageScene bubbleId="find-bubble-fill" />
-          </a>
-          <p className="story__title">{ui.test.storyTitle}</p>
-          <p className="story__body pre">{ui.test.storyBody}</p>
+          {/* 소라게 게하게 소개 · 공유하기는 테스트 페이지 첫 화면에 */}
           <a className="btn" href={href.test()} data-track="find_cta">
             {SITE.findYourStay.cta} <span className="arrow" aria-hidden="true">→</span>
           </a>
-          {/* 테스트 공유하기 — 카카오톡 · X · 링크 복사 */}
-          <TestShare />
         </div>
       </div>
     </section>

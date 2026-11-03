@@ -13,21 +13,22 @@ import { makeResultImage } from '../lib/resultImage';
 import { openXPost } from '../lib/shareX';
 import tripCrabUrl from '../assets/trip-crab.webp';
 import tripHouseUrl from '../assets/trip-house.webp';
+import { GehageScene } from '../components/GehageScene';
+import { TestShare } from '../components/TestShare';
 
-/** 숫자 — 질문 순서 · 'result' — 결과 */
-type Step = number | 'result';
+/** 'intro' — 게하게 소개(첫 화면) · 숫자 — 질문 순서 · 'result' — 결과 */
+type Step = 'intro' | number | 'result';
 
 /**
  * PAGE 04 — 취향 테스트
  * 10문항 · 점수 배점(src/data/quiz.ts) · 계산(src/lib/scoring.ts)을 그대로 씁니다.
  * 결과는 BEST 1(결과 유형의 대표 숙소) + BEST 2 · 3(그다음 추천).
  */
-/** active — 휴대폰 넘겨보기에서 지금 보이는 칸인지 (안 보일 때 미리 열려 있어도 테스트 시작으로 세지 않음) */
-export default function TestPage({ sharedCode, mine = false, active = true }: { sharedCode: string | null; mine?: boolean; active?: boolean }) {
+export default function TestPage({ sharedCode, mine = false }: { sharedCode: string | null; mine?: boolean }) {
   const { ui, questions } = useContent();
   const shared = decodeAnswers(sharedCode);
   const [answers, setAnswers] = useState<(AnswerKey | null)[]>(() => shared ?? QUESTIONS.map(() => null));
-  const [step, setStep] = useState<Step>(shared ? 'result' : 0);
+  const [step, setStep] = useState<Step>(shared ? 'result' : 'intro');
   const [isShared, setIsShared] = useState(Boolean(shared) && !mine);
   const focusRef = useRef<HTMLHeadingElement>(null);
   // 직전 단계 — 처음 열릴 때(뒤로 가기로 돌아올 때 포함)는 위로 올리지 않도록 단계가 실제로 바뀔 때만 움직입니다
@@ -46,17 +47,12 @@ export default function TestPage({ sharedCode, mine = false, active = true }: { 
 
   useEffect(() => () => window.clearTimeout(timer.current), []);
 
-  // 들어오자마자 첫 질문부터 (게하게 소개는 메인 FIND YOUR STAY 칸에) — 넘겨보기에서는 이 칸이 처음 보일 때
-  const counted = useRef(false);
-  useEffect(() => {
-    if (!active || counted.current) return;
-    counted.current = true;
-    if (!shared) {
-      startedAt.current = Date.now();
-      track('quiz_start');
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [active]);
+  // 첫 화면(게하게 소개)에서 '테스트 시작하기'를 누르면 첫 질문부터
+  const start = () => {
+    startedAt.current = Date.now();
+    track('quiz_start');
+    setStep(0);
+  };
 
   // 문항이 바뀌면 질문으로 초점을 옮기고 화면 위쪽에 맞춥니다.
   useEffect(() => {
@@ -64,9 +60,7 @@ export default function TestPage({ sharedCode, mine = false, active = true }: { 
     prevStep.current = step;
     focusRef.current?.focus({ preventScroll: true });
     const top = document.querySelector('.test__card, .result');
-    // 휴대폰 넘겨보기에서는 칸 안이 스크롤되므로 그 칸을 맨 위로
-    const scroller = top?.closest('.deck__panel') ?? window;
-    if (top && top.getBoundingClientRect().top < 0) scroller.scrollTo({ top: 0, behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
+    if (top && top.getBoundingClientRect().top < 0) window.scrollTo({ top: 0, behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
   }, [step]);
 
   const finish = (all: AnswerKey[]) => {
@@ -110,6 +104,21 @@ export default function TestPage({ sharedCode, mine = false, active = true }: { 
   return (
     <section className="test" data-tone="light" aria-labelledby="test-title">
       <div className="test__inner wrap">
+        {/* 첫 화면 — 소라게 게하게 소개(그림 · 이름 · 두 줄 이야기) · 테스트 시작 버튼 · 공유하기 */}
+        {step === 'intro' && (
+          <div className="find__gehage story">
+            <GehageScene bubbleId="test-bubble-fill" />
+            <h1 id="test-title" ref={focusRef} tabIndex={-1} className="story__title">
+              {ui.test.storyTitle}
+            </h1>
+            <p className="story__body pre">{ui.test.storyBody}</p>
+            <button type="button" className="btn" onClick={start} data-track="quiz_start_btn">
+              {ui.test.start} <span className="arrow" aria-hidden="true">→</span>
+            </button>
+            <TestShare />
+          </div>
+        )}
+
         {qi >= 0 && (
           <>
             {/* 진행 — 왼쪽 끝 소라게가 한 문항마다 한 칸씩 걸어가 마지막 문항에서 오른쪽 집 문 앞에 닿음
