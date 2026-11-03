@@ -46,9 +46,9 @@ export function HomePage() {
       <HousePage embedded />
       <FindYourStay />
       <TasteMapBanner />
-      <InsideRooms />
-      {/* 방명록 — 질문 3개에 답하는 노트, 여행자들의 답이 떠다님 */}
+      {/* 방명록 — 질문 3개에 답하는 노트 (공책 한 장 → 표지 → 질문 카드), 그 아래 인스타그램 이야기 */}
       <GuestNotes />
+      <InsideRooms />
       <CheckOut />
     </>
   );

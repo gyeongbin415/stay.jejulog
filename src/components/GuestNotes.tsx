@@ -4,24 +4,22 @@ import { useContent } from '../i18n';
 import { useReducedMotion } from '../lib/motion';
 import { track } from '../lib/track';
 import { GUESTBOOK_URL, MAX_ANSWER, MAX_NAME, fetchBoard, loadMine, postNote, type GuestBoard, type GuestNote } from '../data/guestbook';
+import logoUrl from '../assets/logo-staylog.png';
 import '../styles/guest.css';
 
 /* ------------------------------------------------------------------
-   방명록(GUEST NOTE) — 메인 MORE STORIES 와 CHECK OUT 사이
-   · 칸 안에는 여행자들이 남긴 답이 멀고 가까운 깊이로 흐릿하게 떠다니고, 가운데 '나의 제주 노트 쓰기'
-   · 누르면 화면 가득 — 짧은 도입 문장 → 줄 노트 카드에 질문 3개를 하나씩 → 아래 칸에 다른 사람 답
+   방명록(GUEST NOTE) — 메인 취향 지도와 MORE STORIES(인스타그램) 사이
+   · 입구 — 살짝 기운 공책 한 장에 여행자들의 답이 색 형광펜 줄로 흐릿하게 칠해져 있고, 아래 '나의 제주 노트 쓰기 · N명이 먼저 썼어요'
+   · 누르면 화면 가득 — 공책 표지(끌어서 돌려 보거나 눌러서 펼치기) → 짧은 도입 문장
+     → 줄 노트 카드에 질문 3개를 하나씩 → 아래 칸에 다른 사람 답
 ------------------------------------------------------------------- */
 
 const QUESTIONS = 3;
 
-/** 떠다니는 답 자리 — x · y 는 칸 안 위치(%), d 는 깊이(0 가까움 · 또렷 ~ 2 멂 · 흐림). 가운데 글 자리는 비워 둠 */
-const SLOTS = [
-  { x: 16, y: 9, d: 1 }, { x: 52, y: 6, d: 2 }, { x: 84, y: 11, d: 0 },
-  { x: 9, y: 27, d: 2 }, { x: 90, y: 30, d: 1 },
-  { x: 13, y: 47, d: 0 }, { x: 88, y: 51, d: 2 },
-  { x: 8, y: 68, d: 1 }, { x: 91, y: 71, d: 0 },
-  { x: 20, y: 86, d: 2 }, { x: 52, y: 93, d: 1 }, { x: 80, y: 89, d: 2 },
-];
+/** 공책 줄 색 — 형광펜처럼 (웹진 색 · 프로그램 색 계열) */
+const STRIP_COLORS = ['#E8823A', '#3F8A5C', '#3D7BB8', '#D2553F', '#E07AA0', '#E2A93B'];
+/** 공책 한 장에 칠하는 줄 수 (세 단) */
+const PAGE_LINES = 30;
 
 type Answer = { text: string; name: string };
 
@@ -57,35 +55,17 @@ export function GuestNotes() {
   const unsynced = notes.length - (board?.notes.length ?? 0);
   const count = GUESTBOOK_URL ? (board?.count ?? 0) + unsynced : 0;
 
-  const cloud = useMemo(() => answersOf(notes, t.anon).slice(0, SLOTS.length), [notes, t.anon]);
+  const strips = useMemo(() => answersOf(notes, t.anon).slice(0, PAGE_LINES), [notes, t.anon]);
 
   return (
     <section id="guest" className="gnote" data-tone="light" aria-labelledby="guest-title">
-      {cloud.length > 0 && (
-        <ul className="gnote__cloud" aria-label={t.cloudAria}>
-          {cloud.map((c, i) => (
-            <li
-              key={`${i}-${c.text}`}
-              className={`gnote__float gnote__float--d${SLOTS[i].d}`}
-              style={{ '--x': `${SLOTS[i].x}%`, '--y': `${SLOTS[i].y}%`, '--i': i } as CSSProperties}
-            >
-              {c.text}
-            </li>
-          ))}
-        </ul>
-      )}
       <div className="gnote__inner wrap">
         <p className="label">GUEST NOTE</p>
-        <h2 id="guest-title" className="gnote__title pre">{t.title}</h2>
-        <p className="gnote__sub pre">{t.sub}</p>
-        <button
-          type="button"
-          className="gnote__open"
-          onClick={() => setOpen(true)}
-          data-track="guest_open"
-        >
-          <span className="gnote__open-main">{t.open}</span>
-          <span className="gnote__open-count">{count > 0 ? t.count(count) : t.first}</span>
+        <h2 id="guest-title" className="visually-hidden">{t.title}</h2>
+        <button type="button" className="gnote__entry" onClick={() => setOpen(true)} data-track="guest_open">
+          <NotePage answers={strips} />
+          <span className="gnote__entry-title">{t.open}</span>
+          <span className="gnote__entry-count">{count > 0 ? t.count(count) : t.first}</span>
         </button>
         {!GUESTBOOK_URL && mine.length > 0 && <p className="gnote__local">{t.localOnly}</p>}
       </div>
@@ -106,12 +86,99 @@ export function GuestNotes() {
   );
 }
 
-/** 화면 가득 — 도입 문장 → 질문 카드 3장 → 다 썼어요 */
+/**
+ * 공책 한 장 — 여행자들의 답 하나가 형광펜 줄 하나. 글씨는 흐릿하게 비쳐 보이기만 (읽는 건 쓰기 화면의 'N명 답 보기')
+ * 아직 답이 없으면 빈 줄 노트
+ */
+function NotePage({ answers }: { answers: Answer[] }) {
+  return (
+    // 기울기는 바깥 칸에 — 종이에 기울기(transform)를 주면 뒤 그림자가 종이 앞으로 올라옴
+    <span className="gpage-wrap" aria-hidden="true">
+      <span className="gpage__shadow" />
+      <span className="gpage">
+      <span className="gpage__head">GUEST NOTE</span>
+      <span className="gpage__cols">
+        {answers.length
+          ? answers.map((a, i) => (
+              <span
+                key={i}
+                className="gpage__strip"
+                style={{ '--c': STRIP_COLORS[(i * 5 + a.text.length) % STRIP_COLORS.length], '--w': `${62 + ((a.text.length * 7 + i * 13) % 38)}%`, '--r': `${((i * 37) % 7) - 3}deg` } as CSSProperties}
+              >
+                <span className="gpage__ink">{a.text}</span>
+              </span>
+            ))
+          : Array.from({ length: PAGE_LINES }, (_, i) => <span key={i} className="gpage__line" />)}
+      </span>
+      <span className="gpage__foot">STAY JEJULOG</span>
+      </span>
+    </span>
+  );
+}
+
+/** 공책 표지 — 끌어서 돌려 보거나 눌러서 펼치기 */
+function NoteCover({ onOpen }: { onOpen: () => void }) {
+  const { ui } = useContent();
+  const t = ui.guest;
+  const reduced = useReducedMotion();
+  const [turn, setTurn] = useState(0);
+  const [opening, setOpening] = useState(false);
+  const drag = useRef<{ x: number; turn: number; moved: boolean } | null>(null);
+
+  const open = () => {
+    if (opening) return;
+    if (reduced) return onOpen();
+    setOpening(true);
+    window.setTimeout(onOpen, 850);
+  };
+
+  return (
+    <div className="gcover-wrap">
+      <button
+        type="button"
+        className={`gcover${opening ? ' is-opening' : ''}`}
+        style={{ '--turn': `${turn}deg` } as CSSProperties}
+        aria-label={`${t.coverAria} — ${t.coverHint}`}
+        onPointerDown={(e) => {
+          drag.current = { x: e.clientX, turn, moved: false };
+          e.currentTarget.setPointerCapture(e.pointerId);
+        }}
+        onPointerMove={(e) => {
+          const d = drag.current;
+          if (!d) return;
+          const dx = e.clientX - d.x;
+          if (Math.abs(dx) > 4) d.moved = true;
+          setTurn(Math.max(-38, Math.min(38, d.turn + dx * 0.25)));
+        }}
+        onPointerUp={() => {
+          const d = drag.current;
+          drag.current = null;
+          if (d && !d.moved) open();
+        }}
+        onPointerCancel={() => (drag.current = null)}
+        onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && (e.preventDefault(), open())}
+      >
+        <span className="gcover__back" />
+        <span className="gcover__page" />
+        <span className="gcover__face">
+          <span className="gcover__hand">MY JEJU NOTE</span>
+          <span className="gcover__window">
+            <img src={logoUrl} alt="" draggable={false} />
+          </span>
+          <span className="gcover__mark">STAY JEJULOG</span>
+        </span>
+      </button>
+      <p className="gcover__hint">{t.coverHint}</p>
+    </div>
+  );
+}
+
+/** 화면 가득 — 공책 표지 → 도입 문장 → 질문 카드 3장 → 다 썼어요 */
 function GuestWriter({ notes, onClose, onSent }: { notes: GuestNote[]; onClose: () => void; onSent: () => void }) {
   const { ui, lang } = useContent();
   const t = ui.guest;
   const reduced = useReducedMotion();
-  const [phase, setPhase] = useState<'intro' | 'write' | 'done'>(reduced ? 'write' : 'intro');
+  const [phase, setPhase] = useState<'cover' | 'intro' | 'write' | 'done'>('cover');
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<string[]>(() => Array(QUESTIONS).fill(''));
   const [name, setName] = useState('');
@@ -189,6 +256,8 @@ function GuestWriter({ notes, onClose, onSent }: { notes: GuestNote[]; onClose: 
           <span className="visually-hidden">{t.close}</span>
         </button>
       </header>
+
+      {phase === 'cover' && <NoteCover onOpen={() => setPhase(reduced ? 'write' : 'intro')} />}
 
       {phase === 'intro' && (
         <button type="button" className="gwrite__intro" onClick={() => setPhase('write')}>

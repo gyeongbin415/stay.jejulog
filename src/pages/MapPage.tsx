@@ -168,23 +168,23 @@ export default function MapPage() {
         <p className="tmap__sub">{t.sub}</p>
       </header>
 
-      <div ref={chipsEl} className="tmap__filters wrap" role="group" aria-label={t.filterAria}>
-        <button type="button" className="tmap__chip" aria-pressed={filter === 'all'} onClick={() => setFilter('all')}>
-          {t.all} <span className="tmap__n">{found.length}</span>
-        </button>
-        {TASTE_LAYERS.map((l) => {
-          const n = found.filter((p) => p.layer === l.id).length;
-          return (
-            <button key={l.id} type="button" className="tmap__chip" aria-pressed={filter === l.id} onClick={() => setFilter(l.id)} style={{ '--c': l.color } as CSSProperties} data-track={`map_layer_${l.id}`}>
-              <i aria-hidden="true" /> {l[lang]} <span className="tmap__n">{n}</span>
-            </button>
-          );
-        })}
-      </div>
-
       <div className="tmap__body wrap">
         <div className="tmap__mapwrap">
           <div ref={mapEl} className="tmap__map" role="region" aria-label={t.pageTitle} />
+          {/* 취향 고르기 버튼 — 지도 바로 아래 */}
+          <div ref={chipsEl} className="tmap__filters" role="group" aria-label={t.filterAria}>
+            <button type="button" className="tmap__chip" aria-pressed={filter === 'all'} onClick={() => setFilter('all')}>
+              {t.all} <span className="tmap__n">{found.length}</span>
+            </button>
+            {TASTE_LAYERS.map((l) => {
+              const n = found.filter((p) => p.layer === l.id).length;
+              return (
+                <button key={l.id} type="button" className="tmap__chip" aria-pressed={filter === l.id} onClick={() => setFilter(l.id)} style={{ '--c': l.color } as CSSProperties} data-track={`map_layer_${l.id}`}>
+                  <i aria-hidden="true" /> {l[lang]} <span className="tmap__n">{n}</span>
+                </button>
+              );
+            })}
+          </div>
         </div>
         <ol className="tmap__list" aria-label={t.listAria}>
           {shown.map((p) => {

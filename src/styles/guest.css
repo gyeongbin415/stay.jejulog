@@ -1,55 +1,41 @@
 /* ==================================================================
-   방명록(GUEST NOTE) — 메인 MORE STORIES 와 CHECK OUT 사이 (components/GuestNotes.tsx)
+   방명록(GUEST NOTE) — 메인 취향 지도와 MORE STORIES(인스타그램) 사이 (components/GuestNotes.tsx)
 ================================================================== */
 
-/* ── 칸 — 떠다니는 답 + 가운데 글 ─────────────────────────────── */
-.gnote {
-  position: relative; overflow: hidden;
-  min-height: clamp(560px, 92vh, 820px);
-  display: grid; place-items: center;
-  padding: clamp(96px, 14vh, 140px) 0;
-  background: var(--paper);
-}
-.gnote__inner { position: relative; z-index: 2; display: grid; justify-items: center; gap: 14px; text-align: center; }
-.gnote__title { font-family: var(--f-home); font-size: var(--t-h2); font-weight: 700; line-height: 1.32; letter-spacing: -0.025em; }
-.gnote__sub { max-width: 30em; font-size: clamp(15px, 1.5vw, 17px); line-height: 1.7; color: var(--ink-soft); }
-
-/* 나의 제주 노트 쓰기 — 흰 카드 버튼, 아래 작은 글씨로 몇 명이 썼는지 */
-.gnote__open {
-  display: grid; justify-items: center; gap: 4px;
-  margin-top: 18px; padding: 16px 34px 15px; min-width: min(300px, 100%);
-  background: #fff; border: 1.5px solid var(--ink); border-radius: 4px;
-  box-shadow: 4px 5px 0 var(--ink);
-  transition: transform .15s var(--ease), box-shadow .15s var(--ease);
-}
-.gnote__open:hover { transform: translate(-1px, -1px); box-shadow: 5px 6px 0 var(--ink); }
-.gnote__open:active { transform: translate(3px, 4px); box-shadow: 1px 1px 0 var(--ink); }
-.gnote__open-main { font-size: 17px; font-weight: 700; letter-spacing: -0.01em; }
-.gnote__open-count { font-size: 13px; color: var(--orange-ink); font-weight: 600; }
+/* ── 칸 — 공책 한 장 + 나의 제주 노트 쓰기 ─────────────────────────────── */
+/* 아래 MORE STORIES 둥근 카드가 이 칸 위로 올라탐(home.css .find--inside 의 margin-top) — 그만큼 아래 여백을 더 둠 */
+.gnote { padding: clamp(80px, 12vh, 128px) 0 calc(clamp(88px, 13vh, 136px) + clamp(36px, 7vw, 72px) + 240px); background: var(--paper); }
+.gnote__inner { display: grid; justify-items: center; gap: 18px; text-align: center; }
+.gnote__entry { display: grid; justify-items: center; gap: 6px; width: min(640px, 100%); padding: 0; background: none; border: 0; }
+.gnote__entry-title { margin-top: clamp(28px, 5vh, 48px); font-family: var(--f-home); font-size: clamp(22px, 2.6vw, 30px); font-weight: 800; letter-spacing: -0.03em; }
+.gnote__entry-count { font-size: 15px; color: var(--ink-soft); }
+.gnote__entry:hover .gnote__entry-title { text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 2px; }
 .gnote__local { max-width: 26em; font-size: 12.5px; line-height: 1.6; color: var(--ink-soft); }
 
-/* 떠다니는 답 — 깊이(d0 가까움 ~ d2 멂)에 따라 크기 · 흐림 · 진하기가 다름 */
-.gnote__cloud { position: absolute; inset: 0; z-index: 1; margin: 0; padding: 0; list-style: none; pointer-events: none; }
-.gnote__float {
-  position: absolute; left: var(--x); top: var(--y); translate: -50% -50%;
-  max-width: min(30vw, 260px); text-align: center; line-height: 1.45; word-break: keep-all;
-  font-family: var(--f-home); color: #3b3a36;
-  animation: gnote-drift 9s ease-in-out calc(var(--i) * -1.3s) infinite alternate;
+/* 공책 한 장 — 살짝 기울고, 뒤에 망점 그림자 */
+.gpage-wrap { position: relative; display: block; width: 100%; transform: rotate(-3.5deg); transition: transform .4s var(--ease); }
+.gnote__entry:hover .gpage-wrap { transform: rotate(-2deg) translateY(-4px); }
+.gpage__shadow { position: absolute; inset: 0; translate: 12px 12px; border-radius: 3px; background: radial-gradient(circle, #1d2b44 42%, transparent 46%) 0 0 / 5px 5px; opacity: .5; }
+.gpage {
+  position: relative; display: grid; grid-template-rows: auto 1fr auto; gap: 14px; width: 100%; aspect-ratio: 4 / 3;
+  padding: 7% 7% 5%; background: #fff; border: 6px solid #1d2b44; border-radius: 3px;
 }
-.gnote__float--d0 { font-size: 15px; font-weight: 600; opacity: .85; }
-.gnote__float--d1 { font-size: 13.5px; opacity: .55; filter: blur(1.2px); }
-.gnote__float--d2 { font-size: 12.5px; opacity: .4; filter: blur(2.4px); }
-@keyframes gnote-drift { from { transform: translateY(-7px); } to { transform: translateY(7px); } }
-@media (prefers-reduced-motion: reduce) { .gnote__float { animation: none; } }
-
-/* 휴대폰 — 가운데 글을 가리지 않게 위 · 아래 자리만 쓰고 글씨를 줄임 */
-@media (max-width: 760px) {
-  .gnote { min-height: 640px; }
-  .gnote__float { max-width: 42vw; }
-  .gnote__float:nth-child(n + 4):nth-child(-n + 9) { display: none; }
-  .gnote__float--d0 { font-size: 13.5px; }
-  .gnote__float--d1 { font-size: 12.5px; }
-  .gnote__float--d2 { font-size: 12px; }
+.gpage__head { justify-self: center; padding: 3px 14px; font-size: 10px; font-weight: 800; letter-spacing: .2em; color: #1d2b44; background: radial-gradient(circle, rgba(29, 43, 68, .28) 40%, transparent 46%) 0 0 / 3px 3px; }
+.gpage__cols { display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: min-content; align-content: start; column-gap: 6%; row-gap: 7px; overflow: hidden; }
+/* 형광펜 줄 — 망점으로 칠한 색 띠, 그 위로 답 글씨가 흐릿하게 비침 */
+.gpage__strip {
+  display: block; width: var(--w); height: 15px; padding: 0 5px; overflow: hidden;
+  background: radial-gradient(circle, var(--c) 55%, transparent 60%) 0 0 / 3px 3px; rotate: var(--r);
+  text-align: left; line-height: 15px;
+}
+.gpage__ink { display: block; overflow: hidden; white-space: nowrap; text-overflow: clip; font-size: 9.5px; font-weight: 700; color: #1d1d1d; opacity: .75; filter: blur(.7px); }
+.gpage__line { display: block; height: 15px; border-bottom: 1px solid var(--line); }
+.gpage__foot { justify-self: center; align-self: end; font-size: 9px; font-weight: 800; letter-spacing: .24em; color: var(--forest); }
+@media (max-width: 560px) {
+  .gpage { border-width: 4px; padding: 6% 5% 4%; gap: 8px; }
+  .gpage__cols { row-gap: 5px; }
+  .gpage__strip, .gpage__line { height: 10px; line-height: 10px; }
+  .gpage__ink { font-size: 7px; }
 }
 
 /* ── 쓰기 화면 — 화면 가득 ─────────────────────────────── */
@@ -71,7 +57,7 @@
 .gwrite__bar { display: flex; gap: 6px; margin: 0; padding: 0; list-style: none; }
 .gwrite__bar li { width: clamp(28px, 6vw, 44px); height: 3px; border-radius: 2px; background: var(--line-strong); transition: background .3s; }
 .gwrite__bar li.is-on { background: var(--ink); }
-.gwrite__close { justify-self: end; width: 44px; height: 44px; margin-right: -10px; font-size: 30px; line-height: 1; border-radius: 999px; }
+.gwrite__close { grid-column: 3; justify-self: end; width: 44px; height: 44px; margin-right: -10px; font-size: 30px; line-height: 1; border-radius: 999px; }
 .gwrite__close:hover { background: rgba(17, 17, 17, .07); }
 
 /* 도입 문장 — 두 줄이 차례로 떠오름 (누르면 바로 넘어감) */
@@ -146,3 +132,37 @@
 .gwrite__done-sub { font-size: 14px; color: var(--ink-soft); }
 .gwrite--done .gwrite__body { display: grid; justify-items: center; align-content: start; }
 .gwrite--done .gwrite__card { justify-self: stretch; }
+
+/* ── 공책 표지 — 끌어서 돌려 보거나, 눌러서 펼치기 ─────────────────────────────── */
+.gwrite--cover { background: radial-gradient(120% 90% at 50% 40%, #FFFDF8 0%, var(--paper) 60%, #E6E2D4 100%); }
+.gcover-wrap { flex: 1; display: grid; place-content: center; justify-items: center; gap: clamp(28px, 6vh, 56px); padding: 0 var(--gutter) 8vh; perspective: 1400px; }
+.gcover {
+  --turn: 0deg;
+  position: relative; width: min(560px, 82vw); aspect-ratio: 4 / 3; padding: 0; border: 0; background: none;
+  transform-style: preserve-3d; transform: rotateX(8deg) rotateY(calc(var(--turn) - 12deg)) rotateZ(-2deg);
+  transition: transform .5s var(--ease); cursor: grab; touch-action: pan-y;
+}
+.gcover:active { cursor: grabbing; }
+.gcover > span { position: absolute; inset: 0; border-radius: 4px 10px 10px 4px; }
+/* 뒤표지 · 속지 — 두께가 보이게 */
+.gcover__back { background: #B5541A; transform: translateZ(-14px); box-shadow: 0 30px 60px rgba(60, 40, 20, .28); }
+.gcover__page { inset: 5px 6px 5px 3px !important; background: repeating-linear-gradient(to bottom, #FBF8F1 0 2px, #E9E4D6 2px 3px); transform: translateZ(-7px); }
+.gcover__face {
+  display: grid; place-content: center; justify-items: center; gap: 4%;
+  background:
+    repeating-linear-gradient(115deg, rgba(255, 255, 255, .05) 0 2px, transparent 2px 5px),
+    linear-gradient(160deg, #E8823A, #CF6420);
+  transform-origin: left center; transition: transform .85s cubic-bezier(.6, .05, .3, 1);
+  box-shadow: inset 6px 0 0 rgba(0, 0, 0, .12);
+  /* 펼칠 때 표지 뒷면에 글자가 거꾸로 비치지 않게 — 뒷면은 안쪽 종이색(::after) */
+  backface-visibility: hidden; transform-style: preserve-3d;
+}
+.gcover__face::after { content: ''; position: absolute; inset: 0; border-radius: inherit; background: #F3EBDD; transform: rotateY(180deg); backface-visibility: hidden; }
+.gcover.is-opening { transform: rotateX(0) rotateY(0) rotateZ(0); }
+.gcover.is-opening .gcover__face { transform: rotateY(-165deg); }
+.gcover__hand { font-family: "Segoe Print", "Bradley Hand", "Comic Sans MS", cursive; font-size: clamp(22px, 4.6vw, 38px); font-weight: 700; letter-spacing: .03em; color: #2A1A10; rotate: -2deg; }
+.gcover__window { display: grid; place-items: center; width: 34%; aspect-ratio: 1; border-radius: 6px; background: rgba(0, 0, 0, .1); box-shadow: inset 0 2px 6px rgba(0, 0, 0, .18); }
+.gcover__window img { width: 64%; height: auto; pointer-events: none; }
+.gcover__mark { font-size: clamp(11px, 1.6vw, 14px); font-weight: 800; letter-spacing: .3em; color: #2A1A10; opacity: .8; }
+.gcover__hint { padding: 14px 40px; background: #fff; border: 1.5px solid var(--ink); border-radius: 4px; box-shadow: 3px 4px 0 var(--ink); font-size: 15px; font-weight: 600; }
+@media (prefers-reduced-motion: reduce) { .gcover, .gcover__face { transition: none; } }

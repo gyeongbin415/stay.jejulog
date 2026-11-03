@@ -18,12 +18,13 @@ export interface UiText {
     pageTitle: string; homeTitle: string; sub: string; all: string; filterAria: string; listAria: string; webzineBadge: string; seeStay: string; kakao: string; insta: string; note: string;
     search: string; searchAria: string; searchClear: string; noResult: string };
   insta: { title: string; loading: string; posts: string; followers: string; following: string; follow: string; message: string; postsTab: string; gridAria: string; close: string; prev: string; next: string; likes: (n: number) => string; comments: (n: number) => string; seeStay: string; back: string };
-  /** 방명록(GUEST NOTE) — 메인 MORE STORIES 와 CHECK OUT 사이 · 질문 3개에 답하는 노트 */
+  /** 방명록(GUEST NOTE) — 메인 취향 지도와 MORE STORIES 사이 · 질문 3개에 답하는 노트 */
   guest: { title: string; sub: string; open: string; count: (n: number) => string; first: string;
     intro: string[]; questions: string[]; progress: (i: number, n: number) => string; placeholder: string;
     prev: string; skip: string; next: string; nameLabel: string; namePlaceholder: string; anon: string; submit: string; sending: string;
     needOne: string; failed: string; doneTitle: string; doneSub: string; doneClose: string; close: string;
-    otherBy: (name: string) => string; seeAll: (n: number) => string; hideAll: string; emptyAnswers: string; localOnly: string; cloudAria: string };
+    otherBy: (name: string) => string; seeAll: (n: number) => string; hideAll: string; emptyAnswers: string; localOnly: string; cloudAria: string;
+    coverHint: string; coverAria: string };
   home: { srTitle: string; wordsAria: string; opening: string; findSub: (n: number) => string; typesAria: string;
     /** 메인 사진 띠 — 상세페이지에서 빠진 사진 둘의 대체 텍스트 */
     stripRunAlt: string; stripLoungeAlt: string; stripCampAlt: string; stripMallowAlt: string; stripDomeAlt: string; stripCandleAlt: string; stripLpWallAlt: string; stripLivingAlt: string; stripRingAlt: string; stripPotluckAlt: string; stripCatAlt: string; stripBuckwheatAlt: string; stripTeaAlt: string; stripSeaRunAlt: string; stripGuitarAlt: string; stripWinePourAlt: string; stripRingWorkAlt: string; stripCliffAlt: string; stripCraterAlt: string; stripPuppyAlt: string; stripSeaSitAlt: string; stripForestAlt: string; stripCosmosAlt: string; stripCalendarAlt: string;
@@ -39,7 +40,7 @@ export interface UiText {
     editorTitle: string; editorOneLine: string; travelStyle: string; likedIt: string; forWhom: string;
     joinLabel: string; joinTitle: string; joinWho: string; joinHow: string; joinLinks: string;
     editorAvatarAlt: string;
-    recommendTitle: string; backToHouse: string; houseShort: string; prevStay: string; nextStay: string; toTest: string; booking: string; navAria: string;
+    recommendTitle: string; backToHouse: string; houseShort: string; prevStay: string; nextStay: string; toTest: string; booking: string; navAria: string; back: string;
   };
   test: {
     title: string; sub: (n: number) => string;
@@ -83,6 +84,7 @@ export const UI: Record<Lang, UiText> = {
       doneTitle: '노트를 남겼어요', doneSub: '다른 여행자들의 노트와 함께 이곳에 떠다닐 거예요.', doneClose: '다른 노트 보러 가기', close: '닫기',
       otherBy: (name) => `${name}의 답`, seeAll: (n) => `${n.toLocaleString()}명 답 보기`, hideAll: '접기', emptyAnswers: '아직 이 질문에 남긴 답이 없어요.',
       localOnly: '지금은 준비 중이라 남긴 노트가 이 화면에만 보여요.', cloudAria: '여행자들이 남긴 노트',
+      coverHint: '돌려 보거나, 눌러서 펼치기', coverAria: '나의 제주 노트 표지',
     },
     home: {
       srTitle: '제주 게스트하우스 공간 탐험 웹진',
@@ -114,7 +116,7 @@ export const UI: Record<Lang, UiText> = {
       editorTitle: '에디터가 직접 머물러 봤어요', editorAvatarAlt: '스테이로그 로고 티셔츠를 입은 에디터 일러스트', editorOneLine: '에디터의 한 줄 소개', travelStyle: '에디터 여행 성향',
       likedIt: '이런 점이 좋았어요', forWhom: '이런 사람에게 추천해요',
       joinLabel: 'BEFORE YOU GO', joinTitle: '참여 전 확인', joinWho: '참여 정보', joinHow: '참여 방법', joinLinks: '최신 안내',
-      recommendTitle: '이런 분께 추천합니다', backToHouse: '집 둘러보기', houseShort: '집', prevStay: '이전', nextStay: '다음', toTest: '나에게 맞는 게하 찾기', booking: '예약 정보 보기', navAria: '다른 게스트하우스',
+      recommendTitle: '이런 분께 추천합니다', backToHouse: '집 둘러보기', houseShort: '집', prevStay: '이전', nextStay: '다음', toTest: '나에게 맞는 게하 찾기', booking: '예약 정보 보기', navAria: '다른 게스트하우스', back: '뒤로 가기',
     },
     test: {
       title: '당신의 제주 취향을\n찾아보세요.',
@@ -164,6 +166,7 @@ export const UI: Record<Lang, UiText> = {
       doneTitle: 'Your note is in', doneSub: 'It will float here with notes from other travelers.', doneClose: 'See other notes', close: 'Close',
       otherBy: (name) => `— ${name}`, seeAll: (n) => `See all ${n.toLocaleString()} answers`, hideAll: 'Hide', emptyAnswers: 'No answers to this question yet.',
       localOnly: 'This is still being set up, so your note is only shown on this screen for now.', cloudAria: 'Notes left by travelers',
+      coverHint: 'Turn it around, or tap to open', coverAria: 'My Jeju note cover',
     },
     home: {
       srTitle: 'A webzine for exploring Jeju guesthouses',
@@ -195,7 +198,7 @@ export const UI: Record<Lang, UiText> = {
       editorTitle: 'Our editor stayed here', editorAvatarAlt: 'Illustration of the editor wearing a Stay Log T-shirt', editorOneLine: 'About the editor', travelStyle: "Editor's travel style",
       likedIt: 'What I loved', forWhom: 'Who it’s for',
       joinLabel: 'BEFORE YOU GO', joinTitle: 'Before you join', joinWho: 'Joining info', joinHow: 'How to join', joinLinks: 'Latest info',
-      recommendTitle: 'Recommended for', backToHouse: 'Explore the house', houseShort: 'House', prevStay: 'Previous', nextStay: 'Next', toTest: 'Find the stay that fits you', booking: 'Booking info', navAria: 'Other guesthouses',
+      recommendTitle: 'Recommended for', backToHouse: 'Explore the house', houseShort: 'House', prevStay: 'Previous', nextStay: 'Next', toTest: 'Find the stay that fits you', booking: 'Booking info', navAria: 'Other guesthouses', back: 'Go back',
     },
     test: {
       title: 'Find your\nJeju taste.',
@@ -245,6 +248,7 @@ export const UI: Record<Lang, UiText> = {
       doneTitle: '笔记已留下', doneSub: '它会和其他旅行者的笔记一起在这里飘浮。', doneClose: '去看看其他笔记', close: '关闭',
       otherBy: (name) => `${name} 的回答`, seeAll: (n) => `查看全部 ${n.toLocaleString()} 条回答`, hideAll: '收起', emptyAnswers: '这个问题还没有人回答。',
       localOnly: '目前仍在准备中，你的笔记暂时只显示在这个页面上。', cloudAria: '旅行者们留下的笔记',
+      coverHint: '转一转，或点击翻开', coverAria: '我的济州笔记封面',
     },
     home: {
       srTitle: '济州民宿空间探索杂志',
@@ -276,7 +280,7 @@ export const UI: Record<Lang, UiText> = {
       editorTitle: '编辑亲自入住体验', editorAvatarAlt: '穿着 Stay Log 标志T恤的编辑插画', editorOneLine: '编辑简介', travelStyle: '编辑的旅行风格',
       likedIt: '我喜欢的地方', forWhom: '推荐给这样的人',
       joinLabel: 'BEFORE YOU GO', joinTitle: '参加前确认', joinWho: '参加信息', joinHow: '参加方式', joinLinks: '最新信息',
-      recommendTitle: '推荐给这样的你', backToHouse: '逛逛这栋房子', houseShort: '房子', prevStay: '上一家', nextStay: '下一家', toTest: '找到适合我的民宿', booking: '预订信息', navAria: '其他民宿',
+      recommendTitle: '推荐给这样的你', backToHouse: '逛逛这栋房子', houseShort: '房子', prevStay: '上一家', nextStay: '下一家', toTest: '找到适合我的民宿', booking: '预订信息', navAria: '其他民宿', back: '返回',
     },
     test: {
       title: '找到你的\n济州旅行喜好。',

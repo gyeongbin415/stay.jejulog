@@ -75,12 +75,31 @@ export function routeKey(r: Route) {
   return r.name === 'stay' ? `stay:${r.id}` : r.name;
 }
 
+/** 이번 방문에서 웹진 안 화면을 옮겨 다녔는지 — 뒤로 가기 버튼이 브라우저 뒤로 가도 웹진 밖으로 나가지 않는지 판단 */
+let movedInApp = false;
+
+/**
+ * 뒤로 가기 — 웹진 안에서 왔으면(같은 화면 이동 · 테스트 주소에서 넘어옴) 브라우저 뒤로,
+ * 공유 링크로 바로 들어온 것처럼 앞 화면이 없으면 fallback 으로
+ */
+export function goBack(fallback: string) {
+  let fromSite = false;
+  try {
+    fromSite = !!document.referrer && new URL(document.referrer).origin === window.location.origin;
+  } catch {
+    /* 알 수 없는 주소면 밖에서 온 것으로 */
+  }
+  if (movedInApp || fromSite) window.history.back();
+  else window.location.hash = fallback;
+}
+
 /** 같은 주소로 다시 이동해도 반응하도록 이동 횟수를 함께 돌려줍니다 */
 export function useRoute() {
   const [route, setRoute] = useState(() => ({ ...parseHash(), visit: 0 }));
   useEffect(() => {
     const on = () => {
       if (fixTestUrl()) return;
+      movedInApp = true;
       setRoute((r) => ({ ...parseHash(), visit: r.visit + 1 }));
     };
     window.addEventListener('hashchange', on);

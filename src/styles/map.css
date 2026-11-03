@@ -14,7 +14,7 @@
 .tmap__sub { max-width: 40em; font-size: clamp(15px, 1.5vw, 17px); line-height: 1.7; color: var(--ink-soft); }
 
 /* 레이어 버튼 — 가로로 넘겨 보기 */
-.tmap__filters { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 14px; scrollbar-width: none; }
+.tmap__filters { display: flex; gap: 8px; overflow-x: auto; margin-top: 12px; padding-bottom: 4px; scrollbar-width: none; }
 .tmap__filters::-webkit-scrollbar { display: none; }
 /* 마우스로 끌어 넘길 수 있다는 표시 */
 @media (hover: hover) and (pointer: fine) {
