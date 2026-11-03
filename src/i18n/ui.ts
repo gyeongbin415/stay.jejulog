@@ -20,7 +20,7 @@ export interface UiText {
     pageTitle: string; homeTitle: string; homeCta: string; sub: string; all: string; filterAria: string; listAria: string; webzineBadge: string; seeStay: string; kakao: string; insta: string; note: string;
     search: string; searchAria: string; searchClear: string; noResult: string };
   insta: { title: string; loading: string; posts: string; followers: string; following: string; follow: string; message: string; postsTab: string; gridAria: string; close: string; prev: string; next: string; likes: (n: number) => string; comments: (n: number) => string; seeStay: string; back: string };
-  /** 방명록(GUEST NOTE) — 메인 취향 지도와 CHECK OUT 사이 · 질문 5개에 답하는 노트 */
+  /** 방명록(GUEST NOTE) — 메인 취향 지도와 CHECK OUT 사이 · 질문 4개에 답하거나 자유롭게 적는 노트 */
   guest: { title: string; sub: string; open: string; count: (n: number) => string; first: string;
     intro: string[]; questions: string[];
     /** 질문마다 예시 답변 — 답 칸의 흐린 글씨 */
@@ -88,9 +88,9 @@ export const UI: Record<Lang, UiText> = {
       title: '제주에 두고 가는\n한 줄 노트', sub: '체크아웃 하기 전에,\n제주에서 보내고 싶은 하루를 짧게 남겨 주세요.',
       open: '나의 제주 노트 쓰기', count: (n) => `${n.toLocaleString()}명이 먼저 썼어요`, first: '첫 번째 노트를 남겨 주세요',
       intro: ['여행은 금방 끝나지만,', '그날의 마음은 오래 남으니까.'],
-      questions: ['제주에서 가장 좋아하는 순간은?', '게스트하우스에서 해보고 싶은 일은?', '있다면 무조건 갈 게하 프로그램은?', '나만의 제주 여행 꿀팁은?', '다음 제주 여행자에게 남길 한마디는?'],
-      examples: ['노을 지는 해변에서 멍때리기', '처음 만난 사람들과 저녁 먹기', '고양이랑 함께하는 낮잠 클래스', '일정에 아무것도 없는 날 하루 만들기', '계획대로 되지 않아도 괜찮아요!'],
-      exampleLabel: '예시 답변 · ',
+      questions: ['이런 게하 있다면 무조건, 간다!', '처음 만난 사람과 이런 얘기까지 해봤다.', '게하에서 있었던 일 중, 지금 딱 기억나는 장면은?', '체크아웃하고 나서도 계속 생각나는 사람은? (이름은 몰라도 돼요)'],
+      examples: ['입구 찾는 것부터 미션인 게스트하우스?', '1년 넘게 짝사랑한 사람에게 어떻게 고백할지 상담했어요.', '게하에서 만난 사람을 다른 일정 중에 버스에서 우연히 또 만났어요.', '춥다고 하니까 말없이 겉옷을 가져다준 사람. 그때 연락처 물어볼 걸 지금도 후회해요.'],
+      exampleLabel: '에디터 예시 · ',
       progress: (i, n) => `Q${i} / ${n}`, placeholder: '나의 답변',
       prev: '이전', skip: '건너뛰기', next: '다음', nameLabel: '이름', namePlaceholder: '비워 두면 익명의 여행자', anon: '익명의 여행자',
       submit: '노트 남기기', sending: '남기는 중…', needOne: '한 칸 이상 적어 주세요.', failed: '지금은 남기지 못했어요. 잠시 뒤 다시 눌러 주세요.',
@@ -178,9 +178,9 @@ export const UI: Record<Lang, UiText> = {
       title: 'A one-line note\nto leave in Jeju', sub: 'Before you check out,\nleave a few words about the day you’d like to spend in Jeju.',
       open: 'Write my Jeju note', count: (n) => `${n.toLocaleString()} ${n === 1 ? 'traveler has' : 'travelers have'} written`, first: 'Be the first to leave a note',
       intro: ['Trips end quickly,', 'but how that day felt stays with you.'],
-      questions: ['What is your favorite moment in Jeju?', 'What would you like to try at a guesthouse?', "A guesthouse program you'd totally go for?", 'What is your own Jeju travel tip?', 'A word for the next Jeju traveler?'],
-      examples: ['Zoning out on a beach at sunset', 'Having dinner with people I just met', 'A nap class with the house cats', 'Leave one day with nothing planned', "It's okay if things don't go as planned!"],
-      exampleLabel: 'e.g. ',
+      questions: ['If a guesthouse like this existed, I\'d go, no matter what!', 'I even talked about this with someone I just met.', 'A guesthouse moment that comes to mind right now?', 'Someone you still think about after checking out? (No name needed)'],
+      examples: ['A guesthouse where just finding the entrance is a mission?', 'I asked how to confess to someone I\'d had a crush on for over a year.', 'I ran into someone from the guesthouse again, by chance, on a bus during another trip.', 'When I said I was cold, they handed me their jacket without a word. I still regret not asking for their number.'],
+      exampleLabel: 'Editor\'s e.g. ',
       progress: (i, n) => `Q${i} / ${n}`, placeholder: 'My answer',
       prev: 'Back', skip: 'Skip', next: 'Next', nameLabel: 'Name', namePlaceholder: 'Leave blank to stay anonymous', anon: 'A traveler',
       submit: 'Leave my note', sending: 'Sending…', needOne: 'Please answer at least one question.', failed: 'Couldn’t send your note. Please try again in a moment.',
@@ -268,9 +268,9 @@ export const UI: Record<Lang, UiText> = {
       title: '留在济州的\n一行笔记', sub: '退房之前，\n简单写下你想在济州度过的一天吧。',
       open: '写下我的济州笔记', count: (n) => `已有 ${n.toLocaleString()} 人写下`, first: '来写下第一条笔记吧',
       intro: ['旅行很快就会结束，', '但那天的心情会留很久。'],
-      questions: ['在济州最喜欢的瞬间是？', '想在民宿尝试的事是？', '有了就一定会去的民宿活动是？', '你的济州旅行小窍门是？', '想对下一位济州旅行者说的话是？'],
-      examples: ['在夕阳下的海边发呆', '和初次见面的人一起吃晚饭', '和民宿猫咪一起的午睡课', '留出一天什么都不安排', '就算不按计划走也没关系！'],
-      exampleLabel: '例如：',
+      questions: ['如果有这样的民宿，我一定会去！', '和初次见面的人，竟然聊到了这些。', '在民宿发生的事里，现在马上想起的一幕是？', '退房后还一直想起的人是？（不知道名字也没关系）'],
+      examples: ['从找入口开始就是任务的民宿？', '我请教了该怎么向暗恋一年多的人告白。', '在别的行程里，又在公交车上偶然遇到了在民宿认识的人。', '我说冷，他就默默把外套递给我。到现在都后悔当时没问联系方式。'],
+      exampleLabel: '编辑示例：',
       progress: (i, n) => `Q${i} / ${n}`, placeholder: '我的回答',
       prev: '上一步', skip: '跳过', next: '下一步', nameLabel: '名字', namePlaceholder: '不填写则为匿名旅行者', anon: '匿名旅行者',
       submit: '留下笔记', sending: '正在发送…', needOne: '请至少回答一个问题。', failed: '暂时无法留下笔记，请稍后再试。',
