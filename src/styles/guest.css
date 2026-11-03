@@ -14,7 +14,17 @@
 }
 .gnote__art:active { cursor: grabbing; }
 .gnote__art:hover { scale: 1.02; }
-.gnote__art img { display: block; width: 100%; height: auto; pointer-events: none; user-select: none; }
+.gnote__art { position: relative; }
+.gnote__art img { position: relative; z-index: 1; display: block; width: 100%; height: auto; pointer-events: none; user-select: none; transform-origin: 10% 55%; }
+/* 누르면 — 표지가 왼쪽을 축으로 열리며 사라지고, 뒤의 줄 노트 종이가 커지며 드러남 → 방명록 페이지로 */
+.gnote__page {
+  position: absolute; inset: 12% 9% 14% 8%; rotate: -8deg; border-radius: 4px; opacity: 0; transform: scale(.92);
+  background: repeating-linear-gradient(to bottom, #FBF8F1 0 22px, #E3DCCB 22px 23px), #FBF8F1; box-shadow: 0 10px 24px rgba(58, 55, 53, .18);
+  transition: opacity .4s ease .15s, transform .8s cubic-bezier(.6, .05, .3, 1) .1s;
+}
+.gnote__art.is-opening { cursor: default; scale: 1; }
+.gnote__art.is-opening img { transform: perspective(1000px) rotateY(-155deg); opacity: 0; transition: transform .85s cubic-bezier(.6, .05, .3, 1), opacity .35s ease .5s; }
+.gnote__art.is-opening .gnote__page { opacity: 1; transform: scale(1.06); }
 .gnote__artwrap .gcover__hint { color: var(--ink); text-decoration: none; }
 .gnote__inner { display: grid; justify-items: center; gap: 18px; text-align: center; }
 .gnote__local { max-width: 26em; font-size: 12.5px; line-height: 1.6; color: var(--ink-soft); }
