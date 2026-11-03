@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type CSSProperties, type RefObject } from 'react';
+import { useEffect, useRef, useState, type RefObject } from 'react';
 import { QUESTIONS } from '../data/quiz';
 import { QUIZ_ART } from '../data/quizArt';
 import { useContent } from '../i18n';
@@ -11,8 +11,6 @@ import { prefersReducedMotion } from '../lib/motion';
 import { track } from '../lib/track';
 import { makeResultImage } from '../lib/resultImage';
 import { openXPost } from '../lib/shareX';
-import tripCrabUrl from '../assets/trip-crab.webp';
-import tripHouseUrl from '../assets/trip-house.webp';
 import { GehageScene } from '../components/GehageScene';
 import { TestShare } from '../components/TestShare';
 
@@ -121,8 +119,7 @@ export default function TestPage({ sharedCode, mine = false }: { sharedCode: str
 
         {qi >= 0 && (
           <>
-            {/* 진행 — 왼쪽 끝 소라게가 한 문항마다 한 칸씩 걸어가 마지막 문항에서 오른쪽 집 문 앞에 닿음
-                (받은 그림에서 소라게 · 집을 배경만 빼서 그대로) · 카드 밖에 두어 문항이 바뀌어도 이어서 움직임 */}
+            {/* 진행 — 문항 수만큼 나뉜 선, 지금 문항까지 한 칸씩 색이 채워짐 · 카드 밖에 두어 문항이 바뀌어도 이어서 움직임 */}
             <div
               className="trip"
               role="progressbar"
@@ -132,9 +129,9 @@ export default function TestPage({ sharedCode, mine = false }: { sharedCode: str
               aria-valuenow={qi + 1}
               aria-valuetext={`${qi + 1} / ${QUESTIONS.length}`}
             >
-              <span className="trip__path" aria-hidden="true" />
-              <img className="trip__house" src={tripHouseUrl} alt="" />
-              <img className="trip__crab" src={tripCrabUrl} alt="" style={{ '--step': qi / (QUESTIONS.length - 1) } as CSSProperties} />
+              {QUESTIONS.map((q, i) => (
+                <span key={q.id} className={`trip__seg${i <= qi ? ' is-on' : ''}`} aria-hidden="true" />
+              ))}
             </div>            <div className="test__card" key={qi} data-swipe-lock={answers.some(Boolean) || undefined}>
 
               <p className="test__qno serif" aria-hidden="true">Q{qi + 1}.</p>

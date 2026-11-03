@@ -111,7 +111,6 @@ const MENU = [
   // 메뉴는 상세 화면 대신 메인 안의 그 칸으로 — 취향 테스트 안내 · 취향 지도 · 방명록
   { key: 'test', en: 'TEST', to: href.home('find') },
   { key: 'map', en: 'MAP', to: href.home('tastemap') },
-  { key: 'insta', en: 'INSTAGRAM', to: href.insta() },
   { key: 'guest', en: 'GUESTBOOK', to: href.home('guest') },
 ] as const;
 
