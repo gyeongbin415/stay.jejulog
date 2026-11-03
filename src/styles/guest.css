@@ -5,37 +5,11 @@
 /* ── 칸 — 공책 한 장 + 나의 제주 노트 쓰기 ─────────────────────────────── */
 .gnote { padding: clamp(80px, 12vh, 128px) 0 clamp(88px, 13vh, 136px); background: var(--paper); }
 .gnote__inner { display: grid; justify-items: center; gap: 18px; text-align: center; }
-.gnote__entry { display: grid; justify-items: center; gap: 6px; width: min(640px, 100%); padding: 0; background: none; border: 0; }
-.gnote__entry-title { margin-top: clamp(28px, 5vh, 48px); font-family: var(--f-home); font-size: clamp(22px, 2.6vw, 30px); font-weight: 800; letter-spacing: -0.03em; }
-.gnote__entry-count { font-size: 15px; color: var(--ink-soft); }
-.gnote__entry:hover .gnote__entry-title { text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 2px; }
 .gnote__local { max-width: 26em; font-size: 12.5px; line-height: 1.6; color: var(--ink-soft); }
 
-/* 공책 한 장 — 살짝 기울고, 뒤에 망점 그림자 */
-.gpage-wrap { position: relative; display: block; width: 100%; transform: rotate(-3.5deg); transition: transform .4s var(--ease); }
-.gnote__entry:hover .gpage-wrap { transform: rotate(-2deg) translateY(-4px); }
-.gpage__shadow { position: absolute; inset: 0; translate: 12px 12px; border-radius: 3px; background: radial-gradient(circle, #1d2b44 42%, transparent 46%) 0 0 / 5px 5px; opacity: .5; }
-.gpage {
-  position: relative; display: grid; grid-template-rows: auto 1fr auto; gap: 14px; width: 100%; aspect-ratio: 4 / 3;
-  padding: 7% 7% 5%; background: #fff; border: 6px solid #1d2b44; border-radius: 3px;
-}
-.gpage__head { justify-self: center; padding: 3px 14px; font-size: 10px; font-weight: 800; letter-spacing: .2em; color: #1d2b44; background: radial-gradient(circle, rgba(29, 43, 68, .28) 40%, transparent 46%) 0 0 / 3px 3px; }
-.gpage__cols { display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: min-content; align-content: start; column-gap: 6%; row-gap: 7px; overflow: hidden; }
-/* 형광펜 줄 — 망점으로 칠한 색 띠, 그 위로 답 글씨가 흐릿하게 비침 */
-.gpage__strip {
-  display: block; width: var(--w); height: 15px; padding: 0 5px; overflow: hidden;
-  background: radial-gradient(circle, var(--c) 55%, transparent 60%) 0 0 / 3px 3px; rotate: var(--r);
-  text-align: left; line-height: 15px;
-}
-.gpage__ink { display: block; overflow: hidden; white-space: nowrap; text-overflow: clip; font-size: 9.5px; font-weight: 700; color: #1d1d1d; opacity: .75; filter: blur(.7px); }
-.gpage__line { display: block; height: 15px; border-bottom: 1px solid var(--line); }
-.gpage__foot { justify-self: center; align-self: end; font-size: 9px; font-weight: 800; letter-spacing: .24em; color: var(--forest); }
-@media (max-width: 560px) {
-  .gpage { border-width: 4px; padding: 6% 5% 4%; gap: 8px; }
-  .gpage__cols { row-gap: 5px; }
-  .gpage__strip, .gpage__line { height: 10px; line-height: 10px; }
-  .gpage__ink { font-size: 7px; }
-}
+/* 칸 안의 공책 표지 — 쓰기 창의 표지와 같은 모양, 칸 배경 위에 */
+.gnote .gcover-wrap { padding: clamp(8px, 2vh, 24px) 0 0; }
+.gnote__entry-count { margin-top: -4px; font-size: 14px; color: var(--ink-soft); }
 
 /* ── 쓰기 화면 — 화면 가득 ─────────────────────────────── */
 .gwrite {
