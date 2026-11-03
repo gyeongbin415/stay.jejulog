@@ -33,19 +33,19 @@ import stripSunrise from '../assets/strip/kokoko-sunrise.webp';
 
 /**
  * PAGE 01 — 메인
- * 휴대폰: INTRO → 그림 모음 한 장(COVER, 2×2) → CHECK OUT — 그림을 누르거나 CHECK OUT 에서 더 내리면 둘러보기 페이지(#/tour)로
+ * 휴대폰: INTRO → 그림 모음 한 장(COVER, 2×2) — 그림을 누르거나 더 내리면 둘러보기 페이지(#/tour)로 (CHECK OUT 은 둘러보기 맨 끝)
  * PC: INTRO → 콘텐츠 고르기 → FIND YOUR STAY → 취향 지도 → 방명록 → CHECK OUT (하나의 세로 스크롤)
  */
 export function HomePage() {
   const { site: SITE, ui } = useContent();
   const mobile = useMediaQuery('(max-width: 899px)');
   const reduced = useReducedMotion();
-  // 맨 밑 CHECK OUT 에서 더 내리면 — 칸이 위로 빠지며 둘러보기 페이지(집 칸부터)로
+  // 그림 모음에서 더 내리면 — 그림들이 위로 빠지며 둘러보기 페이지(집 칸부터)로
   const leaving = useRef(false);
   const toTour = () => {
     if (leaving.current) return;
     leaving.current = true;
-    document.getElementById('checkout')?.classList.add('is-leaving');
+    document.getElementById('cover')?.classList.add('is-leaving');
     window.setTimeout(() => {
       leaving.current = false;
       window.location.assign(absUrl(href.tour()));
@@ -55,14 +55,7 @@ export function HomePage() {
     <>
       <h1 className="visually-hidden">{SITE.brand} {SITE.brandEn} — {ui.home.srTitle}</h1>
       <Intro />
-      {mobile ? (
-        <>
-          <Cover />
-          <CheckOut />
-        </>
-      ) : (
-        <Sections mobile={false} />
-      )}
+      {mobile ? <Cover /> : <Sections mobile={false} />}
       {/* 인트로보다 뒤에 둬야 손짓 처리도 인트로 다음 차례 (인트로가 단계를 넘긴 손짓은 넘기지 않음) */}
       {mobile && !reduced && <HomeDeck panels={MAIN_PANELS} dots={false} onPastEnd={toTour} />}
     </>
@@ -83,7 +76,7 @@ export function TourPage() {
   );
 }
 
-/** 메인(PC) · 둘러보기 페이지에 같이 쓰는 칸들 — 휴대폰 CHECK OUT 은 메인 맨 밑에 */
+/** 메인(PC) · 둘러보기 페이지에 같이 쓰는 칸들 */
 function Sections({ mobile }: { mobile: boolean }) {
   return (
     <>
@@ -94,7 +87,7 @@ function Sections({ mobile }: { mobile: boolean }) {
       {/* 방명록 — 질문 5개에 답하는 노트
           (예전 MORE STORIES 인스타그램 사진 칸은 메인에서 뺌 — 인스타그램 페이지 #/instagram 은 그대로) */}
       <GuestNotes />
-      {!mobile && <CheckOut />}
+      <CheckOut />
     </>
   );
 }

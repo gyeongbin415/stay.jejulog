@@ -103,7 +103,7 @@ export function App() {
       jumpToSection(to);
       history.replaceState(history.state, '', route.name === 'tour' ? href.tour() : '#/');
     } else if (route.name === 'tour' && prevName.current === 'home') {
-      // 메인(맨 밑 CHECK OUT)에서 내려 넘어오면 — 전에 보던 자리 말고 늘 첫 칸(집)부터 (같은 이동 알림이 한 번 더 와도 맨 위로)
+      // 메인(그림 모음)에서 내려 넘어오면 — 전에 보던 자리 말고 늘 첫 칸(집)부터 (같은 이동 알림이 한 번 더 와도 맨 위로)
       positions.current[key] = 0;
       window.scrollTo(0, 0);
     } else if ((route.name === 'home' || route.name === 'tour') && positions.current[key] == null && (prevName.current === 'map' || prevName.current === 'insta')) {
