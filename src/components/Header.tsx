@@ -60,7 +60,7 @@ export function Header({ route }: { route: Route }) {
   return (
     <>
       <header className={`topbar topbar--${tone}${scrolled ? ' is-scrolled' : ''}`}>
-        <a className="topbar__brand" href={href.home()} onClick={toTop} data-track="gnb_logo" aria-label={ui.nav.toHome(site.brand)}>
+        <a className="topbar__brand" href={href.home('intro')} onClick={toTop} data-track="gnb_logo" aria-label={ui.nav.toHome(site.brand)}>
           <Logo />
           {lang !== 'en' && <span className="topbar__ko">{site.brand}</span>}
         </a>
