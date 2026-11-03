@@ -1,33 +1,29 @@
 /* ==================================================================
-   휴대폰 넘겨보기 — 집 · 테스트 · 지도 · 방명록 (components/Deck.tsx)
+   휴대폰 세로 넘겨보기(풀페이지) — 집 · 테스트 · 지도 · 방명록 (components/Deck.tsx)
 ================================================================== */
 
-/* 지금 칸만 문서 흐름에 두고(세로 스크롤 그대로), 옆 칸은 넘길 때만 그 자리에 겹쳐 보임 */
-.deck { position: relative; overflow: clip; min-height: 100vh; min-height: 100svh; }
+/* 넘겨보기 동안 페이지 자체는 스크롤하지 않음 — 칸 안에서만 */
+html.has-deck, html.has-deck body { overflow: hidden; height: 100%; overscroll-behavior: none; }
+
+/* 화면 전체 한 판 — 상단 바(z 50) · 동그라미 버튼(z 90) 아래 */
+.deck { position: fixed; inset: 0; z-index: 10; overflow: hidden; background: var(--bg); }
+
+/* 칸 한 장 = 화면 높이. 내용이 길면 칸 안에서 스크롤 */
 .deck__panel {
-  position: absolute; top: 0; left: 0; width: 100%;
-  visibility: hidden; touch-action: pan-y pinch-zoom; backface-visibility: hidden;
+  position: absolute; inset: 0; height: 100vh; height: 100dvh;
+  overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch;
+  background: var(--bg); visibility: hidden; will-change: transform; backface-visibility: hidden;
 }
-.deck__panel.is-active { position: relative; visibility: visible; }
+.deck__panel.is-active { visibility: visible; }
 
-/* 아래 메뉴 — 집 · 테스트 · 지도 · 방명록 (얇게, 지금 칸만 주황) */
-.decknav {
-  --h: 52px;
-  position: fixed; left: 0; right: 0; bottom: 0; z-index: 95;
-  display: flex; height: calc(var(--h) + env(safe-area-inset-bottom)); padding-bottom: env(safe-area-inset-bottom);
-  background: rgba(250, 250, 243, .94); border-top: 1px solid var(--line);
-  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+/* 오른쪽 점 — 지금 칸만 주황 */
+.deckdots {
+  position: fixed; right: 6px; top: 50%; z-index: 40; translate: 0 -50%;
+  display: grid; gap: 2px;
 }
-.decknav__item {
-  flex: 1; display: grid; place-content: center; justify-items: center; gap: 5px;
-  font-size: 13px; font-weight: 600; letter-spacing: -0.01em; color: var(--sage);
-  transition: color .25s var(--ease);
+.deckdots__dot { display: grid; place-items: center; width: 20px; height: 20px; padding: 0; }
+.deckdots__dot::before {
+  content: ''; width: 6px; height: 6px; border-radius: 3px; background: rgba(104, 106, 100, .38);
+  transition: height .3s var(--ease), background .3s var(--ease);
 }
-.decknav__dot { width: 4px; height: 4px; border-radius: 50%; background: currentColor; opacity: 0; transition: opacity .25s var(--ease); }
-.decknav__item.is-on { color: #EA9861; }
-.decknav__item.is-on .decknav__dot { opacity: 1; }
-
-/* 메뉴가 있는 동안 — 바닥글이 가리지 않게, 동그라미 버튼은 메뉴 위로 */
-body.has-decknav { padding-bottom: calc(52px + env(safe-area-inset-bottom)); }
-body.has-decknav .fabs,
-body.has-decknav .backfab { bottom: calc(52px + max(12px, env(safe-area-inset-bottom))); }
+.deckdots__dot.is-on::before { height: 16px; background: #EA9861; }

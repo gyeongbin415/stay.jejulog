@@ -64,7 +64,9 @@ export default function TestPage({ sharedCode, mine = false, active = true }: { 
     prevStep.current = step;
     focusRef.current?.focus({ preventScroll: true });
     const top = document.querySelector('.test__card, .result');
-    if (top && top.getBoundingClientRect().top < 0) window.scrollTo({ top: 0, behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
+    // 휴대폰 넘겨보기에서는 칸 안이 스크롤되므로 그 칸을 맨 위로
+    const scroller = top?.closest('.deck__panel') ?? window;
+    if (top && top.getBoundingClientRect().top < 0) scroller.scrollTo({ top: 0, behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
   }, [step]);
 
   const finish = (all: AnswerKey[]) => {
