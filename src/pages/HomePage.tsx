@@ -62,10 +62,13 @@ export function HomePage() {
  */
 const REVEAL = SITE_KO.intro.words.length + 3;
 /**
- * 스크롤 단계 — 내릴 때마다 하나씩: 질문만(0) → 단어 1 · 2 · 3 → 전환 문구(total + 2) → 문제 정의 CHECK IN(REVEAL)
+ * 스크롤 단계 — 내릴 때마다 하나씩: 질문만(0) → 단어 1 · 2 · 3 → 전환 문구 앞 두 줄(total + 2)
+ * → 한 번 더 내리면 끝 줄 '전부가 아닙니다.'(같은 total + 2, 두 번째) → 문제 정의 CHECK IN(REVEAL)
  * (예전 '시야가 좁아짐' 단계 total + 1 은 건너뜀)
  */
-const STEPS = [0, ...SITE_KO.intro.words.map((_, i) => i + 1), REVEAL - 1, REVEAL];
+const STEPS = [0, ...SITE_KO.intro.words.map((_, i) => i + 1), REVEAL - 1, REVEAL - 1, REVEAL];
+/** 전환 문구 끝 줄이 나오는 단계 (STEPS 의 두 번째 REVEAL - 1) */
+const TURN_END = STEPS.length - 2;
 /** 단계 하나에 내리는 거리 — 화면 높이의 0.6배 (인트로 높이 = 한 화면 + 단계 수 × 0.6 화면, home.css) */
 const STEP_VH = 0.6;
 function Intro() {
@@ -179,7 +182,7 @@ function Intro() {
   }, [revealed]);
 
   return (
-    <section ref={ref} id="intro" className={`intro${reduced ? ' intro--static' : ''}`} style={{ '--steps': last } as CSSProperties} data-step={Math.min(shown, total)} data-phase={phase} data-tone={revealed ? 'light' : 'dark'} aria-labelledby="intro-title">
+    <section ref={ref} id="intro" className={`intro${reduced ? ' intro--static' : ''}`} style={{ '--steps': last } as CSSProperties} data-turn-end={k >= TURN_END || undefined} data-step={Math.min(shown, total)} data-phase={phase} data-tone={revealed ? 'light' : 'dark'} aria-labelledby="intro-title">
       {/* 메뉴 '메인'이 오는 자리 — 인트로를 끝까지 내린 곳, CHECK IN 화면이 다 열린 상태 */}
       {!reduced && <span id="checkin" className="intro__anchor" />}
       <div className="intro__stage">
