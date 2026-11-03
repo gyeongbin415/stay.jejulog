@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type CSSProperties, type RefObject } from 'react';
 import { QUESTIONS } from '../data/quiz';
+import { QUIZ_ART } from '../data/quizArt';
 import { useContent } from '../i18n';
 import type { ProgramId } from '../data/types';
 import { scoreQuiz, decodeAnswers, type AnswerKey, type QuizResult } from '../lib/scoring';
@@ -125,21 +126,26 @@ export default function TestPage({ sharedCode, mine = false }: { sharedCode: str
                 {questions[qi].q}
               </h1>
 
-              <div className="test__options" role="radiogroup" aria-labelledby="test-title">
+              <div className={`test__options${QUIZ_ART[QUESTIONS[qi].id] ? ' test__options--art' : ''}`} role="radiogroup" aria-labelledby="test-title">
                 {questions[qi].options.map((o) => {
                   const on = answers[qi] === o.key;
+                  // 그림이 있는 문항 — 그림 위, A · B 와 글자는 그 아래
+                  const art = QUIZ_ART[QUESTIONS[qi].id]?.[o.key];
                   return (
                     <button
                       key={o.key}
                       type="button"
                       role="radio"
                       aria-checked={on}
-                      className={`test__option${on ? ' is-on' : ''}`}
+                      className={`test__option${on ? ' is-on' : ''}${art ? ' test__option--art' : ''}`}
                       onClick={() => choose(qi, o.key)}
                       data-track={`quiz_${QUESTIONS[qi].id}_${o.key}`}
                     >
-                      <span className="test__key" aria-hidden="true">{o.key}</span>
-                      <span className="test__otext">{o.text}</span>
+                      {art && <img className="test__art" src={art} alt="" />}
+                      <span className="test__orow">
+                        <span className="test__key" aria-hidden="true">{o.key}</span>
+                        <span className="test__otext">{o.text}</span>
+                      </span>
                     </button>
                   );
                 })}
