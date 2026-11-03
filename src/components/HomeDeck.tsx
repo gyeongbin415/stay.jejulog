@@ -14,8 +14,8 @@ import '../styles/deck.css';
 ------------------------------------------------------------------- */
 
 export const HOME_PANELS = ['intro', 'roomtour', 'find', 'tastemap', 'guest', 'checkout'] as const;
-/** 오른쪽 점 — 집부터 체크아웃까지 (인트로에서는 점을 숨김) */
-const DOT_PANELS: Panels = ['roomtour', 'find', 'tastemap', 'guest', 'checkout'];
+/** 오른쪽 점 — CHECK IN(인트로 마지막 장면)부터 체크아웃까지 (인트로 앞부분 질문 · 단어에서는 점을 숨김) */
+const DOT_PANELS: Panels = ['intro', 'roomtour', 'find', 'tastemap', 'guest', 'checkout'];
 type Panels = readonly string[];
 
 /** 넘어가는 시간(ms) */
@@ -55,6 +55,17 @@ export function HomeDeck({ panels = HOME_PANELS, dots = true, onPastEnd }: { pan
   const { ui } = useContent();
   const t = ui.deck;
   const [index, setIndex] = useState(0);
+  // 인트로가 CHECK IN 장면까지 왔는지 — 그때부터 점을 보임
+  const [checkin, setCheckin] = useState(false);
+  useEffect(() => {
+    const el = document.getElementById('intro');
+    if (!el) return;
+    const update = () => setCheckin(el.dataset.phase === 'reveal');
+    update();
+    const mo = new MutationObserver(update);
+    mo.observe(el, { attributes: true, attributeFilter: ['data-phase'] });
+    return () => mo.disconnect();
+  }, []);
   const go = useRef<(k: number, toEnd?: boolean) => void>(() => {});
   const pastEnd = useRef(onPastEnd);
   pastEnd.current = onPastEnd;
@@ -244,15 +255,16 @@ export function HomeDeck({ panels = HOME_PANELS, dots = true, onPastEnd }: { pan
   if (!dots) return null;
   // 화면에 바로 고정 — 페이지 등장 애니메이션(transform) 안에 두면 화면이 아니라 페이지에 붙으므로 body 에
   return createPortal(
-    <nav className={`deckdots${DOT_PANELS.includes(panels[index]) ? '' : ' is-hidden'}`} aria-label={t.aria}>
+    <nav className={`deckdots${DOT_PANELS.includes(panels[index]) && (panels[index] !== 'intro' || checkin) ? '' : ' is-hidden'}`} aria-label={t.aria}>
       {panels.map((id, k) => !DOT_PANELS.includes(id) ? null : (
         <button
           key={id}
           type="button"
           className={`deckdots__dot${k === index ? ' is-on' : ''}`}
-          aria-label={(t as Record<string, string>)[id]}
+          aria-label={id === 'intro' ? 'CHECK IN' : (t as Record<string, string>)[id]}
           aria-current={k === index ? 'true' : undefined}
-          onClick={() => go.current(k)}
+          // 인트로 점은 인트로 맨 끝(CHECK IN 장면)으로
+          onClick={() => go.current(k, id === 'intro')}
           data-track={`deck_dot_${id}`}
         />
       ))}
