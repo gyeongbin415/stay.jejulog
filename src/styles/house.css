@@ -55,7 +55,8 @@
 }
 
 /* ── 집 — 민트 하늘 · 오름 · 흰 벽 · 크림색 방 · 돌담 · 초록 마당 ─────────────────────────────── */
-.explore { --yard: #C0DBA7; --charcoal: #3A3735; background: var(--bg); padding-bottom: 0; }
+/* 집 페이지 — 위 제목 칸까지 그림 속 하늘색 한 가지로 (나누지 않음) */
+.explore { --yard: #C0DBA7; --charcoal: #3A3735; background: #99D4F3; padding-bottom: 0; }
 /* 집 내부 문구는 모두 인트로 질문과 같은 카트 고딕 (제목 · 설명 · 버튼 · 방 이름표 · 전체보기 목록) */
 .explore, .explore button { font-family: var(--f-home); }
 /* EXPLORE 라벨은 다른 섹션 라벨(CHECK IN 등)과 같은 본문 서체 · 자간 */
