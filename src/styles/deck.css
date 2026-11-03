@@ -3,7 +3,7 @@
 ================================================================== */
 
 /* 칸마다 화면 높이 한 장 (메인의 각 칸) */
-html.has-fullpage :is(#roomtour, #find, #tastemap, #guest, #checkout) { min-height: 100vh; min-height: 100svh; }
+html.has-fullpage :is(#showcase, #roomtour, #find, #tastemap, #guest, #checkout) { min-height: 100vh; min-height: 100svh; }
 /* 당겨서 새로고침 · 끝에서 튕기는 동작이 넘김과 겹치지 않게 */
 html.has-fullpage, html.has-fullpage body { overscroll-behavior-y: none; }
 
