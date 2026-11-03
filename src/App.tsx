@@ -18,13 +18,25 @@ const TestPage = lazy(() => import('./pages/TestPage'));
 const InstaPage = lazy(() => import('./pages/InstaPage'));
 const MapPage = lazy(() => import('./pages/MapPage'));
 
+/** 화면별 스크롤 자리 — 취향 테스트(따로 된 주소)처럼 페이지를 새로 여는 이동 뒤에도 남도록 이 탭에 저장 */
+const POS_KEY = 'jejulog-pos';
+/** 브라우저 뒤로(앞으로) 가기로 이 페이지가 다시 열렸으면 떠나기 전에 저장해 둔 자리부터 */
+const restoredPositions = (() => {
+  try {
+    const nav = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming | undefined;
+    return nav?.type === 'back_forward' ? (JSON.parse(sessionStorage.getItem(POS_KEY) || '{}') as Record<string, number>) : {};
+  } catch {
+    return {};
+  }
+})();
+
 export function App() {
   const route = useRoute();
   const { lang, ui, site, programById, experienceById } = useContent();
   const key = routeKey(route);
   const query = route.query.toString();
   const keyRef = useRef(key);
-  const positions = useRef<Record<string, number>>({});
+  const positions = useRef<Record<string, number>>(restoredPositions);
   /** 바로 전에 보던 화면 이름 — 기억한 자리가 없을 때(새로고침 등) 메인 어느 칸으로 돌아갈지 정함 */
   const prevName = useRef<string | null>(null);
 
@@ -70,8 +82,21 @@ export function App() {
       const k = routeKey(parseHash());
       if (k === keyRef.current) positions.current[k] = window.scrollY;
     };
+    // 페이지를 떠날 때(테스트 주소 ⇄ 메인) 기억한 자리를 저장 — 다른 페이지가 저장해 둔 자리는 그대로 두고 합침
+    const onHide = () => {
+      try {
+        const kept = JSON.parse(sessionStorage.getItem(POS_KEY) || '{}');
+        sessionStorage.setItem(POS_KEY, JSON.stringify({ ...kept, ...positions.current }));
+      } catch {
+        /* 저장 못 하면 돌아올 때 맨 위부터 */
+      }
+    };
     window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    window.addEventListener('pagehide', onHide);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('pagehide', onHide);
+    };
   }, []);
 
   // 화면 이동 기록 — 주소의 #/ 뒤만 바뀌는 앱이라 GA4 기본 page_view 가 첫 화면에서만 나갑니다.
