@@ -27,9 +27,9 @@ const VIEW_KEY = 'jejulog:house-view';
  */
 type Spot = { id: ProgramId; room: [number, number, number, number]; tag: [number, number, number]; center?: boolean };
 const HOUSES: Record<'narrow' | 'wide' | 'paper', { url: string; w: number; h: number; spots: Spot[]; labels?: boolean }> = {
-  // 지금 쓰는 그림 — 받은 손그림 집(종이 질감 · 돌담 벽 · 방 이름이 그림 안에) 856 × 1197. 이름표는 그림에 있으니 덧씌우지 않음
+  // 지금 쓰는 그림 — 받은 손그림 집(종이 질감 · 돌담 벽 · 방 이름이 그림 안에) 856 × 1307, 마당 두 칸(스냅사진 · 러닝)은 집 밖 잔디 위로. 이름표는 그림에 있으니 덧씌우지 않음
   paper: {
-    url: housePaperUrl, w: 856, h: 1197, labels: false,
+    url: housePaperUrl, w: 856, h: 1307, labels: false,
     spots: [
       { id: 'book', room: [100, 238, 756, 452], tag: [428, 280, 66], center: true },
       { id: 'craft', room: [108, 462, 418, 637], tag: [0, 0, 0] },
@@ -38,8 +38,8 @@ const HOUSES: Record<'narrow' | 'wide' | 'paper', { url: string; w: number; h: n
       { id: 'lp', room: [428, 647, 748, 822], tag: [0, 0, 0] },
       { id: 'homemeal', room: [108, 832, 418, 997], tag: [0, 0, 0] },
       { id: 'wine', room: [428, 832, 748, 997], tag: [0, 0, 0] },
-      { id: 'camping', room: [88, 1012, 418, 1197], tag: [0, 0, 0] },
-      { id: 'running', room: [428, 1012, 758, 1197], tag: [0, 0, 0] },
+      { id: 'camping', room: [76, 1067, 416, 1269], tag: [0, 0, 0] },
+      { id: 'running', room: [428, 1067, 768, 1263], tag: [0, 0, 0] },
     ],
   },
   // 휴대폰 — 세로 그림 (1089 × 1445)
