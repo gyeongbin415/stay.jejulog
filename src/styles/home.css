@@ -307,7 +307,7 @@
 .find.find--map { background: var(--bg); }
 .tastemap__img { display: block; width: 100%; height: auto; }
 .find--map .find__inner { display: grid; justify-items: center; padding: clamp(40px, 7vh, 80px) 0; }
-.tastemap__head { display: grid; justify-items: center; gap: 16px; text-align: center; margin-bottom: var(--hint-gap); } /* 제목 → 안내 간격 — 메인 세 칸 같은 값 */
+.tastemap__head { display: grid; justify-items: center; gap: 16px; text-align: center; margin-bottom: clamp(14px, 2.4vh, 22px); } /* 제목 → 안내 간격 — 메인 세 칸 같은 값 */
 .tastemap { display: block; width: calc(var(--home-art) * 1.045); border-radius: 18px; transition: transform var(--t-hover) var(--ease); }
 .tastemap { display: grid; justify-items: center; gap: clamp(14px, 2.5vh, 22px); text-decoration: none; }
 .tastemap:hover { transform: translateY(-3px); }

@@ -412,25 +412,20 @@ function TasteMapBanner() {
   return (
     <section id="tastemap" className="find find--map" data-tone="light" aria-labelledby="tastemap-title">
       <div className="find__inner wrap">
-        {/* 제목 — 다른 칸처럼 작은 라벨 + 굵은 제목 (그림 속 글씨는 빼고) */}
+        {/* 작은 라벨만 — 제목은 화면 낭독기용으로만 */}
         <div className="tastemap__head">
           <p className="label">AROUND JEJU</p>
-          <h2 id="tastemap-title" className="section-head__title pre">{ui.map.homeTitle}</h2>
+          <h2 id="tastemap-title" className="visually-hidden">{ui.map.homeTitle}</h2>
         </div>
-        {/* 누를 수 있다는 안내 — 지도 바로 위 */}
-        <p className="tastemap__hint">
-          {/* 청록 동그라미 속 하얀 지도 핀 — 둘레로 물결이 퍼짐 */}
-          <span className="tastemap__pin" aria-hidden="true">
-            <svg viewBox="0 0 24 24" focusable="false">
-              <path d="M12 2.5a7 7 0 0 0-7 7c0 5.2 7 12 7 12s7-6.8 7-12a7 7 0 0 0-7-7Zm0 9.6a2.6 2.6 0 1 1 0-5.2 2.6 2.6 0 0 1 0 5.2Z" />
-            </svg>
-          </span>
-          {ui.map.cta}
-        </p>
         {/* 그림 전체가 눌림 */}
         <a className="tastemap" href={href.map()} data-track="home_taste_map" aria-label={ui.map.open}>
           {/* 접힌 종이 제주 지도 그림 */}
           <img className="tastemap__img" src={tasteMapUrl} alt="" width={1100} height={707} loading="lazy" decoding="async" />
+        </a>
+        {/* 집 · 테스트 칸과 같은 흰 테두리 버튼 — 질문 문구 */}
+        <a className="roomtour__btn find__cta" href={href.map()} data-track="home_taste_map_btn">
+          <span>{ui.map.homeCta}</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6.5 18.5 12 13 17.5" /></svg>
         </a>
       </div>
     </section>

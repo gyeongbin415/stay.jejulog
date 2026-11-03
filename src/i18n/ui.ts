@@ -17,7 +17,7 @@ export interface UiText {
   /** 웹진 안 인스타그램 페이지 */
   /** 취향 지도 — 오른쪽 아래 동그라미 버튼 · 페이지(내용은 준비 중) */
   map: { title: string; open: string; cta: string;
-    pageTitle: string; homeTitle: string; sub: string; all: string; filterAria: string; listAria: string; webzineBadge: string; seeStay: string; kakao: string; insta: string; note: string;
+    pageTitle: string; homeTitle: string; homeCta: string; sub: string; all: string; filterAria: string; listAria: string; webzineBadge: string; seeStay: string; kakao: string; insta: string; note: string;
     search: string; searchAria: string; searchClear: string; noResult: string };
   insta: { title: string; loading: string; posts: string; followers: string; following: string; follow: string; message: string; postsTab: string; gridAria: string; close: string; prev: string; next: string; likes: (n: number) => string; comments: (n: number) => string; seeStay: string; back: string };
   /** 방명록(GUEST NOTE) — 메인 취향 지도와 CHECK OUT 사이 · 질문 3개에 답하는 노트 */
@@ -72,7 +72,7 @@ export const UI: Record<Lang, UiText> = {
     footer: { tagline: '우리가 몰랐던 제주 게스트하우스를 만나는 웹진', desc: '제주에서의 하루를 조금 다르게 보내는 방법.\n당신의 취향에 맞는 게스트하우스를 발견해 보세요.', followUs: 'FOLLOW US', madeBy: 'MADE BY' },
     app: { loadingStay: '게스트하우스를 불러오는 중…', loadingTest: '테스트를 준비하는 중…', notFound: '찾으시는 페이지가 없습니다.', toHome: '메인으로' },
     map: { title: '취향 지도', open: '취향 지도 열기', cta: '지도를 눌러 둘러보세요',
-      pageTitle: '제주 게하 취향지도', homeTitle: '제주 곳곳의 게스트하우스를\n지도에서 만나보세요.', sub: '프로그램이 있는 제주 게스트하우스를 취향별로 골라 보세요.',
+      pageTitle: '제주 게하 취향지도', homeCta: '제주 어디에 머물러 볼까요?', homeTitle: '제주 곳곳의 게스트하우스를\n지도에서 만나보세요.', sub: '프로그램이 있는 제주 게스트하우스를 취향별로 골라 보세요.',
       all: '전체', filterAria: '취향 고르기', listAria: '게스트하우스 목록', webzineBadge: '웹진 소개', seeStay: '웹진에서 자세히 보기', kakao: '카카오맵', insta: '인스타그램',
       note: '위치는 카카오맵 장소 정보 기준이에요. 프로그램과 운영 여부는 방문 전에 숙소에 한 번 더 확인해 주세요.',
       search: '예: 제주시 한림읍', searchAria: '지역이나 게스트하우스 이름으로 찾기', searchClear: '검색어 지우기', noResult: '찾는 곳이 없어요. 다른 지역이나 이름으로 찾아보세요.' },
@@ -156,7 +156,7 @@ export const UI: Record<Lang, UiText> = {
     footer: { tagline: 'A webzine for meeting the Jeju guesthouses we never knew', desc: 'A slightly different way to spend a day in Jeju.\nDiscover the guesthouse that fits your taste.', followUs: 'FOLLOW US', madeBy: 'MADE BY' },
     app: { loadingStay: 'Loading the guesthouse…', loadingTest: 'Preparing the test…', notFound: 'We couldn’t find that page.', toHome: 'Back to home' },
     map: { title: 'Taste Map', open: 'Open the taste map', cta: 'Tap the map to look around',
-      pageTitle: 'Jeju Guesthouse Taste Map', homeTitle: 'Meet guesthouses all over Jeju\non the map.', sub: 'Pick a Jeju guesthouse with programs by your taste.',
+      pageTitle: 'Jeju Guesthouse Taste Map', homeCta: 'Where in Jeju shall we stay?', homeTitle: 'Meet guesthouses all over Jeju\non the map.', sub: 'Pick a Jeju guesthouse with programs by your taste.',
       all: 'All', filterAria: 'Choose a taste', listAria: 'Guesthouse list', webzineBadge: 'In the webzine', seeStay: 'Read more in the webzine', kakao: 'Kakao Map', insta: 'Instagram',
       note: 'Locations follow Kakao Map place data. Please check programs and opening with each stay before you visit. Descriptions of places outside the webzine are in Korean.',
       search: 'e.g. 제주시 한림읍', searchAria: 'Search by area or guesthouse name', searchClear: 'Clear search', noResult: 'No places found. Try another area or name.' },
@@ -240,7 +240,7 @@ export const UI: Record<Lang, UiText> = {
     footer: { tagline: '遇见我们不曾了解的济州民宿的杂志', desc: '在济州度过与众不同一天的方法。\n发现适合你喜好的民宿吧。', followUs: 'FOLLOW US', madeBy: 'MADE BY' },
     app: { loadingStay: '正在加载民宿…', loadingTest: '正在准备测试…', notFound: '找不到您要的页面。', toHome: '返回首页' },
     map: { title: '喜好地图', open: '打开喜好地图', cta: '点击地图四处看看',
-      pageTitle: '济州民宿喜好地图', homeTitle: '在地图上\n遇见济州各地的民宿吧。', sub: '按喜好挑选有活动的济州民宿吧。',
+      pageTitle: '济州民宿喜好地图', homeCta: '要住在济州的哪里呢？', homeTitle: '在地图上\n遇见济州各地的民宿吧。', sub: '按喜好挑选有活动的济州民宿吧。',
       all: '全部', filterAria: '选择喜好', listAria: '民宿列表', webzineBadge: '杂志介绍', seeStay: '在杂志中查看详情', kakao: 'Kakao 地图', insta: 'Instagram',
       note: '位置依据 Kakao 地图的地点信息。出发前请再向民宿确认活动与营业情况。杂志外民宿的介绍为韩文。',
       search: '例：제주시 한림읍', searchAria: '按地区或民宿名称搜索', searchClear: '清除搜索', noResult: '没有找到相关地点，请换个地区或名称试试。' },
