@@ -79,9 +79,9 @@
 .gwrite__name input { min-width: 0; padding: 10px 2px; border: 0; border-bottom: 1px solid var(--line-strong); outline: none; font: inherit; font-weight: 400; background: transparent; }
 .gwrite__name input:focus { border-color: var(--ink); }
 
-/* 질문 목록(처음으로) · 다 적었어요 — 같은 주황 버튼 둘이 양옆 빈 곳 없이 반씩 */
-.gwrite__nav { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 22px; }
-.gwrite__nav .gwrite__submit { width: 100%; min-width: 0; }
+/* 질문 목록(처음으로) · 다 적었어요 — 같은 주황 버튼, 글씨에 맞는 너비(양옆 빈 곳 짧게)로 양끝에 */
+.gwrite__nav { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-top: 22px; }
+.gwrite__nav .gwrite__submit { min-width: 0; padding: 12px 24px; font-size: 15px; }
 .gwrite__step:disabled { visibility: hidden; }
 .gwrite__submit { min-width: 150px; }
 .gwrite__error { margin-top: 12px; text-align: right; font-size: 14px; color: var(--orange-ink); }
