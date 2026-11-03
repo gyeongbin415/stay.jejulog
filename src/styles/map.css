@@ -74,3 +74,5 @@
 .tmap-pop .tmap-pop__links a:hover { background: #B9561A; color: #fff; }
 .tmap-pop .tmap-pop__links a:active { transform: translateY(1px); }
 .leaflet-container { font-family: var(--f-home); }
+/* 휴대폰 — 지도 오른쪽 아래 출처 글씨(국기 · Leaflet · OpenStreetMap) 숨김 */
+@media (max-width: 899px) { .leaflet-control-attribution { display: none; } }
