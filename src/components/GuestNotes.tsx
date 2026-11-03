@@ -61,7 +61,13 @@ export function GuestNotes({ page = false }: { page?: boolean }) {
         <p className="label">GUEST NOTE</p>
         <h2 id="guest-title" className="visually-hidden">{t.title}</h2>
         {/* 메인에서는 표지를 펼치면 방명록 페이지로, 방명록 페이지에서는 쓰기 창 */}
-        <NoteCover key={coverKey} onOpen={() => (page ? setOpen(true) : window.location.assign(absUrl(href.guest())))} />
+        <NoteCover key={coverKey} hint={page} onOpen={() => (page ? setOpen(true) : window.location.assign(absUrl(href.guest())))} />
+        {/* 메인 — 표지 밑 안내 대신 방명록 페이지로 가는 버튼 */}
+        {!page && (
+          <a className="btn gnote__cta" href={href.guest()} data-track="guest_cta">
+            {t.open} <span className="arrow" aria-hidden="true">→</span>
+          </a>
+        )}
         <p className="gnote__entry-count">{count > 0 ? t.count(count) : t.first}</p>
         {!GUESTBOOK_URL && mine.length > 0 && <p className="gnote__local">{t.localOnly}</p>}
       </div>
@@ -86,7 +92,7 @@ export function GuestNotes({ page = false }: { page?: boolean }) {
 }
 
 /** 공책 표지 — 끌어서 돌려 보거나 눌러서 펼치기 */
-function NoteCover({ onOpen }: { onOpen: () => void }) {
+function NoteCover({ onOpen, hint = true }: { onOpen: () => void; hint?: boolean }) {
   const { ui } = useContent();
   const t = ui.guest;
   const reduced = useReducedMotion();
@@ -139,7 +145,7 @@ function NoteCover({ onOpen }: { onOpen: () => void }) {
           <span className="gcover__mark">STAY JEJULOG</span>
         </span>
       </button>
-      <p className="gcover__hint">{t.coverHint}</p>
+      {hint && <p className="gcover__hint">{t.coverHint}</p>}
     </div>
   );
 }
