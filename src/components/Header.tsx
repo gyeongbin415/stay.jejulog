@@ -107,7 +107,8 @@ function LangSwitch() {
 const MENU = [
   // 메인 — 인트로 다음 CHECK IN 화면(사진 띠 · '게스트하우스에서 이런 하루')으로
   { key: 'home', en: 'HOME', to: href.home('checkin') },
-  { key: 'house', en: 'EXPLORE', to: href.house() },
+  // 게하 탐색 — 메인의 집 그림 칸(휴대폰) · 콘텐츠 고르기 칸(PC)으로
+  { key: 'house', en: 'EXPLORE', to: href.home('roomtour') },
   // 메뉴는 상세 화면 대신 메인 안의 그 칸으로 — 취향 테스트 안내 · 취향 지도 · 방명록
   { key: 'test', en: 'TEST', to: href.home('find') },
   { key: 'map', en: 'MAP', to: href.home('tastemap') },
