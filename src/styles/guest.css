@@ -4,13 +4,8 @@
 
 /* ── 칸 — 공책 한 장 + 나의 제주 노트 쓰기 ─────────────────────────────── */
 .gnote { padding: clamp(80px, 12vh, 128px) 0 clamp(88px, 13vh, 136px); background: var(--paper); }
-/* 메인에서는 다른 칸과 같은 공통 배경 */
-.gnote:not(.gnote--page) { background: var(--bg); }
-/* 메인 공책 그림 — 받은 그림 그대로, 누르면 방명록 페이지로 */
-.gnote__art { display: block; width: var(--home-art); transition: transform var(--t-hover) var(--ease); }
-.gnote__art img { display: block; width: 100%; height: auto; }
-.gnote__art:hover { transform: translateY(-4px) rotate(-1deg); }
-.gnote__cta { margin-top: clamp(20px, 3vh, 32px); }
+/* 메인에서는 위 지도 칸(하늘색) 위로 둥근 판처럼 올라와 겹침 — 양쪽 위 모서리 둥글게 */
+.gnote:not(.gnote--page) { --rise: clamp(32px, 5vw, 64px); position: relative; z-index: 1; margin-top: calc(-1 * var(--rise)); border-radius: var(--rise) var(--rise) 0 0; box-shadow: 0 -6px 18px rgba(58, 55, 53, .06); }
 .gnote__inner { display: grid; justify-items: center; gap: 18px; text-align: center; }
 .gnote__local { max-width: 26em; font-size: 12.5px; line-height: 1.6; color: var(--ink-soft); }
 
@@ -170,7 +165,4 @@
 .gwrite__send .gwrite__submit { justify-self: end; }
 
 /* 따로 된 방명록 페이지 — 상단 바 아래부터, 한 화면 높이 */
-/* 방명록 페이지 — 표지 없이 쓰기 화면을 페이지 안에 바로 (상단 바 아래부터) */
-.gnote--page { min-height: 100vh; min-height: 100svh; padding: 0; background: var(--paper); }
-.gwrite--inline { position: relative; inset: auto; z-index: auto; min-height: 100vh; min-height: 100svh; padding-top: var(--header); overflow: visible; animation: none; }
-.gwrite--inline .gwrite__top { top: var(--header); }
+.gnote--page { min-height: 100vh; min-height: 100svh; padding-top: calc(var(--header) + clamp(40px, 8vh, 80px)); }

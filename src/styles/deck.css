@@ -3,9 +3,18 @@
 ================================================================== */
 
 /* 칸마다 화면 높이 한 장 (메인의 각 칸) */
-html.has-fullpage :is(#roomtour, #find, #guest, #checkout) { min-height: 100vh; min-height: 100svh; }
-/* 테스트 · 지도 · 방명록 칸 — 한 화면에 그 칸만, 내용은 화면 가운데에 */
-html.has-fullpage :is(#find, #tastemap, #guest) { display: flex; flex-direction: column; justify-content: center; min-height: 100vh; min-height: 100svh; }
+html.has-fullpage :is(#roomtour, #find, #tastemap, #guest, #checkout) { min-height: 100vh; min-height: 100svh; }
 /* 당겨서 새로고침 · 끝에서 튕기는 동작이 넘김과 겹치지 않게 */
 html.has-fullpage, html.has-fullpage body { overscroll-behavior-y: none; }
 
+/* 오른쪽 점 — 지금 칸만 주황 */
+.deckdots {
+  position: fixed; right: 6px; top: 50%; z-index: 40; translate: 0 -50%;
+  display: grid; gap: 2px;
+}
+.deckdots__dot { display: grid; place-items: center; width: 20px; height: 20px; padding: 0; }
+.deckdots__dot::before {
+  content: ''; width: 6px; height: 6px; border-radius: 3px; background: rgba(104, 106, 100, .38);
+  transition: height .3s var(--ease), background .3s var(--ease);
+}
+.deckdots__dot.is-on::before { height: 16px; background: #EA9861; }

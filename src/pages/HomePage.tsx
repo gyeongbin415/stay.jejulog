@@ -4,8 +4,14 @@ import { useContent } from '../i18n';
 import { href } from '../lib/router';
 import { useMediaQuery, useReducedMotion } from '../lib/motion';
 import { HomeDeck } from '../components/HomeDeck';
-import { HomeFolders, FOLDER_IDS, FOLDER_KEYS } from '../components/HomeFolders';
-import { INSTA_PROFILE } from '../data/insta';
+import { ContentPicker } from '../components/ContentPicker';
+import { GehageScene } from '../components/GehageScene';
+import { TasteMapIsland } from '../components/TasteMapIsland';
+import { BeachDivider } from '../components/BeachDivider';
+import { GrassLedge } from '../components/GrassLedge';
+import { TestShare } from '../components/TestShare';
+import { GuestNotes } from '../components/GuestNotes';
+import houseUrl from '../assets/house-3d.webp';
 import introNightUrl from '../assets/intro-night.webp';
 import checkoutBgUrl from '../assets/checkout-stay.webp';
 import stripLpWall from '../assets/strip/lp-wall.webp';
@@ -39,8 +45,14 @@ export function HomePage() {
   return (
     <>
       <h1 className="visually-hidden">{SITE.brand} {SITE.brandEn} — {ui.home.srTitle}</h1>
-      {/* 인트로 끝 CHECK IN 아래에 폴더 넷(집 · 취향 테스트 · 취향 지도 · 방명록) — 스크롤마다 하나씩 올라옴 */}
       <Intro />
+      {/* 휴대폰은 집 그림 + 버튼(누르면 #/house), PC 는 네 콘텐츠(집 · 테스트 · 지도 · 방명록)를 고르는 그림 — 누르면 커지며 상세로 */}
+      {mobile ? <RoomTour /> : <ContentPicker />}
+      <FindYourStay />
+      <TasteMapBanner />
+      {/* 방명록 — 질문 3개에 답하는 노트 (공책 한 장 → 표지 → 질문 카드)
+          (예전 MORE STORIES 인스타그램 사진 칸은 메인에서 뺌 — 인스타그램 페이지 #/instagram 은 그대로) */}
+      <GuestNotes />
       <CheckOut />
       {/* 인트로보다 뒤에 둬야 손짓 처리도 인트로 다음 차례 (인트로가 단계를 넘긴 손짓은 넘기지 않음) */}
       {mobile && !reduced && <HomeDeck />}
@@ -62,10 +74,6 @@ const REVEAL = SITE_KO.intro.words.length + 3;
  * (예전 '시야가 좁아짐' 단계 total + 1 은 건너뜀)
  */
 const STEPS = [0, ...SITE_KO.intro.words.map((_, i) => i + 1), REVEAL - 1, REVEAL - 1, REVEAL];
-/** CHECK IN 다음 — 폴더 네 개가 하나씩 올라왔다 내려감 (REVEAL + 1 … + 4) */
-const FOLDER_STEPS = [...STEPS, ...FOLDER_KEYS.map((_, i) => REVEAL + 1 + i)];
-/** CHECK IN 이 다 열린 단계 자리 (FOLDER_STEPS 안 순서) */
-const CHECKIN_AT = STEPS.length - 1;
 /** 전환 문구 끝 줄이 나오는 단계 (STEPS 의 두 번째 REVEAL - 1) */
 const TURN_END = STEPS.length - 2;
 /** 단계 하나에 내리는 거리 — 화면 높이의 0.6배 (인트로 높이 = 한 화면 + 단계 수 × 0.6 화면, home.css) */
@@ -75,9 +83,7 @@ function Intro() {
   const ref = useRef<HTMLElement>(null);
   const reduced = useReducedMotion();
   const total = SITE.intro.words.length;
-  // 동작 줄이기 설정이면 폴더는 고정 없이 아래에 펼침 — 단계는 CHECK IN 까지만
-  const steps = reduced ? STEPS : FOLDER_STEPS;
-  const last = steps.length - 1;
+  const last = STEPS.length - 1;
   // 지금 몇 번째 단계까지 내렸는지 — 스크롤 위치로 정함 (올리면 되돌아감)
   const [k, setK] = useState(0);
 
@@ -108,18 +114,7 @@ function Intro() {
     };
   }, [reduced, last]);
 
-  const step = reduced ? REVEAL : steps[k];
-  /** 올라와 있는 폴더 (없으면 -1) */
-  const open = step > REVEAL ? step - REVEAL - 1 : -1;
-  /** 단계 자리로 바로 옮김 — 폴더 움직임은 폴더가 맡음 (부드럽게 굴리면 사이 폴더가 잠깐씩 올라왔다 내려감)
-   *  폴더를 누르면 그 폴더 단계, X 를 누르면 CHECK IN 단계(폴더가 다 내려감) */
-  const toStep = (at: number) => {
-    const el = ref.current;
-    if (!el) return;
-    const y = el.getBoundingClientRect().top + window.scrollY + at * STEP_VH * window.innerHeight;
-    window.scrollTo({ top: y, behavior: 'instant' as ScrollBehavior });
-  };
-  const pick = (i: number) => toStep(CHECKIN_AT + 1 + i);
+  const step = reduced ? REVEAL : STEPS[k];
   const shown = step;
   const revealed = !reduced && step >= REVEAL;
   const phase = reduced ? 'static'
@@ -195,15 +190,8 @@ function Intro() {
 
   return (
     <section ref={ref} id="intro" className={`intro${reduced ? ' intro--static' : ''}`} style={{ '--steps': last } as CSSProperties} data-turn-end={k >= TURN_END || undefined} data-step={Math.min(shown, total)} data-phase={phase} data-tone={revealed ? 'light' : 'dark'} aria-labelledby="intro-title">
-      {/* 메뉴 '메인'이 오는 자리 — CHECK IN 화면이 다 열린 단계, 그 뒤로 폴더 넷이 하나씩 올라오는 단계 (메뉴 · 뒤로 가기가 찾아옴) */}
-      {!reduced && (
-        <>
-          <span id="checkin" className="intro__anchor" style={{ top: `${CHECKIN_AT * STEP_VH * 100}vh` }} />
-          {FOLDER_IDS.map((id, i) => (
-            <span key={id} id={id} className="intro__anchor" style={{ top: `${(CHECKIN_AT + 1 + i) * STEP_VH * 100}vh` }} />
-          ))}
-        </>
-      )}
+      {/* 메뉴 '메인'이 오는 자리 — 인트로를 끝까지 내린 곳, CHECK IN 화면이 다 열린 상태 */}
+      {!reduced && <span id="checkin" className="intro__anchor" />}
       <div className="intro__stage">
         <NightScene />
 
@@ -233,12 +221,17 @@ function Intro() {
         <div id="problem" className="intro__reveal">
           {/* 동작 줄이기 설정이면 고정 없이 펼쳐지므로 CHECK IN 자리는 여기 */}
           {reduced && <span id="checkin" />}
-          {reduced && <Problem />}
+          <Problem />
+          {/* 아래로 내려 보라는 표시 */}
+          <p className="intro__scroll" aria-hidden="true">
+            <span>SCROLL</span>
+            <b className="intro__chev">
+              <span />
+              <span />
+            </b>
+          </p>
         </div>
-        {/* 서류철 한 권 — 처음 장(CHECK IN) 다음 폴더 넷, 스크롤마다 한 장씩 책처럼 옆으로 넘김 */}
-        {!reduced && <HomeFolders open={open} onPick={pick} cover={<CoverCase />} />}
       </div>
-      {reduced && <HomeFolders open={-1} onPick={() => {}} still />}
     </section>
   );
 }
@@ -258,88 +251,35 @@ function Problem() {
   return (
     <section className="problem" aria-labelledby="problem-title">
       <div className="problem__inner wrap">
-        {/* 서류 집게 — 위를 집게가 물고 있는 클립보드 한 장에 사진 띠 · 제목 · 문장 */}
-        <div className="clipsheet">
-          <span className="clipsheet__clip" aria-hidden="true" />
-          {/* 사진 띠가 맨 위 — 그 아래 제목 · 문장 */}
-          <PhotoStrip />
-          <header className="problem__head">
-            <p className="label">{SITE.problem.label}</p>
-            <h2 id="problem-title" className="problem__title">
-              {SITE.problem.title.map((l) => (
-                <span key={l}>{l}</span>
-              ))}
-            </h2>
-          </header>
-          {SITE.problem.points.length > 0 && (
-            <div className="problem__points">
-              {SITE.problem.points.map((pt) => (
-                <div key={pt.no} className="problem__point">
-                  <p className="problem__key">
-                    <span>{pt.no}</span>
-                    {pt.key}
-                  </p>
-                  <p>{pt.text}</p>
-                </div>
-              ))}
-            </div>
-          )}
-          <div className="problem__answer">
-            <p className="problem__answertext pre">{SITE.problem.answer}</p>
-            {SITE.problem.answerNote && <p className="problem__answernote">{SITE.problem.answerNote}</p>}
+        {/* 사진 띠가 맨 위 — 그 아래 제목 · 문장 */}
+        <PhotoStrip />
+        <header className="problem__head">
+          <p className="label">{SITE.problem.label}</p>
+          <h2 id="problem-title" className="problem__title">
+            {SITE.problem.title.map((l) => (
+              <span key={l}>{l}</span>
+            ))}
+          </h2>
+        </header>
+        {SITE.problem.points.length > 0 && (
+          <div className="problem__points">
+            {SITE.problem.points.map((pt) => (
+              <div key={pt.no} className="problem__point">
+                <p className="problem__key">
+                  <span>{pt.no}</span>
+                  {pt.key}
+                </p>
+                <p>{pt.text}</p>
+              </div>
+            ))}
           </div>
+        )}
+        <div className="problem__answer">
+          <p className="problem__answertext pre">{SITE.problem.answer}</p>
+          {SITE.problem.answerNote && <p className="problem__answernote">{SITE.problem.answerNote}</p>}
         </div>
       </div>
     </section>
-  );
-}
-
-/** 처음 장 집게가 물고 있는 사진 — 이 사진들이 한 장씩 차례로 */
-const CASE_PHOTOS = [stripSeaSit, stripCosmos, stripLpWall, stripSunrise, stripDinner, stripCrater, stripPuppy, stripTea, stripForest, stripPotluck, stripGuitar, stripMallow];
-/** 사진이 바뀌는 간격(ms) */
-const CASE_EVERY = 2800;
-
-/** 집게가 물고 있는 사진 한 장 — 몇 초마다 다음 사진으로 스르르 바뀜 (동작 줄이기 설정이면 첫 사진 그대로) */
-function CasePhoto() {
-  const reduced = useReducedMotion();
-  const [i, setI] = useState(0);
-  useEffect(() => {
-    if (reduced) return;
-    const id = window.setInterval(() => setI((n) => (n + 1) % CASE_PHOTOS.length), CASE_EVERY);
-    return () => window.clearInterval(id);
-  }, [reduced]);
-  return (
-    <span className="ccase__photo" aria-hidden="true">
-      {/* 바뀔 때 새 사진이 위에 스르르 */}
-      <img key={CASE_PHOTOS[i]} src={CASE_PHOTOS[i]} alt="" />
-    </span>
-  );
-}
-
-/** 처음 장 — 뒤에 타자 친 서류, 마닐라 폴더(왼쪽 세로 탭), 앞에 구멍 뚫린 종이를 검은 집게가 사진과 함께 물고 있음 · 큰 제목 · 작은 문장 · 손글씨 메모 */
-function CoverCase() {
-  const { site: SITE } = useContent();
-  return (
-    <div className="ccase">
-      <div className="ccase__doc" aria-hidden="true">
-        <p className="ccase__docno">[ {SITE.brandEn} 0001 ]</p>
-        <p>{SITE.description}</p>
-        <p>{SITE.checkIn.title.join(' ')}</p>
-      </div>
-      <div className="ccase__folder">
-        <span className="ccase__tab" aria-hidden="true">[ {SITE.problem.label} ]</span>
-      </div>
-      <div className="ccase__paper">
-        <span className="ccase__holes" aria-hidden="true" />
-        <CasePhoto />
-        <span className="ccase__clip" aria-hidden="true" />
-        <h2 className="ccase__title">{SITE.problem.title[0]}</h2>
-        <p className="ccase__sub">{SITE.problem.title[1]}</p>
-        <p className="ccase__line pre">{SITE.problem.answer}</p>
-        <p className="ccase__hand" aria-hidden="true">{SITE.problem.label} →</p>
-        <p className="ccase__foot">@{INSTA_PROFILE.handle}</p>
-      </div>
-    </div>
   );
 }
 
@@ -419,7 +359,92 @@ function PhotoStrip() {
   );
 }
 
+/* ── ROOM TOUR — CHECK IN 아래, 집 그림 + 테두리 버튼. 누르면 집 페이지(#/house) ─────────────────────────────── */
+function RoomTour() {
+  const { site: SITE } = useContent();
+  const e = SITE.explore;
+  return (
+    <section id="roomtour" className="roomtour" data-tone="light" aria-labelledby="roomtour-title">
+      <a className="roomtour__link" href={href.house()} data-track="home_roomtour">
+        <img className="roomtour__img" src={houseUrl} alt="" width={1089} height={1445} loading="lazy" decoding="async" />
+        <span className="roomtour__btn">
+          <span id="roomtour-title">{e.title.join(' ')}</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6.5 18.5 12 13 17.5" /></svg>
+        </span>
+      </a>
+    </section>
+  );
+}
+
+/* ── SECTION 03. FIND YOUR STAY — 취향 테스트 안내 ─────────────────────────────── */
+function FindYourStay() {
+  const { site: SITE, ui } = useContent();
+  return (
+    <section id="find" className="find" data-tone="light" aria-labelledby="find-title">
+      {/* 위 집 칸과 이 칸 사이 — 모래 띠 */}
+      <GrassLedge />
+      <div className="find__inner wrap">
+        <div className="find__copy">
+          <p className="label">{SITE.findYourStay.label}</p>
+          <h2 id="find-title" className="section-head__title">
+            {SITE.findYourStay.title.map((l) => (
+              <span key={l}>{l}</span>
+            ))}
+          </h2>
+        </div>
+        {/* 테스트 첫 화면의 소라게 게하게 소개 — 그림 · 이름 · 두 줄 이야기 그대로, 그 밑에 테스트 버튼 */}
+        <div className="find__gehage story">
+          {/* 그림을 누르면 취향 테스트로 */}
+          <a className="find__art" href={href.test()} data-track="find_art" aria-label={ui.nav.test}>
+            <GehageScene bubbleId="find-bubble-fill" />
+          </a>
+          <p className="story__title">{ui.test.storyTitle}</p>
+          <p className="story__body pre">{ui.test.storyBody}</p>
+          <a className="btn" href={href.test()} data-track="find_cta">
+            {SITE.findYourStay.cta} <span className="arrow" aria-hidden="true">→</span>
+          </a>
+          {/* 테스트 공유하기 — 카카오톡 · X · 링크 복사 */}
+          <TestShare />
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ── SECTION 04. CHECK OUT — 마무리: 맺음 문구 · 다시 둘러보기 ─────────────────────────────── */
+/* ── 제주 게하 취향지도 — 테스트 칸과 MORE STORIES 사이, 받은 섬 그림 위로 돋보기가 움직임 · 누르면 취향 지도 페이지 ── */
+function TasteMapBanner() {
+  const { ui } = useContent();
+  return (
+    <section id="tastemap" className="find find--map" data-tone="light" aria-labelledby="tastemap-title">
+      {/* 위 '게하게' 칸 모래사장에서 파도를 지나 바다로 */}
+      <BeachDivider />
+      <div className="find__inner wrap">
+        {/* 제목 — 다른 칸처럼 작은 라벨 + 굵은 제목 (그림 속 글씨는 빼고) */}
+        <div className="tastemap__head">
+          <p className="label">AROUND JEJU</p>
+          <h2 id="tastemap-title" className="section-head__title pre">{ui.map.homeTitle}</h2>
+        </div>
+        {/* 누를 수 있다는 안내 — 지도 바로 위 */}
+        <p className="tastemap__hint">
+          {/* 청록 동그라미 속 하얀 지도 핀 — 둘레로 물결이 퍼짐 */}
+          <span className="tastemap__pin" aria-hidden="true">
+            <svg viewBox="0 0 24 24" focusable="false">
+              <path d="M12 2.5a7 7 0 0 0-7 7c0 5.2 7 12 7 12s7-6.8 7-12a7 7 0 0 0-7-7Zm0 9.6a2.6 2.6 0 1 1 0-5.2 2.6 2.6 0 0 1 0 5.2Z" />
+            </svg>
+          </span>
+          {ui.map.cta}
+        </p>
+        {/* 그림 전체가 눌림 */}
+        <a className="tastemap" href={href.map()} data-track="home_taste_map" aria-label={ui.map.open}>
+          {/* 섬 위를 돋보기가 집집마다 찾아다니는 움직이는 그림 */}
+          <TasteMapIsland />
+        </a>
+      </div>
+    </section>
+  );
+}
+
 function CheckOut() {
   const { site: SITE } = useContent();
   const c = SITE.checkOut;

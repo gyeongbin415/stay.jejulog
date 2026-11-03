@@ -41,7 +41,7 @@ export function MapFab({ showMap = true, showInsta = true, showHouse = false, sh
   }, [home]);
   if (!showMap && !showInsta && !showHouse && !showTest) return null;
   return (
-    <div className={`fabs${home ? ' fabs--home' : ''}${introDone ? '' : ' is-hidden'}`} aria-hidden={introDone ? undefined : true}>
+    <div className={`fabs${introDone ? '' : ' is-hidden'}`} aria-hidden={introDone ? undefined : true}>
       {showMap && (
         <a className="mapfab" href={href.map()} aria-label={ui.map.open} title={ui.map.title} data-track="map_fab">
           <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
