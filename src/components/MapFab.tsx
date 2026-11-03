@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useContent } from '../i18n';
 import { href } from '../lib/router';
+import gumballUrl from '../assets/test-gumball.png';
 
 /**
  * 오른쪽 아래에 떠 있는 동그라미 버튼 — 위: 취향 지도(#/map) · 아래: 웹진 인스타그램 페이지(#/instagram)
@@ -60,12 +61,9 @@ export function MapFab({ showMap = true, showInsta = true, showHouse = false, sh
         </a>
       )}
       {showTest && (
-        <a className="mapfab mapfab--accent" href={href.test()} aria-label={ui.nav.test} title={ui.nav.test} data-track="test_fab">
-          {/* 체크 목록 — 취향 테스트 */}
-          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-            <rect x="4" y="3.5" width="16" height="17" rx="3" />
-            <path d="m7.5 9 1.6 1.6L12 7.7M7.5 15.2l1.6 1.6 2.9-2.9M14.5 9.3h3M14.5 15.5h3" />
-          </svg>
+        <a className="mapfab mapfab--test" href={href.test()} aria-label={ui.nav.test} title={ui.nav.test} data-track="test_fab">
+          {/* 뽑기 기계 — 메인 취향 테스트 칸과 같은 그림, 가끔 달그락 흔들림 */}
+          <img src={gumballUrl} alt="" width={615} height={1086} draggable={false} />
         </a>
       )}
       {showInsta && (
