@@ -6,8 +6,8 @@ import tasteMapUrl from '../assets/taste-map-paper.png';
 import noteUrl from '../assets/guest-note.png';
 
 /* ------------------------------------------------------------------
-   메인 폴더 — 탭 달린 폴더 넷을 화면 아래쪽에 한 묶음으로, 우리 사진들이 폴더 안에서 위로 삐져나와 흩어져 있고
-   맨 앞면에 CHECK IN 글 (photos · cover — HomePage 에서 넘김)
+   메인 폴더 — 탭 달린 폴더 넷을 한 묶음으로, 맨 앞 폴더 위에 종이 한 장(CHECK IN) · 집게로 물린 사진 둘 · 메모 라벨
+   (cover — HomePage 에서 넘김)
    · 스크롤을 한 번 내릴 때마다 폴더 하나가 올라와 화면을 채우고, 다음에 내리면 내려가며 다음 폴더가 올라옴
      (단계는 인트로가 맡음 — HomePage Intro 의 STEPS 끝에 폴더 넷)
    · 탭을 누르면 그 폴더로, 올라온 폴더의 X 를 누르면 내림. 폴더 안 그림 · 버튼을 누르면 상세페이지로
@@ -24,8 +24,8 @@ const Arrow = () => (
   </svg>
 );
 
-/** open — 올라온 폴더(0 · 1 · 2 · 3, 없으면 -1) · onPick — 폴더를 눌렀을 때 · onClose — 올라온 폴더의 X · photos — 폴더 뒤로 삐져나온 사진 · cover — 맨 앞면 글 */
-export function HomeFolders({ open, onPick, onClose = () => {}, still = false, photos, cover }: { open: number; onPick: (i: number) => void; onClose?: () => void; still?: boolean; photos?: ReactNode; cover?: ReactNode }) {
+/** open — 올라온 폴더(0 · 1 · 2 · 3, 없으면 -1) · onPick — 폴더를 눌렀을 때 · onClose — 올라온 폴더의 X · cover — 맨 앞 폴더 위 표지 */
+export function HomeFolders({ open, onPick, onClose = () => {}, still = false, cover }: { open: number; onPick: (i: number) => void; onClose?: () => void; still?: boolean; cover?: ReactNode }) {
   const { site: SITE, ui } = useContent();
 
   const bodies: { label: string; en: string; body: ReactNode }[] = [
@@ -99,8 +99,6 @@ export function HomeFolders({ open, onPick, onClose = () => {}, still = false, p
 
   return (
     <div className={`folders${still ? ' folders--still' : ''}`} data-open={open}>
-      {/* 폴더 뒤 — 위로 삐져나와 흩어진 사진 */}
-      {photos && <div className="folders__photos" aria-hidden="true">{photos}</div>}
       {bodies.map((b, i) => (
         <section
           key={FOLDER_KEYS[i]}
@@ -137,7 +135,7 @@ export function HomeFolders({ open, onPick, onClose = () => {}, still = false, p
           </div>
         </section>
       ))}
-      {/* 맨 앞면 — 폴더 파일 위에 적은 글 (올라온 폴더가 덮음) */}
+      {/* 맨 앞 폴더 위 표지 — 종이 · 집게 사진 · 라벨 (올라온 폴더가 덮음) */}
       {cover && (
         <div className="folders__cover" inert={open >= 0 ? true : undefined}>
           {cover}

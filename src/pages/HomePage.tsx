@@ -234,8 +234,8 @@ function Intro() {
           {reduced && <span id="checkin" />}
           {reduced && <Problem />}
         </div>
-        {/* 탭 달린 폴더 넷 한 묶음 — 사진이 폴더에서 삐져나와 흩어지고 맨 앞면에 CHECK IN 글, 스크롤마다 폴더 하나씩 올라옴 */}
-        {!reduced && <HomeFolders open={open} onPick={pick} onClose={() => toStep(CHECKIN_AT)} photos={<CoverPhotos />} cover={<CoverText />} />}
+        {/* 탭 달린 폴더 넷 한 묶음 — 맨 앞 폴더 위에 종이 한 장(CHECK IN) · 집게로 물린 사진 둘(계속 바뀜) · 메모 라벨, 스크롤마다 폴더 하나씩 올라옴 */}
+        {!reduced && <HomeFolders open={open} onPick={pick} onClose={() => toStep(CHECKIN_AT)} cover={<CoverScrap />} />}
       </div>
       {reduced && <HomeFolders open={-1} onPick={() => {}} still />}
     </section>
@@ -293,52 +293,62 @@ function Problem() {
   );
 }
 
-/**
- * 폴더에서 쏟아져 나온 사진 — 줄 맞추지 않고 제멋대로: 세로 · 가로 · 정사각이 섞이고, 크기 · 기울기 · 겹친 순서도 제각각
- * l · b · w — 왼쪽 위치 · 아래 높이 · 폭(%), r — 기울기, a — 비율, x — 튀어나올 때 옆으로 쏠리는 정도(%), d — 나오는 때(초)
- */
-const COVER_PHOTOS: { src: string; l: number; b: number; w: number; r: number; a: string; x: number; d: number }[] = [
-  { src: stripCosmos, l: 14, b: 44, w: 24, r: -16, a: '3 / 4', x: -30, d: 0.35 },
-  { src: stripTea, l: 62, b: 47, w: 22, r: 19, a: '1', x: 40, d: 0.6 },
-  { src: stripForest, l: -4, b: 24, w: 30, r: -7, a: '4 / 3', x: -50, d: 0.15 },
-  { src: stripSunrise, l: 36, b: 36, w: 33, r: 6, a: '4 / 3', x: 10, d: 0.5 },
-  { src: stripGuitar, l: 77, b: 20, w: 25, r: 24, a: '3 / 4', x: 60, d: 0.25 },
-  { src: stripCrater, l: 50, b: 14, w: 26, r: -11, a: '3 / 4', x: 20, d: 0.05 },
-  { src: stripSeaSit, l: 10, b: 6, w: 27, r: 13, a: '3 / 4', x: -20, d: 0.7 },
-  { src: stripPotluck, l: 66, b: 2, w: 31, r: -5, a: '4 / 3', x: 30, d: 0.45 },
-  { src: stripLpWall, l: 28, b: 18, w: 21, r: -21, a: '1', x: -10, d: 0.2 },
-  { src: stripPuppy, l: 44, b: -2, w: 24, r: 9, a: '1', x: 15, d: 0.8 },
-  { src: stripDinner, l: 22, b: -4, w: 30, r: -3, a: '4 / 3', x: -15, d: 0.4 },
-];
-function CoverPhotos() {
+/** 집게로 물린 사진 두 장 — 각자 이 사진들을 차례로 (서로 엇갈려 바뀜) */
+const CLIP_A = [stripSeaSit, stripCosmos, stripLpWall, stripSunrise, stripPuppy, stripGuitar];
+const CLIP_B = [stripDinner, stripCrater, stripTea, stripForest, stripPotluck, stripMallow];
+/** 사진이 바뀌는 간격(ms) — 두 장은 반 박자 엇갈림 */
+const CLIP_EVERY = 3200;
+
+/** 집게(바인더 클립)에 물린 사진 한 장 — 몇 초마다 다음 사진으로 스르르 바뀜 */
+function ClipPhoto({ list, side, delay }: { list: string[]; side: 'a' | 'b'; delay: number }) {
+  const reduced = useReducedMotion();
+  const [i, setI] = useState(0);
+  useEffect(() => {
+    if (reduced) return;
+    let id = 0;
+    const t = window.setTimeout(() => {
+      setI((n) => (n + 1) % list.length);
+      id = window.setInterval(() => setI((n) => (n + 1) % list.length), CLIP_EVERY);
+    }, CLIP_EVERY + delay);
+    return () => {
+      window.clearTimeout(t);
+      window.clearInterval(id);
+    };
+  }, [reduced, list.length, delay]);
   return (
-    <>
-      {COVER_PHOTOS.map((p) => (
-        <span
-          key={p.src}
-          className="cphoto"
-          style={{ '--l': `${p.l}%`, '--b': `${p.b}%`, '--w': `${p.w}%`, '--r': `${p.r}deg`, '--a': p.a, '--x': `${p.x}%`, '--d': `${p.d}s` } as CSSProperties}
-        >
-          <img src={p.src} alt="" />
-        </span>
-      ))}
-    </>
+    <span className={`ccov__photo ccov__photo--${side}`} aria-hidden="true">
+      <span className="ccov__clip" />
+      <span className="ccov__frame">
+        {/* 바뀔 때 새 사진이 위에 스르르 */}
+        <img key={list[i]} src={list[i]} alt="" />
+      </span>
+    </span>
   );
 }
 
-/** 맨 앞면 글 — CHECK IN · 제목 · 문장 */
-function CoverText() {
+/** 맨 앞 폴더 위 — 종이 한 장(CHECK IN 제목 · 문장) · 집게 사진 둘 · 메모 라벨 둘 */
+function CoverScrap() {
   const { site: SITE } = useContent();
   return (
-    <>
-      <p className="label cover__label">{SITE.problem.label}</p>
-      <h2 className="cover__title">
-        {SITE.problem.title.map((l) => (
-          <span key={l}>{l}</span>
-        ))}
-      </h2>
-      <p className="cover__sub pre">{SITE.problem.answer}</p>
-    </>
+    <div className="ccov">
+      <div className="ccov__paper">
+        <h2 className="ccov__title">
+          {SITE.problem.title.map((l) => (
+            <span key={l}>{l}</span>
+          ))}
+        </h2>
+        <p className="ccov__sub pre">{SITE.problem.answer}</p>
+        <p className="ccov__dots" aria-hidden="true">
+          <i />
+          <i />
+          <i />
+        </p>
+      </div>
+      <ClipPhoto list={CLIP_A} side="a" delay={0} />
+      <ClipPhoto list={CLIP_B} side="b" delay={CLIP_EVERY / 2} />
+      <p className="ccov__tag ccov__tag--a" aria-hidden="true">STAY JEJULOG</p>
+      <p className="ccov__tag ccov__tag--b">{SITE.problem.label}</p>
+    </div>
   );
 }
 
