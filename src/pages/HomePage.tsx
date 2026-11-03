@@ -232,10 +232,10 @@ function Intro() {
         <div id="problem" className="intro__reveal">
           {/* 동작 줄이기 설정이면 고정 없이 펼쳐지므로 CHECK IN 자리는 여기 */}
           {reduced && <span id="checkin" />}
-          <Problem />
+          {reduced && <Problem />}
         </div>
-        {/* CHECK IN 아래 — 탭 달린 폴더 넷 (스크롤마다 하나씩 올라옴) */}
-        {!reduced && <HomeFolders open={open} onPick={pick} onClose={() => toStep(CHECKIN_AT)} />}
+        {/* 탭 달린 폴더 넷 한 묶음 — 사진이 폴더에서 삐져나와 흩어지고 맨 앞면에 CHECK IN 글, 스크롤마다 폴더 하나씩 올라옴 */}
+        {!reduced && <HomeFolders open={open} onPick={pick} onClose={() => toStep(CHECKIN_AT)} photos={<CoverPhotos />} cover={<CoverText />} />}
       </div>
       {reduced && <HomeFolders open={-1} onPick={() => {}} still />}
     </section>
@@ -290,6 +290,42 @@ function Problem() {
         </div>
       </div>
     </section>
+  );
+}
+
+/** 폴더 뒤로 삐져나온 사진 — 왼쪽 위치 · 아래 높이 · 폭(%) · 기울기 (사진 띠와 같은 사진) */
+const COVER_PHOTOS: { src: string; l: number; b: number; w: number; r: number }[] = [
+  { src: stripSeaSit, l: -2, b: 8, w: 44, r: -9 },
+  { src: stripLpWall, l: 22, b: 30, w: 44, r: 4 },
+  { src: stripCrater, l: 56, b: 22, w: 46, r: 7 },
+  { src: stripDinner, l: 30, b: 0, w: 40, r: -3 },
+  { src: stripPuppy, l: 66, b: 0, w: 36, r: -8 },
+];
+function CoverPhotos() {
+  return (
+    <>
+      {COVER_PHOTOS.map((p, k) => (
+        <span key={p.src} className="cphoto" style={{ '--l': `${p.l}%`, '--b': `${p.b}%`, '--w': `${p.w}%`, '--r': `${p.r}deg`, '--k': k } as CSSProperties}>
+          <img src={p.src} alt="" />
+        </span>
+      ))}
+    </>
+  );
+}
+
+/** 맨 앞면 글 — CHECK IN · 제목 · 문장 */
+function CoverText() {
+  const { site: SITE } = useContent();
+  return (
+    <>
+      <p className="label cover__label">{SITE.problem.label}</p>
+      <h2 className="cover__title">
+        {SITE.problem.title.map((l) => (
+          <span key={l}>{l}</span>
+        ))}
+      </h2>
+      <p className="cover__sub pre">{SITE.problem.answer}</p>
+    </>
   );
 }
 
