@@ -374,7 +374,7 @@ function FindYourStay() {
   const { site: SITE, ui } = useContent();
   return (
     <section id="find" className="find" data-tone="light" aria-labelledby="find-title">
-      {/* 위 집 칸 잔디밭과 이 칸 모래 사이 — 두께 있는 잔디 판(디오라마) */}
+      {/* 위 집 칸과 이 칸 사이 — 모래 띠 */}
       <GrassLedge />
       <div className="find__inner wrap">
         <div className="find__copy">
