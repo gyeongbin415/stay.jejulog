@@ -206,17 +206,15 @@
 .find { background: var(--bg); }
 .find__inner { padding: clamp(80px, 12vh, 130px) 0; }
 .find__copy { display: grid; gap: 16px; justify-items: start; }
+/* 메인 테스트 칸 — 제목 · 버튼만 가운데에 (게하게 소개는 테스트 페이지 첫 화면) */
+.find:not(.find--inside):not(.find--map) .find__copy { justify-items: center; text-align: center; }
 .find__copy .btn { margin-top: 12px; }
-/* 테스트 칸 — 왼쪽 글 · 오른쪽 소라게 게하게 소개 (좁은 화면은 글 밑으로) */
-.find:not(.find--inside):not(.find--map) .find__inner { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: clamp(40px, 6vw, 96px); }
-.find__gehage { gap: 10px; margin: 0; padding: 0 clamp(0px, 4vw, 80px) 0 0; }
+.find:not(.find--inside):not(.find--map) .find__inner { display: grid; justify-items: center; }
+/* 게하게 소개 — 테스트 페이지 첫 화면: 소라게 그림 · 이름 · 두 줄 이야기 · 시작 버튼 · 공유하기 */
+.find__gehage { gap: 10px; margin: 0 auto; padding: clamp(24px, 6vh, 64px) 0 clamp(40px, 8vh, 80px); }
 .find__gehage .story__scene { margin-top: 0; }
-/* 그림을 누르면 취향 테스트로 */
-.find__art { display: block; color: inherit; text-decoration: none; }
 /* 입체 소라게 + 말풍선 한 장 (한국어) */
 .find__gehage .story__scene-art { display: block; width: clamp(260px, 30vw, 380px); height: auto; }
-/* 소라게 몸(그림 폭의 35% 지점)이 글 가운데 오도록 오른쪽으로 — 말풍선은 오른쪽으로 비켜 남 */
-.find__gehage .story__scene-art { translate: 15% 0; }
 
 /* ── 움직이는 게하게 — 소라게 · 말풍선 · 느낌표 세 겹(같은 900×616 캔버스라 겹치면 받은 그림 그대로) ── */
 .gehage { position: relative; aspect-ratio: 900 / 616; cursor: pointer; -webkit-tap-highlight-color: transparent; }
@@ -254,7 +252,7 @@
   75% { transform: rotate(2deg); }
 }
 @keyframes gehage-nudge { 0%, 100% { transform: rotate(0); } 30% { transform: rotate(-3deg) translateY(-2%); } 60% { transform: rotate(2deg); } }
-/* 메인 '게하게' 칸 — 소라게는 처음부터 제자리(걸어 들어오지 않음), 스크롤해 오면 말풍선만 톡 나타남 */
+/* 테스트 첫 화면 게하게 — 소라게는 처음부터 제자리(걸어 들어오지 않음), 말풍선만 톡 나타남 */
 .find__gehage .gehage__crab { opacity: 1; translate: 0 0; transition: none; }
 .find__gehage .gehage.is-on:not(.is-poke) .gehage__crab { animation: gehage-idle 2.6s ease-in-out infinite; }
 .find__gehage .gehage.is-on:not(.is-poke) .gehage__bubble { transition-delay: .15s; animation-delay: .9s; }
@@ -281,10 +279,6 @@
 .tshare__btn--link svg { width: 20px; height: 20px; }
 .tshare__status { min-height: 1.5em; margin: 0; font-size: 13px; line-height: 1.5; color: var(--ink-soft); text-align: center; }
 .find__gehage .story__body { font-size: clamp(15px, 1.4vw, 17px); line-height: 1.75; }
-@media (max-width: 899px) {
-  .find:not(.find--inside):not(.find--map) .find__inner { grid-template-columns: 1fr; }
-  .find__gehage { padding: 0; }
-}
 /* 방 내부 둘러보기 — 테스트 칸 바로 밑, 같은 배경에 가는 선으로 칸 나눔 */
 /* MORE STORIES 칸은 메인 바탕색 — 위 하늘색 칸과 색이 갈리니 구분선은 뺌 */
 /* MORE STORIES — 위 바다 칸 위로 살짝 올라탄 둥근 카드 */
