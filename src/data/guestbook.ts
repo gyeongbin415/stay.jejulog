@@ -5,7 +5,7 @@
 ------------------------------------------------------------------- */
 
 /** Apps Script 웹 앱 주소 (…/exec) */
-export const GUESTBOOK_URL = '';
+export const GUESTBOOK_URL = 'https://script.google.com/macros/s/AKfycbxmU6Q-VC66VMrLKUTzEi04CVOt3CF0YpkpP23y--_yZYK8juTSlpusOzkVot0uq50/exec';
 
 /** 답 한 칸 · 자유 노트 · 이름 최대 글자 수 (Code.gs 와 같게) */
 export const MAX_ANSWER = 80;
