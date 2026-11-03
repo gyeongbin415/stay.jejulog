@@ -293,28 +293,32 @@ function Problem() {
   );
 }
 
-/** 폴더 뒤로 삐져나온 사진 — 왼쪽 위치 · 아래 높이 · 폭(%) · 기울기 (사진 띠와 같은 사진) */
-const COVER_PHOTOS: { src: string; l: number; b: number; w: number; r: number }[] = [
-  // 뒷줄 — 가장 높이 솟음
-  { src: stripForest, l: 0, b: 30, w: 26, r: -12 },
-  { src: stripCosmos, l: 18, b: 40, w: 26, r: -5 },
-  { src: stripSunrise, l: 40, b: 44, w: 26, r: 2 },
-  { src: stripTea, l: 60, b: 38, w: 26, r: 8 },
-  { src: stripGuitar, l: 76, b: 28, w: 24, r: 13 },
-  // 가운데 줄
-  { src: stripSeaSit, l: 6, b: 12, w: 28, r: -8 },
-  { src: stripLpWall, l: 28, b: 20, w: 28, r: -2 },
-  { src: stripCrater, l: 52, b: 18, w: 29, r: 5 },
-  { src: stripPotluck, l: 70, b: 8, w: 27, r: 10 },
-  // 앞줄 — 폴더 입구에 걸침
-  { src: stripDinner, l: 22, b: 0, w: 27, r: -4 },
-  { src: stripPuppy, l: 48, b: 0, w: 26, r: 3 },
+/**
+ * 폴더에서 쏟아져 나온 사진 — 줄 맞추지 않고 제멋대로: 세로 · 가로 · 정사각이 섞이고, 크기 · 기울기 · 겹친 순서도 제각각
+ * l · b · w — 왼쪽 위치 · 아래 높이 · 폭(%), r — 기울기, a — 비율, x — 튀어나올 때 옆으로 쏠리는 정도(%), d — 나오는 때(초)
+ */
+const COVER_PHOTOS: { src: string; l: number; b: number; w: number; r: number; a: string; x: number; d: number }[] = [
+  { src: stripCosmos, l: 14, b: 44, w: 24, r: -16, a: '3 / 4', x: -30, d: 0.35 },
+  { src: stripTea, l: 62, b: 47, w: 22, r: 19, a: '1', x: 40, d: 0.6 },
+  { src: stripForest, l: -4, b: 24, w: 30, r: -7, a: '4 / 3', x: -50, d: 0.15 },
+  { src: stripSunrise, l: 36, b: 36, w: 33, r: 6, a: '4 / 3', x: 10, d: 0.5 },
+  { src: stripGuitar, l: 77, b: 20, w: 25, r: 24, a: '3 / 4', x: 60, d: 0.25 },
+  { src: stripCrater, l: 50, b: 14, w: 26, r: -11, a: '3 / 4', x: 20, d: 0.05 },
+  { src: stripSeaSit, l: 10, b: 6, w: 27, r: 13, a: '3 / 4', x: -20, d: 0.7 },
+  { src: stripPotluck, l: 66, b: 2, w: 31, r: -5, a: '4 / 3', x: 30, d: 0.45 },
+  { src: stripLpWall, l: 28, b: 18, w: 21, r: -21, a: '1', x: -10, d: 0.2 },
+  { src: stripPuppy, l: 44, b: -2, w: 24, r: 9, a: '1', x: 15, d: 0.8 },
+  { src: stripDinner, l: 22, b: -4, w: 30, r: -3, a: '4 / 3', x: -15, d: 0.4 },
 ];
 function CoverPhotos() {
   return (
     <>
-      {COVER_PHOTOS.map((p, k) => (
-        <span key={p.src} className="cphoto" style={{ '--l': `${p.l}%`, '--b': `${p.b}%`, '--w': `${p.w}%`, '--r': `${p.r}deg`, '--k': k } as CSSProperties}>
+      {COVER_PHOTOS.map((p) => (
+        <span
+          key={p.src}
+          className="cphoto"
+          style={{ '--l': `${p.l}%`, '--b': `${p.b}%`, '--w': `${p.w}%`, '--r': `${p.r}deg`, '--a': p.a, '--x': `${p.x}%`, '--d': `${p.d}s` } as CSSProperties}
+        >
           <img src={p.src} alt="" />
         </span>
       ))}
