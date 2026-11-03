@@ -8,7 +8,7 @@ import { goBack, href, type Route } from '../lib/router';
  */
 const FALLBACK: Partial<Record<Route['name'], string>> = {
   stay: href.house(),
-  house: href.home('checkin'),
+  house: href.home('roomtour'),
   map: href.home('tastemap'),
   insta: href.home('guest'),
   test: href.home('find'),

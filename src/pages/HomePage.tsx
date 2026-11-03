@@ -9,6 +9,7 @@ import { BeachDivider } from '../components/BeachDivider';
 import { GrassLedge } from '../components/GrassLedge';
 import { TestShare } from '../components/TestShare';
 import { GuestNotes } from '../components/GuestNotes';
+import houseUrl from '../assets/house-3d.webp';
 import introNightUrl from '../assets/intro-night.webp';
 import checkoutBgUrl from '../assets/checkout-stay.webp';
 import stripLpWall from '../assets/strip/lp-wall.webp';
@@ -40,7 +41,8 @@ export function HomePage() {
     <>
       <h1 className="visually-hidden">{SITE.brand} {SITE.brandEn} — {ui.home.srTitle}</h1>
       <Intro />
-      {/* 집 내부(게하 탐색)는 따로 된 페이지 #/house — 상단 '게하 탐색' · 메뉴 · CHECK OUT '다시 둘러보기'로 */}
+      {/* 집 내부(게하 탐색)는 따로 된 페이지 #/house — 메인에는 집 그림 + 버튼만 (ROOM TOUR) */}
+      <RoomTour />
       <FindYourStay />
       <TasteMapBanner />
       {/* 방명록 — 질문 3개에 답하는 노트 (공책 한 장 → 표지 → 질문 카드)
@@ -394,6 +396,23 @@ function PhotoStrip() {
         )}
       </div>
     </div>
+  );
+}
+
+/* ── ROOM TOUR — CHECK IN 아래, 집 그림 + 테두리 버튼. 누르면 집 페이지(#/house) ─────────────────────────────── */
+function RoomTour() {
+  const { site: SITE } = useContent();
+  const e = SITE.explore;
+  return (
+    <section id="roomtour" className="roomtour" data-tone="light" aria-labelledby="roomtour-title">
+      <a className="roomtour__link" href={href.house()} data-track="home_roomtour">
+        <img className="roomtour__img" src={houseUrl} alt="" width={1089} height={1445} loading="lazy" decoding="async" />
+        <span className="roomtour__btn">
+          <span id="roomtour-title">{e.title.join(' ')}</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6.5 18.5 12 13 17.5" /></svg>
+        </span>
+      </a>
+    </section>
   );
 }
 

@@ -440,3 +440,28 @@
 @media (max-width: 639px) {
   .intro__turn { font-size: clamp(19px, 5.9vw, 30px); }
 }
+
+/* ── ROOM TOUR — CHECK IN 아래 집 그림 + 테두리 버튼 (누르면 집 페이지) ─────────────────────────────── */
+.roomtour { display: grid; justify-items: center; padding: clamp(40px, 7vh, 80px) var(--gutter) clamp(64px, 10vh, 112px); text-align: center; }
+.roomtour__link { display: grid; justify-items: center; gap: clamp(22px, 4vh, 34px); text-decoration: none; }
+/* 흰 테두리 사진(폴라로이드)처럼 살짝 기울여 — 둥실 떠 있음 */
+.roomtour__img {
+  box-sizing: content-box; width: min(300px, 62vw); height: auto;
+  padding: 10px 10px 36px; background: #fff; rotate: -3deg;
+  box-shadow: 0 2px 4px rgba(60, 40, 20, .08), 0 18px 34px rgba(80, 52, 30, .18);
+  animation: roomtour-float 4.5s ease-in-out infinite alternate;
+  transition: scale .35s var(--ease);
+}
+.roomtour__link:hover .roomtour__img { scale: 1.03; }
+@keyframes roomtour-float { from { transform: translateY(0) rotate(-1deg); } to { transform: translateY(-10px) rotate(1deg); } }
+.roomtour__btn {
+  display: inline-flex; align-items: center; gap: 12px;
+  padding: 16px 30px; background: #fff; border: 1.5px solid var(--ink); border-radius: 4px; box-shadow: 3px 4px 0 var(--ink);
+  font-family: var(--f-home); font-size: clamp(17px, 2vw, 20px); font-weight: 700; letter-spacing: -0.02em; color: var(--ink);
+  transition: transform .15s var(--ease), box-shadow .15s var(--ease);
+}
+.roomtour__btn svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: translate .2s var(--ease); }
+.roomtour__link:hover .roomtour__btn { transform: translate(-1px, -1px); box-shadow: 4px 5px 0 var(--ink); }
+.roomtour__link:hover .roomtour__btn svg { translate: 4px 0; }
+.roomtour__link:active .roomtour__btn { transform: translate(2px, 3px); box-shadow: 1px 1px 0 var(--ink); }
+@media (prefers-reduced-motion: reduce) { .roomtour__img { animation: none; } }
