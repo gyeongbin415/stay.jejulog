@@ -174,6 +174,21 @@
 .gwrite__send .gwrite__name { border-top: 0; padding-top: 0; }
 .gwrite__send .gwrite__submit { justify-self: end; }
 
+/* 모두의 노트 — 질문 고르기 아래, 줄 노트 종이 카드가 살짝씩 기울어 쌓임 */
+.gboard { margin-top: clamp(44px, 7vh, 64px); padding-top: 28px; border-top: 1.5px dashed rgba(58, 55, 53, .25); }
+.gboard__title { display: flex; align-items: baseline; gap: 8px; font-family: var(--f-home); font-size: clamp(19px, 2.3vw, 24px); font-weight: 700; letter-spacing: -0.02em; }
+.gboard__count { font-size: 14px; font-weight: 700; color: var(--orange); }
+.gboard__local, .gboard__empty { margin-top: 8px; font-size: 13.5px; line-height: 1.6; color: var(--ink-soft); }
+.gboard__list { display: grid; gap: 16px; margin: 18px 0 0; padding: 0; list-style: none; }
+.gboard__note {
+  padding: 18px 18px 14px; rotate: var(--r, 0deg); border-radius: 4px; box-shadow: 0 6px 16px rgba(58, 55, 53, .1);
+  background: repeating-linear-gradient(to bottom, transparent 0 27px, #E4DDCC 27px 28px), #FBF8F1;
+}
+.gboard__note .gwrite__mine { margin: 0; }
+.gboard__by { margin-top: 10px; text-align: right; font-size: 13px; font-weight: 600; color: var(--ink-soft); }
+.gboard__more { display: block; margin: 18px auto 0; }
+@media (min-width: 700px) { .gboard__list { grid-template-columns: 1fr 1fr; } }
+
 /* 따로 된 방명록 페이지 — 상단 바 아래부터, 한 화면 높이 */
 /* 방명록 페이지 — 표지 없이 쓰기 화면을 페이지 안에 바로 (상단 바 아래부터) */
 .gnote--page { min-height: 100vh; min-height: 100svh; padding: 0; background: var(--paper); }

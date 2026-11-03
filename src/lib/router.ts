@@ -112,13 +112,15 @@ export function useRoute() {
   const [route, setRoute] = useState(() => ({ ...parseHash(), visit: 0 }));
   useEffect(() => {
     // 해시가 바뀔 때 · 앞뒤로 갈 때(popstate) · 넘겨보기가 주소를 바꿨을 때(jl:route) — 같은 주소로 두 번 오면 한 번만
-    // (주소가 바뀌면 popstate · hashchange 가 거의 같이 오므로 0.1초 안에 같은 주소로 다시 오면 무시)
+    // (주소가 바뀌면 popstate · hashchange 가 같이 옴 — 그 사이에 메인이 주소를 #/?to=… → #/ 로 정리해도
+    //  hashchange 는 바뀐 그 주소(newURL)로 비교해 1초 안에 같은 이동이면 한 번만)
     let last = window.location.href;
     let lastAt = 0;
     const on = (e: Event) => {
       const now = performance.now();
-      if (window.location.href === last && (e.type !== 'hashchange' || now - lastAt < 100)) return;
-      last = window.location.href;
+      const url = e instanceof HashChangeEvent ? e.newURL : window.location.href;
+      if (url === last && (e.type !== 'hashchange' || now - lastAt < 1000)) return;
+      last = url;
       lastAt = now;
       if (fixTestUrl()) return;
       movedInApp = true;

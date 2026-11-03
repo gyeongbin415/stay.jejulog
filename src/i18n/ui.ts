@@ -27,7 +27,9 @@ export interface UiText {
     needOne: string; failed: string; doneTitle: string; doneSub: string; doneClose: string; close: string;
     otherBy: (name: string) => string; seeAll: (n: number) => string; hideAll: string; emptyAnswers: string; localOnly: string; cloudAria: string;
     coverHint: string; coverAria: string;
-    pickTitle: string; pickSub: string; pickWrite: string; toList: string; doneAnswer: string };
+    pickTitle: string; pickSub: string; pickWrite: string; toList: string; doneAnswer: string;
+    /** 질문 고르기 아래 — 다른 여행자들이 남긴 노트 */
+    boardTitle: string; boardBy: (name: string) => string; boardMore: string };
   home: { srTitle: string; wordsAria: string; opening: string; findSub: (n: number) => string; typesAria: string;
     /** 메인 사진 띠 — 상세페이지에서 빠진 사진 둘의 대체 텍스트 */
     stripRunAlt: string; stripLoungeAlt: string; stripCampAlt: string; stripMallowAlt: string; stripDomeAlt: string; stripCandleAlt: string; stripLpWallAlt: string; stripLivingAlt: string; stripRingAlt: string; stripPotluckAlt: string; stripCatAlt: string; stripBuckwheatAlt: string; stripTeaAlt: string; stripSeaRunAlt: string; stripGuitarAlt: string; stripWinePourAlt: string; stripRingWorkAlt: string; stripCliffAlt: string; stripCraterAlt: string; stripPuppyAlt: string; stripSeaSitAlt: string; stripForestAlt: string; stripCosmosAlt: string; stripCalendarAlt: string;
@@ -90,6 +92,7 @@ export const UI: Record<Lang, UiText> = {
       localOnly: '지금은 준비 중이라 남긴 노트가 이 화면에만 보여요.', cloudAria: '여행자들이 남긴 노트',
       coverHint: '제주에 어떤 마음을 남겨 볼까요?', coverAria: '나의 제주 노트 표지',
       pickTitle: '어떤 질문에 답해 볼까요?', pickSub: '마음이 가는 질문만 골라 적어 보세요.\n하나만 적어도 괜찮아요.', pickWrite: '적어 보기', toList: '질문 목록', doneAnswer: '다 적었어요',
+      boardTitle: '모두의 노트', boardBy: (name) => `— ${name}`, boardMore: '노트 더 보기',
     },
     home: {
       srTitle: '제주 게스트하우스 공간 탐험 웹진',
@@ -174,6 +177,7 @@ export const UI: Record<Lang, UiText> = {
       localOnly: 'This is still being set up, so your note is only shown on this screen for now.', cloudAria: 'Notes left by travelers',
       coverHint: 'What will you leave in Jeju?', coverAria: 'My Jeju note cover',
       pickTitle: 'Which question would you like to answer?', pickSub: 'Pick only the ones that speak to you.\nOne answer is enough.', pickWrite: 'Write', toList: 'Questions', doneAnswer: 'Done',
+      boardTitle: "Everyone's notes", boardBy: (name) => `— ${name}`, boardMore: 'See more notes',
     },
     home: {
       srTitle: 'A webzine for exploring Jeju guesthouses',
@@ -258,6 +262,7 @@ export const UI: Record<Lang, UiText> = {
       localOnly: '目前仍在准备中，你的笔记暂时只显示在这个页面上。', cloudAria: '旅行者们留下的笔记',
       coverHint: '要在济州留下怎样的心意呢？', coverAria: '我的济州笔记封面',
       pickTitle: '想回答哪个问题？', pickSub: '只挑你喜欢的问题来写吧。\n写一个也没关系。', pickWrite: '写一写', toList: '问题列表', doneAnswer: '写好了',
+      boardTitle: '大家的笔记', boardBy: (name) => `— ${name}`, boardMore: '查看更多笔记',
     },
     home: {
       srTitle: '济州民宿空间探索杂志',

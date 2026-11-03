@@ -65,11 +65,8 @@ export function Header({ route }: { route: Route }) {
           {lang !== 'en' && <span className="topbar__ko">{site.brand}</span>}
         </a>
         <nav className="topbar__nav" aria-label={ui.nav.mainNav}>
-          <a className="topbar__link" href={href.house()} data-track="gnb_house" aria-current={route.name === 'house' ? 'page' : undefined}>
-            {ui.nav.house}
-          </a>
-          <a className="topbar__link" href={href.test()} data-track="gnb_test" aria-current={route.name === 'test' ? 'page' : undefined}>
-            {ui.nav.test}
+          <a className="topbar__link" href={href.insta()} data-track="gnb_insta" aria-current={route.name === 'insta' ? 'page' : undefined}>
+            {ui.nav.more}
           </a>
           <LangSwitch />
           <button type="button" className="topbar__menu" aria-expanded={open} aria-controls="site-menu" onClick={() => setOpen(true)} data-track="gnb_menu_open">

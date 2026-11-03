@@ -277,6 +277,8 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
             </div>
           )}
           {error && <p className="gwrite__error" role="alert">{error}</p>}
+          {/* 다른 여행자들이 남긴 노트 — 방명록 페이지에서만 */}
+          {inline && <NoteBoard notes={notes} />}
         </div>
       )}
 
@@ -358,5 +360,47 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
         </div>
       )}
     </div>
+  );
+}
+
+/** 모두의 노트 — 다른 여행자들이 남긴 노트(답한 질문 · 답 · 이름), 처음엔 6장 · '노트 더 보기'로 6장씩 더 */
+function NoteBoard({ notes }: { notes: GuestNote[] }) {
+  const { ui } = useContent();
+  const t = ui.guest;
+  const [shown, setShown] = useState(6);
+  return (
+    <section className="gboard" aria-label={t.cloudAria}>
+      <h3 className="gboard__title">
+        {t.boardTitle}
+        {notes.length > 0 && <span className="gboard__count">{notes.length.toLocaleString()}</span>}
+      </h3>
+      {!GUESTBOOK_URL && notes.length > 0 && <p className="gboard__local">{t.localOnly}</p>}
+      {notes.length === 0 ? (
+        <p className="gboard__empty">{t.first}</p>
+      ) : (
+        <ul className="gboard__list">
+          {notes.slice(0, shown).map((n, k) => (
+            <li key={`${n.t ?? ''}-${k}`} className="gboard__note" style={{ '--r': `${((k % 3) - 1) * 0.8}deg` } as CSSProperties}>
+              <ul className="gwrite__mine">
+                {n.a.map((a, i) =>
+                  a.trim() && t.questions[i] ? (
+                    <li key={i}>
+                      <small>{t.questions[i]}</small>
+                      <span>{a.trim()}</span>
+                    </li>
+                  ) : null,
+                )}
+              </ul>
+              <p className="gboard__by">{t.boardBy(n.name?.trim() || t.anon)}</p>
+            </li>
+          ))}
+        </ul>
+      )}
+      {notes.length > shown && (
+        <button type="button" className="gwrite__step gboard__more" onClick={() => setShown((v) => v + 6)} data-track="guest_board_more">
+          {t.boardMore}
+        </button>
+      )}
+    </section>
   );
 }
