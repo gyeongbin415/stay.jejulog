@@ -244,7 +244,8 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
   return (
     <div className={`gwrite gwrite--${phase}${inline ? ' gwrite--inline' : ''}`} role={inline ? undefined : 'dialog'} aria-modal={inline ? undefined : true} aria-label={t.open} ref={ref} tabIndex={-1}>
       <header className="gwrite__top">
-        <p className="gwrite__brand">GUEST NOTE</p>
+        {/* 답 쓰는 카드에서는 빼고 카드만 크게 */}
+        {phase !== 'write' && <p className="gwrite__brand">GUEST NOTE</p>}
         {!inline && (
           <button type="button" className="gwrite__close" onClick={onClose} data-track="guest_close">
             <span aria-hidden="true">×</span>
@@ -364,7 +365,7 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
                 id="gwrite-answer"
                 ref={areaRef}
                 className="gwrite__a"
-                rows={step === FREE ? 6 : 3}
+                rows={step === FREE ? 6 : 4}
                 maxLength={step === FREE ? MAX_FREE : MAX_ANSWER}
                 placeholder={step === FREE ? t.freePlaceholder : `${t.exampleLabel}${t.examples[step]}`}
                 value={answers[step]}
