@@ -162,39 +162,7 @@ function Intro() {
     : step === total + 1 ? 'iris'
     : step === total + 2 ? 'turn' : 'reveal';
 
-  // 문제 정의(PROBLEM)가 열리기 전까지는 스크롤을 막습니다 — 휠 · 터치 · 키보드만 막고,
-  // 메뉴 · 버튼으로 이동하는 스크롤은 그대로 둡니다 (메뉴 안 스크롤도 그대로)
-  // 혹시 시간이 멈춰도(창이 가려졌다 돌아오는 등) 갇히지 않게 15초 뒤에는 풀어 줍니다
-  const [lockTimedOut, setLockTimedOut] = useState(false);
-  const locked = !reduced && !revealed && !lockTimedOut;
-  useEffect(() => {
-    setLockTimedOut(false);
-    const t = window.setTimeout(() => setLockTimedOut(true), 15000);
-    return () => window.clearTimeout(t);
-  }, [run]);
-  useEffect(() => {
-    if (!locked) return;
-    const KEYS = new Set([' ', 'PageDown', 'PageUp', 'ArrowDown', 'ArrowUp', 'End', 'Home']);
-    const inMenu = (t: EventTarget | null) => t instanceof Element && !!t.closest('.menu');
-    const block = (e: Event) => {
-      if (!inMenu(e.target)) e.preventDefault();
-    };
-    const onKey = (e: KeyboardEvent) => {
-      const t = e.target as HTMLElement | null;
-      if (!KEYS.has(e.key) || inMenu(t) || t?.closest('input, textarea, select, [contenteditable]')) return;
-      // 버튼 위 스페이스는 누르기 동작이라 그대로 둠
-      if (e.key === ' ' && t?.closest('button')) return;
-      e.preventDefault();
-    };
-    window.addEventListener('wheel', block, { passive: false });
-    window.addEventListener('touchmove', block, { passive: false });
-    window.addEventListener('keydown', onKey);
-    return () => {
-      window.removeEventListener('wheel', block);
-      window.removeEventListener('touchmove', block);
-      window.removeEventListener('keydown', onKey);
-    };
-  }, [locked]);
+  // 인트로 동안에도 스크롤은 막지 않습니다 — 먼저 내려가면 바로 문제 정의(CHECK IN) 화면이 열림 (revealByScroll)
 
   // 밝은 문제 정의 화면이 열리면 상단 바 글자색도 다시 맞춥니다.
   useEffect(() => {
