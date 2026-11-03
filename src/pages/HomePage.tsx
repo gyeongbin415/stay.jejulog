@@ -5,6 +5,7 @@ import { href } from '../lib/router';
 import { useMediaQuery, useReducedMotion } from '../lib/motion';
 import { HomeDeck } from '../components/HomeDeck';
 import { HomeFolders, FOLDER_IDS, FOLDER_KEYS } from '../components/HomeFolders';
+import { INSTA_PROFILE } from '../data/insta';
 import introNightUrl from '../assets/intro-night.webp';
 import checkoutBgUrl from '../assets/checkout-stay.webp';
 import stripLpWall from '../assets/strip/lp-wall.webp';
@@ -234,8 +235,8 @@ function Intro() {
           {reduced && <span id="checkin" />}
           {reduced && <Problem />}
         </div>
-        {/* 탭 달린 폴더 넷 한 묶음 — 맨 앞 폴더 위에 종이 한 장(CHECK IN) · 집게로 물린 사진 둘(계속 바뀜) · 메모 라벨, 스크롤마다 폴더 하나씩 올라옴 */}
-        {!reduced && <HomeFolders open={open} onPick={pick} onClose={() => toStep(CHECKIN_AT)} cover={<CoverScrap />} />}
+        {/* 서류철 한 권 — 처음 장(CHECK IN) 다음 폴더 넷, 스크롤마다 한 장씩 책처럼 옆으로 넘김 */}
+        {!reduced && <HomeFolders open={open} onPick={pick} onClose={() => toStep(CHECKIN_AT)} cover={<CoverCase />} />}
       </div>
       {reduced && <HomeFolders open={-1} onPick={() => {}} still />}
     </section>
@@ -293,61 +294,28 @@ function Problem() {
   );
 }
 
-/** 집게로 물린 사진 두 장 — 각자 이 사진들을 차례로 (서로 엇갈려 바뀜) */
-const CLIP_A = [stripSeaSit, stripCosmos, stripLpWall, stripSunrise, stripPuppy, stripGuitar];
-const CLIP_B = [stripDinner, stripCrater, stripTea, stripForest, stripPotluck, stripMallow];
-/** 사진이 바뀌는 간격(ms) — 두 장은 반 박자 엇갈림 */
-const CLIP_EVERY = 3200;
-
-/** 집게(바인더 클립)에 물린 사진 한 장 — 몇 초마다 다음 사진으로 스르르 바뀜 */
-function ClipPhoto({ list, side, delay }: { list: string[]; side: 'a' | 'b'; delay: number }) {
-  const reduced = useReducedMotion();
-  const [i, setI] = useState(0);
-  useEffect(() => {
-    if (reduced) return;
-    let id = 0;
-    const t = window.setTimeout(() => {
-      setI((n) => (n + 1) % list.length);
-      id = window.setInterval(() => setI((n) => (n + 1) % list.length), CLIP_EVERY);
-    }, CLIP_EVERY + delay);
-    return () => {
-      window.clearTimeout(t);
-      window.clearInterval(id);
-    };
-  }, [reduced, list.length, delay]);
-  return (
-    <span className={`ccov__photo ccov__photo--${side}`} aria-hidden="true">
-      <span className="ccov__clip" />
-      <span className="ccov__frame">
-        {/* 바뀔 때 새 사진이 위에 스르르 */}
-        <img key={list[i]} src={list[i]} alt="" />
-      </span>
-    </span>
-  );
-}
-
-/** 맨 앞 폴더 위 — 종이 한 장(CHECK IN 제목 · 문장) · 집게 사진 둘 · 메모 라벨 둘 */
-function CoverScrap() {
+/** 처음 장 — 뒤에 타자 친 서류, 마닐라 폴더(왼쪽 세로 탭), 앞에 구멍 뚫린 종이를 검은 집게가 물고 있음 · 큰 제목 · 작은 문장 · 손글씨 메모 */
+function CoverCase() {
   const { site: SITE } = useContent();
   return (
-    <div className="ccov">
-      <div className="ccov__paper">
-        <h2 className="ccov__title">
-          {SITE.problem.title.map((l) => (
-            <span key={l}>{l}</span>
-          ))}
-        </h2>
-        <p className="ccov__sub pre">{SITE.problem.answer}</p>
-        <p className="ccov__dots" aria-hidden="true">
-          <i />
-          <i />
-          <i />
-        </p>
+    <div className="ccase">
+      <div className="ccase__doc" aria-hidden="true">
+        <p className="ccase__docno">[ {SITE.brandEn} 0001 ]</p>
+        <p>{SITE.description}</p>
+        <p>{SITE.checkIn.title.join(' ')}</p>
       </div>
-      <ClipPhoto list={CLIP_A} side="a" delay={0} />
-      <ClipPhoto list={CLIP_B} side="b" delay={CLIP_EVERY / 2} />
-      <p className="ccov__tag ccov__tag--a" aria-hidden="true">STAY JEJULOG</p>
-      <p className="ccov__tag ccov__tag--b">{SITE.problem.label}</p>
+      <div className="ccase__folder">
+        <span className="ccase__tab" aria-hidden="true">[ {SITE.problem.label} ]</span>
+      </div>
+      <div className="ccase__paper">
+        <span className="ccase__holes" aria-hidden="true" />
+        <span className="ccase__clip" aria-hidden="true" />
+        <h2 className="ccase__title">{SITE.problem.title[0]}</h2>
+        <p className="ccase__sub">{SITE.problem.title[1]}</p>
+        <p className="ccase__line pre">{SITE.problem.answer}</p>
+        <p className="ccase__hand" aria-hidden="true">{SITE.problem.label} →</p>
+        <p className="ccase__foot">@{INSTA_PROFILE.handle}</p>
+      </div>
     </div>
   );
 }

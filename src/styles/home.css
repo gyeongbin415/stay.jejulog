@@ -453,156 +453,129 @@
 @media (prefers-reduced-motion: reduce) { .roomtour__img { animation: none; } }
 
 
-/* ── 메인 폴더 — 탭 달린 폴더 넷을 화면 아래쪽에 한 묶음으로, 사진들이 폴더 안에서 위로 삐져나와 흩어지고 맨 앞면에 CHECK IN 글 · 스크롤마다 폴더 하나씩 올라옴 (components/HomeFolders.tsx) ─────────────────────────────── */
-/* 종이 질감(--paper-tex, base.css) 위에 색은 폴더마다 --fc 그대로 */
+/* ── 메인 폴더 — 서류철 한 권: 처음 장(CHECK IN) 다음 폴더 넷, 스크롤마다 한 장씩 책처럼 옆으로 넘김 (components/HomeFolders.tsx) ─────────────────────────────── */
+/* 종이 질감(--paper-tex, base.css) 위에 폴더 색은 폴더마다 --fc 그대로 */
 .folders {
-  --tab-h: 36px; --step: 12px; --slope: 10px; --edge: 4%; --side: 10px; --bottom: 12px;
-  --stack: calc(var(--header) + 40px); /* 묶음 맨 위(첫 탭)가 오는 높이 — 화면 위에서부터 */
-  --rest: calc(var(--stack) - var(--header) - 8px);
-  position: absolute; inset: 0; z-index: 6; pointer-events: none;
+  --tab-w: 30px; --tab-h: 118px; --tab-gap: 6px; --tab-top: 26px; --side: 10px; --top: calc(var(--header) + 12px); --bottom: 12px;
+  --page-l: max(var(--side), calc((100% - 1040px) / 2));
+  --type: ui-monospace, "SFMono-Regular", Menlo, Consolas, "Courier New", monospace;
+  --hand: "Segoe Print", "Bradley Hand", "Comic Sans MS", cursive;
+  --crease: linear-gradient(to bottom, transparent calc(33% - 1px), rgba(58, 55, 53, .06) 33%, rgba(255, 255, 255, .7) calc(33% + 1px), transparent calc(33% + 2px), transparent calc(66% - 1px), rgba(58, 55, 53, .06) 66%, rgba(255, 255, 255, .7) calc(66% + 1px), transparent calc(66% + 2px)),
+    linear-gradient(to right, transparent calc(50% - 1px), rgba(58, 55, 53, .05) 50%, rgba(255, 255, 255, .6) calc(50% + 1px), transparent calc(50% + 2px));
+  position: absolute; inset: 0; z-index: 6; pointer-events: none; perspective: 2400px;
   opacity: 0; visibility: hidden; transition: opacity .5s var(--ease), visibility 0s linear .5s;
 }
 .intro[data-phase="reveal"] .folders { opacity: 1; visibility: visible; transition: opacity .8s var(--ease) .4s; }
-/* 폴더 한 장 — 쉴 때는 화면 아래쪽에 탭이 나란히, 몸통은 조금씩 어긋나게 포개 둠. 올라오면 상단 바 아래부터 화면 끝까지
-   탭 · 몸통이 한 덩어리로 보이게 그림자는 폴더 전체 모양에 */
-.folder {
-  position: absolute; left: var(--side); right: var(--side); top: calc(var(--header) + 8px);
-  bottom: calc(var(--bottom) + var(--rest) + var(--i) * var(--step)); z-index: calc(2 + var(--i));
-  display: flex; flex-direction: column;
-  filter: drop-shadow(0 -1px 2px rgba(58, 55, 53, .14));
-  transform: translateY(calc(var(--rest) + var(--i) * var(--step)));
-  transition: transform .7s cubic-bezier(.65, 0, .35, 1), bottom .7s cubic-bezier(.65, 0, .35, 1);
+/* 장 한 장 — 처음 장 · 폴더 넷 모두 같은 자리에 겹쳐 둠 (오른쪽은 탭 자리만큼 비움). 앞 장일수록 위
+   넘길 때는 왼쪽 가장자리를 축으로 책장처럼 돌아 사라짐 */
+.folder, .folders__cover {
+  position: absolute; left: var(--page-l); right: calc(var(--page-l) + var(--tab-w)); top: var(--top); bottom: var(--bottom);
+  transform-origin: left center;
+  transition: transform .9s cubic-bezier(.6, .05, .3, 1), opacity .9s cubic-bezier(.6, .05, .3, 1), visibility 0s;
 }
-.folder.is-up { z-index: 20; bottom: var(--bottom); transform: translateY(0); }
+.folders__cover { z-index: 10; pointer-events: auto; }
+.folder { z-index: calc(9 - var(--i)); }
+.folder.is-turned, .folders__cover.is-turned {
+  pointer-events: none; opacity: 0; visibility: hidden; transform: rotateY(-118deg);
+  transition: transform .9s cubic-bezier(.6, .05, .3, 1), opacity .5s ease .35s, visibility 0s linear .9s;
+}
 .folder--house { --fc: #F7D3B2; }
 .folder--test { --fc: #F5E2A0; }
 .folder--map { --fc: #C4E3E6; }
 .folder--guest { --fc: #CFE0B4; }
-/* 탭 — 네 칸 나란히, 양옆이 둥글게 비스듬히 내려와 몸통에 이어지고 옆 탭과 살짝 겹침 (글씨는 안 겹침) */
+/* 폴더 — 색 판 위에 종이 한 장 (위 · 오른쪽으로 폴더가 보임) */
+.folder {
+  background: var(--paper-tex), var(--fc); border-radius: 4px 14px 14px 4px;
+  filter: drop-shadow(0 3px 6px rgba(58, 55, 53, .16));
+}
+/* 오른쪽 옆 세로 탭 — 위에서부터 차례로 어긋나 모두 보임, 드러난 폴더는 밑에 X */
 .folder__tab {
-  pointer-events: auto; position: relative; z-index: 1;
-  display: flex; align-items: center; justify-content: center; flex: none;
-  width: calc((100% - var(--edge) * 2) / 4 - var(--slope) * 2 + 4px); height: var(--tab-h);
-  margin: 0 0 -1px calc(var(--edge) + var(--i) * (100% - var(--edge) * 2) / 4 + var(--slope) - 2px); padding: 0 2px;
-  background: var(--paper-tex), var(--fc); border-radius: 9px 9px 0 0;
-  font-family: var(--f-home); font-size: 12.5px; font-weight: 800; letter-spacing: -0.03em; color: var(--ink); white-space: nowrap;
+  pointer-events: auto; position: absolute; left: calc(100% - 2px); top: calc(var(--tab-top) + var(--i) * (var(--tab-h) + var(--tab-gap)));
+  display: grid; place-items: center; width: calc(var(--tab-w) + 2px); height: var(--tab-h);
+  background: var(--paper-tex), var(--fc); border-radius: 0 9px 9px 0;
 }
-.folder__tab::before, .folder__tab::after {
-  content: ''; position: absolute; z-index: -1; top: 0; bottom: 0; width: calc(var(--slope) * 2);
-  background: var(--paper-tex), var(--fc); transform-origin: bottom;
-}
-.folder__tab::before { left: calc(var(--slope) * -1); border-radius: 12px 0 0 0; transform: skewX(-22deg); }
-.folder__tab::after { right: calc(var(--slope) * -1); border-radius: 0 12px 0 0; transform: skewX(22deg); }
-/* 탭 글씨(누르면 그 폴더로) · 올라온 폴더만 옆에 X(누르면 내림) */
-.folder__pick { flex: 1; display: flex; align-items: center; justify-content: center; gap: 7px; min-width: 0; height: 100%; padding: 0; background: none; border: 0; font: inherit; color: inherit; letter-spacing: inherit; text-align: left; white-space: nowrap; cursor: pointer; }
-.folder__close { flex: none; display: grid; place-items: center; width: 26px; height: 26px; padding: 0; border: 0; border-radius: 50%; background: #fff; color: var(--ink); cursor: pointer; transition: transform var(--t-hover) var(--ease); }
+.folder__pick { padding: 0; background: none; border: 0; writing-mode: vertical-rl; font-family: var(--type); font-size: 11.5px; font-weight: 700; letter-spacing: .04em; color: var(--ink); white-space: nowrap; cursor: pointer; }
+.folder__close { position: absolute; left: 50%; top: calc(100% + 8px); translate: -50% 0; display: grid; place-items: center; width: 26px; height: 26px; padding: 0; border: 0; border-radius: 50%; background: #fff; color: var(--ink); box-shadow: 0 1px 4px rgba(58, 55, 53, .18); cursor: pointer; transition: transform var(--t-hover) var(--ease); }
 .folder__close:hover { transform: scale(1.08); }
 .folder__close svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; }
-/* 올라와도 탭 크기는 그대로 — X 는 탭 바로 오른쪽 바깥에 (맨 오른쪽 방명록 탭은 휴대폰에서 왼쪽에) */
-.folder.is-up .folder__close { position: absolute; left: calc(100% + var(--slope) + 6px); top: 50%; translate: 0 -50%; box-shadow: 0 1px 4px rgba(58, 55, 53, .18); }
-@media (max-width: 899px) { .folder--guest.is-up .folder__close { left: auto; right: calc(100% + var(--slope) + 6px); } }
-.folder__no { display: none; font-size: 10px; font-weight: 700; letter-spacing: .08em; opacity: .55; }
-.folder__en { display: none; margin-left: auto; font-size: 10px; font-weight: 700; letter-spacing: .16em; opacity: .55; }
-/* 몸통 — 위 가장자리에 접힌 듯 옅은 빛 · 그늘, 그림 · 제목 · 버튼은 가운데 */
-.folder__body {
-  pointer-events: auto; flex: 1; display: grid; align-content: center; justify-items: center; gap: clamp(16px, 2.6vh, 24px);
-  padding: 24px var(--gutter) calc(24px + env(safe-area-inset-bottom)); overflow: hidden; text-align: center;
-  background: linear-gradient(rgba(255, 255, 255, .28), rgba(255, 255, 255, 0) 3px, rgba(58, 55, 53, .05) 4px, rgba(58, 55, 53, 0) 14px), var(--paper-tex), var(--fc);
-  border-radius: 10px 10px 14px 14px; color: var(--ink); /* 인트로의 밝은 글자색이 이어지지 않게 */
+/* 종이 — 접힌 자국 세 줄 · 서류철 글 배치 */
+.folder__sheet {
+  pointer-events: auto; position: absolute; left: 0; right: 14px; top: 16px; bottom: 16px;
+  display: grid; align-content: end; gap: clamp(14px, 2.4vh, 24px); padding: 0 clamp(20px, 4vw, 56px) clamp(52px, 8vh, 72px);
+  background: var(--crease), var(--paper-tex), #F4F1EA; border-radius: 2px 6px 6px 2px; color: var(--ink);
+  box-shadow: 0 1px 2px rgba(58, 55, 53, .1), 0 6px 14px rgba(58, 55, 53, .08);
 }
-/* 깔려 있는 폴더는 속 내용을 숨김 (탭 사이로 비치지 않게) — 올라오면 나타남 */
-.folder__body > * { transition: opacity .4s ease .25s; }
-.folders:not(.folders--still) .folder:not(.is-up) .folder__body > * { opacity: 0; transition: opacity .2s ease;
+.case__no { margin: 0; font-family: var(--type); font-size: clamp(17px, 2vw, 24px); font-weight: 600; letter-spacing: .02em; }
+.case__row { display: grid; gap: 6px; }
+.case__k { margin: 0; font-family: var(--type); font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft); }
+.case__v { margin: 0; font-family: var(--f-home); font-size: clamp(17px, 2vw, 24px); font-weight: 700; line-height: 1.45; letter-spacing: -0.02em; }
+.case__v--em { font-size: clamp(14px, 1.5vw, 18px); font-weight: 600; font-style: italic; color: var(--ink-soft); }
+.case__cta { justify-self: start; }
+.case__foot { position: absolute; left: clamp(20px, 4vw, 56px); bottom: 18px; margin: 0; font-size: 12px; font-weight: 600; color: var(--ink-soft); }
+/* 폴라로이드 — 오른쪽 위에 클립으로 끼움 (누르면 상세페이지로) */
+.case__polaroid {
+  position: absolute; top: 18px; right: 16px; width: clamp(130px, 38%, 260px); padding: 8px 8px 0;
+  background: #fff; rotate: 3deg; box-shadow: 0 6px 14px rgba(40, 30, 20, .2); color: var(--ink); text-decoration: none;
 }
-/* 맨 앞 폴더 위 — 종이 한 장(CHECK IN) · 집게(바인더 클립)로 물린 사진 둘(계속 바뀜) · 메모 라벨 둘 (폴더가 올라오면 그 폴더가 덮음) */
-.folders__cover {
-  position: absolute; left: var(--side); right: var(--side); bottom: var(--bottom); z-index: 10;
-  top: calc(var(--stack) + var(--tab-h) + 3 * var(--step));
-  pointer-events: none; color: var(--ink);
+.case__photo { display: grid; place-items: center; aspect-ratio: 1; padding: 8px; background: #F1EDE4; overflow: hidden; }
+.case__photo img { width: 100%; height: 100%; object-fit: contain; }
+.case__caption { display: block; padding: 6px 4px 8px; text-align: right; font-family: var(--hand); font-size: 13px; }
+/* 클립 — 철사 한 가닥을 두 번 구부린 모양 */
+.case__clip { position: absolute; top: -16px; right: 22px; z-index: 1; width: 13px; height: 40px; border: 2px solid #8E959B; border-radius: 8px; rotate: 18deg; }
+.case__clip::after { content: ''; position: absolute; left: 2px; right: 2px; top: 6px; bottom: -2px; border: 2px solid #8E959B; border-top: 0; border-radius: 0 0 6px 6px; }
+/* 처음 장 — 뒤 타자 서류 · 마닐라 폴더(왼쪽 세로 탭) · 구멍 뚫린 종이 · 검은 집게 */
+.ccase { position: absolute; inset: 0; color: var(--ink); /* 인트로의 밝은 글자색이 이어지지 않게 */ }
+.ccase__doc {
+  position: absolute; left: 6%; right: 6%; top: 0; height: 48%; padding: 18px 20px; rotate: -1.5deg;
+  display: grid; align-content: start; gap: 10px;
+  background: var(--paper-tex), #F7F5EF; box-shadow: 0 4px 12px rgba(58, 55, 53, .12);
+  font-family: var(--type); font-size: clamp(10px, 1.1vw, 13px); line-height: 1.6; color: #4A4744;
 }
-.ccov { position: absolute; inset: 0; }
-/* 종이 — 살짝 기울어 폴더 위에 놓임 */
-.ccov__paper {
-  position: absolute; left: 8%; right: 8%; top: 12%; bottom: 13%;
-  display: grid; align-content: center; justify-items: center; gap: clamp(12px, 2vh, 20px); padding: 24px 18px; text-align: center;
-  background: var(--paper-tex), #FFFEFA; border-radius: 3px; rotate: -1deg;
-  box-shadow: 0 1px 2px rgba(58, 55, 53, .1), 0 10px 22px rgba(58, 55, 53, .12);
+.ccase__doc p { margin: 0; }
+.ccase__docno { justify-self: end; font-weight: 700; letter-spacing: .06em; }
+.ccase__folder {
+  position: absolute; left: 22px; right: 0; top: 10%; bottom: 0;
+  background: var(--paper-tex), #E6D3AE; border-radius: 4px 14px 14px 4px; box-shadow: 0 4px 14px rgba(58, 55, 53, .16);
 }
-.ccov__title { margin: 0; font-family: var(--f-home); font-size: clamp(24px, 6.6vw, 46px); font-weight: 700; line-height: 1.28; letter-spacing: -0.03em; }
-.ccov__title span { display: block; }
-.ccov__sub { margin: 0; font-size: clamp(13px, 1.3vw, 16px); font-weight: 500; line-height: 1.65; letter-spacing: .01em; color: var(--ink-soft); }
-.ccov__dots { display: flex; gap: clamp(36px, 8vw, 72px); margin: 4px 0 0; }
-.ccov__dots i { width: 9px; height: 9px; border-radius: 50%; background: var(--ink); }
-/* 집게 사진 — 크림색 테두리 사진 위를 은색 바인더 클립이 물고 있음 */
-.ccov__photo {
-  position: absolute; z-index: 2; width: 44%;
-  filter: drop-shadow(0 8px 14px rgba(40, 30, 20, .22));
+.ccase__tab {
+  position: absolute; right: 100%; top: 26%; display: grid; place-items: center; width: 24px; height: 128px;
+  background: var(--paper-tex), #E6D3AE; border-radius: 9px 0 0 9px;
+  writing-mode: vertical-rl; rotate: 180deg; font-family: var(--type); font-size: 11px; font-weight: 700; letter-spacing: .06em; color: var(--ink);
 }
-.ccov__photo--a { left: -3%; top: 0; rotate: -6deg; }
-.ccov__photo--b { right: -3%; bottom: 5%; rotate: 5deg; }
-.ccov__frame { display: block; aspect-ratio: 4 / 3; padding: 7px; background: var(--paper-tex), #FBF7EC; overflow: hidden; }
-.ccov__frame img { display: block; width: 100%; height: 100%; object-fit: cover; animation: ccov-swap .8s ease both; }
-@keyframes ccov-swap { from { opacity: 0; transform: scale(1.04); } to { opacity: 1; transform: none; } }
-.ccov__clip {
-  position: absolute; left: 50%; top: -9px; z-index: 1; translate: -50% 0;
-  width: 36px; height: 15px; border-radius: 3px 3px 5px 5px;
-  background: linear-gradient(#D9DDE1, #9AA0A6 60%, #7E848A); box-shadow: 0 2px 3px rgba(0, 0, 0, .25);
+.ccase__paper {
+  position: absolute; left: 40px; right: 8px; top: 15%; bottom: 2%;
+  display: grid; align-content: end; gap: clamp(8px, 1.6vh, 14px); padding: 0 clamp(18px, 4vw, 56px) clamp(56px, 9vh, 80px) clamp(40px, 6vw, 80px);
+  background: var(--crease), var(--paper-tex), #F4F1EA; box-shadow: 0 2px 4px rgba(58, 55, 53, .1), 0 10px 22px rgba(58, 55, 53, .12);
 }
-/* 클립 손잡이 — 철사 두 가닥 */
-.ccov__clip::before, .ccov__clip::after {
-  content: ''; position: absolute; bottom: 9px; width: 13px; height: 20px;
-  border: 2px solid #A7ADB3; border-bottom: 0; border-radius: 8px 8px 0 0;
+/* 왼쪽 구멍 줄 — 뒤 폴더 색이 비침 */
+.ccase__holes {
+  position: absolute; left: 0; top: 0; bottom: 0; width: 26px; border-right: 1px solid rgba(58, 55, 53, .08);
+  background: radial-gradient(ellipse 5px 7px at 50% 50%, #D8C29A 98%, transparent) 0 18px / 26px 44px repeat-y, rgba(232, 220, 196, .45);
 }
-.ccov__clip::before { left: 3px; rotate: -8deg; }
-.ccov__clip::after { right: 3px; rotate: 8deg; }
-/* 메모 라벨 — 연노랑 종이를 비뚤게 붙임 */
-.ccov__tag {
-  position: absolute; z-index: 3; margin: 0; padding: 9px 16px;
-  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace; font-size: clamp(12px, 1.4vw, 16px); font-weight: 600; letter-spacing: .06em; color: var(--ink);
-  background: var(--paper-tex), #F1EBC3; box-shadow: 0 3px 8px rgba(58, 55, 53, .16);
+.ccase__clip {
+  position: absolute; top: -14px; left: clamp(40px, 16%, 140px); width: 46px; height: 30px; border-radius: 3px 3px 6px 6px;
+  background: linear-gradient(#2B2B2B, #111); box-shadow: 0 3px 6px rgba(0, 0, 0, .3);
 }
-.ccov__tag--a { right: 5%; top: 6%; rotate: 4deg; }
-.ccov__tag--b { left: 3%; bottom: 2%; rotate: -4deg; }
-/* 화면이 열리면 — 종이 · 사진 · 라벨이 차례로 놓임 */
-.ccov__paper, .ccov__photo, .ccov__tag { opacity: 0; translate: 0 18px; transition: opacity .6s ease, translate .7s cubic-bezier(.3, 1.2, .5, 1); }
-.ccov__photo--a, .ccov__photo--b { translate: 0 18px; }
-.intro[data-phase="reveal"] .ccov__paper { opacity: 1; translate: 0 0; transition-delay: .6s; }
-.intro[data-phase="reveal"] .ccov__photo--a { opacity: 1; translate: 0 0; transition-delay: .9s; }
-.intro[data-phase="reveal"] .ccov__photo--b { opacity: 1; translate: 0 0; transition-delay: 1.05s; }
-.intro[data-phase="reveal"] .ccov__tag { opacity: 1; translate: 0 0; transition-delay: 1.2s; }
-@media (prefers-reduced-motion: reduce) { .ccov__frame img { animation: none; } }
-/* 휴대폰 — 오른쪽 아래 동그라미 버튼에 가리지 않게 아래 사진은 왼쪽, 라벨은 가운데 쪽으로 */
-@media (max-width: 899px) {
-  .ccov__photo--b { right: auto; left: -3%; bottom: 6%; }
-  .ccov__tag--b { left: auto; right: 24%; bottom: 3%; rotate: 3deg; }
-}
-.folder__body .label { margin: 0; }
-.folder__body .section-head__title { margin: 0; }
-.folder__art, .folder__body .gnote__art .folder__art { display: block; width: var(--home-art); height: auto; }
-/* 스티커 — 그림 모양 따라 흰 테두리(사방으로 흰 그림자를 겹쳐 두름) · 살짝 기울이고 아래 옅은 그림자 */
-.folder__art {
-  filter: drop-shadow(4px 0 0 #fff) drop-shadow(-4px 0 0 #fff) drop-shadow(0 4px 0 #fff) drop-shadow(0 -4px 0 #fff) drop-shadow(0 8px 12px rgba(58, 55, 53, .2));
-  rotate: -2.5deg; transition: rotate .35s var(--ease), scale .35s var(--ease);
-}
-.folder--map .folder__art { rotate: 2deg; }
-.folder--guest .folder__art { rotate: -1.5deg; }
-.folder__body a:hover .folder__art { rotate: 0deg; scale: 1.03; }
-.folder__body .tastemap { width: auto; }
-.folder__body .gnote__art { width: auto; }
+.ccase__clip::before, .ccase__clip::after { content: ''; position: absolute; top: 24px; width: 16px; height: 40px; border: 2px solid #3A3A3A; border-top: 0; border-radius: 0 0 9px 9px; }
+.ccase__clip::before { left: 5px; rotate: 10deg; }
+.ccase__clip::after { right: 5px; rotate: -10deg; }
+.ccase__title { margin: 0; font-family: var(--f-home); font-size: clamp(30px, 8.6vw, 72px); font-weight: 800; line-height: 1.1; letter-spacing: -0.045em; word-break: keep-all; }
+.ccase__sub { margin: 0; font-family: var(--f-home); font-size: clamp(20px, 4.6vw, 38px); font-weight: 700; letter-spacing: -0.03em; }
+.ccase__line { margin: 6px 0 0; font-size: clamp(13px, 1.4vw, 16px); font-weight: 600; line-height: 1.6; }
+.ccase__hand { justify-self: end; margin: 4px 0 0; font-family: var(--hand); font-size: clamp(16px, 2vw, 22px); color: #4A4744; rotate: -6deg; }
+.ccase__foot { position: absolute; left: clamp(40px, 6vw, 80px); bottom: 20px; margin: 0; font-size: 12px; font-weight: 600; color: var(--ink-soft); }
+/* 화면이 열리면 — 서류 · 폴더 · 종이가 차례로 놓임 */
+.ccase__doc, .ccase__folder, .ccase__paper { opacity: 0; translate: 0 22px; transition: opacity .6s ease, translate .8s cubic-bezier(.3, 1.2, .5, 1); }
+.intro[data-phase="reveal"] .ccase__doc { opacity: 1; translate: 0 0; transition-delay: .5s; }
+.intro[data-phase="reveal"] .ccase__folder { opacity: 1; translate: 0 0; transition-delay: .7s; }
+.intro[data-phase="reveal"] .ccase__paper { opacity: 1; translate: 0 0; transition-delay: .9s; }
 @media (min-width: 900px) {
-  .folders { --tab-h: 46px; --step: 14px; --slope: 18px; --edge: 6%; --side: 28px; --bottom: 20px; --stack: calc(var(--header) + 32px); }
-  /* 종이 · 사진은 가운데에 모아 너무 커지지 않게 */
-  .ccov { left: 50%; right: auto; width: min(1000px, 100%); translate: -50% 0; }
-  .ccov__paper { left: 20%; right: 20%; }
-  .ccov__photo { width: 25%; }
-  .ccov__photo--a { left: -1%; top: 8%; }
-  .ccov__photo--b { right: -1%; bottom: 10%; }
-  .folder__tab { font-size: 16px; padding: 0 14px; }
-  .folder__pick { justify-content: flex-start; }
-  .folder__no { display: inline; }
-  .folder__en { display: inline; }
+  .folders { --tab-w: 42px; --tab-h: 150px; --tab-gap: 8px; --tab-top: 44px; --side: 28px; --bottom: 20px; }
+  .folder__pick { font-size: 14px; }
+  .folder__sheet { padding-right: calc(260px + 60px); align-content: center; }
+  .case__polaroid { top: 40px; right: 40px; }
 }
 /* 동작 줄이기 — 고정 없이 네 폴더를 차례로 펼침 */
-.folders--still { position: relative; inset: auto; opacity: 1; visibility: visible; }
-.folders--still .folder { position: relative; inset: auto; transform: none; margin-top: -20px; }
-.folders--still .folder__body { padding-block: 56px; }
+.folders--still { position: relative; inset: auto; opacity: 1; visibility: visible; display: grid; gap: 24px; padding: 24px var(--side); }
+.folders--still .folder { position: relative; inset: auto; min-height: 560px; transform: none; }
+.folders--still .folder__tab { display: none; }
