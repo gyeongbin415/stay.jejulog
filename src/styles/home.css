@@ -435,11 +435,9 @@
 
 
 /* ── 메인 폴더 — CHECK IN 아래 탭 달린 폴더 넷, 스크롤마다 하나씩 올라왔다 내려감 (components/HomeFolders.tsx) ─────────────────────────────── */
-/* 종이 질감 — 아주 옅은 잡티 · 결 (색은 폴더마다 --fc 그대로) */
+/* 종이 질감(--paper-tex, base.css) 위에 색은 폴더마다 --fc 그대로 */
 .folders {
   --tab-h: 36px; --step: 14px; --slope: 10px; --edge: 3%; --lift: 28px; /* --lift — 깔려 있을 때 몸통이 보이는 높이 (폴더를 조금 위로) */
-  --paper-tex: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .32 0 0 0 0 .27 0 0 0 0 .2 0 0 0 .13 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.012 .09' numOctaves='2' seed='4'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .16 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E");
   position: absolute; inset: 0; z-index: 6; pointer-events: none; opacity: 0; visibility: hidden; transition: opacity .5s var(--ease), visibility 0s linear .5s;
 }
 .intro[data-phase="reveal"] .folders { opacity: 1; visibility: visible; transition: opacity .8s var(--ease) .9s; }
