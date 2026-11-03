@@ -262,10 +262,9 @@ export default function StayPage({ id }: { id: ProgramId }) {
       {/* 07. NAVIGATION — 예약 링크는 데이터에 있을 때만 */}
       <nav className="stay-nav wrap" data-tone="light" aria-label={t.navAria}>
         {/* 위: 나에게 맞는 게하 찾기 / 아래: 이전 게하 · 집 둘러보기 · 다음 게하 (한 줄) */}
-        {/* 메인 집 · 테스트 칸과 같은 흰 바탕 · 검은 테두리 · 그림자 버튼 — 눈에 띄게 */}
-        <a className="roomtour__btn find__cta stay-nav__test" href={href.test()} data-track={`stay_${id}_to_test`}>
-          <span>{t.toTest}</span>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6.5 18.5 12 13 17.5" /></svg>
+        {/* 테스트 첫 화면 '테스트 시작하기'와 같은 주황 알약 버튼 */}
+        <a className="btn stay-nav__test" href={href.test()} data-track={`stay_${id}_to_test`}>
+          {t.toTest} <span className="arrow" aria-hidden="true">→</span>
         </a>
         <div className="stay-nav__row">
           {/* 글자 없이 ← · 집 · → 아이콘만 (읽어 주는 이름은 그대로) */}
