@@ -163,6 +163,56 @@ function Intro() {
     : step === total + 2 ? 'turn' : 'reveal';
 
   // 인트로 동안에도 스크롤은 막지 않습니다 — 먼저 내려가면 바로 문제 정의(CHECK IN) 화면이 열림 (revealByScroll)
+  // 다만 처음 화면에서 아래로 내리면 한 번에 지나쳐 버리지 않고 CHECK IN 화면(인트로 끝 자리, #checkin)에 먼저 멈춥니다.
+  // 휠 · 터치 · 키보드 모두. 멈춘 뒤 0.9초 동안은 관성으로 이어지는 휠 · 터치를 흘려보내지 않음
+  useEffect(() => {
+    if (reduced) return;
+    let holdUntil = 0;
+    let startY = 0;
+    const holding = () => Date.now() < holdUntil;
+    const inMenu = (t: EventTarget | null) => t instanceof Element && !!t.closest('.menu');
+    // 아직 CHECK IN 자리보다 위면 그 자리로 옮기고 true
+    const snap = () => {
+      const a = document.getElementById('checkin');
+      if (!a) return false;
+      const y = a.getBoundingClientRect().top + window.scrollY;
+      if (window.scrollY >= y - 2) return false;
+      setAuto(REVEAL);
+      window.scrollTo(0, y);
+      holdUntil = Date.now() + 900;
+      return true;
+    };
+    const onWheel = (e: WheelEvent) => {
+      if (inMenu(e.target) || e.ctrlKey) return;
+      if (holding() || (e.deltaY > 0 && snap())) e.preventDefault();
+    };
+    const onTouchStart = (e: TouchEvent) => {
+      startY = e.touches[0]?.clientY ?? 0;
+    };
+    const onTouchMove = (e: TouchEvent) => {
+      if (inMenu(e.target) || e.touches.length > 1) return;
+      const up = startY - (e.touches[0]?.clientY ?? startY); // 손가락을 위로 = 아래로 내림
+      if (holding() || (up > 8 && snap())) e.preventDefault();
+    };
+    const DOWN_KEYS = new Set(['ArrowDown', 'PageDown', ' ', 'End']);
+    const onKey = (e: KeyboardEvent) => {
+      const t = e.target as HTMLElement | null;
+      if (!DOWN_KEYS.has(e.key) || inMenu(t) || t?.closest('input, textarea, select, [contenteditable]')) return;
+      // 버튼 위 스페이스는 누르기 동작이라 그대로 둠
+      if (e.key === ' ' && t?.closest('button')) return;
+      if (snap()) e.preventDefault();
+    };
+    window.addEventListener('wheel', onWheel, { passive: false });
+    window.addEventListener('touchstart', onTouchStart, { passive: true });
+    window.addEventListener('touchmove', onTouchMove, { passive: false });
+    window.addEventListener('keydown', onKey);
+    return () => {
+      window.removeEventListener('wheel', onWheel);
+      window.removeEventListener('touchstart', onTouchStart);
+      window.removeEventListener('touchmove', onTouchMove);
+      window.removeEventListener('keydown', onKey);
+    };
+  }, [reduced]);
 
   // 밝은 문제 정의 화면이 열리면 상단 바 글자색도 다시 맞춥니다.
   useEffect(() => {
