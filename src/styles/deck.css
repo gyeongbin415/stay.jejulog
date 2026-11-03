@@ -6,6 +6,8 @@
 html.has-fullpage :is(#roomtour, #find, #tastemap, #guest, #checkout) { min-height: 100vh; min-height: 100svh; }
 /* 테스트 · 지도 · 방명록 칸 — 내용을 화면 가운데에 */
 html.has-fullpage :is(#find, #tastemap, #guest) { display: flex; flex-direction: column; justify-content: center; }
+/* 테스트 칸 — 버튼이 오른쪽 아래 동그라미 버튼에 닿지 않게 내용을 조금 위로 */
+html.has-fullpage #find .find__inner { padding: 24px 0 140px; }
 /* 당겨서 새로고침 · 끝에서 튕기는 동작이 넘김과 겹치지 않게 */
 html.has-fullpage, html.has-fullpage body { overscroll-behavior-y: none; }
 

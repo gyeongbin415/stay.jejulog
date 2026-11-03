@@ -40,7 +40,7 @@ export const EN: ContentPack = {
     findYourStay: {
       label: 'FIND YOUR STAY',
       title: ['Find the Jeju guesthouse', 'that fits your taste.'],
-      cta: 'Go to the test',
+      cta: 'Which guesthouse suits me?',
       rooms: 'Look inside the rooms',
     },
 

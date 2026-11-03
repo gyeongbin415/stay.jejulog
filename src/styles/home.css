@@ -435,6 +435,11 @@
 .roomtour__link:hover .roomtour__btn { transform: translate(-1px, -1px); box-shadow: 4px 5px 0 var(--ink); }
 .roomtour__link:hover .roomtour__btn svg { translate: 4px 0; }
 .roomtour__link:active .roomtour__btn { transform: translate(2px, 3px); box-shadow: 1px 1px 0 var(--ink); }
+/* 테스트 칸 버튼 — 집 칸 버튼과 같은 모양, 올리면 살짝 떠오름 */
+.find__cta { margin-top: 14px; text-decoration: none; }
+.find__cta:hover { transform: translate(-1px, -1px); box-shadow: 4px 5px 0 var(--ink); }
+.find__cta:hover svg { translate: 4px 0; }
+.find__cta:active { transform: translate(2px, 3px); box-shadow: 1px 1px 0 var(--ink); }
 @media (prefers-reduced-motion: reduce) { .roomtour__img { animation: none; } }
 
 /* ── PC 메인 콘텐츠 고르기 — 집 · 취향 테스트 · 취향 지도 · 방명록 공책 (components/ContentPicker.tsx) ─────────────────────────────── */

@@ -393,8 +393,10 @@ function FindYourStay() {
             ))}
           </h2>
           {/* 소라게 게하게 소개 · 공유하기는 테스트 페이지 첫 화면에 */}
-          <a className="btn" href={href.test()} data-track="find_cta">
-            {SITE.findYourStay.cta} <span className="arrow" aria-hidden="true">→</span>
+          {/* 집 칸과 같은 흰 테두리 버튼 — 질문 문구 */}
+          <a className="roomtour__btn find__cta" href={href.test()} data-track="find_cta">
+            <span>{SITE.findYourStay.cta}</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6.5 18.5 12 13 17.5" /></svg>
           </a>
         </div>
       </div>
