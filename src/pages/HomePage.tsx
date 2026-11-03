@@ -257,32 +257,36 @@ function Problem() {
   return (
     <section className="problem" aria-labelledby="problem-title">
       <div className="problem__inner wrap">
-        {/* 사진 띠가 맨 위 — 그 아래 제목 · 문장 */}
-        <PhotoStrip />
-        <header className="problem__head">
-          <p className="label">{SITE.problem.label}</p>
-          <h2 id="problem-title" className="problem__title">
-            {SITE.problem.title.map((l) => (
-              <span key={l}>{l}</span>
-            ))}
-          </h2>
-        </header>
-        {SITE.problem.points.length > 0 && (
-          <div className="problem__points">
-            {SITE.problem.points.map((pt) => (
-              <div key={pt.no} className="problem__point">
-                <p className="problem__key">
-                  <span>{pt.no}</span>
-                  {pt.key}
-                </p>
-                <p>{pt.text}</p>
-              </div>
-            ))}
+        {/* 서류 집게 — 위를 집게가 물고 있는 클립보드 한 장에 사진 띠 · 제목 · 문장 */}
+        <div className="clipsheet">
+          <span className="clipsheet__clip" aria-hidden="true" />
+          {/* 사진 띠가 맨 위 — 그 아래 제목 · 문장 */}
+          <PhotoStrip />
+          <header className="problem__head">
+            <p className="label">{SITE.problem.label}</p>
+            <h2 id="problem-title" className="problem__title">
+              {SITE.problem.title.map((l) => (
+                <span key={l}>{l}</span>
+              ))}
+            </h2>
+          </header>
+          {SITE.problem.points.length > 0 && (
+            <div className="problem__points">
+              {SITE.problem.points.map((pt) => (
+                <div key={pt.no} className="problem__point">
+                  <p className="problem__key">
+                    <span>{pt.no}</span>
+                    {pt.key}
+                  </p>
+                  <p>{pt.text}</p>
+                </div>
+              ))}
+            </div>
+          )}
+          <div className="problem__answer">
+            <p className="problem__answertext pre">{SITE.problem.answer}</p>
+            {SITE.problem.answerNote && <p className="problem__answernote">{SITE.problem.answerNote}</p>}
           </div>
-        )}
-        <div className="problem__answer">
-          <p className="problem__answertext pre">{SITE.problem.answer}</p>
-          {SITE.problem.answerNote && <p className="problem__answernote">{SITE.problem.answerNote}</p>}
         </div>
       </div>
     </section>
