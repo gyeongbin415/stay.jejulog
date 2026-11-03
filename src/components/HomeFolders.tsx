@@ -16,7 +16,7 @@ import noteUrl from '../assets/guest-note.png';
      (단계는 인트로가 맡음 — HomePage Intro 의 STEPS 끝에 폴더 넷)
    · 폴더 — 오른쪽 옆 세로 탭([ 01 게하 탐색 ], 위에서부터 차례로 어긋나 모두 보임) · 안에 접힌 자국 있는 종이:
      [ 번호 ] · 항목 이름 : 굵은 문장 · 기울인 메모 · 버튼, 오른쪽 위에 클립으로 끼운 폴라로이드 사진
-   · 탭을 누르면 그 폴더까지 넘어감, 드러난 폴더 탭 밑 X 로 처음까지 되돌림. 그림 · 버튼을 누르면 상세페이지로
+   · 탭을 누르면 그 폴더까지 넘어감. 그림 · 버튼을 누르면 상세페이지로
    · 동작 줄이기 설정이면 고정 없이 네 폴더를 차례로 펼쳐 보여 줌
 ------------------------------------------------------------------- */
 
@@ -27,8 +27,8 @@ export const FOLDER_IDS = ['roomtour', 'find', 'tastemap', 'guest'] as const;
 type Row = { k: string; v: string; em?: boolean };
 type Case = { label: string; en: string; rows: Row[]; art: string; artW: number; artH: number; cta: string; to: string; track: string };
 
-/** open — 드러난 폴더(0 · 1 · 2 · 3, 없으면 -1 — 처음) · onPick — 폴더 탭을 눌렀을 때 · onClose — 드러난 폴더의 X · cover — 처음 장 */
-export function HomeFolders({ open, onPick, onClose = () => {}, still = false, cover }: { open: number; onPick: (i: number) => void; onClose?: () => void; still?: boolean; cover?: ReactNode }) {
+/** open — 드러난 폴더(0 · 1 · 2 · 3, 없으면 -1 — 처음) · onPick — 폴더 탭을 눌렀을 때 · cover — 처음 장 */
+export function HomeFolders({ open, onPick, still = false, cover }: { open: number; onPick: (i: number) => void; still?: boolean; cover?: ReactNode }) {
   const { site: SITE, ui } = useContent();
 
   const cases: Case[] = [
@@ -91,18 +91,11 @@ export function HomeFolders({ open, onPick, onClose = () => {}, still = false, c
           aria-labelledby={`folder-tab-${i}`}
           data-tone="light"
         >
-          {/* 오른쪽 옆 세로 탭 — [ 01 게하 탐색 ], 드러난 폴더만 밑에 X */}
+          {/* 오른쪽 옆 세로 탭 — [ 01 게하 탐색 ] */}
           <div className="folder__tab">
             <button type="button" id={`folder-tab-${i}`} className="folder__pick" onClick={() => onPick(i)} aria-expanded={open === i} data-track={`home_folder_${FOLDER_KEYS[i]}`}>
               [ 0{i + 1} {c.label} ]
             </button>
-            {!still && open === i && (
-              <button type="button" className="folder__close" onClick={onClose} aria-label={ui.deck.close(c.label)} data-track={`home_folder_close_${FOLDER_KEYS[i]}`}>
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M6 6l12 12M18 6 6 18" />
-                </svg>
-              </button>
-            )}
           </div>
           {/* 종이 — 접힌 자국, 서류철 같은 글 배치 (드러난 폴더만 누를 수 있음) */}
           <div className="folder__sheet" inert={!still && open !== i ? true : undefined}>

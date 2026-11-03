@@ -236,7 +236,7 @@ function Intro() {
           {reduced && <Problem />}
         </div>
         {/* 서류철 한 권 — 처음 장(CHECK IN) 다음 폴더 넷, 스크롤마다 한 장씩 책처럼 옆으로 넘김 */}
-        {!reduced && <HomeFolders open={open} onPick={pick} onClose={() => toStep(CHECKIN_AT)} cover={<CoverCase />} />}
+        {!reduced && <HomeFolders open={open} onPick={pick} cover={<CoverCase />} />}
       </div>
       {reduced && <HomeFolders open={-1} onPick={() => {}} still />}
     </section>

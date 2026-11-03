@@ -488,16 +488,13 @@
   background: var(--paper-tex), var(--fc); border-radius: 4px 14px 14px 4px;
   filter: drop-shadow(0 3px 6px rgba(58, 55, 53, .16));
 }
-/* 오른쪽 옆 세로 탭 — 위에서부터 차례로 어긋나 모두 보임, 드러난 폴더는 밑에 X */
+/* 오른쪽 옆 세로 탭 — 위에서부터 차례로 어긋나 모두 보임 */
 .folder__tab {
   pointer-events: auto; position: absolute; left: calc(100% - 2px); top: calc(var(--tab-top) + var(--i) * (var(--tab-h) + var(--tab-gap)));
   display: grid; place-items: center; width: calc(var(--tab-w) + 2px); height: var(--tab-h);
   background: var(--paper-tex), var(--fc); border-radius: 0 9px 9px 0;
 }
 .folder__pick { padding: 0; background: none; border: 0; writing-mode: vertical-rl; font-family: var(--type); font-size: 11.5px; font-weight: 700; letter-spacing: .04em; color: var(--ink); white-space: nowrap; cursor: pointer; }
-.folder__close { position: absolute; left: 50%; top: calc(100% + 8px); translate: -50% 0; display: grid; place-items: center; width: 26px; height: 26px; padding: 0; border: 0; border-radius: 50%; background: #fff; color: var(--ink); box-shadow: 0 1px 4px rgba(58, 55, 53, .18); cursor: pointer; transition: transform var(--t-hover) var(--ease); }
-.folder__close:hover { transform: scale(1.08); }
-.folder__close svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; }
 /* 종이 — 접힌 자국 세 줄 · 서류철 글 배치 */
 .folder__sheet {
   pointer-events: auto; position: absolute; left: 0; right: 14px; top: 16px; bottom: 16px;
