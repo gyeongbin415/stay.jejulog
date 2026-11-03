@@ -1,20 +1,11 @@
 /* ==================================================================
-   휴대폰 세로 넘겨보기(풀페이지) — 집 · 테스트 · 지도 · 방명록 (components/Deck.tsx)
+   휴대폰 메인 세로 넘겨보기(풀페이지) — components/HomeDeck.tsx
 ================================================================== */
 
-/* 넘겨보기 동안 페이지 자체는 스크롤하지 않음 — 칸 안에서만 */
-html.has-deck, html.has-deck body { overflow: hidden; height: 100%; overscroll-behavior: none; }
-
-/* 화면 전체 한 판 — 상단 바(z 50) · 동그라미 버튼(z 90) 아래 */
-.deck { position: fixed; inset: 0; z-index: 10; overflow: hidden; background: var(--bg); }
-
-/* 칸 한 장 = 화면 높이. 내용이 길면 칸 안에서 스크롤 */
-.deck__panel {
-  position: absolute; inset: 0; height: 100vh; height: 100dvh;
-  overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch;
-  background: var(--bg); visibility: hidden; will-change: transform; backface-visibility: hidden;
-}
-.deck__panel.is-active { visibility: visible; }
+/* 칸마다 화면 높이 한 장 (메인의 각 칸) */
+html.has-fullpage :is(#roomtour, #find, #tastemap, #guest, #checkout) { min-height: 100vh; min-height: 100svh; }
+/* 당겨서 새로고침 · 끝에서 튕기는 동작이 넘김과 겹치지 않게 */
+html.has-fullpage, html.has-fullpage body { overscroll-behavior-y: none; }
 
 /* 오른쪽 점 — 지금 칸만 주황 */
 .deckdots {

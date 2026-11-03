@@ -7,9 +7,7 @@ import { BackFab } from './components/BackFab';
 import { Loader } from './components/Loader';
 import { HomePage } from './pages/HomePage';
 import { HousePage } from './pages/HousePage';
-import { Deck, isDeckRoute } from './components/Deck';
 import { GuestNotes } from './components/GuestNotes';
-import { useMediaQuery } from './lib/motion';
 import { useContent } from './i18n';
 import { track } from './lib/track';
 import { applyPageMeta, SITE_NAME, type PageMeta } from './lib/seo';
@@ -29,10 +27,6 @@ export function App() {
   const positions = useRef<Record<string, number>>({});
   /** 바로 전에 보던 화면 이름 — 기억한 자리가 없을 때(새로고침 등) 메인 어느 칸으로 돌아갈지 정함 */
   const prevName = useRef<string | null>(null);
-  // 휴대폰 — 집 · 테스트 · 지도 · 방명록은 한 판(Deck)으로 이어 좌우로 넘겨봄. 그 안에서 칸을 옮겨도 판은 그대로(테스트 · 방명록 상태 유지)
-  const mobile = useMediaQuery('(max-width: 899px)');
-  const deck = mobile && isDeckRoute(route.name);
-  const wasDeck = useRef(false);
 
   // 페이지별 title · description · SNS 미리보기 · 구조화 데이터 — 모두 그 페이지에 보이는 내용에서 가져옵니다.
   // (화면 이동 기록보다 먼저 바꿔 두어야 page_title 에 새 제목이 실립니다)
@@ -97,13 +91,6 @@ export function App() {
 
   useLayoutEffect(() => {
     keyRef.current = key;
-    // 넘겨보기 안에서 칸을 옮긴 것이면 자리는 넘겨보기가 맞춤
-    const inDeck = deck && wasDeck.current;
-    wasDeck.current = deck;
-    if (inDeck) {
-      prevName.current = route.name;
-      return;
-    }
     const to = route.query.get('to');
     if (route.name === 'home' && to) {
       jumpToSection(to);
@@ -142,10 +129,8 @@ export function App() {
     <>
       <Header route={route} />
       <main id="main" tabIndex={-1}>
-        <div className="page" key={deck ? 'deck' : key}>
-          {deck ? (
-            <Deck route={route} />
-          ) : route.name === 'stay' ? (
+        <div className="page" key={key}>
+          {route.name === 'stay' ? (
             <Suspense fallback={<Loader label={ui.app.loadingStay} />}>
               <StayPage id={route.id} />
             </Suspense>
@@ -181,8 +166,7 @@ export function App() {
       {/* 취향 지도 동그라미 — 모든 페이지 오른쪽 아래 (지도 페이지에서는 숨김) */}
       {/* 뒤로 가기 동그라미 — 메인을 뺀 모든 페이지 왼쪽 아래 */}
       <BackFab route={route} />
-      {/* 넘겨보기 중에는 지도 · 집 · 테스트 동그라미 대신 아래 메뉴 (인스타그램만) */}
-      <MapFab showMap={route.name !== 'map' && !deck} showInsta={route.name !== 'insta'} showHouse={route.name === 'map' && !deck} showTest={route.name === 'map' && !deck} home={route.name === 'home'} />
+      <MapFab showMap={route.name !== 'map'} showInsta={route.name !== 'insta'} showHouse={route.name === 'map'} showTest={route.name === 'map'} home={route.name === 'home'} />
       <Footer />
     </>
   );

@@ -2,7 +2,9 @@ import { useEffect, useRef, useState, type CSSProperties } from 'react';
 import { SITE as SITE_KO } from '../data/site';
 import { useContent } from '../i18n';
 import { href } from '../lib/router';
-import { useReducedMotion } from '../lib/motion';
+import { useMediaQuery, useReducedMotion } from '../lib/motion';
+import { HomeDeck } from '../components/HomeDeck';
+import { ContentPicker } from '../components/ContentPicker';
 import { GehageScene } from '../components/GehageScene';
 import { TasteMapIsland } from '../components/TasteMapIsland';
 import { BeachDivider } from '../components/BeachDivider';
@@ -37,18 +39,23 @@ import stripSunrise from '../assets/strip/kokoko-sunrise.webp';
  */
 export function HomePage() {
   const { site: SITE, ui } = useContent();
+  // 휴대폰 — 칸을 한 장씩 위아래로 넘겨봄 (동작 줄이기 설정이면 보통 스크롤)
+  const mobile = useMediaQuery('(max-width: 899px)');
+  const reduced = useReducedMotion();
   return (
     <>
       <h1 className="visually-hidden">{SITE.brand} {SITE.brandEn} — {ui.home.srTitle}</h1>
       <Intro />
-      {/* 집 내부(게하 탐색)는 따로 된 페이지 #/house — 메인에는 집 그림 + 버튼만 (ROOM TOUR) */}
-      <RoomTour />
+      {/* 휴대폰은 집 그림 + 버튼(누르면 #/house), PC 는 네 콘텐츠(집 · 테스트 · 지도 · 방명록)를 고르는 그림 — 누르면 커지며 상세로 */}
+      {mobile ? <RoomTour /> : <ContentPicker />}
       <FindYourStay />
       <TasteMapBanner />
       {/* 방명록 — 질문 3개에 답하는 노트 (공책 한 장 → 표지 → 질문 카드)
           (예전 MORE STORIES 인스타그램 사진 칸은 메인에서 뺌 — 인스타그램 페이지 #/instagram 은 그대로) */}
       <GuestNotes />
       <CheckOut />
+      {/* 인트로보다 뒤에 둬야 손짓 처리도 인트로 다음 차례 (인트로가 단계를 넘긴 손짓은 넘기지 않음) */}
+      {mobile && !reduced && <HomeDeck />}
     </>
   );
 }
@@ -387,7 +394,10 @@ function FindYourStay() {
         </div>
         {/* 테스트 첫 화면의 소라게 게하게 소개 — 그림 · 이름 · 두 줄 이야기 그대로, 그 밑에 테스트 버튼 */}
         <div className="find__gehage story">
-          <GehageScene bubbleId="find-bubble-fill" />
+          {/* 그림을 누르면 취향 테스트로 */}
+          <a className="find__art" href={href.test()} data-track="find_art" aria-label={ui.nav.test}>
+            <GehageScene bubbleId="find-bubble-fill" />
+          </a>
           <p className="story__title">{ui.test.storyTitle}</p>
           <p className="story__body pre">{ui.test.storyBody}</p>
           <a className="btn" href={href.test()} data-track="find_cta">

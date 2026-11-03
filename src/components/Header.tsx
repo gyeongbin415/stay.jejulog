@@ -111,16 +111,17 @@ const MENU = [
   // 메인 — 인트로 다음 CHECK IN 화면(사진 띠 · '게스트하우스에서 이런 하루')으로
   { key: 'home', en: 'HOME', to: href.home('checkin') },
   { key: 'house', en: 'EXPLORE', to: href.house() },
-  // 메뉴는 상세 화면 대신 메인 안의 그 칸으로 — 취향 테스트 안내 · 취향 지도 · 더 많은 이야기(인스타그램)
+  // 메뉴는 상세 화면 대신 메인 안의 그 칸으로 — 취향 테스트 안내 · 취향 지도 · 방명록
   { key: 'test', en: 'TEST', to: href.home('find') },
   { key: 'map', en: 'MAP', to: href.home('tastemap') },
   { key: 'insta', en: 'INSTAGRAM', to: href.insta() },
+  { key: 'guest', en: 'GUESTBOOK', to: href.home('guest') },
 ] as const;
 
 function Menu({ route, onClose }: { route: Route; onClose: () => void }) {
   const ref = useRef<HTMLDivElement>(null);
   const { ui } = useContent();
-  const labels = { home: ui.nav.main, house: ui.nav.house, test: ui.nav.test, map: ui.nav.map, insta: ui.nav.more };
+  const labels = { home: ui.nav.main, house: ui.nav.house, test: ui.nav.test, map: ui.nav.map, insta: ui.nav.more, guest: ui.nav.guest };
 
   useEffect(() => {
     const prev = document.activeElement as HTMLElement | null;

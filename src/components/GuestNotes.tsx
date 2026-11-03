@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
 import { createPortal } from 'react-dom';
 import { useContent } from '../i18n';
 import { useReducedMotion } from '../lib/motion';
+import { absUrl, href } from '../lib/router';
 import { track } from '../lib/track';
 import { GUESTBOOK_URL, MAX_ANSWER, MAX_NAME, fetchBoard, loadMine, postNote, type GuestBoard, type GuestNote } from '../data/guestbook';
 import logoUrl from '../assets/logo-staylog.png';
@@ -59,7 +60,8 @@ export function GuestNotes({ page = false }: { page?: boolean }) {
       <div className="gnote__inner wrap">
         <p className="label">GUEST NOTE</p>
         <h2 id="guest-title" className="visually-hidden">{t.title}</h2>
-        <NoteCover key={coverKey} onOpen={() => setOpen(true)} />
+        {/* 메인에서는 표지를 펼치면 방명록 페이지로, 방명록 페이지에서는 쓰기 창 */}
+        <NoteCover key={coverKey} onOpen={() => (page ? setOpen(true) : window.location.assign(absUrl(href.guest())))} />
         <p className="gnote__entry-count">{count > 0 ? t.count(count) : t.first}</p>
         {!GUESTBOOK_URL && mine.length > 0 && <p className="gnote__local">{t.localOnly}</p>}
       </div>
