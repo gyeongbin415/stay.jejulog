@@ -9,6 +9,7 @@ import { GuestNotes } from '../components/GuestNotes';
 import houseUrl from '../assets/house-icon.png';
 import gumballUrl from '../assets/test-gumball.png';
 import tasteMapUrl from '../assets/taste-map-paper.png';
+import noteUrl from '../assets/guest-note.png';
 import introNightUrl from '../assets/intro-night.webp';
 import checkoutBgUrl from '../assets/checkout-stay.webp';
 import stripLpWall from '../assets/strip/lp-wall.webp';
@@ -42,7 +43,8 @@ export function HomePage() {
   return (
     <>
       <h1 className="visually-hidden">{SITE.brand} {SITE.brandEn} — {ui.home.srTitle}</h1>
-      <Intro />
+      {/* 휴대폰 첫 화면은 그림만 모은 한 장, PC 는 밤의 게스트하우스 인트로 */}
+      {mobile ? <Cover /> : <Intro />}
       {/* 휴대폰은 집 그림 + 버튼(누르면 #/house), PC 는 네 콘텐츠(집 · 테스트 · 지도 · 방명록)를 고르는 그림 — 누르면 커지며 상세로 */}
       {mobile ? <RoomTour /> : <ContentPicker />}
       <FindYourStay />
@@ -54,6 +56,27 @@ export function HomePage() {
       {/* 인트로보다 뒤에 둬야 손짓 처리도 인트로 다음 차례 (인트로가 단계를 넘긴 손짓은 넘기지 않음) */}
       {mobile && !reduced && <HomeDeck />}
     </>
+  );
+}
+
+/* ── 휴대폰 첫 화면 — 글 없이 집 · 뽑기 기계 · 지도 · 공책 스티커만 흩어 붙인 한 장 (누르면 그 상세로). 내리면 그림 하나씩 칸이 이어짐 ── */
+function Cover() {
+  const { site: SITE, ui } = useContent();
+  const items = [
+    { k: 'house', src: houseUrl, w: 900, h: 630, to: href.house(), label: SITE.explore.title.join(' ') },
+    { k: 'test', src: gumballUrl, w: 615, h: 1086, to: href.test(), label: SITE.findYourStay.cta },
+    { k: 'map', src: tasteMapUrl, w: 1100, h: 707, to: href.map(), label: ui.map.homeCta },
+    { k: 'guest', src: noteUrl, w: 900, h: 708, to: href.guest(), label: ui.guest.coverAria },
+  ];
+  return (
+    // data-phase="static" — 지도 버튼 등이 '인트로 끝'을 기다리지 않게
+    <section id="intro" className="cover" data-tone="light" data-phase="static" aria-label={ui.deck.intro}>
+      {items.map((it, i) => (
+        <a key={it.k} className={`cover__item cover__item--${it.k}`} href={it.to} aria-label={it.label} data-track={`cover_${it.k}`} style={{ '--i': i } as CSSProperties}>
+          <img src={it.src} alt="" width={it.w} height={it.h} decoding="async" draggable={false} />
+        </a>
+      ))}
+    </section>
   );
 }
 

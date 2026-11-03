@@ -80,27 +80,18 @@ export function GuestNotes({ page = false }: { page?: boolean }) {
   );
 }
 
-/** 메인 공책 그림 — 끌어서 돌려 보거나, 누르면 표지가 열리며 속 종이가 드러난 뒤 방명록 페이지로 (밑에 같은 안내 상자) */
+/** 메인 공책 그림 — 끌어서 돌려 보거나 눌러서 방명록 페이지로 (밑에 같은 안내 상자) */
 function NoteArt() {
   const { ui } = useContent();
   const t = ui.guest;
-  const reduced = useReducedMotion();
   const [turn, setTurn] = useState(0);
-  const [opening, setOpening] = useState(false);
   const drag = useRef<{ x: number; turn: number; moved: boolean } | null>(null);
-  const go = () => {
-    if (opening) return;
-    const to = absUrl(href.guest());
-    if (reduced) return window.location.assign(to);
-    setTurn(0);
-    setOpening(true);
-    window.setTimeout(() => window.location.assign(to), 900);
-  };
+  const go = () => window.location.assign(absUrl(href.guest()));
   return (
     <div className="gnote__artwrap">
       <button
         type="button"
-        className={`gnote__art${opening ? ' is-opening' : ''}`}
+        className="gnote__art"
         data-noswipe
         data-track="guest_open"
         style={{ '--turn': `${turn}deg` } as CSSProperties}
@@ -124,20 +115,9 @@ function NoteArt() {
         onPointerCancel={() => (drag.current = null)}
         onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && (e.preventDefault(), go())}
       >
-        {/* 속 종이 — 표지가 열리면 드러남 */}
-        <span className="gnote__page" aria-hidden="true" />
         <img src={noteUrl} alt="" width={900} height={708} loading="lazy" decoding="async" draggable={false} />
       </button>
-      <a
-        className="gcover__hint"
-        href={href.guest()}
-        data-track="guest_cta"
-        onClick={(e) => {
-          if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-          e.preventDefault();
-          go();
-        }}
-      >
+      <a className="gcover__hint" href={href.guest()} data-track="guest_cta">
         {t.coverHint}
       </a>
     </div>
