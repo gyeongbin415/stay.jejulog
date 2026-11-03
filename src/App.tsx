@@ -1,11 +1,11 @@
 import { lazy, Suspense, useEffect, useLayoutEffect, useRef } from 'react';
-import { useRoute, jumpToSection, parseHash, routeKey } from './lib/router';
+import { useRoute, jumpToSection, parseHash, routeKey, href, isMobileView, TOUR_SECTIONS } from './lib/router';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { MapFab } from './components/MapFab';
 import { BackFab } from './components/BackFab';
 import { Loader } from './components/Loader';
-import { HomePage } from './pages/HomePage';
+import { HomePage, TourPage } from './pages/HomePage';
 import { HousePage } from './pages/HousePage';
 import { GuestNotes } from './components/GuestNotes';
 import { useContent } from './i18n';
@@ -58,6 +58,8 @@ export function App() {
       m = { title: `${ui.map.pageTitle} | ${SITE_NAME}`, description: ui.map.sub, path: '#/map' };
     } else if (route.name === 'guest') {
       m = { title: `${ui.deck.guest} | ${SITE_NAME}`, description: ui.guest.sub.replace(/\n/g, ' '), path: '#/guest' };
+    } else if (route.name === 'tour') {
+      m = { title: `${ui.nav.tour} | ${SITE_NAME}`, description: site.description, path: '#/tour' };
     }
     applyPageMeta(m);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -90,15 +92,20 @@ export function App() {
   }, [key]);
 
   useLayoutEffect(() => {
-    keyRef.current = key;
     const to = route.query.get('to');
-    if (route.name === 'home' && to) {
+    // 휴대폰 메인은 그림 모음 한 장 — 메뉴 · 뒤로 가기 등이 메인 안 칸(#/?to=find …)을 찾으면 둘러보기 페이지의 그 칸으로
+    if (route.name === 'home' && to && TOUR_SECTIONS.includes(to) && isMobileView()) {
+      window.location.replace(href.tour(to));
+      return;
+    }
+    keyRef.current = key;
+    if ((route.name === 'home' || route.name === 'tour') && to) {
       jumpToSection(to);
-      history.replaceState(history.state, '', '#/');
-    } else if (route.name === 'home' && positions.current[key] == null && (prevName.current === 'map' || prevName.current === 'insta')) {
+      history.replaceState(history.state, '', route.name === 'tour' ? href.tour() : '#/');
+    } else if ((route.name === 'home' || route.name === 'tour') && positions.current[key] == null && (prevName.current === 'map' || prevName.current === 'insta')) {
       // 기억한 자리가 없으면(지도 · 인스타 페이지에서 새로고침한 뒤 뒤로 가기 등) 그 페이지로 들어가던 칸으로
       jumpToSection(prevName.current === 'map' ? 'tastemap' : 'guest');
-    } else if (route.name === 'home' || route.name === 'house') {
+    } else if (route.name === 'home' || route.name === 'house' || route.name === 'tour') {
       // 지도 · 인스타 · 숙소 페이지에서 뒤로 가기로 메인에 돌아오면 보던 자리(예: 취향 지도 칸)로 —
       // 휴대폰은 사진이 늦게 떠 페이지가 아직 짧을 수 있어 자리가 맞을 때까지 몇 프레임 다시 맞춤
       const y = positions.current[key] ?? 0;
@@ -152,6 +159,8 @@ export function App() {
             <GuestNotes page />
           ) : route.name === 'home' ? (
             <HomePage />
+          ) : route.name === 'tour' ? (
+            <TourPage />
           ) : (
             <section className="notfound" data-tone="light">
               <p className="label">PAGE NOT FOUND</p>

@@ -493,4 +493,7 @@
 .cover__item--map { right: 13%; top: 39%; width: 62%; rotate: 3deg; }
 .cover__item--guest { left: 8%; top: 64%; width: 52%; rotate: -3deg; }
 @keyframes cover-in { from { opacity: 0; translate: 0 18px; scale: .92; } }
+/* 더 내리면 — 그림들이 차례로 위로 빠지고 둘러보기 페이지로 */
+.cover.is-leaving .cover__item { animation: cover-out .38s cubic-bezier(.5, 0, .75, 0) both; animation-delay: calc(var(--i) * .03s); }
+@keyframes cover-out { to { opacity: 0; translate: 0 -60px; } }
 @media (prefers-reduced-motion: reduce) { .cover__item { animation: none; } }
