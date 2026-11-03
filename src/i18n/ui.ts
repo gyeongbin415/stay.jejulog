@@ -23,7 +23,7 @@ export interface UiText {
   /** 방명록(GUEST NOTE) — 메인 취향 지도와 CHECK OUT 사이 · 질문 5개에 답하는 노트 */
   guest: { title: string; sub: string; open: string; count: (n: number) => string; first: string;
     intro: string[]; questions: string[];
-    /** 질문마다 예시 답변 — 질문 목록 아래 줄 · 답 칸의 흐린 글씨 */
+    /** 질문마다 예시 답변 — 답 칸의 흐린 글씨 */
     examples: string[]; exampleLabel: string; progress: (i: number, n: number) => string; placeholder: string;
     prev: string; skip: string; next: string; nameLabel: string; namePlaceholder: string; anon: string; submit: string; sending: string;
     needOne: string; failed: string; doneTitle: string; doneSub: string; doneClose: string; close: string;

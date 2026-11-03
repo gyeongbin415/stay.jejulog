@@ -319,7 +319,7 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
                 >
                   <span className="gwrite__pick-no">Q{i + 1}</span>
                   <span className="gwrite__pick-q">{q}</span>
-                  <span className="gwrite__pick-state">{answered[i] ? answers[i].trim() : `${t.exampleLabel}${t.examples[i]}`}</span>
+                  <span className="gwrite__pick-state">{answered[i] ? answers[i].trim() : t.pickWrite}</span>
                   <span className="gwrite__pick-go" aria-hidden="true">{answered[i] ? '✓' : '›'}</span>
                 </button>
               </li>
