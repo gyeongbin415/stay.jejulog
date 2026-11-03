@@ -5,9 +5,9 @@ import { href } from '../lib/router';
 import { useMediaQuery, useReducedMotion } from '../lib/motion';
 import { HomeDeck } from '../components/HomeDeck';
 import { ContentPicker } from '../components/ContentPicker';
-import { TasteMapIsland } from '../components/TasteMapIsland';
+import tasteMapUrl from '../assets/taste-map-paper.png';
 import { GuestNotes } from '../components/GuestNotes';
-import houseUrl from '../assets/house-3d.webp';
+import houseUrl from '../assets/house-icon.png';
 import introNightUrl from '../assets/intro-night.webp';
 import checkoutBgUrl from '../assets/checkout-stay.webp';
 import stripLpWall from '../assets/strip/lp-wall.webp';
@@ -362,7 +362,7 @@ function RoomTour() {
   return (
     <section id="roomtour" className="roomtour" data-tone="light" aria-labelledby="roomtour-title">
       <a className="roomtour__link" href={href.house()} data-track="home_roomtour">
-        <img className="roomtour__img" src={houseUrl} alt="" width={1089} height={1445} loading="lazy" decoding="async" />
+        <img className="roomtour__img" src={houseUrl} alt="" width={900} height={630} loading="lazy" decoding="async" />
         <span className="roomtour__btn">
           <span id="roomtour-title">{e.title.join(' ')}</span>
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6.5 18.5 12 13 17.5" /></svg>
@@ -419,8 +419,8 @@ function TasteMapBanner() {
         </p>
         {/* 그림 전체가 눌림 */}
         <a className="tastemap" href={href.map()} data-track="home_taste_map" aria-label={ui.map.open}>
-          {/* 섬 위를 돋보기가 집집마다 찾아다니는 움직이는 그림 */}
-          <TasteMapIsland />
+          {/* 접힌 종이 제주 지도 그림 */}
+          <img className="tastemap__img" src={tasteMapUrl} alt="" width={1100} height={707} loading="lazy" decoding="async" />
         </a>
       </div>
     </section>

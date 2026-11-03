@@ -6,12 +6,11 @@
 .gnote { padding: clamp(80px, 12vh, 128px) 0 clamp(88px, 13vh, 136px); background: var(--paper); }
 /* 메인에서는 다른 칸과 같은 공통 배경 */
 .gnote:not(.gnote--page) { background: var(--bg); }
-/* 메인 공책 — 방명록 페이지보다 작게 */
-.gnote:not(.gnote--page) .gcover { width: min(320px, 54vw); }
-.gnote:not(.gnote--page) .gcover-wrap { padding-bottom: 0; }
-.gnote__cta { margin-top: clamp(28px, 4vh, 40px); }
-.gnote:not(.gnote--page) .gcover__hand { font-size: clamp(15px, 3vw, 23px); }
-.gnote:not(.gnote--page) .gcover__mark { font-size: clamp(8px, 1.1vw, 10px); }
+/* 메인 공책 그림 — 받은 그림 그대로, 누르면 방명록 페이지로 */
+.gnote__art { display: block; width: min(340px, 70vw); transition: transform var(--t-hover) var(--ease); }
+.gnote__art img { display: block; width: 100%; height: auto; }
+.gnote__art:hover { transform: translateY(-4px) rotate(-1deg); }
+.gnote__cta { margin-top: clamp(20px, 3vh, 32px); }
 .gnote__inner { display: grid; justify-items: center; gap: 18px; text-align: center; }
 .gnote__local { max-width: 26em; font-size: 12.5px; line-height: 1.6; color: var(--ink-soft); }
 

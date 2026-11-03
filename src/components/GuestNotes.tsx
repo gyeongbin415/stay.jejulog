@@ -2,10 +2,11 @@ import { useEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
 import { createPortal } from 'react-dom';
 import { useContent } from '../i18n';
 import { useReducedMotion } from '../lib/motion';
-import { absUrl, href } from '../lib/router';
+import { href } from '../lib/router';
 import { track } from '../lib/track';
 import { GUESTBOOK_URL, MAX_ANSWER, MAX_NAME, fetchBoard, loadMine, postNote, type GuestBoard, type GuestNote } from '../data/guestbook';
 import logoUrl from '../assets/logo-staylog.png';
+import noteUrl from '../assets/guest-note.png';
 import '../styles/guest.css';
 
 /* ------------------------------------------------------------------
@@ -60,9 +61,15 @@ export function GuestNotes({ page = false }: { page?: boolean }) {
       <div className="gnote__inner wrap">
         <p className="label">GUEST NOTE</p>
         <h2 id="guest-title" className="visually-hidden">{t.title}</h2>
-        {/* 메인에서는 표지를 펼치면 방명록 페이지로, 방명록 페이지에서는 쓰기 창 */}
-        <NoteCover key={coverKey} hint={page} onOpen={() => (page ? setOpen(true) : window.location.assign(absUrl(href.guest())))} />
-        {/* 메인 — 표지 밑 안내 대신 방명록 페이지로 가는 버튼 */}
+        {/* 메인 — 받은 공책 그림(누르면 방명록 페이지로) · 방명록 페이지 — 돌려 보거나 펼치는 표지(쓰기 창) */}
+        {page ? (
+          <NoteCover key={coverKey} onOpen={() => setOpen(true)} />
+        ) : (
+          <a className="gnote__art" href={href.guest()} aria-label={t.open} data-track="guest_open">
+            <img src={noteUrl} alt="" width={900} height={708} loading="lazy" decoding="async" />
+          </a>
+        )}
+        {/* 메인 — 그림 밑에 방명록 페이지로 가는 버튼 */}
         {!page && (
           <a className="btn gnote__cta" href={href.guest()} data-track="guest_cta">
             {t.open} <span className="arrow" aria-hidden="true">→</span>
@@ -92,7 +99,7 @@ export function GuestNotes({ page = false }: { page?: boolean }) {
 }
 
 /** 공책 표지 — 끌어서 돌려 보거나 눌러서 펼치기 */
-function NoteCover({ onOpen, hint = true }: { onOpen: () => void; hint?: boolean }) {
+function NoteCover({ onOpen }: { onOpen: () => void }) {
   const { ui } = useContent();
   const t = ui.guest;
   const reduced = useReducedMotion();
@@ -145,7 +152,7 @@ function NoteCover({ onOpen, hint = true }: { onOpen: () => void; hint?: boolean
           <span className="gcover__mark">STAY JEJULOG</span>
         </span>
       </button>
-      {hint && <p className="gcover__hint">{t.coverHint}</p>}
+      <p className="gcover__hint">{t.coverHint}</p>
     </div>
   );
 }
