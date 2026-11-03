@@ -7,7 +7,7 @@ import { HomeDeck } from '../components/HomeDeck';
 import { ContentPicker } from '../components/ContentPicker';
 import { GuestNotes } from '../components/GuestNotes';
 import houseUrl from '../assets/house-icon.png';
-import gumballUrl from '../assets/test-gumball.png';
+import testArtUrl from '../assets/test-clipboard.png';
 import tasteMapUrl from '../assets/taste-map-paper.png';
 import introNightUrl from '../assets/intro-night.webp';
 import checkoutBgUrl from '../assets/checkout-stay.webp';
@@ -389,7 +389,7 @@ function FindYourStay() {
           <p className="label">{SITE.findYourStay.label}</p>
           {/* 뽑기 기계 그림 — 누르면 취향 테스트로 */}
           <a className="find__art" href={href.test()} aria-label={SITE.findYourStay.cta} data-track="find_art" tabIndex={-1}>
-            <img src={gumballUrl} alt="" width={615} height={1086} loading="lazy" decoding="async" />
+            <img src={testArtUrl} alt="" width={649} height={758} loading="lazy" decoding="async" />
           </a>
           {/* 제목은 화면에서 빼고 화면 낭독기용으로만 */}
           <h2 id="find-title" className="visually-hidden">

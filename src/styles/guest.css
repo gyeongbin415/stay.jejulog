@@ -101,6 +101,12 @@
 .gwrite__others-empty { margin: 10px 0 24px; font-size: 15.5px; color: var(--ink-soft); }
 /* 답 쓰는 동안 — 동그라미 버튼은 숨김, 위 여백은 짧게 */
 .gwrite--write .gwrite__body { padding-top: 20px; padding-bottom: 40px; }
+/* 휴대폰 — 메모 카드 크기를 받은 화면에 맞춤 (양옆 16px · 카드 약 358 × 300, 답 칸 줄 33px 네 줄) */
+@media (max-width: 639px) {
+  .gwrite--write .gwrite__body.wrap { padding-inline: 16px; }
+  .gwrite--write .gwrite__card { padding: 24px 20px 16px; gap: 8px; }
+  .gwrite--write .gwrite__a { margin-top: 10px; line-height: 33px; background: repeating-linear-gradient(to bottom, transparent 0 32px, var(--line-strong) 32px 33px); }
+}
 html:has(.gwrite--write) :is(.fabs, .backfab) { opacity: 0; visibility: hidden; pointer-events: none; }
 .gwrite q { quotes: '“' '”'; }
 

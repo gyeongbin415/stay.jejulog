@@ -1,7 +1,7 @@
 import { useContent } from '../i18n';
 import { href } from '../lib/router';
 import houseUrl from '../assets/house-icon.png';
-import gumballUrl from '../assets/test-gumball.png';
+import testArtUrl from '../assets/test-clipboard.png';
 import tasteMapUrl from '../assets/taste-map-paper.png';
 import noteUrl from '../assets/guest-note.png';
 
@@ -17,7 +17,7 @@ export function ContentPicker() {
 
   const items = [
     { key: 'house', en: 'EXPLORE', label: ui.nav.house, to: href.house(), art: <img src={houseUrl} alt="" width={900} height={630} loading="lazy" decoding="async" /> },
-    { key: 'test', en: 'TEST', label: ui.nav.test, to: href.test(), art: <img src={gumballUrl} alt="" width={615} height={1086} loading="lazy" decoding="async" /> },
+    { key: 'test', en: 'TEST', label: ui.nav.test, to: href.test(), art: <img src={testArtUrl} alt="" width={649} height={758} loading="lazy" decoding="async" /> },
     { key: 'map', en: 'MAP', label: ui.deck.tastemap, to: href.map(), art: <img src={tasteMapUrl} alt="" width={1100} height={707} loading="lazy" decoding="async" /> },
     { key: 'guest', en: 'GUESTBOOK', label: ui.nav.guest, to: href.guest(), art: <img src={noteUrl} alt="" width={900} height={708} loading="lazy" decoding="async" /> },
   ];

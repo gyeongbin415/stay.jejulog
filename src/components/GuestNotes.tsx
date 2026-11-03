@@ -281,6 +281,15 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
           <h2 className="gwrite__pick-title">{t.modeTitle}</h2>
           <p className="gwrite__pick-sub pre">{t.modeSub}</p>
           <ul className="gwrite__picks">
+            {/* 질문 골라 답하기 먼저, 자유롭게 적기는 아래 */}
+            <li>
+              <button type="button" className={`gwrite__pick gwrite__pick--mode${qCount ? ' is-done' : ''}`} onClick={() => setPhase('list')} data-track="guest_mode_questions">
+                <span className="gwrite__pick-no" aria-hidden="true">Q</span>
+                <span className="gwrite__pick-q">{t.questionsBtn}</span>
+                <span className="gwrite__pick-state">{qCount ? t.questionsDone(qCount, QUESTIONS) : t.questionsHint(QUESTIONS)}</span>
+                <span className="gwrite__pick-go" aria-hidden="true">›</span>
+              </button>
+            </li>
             <li>
               <button
                 type="button"
@@ -295,14 +304,6 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
                 <span className="gwrite__pick-q">{t.freeBtn}</span>
                 <span className="gwrite__pick-state">{answered[FREE] ? answers[FREE].trim() : t.freeHint}</span>
                 <span className="gwrite__pick-go" aria-hidden="true">{answered[FREE] ? '✓' : '›'}</span>
-              </button>
-            </li>
-            <li>
-              <button type="button" className={`gwrite__pick gwrite__pick--mode${qCount ? ' is-done' : ''}`} onClick={() => setPhase('list')} data-track="guest_mode_questions">
-                <span className="gwrite__pick-no" aria-hidden="true">Q</span>
-                <span className="gwrite__pick-q">{t.questionsBtn}</span>
-                <span className="gwrite__pick-state">{qCount ? t.questionsDone(qCount, QUESTIONS) : t.questionsHint(QUESTIONS)}</span>
-                <span className="gwrite__pick-go" aria-hidden="true">›</span>
               </button>
             </li>
           </ul>

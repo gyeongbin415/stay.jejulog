@@ -7,7 +7,7 @@ import { gaAttrs } from '../lib/gaParams';
 import houseUrl from '../assets/house-3d.webp';
 import houseBgUrl from '../assets/house-wide-bg.webp';
 import houseWideUrl from '../assets/house-3d-wide.webp';
-import housePaperUrl from '../assets/house-paper.jpg';
+import housePaperUrl from '../assets/house-flat.jpg';
 
 /**
  * PAGE 02 — 집 내부 탐색 (EXPLORE)
@@ -25,21 +25,22 @@ const VIEW_KEY = 'jejulog:house-view';
  * 웹: 다락 책 · 위층 반지공방 · 꽃꽂이 · 영화 · 아래층 LP · 집밥 · 와인 · 마당 스냅사진 · 러닝
  * 휴대폰(좁은 화면) — 세로 그림, 웹(넓은 화면) — 양옆 풍경까지 그려진 가로 그림을 화면 폭에 꽉 차게
  */
-type Spot = { id: ProgramId; room: [number, number, number, number]; tag: [number, number, number]; center?: boolean };
+/** pill — 그림 속 이름표 네모 [x1, y1, x2, y2] (이름이 그림 안에 있는 손그림 집 — 마우스를 올리면 그 자리에 주황 이름표) */
+type Spot = { id: ProgramId; room: [number, number, number, number]; tag: [number, number, number]; center?: boolean; pill?: [number, number, number, number] };
 const HOUSES: Record<'narrow' | 'wide' | 'paper', { url: string; w: number; h: number; spots: Spot[]; labels?: boolean }> = {
-  // 지금 쓰는 그림 — 받은 손그림 집(종이 질감 · 돌담 벽 · 방 이름이 그림 안에) 856 × 1307, 마당 두 칸(스냅사진 · 러닝)은 집 밖 잔디 위로. 이름표는 그림에 있으니 덧씌우지 않음
+  // 지금 쓰는 그림 — 받은 집 그림(덩굴 · 돌벽 · 방 이름이 그림 안에, 마당 두 칸은 집 아래) 898 × 1263. 이름표는 그림에 있으니 덧씌우지 않고, 마우스를 올리면 그 자리에 주황 이름표(pill)
   paper: {
-    url: housePaperUrl, w: 856, h: 1307, labels: false,
+    url: housePaperUrl, w: 898, h: 1263, labels: false,
     spots: [
-      { id: 'book', room: [100, 238, 756, 452], tag: [428, 280, 66], center: true },
-      { id: 'craft', room: [108, 462, 418, 637], tag: [0, 0, 0] },
-      { id: 'flower', room: [428, 462, 748, 637], tag: [0, 0, 0] },
-      { id: 'cinema', room: [108, 647, 418, 822], tag: [0, 0, 0] },
-      { id: 'lp', room: [428, 647, 748, 822], tag: [0, 0, 0] },
-      { id: 'homemeal', room: [108, 832, 418, 997], tag: [0, 0, 0] },
-      { id: 'wine', room: [428, 832, 748, 997], tag: [0, 0, 0] },
-      { id: 'camping', room: [76, 1067, 416, 1269], tag: [0, 0, 0] },
-      { id: 'running', room: [428, 1067, 768, 1263], tag: [0, 0, 0] },
+      { id: 'book', room: [100, 150, 800, 382], tag: [450, 200, 66], center: true, pill: [390, 192, 500, 238] },
+      { id: 'craft', room: [112, 385, 440, 582], tag: [0, 0, 0], pill: [132, 397, 265, 442] },
+      { id: 'flower', room: [452, 385, 778, 582], tag: [0, 0, 0], pill: [465, 397, 567, 442] },
+      { id: 'cinema', room: [112, 590, 440, 782], tag: [0, 0, 0], pill: [132, 602, 225, 647] },
+      { id: 'lp', room: [452, 590, 778, 782], tag: [0, 0, 0], pill: [465, 602, 554, 648] },
+      { id: 'homemeal', room: [112, 790, 440, 980], tag: [0, 0, 0], pill: [132, 802, 225, 850] },
+      { id: 'wine', room: [452, 790, 778, 980], tag: [0, 0, 0], pill: [465, 802, 561, 850] },
+      { id: 'camping', room: [95, 1005, 440, 1202], tag: [0, 0, 0], pill: [107, 1014, 239, 1062] },
+      { id: 'running', room: [455, 1005, 800, 1202], tag: [0, 0, 0], pill: [465, 1014, 567, 1062] },
     ],
   },
   // 휴대폰 — 세로 그림 (1089 × 1445)
@@ -154,7 +155,7 @@ export function HousePage({ embedded = false }: { embedded?: boolean }) {
       >
         <div className="house3d__frame">
           <img className="house3d__img" src={house.url} width={IMG_W} height={IMG_H} alt={ui.house.houseAria} loading="lazy" decoding="async" />
-          {house.spots.map(({ id, room: [x1, y1, x2, y2], tag: [tx, ty, tw], center }) => {
+          {house.spots.map(({ id, room: [x1, y1, x2, y2], tag: [tx, ty, tw], center, pill }) => {
             const e = experienceById[id];
             const place = programById[id].report.place.name;
             return (
@@ -167,6 +168,16 @@ export function HousePage({ embedded = false }: { embedded?: boolean }) {
                   {...gaAttrs(id)}
                   style={{ left: pct(x1, IMG_W), top: pct(y1, IMG_H), width: pct(x2 - x1, IMG_W), height: pct(y2 - y1, IMG_H) }}
                 />
+                {/* 손그림 집 — 그림 속 이름표 자리에 주황 이름표, 방에 마우스를 올리거나 키보드로 고를 때만 보임 */}
+                {pill && (
+                  <span
+                    className="house3d__pill"
+                    aria-hidden="true"
+                    style={{ left: pct(pill[0], IMG_W), top: pct(pill[1], IMG_H), minWidth: pct(pill[2] - pill[0], IMG_W), height: pct(pill[3] - pill[1], IMG_H) }}
+                  >
+                    {e.label}
+                  </span>
+                )}
                 {/* 이름표 — 그림 속 이름표 위에 같은 크기로 덮음 (언어 전환 · 호버 때 주황). 이름이 그림 안에 있는 손그림 집은 덮지 않음 */}
                 {house.labels !== false && (
                 <span
