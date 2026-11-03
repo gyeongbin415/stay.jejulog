@@ -7,8 +7,6 @@ import { HomeDeck } from '../components/HomeDeck';
 import { ContentPicker } from '../components/ContentPicker';
 import { GehageScene } from '../components/GehageScene';
 import { TasteMapIsland } from '../components/TasteMapIsland';
-import { BeachDivider } from '../components/BeachDivider';
-import { GrassLedge } from '../components/GrassLedge';
 import { TestShare } from '../components/TestShare';
 import { GuestNotes } from '../components/GuestNotes';
 import houseUrl from '../assets/house-3d.webp';
@@ -381,8 +379,6 @@ function FindYourStay() {
   const { site: SITE, ui } = useContent();
   return (
     <section id="find" className="find" data-tone="light" aria-labelledby="find-title">
-      {/* 위 집 칸과 이 칸 사이 — 모래 띠 */}
-      <GrassLedge />
       <div className="find__inner wrap">
         <div className="find__copy">
           <p className="label">{SITE.findYourStay.label}</p>
@@ -417,8 +413,6 @@ function TasteMapBanner() {
   const { ui } = useContent();
   return (
     <section id="tastemap" className="find find--map" data-tone="light" aria-labelledby="tastemap-title">
-      {/* 위 '게하게' 칸 모래사장에서 파도를 지나 바다로 */}
-      <BeachDivider />
       <div className="find__inner wrap">
         {/* 제목 — 다른 칸처럼 작은 라벨 + 굵은 제목 (그림 속 글씨는 빼고) */}
         <div className="tastemap__head">
