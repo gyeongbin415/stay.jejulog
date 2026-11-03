@@ -197,7 +197,8 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
   }, [onClose, inline]);
 
   useEffect(() => {
-    if (phase === 'write') areaRef.current?.focus({ preventScroll: true });
+    // 답 칸에 바로 커서 — 마우스로 쓰는 PC 만 (휴대폰은 칸을 눌렀을 때만 자판이 뜨게)
+    if (phase === 'write' && window.matchMedia('(hover: hover) and (pointer: fine)').matches) areaRef.current?.focus({ preventScroll: true });
     setShowAll(false);
   }, [phase, step]);
 
