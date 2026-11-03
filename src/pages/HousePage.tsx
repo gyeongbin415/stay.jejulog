@@ -7,7 +7,7 @@ import { gaAttrs } from '../lib/gaParams';
 import houseUrl from '../assets/house-3d.webp';
 import houseBgUrl from '../assets/house-wide-bg.webp';
 import houseWideUrl from '../assets/house-3d-wide.webp';
-import { useMediaQuery } from '../lib/motion';
+import housePaperUrl from '../assets/house-paper.jpg';
 
 /**
  * PAGE 02 — 집 내부 탐색 (EXPLORE)
@@ -26,7 +26,22 @@ const VIEW_KEY = 'jejulog:house-view';
  * 휴대폰(좁은 화면) — 세로 그림, 웹(넓은 화면) — 양옆 풍경까지 그려진 가로 그림을 화면 폭에 꽉 차게
  */
 type Spot = { id: ProgramId; room: [number, number, number, number]; tag: [number, number, number]; center?: boolean };
-const HOUSES: Record<'narrow' | 'wide', { url: string; w: number; h: number; spots: Spot[] }> = {
+const HOUSES: Record<'narrow' | 'wide' | 'paper', { url: string; w: number; h: number; spots: Spot[]; labels?: boolean }> = {
+  // 지금 쓰는 그림 — 받은 손그림 집(종이 질감 · 돌담 벽 · 방 이름이 그림 안에) 856 × 1197. 이름표는 그림에 있으니 덧씌우지 않음
+  paper: {
+    url: housePaperUrl, w: 856, h: 1197, labels: false,
+    spots: [
+      { id: 'book', room: [100, 238, 756, 452], tag: [428, 280, 66], center: true },
+      { id: 'craft', room: [108, 462, 418, 637], tag: [0, 0, 0] },
+      { id: 'flower', room: [428, 462, 748, 637], tag: [0, 0, 0] },
+      { id: 'cinema', room: [108, 647, 418, 822], tag: [0, 0, 0] },
+      { id: 'lp', room: [428, 647, 748, 822], tag: [0, 0, 0] },
+      { id: 'homemeal', room: [108, 832, 418, 997], tag: [0, 0, 0] },
+      { id: 'wine', room: [428, 832, 748, 997], tag: [0, 0, 0] },
+      { id: 'camping', room: [88, 1012, 418, 1197], tag: [0, 0, 0] },
+      { id: 'running', room: [428, 1012, 758, 1197], tag: [0, 0, 0] },
+    ],
+  },
   // 휴대폰 — 세로 그림 (1089 × 1445)
   narrow: {
     url: houseUrl, w: 1089, h: 1445,
@@ -81,8 +96,8 @@ export function HousePage({ embedded = false }: { embedded?: boolean }) {
   const listed = houseOrder.map((id) => experiences.find((e) => e.id === id)!).filter(Boolean);
   // 상세페이지에 다녀와도 보던 방식이 유지되도록 이 탭에서만 기억합니다.
   const [view, setView] = useState<View>(readView);
-  const wide = useMediaQuery('(min-width: 900px)');
-  const house = HOUSES[wide ? 'wide' : 'narrow'];
+  // 휴대폰 · 웹 모두 받은 손그림 집 한 장 (예전 3D 그림 narrow · wide 는 남겨 둠)
+  const house = HOUSES.paper;
   const { w: IMG_W, h: IMG_H } = house;
   const choose = (v: View) => {
     setView(v);
@@ -133,7 +148,7 @@ export function HousePage({ embedded = false }: { embedded?: boolean }) {
         </nav>
       ) : (
       <nav
-        className={`house3d${wide ? ' house3d--wide' : ''}`}
+        className="house3d house3d--paper"
         aria-label={ui.house.houseAria}
         style={{ '--iw': IMG_W, '--house-bg': `url(${houseBgUrl})` } as CSSProperties}
       >
@@ -152,7 +167,8 @@ export function HousePage({ embedded = false }: { embedded?: boolean }) {
                   {...gaAttrs(id)}
                   style={{ left: pct(x1, IMG_W), top: pct(y1, IMG_H), width: pct(x2 - x1, IMG_W), height: pct(y2 - y1, IMG_H) }}
                 />
-                {/* 이름표 — 그림 속 이름표 위에 같은 크기로 덮음 (언어 전환 · 호버 때 주황) */}
+                {/* 이름표 — 그림 속 이름표 위에 같은 크기로 덮음 (언어 전환 · 호버 때 주황). 이름이 그림 안에 있는 손그림 집은 덮지 않음 */}
+                {house.labels !== false && (
                 <span
                   className={`house3d__tag${center ? ' house3d__tag--center' : ''}`}
                   aria-hidden="true"
@@ -162,6 +178,7 @@ export function HousePage({ embedded = false }: { embedded?: boolean }) {
                   <span className="house3d__place">{place}</span>
                   <span className="house3d__arrow">→</span>
                 </span>
+                )}
               </span>
             );
           })}

@@ -65,9 +65,6 @@ export function Header({ route }: { route: Route }) {
           {lang !== 'en' && <span className="topbar__ko">{site.brand}</span>}
         </a>
         <nav className="topbar__nav" aria-label={ui.nav.mainNav}>
-          <a className="topbar__link" href={href.insta()} data-track="gnb_insta" aria-current={route.name === 'insta' ? 'page' : undefined}>
-            {ui.nav.more}
-          </a>
           <LangSwitch />
           <button type="button" className="topbar__menu" aria-expanded={open} aria-controls="site-menu" onClick={() => setOpen(true)} data-track="gnb_menu_open">
             <span className="topbar__burger" aria-hidden="true"><i /><i /><i /></span>

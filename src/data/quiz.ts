@@ -62,7 +62,7 @@ export const QUESTIONS: QuizQuestion[] = [
     q: '하루 종일 비 소식이다.',
     options: [
       { key: 'A', tag: '원데이클래스', text: '숙소에서 원데이 클래스 듣기', types: { maker: 2 }, programs: { craft: 2, flower: 1 } },
-      { key: 'B', tag: '비오는제주', text: '비 와도 나간다, 비 오는 제주 찍으러', types: { adventurer: 2 }, programs: { camping: 1 } },
+      { key: 'B', tag: '비오는제주', text: '비 와도 나간다,\n비오는 제주 찍으러', types: { adventurer: 2 }, programs: { camping: 1 } },
     ],
   },
   {

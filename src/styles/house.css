@@ -56,7 +56,7 @@
 
 /* ── 집 — 민트 하늘 · 오름 · 흰 벽 · 크림색 방 · 돌담 · 초록 마당 ─────────────────────────────── */
 /* 집 페이지 — 위 제목 칸까지 그림 속 하늘색 한 가지로 (나누지 않음) */
-.explore { --yard: #C0DBA7; --charcoal: #3A3735; background: #99D4F3; padding-bottom: 0; }
+.explore { --yard: #C0DBA7; --charcoal: #3A3735; background: #B4CED8; padding-bottom: 0; }
 /* 집 내부 문구는 모두 인트로 질문과 같은 카트 고딕 (제목 · 설명 · 버튼 · 방 이름표 · 전체보기 목록) */
 .explore, .explore button { font-family: var(--f-home); }
 /* EXPLORE 라벨은 다른 섹션 라벨(CHECK IN 등)과 같은 본문 서체 · 자간 */
@@ -67,7 +67,7 @@
 .explore.explore--home { position: relative; z-index: 5; padding-top: clamp(40px, 7vh, 80px); } /* SCROLL 표시 아래 공백 */
 /* 메인 집 칸 — 제목 뒤까지 하늘: 위는 페이지 색에서 시작해 그림 맨 위 하늘색으로 이어짐 */
 /* 페이지 색 → 하늘색을 길고 부드럽게 (처음과 끝은 천천히 바뀌는 S자) */
-.explore.explore--home { --sky-fade: clamp(160px, 24vh, 240px); padding-top: calc(var(--sky-fade) - 24px); background: linear-gradient(to bottom, var(--bg) 0%, color-mix(in oklab, var(--bg), #99D4F3 2.8%) 10%, color-mix(in oklab, var(--bg), #99D4F3 10.4%) 20%, color-mix(in oklab, var(--bg), #99D4F3 21.6%) 30%, color-mix(in oklab, var(--bg), #99D4F3 35.2%) 40%, color-mix(in oklab, var(--bg), #99D4F3 50.0%) 50%, color-mix(in oklab, var(--bg), #99D4F3 64.8%) 60%, color-mix(in oklab, var(--bg), #99D4F3 78.4%) 70%, color-mix(in oklab, var(--bg), #99D4F3 89.6%) 80%, color-mix(in oklab, var(--bg), #99D4F3 97.2%) 90%, #99D4F3 100%) top / 100% var(--sky-fade) no-repeat, #99D4F3; } /* 하늘이 다 짙어진 뒤에 글이 시작 */
+.explore.explore--home { --sky-fade: clamp(160px, 24vh, 240px); padding-top: calc(var(--sky-fade) - 24px); background: linear-gradient(to bottom, var(--bg) 0%, color-mix(in oklab, var(--bg), #B4CED8 2.8%) 10%, color-mix(in oklab, var(--bg), #B4CED8 10.4%) 20%, color-mix(in oklab, var(--bg), #B4CED8 21.6%) 30%, color-mix(in oklab, var(--bg), #B4CED8 35.2%) 40%, color-mix(in oklab, var(--bg), #B4CED8 50.0%) 50%, color-mix(in oklab, var(--bg), #B4CED8 64.8%) 60%, color-mix(in oklab, var(--bg), #B4CED8 78.4%) 70%, color-mix(in oklab, var(--bg), #B4CED8 89.6%) 80%, color-mix(in oklab, var(--bg), #B4CED8 97.2%) 90%, #B4CED8 100%) top / 100% var(--sky-fade) no-repeat, #B4CED8; } /* 하늘이 다 짙어진 뒤에 글이 시작 */
 /* 글을 집 가까이 — 집 그림 맨 위 빈 하늘(굴뚝 연기 위) 쪽으로 내려 겹침 (버튼은 그림 위에서 눌림) */
 /* 제목 글 → 안내 상자 간격은 메인 세 칸(ROOM TOUR · AROUND JEJU · MORE STORIES) 모두 --hint-gap 하나로 (제목 칸 gap 14px 를 뺀 만큼) */
 .explore--home .explore__hint { margin-top: calc(var(--hint-gap) - 14px); }
@@ -195,6 +195,11 @@
   .explore--home .explore__head:has(+ .house3d:not(.house3d--wide)) { margin-bottom: 0; }
 }
 .house3d__img { display: block; width: 100%; height: auto; }
+/* 받은 손그림 집 — 하늘 · 집 · 잔디가 다 든 한 장을 그대로 (잘라 내거나 키우지 않음, 뒤는 그림 하늘색) · 넓은 화면에서도 가운데 한 장 */
+.house3d--paper { --w: min(100%, 620px); background: #B4CED8; }
+.house3d.house3d--paper .house3d__frame { margin: 0 auto; }
+.explore--home .explore__head:has(+ .house3d--paper) { margin-bottom: 0; }
+@media (max-width: 639px) { .house3d.house3d--paper { --w: 100%; } .house3d.house3d--paper .house3d__frame { margin: 0 auto; } }
 /* 방 — 투명 링크 (네모 테두리는 키보드로 고를 때만) */
 .house3d__room { position: absolute; display: block; outline: none; -webkit-tap-highlight-color: transparent; }
 .house3d__room::after { content: ""; position: absolute; inset: 0; pointer-events: none; box-shadow: inset 0 0 0 0 #F39A2B; transition: box-shadow var(--t-hover) var(--ease); }

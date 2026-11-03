@@ -60,7 +60,8 @@
   transition: background var(--t-hover) var(--ease), color var(--t-hover) var(--ease);
 }
 .test__option.is-on .test__key { background: var(--bg); }
-.test__otext { padding-top: 2px; }
+.test__otext { padding-top: 2px; white-space: pre-line; } /* 보기 글의 
+ 은 줄 바꿈 */
 .test__orow { display: contents; }
 /* 그림이 있는 문항 — 휴대폰에서도 두 칸 나란히, 그림 위 · 글자 아래 (그림 모서리는 일러스트 테두리에 맞춰 둥글게) */
 .test__options--art { grid-template-columns: 1fr 1fr; gap: 10px; }
