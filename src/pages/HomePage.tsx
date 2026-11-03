@@ -4,11 +4,12 @@ import { useContent } from '../i18n';
 import { href } from '../lib/router';
 import { useMediaQuery, useReducedMotion } from '../lib/motion';
 import { HomeDeck } from '../components/HomeDeck';
-import { ContentPicker, ContentShowcase } from '../components/ContentPicker';
+import { ContentPicker } from '../components/ContentPicker';
 import { GehageScene } from '../components/GehageScene';
 import { TasteMapIsland } from '../components/TasteMapIsland';
 import { TestShare } from '../components/TestShare';
 import { GuestNotes } from '../components/GuestNotes';
+import houseUrl from '../assets/house-3d.webp';
 import introNightUrl from '../assets/intro-night.webp';
 import checkoutBgUrl from '../assets/checkout-stay.webp';
 import stripLpWall from '../assets/strip/lp-wall.webp';
@@ -43,20 +44,13 @@ export function HomePage() {
     <>
       <h1 className="visually-hidden">{SITE.brand} {SITE.brandEn} — {ui.home.srTitle}</h1>
       <Intro />
-      {mobile ? (
-        // 휴대폰 — 네 콘텐츠(집 · 테스트 · 지도 · 방명록)를 한눈에 본 뒤 한 화면에 하나씩 넘겨봄. 그림 · 버튼을 누르면 상세로
-        <ContentShowcase />
-      ) : (
-        <>
-          {/* PC — 네 콘텐츠를 고르는 그림 (누르면 커지며 상세로) */}
-          <ContentPicker />
-          <FindYourStay />
-          <TasteMapBanner />
-          {/* 방명록 — 질문 3개에 답하는 노트 (공책 한 장 → 표지 → 질문 카드)
-              (예전 MORE STORIES 인스타그램 사진 칸은 메인에서 뺌 — 인스타그램 페이지 #/instagram 은 그대로) */}
-          <GuestNotes />
-        </>
-      )}
+      {/* 휴대폰은 집 그림 + 버튼(누르면 #/house), PC 는 네 콘텐츠(집 · 테스트 · 지도 · 방명록)를 고르는 그림 — 누르면 커지며 상세로 */}
+      {mobile ? <RoomTour /> : <ContentPicker />}
+      <FindYourStay />
+      <TasteMapBanner />
+      {/* 방명록 — 질문 3개에 답하는 노트 (공책 한 장 → 표지 → 질문 카드)
+          (예전 MORE STORIES 인스타그램 사진 칸은 메인에서 뺌 — 인스타그램 페이지 #/instagram 은 그대로) */}
+      <GuestNotes />
       <CheckOut />
       {/* 인트로보다 뒤에 둬야 손짓 처리도 인트로 다음 차례 (인트로가 단계를 넘긴 손짓은 넘기지 않음) */}
       {mobile && !reduced && <HomeDeck />}
@@ -360,6 +354,23 @@ function PhotoStrip() {
         )}
       </div>
     </div>
+  );
+}
+
+/* ── ROOM TOUR — CHECK IN 아래, 집 그림 + 테두리 버튼. 누르면 집 페이지(#/house) ─────────────────────────────── */
+function RoomTour() {
+  const { site: SITE } = useContent();
+  const e = SITE.explore;
+  return (
+    <section id="roomtour" className="roomtour" data-tone="light" aria-labelledby="roomtour-title">
+      <a className="roomtour__link" href={href.house()} data-track="home_roomtour">
+        <img className="roomtour__img" src={houseUrl} alt="" width={1089} height={1445} loading="lazy" decoding="async" />
+        <span className="roomtour__btn">
+          <span id="roomtour-title">{e.title.join(' ')}</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6.5 18.5 12 13 17.5" /></svg>
+        </span>
+      </a>
+    </section>
   );
 }
 

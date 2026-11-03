@@ -1,4 +1,4 @@
-import { useEffect, useRef, type MouseEvent } from 'react';
+import { useRef, type MouseEvent } from 'react';
 import { useContent } from '../i18n';
 import { href } from '../lib/router';
 import { prefersReducedMotion } from '../lib/motion';
@@ -6,17 +6,12 @@ import houseUrl from '../assets/house-3d.webp';
 import crabUrl from '../assets/gehage-crab.webp';
 import islandUrl from '../assets/taste-map-island.webp';
 import logoUrl from '../assets/logo-staylog.png';
-import loungeUrl from '../assets/strip/lounge-window.webp';
-import seaSitUrl from '../assets/strip/seaside-sit.webp';
-import craterUrl from '../assets/strip/crater-view.webp';
-import dinnerUrl from '../assets/strip/candle-dinner.webp';
 
 /* ------------------------------------------------------------------
-   메인 네 콘텐츠 — 집(게하 탐색) · 소라게(취향 테스트) · 섬(취향 지도) · 공책(방명록)
-   · PC (ContentPicker): 네 그림을 나란히. 올리면 살짝 떠오르고, 누르면 고른 그림이 화면 가운데로 커지며
-     나머지 그림 · 배경은 흐려지며 사라짐 → 다 커지면(약 0.7초) 그 상세페이지로. 상세가 뜨면 덮개가 걷힘
-   · 휴대폰 (ContentShowcase): 첫 화면에 네 그림을 세로로 쌓아 보여 주고(SCROLL), 넘길 때마다 한 화면에 그림 하나
-     — 그림 아래 버튼, 화면 아래쪽엔 그 콘텐츠의 웹진 사진이 흐릿하게 올라옴. 그림 · 버튼을 누르면 상세페이지로
+   PC 메인 — 콘텐츠 고르기 (집 · 취향 테스트 · 취향 지도 · 방명록 공책)
+   · 올리면 살짝 떠오름
+   · 누르면: 고른 그림이 화면 가운데로 커지며 앞으로 나오고 → 나머지 그림 · 배경은 흐려지며 사라짐
+     → 다 커지면(약 0.7초) 그 상세페이지로. 상세가 뜨면 덮개가 걷힘
    · 그림은 받은 그림 그대로 (공책은 방명록 칸의 표지와 같은 모양)
 ------------------------------------------------------------------- */
 
@@ -63,21 +58,20 @@ function enter(a: HTMLAnchorElement, art: HTMLElement, list: HTMLElement) {
   }, DUR);
 }
 
-/** 메인 네 콘텐츠 — 그림 · 이름 · 주소 · 버튼 문구 · 휴대폰 화면 아래 사진 (id 는 메뉴 · 뒤로 가기가 찾아오는 메인 칸 이름) */
-export function useContentItems() {
+export function ContentPicker() {
   const { site: SITE, ui } = useContent();
-  return [
-    { key: 'house', id: 'roomtour', en: 'EXPLORE', label: ui.nav.house, cta: SITE.explore.title.join(' '), to: href.house(), bg: loungeUrl, art: <img src={houseUrl} alt="" width={1089} height={1445} loading="lazy" decoding="async" /> },
-    { key: 'test', id: 'find', en: 'TEST', label: ui.nav.test, cta: SITE.findYourStay.cta, to: href.test(), bg: seaSitUrl, art: <img src={crabUrl} alt="" loading="lazy" decoding="async" /> },
-    { key: 'map', id: 'tastemap', en: 'MAP', label: ui.deck.tastemap, cta: ui.map.open, to: href.map(), bg: craterUrl, art: <img src={islandUrl} alt="" loading="lazy" decoding="async" /> },
+  const list = useRef<HTMLUListElement>(null);
+  const busy = useRef(false);
+
+  const items = [
+    { key: 'house', en: 'EXPLORE', label: ui.nav.house, to: href.house(), art: <img src={houseUrl} alt="" width={1089} height={1445} loading="lazy" decoding="async" /> },
+    { key: 'test', en: 'TEST', label: ui.nav.test, to: href.test(), art: <img src={crabUrl} alt="" loading="lazy" decoding="async" /> },
+    { key: 'map', en: 'MAP', label: ui.deck.tastemap, to: href.map(), art: <img src={islandUrl} alt="" loading="lazy" decoding="async" /> },
     {
       key: 'guest',
-      id: 'guest',
       en: 'GUESTBOOK',
       label: ui.nav.guest,
-      cta: ui.guest.open,
       to: href.guest(),
-      bg: dinnerUrl,
       art: (
         <span className="gcover picker__book">
           <span className="gcover__back" />
@@ -93,19 +87,6 @@ export function useContentItems() {
       ),
     },
   ];
-}
-
-const Arrow = () => (
-  <svg viewBox="0 0 24 24" aria-hidden="true">
-    <path d="M5 12h13M13 6.5 18.5 12 13 17.5" />
-  </svg>
-);
-
-export function ContentPicker() {
-  const { site: SITE } = useContent();
-  const items = useContentItems();
-  const list = useRef<HTMLUListElement>(null);
-  const busy = useRef(false);
 
   const onClick = (e: MouseEvent<HTMLAnchorElement>) => {
     if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || prefersReducedMotion()) return;
@@ -132,55 +113,5 @@ export function ContentPicker() {
         ))}
       </ul>
     </section>
-  );
-}
-
-/** 휴대폰 메인 — 네 그림 한눈에(첫 화면) → 한 화면에 하나씩. 화면이 들어오면 그림 · 버튼 · 사진이 차례로 올라옴 */
-export function ContentShowcase() {
-  const { site: SITE } = useContent();
-  const items = useContentItems();
-  const root = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const secs = root.current?.querySelectorAll<HTMLElement>('.show');
-    if (!secs) return;
-    if (prefersReducedMotion() || !('IntersectionObserver' in window)) {
-      secs.forEach((s) => s.classList.add('is-in'));
-      return;
-    }
-    const io = new IntersectionObserver((es) => es.forEach((e) => e.target.classList.toggle('is-in', e.isIntersecting)), { threshold: 0.45 });
-    secs.forEach((s) => io.observe(s));
-    return () => io.disconnect();
-  }, []);
-
-  return (
-    <div className="shows" ref={root}>
-      <section id="showcase" className="show show--all" data-tone="light" aria-labelledby="showcase-title">
-        <h2 id="showcase-title" className="visually-hidden">{SITE.explore.title.join(' ')}</h2>
-        <ul className="show__stack">
-          {items.map((it) => (
-            <li key={it.key} className={`show__obj show__obj--${it.key}`}>
-              <a href={it.to} aria-label={it.label} data-track={`home_stack_${it.key}`}>
-                <span className="show__art" aria-hidden="true">{it.art}</span>
-              </a>
-            </li>
-          ))}
-        </ul>
-        <span className="show__scroll" aria-hidden="true">SCROLL</span>
-      </section>
-      {items.map((it) => (
-        <section key={it.key} id={it.id} className={`show show--one show--${it.key}`} data-tone="light" aria-labelledby={`show-${it.key}`}>
-          <h2 id={`show-${it.key}`} className="visually-hidden">{it.label}</h2>
-          <a className="show__hero" href={it.to} aria-label={it.label} data-track={`home_show_${it.key}`}>
-            <span className="show__art" aria-hidden="true">{it.art}</span>
-          </a>
-          <a className="roomtour__btn show__btn" href={it.to} data-track={`home_show_btn_${it.key}`}>
-            <span>{it.cta}</span>
-            <Arrow />
-          </a>
-          <img className="show__bg" src={it.bg} alt="" loading="lazy" decoding="async" />
-        </section>
-      ))}
-    </div>
   );
 }

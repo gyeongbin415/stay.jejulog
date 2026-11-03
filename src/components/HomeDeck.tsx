@@ -4,7 +4,7 @@ import { useContent } from '../i18n';
 import '../styles/deck.css';
 
 /* ------------------------------------------------------------------
-   휴대폰 메인 세로 넘겨보기(풀페이지) — 인트로 → 네 콘텐츠 한눈에 → 집 → 취향 테스트 → 취향 지도 → 방명록 → 체크아웃
+   휴대폰 메인 세로 넘겨보기(풀페이지) — 인트로 → 집 → 취향 테스트 → 취향 지도 → 방명록 → 체크아웃
    · 칸마다 화면 높이 한 장. 손가락을 위로 밀면 지금 칸이 위로 밀려나며 다음 칸이 아래에서 올라옴 (0.7초 ease-in-out)
    · 칸 안 내용이 길면 칸 안에서 먼저 스크롤 — 끝(맨 아래 · 맨 위)에 닿은 뒤 한 번 더 밀어야 넘어감
      (칸 안 스크롤 · 관성도 그 칸 끝에서 멈춤 — 여러 칸을 건너뛰지 않게)
@@ -13,7 +13,7 @@ import '../styles/deck.css';
    · 페이지 스크롤은 그대로(window) — 상단 바 색 · 메뉴로 칸 찾아가기 · 뒤로 가기 자리 기억이 그대로 동작
 ------------------------------------------------------------------- */
 
-export const HOME_PANELS = ['intro', 'showcase', 'roomtour', 'find', 'tastemap', 'guest', 'checkout'] as const;
+export const HOME_PANELS = ['intro', 'roomtour', 'find', 'tastemap', 'guest', 'checkout'] as const;
 type PanelId = (typeof HOME_PANELS)[number];
 
 /** 넘어가는 시간(ms) */
