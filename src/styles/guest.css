@@ -88,7 +88,7 @@
 /* 아래 바 — 다른 사람들의 답 (방명록 칸 맨 아래 회색 바 · 위에 검은 선. 내리는 동안 화면 아래에 붙고 칸 끝에서 멈춤) */
 .gwrite__sheet {
   position: sticky; bottom: 0; z-index: 5; margin-top: auto;
-  background: #EFEDE8; border-top: 1.5px solid var(--ink);
+  background: #FDFCF9; border-top: 1.5px solid var(--ink); /* 방명록 바탕색(종이)보다 밝게 */
 }
 .gwrite__sheet-head {
   position: relative; display: flex; align-items: center; justify-content: space-between; gap: 16px; width: 100%;

@@ -130,9 +130,27 @@ function NoteArt() {
 }
 
 /**
- * 쓰던 답 · 이름 — 창을 닫았다 열거나 다른 화면에 다녀와도 그대로 (페이지가 열려 있는 동안, 남기고 나면 비움)
+ * 쓰던 답 · 이름 — 다른 화면에 다녀오거나 새로고침 · 창을 닫았다 다시 와도 그대로 (이 브라우저에 저장, 남기고 나면 비움)
  */
-const draft = { answers: Array<string>(SLOTS).fill(''), name: '' };
+const DRAFT_KEY = 'jejulog-guest-draft';
+const emptyDraft = () => ({ answers: Array<string>(SLOTS).fill(''), name: '' });
+const draft = (() => {
+  try {
+    const v = JSON.parse(localStorage.getItem(DRAFT_KEY) || 'null');
+    if (v && Array.isArray(v.answers)) return { answers: Array.from({ length: SLOTS }, (_, i) => String(v.answers[i] ?? '')), name: String(v.name ?? '') };
+  } catch {
+    /* 저장소를 못 읽으면 빈 노트로 */
+  }
+  return emptyDraft();
+})();
+const saveDraft = () => {
+  try {
+    if (draft.answers.some((a) => a.trim()) || draft.name.trim()) localStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
+    else localStorage.removeItem(DRAFT_KEY);
+  } catch {
+    /* 저장 못 해도 쓰기는 그대로 */
+  }
+};
 
 /** 처음(자유롭게 적기 · 질문 골라 답하기) ⇄ 질문 목록 ⇄ 줄 노트 카드 → 다 썼어요 · inline — 방명록 페이지 안에 바로(창 · 도입 문장 · 닫기 없이) */
 function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestNote[]; onClose: () => void; onSent: () => void; inline?: boolean }) {
@@ -146,6 +164,7 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
   useEffect(() => {
     draft.answers = [...answers];
     draft.name = name;
+    saveDraft();
   }, [answers, name]);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState('');
@@ -206,8 +225,8 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
       return;
     }
     track('guest_submit', { answered: a.filter(Boolean).length });
-    draft.answers = Array<string>(SLOTS).fill('');
-    draft.name = '';
+    Object.assign(draft, emptyDraft());
+    saveDraft();
     onSent();
     setPhase('done');
   };

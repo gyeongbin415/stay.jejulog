@@ -38,7 +38,7 @@ export function loadMine(): GuestNote[] {
 
 function saveMine(list: GuestNote[]) {
   try {
-    localStorage.setItem(MINE_KEY, JSON.stringify(list.slice(-10)));
+    localStorage.setItem(MINE_KEY, JSON.stringify(list.slice(-50)));
   } catch {
     /* 저장 못 해도 화면은 그대로 */
   }
