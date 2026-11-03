@@ -14,7 +14,7 @@ import '../styles/guest.css';
    · 메인 칸(page 아님) — 받은 공책 그림(끌어서 돌려 보거나 누르면 방명록 페이지로) · '돌려 보거나, 눌러서 펼치기' 안내 상자
 ------------------------------------------------------------------- */
 
-const QUESTIONS = 3;
+const QUESTIONS = 5;
 
 type Answer = { text: string; name: string };
 

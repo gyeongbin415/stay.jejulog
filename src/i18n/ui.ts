@@ -20,7 +20,7 @@ export interface UiText {
     pageTitle: string; homeTitle: string; homeCta: string; sub: string; all: string; filterAria: string; listAria: string; webzineBadge: string; seeStay: string; kakao: string; insta: string; note: string;
     search: string; searchAria: string; searchClear: string; noResult: string };
   insta: { title: string; loading: string; posts: string; followers: string; following: string; follow: string; message: string; postsTab: string; gridAria: string; close: string; prev: string; next: string; likes: (n: number) => string; comments: (n: number) => string; seeStay: string; back: string };
-  /** 방명록(GUEST NOTE) — 메인 취향 지도와 CHECK OUT 사이 · 질문 3개에 답하는 노트 */
+  /** 방명록(GUEST NOTE) — 메인 취향 지도와 CHECK OUT 사이 · 질문 5개에 답하는 노트 */
   guest: { title: string; sub: string; open: string; count: (n: number) => string; first: string;
     intro: string[]; questions: string[]; progress: (i: number, n: number) => string; placeholder: string;
     prev: string; skip: string; next: string; nameLabel: string; namePlaceholder: string; anon: string; submit: string; sending: string;
@@ -81,7 +81,7 @@ export const UI: Record<Lang, UiText> = {
       title: '제주에 두고 가는\n한 줄 노트', sub: '체크아웃 하기 전에,\n제주에서 보내고 싶은 하루를 짧게 남겨 주세요.',
       open: '나의 제주 노트 쓰기', count: (n) => `${n.toLocaleString()}명이 먼저 썼어요`, first: '첫 번째 노트를 남겨 주세요',
       intro: ['여행은 금방 끝나지만,', '그날의 마음은 오래 남으니까.'],
-      questions: ['제주에서 꼭 보내고 싶은 하루는?', '게스트하우스에서 만나고 싶은 사람은?', '제주에 두고 가고 싶은 한마디는?'],
+      questions: ['제주에서 꼭 보내고 싶은 하루는?', '게스트하우스에서 만나고 싶은 사람은?', '게스트하우스에서 해 보고 싶은 일은?', '제주 여행에 꼭 챙겨 갈 것은?', '제주에 두고 가고 싶은 한마디는?'],
       progress: (i, n) => `Q${i} / ${n}`, placeholder: '나의 답변',
       prev: '이전', skip: '건너뛰기', next: '다음', nameLabel: '이름', namePlaceholder: '비워 두면 익명의 여행자', anon: '익명의 여행자',
       submit: '노트 남기기', sending: '남기는 중…', needOne: '한 칸 이상 적어 주세요.', failed: '지금은 남기지 못했어요. 잠시 뒤 다시 눌러 주세요.',
@@ -165,7 +165,7 @@ export const UI: Record<Lang, UiText> = {
       title: 'A one-line note\nto leave in Jeju', sub: 'Before you check out,\nleave a few words about the day you’d like to spend in Jeju.',
       open: 'Write my Jeju note', count: (n) => `${n.toLocaleString()} ${n === 1 ? 'traveler has' : 'travelers have'} written`, first: 'Be the first to leave a note',
       intro: ['Trips end quickly,', 'but how that day felt stays with you.'],
-      questions: ['What kind of day do you want to spend in Jeju?', 'Who would you like to meet at a guesthouse?', 'What would you like to leave behind in Jeju?'],
+      questions: ['What kind of day do you want to spend in Jeju?', 'Who would you like to meet at a guesthouse?', 'What would you like to try at a guesthouse?', 'What will you always pack for Jeju?', 'What would you like to leave behind in Jeju?'],
       progress: (i, n) => `Q${i} / ${n}`, placeholder: 'My answer',
       prev: 'Back', skip: 'Skip', next: 'Next', nameLabel: 'Name', namePlaceholder: 'Leave blank to stay anonymous', anon: 'A traveler',
       submit: 'Leave my note', sending: 'Sending…', needOne: 'Please answer at least one question.', failed: 'Couldn’t send your note. Please try again in a moment.',
@@ -249,7 +249,7 @@ export const UI: Record<Lang, UiText> = {
       title: '留在济州的\n一行笔记', sub: '退房之前，\n简单写下你想在济州度过的一天吧。',
       open: '写下我的济州笔记', count: (n) => `已有 ${n.toLocaleString()} 人写下`, first: '来写下第一条笔记吧',
       intro: ['旅行很快就会结束，', '但那天的心情会留很久。'],
-      questions: ['你最想在济州度过怎样的一天？', '你想在民宿遇见什么样的人？', '你想在济州留下什么话？'],
+      questions: ['你最想在济州度过怎样的一天？', '你想在民宿遇见什么样的人？', '你想在民宿尝试做什么？', '去济州旅行一定会带上什么？', '你想在济州留下什么话？'],
       progress: (i, n) => `Q${i} / ${n}`, placeholder: '我的回答',
       prev: '上一步', skip: '跳过', next: '下一步', nameLabel: '名字', namePlaceholder: '不填写则为匿名旅行者', anon: '匿名旅行者',
       submit: '留下笔记', sending: '正在发送…', needOne: '请至少回答一个问题。', failed: '暂时无法留下笔记，请稍后再试。',

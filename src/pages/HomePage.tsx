@@ -49,7 +49,7 @@ export function HomePage() {
       {mobile ? <RoomTour /> : <ContentPicker />}
       <FindYourStay />
       <TasteMapBanner />
-      {/* 방명록 — 질문 3개에 답하는 노트 (공책 한 장 → 표지 → 질문 카드)
+      {/* 방명록 — 질문 5개에 답하는 노트 (공책 한 장 → 표지 → 질문 카드)
           (예전 MORE STORIES 인스타그램 사진 칸은 메인에서 뺌 — 인스타그램 페이지 #/instagram 은 그대로) */}
       <GuestNotes />
       <CheckOut />
