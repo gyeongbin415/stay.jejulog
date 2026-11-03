@@ -401,7 +401,7 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
                 id="gwrite-answer"
                 ref={areaRef}
                 className="gwrite__a"
-                rows={step === FREE ? 6 : 4}
+                rows={4}
                 maxLength={step === FREE ? MAX_FREE : MAX_ANSWER}
                 placeholder={step === FREE ? t.freePlaceholder : `${t.exampleLabel}${t.examples[step]}`}
                 value={answers[step]}
