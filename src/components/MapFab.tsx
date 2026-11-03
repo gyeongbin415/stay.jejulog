@@ -51,7 +51,7 @@ export function MapFab({ showMap = true, showInsta = true, showHouse = false, sh
         </a>
       )}
       {showHouse && (
-        <a className="mapfab" href={href.house()} aria-label={ui.nav.house} title={ui.nav.house} data-track="house_fab">
+        <a className="mapfab mapfab--accent" href={href.house()} aria-label={ui.nav.house} title={ui.nav.house} data-track="house_fab">
           {/* 돋보기 */}
           <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
             <circle cx="10.5" cy="10.5" r="6" />
@@ -60,7 +60,7 @@ export function MapFab({ showMap = true, showInsta = true, showHouse = false, sh
         </a>
       )}
       {showTest && (
-        <a className="mapfab" href={href.test()} aria-label={ui.nav.test} title={ui.nav.test} data-track="test_fab">
+        <a className="mapfab mapfab--accent" href={href.test()} aria-label={ui.nav.test} title={ui.nav.test} data-track="test_fab">
           {/* 체크 목록 — 취향 테스트 */}
           <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
             <rect x="4" y="3.5" width="16" height="17" rx="3" />

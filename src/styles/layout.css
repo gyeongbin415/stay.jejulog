@@ -110,6 +110,9 @@
   transition: transform var(--t-hover) var(--ease), box-shadow var(--t-hover) var(--ease);
 }
 .mapfab:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(58, 55, 53, .22); }
+/* 취향지도 페이지의 게하 탐색 · 취향 테스트 — 주황 바탕 · 흰 아이콘 (인스타그램 버튼과 구분) */
+.mapfab--accent { background: var(--forest); color: #fff; }
+.mapfab--accent:hover { background: #B9561A; }
 .mapfab:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; }
 .mapfab svg { width: 28px; height: 28px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linejoin: round; stroke-linecap: round; }
 .mapfab__dot { fill: currentColor; stroke: none; }
