@@ -80,8 +80,8 @@ const REVEAL = SITE_KO.intro.words.length + 3;
 const STEPS = [0, ...SITE_KO.intro.words.map((_, i) => i + 1), REVEAL - 1, REVEAL - 1, REVEAL];
 /** 전환 문구 끝 줄이 나오는 단계 (STEPS 의 두 번째 REVEAL - 1) */
 const TURN_END = STEPS.length - 2;
-/** 단계 하나에 내리는 거리 — 화면 높이의 0.6배 (인트로 높이 = 한 화면 + 단계 수 × 0.6 화면, home.css) */
-const STEP_VH = 0.6;
+/** 단계 하나에 내리는 거리 — 화면 높이의 0.3배 (조금만 내려도 다음 단어, 인트로 높이 = 한 화면 + 단계 수 × 0.3 화면, home.css) */
+const STEP_VH = 0.3;
 function Intro() {
   const { site: SITE, ui } = useContent();
   const ref = useRef<HTMLElement>(null);
