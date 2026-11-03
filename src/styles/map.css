@@ -33,7 +33,8 @@
 
 /* 지도 · 목록 — 넓은 화면은 나란히(지도는 따라 내려옴), 휴대폰은 지도 위 · 목록 아래 */
 .tmap__body { display: grid; gap: 16px; }
-.tmap__mapwrap { position: relative; }
+/* min-width: 0 — 안의 취향 버튼 줄(가로로 긴 줄)이 칸을 넓혀 휴대폰 화면 밖으로 밀어내지 않게 */
+.tmap__mapwrap { position: relative; min-width: 0; }
 .tmap__map { height: min(58vh, 460px); border-radius: 18px; overflow: hidden; background: #E8EEF0; z-index: 0; }
 .tmap__list { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
 .tmap__item {
