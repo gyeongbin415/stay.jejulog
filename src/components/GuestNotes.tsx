@@ -33,7 +33,8 @@ function answersOf(notes: GuestNote[], anon: string, q?: number): Answer[] {
   return out.filter((a) => a.text);
 }
 
-export function GuestNotes() {
+/** page — 따로 된 방명록 페이지(#/guest · 휴대폰 넘겨보기 네 번째 칸) */
+export function GuestNotes({ page = false }: { page?: boolean }) {
   const { ui } = useContent();
   const t = ui.guest;
   const [board, setBoard] = useState<GuestBoard | null>(null);
@@ -58,7 +59,7 @@ export function GuestNotes() {
   const strips = useMemo(() => answersOf(notes, t.anon).slice(0, PAGE_LINES), [notes, t.anon]);
 
   return (
-    <section id="guest" className="gnote" data-tone="light" aria-labelledby="guest-title">
+    <section id="guest" className={`gnote${page ? ' gnote--page' : ''}`} data-tone="light" aria-labelledby="guest-title">
       <div className="gnote__inner wrap">
         <p className="label">GUEST NOTE</p>
         <h2 id="guest-title" className="visually-hidden">{t.title}</h2>

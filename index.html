@@ -1,8 +1,9 @@
 <!doctype html>
 <html lang="ko">
   <head>
-    <!-- 취향 테스트 주소(…/test/)로 열리면 사진 · 파일 · 링크를 메인 주소 기준으로 찾도록 (빌드 때 이 파일이 test/index.html 로 한 벌 더 놓임) -->
-    <script>/\/test\/(index\.html)?$/.test(location.pathname)&&document.head.appendChild(Object.assign(document.createElement('base'),{href:'../'}))</script>
+    <!-- 사진 · 파일 · 링크를 늘 메인 주소 기준으로 — 취향 테스트 주소(…/test/)면 한 칸 위, 메인이면 지금 주소
+         (휴대폰 넘겨보기가 주소 경로를 test/ 로 바꿔도 그대로. 빌드 때 이 파일이 test/index.html 로 한 벌 더 놓임) -->
+    <script>document.head.appendChild(Object.assign(document.createElement('base'),{href:/\/test\/(index\.html)?$/.test(location.pathname)?'../':location.href.split('#')[0]}))</script>
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],

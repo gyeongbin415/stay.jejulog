@@ -22,7 +22,8 @@ type Step = number | 'result';
  * 10문항 · 점수 배점(src/data/quiz.ts) · 계산(src/lib/scoring.ts)을 그대로 씁니다.
  * 결과는 BEST 1(결과 유형의 대표 숙소) + BEST 2 · 3(그다음 추천).
  */
-export default function TestPage({ sharedCode, mine = false }: { sharedCode: string | null; mine?: boolean }) {
+/** active — 휴대폰 넘겨보기에서 지금 보이는 칸인지 (안 보일 때 미리 열려 있어도 테스트 시작으로 세지 않음) */
+export default function TestPage({ sharedCode, mine = false, active = true }: { sharedCode: string | null; mine?: boolean; active?: boolean }) {
   const { ui, questions } = useContent();
   const shared = decodeAnswers(sharedCode);
   const [answers, setAnswers] = useState<(AnswerKey | null)[]>(() => shared ?? QUESTIONS.map(() => null));
@@ -45,13 +46,17 @@ export default function TestPage({ sharedCode, mine = false }: { sharedCode: str
 
   useEffect(() => () => window.clearTimeout(timer.current), []);
 
-  // 들어오자마자 첫 질문부터 (게하게 소개는 메인 FIND YOUR STAY 칸에)
+  // 들어오자마자 첫 질문부터 (게하게 소개는 메인 FIND YOUR STAY 칸에) — 넘겨보기에서는 이 칸이 처음 보일 때
+  const counted = useRef(false);
   useEffect(() => {
+    if (!active || counted.current) return;
+    counted.current = true;
     if (!shared) {
       startedAt.current = Date.now();
       track('quiz_start');
     }
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [active]);
 
   // 문항이 바뀌면 질문으로 초점을 옮기고 화면 위쪽에 맞춥니다.
   useEffect(() => {
@@ -119,7 +124,7 @@ export default function TestPage({ sharedCode, mine = false }: { sharedCode: str
               <span className="trip__path" aria-hidden="true" />
               <img className="trip__house" src={tripHouseUrl} alt="" />
               <img className="trip__crab" src={tripCrabUrl} alt="" style={{ '--step': qi / (QUESTIONS.length - 1) } as CSSProperties} />
-            </div>            <div className="test__card" key={qi}>
+            </div>            <div className="test__card" key={qi} data-swipe-lock={answers.some(Boolean) || undefined}>
 
               <p className="test__qno serif" aria-hidden="true">Q{qi + 1}.</p>
               <h1 id="test-title" ref={focusRef} tabIndex={-1} className="test__q">

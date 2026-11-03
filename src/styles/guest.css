@@ -187,3 +187,6 @@
 .gwrite__send { display: grid; gap: 16px; margin-top: 26px; }
 .gwrite__send .gwrite__name { border-top: 0; padding-top: 0; }
 .gwrite__send .gwrite__submit { justify-self: end; }
+
+/* 따로 된 방명록 페이지 — 상단 바 아래부터, 한 화면 높이 */
+.gnote--page { min-height: 100vh; min-height: 100svh; padding-top: calc(var(--header) + clamp(40px, 8vh, 80px)); }

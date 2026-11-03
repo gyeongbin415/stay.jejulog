@@ -12,6 +12,7 @@ const FALLBACK: Partial<Record<Route['name'], string>> = {
   map: href.home('tastemap'),
   insta: href.home('guest'),
   test: href.home('find'),
+  guest: href.home('guest'),
 };
 
 export function BackFab({ route }: { route: Route }) {

@@ -13,6 +13,8 @@ import { PROGRAM_BY_ID } from '../data/programs';
                                     <base href="../"> 로 사진 · 파일 · 링크를 메인 기준으로 찾습니다 (index.html 맨 위)
      PAGE 05  #/instagram           인스타그램 (@stay.jejulog 계정 화면을 웹진 안에서)
      PAGE 06  #/map                 취향 지도 (오른쪽 아래 동그라미 버튼 — 내용은 준비 중)
+     PAGE 07  #/guest               방명록 (메인 방명록 칸과 같은 내용 — 휴대폰 넘겨보기의 네 번째 칸)
+     휴대폰에서는 집 · 테스트 · 지도 · 방명록 네 주소가 한 판으로 이어져 좌우로 넘겨봅니다 (components/Deck.tsx)
      메인 안의 특정 위치             #/?to=checkin   (to = 섹션 id)
      공유받은 테스트 결과             test/#?r=ABCDABC
      내가 방금 본 결과                test/#?r=ABCDABC&me=1  (숙소 페이지에서 뒤로 가기로 돌아오는 자리)
@@ -26,10 +28,13 @@ export type Route =
   | { name: 'test'; query: URLSearchParams }
   | { name: 'insta'; query: URLSearchParams }
   | { name: 'map'; query: URLSearchParams }
+  | { name: 'guest'; query: URLSearchParams }
   | { name: 'notfound'; query: URLSearchParams };
 
-/** 지금 취향 테스트 주소(…/test/)에서 열렸는지 */
-export const ON_TEST_PAGE = /\/test\/(index\.html)?$/.test(window.location.pathname);
+/**
+ * 지금 주소가 취향 테스트 주소(…/test/)인지 — 휴대폰 넘겨보기가 주소 경로를 바꾸므로(test/ ⇄ 메인) 그때그때 봅니다
+ */
+export const isTestPath = (path = window.location.pathname) => /\/test\/(index\.html)?$/.test(path);
 
 /** 링크 · 공유 주소를 완전한 주소로 — 테스트 주소에서도 메인 기준(<base>)으로 풉니다 */
 export const absUrl = (path: string) => new URL(path, document.baseURI).href;
@@ -43,11 +48,11 @@ export function fixTestUrl() {
   const [path, qs = ''] = raw.split('?');
   const parts = path.split('/').filter(Boolean);
   const isTest = parts[0] === 'test' || (parts.length === 0 && new URLSearchParams(qs).has('r'));
-  if (!ON_TEST_PAGE && isTest) {
+  if (!isTestPath() && isTest) {
     window.location.replace(new URL(`test/${qs ? `#?${qs}` : ''}`, window.location.href).href);
     return true;
   }
-  if (ON_TEST_PAGE && parts.length > 0 && !isTest) {
+  if (isTestPath() && parts.length > 0 && !isTest) {
     window.location.replace(new URL(`../#${raw}`, window.location.href).href);
     return true;
   }
@@ -60,7 +65,7 @@ export function parseHash(hash = window.location.hash): Route {
   const query = new URLSearchParams(qs);
   const parts = path.split('/').filter(Boolean);
   if (parts.length === 0) {
-    if (query.get('r') || ON_TEST_PAGE) return { name: 'test', query };
+    if (query.get('r') || isTestPath()) return { name: 'test', query };
     // 예전 주소 #/?to=explore(메인 안 집 칸)는 집 페이지로
     if (query.get('to') === 'explore') return { name: 'house', query: new URLSearchParams() };
     return { name: 'home', query };
@@ -70,6 +75,7 @@ export function parseHash(hash = window.location.hash): Route {
   if (parts[0] === 'test') return { name: 'test', query };
   if (parts[0] === 'instagram') return { name: 'insta', query };
   if (parts[0] === 'map') return { name: 'map', query };
+  if (parts[0] === 'guest') return { name: 'guest', query };
   if ((parts[0] === 'stay' || parts[0] === 'use') && parts[1] && parts[1] in PROGRAM_BY_ID) {
     return { name: 'stay', id: parts[1] as ProgramId, query };
   }
@@ -102,13 +108,23 @@ export function goBack(fallback: string) {
 export function useRoute() {
   const [route, setRoute] = useState(() => ({ ...parseHash(), visit: 0 }));
   useEffect(() => {
-    const on = () => {
+    // 해시가 바뀔 때 · 앞뒤로 갈 때(popstate) · 넘겨보기가 주소를 바꿨을 때(jl:route) — 같은 주소로 두 번 오면 한 번만
+    let last = window.location.href;
+    const on = (e: Event) => {
+      if (e.type !== 'hashchange' && window.location.href === last) return;
+      last = window.location.href;
       if (fixTestUrl()) return;
       movedInApp = true;
       setRoute((r) => ({ ...parseHash(), visit: r.visit + 1 }));
     };
     window.addEventListener('hashchange', on);
-    return () => window.removeEventListener('hashchange', on);
+    window.addEventListener('popstate', on);
+    window.addEventListener('jl:route', on);
+    return () => {
+      window.removeEventListener('hashchange', on);
+      window.removeEventListener('popstate', on);
+      window.removeEventListener('jl:route', on);
+    };
   }, []);
   return route;
 }
@@ -122,6 +138,7 @@ export const href = {
   /** post — 몇 번째 게시물을 바로 크게 열지 (1부터) */
   insta: (post?: number) => (post ? `#/instagram?post=${post}` : '#/instagram'),
   map: () => '#/map',
+  guest: () => '#/guest',
   result: (code: string) => `test/#?r=${code}`,
   myResult: (code: string) => `test/#?r=${code}&me=1`,
 };

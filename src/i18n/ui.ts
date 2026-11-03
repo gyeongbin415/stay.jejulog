@@ -9,6 +9,8 @@ export interface UiText {
   docTitle: string;
   langLabel: string;
   skip: string;
+  /** 휴대폰 넘겨보기 아래 메뉴 */
+  deck: { house: string; test: string; map: string; guest: string; aria: string };
   nav: { main: string; house: string; test: string; map: string; more: string; menuOpen: string; menuClose: string; menu: string; mainNav: string; toHome: (brand: string) => string };
   footer: { tagline: string; desc: string; followUs: string; madeBy: string };
   app: { loadingStay: string; loadingTest: string; notFound: string; toHome: string };
@@ -65,6 +67,7 @@ export const UI: Record<Lang, UiText> = {
     docTitle: 'STAY JEJULOG — 문 너머, 우리가 몰랐던 게스트하우스',
     langLabel: '언어',
     skip: '본문 바로가기',
+    deck: { house: '집', test: '테스트', map: '지도', guest: '방명록', aria: '콘텐츠 넘겨보기' },
     nav: { main: '메인', house: '게하 탐색', test: '취향 테스트', map: '지도', more: '인스타그램', menuOpen: '메뉴 열기', menuClose: '메뉴 닫기', menu: '메뉴', mainNav: '주요 메뉴', toHome: (b) => `${b} 메인으로` },
     footer: { tagline: '우리가 몰랐던 제주 게스트하우스를 만나는 웹진', desc: '제주에서의 하루를 조금 다르게 보내는 방법.\n당신의 취향에 맞는 게스트하우스를 발견해 보세요.', followUs: 'FOLLOW US', madeBy: 'MADE BY' },
     app: { loadingStay: '게스트하우스를 불러오는 중…', loadingTest: '테스트를 준비하는 중…', notFound: '찾으시는 페이지가 없습니다.', toHome: '메인으로' },
@@ -148,6 +151,7 @@ export const UI: Record<Lang, UiText> = {
     docTitle: 'STAY JEJULOG — Beyond the door, the guesthouses we never knew',
     langLabel: 'Language',
     skip: 'Skip to content',
+    deck: { house: 'House', test: 'Test', map: 'Map', guest: 'Guestbook', aria: 'Browse the stories' },
     nav: { main: 'Home', house: 'Explore', test: 'Taste Test', map: 'Map', more: 'Instagram', menuOpen: 'Open menu', menuClose: 'Close menu', menu: 'Menu', mainNav: 'Main menu', toHome: (b) => `${b} home` },
     footer: { tagline: 'A webzine for meeting the Jeju guesthouses we never knew', desc: 'A slightly different way to spend a day in Jeju.\nDiscover the guesthouse that fits your taste.', followUs: 'FOLLOW US', madeBy: 'MADE BY' },
     app: { loadingStay: 'Loading the guesthouse…', loadingTest: 'Preparing the test…', notFound: 'We couldn’t find that page.', toHome: 'Back to home' },
@@ -231,6 +235,7 @@ export const UI: Record<Lang, UiText> = {
     docTitle: 'STAY JEJULOG — 门的那边，我们不曾了解的民宿',
     langLabel: '语言',
     skip: '跳到正文',
+    deck: { house: '房子', test: '测试', map: '地图', guest: '留言簿', aria: '翻阅内容' },
     nav: { main: '首页', house: '探索民宿', test: '喜好测试', map: '地图', more: 'Instagram', menuOpen: '打开菜单', menuClose: '关闭菜单', menu: '菜单', mainNav: '主菜单', toHome: (b) => `返回${b}首页` },
     footer: { tagline: '遇见我们不曾了解的济州民宿的杂志', desc: '在济州度过与众不同一天的方法。\n发现适合你喜好的民宿吧。', followUs: 'FOLLOW US', madeBy: 'MADE BY' },
     app: { loadingStay: '正在加载民宿…', loadingTest: '正在准备测试…', notFound: '找不到您要的页面。', toHome: '返回首页' },
