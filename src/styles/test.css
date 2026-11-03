@@ -11,6 +11,8 @@
 .story__scene .story__char--art { width: clamp(190px, 34vw, 320px); }
 .story__bubble-art { position: absolute; left: 66%; bottom: 70%; width: clamp(142px, 68%, 230px); height: auto; }
 .story__scene { position: relative; margin: clamp(36px, 5vw, 56px) 0 2px; }
+/* 게하게 그림(소라게 왼쪽 · 말풍선 오른쪽 한 장) — 소라게가 가운데에 오게 오른쪽으로 */
+.story .story__scene-art.gehage { translate: 16% 0; }
 .story__char { display: block; width: clamp(160px, 30vw, 280px); height: auto; }
 .story__bubble { position: absolute; left: 76%; top: -4%; padding: 13px 22px 24px 28px; }
 /* 말풍선 그림 — 글자 상자 크기에 맞춰 늘어남 (테두리 굵기는 그대로) */
