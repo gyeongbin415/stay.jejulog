@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from 'react';
+import { createPortal } from 'react-dom';
 import { useContent } from '../i18n';
 import { useReducedMotion } from '../lib/motion';
 import { absUrl, href } from '../lib/router';
@@ -182,7 +183,6 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
 
   const list = useMemo(() => answersOf(notes, t.anon, step), [notes, t.anon, step]);
   // 아래 칸에 보여 줄 다른 사람 답 하나 — 질문마다 하나씩 골라 둠
-  const peek = useMemo(() => (list.length ? list[Math.floor(Math.random() * list.length)] : null), [list]);
 
   const setAnswer = (v: string) => setAnswers((a) => a.map((x, i) => (i === step ? v : x)));
   const answered = answers.map((a) => !!a.trim());
@@ -312,7 +312,8 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
                 >
                   <span className="gwrite__pick-no">Q{i + 1}</span>
                   <span className="gwrite__pick-q">{q}</span>
-                  <span className="gwrite__pick-state">{answered[i] ? answers[i].trim() : t.pickWrite}</span>
+                  {/* 답을 쓴 질문만 그 답 한 줄 */}
+                  {answered[i] && <span className="gwrite__pick-state">{answers[i].trim()}</span>}
                   <span className="gwrite__pick-go" aria-hidden="true">{answered[i] ? '✓' : '›'}</span>
                 </button>
               </li>
@@ -362,19 +363,14 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
             </nav>
           </div>
 
-          {/* 다른 사람의 답 — 하나 살짝 보이고, 누르면 이 질문의 답 전부 */}
+          {/* 다른 사람들의 답 — 화면 맨 아래 바(왼쪽 제목 · 오른쪽 'N명 답 보기'), 누르면 이 질문의 답 전부가 위로 펼쳐짐
+              (페이지 등장 애니메이션 안에 두면 화면이 아니라 페이지에 붙으므로 body 에) */}
+          {createPortal(
           <aside className={`gwrite__sheet${showAll ? ' is-open' : ''}`}>
-            <button type="button" className="gwrite__sheet-head" onClick={() => setShowAll((v) => !v)} aria-expanded={showAll} disabled={!list.length}>
+            <button type="button" className="gwrite__sheet-head" onClick={() => setShowAll((v) => !v)} aria-expanded={showAll} disabled={!list.length} data-track="guest_others">
               <span className="gwrite__grip" aria-hidden="true" />
-              {peek ? (
-                <span className="gwrite__peek">
-                  <q>{peek.text}</q>
-                  <small>{t.otherBy(peek.name)}</small>
-                </span>
-              ) : (
-                <span className="gwrite__peek gwrite__peek--empty">{t.emptyAnswers}</span>
-              )}
-              {list.length > 0 && <span className="gwrite__all-btn">{showAll ? t.hideAll : t.seeAll(list.length)}</span>}
+              <span className="gwrite__sheet-title">{t.othersTitle}</span>
+              <span className="gwrite__all-btn">{list.length ? (showAll ? t.hideAll : t.seeAll(list.length)) : t.othersNone}</span>
             </button>
             {showAll && (
               <ul className="gwrite__all">
@@ -386,7 +382,9 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
                 ))}
               </ul>
             )}
-          </aside>
+          </aside>,
+          document.body,
+          )}
         </>
       )}
 

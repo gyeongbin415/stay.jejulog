@@ -27,7 +27,7 @@ export interface UiText {
     examples: string[]; exampleLabel: string; progress: (i: number, n: number) => string; placeholder: string;
     prev: string; skip: string; next: string; nameLabel: string; namePlaceholder: string; anon: string; submit: string; sending: string;
     needOne: string; failed: string; doneTitle: string; doneSub: string; doneClose: string; close: string;
-    otherBy: (name: string) => string; seeAll: (n: number) => string; hideAll: string; emptyAnswers: string; localOnly: string; cloudAria: string;
+    otherBy: (name: string) => string; seeAll: (n: number) => string; hideAll: string; emptyAnswers: string; othersTitle: string; othersNone: string; localOnly: string; cloudAria: string;
     coverHint: string; coverAria: string;
     pickTitle: string; pickSub: string; pickWrite: string; toList: string; doneAnswer: string;
     /** 질문 고르기 아래 — 다른 여행자들이 남긴 노트 */
@@ -88,14 +88,14 @@ export const UI: Record<Lang, UiText> = {
       title: '제주에 두고 가는\n한 줄 노트', sub: '체크아웃 하기 전에,\n제주에서 보내고 싶은 하루를 짧게 남겨 주세요.',
       open: '나의 제주 노트 쓰기', count: (n) => `${n.toLocaleString()}명이 먼저 썼어요`, first: '첫 번째 노트를 남겨 주세요',
       intro: ['여행은 금방 끝나지만,', '그날의 마음은 오래 남으니까.'],
-      questions: ['제주에서 가장 좋아하는 순간은?', '게스트하우스에서 해보고 싶은 일은?', '제주에서 꼭 만나보고 싶은 사람은?', '나만의 제주 여행 꿀팁은?', '다음 제주 여행자에게 남길 한마디는?'],
-      examples: ['노을 지는 해변에서 멍때리기', '처음 만난 사람들과 저녁 먹기', '동네 맛집을 잘 아는 제주 토박이', '일정에 아무것도 없는 날 하루 만들기', '계획대로 되지 않아도 괜찮아요!'],
+      questions: ['제주에서 가장 좋아하는 순간은?', '게스트하우스에서 해보고 싶은 일은?', '있다면 무조건 갈 게하 프로그램은?', '나만의 제주 여행 꿀팁은?', '다음 제주 여행자에게 남길 한마디는?'],
+      examples: ['노을 지는 해변에서 멍때리기', '처음 만난 사람들과 저녁 먹기', '고양이랑 함께하는 낮잠 클래스', '일정에 아무것도 없는 날 하루 만들기', '계획대로 되지 않아도 괜찮아요!'],
       exampleLabel: '예시 답변 · ',
       progress: (i, n) => `Q${i} / ${n}`, placeholder: '나의 답변',
       prev: '이전', skip: '건너뛰기', next: '다음', nameLabel: '이름', namePlaceholder: '비워 두면 익명의 여행자', anon: '익명의 여행자',
       submit: '노트 남기기', sending: '남기는 중…', needOne: '한 칸 이상 적어 주세요.', failed: '지금은 남기지 못했어요. 잠시 뒤 다시 눌러 주세요.',
       doneTitle: '노트를 남겼어요', doneSub: '다른 여행자들의 노트와 함께 이곳에 떠다닐 거예요.', doneClose: '다른 노트 보러 가기', close: '닫기',
-      otherBy: (name) => `${name}의 답`, seeAll: (n) => `${n.toLocaleString()}명 답 보기`, hideAll: '접기', emptyAnswers: '아직 이 질문에 남긴 답이 없어요.',
+      otherBy: (name) => `${name}의 답`, seeAll: (n) => `${n.toLocaleString()}명 답 보기`, hideAll: '접기', emptyAnswers: '아직 이 질문에 남긴 답이 없어요.', othersTitle: '다른 사람들의 답', othersNone: '아직 없어요',
       localOnly: '지금은 준비 중이라 남긴 노트가 이 화면에만 보여요.', cloudAria: '여행자들이 남긴 노트',
       coverHint: '제주에 어떤 마음을 남겨 볼까요?', coverAria: '나의 제주 노트 표지',
       pickTitle: '어떤 질문에 답해 볼까요?', pickSub: '마음이 가는 질문만 골라 적어 보세요.\n하나만 적어도 괜찮아요.', pickWrite: '적어 보기', toList: '질문 목록', doneAnswer: '다 적었어요',
@@ -178,14 +178,14 @@ export const UI: Record<Lang, UiText> = {
       title: 'A one-line note\nto leave in Jeju', sub: 'Before you check out,\nleave a few words about the day you’d like to spend in Jeju.',
       open: 'Write my Jeju note', count: (n) => `${n.toLocaleString()} ${n === 1 ? 'traveler has' : 'travelers have'} written`, first: 'Be the first to leave a note',
       intro: ['Trips end quickly,', 'but how that day felt stays with you.'],
-      questions: ['What is your favorite moment in Jeju?', 'What would you like to try at a guesthouse?', 'Who would you love to meet in Jeju?', 'What is your own Jeju travel tip?', 'A word for the next Jeju traveler?'],
-      examples: ['Zoning out on a beach at sunset', 'Having dinner with people I just met', 'A local who knows the best neighborhood spots', 'Leave one day with nothing planned', "It's okay if things don't go as planned!"],
+      questions: ['What is your favorite moment in Jeju?', 'What would you like to try at a guesthouse?', "A guesthouse program you'd totally go for?", 'What is your own Jeju travel tip?', 'A word for the next Jeju traveler?'],
+      examples: ['Zoning out on a beach at sunset', 'Having dinner with people I just met', 'A nap class with the house cats', 'Leave one day with nothing planned', "It's okay if things don't go as planned!"],
       exampleLabel: 'e.g. ',
       progress: (i, n) => `Q${i} / ${n}`, placeholder: 'My answer',
       prev: 'Back', skip: 'Skip', next: 'Next', nameLabel: 'Name', namePlaceholder: 'Leave blank to stay anonymous', anon: 'A traveler',
       submit: 'Leave my note', sending: 'Sending…', needOne: 'Please answer at least one question.', failed: 'Couldn’t send your note. Please try again in a moment.',
       doneTitle: 'Your note is in', doneSub: 'It will float here with notes from other travelers.', doneClose: 'See other notes', close: 'Close',
-      otherBy: (name) => `— ${name}`, seeAll: (n) => `See all ${n.toLocaleString()} answers`, hideAll: 'Hide', emptyAnswers: 'No answers to this question yet.',
+      otherBy: (name) => `— ${name}`, seeAll: (n) => `See all ${n.toLocaleString()} answers`, hideAll: 'Hide', emptyAnswers: 'No answers to this question yet.', othersTitle: 'Answers from others', othersNone: 'None yet',
       localOnly: 'This is still being set up, so your note is only shown on this screen for now.', cloudAria: 'Notes left by travelers',
       coverHint: 'What will you leave in Jeju?', coverAria: 'My Jeju note cover',
       pickTitle: 'Which question would you like to answer?', pickSub: 'Pick only the ones that speak to you.\nOne answer is enough.', pickWrite: 'Write', toList: 'Questions', doneAnswer: 'Done',
@@ -268,14 +268,14 @@ export const UI: Record<Lang, UiText> = {
       title: '留在济州的\n一行笔记', sub: '退房之前，\n简单写下你想在济州度过的一天吧。',
       open: '写下我的济州笔记', count: (n) => `已有 ${n.toLocaleString()} 人写下`, first: '来写下第一条笔记吧',
       intro: ['旅行很快就会结束，', '但那天的心情会留很久。'],
-      questions: ['在济州最喜欢的瞬间是？', '想在民宿尝试的事是？', '在济州最想遇见的人是？', '你的济州旅行小窍门是？', '想对下一位济州旅行者说的话是？'],
-      examples: ['在夕阳下的海边发呆', '和初次见面的人一起吃晚饭', '熟知街坊美食的济州本地人', '留出一天什么都不安排', '就算不按计划走也没关系！'],
+      questions: ['在济州最喜欢的瞬间是？', '想在民宿尝试的事是？', '有了就一定会去的民宿活动是？', '你的济州旅行小窍门是？', '想对下一位济州旅行者说的话是？'],
+      examples: ['在夕阳下的海边发呆', '和初次见面的人一起吃晚饭', '和民宿猫咪一起的午睡课', '留出一天什么都不安排', '就算不按计划走也没关系！'],
       exampleLabel: '例如：',
       progress: (i, n) => `Q${i} / ${n}`, placeholder: '我的回答',
       prev: '上一步', skip: '跳过', next: '下一步', nameLabel: '名字', namePlaceholder: '不填写则为匿名旅行者', anon: '匿名旅行者',
       submit: '留下笔记', sending: '正在发送…', needOne: '请至少回答一个问题。', failed: '暂时无法留下笔记，请稍后再试。',
       doneTitle: '笔记已留下', doneSub: '它会和其他旅行者的笔记一起在这里飘浮。', doneClose: '去看看其他笔记', close: '关闭',
-      otherBy: (name) => `${name} 的回答`, seeAll: (n) => `查看全部 ${n.toLocaleString()} 条回答`, hideAll: '收起', emptyAnswers: '这个问题还没有人回答。',
+      otherBy: (name) => `${name} 的回答`, seeAll: (n) => `查看全部 ${n.toLocaleString()} 条回答`, hideAll: '收起', emptyAnswers: '这个问题还没有人回答。', othersTitle: '其他人的回答', othersNone: '还没有',
       localOnly: '目前仍在准备中，你的笔记暂时只显示在这个页面上。', cloudAria: '旅行者们留下的笔记',
       coverHint: '要在济州留下怎样的心意呢？', coverAria: '我的济州笔记封面',
       pickTitle: '想回答哪个问题？', pickSub: '只挑你喜欢的问题来写吧。\n写一个也没关系。', pickWrite: '写一写', toList: '问题列表', doneAnswer: '写好了',

@@ -85,23 +85,26 @@
 .gwrite__submit { min-width: 150px; }
 .gwrite__error { margin-top: 12px; text-align: right; font-size: 14px; color: var(--orange-ink); }
 
-/* 아래 칸 — 다른 사람의 답 */
+/* 아래 바 — 다른 사람들의 답 (화면 맨 아래에 붙은 회색 바 · 위에 검은 선, 동그라미 버튼보다 위) */
 .gwrite__sheet {
-  position: sticky; bottom: 0; z-index: 2;
-  background: #fff; border-top: 1px solid var(--line-strong); border-radius: 16px 16px 0 0;
-  box-shadow: 0 -6px 24px rgba(17, 17, 17, .06);
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 95;
+  background: #EFEDE8; border-top: 1.5px solid var(--ink);
 }
 .gwrite__sheet-head {
-  position: relative; display: flex; align-items: center; gap: 16px; width: 100%;
-  padding: 22px var(--gutter) max(16px, env(safe-area-inset-bottom)); text-align: left;
+  position: relative; display: flex; align-items: center; justify-content: space-between; gap: 16px; width: 100%;
+  padding: 26px var(--gutter) max(18px, env(safe-area-inset-bottom)); text-align: left;
 }
+.gwrite__sheet-title { font-family: var(--f-home); font-size: 16px; font-weight: 700; color: var(--ink); }
+/* 답 쓰는 동안 — 아래 바에 가리지 않게 여백, 동그라미 버튼은 숨김 */
+.gwrite--write .gwrite__body { padding-bottom: 110px; }
+html:has(.gwrite--write) :is(.fabs, .backfab) { opacity: 0; visibility: hidden; pointer-events: none; }
 .gwrite__sheet-head:disabled { cursor: default; }
-.gwrite__grip { position: absolute; top: 8px; left: 50%; width: 36px; height: 4px; margin-left: -18px; border-radius: 2px; background: var(--line-strong); }
+.gwrite__grip { position: absolute; top: 9px; left: 50%; width: 44px; height: 4px; margin-left: -22px; border-radius: 2px; background: #BDB9B1; }
 .gwrite__peek { flex: 1; min-width: 0; display: grid; gap: 3px; }
 .gwrite__peek q { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 15px; font-weight: 700; }
 .gwrite__peek small, .gwrite__all small { font-size: 12px; color: var(--ink-soft); }
 .gwrite__peek--empty { font-size: 14px; color: var(--ink-soft); }
-.gwrite__all-btn { flex: none; font-size: 13.5px; font-weight: 600; color: var(--ink-soft); }
+.gwrite__all-btn { flex: none; font-size: 14px; font-weight: 600; color: #6B6762; }
 .gwrite__all { max-height: 46vh; overflow-y: auto; margin: 0; padding: 0 var(--gutter) 20px; list-style: none; }
 .gwrite__all li { display: grid; gap: 3px; padding: 12px 0; border-top: 1px solid var(--line); }
 .gwrite__all q { font-size: 15px; line-height: 1.55; }
