@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
 import { createPortal } from 'react-dom';
 import { useContent } from '../i18n';
 import { useReducedMotion } from '../lib/motion';
-import { href } from '../lib/router';
+import { absUrl, href } from '../lib/router';
 import { track } from '../lib/track';
 import { GUESTBOOK_URL, MAX_ANSWER, MAX_NAME, fetchBoard, loadMine, postNote, type GuestBoard, type GuestNote } from '../data/guestbook';
 import logoUrl from '../assets/logo-staylog.png';
@@ -61,13 +61,11 @@ export function GuestNotes({ page = false }: { page?: boolean }) {
       <div className="gnote__inner wrap">
         <p className="label">GUEST NOTE</p>
         <h2 id="guest-title" className="visually-hidden">{t.title}</h2>
-        {/* 메인 — 받은 공책 그림(누르면 방명록 페이지로) · 방명록 페이지 — 돌려 보거나 펼치는 표지(쓰기 창) */}
+        {/* 메인 — 받은 공책 그림(끌어서 돌려 보거나 누르면 방명록 페이지로) · 방명록 페이지 — 돌려 보거나 펼치는 표지(쓰기 창) */}
         {page ? (
           <NoteCover key={coverKey} onOpen={() => setOpen(true)} />
         ) : (
-          <a className="gnote__art" href={href.guest()} aria-label={t.open} data-track="guest_open">
-            <img src={noteUrl} alt="" width={900} height={708} loading="lazy" decoding="async" />
-          </a>
+          <NoteArt />
         )}
         <p className="gnote__entry-count">{count > 0 ? t.count(count) : t.first}</p>
         {!GUESTBOOK_URL && mine.length > 0 && <p className="gnote__local">{t.localOnly}</p>}
@@ -89,6 +87,50 @@ export function GuestNotes({ page = false }: { page?: boolean }) {
           document.body,
         )}
     </section>
+  );
+}
+
+/** 메인 공책 그림 — 끌어서 돌려 보거나 눌러서 방명록 페이지로 (밑에 같은 안내 상자) */
+function NoteArt() {
+  const { ui } = useContent();
+  const t = ui.guest;
+  const [turn, setTurn] = useState(0);
+  const drag = useRef<{ x: number; turn: number; moved: boolean } | null>(null);
+  const go = () => window.location.assign(absUrl(href.guest()));
+  return (
+    <div className="gnote__artwrap">
+      <button
+        type="button"
+        className="gnote__art"
+        data-noswipe
+        data-track="guest_open"
+        style={{ '--turn': `${turn}deg` } as CSSProperties}
+        aria-label={`${t.coverAria} — ${t.coverHint}`}
+        onPointerDown={(e) => {
+          drag.current = { x: e.clientX, turn, moved: false };
+          e.currentTarget.setPointerCapture(e.pointerId);
+        }}
+        onPointerMove={(e) => {
+          const d = drag.current;
+          if (!d) return;
+          const dx = e.clientX - d.x;
+          if (Math.abs(dx) > 4) d.moved = true;
+          setTurn(Math.max(-38, Math.min(38, d.turn + dx * 0.25)));
+        }}
+        onPointerUp={() => {
+          const d = drag.current;
+          drag.current = null;
+          if (d && !d.moved) go();
+        }}
+        onPointerCancel={() => (drag.current = null)}
+        onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && (e.preventDefault(), go())}
+      >
+        <img src={noteUrl} alt="" width={900} height={708} loading="lazy" decoding="async" draggable={false} />
+      </button>
+      <a className="gcover__hint" href={href.guest()} data-track="guest_cta">
+        {t.coverHint}
+      </a>
+    </div>
   );
 }
 
