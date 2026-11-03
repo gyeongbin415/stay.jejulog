@@ -243,6 +243,25 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
     onSent();
     setPhase('done');
   };
+  /** 카드의 '다 적었어요' — 이 칸 답을 바로 남기고, 카드를 '다른 사람들'(방금 남긴 답 포함)로. 빈 칸이면 돌아가기 */
+  const sendOne = async () => {
+    const text = answers[step].trim();
+    if (!text) return back();
+    setSending(true);
+    setError('');
+    const a = Array<string>(SLOTS).fill('');
+    a[step] = text;
+    const ok = await postNote({ name: name.trim(), a }, lang);
+    setSending(false);
+    if (!ok) {
+      setError(t.failed);
+      return;
+    }
+    track('guest_submit', { answered: 1 });
+    setAnswer('');
+    onSent();
+    setShowAll(true);
+  };
   /** 다 쓴 뒤 — 창은 닫고, 방명록 페이지에서는 새 노트 쓰기로 */
   const finish = () => {
     if (!inline) return onClose();
@@ -415,10 +434,11 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
               <button type="button" className="btn gwrite__submit" onClick={back}>
                 {step === FREE ? t.toModes : t.toList}
               </button>
-              <button type="button" className="btn gwrite__submit" onClick={back} data-track={step === FREE ? 'guest_done_free' : `guest_done_q${step + 1}`}>
-                {t.doneAnswer}
+              <button type="button" className="btn gwrite__submit" onClick={sendOne} disabled={sending} data-track={step === FREE ? 'guest_done_free' : `guest_done_q${step + 1}`}>
+                {sending ? t.sending : t.doneAnswer}
               </button>
             </nav>
+            {error && <p className="gwrite__error" role="alert">{error}</p>}
           </div>
 
         </>
