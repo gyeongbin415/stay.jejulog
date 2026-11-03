@@ -17,7 +17,7 @@ export function ContentPicker() {
 
   const items = [
     { key: 'house', en: 'EXPLORE', label: ui.nav.house, to: href.house(), art: <img src={houseUrl} alt="" width={900} height={630} loading="lazy" decoding="async" /> },
-    { key: 'test', en: 'TEST', label: ui.nav.test, to: href.test(), art: <img src={testArtUrl} alt="" width={649} height={758} loading="lazy" decoding="async" /> },
+    { key: 'test', en: 'TEST', label: ui.nav.test, to: href.test(), art: <img src={testArtUrl} alt="" width={821} height={985} loading="lazy" decoding="async" /> },
     { key: 'map', en: 'MAP', label: ui.deck.tastemap, to: href.map(), art: <img src={tasteMapUrl} alt="" width={1100} height={707} loading="lazy" decoding="async" /> },
     { key: 'guest', en: 'GUESTBOOK', label: ui.nav.guest, to: href.guest(), art: <img src={noteUrl} alt="" width={900} height={708} loading="lazy" decoding="async" /> },
   ];

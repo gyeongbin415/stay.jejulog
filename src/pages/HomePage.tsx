@@ -389,7 +389,7 @@ function FindYourStay() {
           <p className="label">{SITE.findYourStay.label}</p>
           {/* 뽑기 기계 그림 — 누르면 취향 테스트로 */}
           <a className="find__art" href={href.test()} aria-label={SITE.findYourStay.cta} data-track="find_art" tabIndex={-1}>
-            <img src={testArtUrl} alt="" width={649} height={758} loading="lazy" decoding="async" />
+            <img src={testArtUrl} alt="" width={821} height={985} loading="lazy" decoding="async" />
           </a>
           {/* 제목은 화면에서 빼고 화면 낭독기용으로만 */}
           <h2 id="find-title" className="visually-hidden">
