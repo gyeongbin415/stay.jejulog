@@ -28,9 +28,9 @@ const VIEW_KEY = 'jejulog:house-view';
 /** pill — 그림 속 이름표 네모 [x1, y1, x2, y2] (이름이 그림 안에 있는 손그림 집 — 마우스를 올리면 그 자리에 주황 이름표) */
 type Spot = { id: ProgramId; room: [number, number, number, number]; tag: [number, number, number]; center?: boolean; pill?: [number, number, number, number] };
 const HOUSES: Record<'narrow' | 'wide' | 'paper', { url: string; w: number; h: number; spots: Spot[]; labels?: boolean }> = {
-  // 지금 쓰는 그림 — 받은 집 그림(덩굴 · 돌벽 · 방 이름이 그림 안에, 마당 두 칸은 집 아래, 책 이름표는 둥근 알약으로 다듬음, 집과 마당 사이 잔디로 띄움, 아래 잔디 · 디딤돌 여백) 898 × 1303. 이름표는 그림에 있으니 덧씌우지 않고, 마우스를 올리면 그 자리에 주황 이름표(pill)
+  // 지금 쓰는 그림 — 받은 집 그림(덩굴 · 돌벽 · 방 이름이 그림 안에, 마당 두 칸은 집 아래, 책 이름표는 둥근 알약으로 다듬음, 집과 마당 사이 잔디로 띄움, 마당 칸 사이 · 아래는 잔디) 898 × 1301. 이름표는 그림에 있으니 덧씌우지 않고, 마우스를 올리면 그 자리에 주황 이름표(pill)
   paper: {
-    url: housePaperUrl, w: 898, h: 1303, labels: false,
+    url: housePaperUrl, w: 898, h: 1301, labels: false,
     spots: [
       { id: 'book', room: [100, 150, 800, 382], tag: [450, 200, 66], center: true, pill: [400, 195, 490, 239] },
       { id: 'craft', room: [112, 385, 440, 582], tag: [0, 0, 0], pill: [132, 397, 265, 442] },
