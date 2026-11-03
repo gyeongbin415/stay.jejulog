@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from 'react';
-import { createPortal } from 'react-dom';
 import { useContent } from '../i18n';
 import { useReducedMotion } from '../lib/motion';
 import { absUrl, href } from '../lib/router';
@@ -363,9 +362,8 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
             </nav>
           </div>
 
-          {/* 다른 사람들의 답 — 화면 맨 아래 바(왼쪽 제목 · 오른쪽 'N명 답 보기'), 누르면 이 질문의 답 전부가 위로 펼쳐짐
-              (페이지 등장 애니메이션 안에 두면 화면이 아니라 페이지에 붙으므로 body 에) */}
-          {createPortal(
+          {/* 다른 사람들의 답 — 방명록 칸 맨 아래 바(왼쪽 제목 · 오른쪽 'N명 답 보기'), 누르면 이 질문의 답 전부가 위로 펼쳐짐
+              내리는 동안은 화면 아래에 붙어 있다가 칸 끝에서 멈춤 — 푸터를 덮지 않게 */}
           <aside className={`gwrite__sheet${showAll ? ' is-open' : ''}`}>
             <button type="button" className="gwrite__sheet-head" onClick={() => setShowAll((v) => !v)} aria-expanded={showAll} disabled={!list.length} data-track="guest_others">
               <span className="gwrite__grip" aria-hidden="true" />
@@ -382,9 +380,7 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
                 ))}
               </ul>
             )}
-          </aside>,
-          document.body,
-          )}
+          </aside>
         </>
       )}
 

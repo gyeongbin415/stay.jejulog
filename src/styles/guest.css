@@ -85,9 +85,9 @@
 .gwrite__submit { min-width: 150px; }
 .gwrite__error { margin-top: 12px; text-align: right; font-size: 14px; color: var(--orange-ink); }
 
-/* 아래 바 — 다른 사람들의 답 (화면 맨 아래에 붙은 회색 바 · 위에 검은 선, 동그라미 버튼보다 위) */
+/* 아래 바 — 다른 사람들의 답 (방명록 칸 맨 아래 회색 바 · 위에 검은 선. 내리는 동안 화면 아래에 붙고 칸 끝에서 멈춤) */
 .gwrite__sheet {
-  position: fixed; left: 0; right: 0; bottom: 0; z-index: 95;
+  position: sticky; bottom: 0; z-index: 5; margin-top: auto;
   background: #EFEDE8; border-top: 1.5px solid var(--ink);
 }
 .gwrite__sheet-head {
@@ -96,7 +96,7 @@
 }
 .gwrite__sheet-title { font-family: var(--f-home); font-size: 16px; font-weight: 700; color: var(--ink); }
 /* 답 쓰는 동안 — 아래 바에 가리지 않게 여백, 동그라미 버튼은 숨김 */
-.gwrite--write .gwrite__body { padding-bottom: 110px; }
+.gwrite--write .gwrite__body { padding-bottom: 40px; }
 html:has(.gwrite--write) :is(.fabs, .backfab) { opacity: 0; visibility: hidden; pointer-events: none; }
 .gwrite__sheet-head:disabled { cursor: default; }
 .gwrite__grip { position: absolute; top: 9px; left: 50%; width: 44px; height: 4px; margin-left: -22px; border-radius: 2px; background: #BDB9B1; }
