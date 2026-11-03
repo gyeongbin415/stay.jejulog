@@ -1,6 +1,6 @@
-import{_ as e,c as t,g as n,h as r,l as i,n as a,r as o,t as s,u as c}from"./index-CDOJ8MNg.js";var l=e(),u=n(),d=`Stay Jejulog — Jeju stays our editors stay at and record |
-@stay.jejulog`,f=`编辑亲自入住并记录的 Stay Jejulog |
-@stay.jejulog`,p={en:{name:`Stay Jejulog | Jeju stays · guesthouses`,category:`Magazine`,bio:[`🏡 Jeju stays our editors stay at and record themselves`,`📖 From small guesthouses to hidden stays for every taste`],posts:{"insta/post-1.jpg":{alt:`Card-news cover reading ‘I came to a guesthouse to listen to LPs’ over a photo of a lit LP shelf and turntable`,caption:`A guesthouse in Jeju where you can listen to LPs and share your taste?
+import{_ as e,c as t,g as n,h as r,l as i,n as a,r as o,t as s,u as c,v as l}from"./index-DERdHfXK.js";var u=l(),d=e(),f=`Stay Jejulog — Jeju stays our editors stay at and record |
+@stay.jejulog`,p=`编辑亲自入住并记录的 Stay Jejulog |
+@stay.jejulog`,m={en:{name:`Stay Jejulog | Jeju stays · guesthouses`,category:`Magazine`,bio:[`🏡 Jeju stays our editors stay at and record themselves`,`📖 From small guesthouses to hidden stays for every taste`],posts:{"insta/post-1.jpg":{alt:`Card-news cover reading ‘I came to a guesthouse to listen to LPs’ over a photo of a lit LP shelf and turntable`,caption:`A guesthouse in Jeju where you can listen to LPs and share your taste?
 
 —
 
@@ -22,7 +22,7 @@ Listen to the owner’s wide LP collection, play the music you love together, an
 
 ―
 
-${d}
+${f}
 ✍🏻 Editor G & M`},"insta/post-2.jpg":{alt:`Card-news cover reading ‘Traveling Jeju alone as a woman — how about this guesthouse?’ over a photo of a Jeju house with a stone wall and slate roof`,caption:`A guesthouse where women traveling alone can stay with peace of mind?
 
 —
@@ -45,7 +45,7 @@ A stay for anyone who wants to spend a calm, healing day in Jeju — comfortably
 
 —
 
-${d}
+${f}
 ✍🏻 Editor D`},"insta/post-3.jpg":{alt:`Card-news cover reading ‘Jeju that feels like Christmas all year round’ over a photo of a table set with wine and dishes`,caption:`🎄 A stay that feels like the holiday season every evening?
 
 —
@@ -68,7 +68,7 @@ A guesthouse where you naturally get close to fellow travelers over dishes made 
 
 —
 
-${d}
+${f}
 ✍🏻 Editor S`},"insta/post-4.jpg":{alt:`Card-news cover reading ‘My own ring, made in Jeju’ over a photo of a workshop desk by the window`,caption:`Make your own ring in Jeju and take home a special keepsake. 💍
 
 —
@@ -87,7 +87,7 @@ ${d}
 
 —
 
-${d}
+${f}
 ✍🏻 Editor W`},"insta/post-5.jpg":{alt:`Card-news cover reading ‘A warm dinner in Jeju’ over a photo of a lit kitchen and dining table`,caption:`A place to feel the warmth of a home-cooked meal in unfamiliar Jeju. 🍚
 
 Home cooking lovingly made by the owner, and easy conversation around the table.
@@ -108,7 +108,7 @@ Spend a warm night at Susu Minbak, where you’ll look forward to dinner with pe
 
 —
 
-${d}
+${f}
 ✍🏻 Editor M`},"insta/post-6.jpg":{alt:`Card-news cover reading ‘Jeju camping without a tent’ over a photo of a camping tent and chairs under a sunset sky`,caption:`🏕️ Want the full camping mood in Jeju?
 
 —
@@ -133,7 +133,7 @@ A guesthouse brimming with romance — sharing meals in the tent and gazing at t
 
 —
 
-${d}
+${f}
 ✍🏻 Editor D`},"insta/post-7.jpg":{alt:`Card-news cover reading ‘A hideout in Aewol where you find running mates’ over a photo of people running along a seaside path with wind turbines`,caption:`🏃🏻‍♀️ A running stay where you run along the Aewol sea in Jeju?
 
 ―
@@ -156,7 +156,7 @@ Spend a special day by the Aewol sea, with both exercise and romance.
 
 ―
 
-${d}
+${f}
 ✍🏻 Editor G`},"insta/post-8.jpg":{alt:`Card-news cover reading ‘Love was hard, so I came to Jeju’ over a photo of a full bookshelf by a window`,caption:`💌 A stay where you open your heart to strangers?
 
 —
@@ -180,7 +180,7 @@ A small book stay in Bukchon-ri, Jeju, where people share stories about love
 
 —
 
-${d}
+${f}
 ✍🏻 Editor S`},"insta/post-9.jpg":{alt:`Card-news cover reading ‘Would you believe this stay is a cinema?’ over a photo of a hand holding a mug in front of a screen`,caption:`🎬 A Jeju stay with a late-night cinema?
 
 —
@@ -205,7 +205,7 @@ Spend a quiet day in Ongpo-ri, Jeju — watching movies, reading, and saying hel
 
 —
 
-${d}
+${f}
 ✍🏻 Editor W`}}},zh:{name:`Stay Jejulog｜济州住宿 · 民宿`,category:`杂志`,bio:[`🏡 编辑亲自入住并记录的济州住宿`,`📖 从小型民宿到小众宝藏住宿`],posts:{"insta/post-1.jpg":{alt:`亮着灯的黑胶唱片架和唱机照片上写着“来民宿听黑胶”的卡片新闻封面`,caption:`济州竟然有一家能边听黑胶边分享喜好的民宿？
 
 —
@@ -228,7 +228,7 @@ ${d}
 
 ―
 
-${f}
+${p}
 ✍🏻 Editor G & M`},"insta/post-2.jpg":{alt:`石墙和石板屋顶的济州房子照片上写着“女生独自来济州，这家民宿怎么样？”的卡片新闻封面`,caption:`有一家女生独自入住也能安心的民宿？
 
 —
@@ -251,7 +251,7 @@ ${f}
 
 —
 
-${f}
+${p}
 ✍🏻 Editor D`},"insta/post-3.jpg":{alt:`摆满葡萄酒和菜肴的餐桌照片上写着“一年 365 天都像圣诞节的济州”的卡片新闻封面`,caption:`🎄 有一家每晚都充满年末氛围的住宿？
 
 —
@@ -274,7 +274,7 @@ ${f}
 
 —
 
-${f}
+${p}
 ✍🏻 Editor S`},"insta/post-4.jpg":{alt:`窗边工坊工作台照片上写着“在济州亲手做的专属戒指”的卡片新闻封面`,caption:`在济州亲手做一枚属于自己的戒指，带走特别的纪念品吧。💍
 
 —
@@ -293,7 +293,7 @@ ${f}
 
 —
 
-${f}
+${p}
 ✍🏻 Editor W`},"insta/post-5.jpg":{alt:`亮着灯的厨房和餐桌照片上写着“在济州吃的温暖晚餐”的卡片新闻封面`,caption:`在陌生的济州，也能感受到家常饭温度的地方。🍚
 
 老板用心准备的家常饭，和围坐闲聊的故事。
@@ -314,7 +314,7 @@ ${f}
 
 —
 
-${f}
+${p}
 ✍🏻 Editor M`},"insta/post-6.jpg":{alt:`晚霞下的露营帐篷和椅子照片上写着“不用搭帐篷的济州露营”的卡片新闻封面`,caption:`🏕️ 想在济州好好感受露营氛围？
 
 —
@@ -339,7 +339,7 @@ ${f}
 
 —
 
-${f}
+${p}
 ✍🏻 Editor D`},"insta/post-7.jpg":{alt:`能看到风力发电机的海边步道上跑步的人们照片上写着“能找到跑步搭子的涯月据点”的卡片新闻封面`,caption:`🏃🏻‍♀️ 有一家能看着济州涯月大海跑步的住宿？
 
 ―
@@ -362,7 +362,7 @@ ${f}
 
 ―
 
-${f}
+${p}
 ✍🏻 Editor G`},"insta/post-8.jpg":{alt:`窗边摆满书的书架照片上写着“爱情太难，所以来了济州”的卡片新闻封面`,caption:`💌 有一家能和陌生人分享心里话的住宿？
 
 —
@@ -386,7 +386,7 @@ ${f}
 
 —
 
-${f}
+${p}
 ✍🏻 Editor S`},"insta/post-9.jpg":{alt:`屏幕前拿着马克杯的手的照片上写着“住宿是电影院，你信吗？”的卡片新闻封面`,caption:`🎬 有一家带深夜剧场的济州住宿？
 
 —
@@ -411,5 +411,5 @@ ${f}
 
 —
 
-${f}
-✍🏻 Editor W`}}}},m=c();function h({post:e=null}){let{ui:n,lang:c}={...t(),...i()},u=n.insta,d=c===`ko`?null:p[c],f=d?{...o,name:d.name,category:d.category,bio:d.bio}:o,h=d?a.map(e=>({...e,...d.posts[e.img]})):a,g=e=>e&&e>=1&&e<=a.length?e-1:null,[_,v]=(0,l.useState)(()=>g(e));(0,l.useEffect)(()=>v(g(e)),[e]);let y=t=>{v(t),t==null&&e&&history.replaceState(history.state,``,r.insta())},{following:b,extra:x,toggle:S}=C(),w=()=>{location.hash=r.home(`guest`)},O=new Intl.NumberFormat(c===`zh`?`zh-CN`:c);return(0,m.jsxs)(`section`,{className:`insta`,"aria-labelledby":`insta-title`,children:[(0,m.jsx)(`h1`,{id:`insta-title`,className:`visually-hidden`,children:u.title}),(0,m.jsxs)(`header`,{className:`insta-head`,children:[(0,m.jsxs)(`div`,{className:`insta-head__bar`,children:[(0,m.jsx)(`button`,{type:`button`,className:`insta-head__back`,onClick:w,"aria-label":u.back,"data-track":`insta_back`,children:(0,m.jsx)(`svg`,{viewBox:`0 0 24 24`,width:`28`,height:`28`,"aria-hidden":`true`,focusable:`false`,children:(0,m.jsx)(`path`,{d:`M15 4.5 7.5 12l7.5 7.5`,fill:`none`,stroke:`currentColor`,strokeWidth:`2.2`,strokeLinecap:`round`,strokeLinejoin:`round`})})}),(0,m.jsx)(`p`,{className:`insta-head__handle`,children:f.handle})]}),(0,m.jsxs)(`div`,{className:`insta-head__top`,children:[(0,m.jsx)(`div`,{className:`insta-head__avatar`,children:(0,m.jsx)(`img`,{src:f.avatar,alt:``,width:150,height:150})}),(0,m.jsxs)(`div`,{className:`insta-head__main`,children:[(0,m.jsx)(`p`,{className:`insta-head__name`,children:f.name}),(0,m.jsxs)(`ul`,{className:`insta-head__stats`,children:[(0,m.jsxs)(`li`,{children:[(0,m.jsx)(`strong`,{children:O.format(h.length)}),` `,u.posts]}),(0,m.jsxs)(`li`,{children:[(0,m.jsx)(`strong`,{children:O.format(f.followers+x)}),` `,u.followers]}),(0,m.jsxs)(`li`,{children:[(0,m.jsx)(`strong`,{children:O.format(f.following)}),` `,u.following]})]})]})]}),(0,m.jsxs)(`div`,{className:`insta-head__bio`,children:[(0,m.jsx)(`p`,{className:`insta-head__category`,children:f.category}),f.bio.map(e=>(0,m.jsx)(`p`,{children:e},e))]}),(0,m.jsx)(`button`,{type:`button`,className:`insta-btn insta-head__follow${b?` insta-btn--ghost`:``}`,"aria-pressed":b,onClick:S,"data-track":`insta_follow`,children:b?u.following:u.follow})]}),(0,m.jsx)(`div`,{className:`insta-tabs`,role:`presentation`,children:(0,m.jsxs)(`span`,{className:`insta-tabs__tab is-on`,children:[(0,m.jsx)(D,{}),` `,u.postsTab]})}),(0,m.jsx)(`ul`,{className:`insta-grid`,"aria-label":u.gridAria,children:s.map(e=>[h[e],e]).map(([e,t],n)=>(0,m.jsx)(`li`,{children:(0,m.jsxs)(`button`,{type:`button`,className:`insta-grid__item`,onClick:()=>y(t),"data-track":`insta_post_${t+1}`,children:[(0,m.jsx)(`img`,{src:e.img,alt:e.alt,loading:n<6?`eager`:`lazy`}),e.slides>1&&(0,m.jsx)(E,{})]})},e.img))}),_!=null&&(0,m.jsx)(T,{n:_+1,post:h[_],onClose:()=>y(null)},_)]})}var g=`https://abacus.jasoncameron.dev`,_=`stay-jejulog`,v={up:`insta-follow-2`,down:`insta-unfollow-2`},y=`jejulog:insta-following`,b=`jejulog:insta-follow-counts`;function x(){try{let e=JSON.parse(localStorage.getItem(b)??``);if(typeof e?.up==`number`&&typeof e?.down==`number`)return e}catch{}return{up:0,down:0}}var S=e=>fetch(`${g}/${e}`,{signal:AbortSignal.timeout(4e3)}).then(e=>e.json());function C(){let[e,t]=(0,l.useState)(()=>{try{return localStorage.getItem(y)===`1`}catch{return!1}}),[n,r]=(0,l.useState)(x),i=e=>r(t=>{let n={up:Math.max(t.up,e.up??0),down:Math.max(t.down,e.down??0)};try{localStorage.setItem(b,JSON.stringify(n))}catch{}return n});return(0,l.useEffect)(()=>{let e=!0;return Promise.all([S(`get/${_}/${v.up}`),S(`get/${_}/${v.down}`)]).then(([t,n])=>e&&i({up:t.value??0,down:n.value??0})).catch(()=>{}),()=>{e=!1}},[]),{following:e,extra:Math.max(0,n.up-n.down),toggle:()=>{let r=!e;t(r);try{localStorage.setItem(y,r?`1`:`0`)}catch{}let a=r?`up`:`down`;i({[a]:n[a]+1}),S(`hit/${_}/${v[a]}`).then(e=>typeof e.value==`number`&&i({[a]:e.value})).catch(()=>{})}}}var w=(e,t,n=`webp`)=>`insta/p${e}/${String(t+1).padStart(2,`0`)}.${n}`;function T({n:e,post:n,onClose:a}){let{ui:s,lang:c}={...t(),...i()},d=s.insta,f=(0,l.useRef)(null),[p,h]=(0,l.useState)(0),g=n.slides-1,_=e=>h(t=>Math.min(g,Math.max(0,t+e))),v=(0,l.useRef)(null);(0,l.useEffect)(()=>{let e=document.activeElement;f.current?.focus();let t=e=>{e.key===`Escape`?a():e.key===`ArrowRight`?_(1):e.key===`ArrowLeft`&&_(-1)};return window.addEventListener(`keydown`,t),document.body.style.overflow=`hidden`,()=>{window.removeEventListener(`keydown`,t),document.body.style.overflow=``,e?.focus()}},[a]),(0,l.useEffect)(()=>{p<g&&(new Image().src=w(e,p+1))},[e,p,g]);let y=new Intl.DateTimeFormat(c===`zh`?`zh-CN`:c,{year:`numeric`,month:`long`,day:`numeric`}).format(new Date(n.date));return(0,u.createPortal)((0,m.jsxs)(`div`,{className:`insta-modal`,role:`dialog`,"aria-modal":`true`,"aria-label":n.alt,onClick:a,children:[(0,m.jsx)(`button`,{ref:f,type:`button`,className:`insta-modal__close`,onClick:a,"aria-label":d.close,children:`×`}),(0,m.jsxs)(`article`,{className:`insta-modal__card`,onClick:e=>e.stopPropagation(),children:[(0,m.jsxs)(`div`,{className:`insta-modal__media`,onTouchStart:e=>v.current=e.touches[0].clientX,onTouchEnd:e=>{if(v.current==null)return;let t=e.changedTouches[0].clientX-v.current;Math.abs(t)>40&&_(t<0?1:-1),v.current=null},children:[n.videos?.includes(p+1)?(0,m.jsx)(`video`,{src:w(e,p,`mp4`),poster:w(e,p),autoPlay:!0,muted:!0,loop:n.videoHold?.[p+1]==null,onTimeUpdate:e=>{let t=n.videoHold?.[p+1],r=e.currentTarget;t!=null&&r.currentTime>=t&&(r.pause(),r.currentTime=t)},playsInline:!0,"aria-label":`${n.alt} — ${p+1} / ${n.slides}`},p):(0,m.jsx)(`img`,{src:w(e,p),alt:p===0?n.alt:`${n.alt} — ${p+1} / ${n.slides}`}),p>0&&(0,m.jsx)(`button`,{type:`button`,className:`insta-modal__nav insta-modal__nav--prev`,onClick:()=>_(-1),"aria-label":d.prev,children:(0,m.jsx)(`span`,{"aria-hidden":`true`,children:`‹`})}),p<g&&(0,m.jsx)(`button`,{type:`button`,className:`insta-modal__nav insta-modal__nav--next`,onClick:()=>_(1),"aria-label":d.next,children:(0,m.jsx)(`span`,{"aria-hidden":`true`,children:`›`})}),n.slides>1&&(0,m.jsx)(`span`,{className:`insta-modal__dots`,"aria-label":`${p+1} / ${n.slides}`,role:`status`,children:Array.from({length:n.slides},(e,t)=>(0,m.jsx)(`i`,{className:t===p?`is-on`:``},t))})]}),(0,m.jsxs)(`div`,{className:`insta-modal__side`,children:[(0,m.jsx)(`header`,{className:`insta-modal__head`,children:(0,m.jsxs)(`a`,{className:`insta-modal__profile`,href:r.insta(),onClick:e=>{e.preventDefault(),a(),window.scrollTo({top:0})},"data-track":`insta_modal_profile`,children:[(0,m.jsx)(`img`,{src:o.avatar,alt:``}),(0,m.jsx)(`strong`,{children:o.handle})]})}),(0,m.jsx)(`div`,{className:`insta-modal__body`,children:(0,m.jsxs)(`p`,{className:`insta-modal__caption`,children:[(0,m.jsx)(`strong`,{children:o.handle}),` `,n.caption]})}),(0,m.jsxs)(`footer`,{className:`insta-modal__foot`,children:[(0,m.jsx)(`time`,{dateTime:n.date,children:y}),n.stay&&(0,m.jsxs)(`a`,{className:`insta-modal__stay`,href:r.stay(n.stay),"data-track":`insta_to_stay_${n.stay}`,children:[d.seeStay,` `,(0,m.jsx)(`span`,{"aria-hidden":`true`,children:`→`})]})]})]})]})]}),document.body)}function E(){return(0,m.jsx)(`svg`,{className:`insta-grid__multi`,viewBox:`0 0 24 24`,width:`20`,height:`20`,"aria-hidden":`true`,focusable:`false`,children:(0,m.jsx)(`path`,{fill:`currentColor`,d:`M8 3h11a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm-5 5v11a2 2 0 0 0 2 2h11v-2H5V8z`})})}function D(){return(0,m.jsx)(`svg`,{viewBox:`0 0 24 24`,width:`12`,height:`12`,"aria-hidden":`true`,focusable:`false`,children:(0,m.jsx)(`path`,{fill:`none`,stroke:`currentColor`,strokeWidth:`2`,d:`M3 3h18v18H3zM9 3v18M15 3v18M3 9h18M3 15h18`})})}export{h as default};
+${p}
+✍🏻 Editor W`}}}},h=c();function g({post:e=null}){let{ui:c,lang:l}={...t(),...i()},d=c.insta,f=l===`ko`?null:m[l],p=f?{...o,name:f.name,category:f.category,bio:f.bio}:o,g=f?a.map(e=>({...e,...f.posts[e.img]})):a,_=e=>e&&e>=1&&e<=a.length?e-1:null,[v,y]=(0,u.useState)(()=>_(e));(0,u.useEffect)(()=>y(_(e)),[e]);let b=t=>{y(t),t==null&&e&&history.replaceState(history.state,``,n.insta())},{following:x,extra:S,toggle:C}=w(),T=()=>r(n.home()),k=new Intl.NumberFormat(l===`zh`?`zh-CN`:l);return(0,h.jsxs)(`section`,{className:`insta`,"aria-labelledby":`insta-title`,children:[(0,h.jsx)(`h1`,{id:`insta-title`,className:`visually-hidden`,children:d.title}),(0,h.jsxs)(`header`,{className:`insta-head`,children:[(0,h.jsxs)(`div`,{className:`insta-head__bar`,children:[(0,h.jsx)(`button`,{type:`button`,className:`insta-head__back`,onClick:T,"aria-label":d.back,"data-track":`insta_back`,children:(0,h.jsx)(`svg`,{viewBox:`0 0 24 24`,width:`28`,height:`28`,"aria-hidden":`true`,focusable:`false`,children:(0,h.jsx)(`path`,{d:`M15 4.5 7.5 12l7.5 7.5`,fill:`none`,stroke:`currentColor`,strokeWidth:`2.2`,strokeLinecap:`round`,strokeLinejoin:`round`})})}),(0,h.jsx)(`p`,{className:`insta-head__handle`,children:p.handle})]}),(0,h.jsxs)(`div`,{className:`insta-head__top`,children:[(0,h.jsx)(`div`,{className:`insta-head__avatar`,children:(0,h.jsx)(`img`,{src:p.avatar,alt:``,width:150,height:150})}),(0,h.jsxs)(`div`,{className:`insta-head__main`,children:[(0,h.jsx)(`p`,{className:`insta-head__name`,children:p.name}),(0,h.jsxs)(`ul`,{className:`insta-head__stats`,children:[(0,h.jsxs)(`li`,{children:[(0,h.jsx)(`strong`,{children:k.format(g.length)}),` `,d.posts]}),(0,h.jsxs)(`li`,{children:[(0,h.jsx)(`strong`,{children:k.format(p.followers+S)}),` `,d.followers]}),(0,h.jsxs)(`li`,{children:[(0,h.jsx)(`strong`,{children:k.format(p.following)}),` `,d.following]})]})]})]}),(0,h.jsxs)(`div`,{className:`insta-head__bio`,children:[(0,h.jsx)(`p`,{className:`insta-head__category`,children:p.category}),p.bio.map(e=>(0,h.jsx)(`p`,{children:e},e))]}),(0,h.jsx)(`button`,{type:`button`,className:`insta-btn insta-head__follow${x?` insta-btn--ghost`:``}`,"aria-pressed":x,onClick:C,"data-track":`insta_follow`,children:x?d.following:d.follow})]}),(0,h.jsx)(`div`,{className:`insta-tabs`,role:`presentation`,children:(0,h.jsxs)(`span`,{className:`insta-tabs__tab is-on`,children:[(0,h.jsx)(O,{}),` `,d.postsTab]})}),(0,h.jsx)(`ul`,{className:`insta-grid`,"aria-label":d.gridAria,children:s.map(e=>[g[e],e]).map(([e,t],n)=>(0,h.jsx)(`li`,{children:(0,h.jsxs)(`button`,{type:`button`,className:`insta-grid__item`,onClick:()=>b(t),"data-track":`insta_post_${t+1}`,children:[(0,h.jsx)(`img`,{src:e.img,alt:e.alt,loading:n<6?`eager`:`lazy`}),e.slides>1&&(0,h.jsx)(D,{})]})},e.img))}),v!=null&&(0,h.jsx)(E,{n:v+1,post:g[v],onClose:()=>b(null)},v)]})}var _=`https://abacus.jasoncameron.dev`,v=`stay-jejulog`,y={up:`insta-follow-2`,down:`insta-unfollow-2`},b=`jejulog:insta-following`,x=`jejulog:insta-follow-counts`;function S(){try{let e=JSON.parse(localStorage.getItem(x)??``);if(typeof e?.up==`number`&&typeof e?.down==`number`)return e}catch{}return{up:0,down:0}}var C=e=>fetch(`${_}/${e}`,{signal:AbortSignal.timeout(4e3)}).then(e=>e.json());function w(){let[e,t]=(0,u.useState)(()=>{try{return localStorage.getItem(b)===`1`}catch{return!1}}),[n,r]=(0,u.useState)(S),i=e=>r(t=>{let n={up:Math.max(t.up,e.up??0),down:Math.max(t.down,e.down??0)};try{localStorage.setItem(x,JSON.stringify(n))}catch{}return n});return(0,u.useEffect)(()=>{let e=!0;return Promise.all([C(`get/${v}/${y.up}`),C(`get/${v}/${y.down}`)]).then(([t,n])=>e&&i({up:t.value??0,down:n.value??0})).catch(()=>{}),()=>{e=!1}},[]),{following:e,extra:Math.max(0,n.up-n.down),toggle:()=>{let r=!e;t(r);try{localStorage.setItem(b,r?`1`:`0`)}catch{}let a=r?`up`:`down`;i({[a]:n[a]+1}),C(`hit/${v}/${y[a]}`).then(e=>typeof e.value==`number`&&i({[a]:e.value})).catch(()=>{})}}}var T=(e,t,n=`webp`)=>`insta/p${e}/${String(t+1).padStart(2,`0`)}.${n}`;function E({n:e,post:r,onClose:a}){let{ui:s,lang:c}={...t(),...i()},l=s.insta,f=(0,u.useRef)(null),[p,m]=(0,u.useState)(0),g=r.slides-1,_=e=>m(t=>Math.min(g,Math.max(0,t+e))),v=(0,u.useRef)(null);(0,u.useEffect)(()=>{let e=document.activeElement;f.current?.focus();let t=e=>{e.key===`Escape`?a():e.key===`ArrowRight`?_(1):e.key===`ArrowLeft`&&_(-1)};return window.addEventListener(`keydown`,t),document.body.style.overflow=`hidden`,()=>{window.removeEventListener(`keydown`,t),document.body.style.overflow=``,e?.focus()}},[a]),(0,u.useEffect)(()=>{p<g&&(new Image().src=T(e,p+1))},[e,p,g]);let y=new Intl.DateTimeFormat(c===`zh`?`zh-CN`:c,{year:`numeric`,month:`long`,day:`numeric`}).format(new Date(r.date));return(0,d.createPortal)((0,h.jsxs)(`div`,{className:`insta-modal`,role:`dialog`,"aria-modal":`true`,"aria-label":r.alt,onClick:a,children:[(0,h.jsx)(`button`,{ref:f,type:`button`,className:`insta-modal__close`,onClick:a,"aria-label":l.close,children:`×`}),(0,h.jsxs)(`article`,{className:`insta-modal__card`,onClick:e=>e.stopPropagation(),children:[(0,h.jsxs)(`div`,{className:`insta-modal__media`,onTouchStart:e=>v.current=e.touches[0].clientX,onTouchEnd:e=>{if(v.current==null)return;let t=e.changedTouches[0].clientX-v.current;Math.abs(t)>40&&_(t<0?1:-1),v.current=null},children:[r.videos?.includes(p+1)?(0,h.jsx)(`video`,{src:T(e,p,`mp4`),poster:T(e,p),autoPlay:!0,muted:!0,loop:r.videoHold?.[p+1]==null,onTimeUpdate:e=>{let t=r.videoHold?.[p+1],n=e.currentTarget;t!=null&&n.currentTime>=t&&(n.pause(),n.currentTime=t)},playsInline:!0,"aria-label":`${r.alt} — ${p+1} / ${r.slides}`},p):(0,h.jsx)(`img`,{src:T(e,p),alt:p===0?r.alt:`${r.alt} — ${p+1} / ${r.slides}`}),p>0&&(0,h.jsx)(`button`,{type:`button`,className:`insta-modal__nav insta-modal__nav--prev`,onClick:()=>_(-1),"aria-label":l.prev,children:(0,h.jsx)(`span`,{"aria-hidden":`true`,children:`‹`})}),p<g&&(0,h.jsx)(`button`,{type:`button`,className:`insta-modal__nav insta-modal__nav--next`,onClick:()=>_(1),"aria-label":l.next,children:(0,h.jsx)(`span`,{"aria-hidden":`true`,children:`›`})}),r.slides>1&&(0,h.jsx)(`span`,{className:`insta-modal__dots`,"aria-label":`${p+1} / ${r.slides}`,role:`status`,children:Array.from({length:r.slides},(e,t)=>(0,h.jsx)(`i`,{className:t===p?`is-on`:``},t))})]}),(0,h.jsxs)(`div`,{className:`insta-modal__side`,children:[(0,h.jsx)(`header`,{className:`insta-modal__head`,children:(0,h.jsxs)(`a`,{className:`insta-modal__profile`,href:n.insta(),onClick:e=>{e.preventDefault(),a(),window.scrollTo({top:0})},"data-track":`insta_modal_profile`,children:[(0,h.jsx)(`img`,{src:o.avatar,alt:``}),(0,h.jsx)(`strong`,{children:o.handle})]})}),(0,h.jsx)(`div`,{className:`insta-modal__body`,children:(0,h.jsxs)(`p`,{className:`insta-modal__caption`,children:[(0,h.jsx)(`strong`,{children:o.handle}),` `,r.caption]})}),(0,h.jsxs)(`footer`,{className:`insta-modal__foot`,children:[(0,h.jsx)(`time`,{dateTime:r.date,children:y}),r.stay&&(0,h.jsxs)(`a`,{className:`insta-modal__stay`,href:n.stay(r.stay),"data-track":`insta_to_stay_${r.stay}`,children:[l.seeStay,` `,(0,h.jsx)(`span`,{"aria-hidden":`true`,children:`→`})]})]})]})]})]}),document.body)}function D(){return(0,h.jsx)(`svg`,{className:`insta-grid__multi`,viewBox:`0 0 24 24`,width:`20`,height:`20`,"aria-hidden":`true`,focusable:`false`,children:(0,h.jsx)(`path`,{fill:`currentColor`,d:`M8 3h11a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm-5 5v11a2 2 0 0 0 2 2h11v-2H5V8z`})})}function O(){return(0,h.jsx)(`svg`,{viewBox:`0 0 24 24`,width:`12`,height:`12`,"aria-hidden":`true`,focusable:`false`,children:(0,h.jsx)(`path`,{fill:`none`,stroke:`currentColor`,strokeWidth:`2`,d:`M3 3h18v18H3zM9 3v18M15 3v18M3 9h18M3 15h18`})})}export{g as default};
