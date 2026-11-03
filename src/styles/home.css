@@ -210,9 +210,10 @@
 .find:not(.find--inside):not(.find--map) .find__copy { justify-items: center; text-align: center; }
 .find__copy .btn { margin-top: 12px; }
 /* 메인 그림(집 · 뽑기 기계 · 종이 지도 · 공책) 크기 — 넷 다 같은 폭 (뽑기 기계는 세로라 높이로 맞춤) */
-:root { --home-art: min(320px, 76vw); }
+/* 메인 그림 넷 — 비율이 달라(가로 · 세로) 화면에서 차지하는 넓이가 같도록 폭을 그림마다 다르게 (집 폭 = --home-art 기준) */
+:root { --home-art: min(300px, 74vw); }
 .find__art { display: block; margin-bottom: 8px; transition: transform var(--t-hover) var(--ease); }
-.find__art img { display: block; width: auto; height: calc(var(--home-art) * .7); }
+.find__art img { display: block; width: calc(var(--home-art) * .632); height: auto; }
 .find__art:hover { transform: translateY(-4px); }
 .find:not(.find--inside):not(.find--map) .find__inner { display: grid; justify-items: center; }
 /* 게하게 소개 — 테스트 페이지 첫 화면: 소라게 그림 · 이름 · 두 줄 이야기 · 시작 버튼 · 공유하기 */
@@ -305,9 +306,9 @@
 /* 메인 지도 칸도 공통 배경 — 돋보기 속 빈 곳도 같은 색 */
 .find.find--map { background: var(--bg); }
 .tastemap__img { display: block; width: 100%; height: auto; }
-.find--map .find__inner { display: grid; justify-items: center; padding: clamp(40px, 7vh, 80px) 0 calc(clamp(40px, 7vh, 80px) + clamp(36px, 7vw, 72px) + 240px); } /* 아래 카드가 올라타는 만큼 더 비움 */
+.find--map .find__inner { display: grid; justify-items: center; padding: clamp(40px, 7vh, 80px) 0; }
 .tastemap__head { display: grid; justify-items: center; gap: 16px; text-align: center; margin-bottom: var(--hint-gap); } /* 제목 → 안내 간격 — 메인 세 칸 같은 값 */
-.tastemap { display: block; width: var(--home-art); border-radius: 18px; transition: transform var(--t-hover) var(--ease); }
+.tastemap { display: block; width: calc(var(--home-art) * 1.045); border-radius: 18px; transition: transform var(--t-hover) var(--ease); }
 .tastemap { display: grid; justify-items: center; gap: clamp(14px, 2.5vh, 22px); text-decoration: none; }
 .tastemap:hover { transform: translateY(-3px); }
 /* 누르라는 안내 — 둥근 옅은 상자 (버튼 대신) */
@@ -442,8 +443,12 @@
 .picker__item { transition: opacity .5s var(--ease), filter .5s var(--ease), transform .5s var(--ease); }
 .picker__item a { display: grid; justify-items: center; gap: 6px; text-decoration: none; color: var(--ink); }
 /* 그림 칸 — 네 그림을 같은 높이 안에 */
-.picker__art { display: grid; place-items: end center; width: 100%; height: var(--art-h); perspective: 900px; transition: transform .35s var(--ease); }
-.picker__art > img { width: auto; height: var(--art-h); max-width: 100%; object-fit: contain; object-position: center bottom; filter: drop-shadow(0 14px 18px rgba(80, 52, 30, .14)); }
+.picker__art { display: grid; place-items: end center; width: 100%; height: calc(var(--art-h) * 1.35); perspective: 900px; transition: transform .35s var(--ease); }
+.picker__art > img { width: auto; height: calc(var(--art-h) * .85 * var(--k, 1)); max-width: none; object-fit: contain; object-position: center bottom; filter: drop-shadow(0 14px 18px rgba(80, 52, 30, .14)); }
+/* 그림마다 높이 비율 — 넷이 같은 넓이로 보이게 */
+.picker__item--map .picker__art > img { --k: .955; }
+.picker__item--guest .picker__art > img { --k: 1.06; }
+.picker__item--test .picker__art > img { --k: 1.585; }
 /* 집 — 메인 휴대폰 칸처럼 흰 테두리 사진(폴라로이드) */
 .picker__name { margin-top: clamp(14px, 2vh, 22px); font-family: var(--f-home); font-size: clamp(17px, 1.6vw, 21px); font-weight: 800; letter-spacing: -0.02em; }
 /* 올리면 살짝 떠오름 */
