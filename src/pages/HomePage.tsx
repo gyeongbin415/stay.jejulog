@@ -149,7 +149,7 @@ function Intro() {
       const to = Math.max(0, Math.min(last, cur + dir));
       if (dir > 0 && cur === last && Math.abs(y - end) <= 2) return false;
       window.scrollTo(0, posOf(to));
-      holdUntil = Date.now() + 650;
+      holdUntil = Date.now() + 320; // 한 단계 넘긴 뒤 잠깐만 멈춤 (빨리 넘어가게)
       return true;
     };
     const onWheel = (e: WheelEvent) => {
