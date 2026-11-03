@@ -306,7 +306,7 @@
 /* 메인 지도 칸도 공통 배경 — 돋보기 속 빈 곳도 같은 색 */
 .find.find--map { background: var(--bg); }
 .find--map .tmi__lens { background-color: var(--bg); }
-.find--map .find__inner { display: grid; justify-items: center; padding: clamp(40px, 7vh, 80px) 0 calc(clamp(40px, 7vh, 80px) + clamp(36px, 7vw, 72px) + 240px); } /* 아래 카드가 올라타는 만큼 더 비움 */
+.find--map .find__inner { display: grid; justify-items: center; padding: clamp(40px, 7vh, 80px) 0 calc(clamp(24px, 4vh, 48px) + clamp(32px, 5vw, 64px)); } /* 아래 방명록 칸이 둥글게 올라타는 만큼(--rise)만 더 비움 */
 .tastemap__head { display: grid; justify-items: center; gap: 16px; text-align: center; margin-bottom: var(--hint-gap); } /* 제목 → 안내 간격 — 메인 세 칸 같은 값 */
 .tastemap { display: block; width: min(100%, 820px); border-radius: 18px; transition: transform var(--t-hover) var(--ease); }
 .tastemap { display: grid; justify-items: center; gap: clamp(14px, 2.5vh, 22px); text-decoration: none; }
