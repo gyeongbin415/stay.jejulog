@@ -295,11 +295,20 @@ function Problem() {
 
 /** 폴더 뒤로 삐져나온 사진 — 왼쪽 위치 · 아래 높이 · 폭(%) · 기울기 (사진 띠와 같은 사진) */
 const COVER_PHOTOS: { src: string; l: number; b: number; w: number; r: number }[] = [
-  { src: stripSeaSit, l: -2, b: 8, w: 44, r: -9 },
-  { src: stripLpWall, l: 22, b: 30, w: 44, r: 4 },
-  { src: stripCrater, l: 56, b: 22, w: 46, r: 7 },
-  { src: stripDinner, l: 30, b: 0, w: 40, r: -3 },
-  { src: stripPuppy, l: 66, b: 0, w: 36, r: -8 },
+  // 뒷줄 — 가장 높이 솟음
+  { src: stripForest, l: 0, b: 30, w: 26, r: -12 },
+  { src: stripCosmos, l: 18, b: 40, w: 26, r: -5 },
+  { src: stripSunrise, l: 40, b: 44, w: 26, r: 2 },
+  { src: stripTea, l: 60, b: 38, w: 26, r: 8 },
+  { src: stripGuitar, l: 76, b: 28, w: 24, r: 13 },
+  // 가운데 줄
+  { src: stripSeaSit, l: 6, b: 12, w: 28, r: -8 },
+  { src: stripLpWall, l: 28, b: 20, w: 28, r: -2 },
+  { src: stripCrater, l: 52, b: 18, w: 29, r: 5 },
+  { src: stripPotluck, l: 70, b: 8, w: 27, r: 10 },
+  // 앞줄 — 폴더 입구에 걸침
+  { src: stripDinner, l: 22, b: 0, w: 27, r: -4 },
+  { src: stripPuppy, l: 48, b: 0, w: 26, r: 3 },
 ];
 function CoverPhotos() {
   return (
