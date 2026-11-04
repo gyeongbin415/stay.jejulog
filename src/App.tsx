@@ -245,7 +245,7 @@ export function App() {
       {/* 오른쪽 아래 동그라미 — 인스타그램(지도 동그라미는 뺌, 지도 · 방명록 페이지에서는 집 · 테스트도 주황으로) */}
       {/* 뒤로 가기 동그라미 — 메인을 뺀 모든 페이지 왼쪽 아래 */}
       <BackFab route={route} />
-      <MapFab showMap={false} showInsta={route.name !== 'insta'} showHouse={route.name === 'map' || route.name === 'guest'} showTest={route.name === 'map' || route.name === 'guest'} home={route.name === 'home'} />
+      <MapFab showHouse={route.name !== 'house'} showMap={route.name !== 'map'} showInsta={route.name !== 'insta'} showTest={route.name !== 'test'} showGuest={route.name !== 'guest'} home={route.name === 'home'} />
       <Footer />
     </>
   );
