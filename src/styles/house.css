@@ -205,6 +205,11 @@
 .house3d--paper::before { left: 0; background-image: var(--side-l); background-position: right top, right top; }
 .house3d--paper::after { right: 0; background-image: var(--side-r); background-position: left top, left top; }
 .house3d--paper .house3d__frame { z-index: 1; }
+/* 웹 — 받은 가로 그림을 화면 폭에 꽉 차게 (양옆 이어 그린 풍경은 쓰지 않음), 위쪽 하늘색은 그림 맨 위 색에 맞춤 */
+.house3d.house3d--paperwide { --w: 100%; background: #ACDAF5; }
+.house3d--paperwide::before, .house3d--paperwide::after { display: none; }
+.house3d--paperwide .house3d__pill { font-size: calc(100cqw * 14.3 / 1672); }
+.explore:has(.house3d--paperwide) { background: #ACDAF5; }
 /* 손그림 집 이름표 — 방에 마우스를 올리면 그림 속 이름표 자리에 주황으로 */
 .house3d--paper .house3d__frame { container-type: inline-size; } /* 이름표 글씨를 그림 크기에 맞춤 (100cqw = 그림 폭) */
 .house3d__pill {

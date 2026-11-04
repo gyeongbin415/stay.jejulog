@@ -1,4 +1,4 @@
-import { useState, type CSSProperties } from 'react';
+import { useEffect, useState, type CSSProperties } from 'react';
 import { useContent } from '../i18n';
 import type { ProgramId } from '../data/types';
 import { href } from '../lib/router';
@@ -8,6 +8,8 @@ import houseUrl from '../assets/house-3d.webp';
 import houseBgUrl from '../assets/house-wide-bg.webp';
 import houseWideUrl from '../assets/house-3d-wide.webp';
 import housePaperUrl from '../assets/house-flat.jpg';
+// 웹 — 받은 가로 그림(같은 집 그림 + 하늘 · 섬 · 바다 · 현무암 돌담 · 귤나무 · 억새 · 잔디) 1672 × 941
+import housePaperWideUrl from '../assets/house-wide-paper.webp';
 // 넓은 화면 양옆 — 집 그림 끝의 풍경(하늘 · 바다 · 돌담 · 잔디)을 넓게 이어 그린 한 장(구름 · 들꽃 · 덤불을 군데군데) · 그림 끝에서 잘린 구름 · 언덕 · 덤불을 이어 주는 조각
 import sideLUrl from '../assets/house-side-l.jpg';
 import sideRUrl from '../assets/house-side-r.jpg';
@@ -32,7 +34,7 @@ const VIEW_KEY = 'jejulog:house-view';
  */
 /** pill — 그림 속 이름표 네모 [x1, y1, x2, y2] (이름이 그림 안에 있는 손그림 집 — 마우스를 올리면 그 자리에 주황 이름표) */
 type Spot = { id: ProgramId; room: [number, number, number, number]; tag: [number, number, number]; center?: boolean; pill?: [number, number, number, number] };
-const HOUSES: Record<'narrow' | 'wide' | 'paper', { url: string; w: number; h: number; spots: Spot[]; labels?: boolean }> = {
+const HOUSES: Record<'narrow' | 'wide' | 'paper' | 'paperWide', { url: string; w: number; h: number; spots: Spot[]; labels?: boolean }> = {
   // 지금 쓰는 그림 — 받은 집 그림(덩굴 · 돌벽 · 방 이름이 그림 안에, 마당 두 칸은 집 아래, 책 이름표는 둥근 알약으로 다듬음, 집과 마당 사이 잔디로 띄움, 마당 칸 사이 · 아래는 잔디, 아래 잔디에 그림 속 디딤돌 · 꽃 · 덤불) 898 × 1323. 이름표는 그림에 있으니 덧씌우지 않고, 마우스를 올리면 그 자리에 주황 이름표(pill)
   paper: {
     url: housePaperUrl, w: 898, h: 1323, labels: false,
@@ -48,6 +50,8 @@ const HOUSES: Record<'narrow' | 'wide' | 'paper', { url: string; w: number; h: n
       { id: 'running', room: [455, 1029, 800, 1226], tag: [0, 0, 0], pill: [465, 1038, 567, 1086] },
     ],
   },
+  // 웹(넓은 화면) — 받은 가로 그림. 그 안의 집은 paper 그림을 0.572배로 줄여 (583.7, 70.3)에 둔 것과 같아 방 자리는 paper 에서 옮겨 씀 (아래 paperWide 채움)
+  paperWide: { url: housePaperWideUrl, w: 1672, h: 941, labels: false, spots: [] },
   // 휴대폰 — 세로 그림 (1089 × 1445)
   narrow: {
     url: houseUrl, w: 1089, h: 1445,
@@ -79,6 +83,24 @@ const HOUSES: Record<'narrow' | 'wide' | 'paper', { url: string; w: number; h: n
     ],
   },
 };
+{
+  const k = 0.572, ox = 583.7, oy = 70.3;
+  const mx = (v: number) => Math.round(v * k + ox), my = (v: number) => Math.round(v * k + oy);
+  const box = ([a, b, c, d]: [number, number, number, number]): [number, number, number, number] => [mx(a), my(b), mx(c), my(d)];
+  HOUSES.paperWide.spots = HOUSES.paper.spots.map((s) => ({ ...s, room: box(s.room), tag: [mx(s.tag[0]), my(s.tag[1]), Math.round(s.tag[2] * k)], pill: s.pill && box(s.pill) }));
+}
+/** 넓은 화면(웹)인지 — 화면 폭이 바뀌면 그림도 바꿈 */
+const WIDE_Q = '(min-width: 900px)';
+function useWide() {
+  const [wide, setWide] = useState(() => window.matchMedia(WIDE_Q).matches);
+  useEffect(() => {
+    const mq = window.matchMedia(WIDE_Q);
+    const on = () => setWide(mq.matches);
+    mq.addEventListener('change', on);
+    return () => mq.removeEventListener('change', on);
+  }, []);
+  return wide;
+}
 const pct = (v: number, of: number) => `${(v / of) * 100}%`;
 /** 목록 칸 숙소 이름 — 스르르는 ‘게스트하우스’를 빼고 짧게 (두 줄로 넘쳐 칸 높이가 달라지지 않게) */
 const listPlace = (id: ProgramId, name: string) => (id === 'craft' ? name.replace(/\s*(게스트하우스|Guesthouse)/g, '') : name);
@@ -102,8 +124,9 @@ export function HousePage({ embedded = false }: { embedded?: boolean }) {
   const listed = houseOrder.map((id) => experiences.find((e) => e.id === id)!).filter(Boolean);
   // 상세페이지에 다녀와도 보던 방식이 유지되도록 이 탭에서만 기억합니다.
   const [view, setView] = useState<View>(readView);
-  // 휴대폰 · 웹 모두 받은 손그림 집 한 장 (예전 3D 그림 narrow · wide 는 남겨 둠)
-  const house = HOUSES.paper;
+  // 휴대폰 — 받은 손그림 집 한 장, 웹 — 같은 집이 들어간 받은 가로 그림을 화면 폭에 맞춰 (예전 3D 그림 narrow · wide 는 남겨 둠)
+  const wide = useWide();
+  const house = wide ? HOUSES.paperWide : HOUSES.paper;
   const { w: IMG_W, h: IMG_H } = house;
   const choose = (v: View) => {
     setView(v);
@@ -154,7 +177,7 @@ export function HousePage({ embedded = false }: { embedded?: boolean }) {
         </nav>
       ) : (
       <nav
-        className="house3d house3d--paper"
+        className={`house3d house3d--paper${wide ? ' house3d--paperwide' : ''}`}
         aria-label={ui.house.houseAria}
         style={{ '--iw': IMG_W, '--house-bg': `url(${houseBgUrl})`, '--side-l': `url(${nearLUrl}), url(${sideLUrl})`, '--side-r': `url(${nearRUrl}), url(${sideRUrl})` } as CSSProperties}
       >

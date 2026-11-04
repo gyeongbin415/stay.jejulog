@@ -109,7 +109,7 @@
   .gwrite--write .gwrite__card { padding: 24px 20px 16px; gap: 8px; }
   .gwrite--write .gwrite__a { margin-top: 10px; line-height: 33px; background: repeating-linear-gradient(to bottom, transparent 0 32px, var(--line-strong) 32px 33px); }
 }
-html:has(.gwrite--write) :is(.fabs, .backfab) { opacity: 0; visibility: hidden; pointer-events: none; }
+html:has(.gwrite--write) .backfab { opacity: 0; visibility: hidden; pointer-events: none; } /* 답 쓰는 카드 — 뒤로 가기만 숨김, 오른쪽 아래 묶은 버튼은 그대로 */
 .gwrite q { quotes: '“' '”'; }
 
 /* 다 썼어요 */
