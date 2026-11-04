@@ -1,4 +1,4 @@
-import { useEffect, useState, type CSSProperties } from 'react';
+import { useState, type CSSProperties } from 'react';
 import { useContent } from '../i18n';
 import type { ProgramId } from '../data/types';
 import { href } from '../lib/router';
@@ -89,18 +89,6 @@ const HOUSES: Record<'narrow' | 'wide' | 'paper' | 'paperWide', { url: string; w
   const box = ([a, b, c, d]: [number, number, number, number]): [number, number, number, number] => [mx(a), my(b), mx(c), my(d)];
   HOUSES.paperWide.spots = HOUSES.paper.spots.map((s) => ({ ...s, room: box(s.room), tag: [mx(s.tag[0]), my(s.tag[1]), Math.round(s.tag[2] * k)], pill: s.pill && box(s.pill) }));
 }
-/** 넓은 화면(웹)인지 — 화면 폭이 바뀌면 그림도 바꿈 */
-const WIDE_Q = '(min-width: 900px)';
-function useWide() {
-  const [wide, setWide] = useState(() => window.matchMedia(WIDE_Q).matches);
-  useEffect(() => {
-    const mq = window.matchMedia(WIDE_Q);
-    const on = () => setWide(mq.matches);
-    mq.addEventListener('change', on);
-    return () => mq.removeEventListener('change', on);
-  }, []);
-  return wide;
-}
 const pct = (v: number, of: number) => `${(v / of) * 100}%`;
 /** 목록 칸 숙소 이름 — 스르르는 ‘게스트하우스’를 빼고 짧게 (두 줄로 넘쳐 칸 높이가 달라지지 않게) */
 const listPlace = (id: ProgramId, name: string) => (id === 'craft' ? name.replace(/\s*(게스트하우스|Guesthouse)/g, '') : name);
@@ -124,9 +112,9 @@ export function HousePage({ embedded = false }: { embedded?: boolean }) {
   const listed = houseOrder.map((id) => experiences.find((e) => e.id === id)!).filter(Boolean);
   // 상세페이지에 다녀와도 보던 방식이 유지되도록 이 탭에서만 기억합니다.
   const [view, setView] = useState<View>(readView);
-  // 휴대폰 — 받은 손그림 집 한 장, 웹 — 같은 집이 들어간 받은 가로 그림을 화면 폭에 맞춰 (예전 3D 그림 narrow · wide 는 남겨 둠)
-  const wide = useWide();
-  const house = wide ? HOUSES.paperWide : HOUSES.paper;
+  // 휴대폰 · 웹 모두 같은 집이 들어간 받은 가로 그림 — 웹은 화면 폭에 맞춰, 휴대폰은 집을 가운데에 두고 키워서 양옆을 조금 잘라 냄 (house.css)
+  // (예전 그림 paper · narrow · wide 는 남겨 둠)
+  const house = HOUSES.paperWide;
   const { w: IMG_W, h: IMG_H } = house;
   const choose = (v: View) => {
     setView(v);
@@ -177,7 +165,7 @@ export function HousePage({ embedded = false }: { embedded?: boolean }) {
         </nav>
       ) : (
       <nav
-        className={`house3d house3d--paper${wide ? ' house3d--paperwide' : ''}`}
+        className="house3d house3d--paper house3d--paperwide"
         aria-label={ui.house.houseAria}
         style={{ '--iw': IMG_W, '--house-bg': `url(${houseBgUrl})`, '--side-l': `url(${nearLUrl}), url(${sideLUrl})`, '--side-r': `url(${nearRUrl}), url(${sideRUrl})` } as CSSProperties}
       >

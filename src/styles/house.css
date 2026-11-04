@@ -210,6 +210,11 @@
 .house3d--paperwide::before, .house3d--paperwide::after { display: none; }
 .house3d--paperwide .house3d__pill { font-size: calc(100cqw * 14.3 / 1672); }
 .explore:has(.house3d--paperwide) { background: #ACDAF5; }
+/* 휴대폰 · 태블릿 — 그림을 키워 집이 화면 가운데에 크게 오게, 양옆 풍경은 조금 잘라 냄 (휴대폰에서 그림 폭 = 화면 2.8배, 1600px까지) */
+@media (max-width: 899px) {
+  .house3d.house3d--paper.house3d--paperwide { --w: max(100%, min(280vw, 1600px)); }
+  .house3d.house3d--paper.house3d--paperwide .house3d__frame { margin: 0 0 0 calc((100% - var(--w)) / 2); }
+}
 /* 손그림 집 이름표 — 방에 마우스를 올리면 그림 속 이름표 자리에 주황으로 */
 .house3d--paper .house3d__frame { container-type: inline-size; } /* 이름표 글씨를 그림 크기에 맞춤 (100cqw = 그림 폭) */
 .house3d__pill {
