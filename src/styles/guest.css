@@ -197,7 +197,7 @@ html:has(.gwrite--write) .backfab { opacity: 0; visibility: hidden; pointer-even
   position: relative; isolation: isolate;
 }
 /* 네모 테두리 없이 화면 양끝까지 — 주황빛 번짐이 잘리지 않게 넓게 */
-.gticker { width: 100vw; margin-inline: calc(50% - 50vw); margin-top: 0; padding: clamp(80px, 10vw, 120px) max(13%, calc(50vw - 380px)); }
+.gticker { width: 100vw; margin-inline: calc(50% - 50vw); margin-top: 0; padding: clamp(60px, 7vw, 90px) max(12%, calc(50vw - 330px)); }
 .gticker::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
   /* 받은 시안 — 페이지 바탕색(#F1F0E6)은 그대로, 가운데만 주황빛이 은은하게 번지고 둘레로 갈수록 바탕색에 녹아듦 */
   background: radial-gradient(ellipse var(--glow-x, 47%) 46% at 50% 50%, rgba(250, 172, 108, .82) 0%, rgba(251, 182, 124, .74) 32%, rgba(252, 198, 152, .52) 58%, rgba(250, 218, 190, .22) 80%, rgba(241, 240, 230, 0) 100%);
@@ -205,13 +205,13 @@ html:has(.gwrite--write) .backfab { opacity: 0; visibility: hidden; pointer-even
 @media (max-width: 639px) { .gticker { --glow-x: 64%; } } /* 휴대폰 — 글이 화면 폭을 거의 다 쓰니 번짐을 옆으로 더 넓게 */
 .gwrite__body:has(> .gticker:last-child) { padding-bottom: 0; } /* 번짐 아래 여백은 티커 안 여백으로 */
 .gwrite:has(.gticker) { overflow-x: clip; } /* 화면 폭 바탕이 스크롤바 폭만큼 넘쳐 가로 스크롤이 생기지 않게 */
-.gticker__item { display: grid; gap: clamp(14px, 2vw, 22px); justify-items: center; animation: gticker-in .5s var(--ease) both; }
-.gticker__q { font-family: var(--f-home); font-size: clamp(15px, 1.6vw, 18px); font-weight: 700; line-height: 1.45; letter-spacing: -0.02em; color: #2E2A25; word-break: keep-all; }
+.gticker__item { display: grid; gap: clamp(10px, 1.4vw, 16px); justify-items: center; animation: gticker-in .5s var(--ease) both; }
+.gticker__q { font-family: var(--f-home); font-size: clamp(13px, 1.25vw, 16px); font-weight: 700; line-height: 1.45; letter-spacing: -0.02em; color: #2E2A25; word-break: keep-all; }
 .gticker__q b { margin-right: .15em; font-size: 1.22em; font-weight: 800; color: #E8731E; }
-.gticker__a { max-width: 30em; font-family: "Gowun Dodum", var(--f-home); font-size: clamp(22px, 2.8vw, 32px); font-weight: 400; -webkit-text-stroke: .9px currentColor; line-height: 1.5; letter-spacing: .02em; color: #2B2621; word-break: keep-all; overflow-wrap: anywhere; }
+.gticker__a { max-width: 30em; font-family: "Gowun Dodum", var(--f-home); font-size: clamp(18px, 1.9vw, 24px); font-weight: 400; -webkit-text-stroke: .7px currentColor; line-height: 1.5; letter-spacing: .02em; color: #2B2621; word-break: keep-all; overflow-wrap: anywhere; }
 .gticker__mark { display: inline-block; margin-right: .35em; font-family: Georgia, "Times New Roman", serif; font-size: 1.5em; font-weight: 700; line-height: 0; color: #6F6B66; vertical-align: -.12em; }
 .gticker__tail { white-space: nowrap; }
 .gticker__mark--end { margin: 0 0 0 .2em; vertical-align: -.02em; }
-.gticker__by { font-size: clamp(14px, 1.5vw, 17px); color: #8D877F; }
+.gticker__by { font-size: clamp(12.5px, 1.1vw, 14px); color: #8D877F; }
 @keyframes gticker-in { from { opacity: 0; translate: 0 10px; } }
 @media (prefers-reduced-motion: reduce) { .gticker__item { animation: none; } }
