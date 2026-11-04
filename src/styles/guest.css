@@ -199,8 +199,8 @@ html:has(.gwrite--write) .backfab { opacity: 0; visibility: hidden; pointer-even
 .gticker__item { display: grid; gap: clamp(14px, 2vw, 22px); justify-items: center; animation: gticker-in .5s var(--ease) both; }
 .gticker__q { font-family: var(--f-home); font-size: clamp(15px, 1.6vw, 18px); font-weight: 700; line-height: 1.45; letter-spacing: -0.02em; color: #2E2A25; word-break: keep-all; }
 .gticker__q b { margin-right: .15em; font-size: 1.22em; font-weight: 800; color: #E8731E; }
-.gticker__a { max-width: 30em; font-family: "Ownglyph Saehayan", var(--f-home); font-size: clamp(23px, 3vw, 34px); font-weight: 400; -webkit-text-stroke: .6px currentColor; line-height: 1.45; letter-spacing: .01em; color: #2B2621; word-break: keep-all; overflow-wrap: anywhere; }
-.gticker__mark { display: inline-block; margin-right: .35em; font-family: Georgia, "Times New Roman", serif; font-size: 1.5em; font-weight: 700; line-height: 0; -webkit-text-stroke: 0; color: #93AE6F; vertical-align: -.12em; }
+.gticker__a { max-width: 30em; font-family: var(--f-home); font-size: clamp(21px, 2.7vw, 30px); font-weight: 800; line-height: 1.5; letter-spacing: -0.03em; color: #2B2621; word-break: keep-all; overflow-wrap: anywhere; }
+.gticker__mark { display: inline-block; margin-right: .35em; font-family: Georgia, "Times New Roman", serif; font-size: 1.5em; font-weight: 700; line-height: 0; color: #93AE6F; vertical-align: -.12em; }
 .gticker__tail { white-space: nowrap; }
 .gticker__mark--end { margin: 0 0 0 .2em; vertical-align: -.02em; }
 .gticker__by { font-size: clamp(14px, 1.5vw, 17px); color: #8D877F; }
