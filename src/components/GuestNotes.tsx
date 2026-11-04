@@ -212,6 +212,18 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
   const labelOf = (i: number) => (i === FREE ? t.freeLabel : t.questions[i]);
   /** 카드에서 돌아갈 곳 — 자유 노트는 처음 화면, 질문은 질문 목록 */
   const back = () => setPhase(step === FREE ? 'pick' : 'list');
+  // 왼쪽 아래 뒤로 가기 동그라미(BackFab 의 'jl:back') — 방명록 안에서는 바로 전 화면으로 (질문 목록 → 처음, 카드 → 목록 · 처음)
+  useEffect(() => {
+    if (!inline) return;
+    const onBack = (e: Event) => {
+      if (phase === 'list') setPhase('pick');
+      else if (phase === 'write') back();
+      else return;
+      e.preventDefault();
+    };
+    window.addEventListener('jl:back', onBack);
+    return () => window.removeEventListener('jl:back', onBack);
+  });
 
   const submit = async () => {
     const a = answers.map((x) => x.trim());
