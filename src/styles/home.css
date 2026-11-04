@@ -17,6 +17,11 @@
 .intro__stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
 /* 메뉴 '메인'이 오는 자리 — 고정 무대가 끝나는 곳(인트로 높이 − 한 화면) */
 .intro__anchor { position: absolute; top: calc(100% - 100vh); left: 0; width: 1px; height: 1px; pointer-events: none; }
+/* 인트로를 뺀 메인 첫 화면 — 밝은 CHECK IN 한 화면만 (고정 · 단계 없이 보통 칸처럼) */
+.intro.intro--checkin { height: auto; background: var(--bg); color: var(--ink); }
+.intro--checkin .intro__anchor { top: 0; }
+.intro--checkin .intro__stage { position: relative; height: auto; min-height: 100vh; min-height: 100svh; overflow: visible; display: grid; }
+.intro--checkin .intro__reveal { position: relative; inset: auto; min-height: 100vh; min-height: 100svh; }
 
 /* 배경 — 흐릿한 불빛과 사람들 */
 .intro__scene { position: absolute; inset: 0; }

@@ -1,5 +1,4 @@
-import { useEffect, useRef, useState, type CSSProperties } from 'react';
-import { SITE as SITE_KO } from '../data/site';
+import { useEffect, type CSSProperties } from 'react';
 import { useContent } from '../i18n';
 import { href } from '../lib/router';
 import { useMediaQuery, useReducedMotion } from '../lib/motion';
@@ -9,7 +8,6 @@ import { GuestNotes } from '../components/GuestNotes';
 import houseUrl from '../assets/house-icon.png';
 import testArtUrl from '../assets/test-clipboard.png';
 import tasteMapUrl from '../assets/taste-map-paper.png';
-import introNightUrl from '../assets/intro-night.webp';
 import checkoutBgUrl from '../assets/checkout-stay.webp';
 import stripLpWall from '../assets/strip/lp-wall.webp';
 import stripPotluck from '../assets/strip/potluck-wall.webp';
@@ -32,8 +30,8 @@ import stripSunrise from '../assets/strip/kokoko-sunrise.webp';
 
 /**
  * PAGE 01 — 메인 (하나의 세로 스크롤)
- * 휴대폰: INTRO → 집 → FIND YOUR STAY → 취향 지도 → 방명록 → CHECK OUT (한 장씩 넘겨봄)
- * PC: INTRO → 콘텐츠 고르기(집 · 테스트 · 지도 · 방명록) 만
+ * 휴대폰: CHECK IN → 집 → FIND YOUR STAY → 취향 지도 → 방명록 → CHECK OUT (한 장씩 넘겨봄)
+ * PC: CHECK IN → 콘텐츠 고르기(집 · 테스트 · 지도 · 방명록) 만
  */
 export function HomePage() {
   const { site: SITE, ui } = useContent();
@@ -64,192 +62,25 @@ export function HomePage() {
   );
 }
 
-/* ── SECTION 01. INTRO — 밤의 게스트하우스, 기존 인식 ─────────────────────────────── */
+/* ── SECTION 01. CHECK IN — 메인 첫 화면 ─────────────────────────────── */
 /**
- * 화면을 고정해 두고 스크롤을 내릴 때마다 한 단계씩 장면이 진행됩니다 (저절로 넘어가지 않음).
- * 질문 → 01 파티. → 02 술. → 03 헌팅.
- * → 어둠 속 전환 문구 → 밝은 화면이 서서히 떠오르며 문제 정의(PROBLEM)
- * 동작 줄이기 설정이면 고정 없이 모든 문구를 한 번에 보여 줍니다.
+ * 예전 밤 장면 인트로(질문 → 파티 · 술 · 헌팅 → 전환 문구)는 뺌 — 들어오자마자 CHECK IN(사진 띠 · 제목 · 문장)부터
+ * 다른 곳(넘겨보기 HomeDeck · 오른쪽 아래 버튼 MapFab · 메뉴 '메인')이 찾는 자리 id · 표시(intro · checkin · data-phase)는 그대로 둠
  */
-const REVEAL = SITE_KO.intro.words.length + 3;
-/**
- * 스크롤 단계 — 내릴 때마다 하나씩: 질문만(0) → 단어 1 · 2 · 3 → 전환 문구 앞 두 줄(total + 2)
- * → 한 번 더 내리면 끝 줄 '전부가 아닙니다.'(같은 total + 2, 두 번째) → 문제 정의 CHECK IN(REVEAL)
- * (예전 '시야가 좁아짐' 단계 total + 1 은 건너뜀)
- */
-const STEPS = [0, ...SITE_KO.intro.words.map((_, i) => i + 1), REVEAL - 1, REVEAL - 1, REVEAL];
-/** 전환 문구 끝 줄이 나오는 단계 (STEPS 의 두 번째 REVEAL - 1) */
-const TURN_END = STEPS.length - 2;
-/** 단계 하나에 내리는 거리 — 화면 높이의 0.3배 (조금만 내려도 다음 단어, 인트로 높이 = 한 화면 + 단계 수 × 0.3 화면, home.css) */
-const STEP_VH = 0.3;
 function Intro() {
-  const { site: SITE, ui } = useContent();
-  const ref = useRef<HTMLElement>(null);
-  const reduced = useReducedMotion();
-  const total = SITE.intro.words.length;
-  const last = STEPS.length - 1;
-  // 지금 몇 번째 단계까지 내렸는지 — 스크롤 위치로 정함 (올리면 되돌아감)
-  const [k, setK] = useState(0);
-
-  useEffect(() => {
-    if (reduced) return;
-    let raf = 0;
-    const update = () => {
-      raf = 0;
-      const el = ref.current;
-      if (!el) return;
-      const range = el.offsetHeight - window.innerHeight;
-      const p = range > 0 ? Math.min(1, Math.max(0, -el.getBoundingClientRect().top / range)) : 1;
-      el.style.setProperty('--p', p.toFixed(3));
-      // 단계 자리의 40% 앞에서 미리 넘어감 — 조금만 내려도 다음 글이 올라옴
-      const s = -el.getBoundingClientRect().top / window.innerHeight;
-      setK(Math.max(0, Math.min(last, Math.floor(s / STEP_VH + 0.4))));
-    };
-    const onScroll = () => {
-      if (!raf) raf = requestAnimationFrame(update);
-    };
-    update();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', onScroll);
-      cancelAnimationFrame(raf);
-    };
-  }, [reduced, last]);
-
-  const step = reduced ? REVEAL : STEPS[k];
-  const shown = step;
-  const revealed = !reduced && step >= REVEAL;
-  const phase = reduced ? 'static'
-    : step === 0 ? 'start'
-    : step < total ? 'words'
-    : step === total ? 'all'
-    : step === total + 1 ? 'iris'
-    : step === total + 2 ? 'turn' : 'reveal';
-
-  // 휠 · 손가락 · 키보드 한 번에 한 단계씩 — 관성으로 여러 단계를 한꺼번에 지나치지 않게, 옮긴 뒤 0.65초는 이어지는 스크롤을 흘려보냄
-  // (인트로 안에서만. CHECK IN 까지 다 나온 뒤 더 내리면 아래 칸으로 그대로)
-  useEffect(() => {
-    if (reduced) return;
-    let holdUntil = 0;
-    let startY = 0;
-    let fired = false;
-    const holding = () => Date.now() < holdUntil;
-    const inMenu = (t: EventTarget | null) => t instanceof Element && !!t.closest('.menu');
-    const top = () => (ref.current ? ref.current.getBoundingClientRect().top + window.scrollY : 0);
-    const posOf = (i: number) => top() + i * STEP_VH * window.innerHeight;
-    // dir 쪽으로 한 단계 옮겼으면 true (인트로 밖이면 false — 보통 스크롤)
-    const move = (dir: 1 | -1) => {
-      const y = window.scrollY;
-      const end = posOf(last);
-      if (y > end + 2) return false;
-      if (dir < 0 && y <= top() + 2) return false;
-      const cur = Math.max(0, Math.min(last, Math.round((y - top()) / (STEP_VH * window.innerHeight))));
-      const to = Math.max(0, Math.min(last, cur + dir));
-      if (dir > 0 && cur === last && Math.abs(y - end) <= 2) return false;
-      window.scrollTo(0, posOf(to));
-      // 한 단계 넘긴 뒤 잠깐만 멈춤 (빨리 넘어가게) — 마지막 CHECK IN 화면은 밝은 화면 · 문구가 다 떠오를 때까지 1.5초
-      holdUntil = Date.now() + (to === last ? 1500 : 320);
-      return true;
-    };
-    const onWheel = (e: WheelEvent) => {
-      if (inMenu(e.target) || e.ctrlKey || Math.abs(e.deltaY) < 1) return;
-      if (holding() && window.scrollY <= posOf(last) + 2) {
-        e.preventDefault();
-        // CHECK IN 화면에서는 이어지는 관성 스크롤이 멎을 때까지 계속 붙잡음 — 새로 한 번 내려야 다음 칸으로
-        if (Math.abs(window.scrollY - posOf(last)) <= 2) holdUntil = Math.max(holdUntil, Date.now() + 250);
-        return;
-      }
-      if (!holding() && move(e.deltaY > 0 ? 1 : -1)) e.preventDefault();
-    };
-    const onTouchStart = (e: TouchEvent) => {
-      startY = e.touches[0]?.clientY ?? 0;
-      fired = false;
-    };
-    const onTouchMove = (e: TouchEvent) => {
-      if (inMenu(e.target) || e.touches.length > 1) return;
-      const dy = startY - (e.touches[0]?.clientY ?? startY); // 손가락을 위로 = 아래로 내림
-      if (!fired && Math.abs(dy) > 12) fired = move(dy > 0 ? 1 : -1);
-      if (fired || (holding() && window.scrollY <= posOf(last) + 2)) e.preventDefault();
-    };
-    const KEYS: Record<string, 1 | -1> = { ArrowDown: 1, PageDown: 1, ' ': 1, ArrowUp: -1, PageUp: -1 };
-    const onKey = (e: KeyboardEvent) => {
-      const t = e.target as HTMLElement | null;
-      const dir = KEYS[e.key];
-      if (!dir || inMenu(t) || t?.closest('input, textarea, select, [contenteditable]')) return;
-      // 버튼 위 스페이스는 누르기 동작이라 그대로 둠
-      if (e.key === ' ' && t?.closest('button')) return;
-      if (move(e.shiftKey && e.key === ' ' ? -1 : dir)) e.preventDefault();
-    };
-    window.addEventListener('wheel', onWheel, { passive: false });
-    window.addEventListener('touchstart', onTouchStart, { passive: true });
-    window.addEventListener('touchmove', onTouchMove, { passive: false });
-    window.addEventListener('keydown', onKey);
-    return () => {
-      window.removeEventListener('wheel', onWheel);
-      window.removeEventListener('touchstart', onTouchStart);
-      window.removeEventListener('touchmove', onTouchMove);
-      window.removeEventListener('keydown', onKey);
-    };
-  }, [reduced, last]);
-
-  // 밝은 문제 정의 화면이 열리면 상단 바 글자색도 다시 맞춥니다.
+  // 상단 바 글자색을 밝은 화면에 맞춤
   useEffect(() => {
     window.dispatchEvent(new Event('scroll'));
-  }, [revealed]);
-
+  }, []);
   return (
-    <section ref={ref} id="intro" className={`intro${reduced ? ' intro--static' : ''}`} style={{ '--steps': last } as CSSProperties} data-turn-end={k >= TURN_END || undefined} data-step={Math.min(shown, total)} data-phase={phase} data-tone={revealed ? 'light' : 'dark'} aria-labelledby="intro-title">
-      {/* 메뉴 '메인'이 오는 자리 — 인트로를 끝까지 내린 곳, CHECK IN 화면이 다 열린 상태 */}
-      {!reduced && <span id="checkin" className="intro__anchor" />}
+    <section id="intro" className="intro intro--checkin" data-phase="reveal" data-tone="light" aria-labelledby="problem-title">
+      <span id="checkin" className="intro__anchor" />
       <div className="intro__stage">
-        <NightScene />
-
-        <h2 id="intro-title" className="intro__q pre">{SITE.intro.question}</h2>
-        <ol className="intro__words" aria-label={ui.home.wordsAria}>
-          {SITE.intro.words.map((w, i) => (
-            <li key={w} className={`intro__word w${i + 1}${i < Math.min(shown, total) ? ' is-on' : ''}`}>
-              {w}
-            </li>
-          ))}
-        </ol>
-
-        {/* 줄마다 — 따옴표로 시작하는 줄(‘제주 게스트하우스’)은 크고 진하게 */}
-        <p className="intro__turn">
-          {SITE.intro.turn.split('\n').map((line, i, all) => (
-            <span key={line} className={/^[‘“]/.test(line) ? 'intro__turn-em' : i === all.length - 1 ? 'intro__turn-end' : undefined}>
-              {line}
-            </span>
-          ))}
-        </p>
-
-        {/* 첫 화면부터 — 아래로 내려 보라는 표시 (SCROLL + 꺾쇠, 끝 화면의 표시와 같은 모양) */}
-        <p className="intro__hint" aria-hidden="true">
-          <span>SCROLL</span>
-          <b className="intro__chev">
-            <span />
-            <span />
-          </b>
-        </p>
-
-        {/* 밝은 화면이 서서히 떠오르며 — 문제 정의 */}
         <div id="problem" className="intro__reveal">
-          {/* 동작 줄이기 설정이면 고정 없이 펼쳐지므로 CHECK IN 자리는 여기 */}
-          {reduced && <span id="checkin" />}
           <Problem />
         </div>
       </div>
     </section>
-  );
-}
-
-/** 흐릿한 파티 불빛과 사람들의 실루엣 — 받은 배경 그림 한 장, 문구가 늘어날수록 짙어집니다 */
-function NightScene() {
-  return (
-    <div className="intro__scene" aria-hidden="true">
-      <img className="intro__bg" src={introNightUrl} alt="" />
-    </div>
   );
 }
 
