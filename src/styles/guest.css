@@ -187,3 +187,14 @@ html:has(.gwrite--write) :is(.fabs, .backfab) { opacity: 0; visibility: hidden; 
 .gnote--page { min-height: 100vh; min-height: 100svh; padding: 0; background: var(--paper); }
 .gwrite--inline { position: relative; inset: auto; z-index: auto; min-height: 100vh; min-height: 100svh; padding-top: var(--header); overflow: visible; animation: none; }
 .gwrite--inline .gwrite__top { top: var(--header); }
+
+/* 첫 화면 아래 — 사람들이 남긴 답이 한 장씩 바뀌며 (질문 작게 · 답 크게 · 이름 · 다른 사람 수) */
+.gticker { display: grid; place-items: center; min-height: 148px; margin-top: 22px; padding: 22px 20px; border-radius: 14px; background: #F6F3EC; text-align: center; overflow: hidden; }
+.gticker__item { display: grid; gap: 10px; justify-items: center; animation: gticker-in .5s var(--ease) both; }
+.gticker__q { font-size: 14px; color: var(--ink-soft); line-height: 1.5; }
+.gticker__a { font-family: var(--f-home); font-size: clamp(19px, 2.2vw, 23px); font-weight: 800; line-height: 1.45; letter-spacing: -0.03em; color: var(--ink); word-break: keep-all; overflow-wrap: anywhere; }
+.gticker__by { font-size: 14px; color: var(--ink-soft); }
+.gticker__by b { font-weight: 700; color: var(--forest); }
+.gticker__empty { font-size: 15px; color: var(--ink-soft); }
+@keyframes gticker-in { from { opacity: 0; translate: 0 10px; } }
+@media (prefers-reduced-motion: reduce) { .gticker__item { animation: none; } }

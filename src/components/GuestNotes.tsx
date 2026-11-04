@@ -31,6 +31,50 @@ function answersOf(notes: GuestNote[], anon: string, q?: number): Answer[] {
   return out.filter((a) => a.text);
 }
 
+/**
+ * 첫 화면 아래 — 사람들이 남긴 답을 한 장씩 바꿔 가며 (질문 · 답 · 이름 · 같은 질문에 답한 다른 사람 수)
+ * 한 사람 답이 몰리지 않게 노트마다 번갈아, 3.6초마다 다음 답 (동작 줄이기 설정이면 바뀌기만 하고 흐려지지 않음)
+ */
+function AnswerTicker({ notes }: { notes: GuestNote[] }) {
+  const { ui } = useContent();
+  const t = ui.guest;
+  const items = useMemo(() => {
+    const per = Array<number>(SLOTS).fill(0);
+    notes.forEach((n) => n.a.forEach((x, i) => x?.trim() && i < SLOTS && per[i]++));
+    const out: { q: number; text: string; name: string; others: number }[] = [];
+    for (let j = 0; j < SLOTS; j++)
+      notes.forEach((n, k) => {
+        const q = (k + j) % SLOTS;
+        const text = (n.a[q] ?? '').trim();
+        if (text) out.push({ q, text, name: n.name?.trim() || t.anon, others: per[q] - 1 });
+      });
+    return out;
+  }, [notes, t.anon]);
+  const [i, setI] = useState(0);
+  useEffect(() => {
+    if (items.length < 2) return;
+    const id = window.setInterval(() => setI((v) => (v + 1) % items.length), 3600);
+    return () => window.clearInterval(id);
+  }, [items.length]);
+  const it = items.length ? items[i % items.length] : null;
+  return (
+    <div className="gticker" aria-live="polite">
+      {it ? (
+        <div className="gticker__item" key={i}>
+          <p className="gticker__q">{it.q === FREE ? t.freeLabel : `Q${it.q + 1}. ${t.questions[it.q]}`}</p>
+          <p className="gticker__a">{it.text}</p>
+          <p className="gticker__by">
+            <b>{it.name}</b>
+            {it.others > 0 && <span> · {t.tickerMore(it.others)}</span>}
+          </p>
+        </div>
+      ) : (
+        <p className="gticker__empty">{t.first}</p>
+      )}
+    </div>
+  );
+}
+
 /** page — 따로 된 방명록 페이지(#/guest · 휴대폰 넘겨보기 네 번째 칸) */
 export function GuestNotes({ page = false }: { page?: boolean }) {
   const { ui } = useContent();
@@ -328,6 +372,8 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
               </button>
             </li>
           </ul>
+          {/* 사람들이 남긴 답 — 한 장씩 바뀌며 */}
+          <AnswerTicker notes={notes} />
           {answered.some(Boolean) && (
             <div className="gwrite__send">
               <label className="gwrite__name">
