@@ -78,6 +78,8 @@
 .gwrite__name { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 12px; padding-top: 10px; border-top: 1px dashed var(--line-strong); font-size: 14px; font-weight: 600; }
 .gwrite__name input { min-width: 0; padding: 10px 2px; border: 0; border-bottom: 1px solid var(--line-strong); outline: none; font: inherit; font-weight: 400; background: transparent; }
 .gwrite__name input:focus { border-color: var(--ink); }
+/* 질문 카드 아래 닉네임 — 점선 없이 카드와 버튼 사이 */
+.gwrite__name--card { margin-top: 18px; padding-top: 0; border-top: 0; font-size: 15px; }
 
 /* 질문 목록(처음으로) · 다 적었어요 — 같은 주황 버튼, 글씨에 맞는 너비(양옆 빈 곳 짧게)로 양끝에 */
 .gwrite__nav { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-top: 22px; }
