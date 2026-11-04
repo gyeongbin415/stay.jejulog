@@ -3,7 +3,7 @@ import { useContent } from '../i18n';
 import { useReducedMotion } from '../lib/motion';
 import { absUrl, href } from '../lib/router';
 import { track } from '../lib/track';
-import { GUESTBOOK_URL, MAX_ANSWER, MAX_FREE, MAX_NAME, fetchBoard, loadMine, postNote, syncMine, type GuestBoard, type GuestNote } from '../data/guestbook';
+import { GUESTBOOK_URL, MAX_ANSWER, MAX_FREE, MAX_NAME, fetchBoard, loadCachedBoard, loadMine, postNote, syncMine, type GuestBoard, type GuestNote } from '../data/guestbook';
 import noteUrl from '../assets/guest-note.png';
 import '../styles/guest.css';
 
@@ -77,7 +77,7 @@ function AnswerTicker({ notes }: { notes: GuestNote[] }) {
 export function GuestNotes({ page = false }: { page?: boolean }) {
   const { ui, lang } = useContent();
   const t = ui.guest;
-  const [board, setBoard] = useState<GuestBoard | null>(null);
+  const [board, setBoard] = useState<GuestBoard | null>(loadCachedBoard);
   const [mine, setMine] = useState<GuestNote[]>(loadMine);
 
   const reload = () => {

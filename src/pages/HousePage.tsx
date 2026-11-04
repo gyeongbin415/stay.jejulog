@@ -8,9 +8,9 @@ import houseUrl from '../assets/house-3d.webp';
 import houseBgUrl from '../assets/house-wide-bg.webp';
 import houseWideUrl from '../assets/house-3d-wide.webp';
 import housePaperUrl from '../assets/house-flat.jpg';
-// 넓은 화면 양옆 — 집 그림 끝의 풍경(하늘 · 바다 · 돌담 · 잔디)을 이어 붙이는 조각(반복) · 그림 끝에서 잘린 구름 · 언덕 · 덤불을 이어 주는 조각
-import sideLUrl from '../assets/house-side-l.png';
-import sideRUrl from '../assets/house-side-r.png';
+// 넓은 화면 양옆 — 집 그림 끝의 풍경(하늘 · 바다 · 돌담 · 잔디)을 넓게 이어 그린 한 장(구름 · 들꽃 · 덤불을 군데군데) · 그림 끝에서 잘린 구름 · 언덕 · 덤불을 이어 주는 조각
+import sideLUrl from '../assets/house-side-l.jpg';
+import sideRUrl from '../assets/house-side-r.jpg';
 import nearLUrl from '../assets/house-near-l.png';
 import nearRUrl from '../assets/house-near-r.png';
 

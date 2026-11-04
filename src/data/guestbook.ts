@@ -46,16 +46,44 @@ function saveMine(list: GuestNote[]) {
   }
 }
 
-export async function fetchBoard(): Promise<GuestBoard | null> {
-  if (!GUESTBOOK_URL) return null;
+/** 마지막으로 읽어 온 노트 — 방명록에 들어가자마자 먼저 보여 주고(시트에서 읽어 오는 데 2~3초), 새로 읽어 오면 바꿈 */
+const BOARD_KEY = 'jejulog-guest-board';
+export function loadCachedBoard(): GuestBoard | null {
   try {
-    const res = await fetch(GUESTBOOK_URL);
-    const d = await res.json();
-    return { count: Number(d.count) || 0, notes: Array.isArray(d.notes) ? d.notes : [] };
+    const v = JSON.parse(localStorage.getItem(BOARD_KEY) || 'null');
+    return v && Array.isArray(v.notes) ? v : null;
   } catch {
     return null;
   }
 }
+
+/** 같은 때 여러 곳에서 불러도 한 번만 읽음 */
+let inflight: Promise<GuestBoard | null> | null = null;
+export function fetchBoard(): Promise<GuestBoard | null> {
+  if (!GUESTBOOK_URL) return Promise.resolve(null);
+  if (inflight) return inflight;
+  inflight = (async () => {
+    try {
+      const res = await fetch(GUESTBOOK_URL);
+      const d = await res.json();
+      const b = { count: Number(d.count) || 0, notes: Array.isArray(d.notes) ? d.notes : [] };
+      try {
+        localStorage.setItem(BOARD_KEY, JSON.stringify(b));
+      } catch {
+        /* 저장 못 해도 그대로 */
+      }
+      return b;
+    } catch {
+      return null;
+    } finally {
+      inflight = null;
+    }
+  })();
+  return inflight;
+}
+
+// 웹진을 열 때 미리 읽어 둠 — 처음 방명록에 들어가도 바로 보이게
+if (typeof window !== 'undefined' && GUESTBOOK_URL) fetchBoard();
 
 /** 시트에 한 장 보내기 — 받았으면 true */
 async function send(note: GuestNote, lang: string): Promise<boolean> {
