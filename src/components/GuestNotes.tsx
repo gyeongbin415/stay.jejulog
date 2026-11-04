@@ -56,21 +56,19 @@ function AnswerTicker({ notes }: { notes: GuestNote[] }) {
     const id = window.setInterval(() => setI((v) => (v + 1) % items.length), 3600);
     return () => window.clearInterval(id);
   }, [items.length]);
-  const it = items.length ? items[i % items.length] : null;
+  // 아직 남긴 답이 없으면 카드 없이
+  if (!items.length) return null;
+  const it = items[i % items.length];
   return (
     <div className="gticker" aria-live="polite">
-      {it ? (
-        <div className="gticker__item" key={i}>
-          <p className="gticker__q">{it.q === FREE ? t.freeLabel : `Q${it.q + 1}. ${t.questions[it.q]}`}</p>
-          <p className="gticker__a">{it.text}</p>
-          <p className="gticker__by">
-            <b>{it.name}</b>
-            {it.others > 0 && <span> · {t.tickerMore(it.others)}</span>}
-          </p>
-        </div>
-      ) : (
-        <p className="gticker__empty">{t.first}</p>
-      )}
+      <div className="gticker__item" key={i}>
+        <p className="gticker__q">{it.q === FREE ? t.freeLabel : `Q${it.q + 1}. ${t.questions[it.q]}`}</p>
+        <p className="gticker__a">{it.text}</p>
+        <p className="gticker__by">
+          <b>{it.name}</b>
+          {it.others > 0 && <span> · {t.tickerMore(it.others)}</span>}
+        </p>
+      </div>
     </div>
   );
 }
@@ -122,7 +120,7 @@ export function GuestNotes({ page = false }: { page?: boolean }) {
         <h2 id="guest-title" className="visually-hidden">{t.title}</h2>
         {/* 받은 공책 그림 — 끌어서 돌려 보거나 누르면 방명록 페이지로, 밑에 안내 상자 */}
         <NoteArt />
-        <p className="gnote__entry-count">{count > 0 ? t.count(count) : t.first}</p>
+        {count > 0 && <p className="gnote__entry-count">{t.count(count)}</p>}
         {!GUESTBOOK_URL && mine.length > 0 && <p className="gnote__local">{t.localOnly}</p>}
       </div>
     </section>

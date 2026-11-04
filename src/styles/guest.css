@@ -195,6 +195,5 @@ html:has(.gwrite--write) :is(.fabs, .backfab) { opacity: 0; visibility: hidden; 
 .gticker__a { font-family: var(--f-home); font-size: clamp(19px, 2.2vw, 23px); font-weight: 800; line-height: 1.45; letter-spacing: -0.03em; color: var(--ink); word-break: keep-all; overflow-wrap: anywhere; }
 .gticker__by { font-size: 14px; color: var(--ink-soft); }
 .gticker__by b { font-weight: 700; color: var(--forest); }
-.gticker__empty { font-size: 15px; color: var(--ink-soft); }
 @keyframes gticker-in { from { opacity: 0; translate: 0 10px; } }
 @media (prefers-reduced-motion: reduce) { .gticker__item { animation: none; } }
