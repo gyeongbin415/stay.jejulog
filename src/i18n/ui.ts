@@ -104,7 +104,7 @@ export const UI: Record<Lang, UiText> = {
       boardTitle: '모두의 노트', boardBy: (name) => `— ${name}`, boardMore: '노트 더 보기', tickerMore: (n) => `외 ${n.toLocaleString()}명이 답했어요`,
       modeTitle: '제주 게하 방명록, 어떻게 남겨 볼까요?', modeSub: '자유롭게 적거나,\n마음이 가는 질문을 골라 답해 보세요.',
       freeBtn: '자유롭게 적기', freeHint: '하고 싶은 말을 마음대로', freeLabel: '자유롭게 남긴 말', freePlaceholder: '제주에서의 하루, 남기고 싶은 마음을 자유롭게 적어 보세요',
-      questionsBtn: '질문 골라 답하기', questionsHint: (n) => `${n}가지 질문 중 골라서`, questionsDone: (k, n) => `${n}개 중 ${k}개 답했어요`, toModes: '처음으로',
+      questionsBtn: '질문 골라 답하기', questionsHint: (n) => `${n}가지 질문 중 골라서`, questionsDone: (k, n) => `${n}개 중 ${k}개 답했어요`, toModes: '뒤로가기',
     },
     home: {
       srTitle: '제주 게스트하우스 공간 탐험 웹진',
