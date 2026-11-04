@@ -3,7 +3,7 @@ import { useContent } from '../i18n';
 import { useReducedMotion } from '../lib/motion';
 import { absUrl, href } from '../lib/router';
 import { track } from '../lib/track';
-import { GUESTBOOK_URL, MAX_ANSWER, MAX_FREE, MAX_NAME, fetchBoard, loadMine, postNote, postNoteNow, syncMine, type GuestBoard, type GuestNote } from '../data/guestbook';
+import { GUESTBOOK_URL, MAX_ANSWER, MAX_FREE, MAX_NAME, fetchBoard, loadMine, postNote, syncMine, type GuestBoard, type GuestNote } from '../data/guestbook';
 import noteUrl from '../assets/guest-note.png';
 import '../styles/guest.css';
 
@@ -271,38 +271,7 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
   /** 칸 이름 — 질문 또는 '자유롭게 남긴 말' */
   const labelOf = (i: number) => (i === FREE ? t.freeLabel : t.questions[i]);
   /** 카드에서 돌아갈 곳 — 자유 노트는 처음 화면, 질문은 질문 목록 */
-  /** 쓰던 답을 바로 시트로 — '다 적었어요'를 누르지 않고 카드에서 나가도 (질문 목록 · 뒤로 · 다른 사람들 · 다른 페이지 · 앱 전환) */
-  const live = useRef({ phase, step, answers, name, lang, onSent });
-  live.current = { phase, step, answers, name, lang, onSent };
-  const saveNow = () => {
-    const c = live.current;
-    const text = c.phase === 'write' ? (c.answers[c.step] ?? '').trim() : '';
-    if (!text) return false;
-    const a = Array<string>(SLOTS).fill('');
-    a[c.step] = text;
-    postNoteNow({ name: c.name.trim(), a }, c.lang);
-    track('guest_submit', { answered: 1, auto: 1 });
-    setAnswers((v) => v.map((x, i) => (i === c.step ? '' : x)));
-    draft.answers = draft.answers.map((x, i) => (i === c.step ? '' : x));
-    saveDraft();
-    c.onSent();
-    return true;
-  };
-  useEffect(() => {
-    const onHide = () => document.visibilityState === 'hidden' && saveNow();
-    document.addEventListener('visibilitychange', onHide);
-    window.addEventListener('pagehide', saveNow);
-    return () => {
-      document.removeEventListener('visibilitychange', onHide);
-      window.removeEventListener('pagehide', saveNow);
-      saveNow(); // 다른 페이지로 넘어가며 방명록이 닫힐 때
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-  const back = () => {
-    saveNow();
-    setPhase(step === FREE ? 'pick' : 'list');
-  };
+  const back = () => setPhase(step === FREE ? 'pick' : 'list');
   // 왼쪽 아래 뒤로 가기 동그라미(BackFab 의 'jl:back') — 방명록 안에서는 바로 전 화면으로 (질문 목록 → 처음, 카드 → 목록 · 처음)
   useEffect(() => {
     if (!inline) return;
@@ -488,10 +457,7 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
                 <button type="button" role="tab" className="gwrite__tab" aria-selected={!showAll} onClick={() => setShowAll(false)} data-track="guest_tab_mine">
                   {t.myTab}
                 </button>
-                <button type="button" role="tab" className="gwrite__tab" aria-selected={showAll} onClick={() => {
-                  saveNow();
-                  setShowAll(true);
-                }} data-track="guest_tab_others">
+                <button type="button" role="tab" className="gwrite__tab" aria-selected={showAll} onClick={() => setShowAll(true)} data-track="guest_tab_others">
                   {t.othersTab} <span className="gwrite__tab-n">{list.length.toLocaleString()}</span>
                 </button>
               </div>

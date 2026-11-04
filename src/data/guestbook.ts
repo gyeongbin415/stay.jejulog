@@ -19,8 +19,6 @@ export interface GuestNote {
   t?: number;
   /** 내 노트 — 시트에 들어갔는지 (연결 전 · 예전 버전에서 쓴 노트는 없음) */
   sent?: boolean;
-  /** 내 노트 — 카드에서 나가며 보냈는데 아직 받았다는 답을 못 들음 (못 받았으면 다음에 다시 보냄) */
-  pending?: boolean;
 }
 
 export interface GuestBoard {
@@ -79,25 +77,6 @@ export async function postNote(note: GuestNote, lang: string): Promise<boolean> 
 }
 
 /**
- * 카드에서 나갈 때(질문 목록 · 뒤로 · 다른 사람들 · 다른 페이지 · 앱 전환) 쓰던 답을 바로 시트로 — 기다리지 않고 보내 두고,
- * 페이지가 닫혀도 끝까지 가게(keepalive). 받았다는 답이 오면 'sent', 못 들으면 다음에 열 때 syncMine 이 다시 보냄
- */
-export function postNoteNow(note: GuestNote, lang: string) {
-  const t = Date.now();
-  saveMine([...loadMine(), { ...note, t, sent: !GUESTBOOK_URL, pending: !!GUESTBOOK_URL }]);
-  if (!GUESTBOOK_URL) return;
-  const mark = () => saveMine(loadMine().map((n) => (n.t === t ? { ...n, sent: true, pending: false } : n)));
-  try {
-    fetch(GUESTBOOK_URL, { method: 'POST', body: JSON.stringify({ name: note.name, a: note.a, lang }), keepalive: true })
-      .then((r) => r.json())
-      .then((d) => d.ok && mark())
-      .catch(() => {});
-  } catch {
-    /* 다음에 열 때 다시 보냄 */
-  }
-}
-
-/**
  * 이 브라우저에만 남아 있던 노트를 시트로 — 시트 연결(2026-11-03 23:03) 전에 썼거나,
  * 학교 웹진 주소에 연결 전 버전이 올라가 있던 동안 쓴 노트 ('sent' 표시 없음). 시트에 이미 같은 노트가 있으면 보내지 않음
  * 하나라도 새로 보냈으면 true
@@ -106,7 +85,7 @@ const CONNECTED_AT = 1793714608000;
 let syncing = false;
 export async function syncMine(board: GuestBoard, lang: string): Promise<boolean> {
   if (!GUESTBOOK_URL || syncing) return false;
-  const old = (n: GuestNote) => !n.sent && (window.location.hostname === 'lxwebzine.hankyung.com' || (n.t ?? 0) < CONNECTED_AT || (!!n.pending && Date.now() - (n.t ?? 0) > 30000));
+  const old = (n: GuestNote) => !n.sent && (window.location.hostname === 'lxwebzine.hankyung.com' || (n.t ?? 0) < CONNECTED_AT);
   const list = loadMine();
   if (!list.some(old)) return false;
   syncing = true;
@@ -117,7 +96,6 @@ export async function syncMine(board: GuestBoard, lang: string): Promise<boolean
     if (!old(n)) continue;
     if (!n.a.some((x) => x?.trim()) || onBoard.has(key(n))) n.sent = true;
     else if (await send(n, lang)) n.sent = added = true;
-    if (n.sent) n.pending = false;
   }
   saveMine(list);
   syncing = false;
