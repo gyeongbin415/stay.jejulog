@@ -128,6 +128,20 @@
 .mapfab svg { width: 28px; height: 28px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linejoin: round; stroke-linecap: round; }
 .mapfab__dot { fill: currentColor; stroke: none; }
 @media (min-width: 900px) { .fabs { right: 28px; bottom: 28px; gap: 14px; } .mapfab { width: 68px; height: 68px; } .mapfab svg { width: 32px; height: 32px; } }
+.fabs__list { display: grid; gap: inherit; }
+/* 둘 이상이면 화살표 하나로 접어 둠 — 마우스를 올리거나(PC) 화살표를 누르면 그 위로 하나씩 펼쳐짐 */
+.fabs--fold .fabs__list > .mapfab { opacity: 0; translate: 0 14px; scale: .85; visibility: hidden; pointer-events: none; transition: opacity .2s var(--ease), translate .25s var(--ease), scale .25s var(--ease), visibility 0s .25s; }
+.fabs--fold.is-open .fabs__list > .mapfab { opacity: 1; translate: 0 0; scale: 1; visibility: visible; pointer-events: auto; transition: opacity .25s var(--ease), translate .3s var(--ease-out), scale .3s var(--ease-out), visibility 0s; }
+@media (hover: hover) and (pointer: fine) {
+  .fabs--fold:hover .fabs__list > .mapfab, .fabs--fold:focus-within .fabs__list > .mapfab { opacity: 1; translate: 0 0; scale: 1; visibility: visible; pointer-events: auto; transition: opacity .25s var(--ease), translate .3s var(--ease-out), scale .3s var(--ease-out), visibility 0s; }
+}
+/* 아래쪽 버튼부터 차례로 */
+.fabs--fold .fabs__list > .mapfab:nth-last-child(2) { transition-delay: .04s; }
+.fabs--fold .fabs__list > .mapfab:nth-last-child(3) { transition-delay: .08s; }
+.fabs--fold .fabs__list > .mapfab:nth-last-child(4) { transition-delay: .12s; }
+.fabs__toggle svg { stroke-width: 2.2; transition: rotate .3s var(--ease); }
+.fabs--fold.is-open .fabs__toggle svg { rotate: 180deg; }
+@media (hover: hover) and (pointer: fine) { .fabs--fold:hover .fabs__toggle svg { rotate: 180deg; } }
 
 /* 로딩 화면 — 소라게 그림 · 밑에 점 세 개(주황 점이 한 칸씩 옮겨 감) */
 .loader { min-height: 80vh; display: grid; place-content: center; justify-items: center; padding: 120px var(--gutter); background: var(--bg); }

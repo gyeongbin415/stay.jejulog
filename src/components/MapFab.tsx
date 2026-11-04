@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useContent } from '../i18n';
 import { href } from '../lib/router';
 
@@ -6,6 +6,7 @@ import { href } from '../lib/router';
  * 오른쪽 아래에 떠 있는 동그라미 버튼 — 위에서부터 방명록(연필 · #/guest) · 게하 탐색(돋보기 · #/house) · 취향 지도(#/map) · 취향 테스트 · 웹진 인스타그램(#/instagram), 모두 주황 바탕 · 흰 아이콘
  * 지도와 인스타그램 사이에 취향 테스트(체크 목록 · test/) 버튼도 같은 모양으로
  * 지금 보고 있는 페이지의 버튼은 감춥니다.
+ * 버튼이 둘 이상이면 위쪽 화살표 동그라미 하나로 묶어 두고, 마우스를 올리거나(PC) 누르면 그 위로 펼칩니다.
  * 메인에서는 첫 인트로(어두운 화면) 동안 숨기고, CHECK IN 화면이 뜰 때부터 보여 줍니다.
  */
 export function MapFab({ showMap = true, showInsta = true, showHouse = false, showTest = false, showGuest = false, home = false }: { showMap?: boolean; showInsta?: boolean; showHouse?: boolean; showTest?: boolean; showGuest?: boolean; home?: boolean }) {
@@ -39,9 +40,26 @@ export function MapFab({ showMap = true, showInsta = true, showHouse = false, sh
       mo?.disconnect();
     };
   }, [home]);
-  if (!showMap && !showInsta && !showHouse && !showTest && !showGuest) return null;
+  const count = [showMap, showInsta, showHouse, showTest, showGuest].filter(Boolean).length;
+  const many = count > 1;
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  // 펼친 채로 바깥을 누르거나 Esc — 접기
+  useEffect(() => {
+    if (!open) return;
+    const onDown = (e: PointerEvent) => !ref.current?.contains(e.target as Node) && setOpen(false);
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false);
+    document.addEventListener('pointerdown', onDown);
+    document.addEventListener('keydown', onKey);
+    return () => {
+      document.removeEventListener('pointerdown', onDown);
+      document.removeEventListener('keydown', onKey);
+    };
+  }, [open]);
+  if (!count) return null;
   return (
-    <div className={`fabs${introDone ? '' : ' is-hidden'}`} aria-hidden={introDone ? undefined : true}>
+    <div ref={ref} className={`fabs${many ? ' fabs--fold' : ''}${open ? ' is-open' : ''}${introDone ? '' : ' is-hidden'}`} aria-hidden={introDone ? undefined : true}>
+      <div className="fabs__list" id="fabs-list" onClick={() => setOpen(false)}>
       {showGuest && (
         <a className="mapfab mapfab--accent" href={href.guest()} aria-label={ui.deck.guest} title={ui.deck.guest} data-track="guest_fab">
           {/* 연필 — 방명록 */}
@@ -86,6 +104,15 @@ export function MapFab({ showMap = true, showInsta = true, showHouse = false, sh
             <circle cx="17.2" cy="6.8" r="1" className="mapfab__dot" />
           </svg>
         </a>
+      )}
+      </div>
+      {many && (
+        // 위쪽 화살표 — 누르면 펼치기 · 접기 (펼치면 아래 화살표로)
+        <button type="button" className="mapfab mapfab--accent fabs__toggle" aria-expanded={open} aria-controls="fabs-list" aria-label={open ? ui.app.fabClose : ui.app.fabOpen} title={open ? ui.app.fabClose : ui.app.fabOpen} onClick={() => setOpen((v) => !v)} data-track="fabs_toggle">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="m6 14.5 6-6 6 6" />
+          </svg>
+        </button>
       )}
     </div>
   );
