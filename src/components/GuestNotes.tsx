@@ -32,7 +32,7 @@ function answersOf(notes: GuestNote[], anon: string, q?: number): Answer[] {
 }
 
 /**
- * 첫 화면 아래 — 사람들이 남긴 답을 한 장씩 바꿔 가며 (질문 · 답 · 이름 · 같은 질문에 답한 다른 사람 수)
+ * 첫 화면 아래 — 사람들이 남긴 답을 한 장씩 바꿔 가며 (질문 · 따옴표 안 손글씨 답 · 이름) — 받은 시안 모양
  * 한 사람 답이 몰리지 않게 노트마다 번갈아, 3.6초마다 다음 답 (동작 줄이기 설정이면 바뀌기만 하고 흐려지지 않음)
  */
 function AnswerTicker({ notes }: { notes: GuestNote[] }) {
@@ -62,12 +62,19 @@ function AnswerTicker({ notes }: { notes: GuestNote[] }) {
   return (
     <div className="gticker" aria-live="polite">
       <div className="gticker__item" key={i}>
-        <p className="gticker__q">{it.q === FREE ? t.freeLabel : `Q${it.q + 1}. ${t.questions[it.q]}`}</p>
-        <p className="gticker__a">{it.text}</p>
-        <p className="gticker__by">
-          <b>{it.name}</b>
-          {it.others > 0 && <span> · {t.tickerMore(it.others)}</span>}
+        <p className="gticker__q">
+          {it.q === FREE ? <b>{t.freeLabel}</b> : <><b>Q{it.q + 1}.</b> {t.questions[it.q]}</>}
         </p>
+        <p className="gticker__a">
+          <span className="gticker__mark" aria-hidden="true">&ldquo;</span>
+          {/* 닫는 따옴표가 혼자 다음 줄로 떨어지지 않게 마지막 낱말에 붙여서 */}
+          {it.text.slice(0, it.text.lastIndexOf(' ') + 1)}
+          <span className="gticker__tail">
+            {it.text.slice(it.text.lastIndexOf(' ') + 1)}
+            <span className="gticker__mark gticker__mark--end" aria-hidden="true">&rdquo;</span>
+          </span>
+        </p>
+        <p className="gticker__by">&mdash; {it.name}</p>
       </div>
     </div>
   );
