@@ -149,12 +149,19 @@ function Intro() {
       const to = Math.max(0, Math.min(last, cur + dir));
       if (dir > 0 && cur === last && Math.abs(y - end) <= 2) return false;
       window.scrollTo(0, posOf(to));
-      holdUntil = Date.now() + 320; // 한 단계 넘긴 뒤 잠깐만 멈춤 (빨리 넘어가게)
+      // 한 단계 넘긴 뒤 잠깐만 멈춤 (빨리 넘어가게) — 마지막 CHECK IN 화면은 밝은 화면 · 문구가 다 떠오를 때까지 1.5초
+      holdUntil = Date.now() + (to === last ? 1500 : 320);
       return true;
     };
     const onWheel = (e: WheelEvent) => {
       if (inMenu(e.target) || e.ctrlKey || Math.abs(e.deltaY) < 1) return;
-      if (holding() ? window.scrollY <= posOf(last) + 2 : move(e.deltaY > 0 ? 1 : -1)) e.preventDefault();
+      if (holding() && window.scrollY <= posOf(last) + 2) {
+        e.preventDefault();
+        // CHECK IN 화면에서는 이어지는 관성 스크롤이 멎을 때까지 계속 붙잡음 — 새로 한 번 내려야 다음 칸으로
+        if (Math.abs(window.scrollY - posOf(last)) <= 2) holdUntil = Math.max(holdUntil, Date.now() + 250);
+        return;
+      }
+      if (!holding() && move(e.deltaY > 0 ? 1 : -1)) e.preventDefault();
     };
     const onTouchStart = (e: TouchEvent) => {
       startY = e.touches[0]?.clientY ?? 0;
