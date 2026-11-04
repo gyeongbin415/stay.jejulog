@@ -191,17 +191,19 @@ html:has(.gwrite--write) .backfab { opacity: 0; visibility: hidden; pointer-even
 .gwrite--inline .gwrite__top { top: var(--header); }
 
 /* 첫 화면 아래 — 사람들이 남긴 답이 한 장씩 바뀌며 (질문 작게 · 답 크게 · 이름 · 다른 사람 수) */
-/* 받은 시안 — 주황 종이 결 바탕(시안 그림 그대로), 가운데는 하얗게 / 주황 Q번호 + 굵은 질문 / 회색 따옴표 안 고운돋움 답 / 회색 "— 이름" */
+/* 받은 시안 — 페이지 바탕 위 가운데 주황빛 번짐 / 주황 Q번호 + 굵은 질문 / 회색 따옴표 안 고운돋움 답 / 회색 "— 이름" */
 .gticker {
   display: grid; place-items: center; min-height: clamp(300px, 36vw, 400px); margin-top: 12px; padding: clamp(64px, 8vw, 90px) 12%; text-align: center; overflow: hidden;
   position: relative; isolation: isolate;
 }
-/* 네모 테두리 없이 화면 양끝까지 — 위쪽은 120px 동안 부드럽게 흐려져 경계가 살짝 보이게, 아래는 주황 바탕이 맨 밑(푸터 바로 위)까지 꽉 참 */
-.gticker { width: 100vw; margin-inline: calc(50% - 50vw); margin-top: 0; padding: clamp(110px, 12vw, 150px) max(13%, calc(50vw - 380px)) clamp(80px, 9vw, 110px); }
+/* 네모 테두리 없이 화면 양끝까지 — 주황빛 번짐이 잘리지 않게 넓게 */
+.gticker { width: 100vw; margin-inline: calc(50% - 50vw); margin-top: 0; padding: clamp(80px, 10vw, 120px) max(13%, calc(50vw - 380px)); }
 .gticker::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
-  background: url("../assets/guest-ticker-paper.jpg") center / 100% 100% no-repeat, #FBE3CB; /* 받은 시안 그림에서 글자만 지운 바탕 그대로 */
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0, rgba(0,0,0,.18) 18px, rgba(0,0,0,.45) 42px, rgba(0,0,0,.75) 70px, rgba(0,0,0,.93) 98px, #000 120px); mask-image: linear-gradient(to bottom, transparent 0, rgba(0,0,0,.18) 18px, rgba(0,0,0,.45) 42px, rgba(0,0,0,.75) 70px, rgba(0,0,0,.93) 98px, #000 120px); } /* 바탕만 흐리게 — 글자는 그대로 진하게 */
-.gwrite__body:has(> .gticker:last-child) { padding-bottom: 0; } /* 바탕이 푸터에 바로 닿게 */
+  /* 받은 시안 — 페이지 바탕색(#F1F0E6)은 그대로, 가운데만 주황빛이 은은하게 번지고 둘레로 갈수록 바탕색에 녹아듦 */
+  background: radial-gradient(ellipse var(--glow-x, 47%) 46% at 50% 50%, rgba(250, 172, 108, .82) 0%, rgba(251, 182, 124, .74) 32%, rgba(252, 198, 152, .52) 58%, rgba(250, 218, 190, .22) 80%, rgba(241, 240, 230, 0) 100%);
+  filter: blur(6px); }
+@media (max-width: 639px) { .gticker { --glow-x: 64%; } } /* 휴대폰 — 글이 화면 폭을 거의 다 쓰니 번짐을 옆으로 더 넓게 */
+.gwrite__body:has(> .gticker:last-child) { padding-bottom: 0; } /* 번짐 아래 여백은 티커 안 여백으로 */
 .gwrite:has(.gticker) { overflow-x: clip; } /* 화면 폭 바탕이 스크롤바 폭만큼 넘쳐 가로 스크롤이 생기지 않게 */
 .gticker__item { display: grid; gap: clamp(14px, 2vw, 22px); justify-items: center; animation: gticker-in .5s var(--ease) both; }
 .gticker__q { font-family: var(--f-home); font-size: clamp(15px, 1.6vw, 18px); font-weight: 700; line-height: 1.45; letter-spacing: -0.02em; color: #2E2A25; word-break: keep-all; }
