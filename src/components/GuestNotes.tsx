@@ -112,8 +112,6 @@ export function GuestNotes({ page = false }: { page?: boolean }) {
     const recent = board ? mine.filter((n) => Date.now() - (n.t ?? 0) < 120000) : mine;
     return [...recent.filter((n) => !seen.has(same(n))).reverse(), ...server];
   }, [board, mine]);
-  const unsynced = notes.length - (board?.notes.length ?? 0);
-  const count = GUESTBOOK_URL ? (board?.count ?? 0) + unsynced : 0;
 
   // 방명록 페이지 — 표지 없이 바로 쓰기 화면
   if (page)
@@ -138,7 +136,6 @@ export function GuestNotes({ page = false }: { page?: boolean }) {
         <h2 id="guest-title" className="visually-hidden">{t.title}</h2>
         {/* 받은 공책 그림 — 끌어서 돌려 보거나 누르면 방명록 페이지로, 밑에 안내 상자 */}
         <NoteArt />
-        {count > 0 && <p className="gnote__entry-count">{t.count(count)}</p>}
         {!GUESTBOOK_URL && mine.length > 0 && <p className="gnote__local">{t.localOnly}</p>}
       </div>
     </section>
