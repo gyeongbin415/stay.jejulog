@@ -14,7 +14,7 @@ export interface PageMeta {
   /** SNS 미리보기 제목 · 설명 — 없으면 title · description */
   ogTitle?: string;
   ogDescription?: string;
-  /** 대표 사진 (사이트 기준 상대 경로) · 대체 텍스트 — 없으면 og.jpg */
+  /** 대표 사진 (사이트 기준 상대 경로) · 대체 텍스트 — 없으면 og-roomtour.jpg (메인 ROOM TOUR 화면) */
   image?: string;
   imageAlt?: string;
   /** SITE_URL 뒤에 붙는 주소 (예: #/stay/craft) */
@@ -33,7 +33,7 @@ function meta(attr: 'name' | 'property', key: string) {
   return el;
 }
 
-// og.jpg 크기 · 대체 텍스트 — 다른 사진을 쓰는 페이지에서 지웠다가 되돌릴 때 씁니다
+// og-roomtour.jpg 크기 · 대체 텍스트 — 다른 사진을 쓰는 페이지에서 지웠다가 되돌릴 때 씁니다
 const OG_DEFAULT: Record<string, string | null> = {};
 for (const k of ['og:image:width', 'og:image:height', 'og:image:alt']) {
   OG_DEFAULT[k] = document.head.querySelector(`meta[property="${k}"]`)?.getAttribute('content') ?? null;
@@ -48,7 +48,7 @@ export function applyPageMeta(m: PageMeta) {
   meta('property', 'og:title').content = m.ogTitle ?? m.title;
   meta('property', 'og:description').content = m.ogDescription ?? m.description;
   meta('property', 'og:url').content = url;
-  meta('property', 'og:image').content = abs(m.image ?? 'og.jpg');
+  meta('property', 'og:image').content = abs(m.image ?? 'og-roomtour.jpg');
   for (const k of Object.keys(OG_DEFAULT)) {
     const value = m.image ? (k === 'og:image:alt' ? m.imageAlt ?? null : null) : OG_DEFAULT[k];
     if (value) meta('property', k).content = value;
