@@ -194,17 +194,15 @@ html:has(.gwrite--write) .backfab { opacity: 0; visibility: hidden; pointer-even
 /* 받은 시안 — 주황 종이 결 바탕(시안 그림 그대로), 가운데는 하얗게 / 주황 Q번호 + 굵은 질문 / 회색 따옴표 안 고운돋움 답 / 회색 "— 이름" */
 .gticker {
   display: grid; place-items: center; min-height: clamp(300px, 36vw, 400px); margin-top: 12px; padding: clamp(64px, 8vw, 90px) 12%; text-align: center; overflow: hidden;
+  position: relative; isolation: isolate;
+}
+/* 네모 테두리 없이 화면 양끝까지 — 위쪽만 아주 천천히 흐려져 페이지 바탕에 녹아들고, 아래는 주황 바탕이 맨 밑(푸터 바로 위)까지 꽉 참 */
+.gticker { width: 100vw; margin-inline: calc(50% - 50vw); margin-top: 0; padding: clamp(110px, 12vw, 150px) max(13%, calc(50vw - 380px)) clamp(80px, 9vw, 110px); }
+.gticker::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
   background: url("../assets/guest-ticker-paper.jpg") center / 100% 100% no-repeat, #FBE3CB; /* 받은 시안 그림에서 글자만 지운 바탕 그대로 */
-}
-/* 네모 테두리 없이 — 바탕이 둘레로 갈수록 흐려져 페이지 바탕에 자연스럽게 녹아듦 (위 · 아래 · 양옆 모두) */
-.gticker {
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 22%, #000 78%, transparent 100%), linear-gradient(to right, transparent 0, #000 14%, #000 86%, transparent 100%);
-  -webkit-mask-composite: source-in; mask-image: linear-gradient(to bottom, transparent 0, #000 22%, #000 78%, transparent 100%), linear-gradient(to right, transparent 0, #000 14%, #000 86%, transparent 100%); mask-composite: intersect;
-}
-/* 휴대폰 — 바탕을 화면 양끝까지 꽉 채우고 위 · 아래만 흐리게 (받은 화면처럼) */
-@media (max-width: 639px) {
-  .gticker { width: 100vw; margin-inline: calc(50% - 50vw); padding-inline: 13%; -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 22%, #000 78%, transparent 100%); mask-image: linear-gradient(to bottom, transparent 0, #000 22%, #000 78%, transparent 100%); }
-}
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, rgba(0,0,0,.06) 6%, rgba(0,0,0,.2) 13%, rgba(0,0,0,.42) 21%, rgba(0,0,0,.68) 30%, rgba(0,0,0,.88) 39%, #000 48%); mask-image: linear-gradient(to bottom, transparent 0, rgba(0,0,0,.06) 6%, rgba(0,0,0,.2) 13%, rgba(0,0,0,.42) 21%, rgba(0,0,0,.68) 30%, rgba(0,0,0,.88) 39%, #000 48%); } /* 바탕만 흐리게 — 글자는 그대로 진하게 */
+.gwrite__body:has(> .gticker:last-child) { padding-bottom: 0; } /* 바탕이 푸터에 바로 닿게 */
+.gwrite:has(.gticker) { overflow-x: clip; } /* 화면 폭 바탕이 스크롤바 폭만큼 넘쳐 가로 스크롤이 생기지 않게 */
 .gticker__item { display: grid; gap: clamp(14px, 2vw, 22px); justify-items: center; animation: gticker-in .5s var(--ease) both; }
 .gticker__q { font-family: var(--f-home); font-size: clamp(15px, 1.6vw, 18px); font-weight: 700; line-height: 1.45; letter-spacing: -0.02em; color: #2E2A25; word-break: keep-all; }
 .gticker__q b { margin-right: .15em; font-size: 1.22em; font-weight: 800; color: #E8731E; }
