@@ -197,6 +197,14 @@
 .house3d__img { display: block; width: 100%; height: auto; }
 /* 받은 손그림 집 — 하늘 · 집 · 잔디가 다 든 한 장을 그대로 (잘라 내거나 키우지 않음, 뒤는 그림 하늘색) · 넓은 화면에서도 가운데 한 장 */
 .house3d--paper { --w: min(100%, 620px); background: #BDDAE9; }
+/* 넓은 화면 — 집 그림 양옆으로 그림 속 풍경을 화면 끝까지 이어 그림 (그림과 같은 높이 · 같은 비율, 집 그림에 맞닿게) */
+.house3d--paper::before, .house3d--paper::after {
+  content: ""; position: absolute; z-index: 0; top: 0; bottom: 0; width: calc((100% - var(--w)) / 2 + 2px); pointer-events: none; /* 2px 는 그림 밑으로 — 맞닿은 자리에 틈이 보이지 않게 */
+  background-size: auto 100%; background-repeat: no-repeat, repeat-x;
+}
+.house3d--paper::before { left: 0; background-image: var(--side-l); background-position: right top, right top; }
+.house3d--paper::after { right: 0; background-image: var(--side-r); background-position: left top, left top; }
+.house3d--paper .house3d__frame { z-index: 1; }
 /* 손그림 집 이름표 — 방에 마우스를 올리면 그림 속 이름표 자리에 주황으로 */
 .house3d--paper .house3d__frame { container-type: inline-size; } /* 이름표 글씨를 그림 크기에 맞춤 (100cqw = 그림 폭) */
 .house3d__pill {

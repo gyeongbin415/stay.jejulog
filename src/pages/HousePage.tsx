@@ -8,6 +8,11 @@ import houseUrl from '../assets/house-3d.webp';
 import houseBgUrl from '../assets/house-wide-bg.webp';
 import houseWideUrl from '../assets/house-3d-wide.webp';
 import housePaperUrl from '../assets/house-flat.jpg';
+// 넓은 화면 양옆 — 집 그림 끝의 풍경(하늘 · 바다 · 돌담 · 잔디)을 이어 붙이는 조각(반복) · 그림 끝에서 잘린 구름 · 언덕 · 덤불을 이어 주는 조각
+import sideLUrl from '../assets/house-side-l.png';
+import sideRUrl from '../assets/house-side-r.png';
+import nearLUrl from '../assets/house-near-l.png';
+import nearRUrl from '../assets/house-near-r.png';
 
 /**
  * PAGE 02 — 집 내부 탐색 (EXPLORE)
@@ -151,7 +156,7 @@ export function HousePage({ embedded = false }: { embedded?: boolean }) {
       <nav
         className="house3d house3d--paper"
         aria-label={ui.house.houseAria}
-        style={{ '--iw': IMG_W, '--house-bg': `url(${houseBgUrl})` } as CSSProperties}
+        style={{ '--iw': IMG_W, '--house-bg': `url(${houseBgUrl})`, '--side-l': `url(${nearLUrl}), url(${sideLUrl})`, '--side-r': `url(${nearRUrl}), url(${sideRUrl})` } as CSSProperties}
       >
         <div className="house3d__frame">
           <img className="house3d__img" src={house.url} width={IMG_W} height={IMG_H} alt={ui.house.houseAria} loading="lazy" decoding="async" />

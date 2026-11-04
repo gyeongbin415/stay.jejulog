@@ -76,6 +76,11 @@
   .test__options { grid-template-columns: 1fr 1fr; }
   .test__option { min-height: 104px; align-items: center; }
   .test__otext { padding-top: 0; }
+  /* 그림 문항 — 넓은 화면에서 그림은 작게(두 칸 합쳐 660px까지), 보기 글은 크게 */
+  .test__options--art { max-width: 660px; gap: 14px; }
+  .test__option--art { gap: 14px; padding: 10px 10px 16px; font-size: 19px; font-weight: 600; }
+  .test__option--art .test__orow { align-items: center; }
+  .test__option--art .test__key { width: 34px; height: 34px; font-size: 15px; }
 }
 
 .test__nav { display: flex; justify-content: flex-start; gap: 12px; margin-top: clamp(28px, 5vh, 40px); }
