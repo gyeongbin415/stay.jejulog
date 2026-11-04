@@ -191,16 +191,25 @@ html:has(.gwrite--write) .backfab { opacity: 0; visibility: hidden; pointer-even
 .gwrite--inline .gwrite__top { top: var(--header); }
 
 /* 첫 화면 아래 — 사람들이 남긴 답이 한 장씩 바뀌며 (질문 작게 · 답 크게 · 이름 · 다른 사람 수) */
-/* 받은 시안 — 주황 종이 결 바탕(시안 그림 그대로), 가운데는 하얗게 / 주황 Q번호 + 굵은 질문 / 초록 따옴표 안 손글씨 답 / 회색 "— 이름" */
+/* 받은 시안 — 주황 종이 결 바탕(시안 그림 그대로), 가운데는 하얗게 / 주황 Q번호 + 굵은 질문 / 회색 따옴표 안 고운돋움 답 / 회색 "— 이름" */
 .gticker {
-  display: grid; place-items: center; min-height: clamp(210px, 26vw, 300px); margin-top: 22px; padding: clamp(34px, 5vw, 56px) 10%; border-radius: 16px; text-align: center; overflow: hidden;
+  display: grid; place-items: center; min-height: clamp(300px, 36vw, 400px); margin-top: 12px; padding: clamp(64px, 8vw, 90px) 12%; text-align: center; overflow: hidden;
   background: url("../assets/guest-ticker-paper.jpg") center / 100% 100% no-repeat, #FBE3CB; /* 받은 시안 그림에서 글자만 지운 바탕 그대로 */
+}
+/* 네모 테두리 없이 — 바탕이 둘레로 갈수록 흐려져 페이지 바탕에 자연스럽게 녹아듦 (위 · 아래 · 양옆 모두) */
+.gticker {
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 22%, #000 78%, transparent 100%), linear-gradient(to right, transparent 0, #000 14%, #000 86%, transparent 100%);
+  -webkit-mask-composite: source-in; mask-image: linear-gradient(to bottom, transparent 0, #000 22%, #000 78%, transparent 100%), linear-gradient(to right, transparent 0, #000 14%, #000 86%, transparent 100%); mask-composite: intersect;
+}
+/* 휴대폰 — 바탕을 화면 양끝까지 꽉 채우고 위 · 아래만 흐리게 (받은 화면처럼) */
+@media (max-width: 639px) {
+  .gticker { width: 100vw; margin-inline: calc(50% - 50vw); padding-inline: 13%; -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 22%, #000 78%, transparent 100%); mask-image: linear-gradient(to bottom, transparent 0, #000 22%, #000 78%, transparent 100%); }
 }
 .gticker__item { display: grid; gap: clamp(14px, 2vw, 22px); justify-items: center; animation: gticker-in .5s var(--ease) both; }
 .gticker__q { font-family: var(--f-home); font-size: clamp(15px, 1.6vw, 18px); font-weight: 700; line-height: 1.45; letter-spacing: -0.02em; color: #2E2A25; word-break: keep-all; }
 .gticker__q b { margin-right: .15em; font-size: 1.22em; font-weight: 800; color: #E8731E; }
-.gticker__a { max-width: 30em; font-family: var(--f-home); font-size: clamp(21px, 2.7vw, 30px); font-weight: 800; line-height: 1.5; letter-spacing: -0.03em; color: #2B2621; word-break: keep-all; overflow-wrap: anywhere; }
-.gticker__mark { display: inline-block; margin-right: .35em; font-family: Georgia, "Times New Roman", serif; font-size: 1.5em; font-weight: 700; line-height: 0; color: #93AE6F; vertical-align: -.12em; }
+.gticker__a { max-width: 30em; font-family: "Gowun Dodum", var(--f-home); font-size: clamp(22px, 2.8vw, 32px); font-weight: 400; -webkit-text-stroke: .9px currentColor; line-height: 1.5; letter-spacing: .02em; color: #2B2621; word-break: keep-all; overflow-wrap: anywhere; }
+.gticker__mark { display: inline-block; margin-right: .35em; font-family: Georgia, "Times New Roman", serif; font-size: 1.5em; font-weight: 700; line-height: 0; color: #6F6B66; vertical-align: -.12em; }
 .gticker__tail { white-space: nowrap; }
 .gticker__mark--end { margin: 0 0 0 .2em; vertical-align: -.02em; }
 .gticker__by { font-size: clamp(14px, 1.5vw, 17px); color: #8D877F; }
