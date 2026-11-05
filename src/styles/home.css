@@ -460,7 +460,7 @@
 .picker__art > img { width: auto; height: calc(var(--art-h) * .85 * var(--k, 1)); max-width: none; object-fit: contain; object-position: center bottom; filter: drop-shadow(0 14px 18px rgba(80, 52, 30, .14)); }
 /* 그림마다 높이 비율 — 넷이 같은 넓이로 보이게 */
 .picker__item--map .picker__art > img { --k: .955; }
-.picker__item--guest .picker__art > img { --k: 1.06; }
+.picker__item--guest .picker__art > img { --k: .96; } /* 새 방명록 그림(창 속 귤)은 가로로 넓어 다른 세 그림과 크기가 비슷해 보이게 줄임 */
 .picker__item--test .picker__art > img { --k: 1.31; }
 /* 집 — 메인 휴대폰 칸처럼 흰 테두리 사진(폴라로이드) */
 .picker__name { margin-top: clamp(14px, 2vh, 22px); font-family: var(--f-home); font-size: clamp(17px, 1.6vw, 21px); font-weight: 800; letter-spacing: -0.02em; }

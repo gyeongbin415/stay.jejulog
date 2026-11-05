@@ -392,10 +392,10 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
                 <p className="cy__who">{site.brand}</p>
                 <select className="cy__surf" value="" onChange={(e) => e.target.value && window.location.assign(absUrl(e.target.value))} aria-label={t.cySurf}>
                   <option value="">{t.cySurf}</option>
-                  <option value={href.home()}>{ui.nav.main}</option>
                   <option value={href.house()}>{ui.nav.house}</option>
                   <option value={href.test()}>{ui.nav.test}</option>
                   <option value={href.map()}>{ui.nav.map}</option>
+                  <option value={href.insta()}>{ui.nav.more}</option>
                 </select>
               </div>
             </aside>

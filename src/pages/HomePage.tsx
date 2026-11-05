@@ -78,6 +78,14 @@ function Intro() {
       <div className="intro__stage">
         <div id="problem" className="intro__reveal">
           <Problem />
+          {/* 첫 화면 아래 가운데 — 아래로 내려 보라는 표시 (SCROLL + 꺾쇠 두 개가 차례로 깜빡임) */}
+          <p className="intro__scroll" aria-hidden="true">
+            <span>SCROLL</span>
+            <b className="intro__chev">
+              <span />
+              <span />
+            </b>
+          </p>
         </div>
       </div>
     </section>
