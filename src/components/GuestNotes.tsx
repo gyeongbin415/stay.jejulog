@@ -480,7 +480,7 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
           </section>
           <div className="cy__top">
             <section className="cy__news">
-              <h3 className="cy__sec">{t.cyNews} <small>{t.cyNewsSub}</small></h3>
+              <h3 className="cy__sec">{t.cyNews}</h3>
               {news.length ? (
                 <ul className="cy__list">
                   {news.map(({ key, item: x }) => (
