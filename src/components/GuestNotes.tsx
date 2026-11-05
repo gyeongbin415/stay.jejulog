@@ -369,6 +369,20 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
       setPhase('write');
     }
   };
+  // HISTORY · 이름 · 다른 방 파도타기 — PC 는 왼쪽 프로필 칸, 휴대폰은 본문 맨 아래
+  const surf = (
+    <>
+      <p className="cy__history"><span>HISTORY</span><span aria-hidden="true">▲▼</span></p>
+      <p className="cy__who">{site.brand}</p>
+      <select className="cy__surf" value="" onChange={(e) => e.target.value && window.location.assign(absUrl(e.target.value))} aria-label={t.cySurf}>
+        <option value="">{t.cySurf}</option>
+        <option value={href.house()}>{ui.nav.house}</option>
+        <option value={href.test()}>{ui.nav.test}</option>
+        <option value={href.map()}>{ui.nav.map}</option>
+        <option value={href.insta()}>{ui.nav.more}</option>
+      </select>
+    </>
+  );
   const frame = (inner: ReactNode) =>
     !inline ? (
       inner
@@ -390,15 +404,8 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
                 <p className="cy__mood"><span>TODAY IS..</span> {t.cyMood}</p>
                 <p className="cy__bio cy__bio--title">{t.title.replace(/\n/g, ' ')}</p>
                 <p className="cy__bio cy__bio--sub cy__bio--one">{t.cyBio.replace(/\n/g, ' ')}</p>
-                <p className="cy__history"><span>HISTORY</span><span aria-hidden="true">▲▼</span></p>
-                <p className="cy__who">{site.brand}</p>
-                <select className="cy__surf" value="" onChange={(e) => e.target.value && window.location.assign(absUrl(e.target.value))} aria-label={t.cySurf}>
-                  <option value="">{t.cySurf}</option>
-                  <option value={href.house()}>{ui.nav.house}</option>
-                  <option value={href.test()}>{ui.nav.test}</option>
-                  <option value={href.map()}>{ui.nav.map}</option>
-                  <option value={href.insta()}>{ui.nav.more}</option>
-                </select>
+                {/* PC — 프로필 칸 아래 · 휴대폰은 숨기고 본문 맨 아래(일촌평 밑)에 */}
+                <div className="cy__surfbox cy__surfbox--side">{surf}</div>
               </div>
             </aside>
             <span className="cy__rings" aria-hidden="true">
@@ -410,6 +417,7 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
                 <p className="cy__fav" aria-hidden="true">✚ MY JEJU NOTE</p>
               </header>
               {inner}
+              <div className="cy__surfbox cy__surfbox--main">{surf}</div>
             </section>
           </div>
           <nav className="cy__tabs" aria-label={t.cyTitle}>
