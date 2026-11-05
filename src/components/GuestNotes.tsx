@@ -442,6 +442,23 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
       {/* 처음 — 자유롭게 적기 · 질문 골라 답하기 두 버튼, 하나 이상 적으면 이름과 함께 남기기 */}
       {phase === 'pick' && inline && (
         <div className="gwrite__body wrap">
+          {/* 가장 먼저 — 질문 다섯 개를 바로 골라 답하기 (방명록의 주 목적) */}
+          <section className="cy__ask">
+            <h3 className="cy__ask-title">
+              ✎ {t.cyAsk} <small>{t.cyAskSub}</small>
+            </h3>
+            <ol className="cy__ask-list">
+              {t.questions.map((q, i) => (
+                <li key={i}>
+                  <button type="button" className={answered[i] ? 'is-done' : undefined} onClick={() => open(i)} data-track={`guest_cyask_q${i + 1}`}>
+                    <b>Q{i + 1}</b>
+                    <span>{q}</span>
+                    <em>{answered[i] ? '✓' : t.cyAskBtn}</em>
+                  </button>
+                </li>
+              ))}
+            </ol>
+          </section>
           <div className="cy__top">
             <section className="cy__news">
               <h3 className="cy__sec">{t.cyNews} <small>{t.cyNewsSub}</small></h3>
