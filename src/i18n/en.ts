@@ -24,7 +24,7 @@ export const EN: ContentPack = {
 
     problem: {
       label: 'CHECK IN',
-      title: ['Did you know', 'Jeju guesthouses have', 'all kinds of programs?'],
+      title: ['Did you know', 'Jeju guesthouses offer', 'all kinds of experiences?'],
       points: [],
       answer: "The experiences our editors found by staying in Jeju,\ngathered into one house.",
       answerNote: '',
