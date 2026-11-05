@@ -21,7 +21,7 @@ export const ZH: ContentPack = {
 
     problem: {
       label: 'CHECK IN',
-      title: ['你知道民宿里', '也有各种各样的活动吗？'],
+      title: ['你知道吗？', '济州的民宿里', '也有各种各样的活动'],
       points: [],
       answer: "编辑亲自在济州入住找到的体验，\n都收进了这一栋房子里。",
       answerNote: '',
