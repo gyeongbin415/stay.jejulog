@@ -109,13 +109,13 @@ const MENU = [
   // 메뉴는 상세 화면 대신 메인 안의 그 칸으로 — 취향 테스트 안내 · 취향 지도 · 방명록
   { key: 'test', en: 'TEST', to: href.home('find') },
   { key: 'map', en: 'MAP', to: href.home('tastemap') },
-  { key: 'guest', en: 'CYWORLD', to: href.home('guest') },
+  { key: 'guest', en: 'GUESTBOOK', to: href.home('guest') },
 ] as const;
 
 function Menu({ route, onClose }: { route: Route; onClose: () => void }) {
   const ref = useRef<HTMLDivElement>(null);
   const { ui } = useContent();
-  const labels = { home: ui.nav.main, house: ui.nav.house, test: ui.nav.test, map: ui.nav.map, insta: ui.nav.more, guest: ui.nav.cyworld }; // 메뉴의 방명록은 싸이월드 미니홈피 모양이라 이름도 싸이월드
+  const labels = { home: ui.nav.main, house: ui.nav.house, test: ui.nav.test, map: ui.nav.map, insta: ui.nav.more, guest: ui.nav.guest };
   // PC 메인은 콘텐츠 고르기 하나만 — 테스트 · 지도 · 방명록 메뉴는 메인 칸 대신 상세 페이지로
   const wide = typeof window !== 'undefined' && window.matchMedia('(min-width: 900px)').matches;
   const DETAIL: Partial<Record<string, string>> = { test: href.test(), map: href.map(), guest: href.guest() };
