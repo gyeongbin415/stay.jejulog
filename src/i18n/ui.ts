@@ -11,7 +11,7 @@ export interface UiText {
   skip: string;
   /** 휴대폰 넘겨보기 아래 메뉴 */
   deck: { intro: string; roomtour: string; find: string; tastemap: string; guest: string; checkout: string; aria: string };
-  nav: { main: string; house: string; test: string; map: string; more: string; guest: string; menuOpen: string; menuClose: string; menu: string; mainNav: string; tour: string; toHome: (brand: string) => string };
+  nav: { main: string; house: string; test: string; map: string; more: string; guest: string; cyworld: string; menuOpen: string; menuClose: string; menu: string; mainNav: string; tour: string; toHome: (brand: string) => string };
   footer: { tagline: string; desc: string; followUs: string; madeBy: string };
   app: { loadingStay: string; loadingTest: string; notFound: string; toHome: string; fabOpen: string; fabClose: string };
   /** 웹진 안 인스타그램 페이지 */
@@ -80,7 +80,7 @@ export const UI: Record<Lang, UiText> = {
     langLabel: '언어',
     skip: '본문 바로가기',
     deck: { intro: '처음', roomtour: '게하 탐색', find: '취향 테스트', tastemap: '취향 지도', guest: '방명록', checkout: '체크아웃', aria: '메인 넘겨보기' },
-    nav: { main: '메인', house: '게하 탐색', test: '취향 테스트', map: '지도', more: '인스타그램', guest: '방명록', menuOpen: '메뉴 열기', menuClose: '메뉴 닫기', menu: '메뉴', mainNav: '주요 메뉴', tour: '둘러보기', toHome: (b) => `${b} 메인으로` },
+    nav: { main: '메인', house: '게하 탐색', test: '취향 테스트', map: '지도', more: '인스타그램', guest: '방명록', cyworld: '싸이월드', menuOpen: '메뉴 열기', menuClose: '메뉴 닫기', menu: '메뉴', mainNav: '주요 메뉴', tour: '둘러보기', toHome: (b) => `${b} 메인으로` },
     footer: { tagline: '우리가 몰랐던 제주 게스트하우스를 만나는 웹진', desc: '제주에서의 하루를 조금 다르게 보내는 방법.\n당신의 취향에 맞는 게스트하우스를 발견해 보세요.', followUs: 'FOLLOW US', madeBy: 'MADE BY' },
     app: { loadingStay: '게스트하우스를 불러오는 중…', loadingTest: '테스트를 준비하는 중…', notFound: '찾으시는 페이지가 없습니다.', toHome: '메인으로', fabOpen: '바로가기 버튼 펼치기', fabClose: '바로가기 버튼 접기' },
     map: { title: '취향 지도', open: '취향 지도 열기', cta: '지도를 눌러 둘러보세요',
@@ -170,7 +170,7 @@ export const UI: Record<Lang, UiText> = {
     langLabel: 'Language',
     skip: 'Skip to content',
     deck: { intro: 'Intro', roomtour: 'Explore', find: 'Taste Test', tastemap: 'Taste Map', guest: 'Guestbook', checkout: 'Check out', aria: 'Browse the main page' },
-    nav: { main: 'Home', house: 'Explore', test: 'Taste Test', map: 'Map', more: 'Instagram', guest: 'Guestbook', menuOpen: 'Open menu', menuClose: 'Close menu', menu: 'Menu', mainNav: 'Main menu', tour: 'Look around', toHome: (b) => `${b} home` },
+    nav: { main: 'Home', house: 'Explore', test: 'Taste Test', map: 'Map', more: 'Instagram', guest: 'Guestbook', cyworld: 'Cyworld', menuOpen: 'Open menu', menuClose: 'Close menu', menu: 'Menu', mainNav: 'Main menu', tour: 'Look around', toHome: (b) => `${b} home` },
     footer: { tagline: 'A webzine for meeting the Jeju guesthouses we never knew', desc: 'A slightly different way to spend a day in Jeju.\nDiscover the guesthouse that fits your taste.', followUs: 'FOLLOW US', madeBy: 'MADE BY' },
     app: { loadingStay: 'Loading the guesthouse…', loadingTest: 'Preparing the test…', notFound: 'We couldn’t find that page.', toHome: 'Back to home', fabOpen: 'Show shortcuts', fabClose: 'Hide shortcuts' },
     map: { title: 'Taste Map', open: 'Open the taste map', cta: 'Tap the map to look around',
@@ -260,7 +260,7 @@ export const UI: Record<Lang, UiText> = {
     langLabel: '语言',
     skip: '跳到正文',
     deck: { intro: '开始', roomtour: '探索民宿', find: '喜好测试', tastemap: '喜好地图', guest: '留言簿', checkout: '退房', aria: '翻阅首页' },
-    nav: { main: '首页', house: '探索民宿', test: '喜好测试', map: '地图', more: 'Instagram', guest: '留言簿', menuOpen: '打开菜单', menuClose: '关闭菜单', menu: '菜单', mainNav: '主菜单', tour: '四处看看', toHome: (b) => `返回${b}首页` },
+    nav: { main: '首页', house: '探索民宿', test: '喜好测试', map: '地图', more: 'Instagram', guest: '留言簿', cyworld: '赛我网', menuOpen: '打开菜单', menuClose: '关闭菜单', menu: '菜单', mainNav: '主菜单', tour: '四处看看', toHome: (b) => `返回${b}首页` },
     footer: { tagline: '遇见我们不曾了解的济州民宿的杂志', desc: '在济州度过与众不同一天的方法。\n发现适合你喜好的民宿吧。', followUs: 'FOLLOW US', madeBy: 'MADE BY' },
     app: { loadingStay: '正在加载民宿…', loadingTest: '正在准备测试…', notFound: '找不到您要的页面。', toHome: '返回首页', fabOpen: '展开快捷按钮', fabClose: '收起快捷按钮' },
     map: { title: '喜好地图', open: '打开喜好地图', cta: '点击地图四处看看',
