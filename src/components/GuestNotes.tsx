@@ -5,7 +5,7 @@ import { absUrl, href } from '../lib/router';
 import { track } from '../lib/track';
 import { GUESTBOOK_URL, MAX_ANSWER, MAX_FREE, MAX_NAME, fetchBoard, loadCachedBoard, loadMine, postNote, syncMine, type GuestBoard, type GuestNote } from '../data/guestbook';
 import noteUrl from '../assets/guest-window.png'; // 받은 그림 그대로 — 창 속 귤 캐릭터
-import profileUrl from '../assets/cy/cy-profile.jpg';
+import kidUrl from '../assets/cy/cy-tangerine-kid.png';
 import tangerinesUrl from '../assets/cy/cy-tangerines.png';
 import '../styles/guest.css';
 
@@ -383,7 +383,7 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
               </p>
               <div className="cy__card">
                 <div className="cy__profile">
-                  <img src={profileUrl} alt="" width={480} height={480} />
+                  <img src={kidUrl} alt="" width={210} height={330} />
                 </div>
                 <p className="cy__mood"><span>TODAY IS..</span> {t.cyMood}</p>
                 <p className="cy__bio cy__bio--title">{t.title.replace(/\n/g, ' ')}</p>
