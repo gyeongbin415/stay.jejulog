@@ -141,7 +141,7 @@ export function GuestNotes({ page = false }: { page?: boolean }) {
   return (
     <section id="guest" className="gnote" data-tone="light" aria-labelledby="guest-title">
       <div className="gnote__inner wrap">
-        <p className="label">GUEST NOTE</p>
+        <p className="label">CYWORLD</p>
         <h2 id="guest-title" className="visually-hidden">{t.title}</h2>
         {/* 받은 공책 그림 — 끌어서 돌려 보거나 누르면 방명록 페이지로, 밑에 안내 상자 */}
         <NoteArt />
