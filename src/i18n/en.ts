@@ -26,7 +26,7 @@ export const EN: ContentPack = {
       label: 'CHECK IN',
       title: ['Did you know', 'Jeju guesthouses come in', 'different tastes?'],
       points: [],
-      answer: "The experiences our editors found by staying at guesthouses,\ngathered into one house.",
+      answer: "Find your match with the Taste Test,\nsee where it is on the Taste Map,\nand leave your trace in the Guestbook.",
       answerNote: '',
     },
 
