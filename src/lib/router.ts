@@ -110,15 +110,8 @@ export function rememberLeaving() {
     /* 저장 못 하면 메인으로 가서 기억한 자리로 */
   }
 }
-/** 지금 화면 · 바로 앞 화면 이름 (페이지를 새로 열고 들어왔으면 떠나온 페이지의 화면) */
+/** 지금 화면 이름 */
 let curName: string = parseHash().name;
-let prevName: string | null = (() => {
-  try {
-    return fromSite() ? sessionStorage.getItem(LEFT_KEY) : null;
-  } catch {
-    return null;
-  }
-})();
 
 /**
  * 뒤로 가기 — 웹진 안에서 왔으면(같은 화면 이동 · 테스트 주소에서 넘어옴) 브라우저 뒤로,
@@ -130,11 +123,11 @@ export function goBack(fallback: string) {
 }
 
 /**
- * 상세 페이지(집 · 테스트 · 지도 · 방명록)의 뒤로 가기 — 메인에서 버튼을 눌러 바로 들어왔으면 브라우저 뒤로(메인이 보던 자리로),
- * 다른 화면을 거쳐 왔거나 링크로 바로 들어왔으면 메인으로 가서 떠날 때 보던 자리로 (기억한 자리가 없으면 panel 칸)
+ * 상세 페이지(집 · 테스트 · 지도 · 방명록)의 뒤로 가기 — 웹진 안에서 왔으면 어느 화면에서 왔든 바로 앞 화면으로(브라우저 뒤로, 보던 자리 그대로)
+ * 오른쪽 아래 버튼을 잘못 눌러 넘어왔을 때도 누르기 전 페이지로 돌아감. 링크로 바로 들어와 앞 화면이 없으면 메인의 panel 칸으로
  */
 export function backToMain(panel: string) {
-  if (prevName === 'home') window.history.back();
+  if (movedInApp || fromSite()) window.history.back();
   else window.location.assign(absUrl(`#/?to=back&or=${panel}`));
 }
 
@@ -156,7 +149,7 @@ export function useRoute() {
       if (fixTestUrl()) return;
       movedInApp = true;
       const name = parseHash().name;
-      if (name !== curName) [prevName, curName] = [curName, name];
+      if (name !== curName) curName = name;
       setRoute((r) => ({ ...parseHash(), visit: r.visit + 1 }));
     };
     window.addEventListener('hashchange', on);
