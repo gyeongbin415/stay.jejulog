@@ -6,7 +6,10 @@ import { track } from '../lib/track';
 import { GUESTBOOK_URL, MAX_ANSWER, MAX_FREE, MAX_NAME, fetchBoard, loadCachedBoard, loadMine, postNote, syncMine, type GuestBoard, type GuestNote } from '../data/guestbook';
 import noteUrl from '../assets/guest-window.png'; // 받은 그림 그대로 — 창 속 귤 캐릭터
 import kidUrl from '../assets/cy/cy-tangerine-kid.png';
-import tangerinesUrl from '../assets/cy/cy-tangerines.png';
+import userIconUrl from '../assets/cy/gb-user.png';
+import pencilUrl from '../assets/cy/gb-pencil.png';
+import bubbleUrl from '../assets/cy/gb-bubble.png';
+import mountainUrl from '../assets/cy/gb-mountain.png';
 import '../styles/guest.css';
 
 /* ------------------------------------------------------------------
@@ -239,7 +242,7 @@ function useRoll<T>(items: T[], size: number) {
 
 /** 처음(자유롭게 적기 · 질문 골라 답하기) ⇄ 질문 목록 ⇄ 줄 노트 카드 → 다 썼어요 · inline — 방명록 페이지 안에 바로(창 · 도입 문장 · 닫기 없이) */
 function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestNote[]; onClose: () => void; onSent: () => void; inline?: boolean }) {
-  const { ui, lang, site } = useContent();
+  const { ui, lang } = useContent();
   const t = ui.guest;
   const reduced = useReducedMotion();
   const [phase, setPhase] = useState<'intro' | 'pick' | 'list' | 'write' | 'done'>(reduced || inline ? 'pick' : 'intro');
@@ -369,64 +372,44 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
       setPhase('write');
     }
   };
-  // HISTORY · 이름 · 다른 방 파도타기 — PC 는 왼쪽 프로필 칸, 휴대폰은 본문 맨 아래
-  const surf = (
-    <>
-      <p className="cy__history"><span>HISTORY</span><span aria-hidden="true">▲▼</span></p>
-      <p className="cy__who">{site.brand}</p>
-      <select className="cy__surf" value="" onChange={(e) => e.target.value && window.location.assign(absUrl(e.target.value))} aria-label={t.cySurf}>
-        <option value="">{t.cySurf}</option>
-        <option value={href.house()}>{ui.nav.house}</option>
-        <option value={href.test()}>{ui.nav.test}</option>
-        <option value={href.map()}>{ui.nav.map}</option>
-        <option value={href.insta()}>{ui.nav.more}</option>
-      </select>
-    </>
-  );
+  // 받은 시안 — 옛날 컴퓨터 창처럼: 올리브색 제목 줄(사람 아이콘 · 제목 · ㅡ □ ×) · 크림색 창 안에 왼쪽 프로필 장 · 가운데 본문 장 · 오른쪽 탭
   const frame = (inner: ReactNode) =>
     !inline ? (
       inner
     ) : (
       <div className="cy">
-        {/* 틀 위에 걸터앉은 귤 — 받은 그림 그대로 */}
-        <img className="cy__deco" src={tangerinesUrl} alt="" width={354} height={198} aria-hidden="true" />
         <div className="cy__frame">
+          <header className="cy__bar">
+            <img className="cy__bar-icon" src={userIconUrl} alt="" width={45} height={41} />
+            <h2 className="cy__title">{t.cyTitle}</h2>
+            <span className="cy__winbtns" aria-hidden="true">
+              <i className="cy__win cy__win--min" />
+              <i className="cy__win cy__win--max" />
+              <i className="cy__win cy__win--close" />
+            </span>
+          </header>
           <div className="cy__book">
             <aside className="cy__side">
+              <div className="cy__profile">
+                <img src={kidUrl} alt="" width={210} height={330} />
+              </div>
               <p className="cy__count">
-                <span>TODAY <b>1105</b></span>
+                <span>TODAY 1105</span>
                 <span>TOTAL 2026</span>
               </p>
-              <div className="cy__card">
-                <div className="cy__profile">
-                  <img src={kidUrl} alt="" width={210} height={330} />
-                </div>
-                <p className="cy__mood"><span>TODAY IS..</span> {t.cyMood}</p>
-                <p className="cy__bio cy__bio--title">{t.title.replace(/\n/g, ' ')}</p>
-                <p className="cy__bio cy__bio--sub cy__bio--one">{t.cyBio.replace(/\n/g, ' ')}</p>
-                {/* PC — 프로필 칸 아래 · 휴대폰은 숨기고 본문 맨 아래(일촌평 밑)에 */}
-                <div className="cy__surfbox cy__surfbox--side">{surf}</div>
-              </div>
+              <p className="cy__bio cy__bio--title">{t.title}</p>
+              <p className="cy__bio cy__bio--sub">{t.cyBio}</p>
+              <img className="cy__mountain" src={mountainUrl} alt="" width={276} height={96} />
             </aside>
-            <span className="cy__rings" aria-hidden="true">
-              <i /><i /><i /><i />
-            </span>
-            <section className="cy__main">
-              <header className="cy__head">
-                <h2 className="cy__title">{t.cyTitle}</h2>
-                <p className="cy__fav" aria-hidden="true">✚ MY JEJU NOTE</p>
-              </header>
-              {inner}
-              <div className="cy__surfbox cy__surfbox--main">{surf}</div>
-            </section>
+            <section className="cy__main">{inner}</section>
+            <nav className="cy__tabs" aria-label={t.cyTitle}>
+              {t.cyTabs.map((label, k) => (
+                <button key={label} type="button" className="cy__tab" aria-current={tab === k || undefined} onClick={() => goTab(k)} data-track={`guest_cytab_${k}`}>
+                  {label}
+                </button>
+              ))}
+            </nav>
           </div>
-          <nav className="cy__tabs" aria-label={t.cyTitle}>
-            {t.cyTabs.map((label, k) => (
-              <button key={label} type="button" className="cy__tab" aria-current={tab === k || undefined} onClick={() => goTab(k)} data-track={`guest_cytab_${k}`}>
-                {label}
-              </button>
-            ))}
-          </nav>
         </div>
       </div>
     );
@@ -472,8 +455,9 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
         <div className="gwrite__body wrap">
           {/* 가장 먼저 — 질문지 답변 · 자유 답변 (방명록의 주 목적) */}
           <section className="cy__ask">
-            <h3 className="cy__ask-title">
-              ✎ {t.cyAsk}
+            <h3 className="cy__barhead cy__barhead--peach">
+              <img src={pencilUrl} alt="" width={50} height={49} />
+              {t.cyAsk}
             </h3>
             {/* 두 줄만 — 누르면 오른쪽(휴대폰은 위) '자유' · '질문' 탭과 같은 화면으로 */}
             <ul className="cy__ask-list">
@@ -486,7 +470,7 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
               </li>
               <li>
                 <button type="button" className={answered[FREE] ? 'is-done' : undefined} onClick={() => goTab(2)} data-track="guest_cyask_free">
-                  <b>✎</b>
+                  <b>Q</b>
                   <span>{t.cyAskFree} <small>{t.freeHint}</small></span>
                   <em>{answered[FREE] ? '✓' : t.cyAskBtn}</em>
                 </button>
@@ -495,13 +479,17 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
           </section>
           {/* 일촌평 — 질문지 답 · 자유 답을 한데 모아 5줄씩, 3초마다 한 줄씩 넘어감. 누르면 그 질문에 남긴 답들(다른 사람들)로 */}
           <section className="cy__friends cy__friends--all">
-            <h3 className="cy__sec">{t.cyFriends}</h3>
+            <h3 className="cy__barhead cy__barhead--olive">
+              <img src={bubbleUrl} alt="" width={53} height={46} />
+              {t.cyFriends}
+              <small>{t.cyFriendsSub}</small>
+            </h3>
             {friends.length ? (
               <ul className="cy__list cy__list--friends">
                 {friends.map(({ key, item: x }) => (
                   <li key={key}>
                     <button type="button" onClick={() => openAnswers(x.q)} data-track="guest_cy_ilchon">
-                      <b>{x.q === FREE ? t.cyTabs[2] : `Q${x.q + 1}`}</b> {x.text} <small>({x.name})</small>
+                      {x.text}
                     </button>
                   </li>
                 ))}
