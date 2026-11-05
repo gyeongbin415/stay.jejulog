@@ -84,8 +84,9 @@
 /* 질문 목록(처음으로) · 다 적었어요 — 같은 주황 버튼, 글씨에 맞는 너비(양옆 빈 곳 짧게)로 양끝에 */
 .gwrite__nav { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-top: 22px; }
 .gwrite__nav .gwrite__submit { min-width: 0; padding: 12px 24px; font-size: 15px; }
-/* 다른 사람들 화면 — 나도 적기 · 질문 목록은 왼쪽에 나란히, 다 적었어요는 오른쪽 끝 */
-.gwrite__nav .gwrite__nav-list { margin-right: auto; }
+/* 다른 사람들 화면 — 왼쪽에 나도 적기, 그 아래 질문 목록 · 다 적었어요는 오른쪽 위 */
+.gwrite__nav-l { display: grid; justify-items: start; gap: 8px; }
+.gwrite__nav:has(.gwrite__nav-l > :nth-child(2)) { align-items: flex-start; }
 .gwrite__step:disabled { visibility: hidden; }
 .gwrite__submit { min-width: 150px; }
 .gwrite__error { margin-top: 12px; text-align: right; font-size: 14px; color: var(--orange-ink); }
