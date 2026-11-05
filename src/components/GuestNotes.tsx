@@ -356,8 +356,6 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
   };
 
   // 방명록 페이지 — 미니홈피처럼: 파란 바깥 틀(바느질 점선) · 왼쪽 프로필 · 가운데 스프링 · 오른쪽 본문 · 오른쪽 탭
-  const today = new Date().toDateString();
-  const todayCount = notes.filter((n) => n.t && new Date(n.t).toDateString() === today).length;
   const tab = phase === 'list' || (phase === 'write' && step !== FREE) ? 1 : phase === 'write' ? 2 : 0;
   const goTab = (k: number) => {
     if (k === 0) setPhase('pick');
@@ -378,8 +376,8 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
           <div className="cy__book">
             <aside className="cy__side">
               <p className="cy__count">
-                <span>TODAY <b>{todayCount.toLocaleString()}</b></span>
-                <span>TOTAL {notes.length.toLocaleString()}</span>
+                <span>TODAY <b>1105</b></span>
+                <span>TOTAL 2026</span>
               </p>
               <div className="cy__card">
                 <div className="cy__profile">
