@@ -478,17 +478,6 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
               )}
             </section>
           </div>
-          <section className="cy__room">
-            <h3 className="cy__sec">{t.cyRoom} <small>{t.cyRoomSub}</small><span className="cy__sec-r">{t.modeTitle}</span></h3>
-            {/* 사람들이 남긴 답 — 포스트잇 한 장씩 바뀌며 */}
-            <div className="cy__roombox">
-              <AnswerTicker notes={notes} />
-            </div>
-            <p className="cy__links">
-              <button type="button" onClick={() => setPhase('list')} data-track="guest_mode_questions">▸ {t.questionsBtn} <small>{qCount ? t.questionsDone(qCount, QUESTIONS) : t.questionsHint(QUESTIONS)}</small></button>
-              <button type="button" onClick={() => open(FREE)} data-track="guest_mode_free">▸ {t.freeBtn}</button>
-            </p>
-          </section>
           <section className="cy__friends">
             <h3 className="cy__sec">{t.cyFriends} <small>{t.cyFriendsSub}</small></h3>
             {friends.length ? (
