@@ -150,6 +150,8 @@
 .problem__head { display: grid; gap: 14px; align-content: start; }
 .problem__title { font-family: var(--f-home); font-size: clamp(27px, 3.8vw, 46px); font-weight: 700; line-height: 1.32; letter-spacing: -0.025em; } /* 메인 검정 큰 제목은 모두 같은 크기 · 두께 (section-head__title 과 같게) */
 .problem__title span { display: block; }
+/* 휴대폰 — 두 줄로 나눈 제목이 화면보다 길면 한 낱말만 따로 떨어지지 않게, 이어 쓰고 낱말 단위로 자연스럽게 줄바꿈 */
+@media (max-width: 639px) { .problem__title { word-break: keep-all; } .problem__title span { display: inline; } .problem__title span + span::before { content: " "; } }
 
 /* 문제 두 가지 */
 .problem__points { display: grid; gap: clamp(16px, 3vh, 28px); }
