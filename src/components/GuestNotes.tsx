@@ -5,7 +5,8 @@ import { absUrl, href } from '../lib/router';
 import { track } from '../lib/track';
 import { GUESTBOOK_URL, MAX_ANSWER, MAX_FREE, MAX_NAME, fetchBoard, loadCachedBoard, loadMine, postNote, syncMine, type GuestBoard, type GuestNote } from '../data/guestbook';
 import noteUrl from '../assets/guest-note.png';
-import houseUrl from '../assets/house-icon.png';
+import kidUrl from '../assets/cy/cy-tangerine-kid.png';
+import tangerinesUrl from '../assets/cy/cy-tangerines.png';
 import '../styles/guest.css';
 
 /* ------------------------------------------------------------------
@@ -221,7 +222,7 @@ const saveDraft = () => {
 
 /** 처음(자유롭게 적기 · 질문 골라 답하기) ⇄ 질문 목록 ⇄ 줄 노트 카드 → 다 썼어요 · inline — 방명록 페이지 안에 바로(창 · 도입 문장 · 닫기 없이) */
 function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestNote[]; onClose: () => void; onSent: () => void; inline?: boolean }) {
-  const { ui, lang } = useContent();
+  const { ui, lang, site } = useContent();
   const t = ui.guest;
   const reduced = useReducedMotion();
   const [phase, setPhase] = useState<'intro' | 'pick' | 'list' | 'write' | 'done'>(reduced || inline ? 'pick' : 'intro');
@@ -354,38 +355,64 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
       inner
     ) : (
       <div className="cy">
-        <div className="cy__paper">
-          <aside className="cy__side">
-            <p className="cy__count">
-              <span>TODAY <b>{todayCount.toLocaleString()}</b></span>
-              <span>TOTAL {notes.length.toLocaleString()}</span>
-            </p>
-            <div className="cy__profile">
-              <img src={houseUrl} alt="" width={900} height={630} />
-            </div>
-            <p className="cy__name pre">{t.title}</p>
-            <p className="cy__bio pre">{t.sub}</p>
-            <p className="cy__url">gyeongbin415.github.io/stay.jejulog</p>
-          </aside>
-          <span className="cy__rings" aria-hidden="true">
-            <i /><i /><i /><i />
-          </span>
-          <section className="cy__main">
-            <header className="cy__head">
-              <h2 className="cy__title">{t.cyTitle}</h2>
-            </header>
-            {inner}
-          </section>
+        {/* 틀 위에 걸터앉은 귤 — 받은 그림 그대로 */}
+        <img className="cy__deco" src={tangerinesUrl} alt="" width={354} height={198} aria-hidden="true" />
+        <div className="cy__frame">
+          <div className="cy__book">
+            <aside className="cy__side">
+              <p className="cy__count">
+                <span>TODAY <b>{todayCount.toLocaleString()}</b></span>
+                <span>TOTAL {notes.length.toLocaleString()}</span>
+              </p>
+              <div className="cy__card">
+                <div className="cy__profile">
+                  <img src={kidUrl} alt="" width={210} height={330} />
+                </div>
+                <p className="cy__mood"><span>TODAY IS..</span> {t.cyMood}</p>
+                <p className="cy__bio pre">{t.title}</p>
+                <p className="cy__bio cy__bio--sub pre">{t.sub}</p>
+                <p className="cy__history"><span>HISTORY</span><span aria-hidden="true">▲▼</span></p>
+                <p className="cy__who">{site.brand}</p>
+                <select className="cy__surf" value="" onChange={(e) => e.target.value && window.location.assign(absUrl(e.target.value))} aria-label={t.cySurf}>
+                  <option value="">{t.cySurf}</option>
+                  <option value={href.home()}>{ui.nav.main}</option>
+                  <option value={href.house()}>{ui.nav.house}</option>
+                  <option value={href.test()}>{ui.nav.test}</option>
+                  <option value={href.map()}>{ui.nav.map}</option>
+                </select>
+              </div>
+            </aside>
+            <span className="cy__rings" aria-hidden="true">
+              <i /><i /><i /><i />
+            </span>
+            <section className="cy__main">
+              <header className="cy__head">
+                <h2 className="cy__title">{t.cyTitle}</h2>
+                <p className="cy__fav" aria-hidden="true">✚ MY JEJU NOTE</p>
+              </header>
+              {inner}
+            </section>
+          </div>
+          <nav className="cy__tabs" aria-label={t.cyTitle}>
+            {t.cyTabs.map((label, k) => (
+              <button key={label} type="button" className="cy__tab" aria-current={tab === k || undefined} onClick={() => goTab(k)} data-track={`guest_cytab_${k}`}>
+                {label}
+              </button>
+            ))}
+          </nav>
         </div>
-        <nav className="cy__tabs" aria-label={t.cyTitle}>
-          {t.cyTabs.map((label, k) => (
-            <button key={label} type="button" className="cy__tab" aria-current={tab === k || undefined} onClick={() => goTab(k)} data-track={`guest_cytab_${k}`}>
-              {label}
-            </button>
-          ))}
-        </nav>
       </div>
     );
+  // 미니홈피 첫 화면 — 질문마다 답 수(오늘 새 답이 있으면 N) · 최근 답 · 자유롭게 남긴 말
+  const isToday = (n: GuestNote) => !!n.t && new Date(n.t).toDateString() === today;
+  const slotCount = Array.from({ length: SLOTS }, (_, i) => notes.filter((n) => n.a[i]?.trim()).length);
+  const slotNew = Array.from({ length: SLOTS }, (_, i) => notes.some((n) => isToday(n) && n.a[i]?.trim()));
+  const news = notes.flatMap((n) => n.a.slice(0, QUESTIONS).map((x, q) => ({ q, text: x?.trim() ?? '' })).filter((x) => x.text)).slice(0, 4);
+  const friends = notes.filter((n) => n.a[FREE]?.trim()).slice(0, 3);
+  const open = (i: number) => {
+    setStep(i);
+    setPhase('write');
+  };
 
   return (
     <div className={`gwrite gwrite--${phase}${inline ? ' gwrite--inline gwrite--cy' : ''}`} role={inline ? undefined : 'dialog'} aria-modal={inline ? undefined : true} aria-label={t.open} ref={ref} tabIndex={-1}>
@@ -413,7 +440,82 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
       )}
 
       {/* 처음 — 자유롭게 적기 · 질문 골라 답하기 두 버튼, 하나 이상 적으면 이름과 함께 남기기 */}
-      {phase === 'pick' && (
+      {phase === 'pick' && inline && (
+        <div className="gwrite__body wrap">
+          <div className="cy__top">
+            <section className="cy__news">
+              <h3 className="cy__sec">{t.cyNews} <small>{t.cyNewsSub}</small></h3>
+              {news.length ? (
+                <ul className="cy__list">
+                  {news.map((x, i) => (
+                    <li key={i}>
+                      <button type="button" onClick={() => open(x.q)}>{x.text}</button>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="cy__empty">{t.cyEmpty}</p>
+              )}
+            </section>
+            <table className="cy__stats">
+              <tbody>
+                {[0, 2, 4].map((r) => (
+                  <tr key={r}>
+                    {[r, r + 1].map((i) => (
+                      <td key={i}>
+                        <button type="button" onClick={() => open(i)} data-track={`guest_cystat_${i}`}>
+                          <span>{i === FREE ? t.cyTabs[2] : `Q${i + 1}`}</span>
+                          <b>{slotCount[i].toLocaleString()}</b>
+                          {slotNew[i] && <em aria-label="new">N</em>}
+                        </button>
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <section className="cy__room">
+            <h3 className="cy__sec">{t.cyRoom} <small>{t.cyRoomSub}</small><span className="cy__sec-r">{t.modeTitle}</span></h3>
+            {/* 사람들이 남긴 답 — 포스트잇 한 장씩 바뀌며 */}
+            <div className="cy__roombox">
+              <AnswerTicker notes={notes} />
+            </div>
+            <p className="cy__links">
+              <button type="button" onClick={() => setPhase('list')} data-track="guest_mode_questions">▸ {t.questionsBtn} <small>{qCount ? t.questionsDone(qCount, QUESTIONS) : t.questionsHint(QUESTIONS)}</small></button>
+              <button type="button" onClick={() => open(FREE)} data-track="guest_mode_free">▸ {t.freeBtn}</button>
+            </p>
+          </section>
+          <section className="cy__friends">
+            <h3 className="cy__sec">{t.cyFriends} <small>{t.cyFriendsSub}</small></h3>
+            {friends.length ? (
+              <ul className="cy__list cy__list--friends">
+                {friends.map((n, i) => (
+                  <li key={i}>
+                    <span>{n.a[FREE].trim()}</span> <small>({n.name?.trim() || t.anon})</small>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="cy__empty">{t.cyEmpty}</p>
+            )}
+          </section>
+          {answered.some(Boolean) && (
+            <div className="gwrite__send">
+              <label className="gwrite__name">
+                <span>{t.nameLabel}</span>
+                <input maxLength={MAX_NAME} placeholder={t.namePlaceholder} value={name} onChange={(e) => setName(e.target.value)} />
+              </label>
+              <button type="button" className="btn gwrite__submit" onClick={submit} disabled={sending} data-track="guest_submit_btn">
+                {sending ? t.sending : t.submit}
+              </button>
+            </div>
+          )}
+          {error && <p className="gwrite__error" role="alert">{error}</p>}
+        </div>
+      )}
+
+      {phase === 'pick' && !inline && (
         <div className="gwrite__body wrap">
           <p className="gwrite__hand" aria-hidden="true">MY JEJU NOTE</p>
           <h2 className="gwrite__pick-title">{t.modeTitle}</h2>
