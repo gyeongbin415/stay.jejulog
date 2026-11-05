@@ -84,6 +84,8 @@
 /* 질문 목록(처음으로) · 다 적었어요 — 같은 주황 버튼, 글씨에 맞는 너비(양옆 빈 곳 짧게)로 양끝에 */
 .gwrite__nav { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-top: 22px; }
 .gwrite__nav .gwrite__submit { min-width: 0; padding: 12px 24px; font-size: 15px; }
+/* 다른 사람들 화면 — 나도 적기 · 질문 목록은 왼쪽에 나란히, 다 적었어요는 오른쪽 끝 */
+.gwrite__nav .gwrite__nav-list { margin-right: auto; }
 .gwrite__step:disabled { visibility: hidden; }
 .gwrite__submit { min-width: 150px; }
 .gwrite__error { margin-top: 12px; text-align: right; font-size: 14px; color: var(--orange-ink); }
@@ -380,3 +382,7 @@ html:has(.gwrite--write) .backfab { opacity: 0; visibility: hidden; pointer-even
 }
 .cy__bio--title, .cy__bio--one { white-space: nowrap; }
 .cy__bio--one { font-size: 11.5px; letter-spacing: -0.03em; }
+/* 아래 버튼 — 글자가 두 줄로 꺾이지 않게 (휴대폰에서 세 개가 나란히 들어가도록 여백만 줄임) */
+.gwrite--cy .gwrite__nav { gap: 6px; }
+.gwrite--cy .gwrite__nav .gwrite__submit { flex: none; white-space: nowrap; }
+@media (max-width: 420px) { .gwrite--cy .gwrite__nav .gwrite__submit { padding: 6px 11px; font-size: 12.5px; } }

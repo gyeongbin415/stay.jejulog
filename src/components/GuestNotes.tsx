@@ -676,6 +676,12 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
               >
                 {showAll ? t.writeMine : step === FREE ? t.toModes : t.toList}
               </button>
+              {/* 다른 사람들 화면 — 나도 적기 옆에 질문 목록(자유 노트는 처음 화면)으로 가는 버튼도 */}
+              {showAll && (
+                <button type="button" className="btn gwrite__submit gwrite__nav-list" onClick={back} data-track="guest_others_to_list">
+                  {step === FREE ? t.toModes : t.toList}
+                </button>
+              )}
               <button type="button" className="btn gwrite__submit" onClick={sendOne} disabled={sending} data-track={step === FREE ? 'guest_done_free' : `guest_done_q${step + 1}`}>
                 {sending ? t.sending : t.doneAnswer}
               </button>
