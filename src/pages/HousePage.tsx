@@ -192,6 +192,8 @@ export function HousePage({ embedded = false }: { embedded?: boolean }) {
                     style={{ left: pct(pill[0], IMG_W), top: pct(pill[1], IMG_H), minWidth: pct(pill[2] - pill[0], IMG_W), height: pct(pill[3] - pill[1], IMG_H) }}
                   >
                     <span>{e.label}</span>
+                    {/* 이름 옆 주황 화살표 — 늘 보임 (마우스를 올려 이름표가 길어지면 끝의 → 하나만) */}
+                    <svg className="house3d__pill-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 12h14M13 6.5 18.5 12 13 17.5" /></svg>
                     <span className="house3d__pill-more">
                       <span className="house3d__pill-place">{place}</span>
                       <span aria-hidden="true">→</span>
