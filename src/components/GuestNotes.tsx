@@ -279,10 +279,14 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
     };
   }, [onClose, inline]);
 
+  // 일촌평에서 눌러 들어오면 카드를 '다른 사람들' 답 목록으로 엶
+  const wantOthers = useRef(false);
   useEffect(() => {
+    const others = wantOthers.current;
+    wantOthers.current = false;
     // 답 칸에 바로 커서 — 마우스로 쓰는 PC 만 (휴대폰은 칸을 눌렀을 때만 자판이 뜨게)
-    if (phase === 'write' && window.matchMedia('(hover: hover) and (pointer: fine)').matches) areaRef.current?.focus({ preventScroll: true });
-    setShowAll(false);
+    if (!others && phase === 'write' && window.matchMedia('(hover: hover) and (pointer: fine)').matches) areaRef.current?.focus({ preventScroll: true });
+    setShowAll(others);
   }, [phase, step]);
 
   const list = useMemo(() => answersOf(notes, t.anon, step), [notes, t.anon, step]);
@@ -418,11 +422,14 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
         </div>
       </div>
     );
-  // 미니홈피 첫 화면 — 최근 답 · 자유롭게 남긴 말
-  // 위 — 질문지(Q1~Q5)에 남긴 답 전부, 아래 — 자유롭게 남긴 말 전부 (최근 것부터, 계속 넘어감)
-  const news = useRoll(useMemo(() => notes.flatMap((n) => n.a.slice(0, QUESTIONS).map((x, q) => ({ q, text: x?.trim() ?? '' })).filter((x) => x.text)), [notes]), 4);
-  const friends = useRoll(useMemo(() => notes.filter((n) => n.a[FREE]?.trim()), [notes]), 3);
-  const open = (i: number) => {
+  // 미니홈피 첫 화면 일촌평 — 질문지(Q1~Q5) · 자유롭게 남긴 답 전부를 최근 것부터 한 목록으로 (5줄씩 계속 넘어감)
+  const friends = useRoll(
+    useMemo(() => notes.flatMap((n) => n.a.map((x, q) => ({ q, text: x?.trim() ?? '', name: n.name?.trim() || t.anon })).filter((x) => x.text)), [notes, t.anon]),
+    5,
+  );
+  /** 그 질문 카드를 '다른 사람들' 답 목록으로 바로 엶 (쓰는 칸 대신) */
+  const openAnswers = (i: number) => {
+    wantOthers.current = true;
     setStep(i);
     setPhase('write');
   };
@@ -478,31 +485,16 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
               </li>
             </ul>
           </section>
-          <div className="cy__top">
-            <section className="cy__news">
-              <h3 className="cy__sec">{t.cyNews}</h3>
-              {news.length ? (
-                <ul className="cy__list">
-                  {news.map(({ key, item: x }) => (
-                    <li key={key}>
-                      <button type="button" onClick={() => open(x.q)}>
-                        <b>Q{x.q + 1}</b> {x.text}
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <p className="cy__empty">{t.cyEmpty}</p>
-              )}
-            </section>
-          </div>
-          <section className="cy__friends">
-            <h3 className="cy__sec">{t.cyFriends} <small>{t.cyFriendsSub}</small></h3>
+          {/* 일촌평 — 질문지 답 · 자유 답을 한데 모아 5줄씩, 3초마다 한 줄씩 넘어감. 누르면 그 질문에 남긴 답들(다른 사람들)로 */}
+          <section className="cy__friends cy__friends--all">
+            <h3 className="cy__sec">{t.cyFriends}</h3>
             {friends.length ? (
               <ul className="cy__list cy__list--friends">
-                {friends.map(({ key, item: n }) => (
+                {friends.map(({ key, item: x }) => (
                   <li key={key}>
-                    <span>{n.a[FREE].trim()}</span> <small>({n.name?.trim() || t.anon})</small>
+                    <button type="button" onClick={() => openAnswers(x.q)} data-track="guest_cy_ilchon">
+                      <b>{x.q === FREE ? t.cyTabs[2] : `Q${x.q + 1}`}</b> {x.text} <small>({x.name})</small>
+                    </button>
                   </li>
                 ))}
               </ul>
