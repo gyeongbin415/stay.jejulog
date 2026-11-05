@@ -23,7 +23,7 @@ export const ZH: ContentPack = {
       label: 'CHECK IN',
       title: ['你知道吗？', '在济州的民宿里', '可以有各种各样的体验'],
       points: [],
-      answer: "编辑亲自在济州入住找到的体验，\n都收进了这一栋房子里。",
+      answer: "编辑亲自入住民宿找到的体验，\n都收进了这一栋房子里。",
       answerNote: '',
     },
 

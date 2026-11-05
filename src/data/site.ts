@@ -25,7 +25,7 @@ export const SITE = {
     label: 'CHECK IN',
     title: ['제주 게스트하우스에서', '다양한 경험을 할 수 있다는 사실', '알고 계셨나요?'],
     points: [],
-    answer: "에디터가 직접 제주에 머물며 찾은 경험,\n한 집에 모아봤습니다.",
+    answer: "에디터가 직접 게하에 머물며 찾은 경험,\n한 집에 모아봤습니다.",
     answerNote: '',
   },
 
