@@ -663,8 +663,18 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
               </label>
             )}
             <nav className="gwrite__nav">
-              <button type="button" className="btn gwrite__submit" onClick={back}>
-                {step === FREE ? t.toModes : t.toList}
+              {/* '다른 사람들' 답을 보는 중이면 '나도 적기' — 누르면 이 질문의 '나의 답' 쓰는 칸으로 */}
+              <button
+                type="button"
+                className="btn gwrite__submit"
+                onClick={() => {
+                  if (!showAll) return back();
+                  setShowAll(false);
+                  window.setTimeout(() => areaRef.current?.focus({ preventScroll: true }), 0);
+                }}
+                data-track={showAll ? 'guest_write_mine' : undefined}
+              >
+                {showAll ? t.writeMine : step === FREE ? t.toModes : t.toList}
               </button>
               <button type="button" className="btn gwrite__submit" onClick={sendOne} disabled={sending} data-track={step === FREE ? 'guest_done_free' : `guest_done_q${step + 1}`}>
                 {sending ? t.sending : t.doneAnswer}
