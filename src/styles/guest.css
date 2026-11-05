@@ -215,3 +215,81 @@ html:has(.gwrite--write) .backfab { opacity: 0; visibility: hidden; pointer-even
 .gticker__by { font-size: clamp(12.5px, 1.1vw, 14px); color: #8D877F; }
 @keyframes gticker-in { from { opacity: 0; translate: 0 10px; } }
 @media (prefers-reduced-motion: reduce) { .gticker__item { animation: none; } }
+
+/* ── 방명록 페이지 — 미니홈피처럼 (받은 시안) ─────────────────────────────────
+   주황 바깥 틀(사이트 포인트 색) + 하얀 바느질 점선 · 회색 점무늬 속지 · 왼쪽 프로필 칸 · 가운데 스프링 고리 · 오른쪽 본문 칸 · 오른쪽 주황 탭
+   방명록 기능(처음 · 질문 목록 · 답 쓰기 카드 · 다른 사람들 답 · 남기기)은 그대로, 모양만 */
+.gnote--page:has(.gwrite--cy) { background: var(--bg); }
+.gwrite--cy { --cy-blue: var(--orange); --cy-ink: var(--orange-ink); --cy-line: #EBCDB2; --cy-dot: "Dotum", "돋움", "Gulim", var(--f-sans); background: var(--bg); padding-bottom: 48px; }
+.gwrite--cy .gwrite__top { display: none; }
+.cy { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) 68px; width: min(1080px, calc(100% - 32px)); margin: clamp(18px, 4vh, 40px) auto 0; padding: 16px 0 16px 16px; background: var(--cy-blue); border-radius: 22px; box-shadow: 0 10px 30px rgba(170, 95, 30, .18); }
+.cy::before { content: ""; position: absolute; inset: 7px; border: 2px dashed rgba(255, 255, 255, .9); border-radius: 16px; pointer-events: none; }
+.cy__paper {
+  position: relative; display: grid; grid-template-columns: 230px 26px minmax(0, 1fr); align-items: start; padding: 14px;
+  background: radial-gradient(circle, rgba(205, 150, 105, .28) 1px, transparent 1.4px) 0 0 / 7px 7px, #F4EDE3; border-radius: 14px;
+}
+/* 왼쪽 프로필 */
+.cy__side { display: grid; gap: 12px; padding: 14px; background: #fff; border: 1px solid var(--cy-line); border-radius: 10px; }
+.cy__count { display: flex; justify-content: center; gap: 10px; margin: 0; font-family: var(--cy-dot); font-size: 11px; letter-spacing: .02em; color: #A08A78; }
+.cy__count b { font-weight: 700; color: var(--orange-ink); }
+.cy__count span + span { padding-left: 10px; border-left: 1px solid #EAD5C2; }
+.cy__profile { display: grid; place-items: center; aspect-ratio: 1; padding: 10px; background: #FFF8F1; border: 1px solid #F0DCC8; }
+.cy__profile img { width: 100%; height: auto; }
+.cy__name { margin: 0; padding-top: 10px; border-top: 1px dotted var(--cy-line); font-size: 15px; font-weight: 700; line-height: 1.45; color: var(--cy-ink); }
+.cy__bio { margin: 0; font-size: 13px; line-height: 1.6; color: #555; }
+.cy__url { margin: 0; padding-top: 10px; border-top: 1px dotted var(--cy-line); font-family: var(--cy-dot); font-size: 11px; color: var(--orange-ink); word-break: break-all; }
+/* 가운데 스프링 고리 — 위 두 개 · 아래 두 개 */
+.cy__rings { display: grid; justify-items: center; gap: 9px; padding-top: 84px; }
+.cy__rings i { display: block; width: 30px; height: 11px; border: 3px solid #A4AFB7; border-radius: 999px; background: linear-gradient(#F4F6F7, #C9D0D5); box-shadow: 0 1px 1px rgba(0, 0, 0, .15); }
+.cy__rings i:nth-child(3) { margin-top: 150px; }
+/* 오른쪽 본문 */
+.cy__main { min-width: 0; padding: 14px clamp(16px, 2vw, 24px) 22px; background: #fff; border: 1px solid var(--cy-line); border-radius: 10px; }
+.cy__head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding-bottom: 8px; border-bottom: 1px dotted var(--cy-line); }
+.cy__title { font-size: 17px; font-weight: 800; letter-spacing: -0.02em; color: var(--cy-ink); }
+/* 오른쪽 주황 탭 — 지금 보는 탭은 하얗게 */
+.cy__tabs { display: flex; flex-direction: column; gap: 5px; padding: 46px 8px 0 0; }
+.cy__tab { padding: 10px 4px; background: #E5762A; border: 1px solid #C9641C; border-left: 0; border-radius: 0 9px 9px 0; font-family: var(--cy-dot); font-size: 12.5px; font-weight: 700; color: #fff; text-align: center; transition: background var(--t-hover) var(--ease); }
+.cy__tab:hover { background: #F29A55; }
+.cy__tab[aria-current] { background: #fff; color: var(--cy-ink); border-color: #fff; }
+
+/* 본문 안 — 미니홈피 칸처럼 작고 촘촘하게, 주황 제목 · 얇은 회색 테두리 */
+.gwrite--cy .gwrite__body, .gwrite--cy .gwrite__body.wrap { width: 100%; max-width: none; margin: 0; padding: 16px 0 0; }
+.gwrite--cy .gwrite__hand { margin-bottom: 8px; font-family: var(--cy-dot); font-size: 12px; font-weight: 700; letter-spacing: .04em; color: var(--cy-ink); transform: none; }
+.gwrite--cy .gwrite__pick-title { font-size: clamp(17px, 1.7vw, 20px); color: #333; }
+.gwrite--cy .gwrite__pick-sub { font-size: 13px; }
+.gwrite--cy .gwrite__picks { gap: 8px; margin-top: 16px; }
+.gwrite--cy .gwrite__pick { padding: 13px 14px; border: 1px solid var(--cy-line); border-radius: 6px; box-shadow: none; }
+.gwrite--cy .gwrite__pick:hover { transform: none; background: #FFF4EA; box-shadow: none; }
+.gwrite--cy .gwrite__pick:active { transform: none; box-shadow: none; }
+.gwrite--cy .gwrite__pick-no { color: var(--cy-ink); }
+.gwrite--cy .gwrite__pick-q { font-size: 15px; }
+.gwrite--cy .gwrite__pick--mode { padding: 16px; }
+.gwrite--cy .gwrite__pick--mode .gwrite__pick-q { font-size: 16px; }
+.gwrite--cy .gwrite__pick.is-done { border-color: var(--orange-ink); box-shadow: none; }
+.gwrite--cy .gwrite__card { border: 1px solid var(--cy-line); border-radius: 8px; box-shadow: none; }
+.gwrite--cy .gwrite__q { font-size: clamp(20px, 2.2vw, 26px); }
+.gwrite--cy .gwrite__no { font-family: var(--cy-dot); color: var(--cy-ink); }
+.gwrite--cy .gwrite__tab[aria-selected="true"] { color: var(--cy-ink); border-bottom-color: var(--cy-ink); }
+.gwrite--cy .gwrite__submit { min-height: 38px; padding: 8px 18px; background: #fff; border: 1px solid var(--cy-line); border-radius: 5px; font-size: 14px; color: var(--cy-ink); }
+.gwrite--cy .gwrite__submit:hover { background: #FFF1E4; border-color: var(--cy-ink); }
+.gwrite--cy .gwrite__nav .gwrite__submit { padding: 8px 18px; font-size: 14px; }
+/* 사람들이 남긴 답 — 본문 칸 안에서 (화면 끝까지 넓히지 않음) */
+.gwrite--cy .gticker { width: auto; min-height: 0; margin: 20px 0 0; padding: clamp(34px, 5vw, 56px) 6%; border-top: 1px dotted var(--cy-line); }
+.gwrite--cy .gwrite__body:has(> .gticker:last-child) { padding-bottom: 0; }
+
+/* 휴대폰 · 좁은 화면 — 한 줄로: 탭은 위로, 프로필은 작게 가로로, 스프링은 숨김 */
+@media (max-width: 759px) {
+  .cy { grid-template-columns: minmax(0, 1fr); width: calc(100% - 20px); padding: 10px; border-radius: 18px; }
+  .cy::before { inset: 5px; border-radius: 13px; }
+  .cy__tabs { order: -1; flex-direction: row; gap: 4px; padding: 4px 6px 0; }
+  .cy__tab { flex: 1; padding: 9px 4px; border: 1px solid #C9641C; border-bottom: 0; border-radius: 9px 9px 0 0; }
+  .cy__paper { grid-template-columns: minmax(0, 1fr); gap: 10px; padding: 10px; }
+  .cy__rings { display: none; }
+  .cy__side { grid-template-columns: 76px minmax(0, 1fr); grid-template-areas: 'count count' 'pic name' 'pic bio'; column-gap: 12px; row-gap: 4px; padding: 12px; }
+  .cy__count { grid-area: count; justify-content: flex-start; padding-bottom: 6px; }
+  .cy__profile { grid-area: pic; align-self: start; padding: 6px; }
+  .cy__name { grid-area: name; padding-top: 0; border-top: 0; font-size: 14px; }
+  .cy__bio { grid-area: bio; font-size: 12.5px; }
+  .cy__url { display: none; }
+  .cy__main { padding: 12px 14px 18px; }
+}
