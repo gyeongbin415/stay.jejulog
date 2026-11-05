@@ -403,10 +403,7 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
         </div>
       </div>
     );
-  // 미니홈피 첫 화면 — 질문마다 답 수(오늘 새 답이 있으면 N) · 최근 답 · 자유롭게 남긴 말
-  const isToday = (n: GuestNote) => !!n.t && new Date(n.t).toDateString() === today;
-  const slotCount = Array.from({ length: SLOTS }, (_, i) => notes.filter((n) => n.a[i]?.trim()).length);
-  const slotNew = Array.from({ length: SLOTS }, (_, i) => notes.some((n) => isToday(n) && n.a[i]?.trim()));
+  // 미니홈피 첫 화면 — 최근 답 · 자유롭게 남긴 말
   const news = notes.flatMap((n) => n.a.slice(0, QUESTIONS).map((x, q) => ({ q, text: x?.trim() ?? '' })).filter((x) => x.text)).slice(0, 4);
   const friends = notes.filter((n) => n.a[FREE]?.trim()).slice(0, 3);
   const open = (i: number) => {
@@ -442,7 +439,7 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
       {/* 처음 — 자유롭게 적기 · 질문 골라 답하기 두 버튼, 하나 이상 적으면 이름과 함께 남기기 */}
       {phase === 'pick' && inline && (
         <div className="gwrite__body wrap">
-          {/* 가장 먼저 — 자유 답변 · 질문지 답변 (방명록의 주 목적) */}
+          {/* 가장 먼저 — 질문지 답변 · 자유 답변 (방명록의 주 목적) */}
           <section className="cy__ask">
             <h3 className="cy__ask-title">
               ✎ {t.cyAsk} <small>{t.cyAskSub}</small>
@@ -450,17 +447,17 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
             {/* 두 줄만 — 누르면 오른쪽(휴대폰은 위) '자유' · '질문' 탭과 같은 화면으로 */}
             <ul className="cy__ask-list">
               <li>
-                <button type="button" className={answered[FREE] ? 'is-done' : undefined} onClick={() => goTab(2)} data-track="guest_cyask_free">
-                  <b>✎</b>
-                  <span>{t.cyAskFree} <small>{t.freeHint}</small></span>
-                  <em>{answered[FREE] ? '✓' : t.cyAskBtn}</em>
-                </button>
-              </li>
-              <li>
                 <button type="button" className={qCount ? 'is-done' : undefined} onClick={() => goTab(1)} data-track="guest_cyask_questions">
                   <b>Q</b>
                   <span>{t.cyAskQ} <small>{qCount ? t.questionsDone(qCount, QUESTIONS) : t.questionsHint(QUESTIONS)}</small></span>
                   <em>{t.cyAskBtn}</em>
+                </button>
+              </li>
+              <li>
+                <button type="button" className={answered[FREE] ? 'is-done' : undefined} onClick={() => goTab(2)} data-track="guest_cyask_free">
+                  <b>✎</b>
+                  <span>{t.cyAskFree} <small>{t.freeHint}</small></span>
+                  <em>{answered[FREE] ? '✓' : t.cyAskBtn}</em>
                 </button>
               </li>
             </ul>
@@ -480,23 +477,6 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
                 <p className="cy__empty">{t.cyEmpty}</p>
               )}
             </section>
-            <table className="cy__stats">
-              <tbody>
-                {[0, 2, 4].map((r) => (
-                  <tr key={r}>
-                    {[r, r + 1].map((i) => (
-                      <td key={i}>
-                        <button type="button" onClick={() => open(i)} data-track={`guest_cystat_${i}`}>
-                          <span>{i === FREE ? t.cyTabs[2] : `Q${i + 1}`}</span>
-                          <b>{slotCount[i].toLocaleString()}</b>
-                          {slotNew[i] && <em aria-label="new">N</em>}
-                        </button>
-                      </td>
-                    ))}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
           </div>
           <section className="cy__room">
             <h3 className="cy__sec">{t.cyRoom} <small>{t.cyRoomSub}</small><span className="cy__sec-r">{t.modeTitle}</span></h3>
