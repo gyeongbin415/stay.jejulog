@@ -220,6 +220,23 @@ const saveDraft = () => {
   }
 };
 
+/**
+ * 미니홈피 목록 — 남긴 답을 몇 줄씩 보여 주고 3초마다 한 줄씩 위로 넘김 (맨 위 줄이 빠지고 새 줄이 아래에 들어옴)
+ * 줄 수보다 답이 적으면 그대로 · 동작 줄이기 설정이면 넘기지 않음
+ */
+function useRoll<T>(items: T[], size: number) {
+  const reduced = useReducedMotion();
+  const [off, setOff] = useState(0);
+  const len = items.length;
+  useEffect(() => {
+    if (len <= size || reduced) return;
+    const id = window.setInterval(() => setOff((v) => v + 1), 3000);
+    return () => window.clearInterval(id);
+  }, [len, size, reduced]);
+  const n = Math.min(size, len);
+  return Array.from({ length: n }, (_, i) => ({ key: off + i, item: items[(off + i) % len] }));
+}
+
 /** 처음(자유롭게 적기 · 질문 골라 답하기) ⇄ 질문 목록 ⇄ 줄 노트 카드 → 다 썼어요 · inline — 방명록 페이지 안에 바로(창 · 도입 문장 · 닫기 없이) */
 function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestNote[]; onClose: () => void; onSent: () => void; inline?: boolean }) {
   const { ui, lang, site } = useContent();
@@ -404,8 +421,9 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
       </div>
     );
   // 미니홈피 첫 화면 — 최근 답 · 자유롭게 남긴 말
-  const news = notes.flatMap((n) => n.a.slice(0, QUESTIONS).map((x, q) => ({ q, text: x?.trim() ?? '' })).filter((x) => x.text)).slice(0, 4);
-  const friends = notes.filter((n) => n.a[FREE]?.trim()).slice(0, 3);
+  // 위 — 질문지(Q1~Q5)에 남긴 답 전부, 아래 — 자유롭게 남긴 말 전부 (최근 것부터, 계속 넘어감)
+  const news = useRoll(useMemo(() => notes.flatMap((n) => n.a.slice(0, QUESTIONS).map((x, q) => ({ q, text: x?.trim() ?? '' })).filter((x) => x.text)), [notes]), 4);
+  const friends = useRoll(useMemo(() => notes.filter((n) => n.a[FREE]?.trim()), [notes]), 3);
   const open = (i: number) => {
     setStep(i);
     setPhase('write');
@@ -467,9 +485,11 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
               <h3 className="cy__sec">{t.cyNews} <small>{t.cyNewsSub}</small></h3>
               {news.length ? (
                 <ul className="cy__list">
-                  {news.map((x, i) => (
-                    <li key={i}>
-                      <button type="button" onClick={() => open(x.q)}>{x.text}</button>
+                  {news.map(({ key, item: x }) => (
+                    <li key={key}>
+                      <button type="button" onClick={() => open(x.q)}>
+                        <b>Q{x.q + 1}</b> {x.text}
+                      </button>
                     </li>
                   ))}
                 </ul>
@@ -482,8 +502,8 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
             <h3 className="cy__sec">{t.cyFriends} <small>{t.cyFriendsSub}</small></h3>
             {friends.length ? (
               <ul className="cy__list cy__list--friends">
-                {friends.map((n, i) => (
-                  <li key={i}>
+                {friends.map(({ key, item: n }) => (
+                  <li key={key}>
                     <span>{n.a[FREE].trim()}</span> <small>({n.name?.trim() || t.anon})</small>
                   </li>
                 ))}
