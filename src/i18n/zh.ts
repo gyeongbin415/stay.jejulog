@@ -319,7 +319,7 @@ export const ZH: ContentPack = {
       oneLine: '以书为媒，与陌生人聊聊各种各样爱情的民宿',
       join: {
         who: '对话聚会“致山丘”每天晚上8点举行。',
-        how: '当天发短信报名，通常2人以上即可进行（据住客评价）。住宿通过 Naver 预订。',
+        how: '当天发短信报名，报名人数达到3人以上即可进行。住宿通过 Naver 预订。',
         linkLabels: ['Instagram', '官方博客'],
       },
       programs: [

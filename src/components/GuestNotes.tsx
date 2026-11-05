@@ -4,8 +4,8 @@ import { useReducedMotion } from '../lib/motion';
 import { absUrl, href } from '../lib/router';
 import { track } from '../lib/track';
 import { GUESTBOOK_URL, MAX_ANSWER, MAX_FREE, MAX_NAME, fetchBoard, loadCachedBoard, loadMine, postNote, syncMine, type GuestBoard, type GuestNote } from '../data/guestbook';
-import noteUrl from '../assets/guest-note.png';
-import kidUrl from '../assets/cy/cy-tangerine-kid.png';
+import noteUrl from '../assets/guest-window.png'; // 받은 그림 그대로 — 창 속 귤 캐릭터
+import profileUrl from '../assets/cy/cy-profile.jpg';
 import tangerinesUrl from '../assets/cy/cy-tangerines.png';
 import '../styles/guest.css';
 
@@ -186,7 +186,7 @@ function NoteArt() {
         onPointerCancel={() => (drag.current = null)}
         onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && (e.preventDefault(), go())}
       >
-        <img src={noteUrl} alt="" width={900} height={708} loading="lazy" decoding="async" draggable={false} />
+        <img src={noteUrl} alt="" width={800} height={646} loading="lazy" decoding="async" draggable={false} />
       </button>
       {/* 집 · 테스트 · 지도 칸과 같은 흰 테두리 버튼 — 질문 문구 */}
       <a className="roomtour__btn find__cta" href={href.guest()} data-track="guest_cta">
@@ -383,11 +383,11 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
               </p>
               <div className="cy__card">
                 <div className="cy__profile">
-                  <img src={kidUrl} alt="" width={210} height={330} />
+                  <img src={profileUrl} alt="" width={480} height={480} />
                 </div>
                 <p className="cy__mood"><span>TODAY IS..</span> {t.cyMood}</p>
-                <p className="cy__bio pre">{t.title}</p>
-                <p className="cy__bio cy__bio--sub pre">{t.sub}</p>
+                <p className="cy__bio cy__bio--title">{t.title.replace(/\n/g, ' ')}</p>
+                <p className="cy__bio cy__bio--sub cy__bio--one">{t.cyBio.replace(/\n/g, ' ')}</p>
                 <p className="cy__history"><span>HISTORY</span><span aria-hidden="true">▲▼</span></p>
                 <p className="cy__who">{site.brand}</p>
                 <select className="cy__surf" value="" onChange={(e) => e.target.value && window.location.assign(absUrl(e.target.value))} aria-label={t.cySurf}>
@@ -460,7 +460,7 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
           {/* 가장 먼저 — 질문지 답변 · 자유 답변 (방명록의 주 목적) */}
           <section className="cy__ask">
             <h3 className="cy__ask-title">
-              ✎ {t.cyAsk} <small>{t.cyAskSub}</small>
+              ✎ {t.cyAsk}
             </h3>
             {/* 두 줄만 — 누르면 오른쪽(휴대폰은 위) '자유' · '질문' 탭과 같은 화면으로 */}
             <ul className="cy__ask-list">

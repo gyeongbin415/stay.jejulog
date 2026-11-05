@@ -330,7 +330,7 @@ export const EN: ContentPack = {
       oneLine: 'A stay where books open the door to conversations with strangers about the many kinds of love',
       join: {
         who: 'The conversation gathering ‘To the Oreum’ meets every evening at 8.',
-        how: 'Sign up by text on the day; it usually goes ahead with two or more people (based on visitor reviews). Rooms are booked through Naver Booking.',
+        how: 'Sign up by text on the day; it goes ahead with 3 or more sign-ups. Rooms are booked through Naver Booking.',
         linkLabels: ['Instagram', 'Official blog'],
       },
       programs: [

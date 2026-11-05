@@ -76,3 +76,12 @@
 .leaflet-container { font-family: var(--f-home); }
 /* 휴대폰 — 지도 오른쪽 아래 출처 글씨(국기 · Leaflet · OpenStreetMap) 숨김 */
 @media (max-width: 899px) { .leaflet-control-attribution { display: none; } }
+
+/* 휴대폰 · 태블릿 — 취향 버튼 줄을 지도 위로: 지도 아래(화면 맨 밑)에 두면 왼쪽 아래 뒤로 가기 동그라미가 '전체' 버튼을 가림 */
+@media (max-width: 899px) {
+  .tmap__mapwrap { display: flex; flex-direction: column; }
+  .tmap__filters { order: -1; margin: 0 0 12px; }
+  /* 확대 · 축소 버튼은 지도 오른쪽 위로 — 오른쪽 아래 둥근 버튼과 겹치지 않게 */
+  .tmap__map .leaflet-bottom.leaflet-right { top: 0; bottom: auto; }
+  .tmap__map .leaflet-bottom.leaflet-right .leaflet-control { margin-top: 10px; margin-bottom: 0; }
+}

@@ -80,7 +80,7 @@
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TVQ24H9H"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
-    <a class="skip-link" href="#main">본문 바로가기</a>
+    <a class="skip-link" href="#main" onclick="event.preventDefault();var m=document.getElementById('main');if(m){if(!m.hasAttribute('tabindex'))m.setAttribute('tabindex','-1');m.focus();m.scrollIntoView();}">본문 바로가기</a>
     <!-- 앱이 뜨기 전 · 검색과 AI 가 읽는 소개 글 — 앱이 뜨면 이 자리가 화면으로 바뀝니다 -->
     <div id="root">
       <div id="boot-loader" role="status" aria-label="불러오는 중">

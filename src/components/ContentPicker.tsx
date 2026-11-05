@@ -3,7 +3,7 @@ import { href } from '../lib/router';
 import houseUrl from '../assets/house-icon.png';
 import testArtUrl from '../assets/test-clipboard.png';
 import tasteMapUrl from '../assets/taste-map-paper.png';
-import noteUrl from '../assets/guest-note.png';
+import noteUrl from '../assets/guest-window.png'; // 받은 그림 그대로 — 창 속 귤 캐릭터
 
 /* ------------------------------------------------------------------
    PC 메인 — 콘텐츠 고르기 (집 · 취향 테스트 · 취향 지도 · 방명록 공책)
@@ -19,7 +19,7 @@ export function ContentPicker() {
     { key: 'house', en: 'EXPLORE', label: ui.nav.house, to: href.house(), art: <img src={houseUrl} alt="" width={900} height={630} loading="lazy" decoding="async" /> },
     { key: 'test', en: 'TEST', label: ui.nav.test, to: href.test(), art: <img src={testArtUrl} alt="" width={821} height={985} loading="lazy" decoding="async" /> },
     { key: 'map', en: 'MAP', label: ui.deck.tastemap, to: href.map(), art: <img src={tasteMapUrl} alt="" width={1100} height={707} loading="lazy" decoding="async" /> },
-    { key: 'guest', en: 'GUESTBOOK', label: ui.nav.guest, to: href.guest(), art: <img src={noteUrl} alt="" width={900} height={708} loading="lazy" decoding="async" /> },
+    { key: 'guest', en: 'GUESTBOOK', label: ui.nav.guest, to: href.guest(), art: <img src={noteUrl} alt="" width={800} height={646} loading="lazy" decoding="async" /> },
   ];
 
   return (

@@ -320,7 +320,7 @@ export const PROGRAMS: Program[] = [
       place: { name: '서점숙소', area: '제주시 조천읍', address: '제주특별자치도 제주시 조천읍 북촌14길 13-12' },
       join: {
         who: '대화 모임 ‘오름에게’는 매일 저녁 8시에 열려요.',
-        how: '모임은 당일 문자로 신청하고, 보통 2명 이상 모이면 진행돼요 (방문 후기 기준). 숙소 예약은 네이버 예약으로 받아요.',
+        how: '모임은 당일 문자로 신청하고, 신청 인원이 3명 이상이면 진행돼요. 숙소 예약은 네이버 예약으로 받아요.',
         links: [{ label: '인스타그램', url: 'https://www.instagram.com/jejubookhome/' }, { label: '공식 블로그', url: 'https://blog.naver.com/jejubookhome' }],
       },
       oneLine: '책을 매개로 낯선 사람들과 다양한 사랑에 대해 이야기 나눌 수 있는 숙소',

@@ -5,6 +5,7 @@ import '../styles/map.css';
 import { useContent } from '../i18n';
 import { href } from '../lib/router';
 import { TASTE_LAYERS, TASTE_PLACES, type TasteLayer, type TastePlace } from '../data/tasteMap';
+import { AREA_I18N, PLACE_I18N } from '../data/tasteMap.i18n';
 
 /**
  * PAGE 06 — 제주 게하 취향지도
@@ -92,7 +93,11 @@ export default function MapPage() {
 
   const layerOf = (id: TasteLayer) => TASTE_LAYERS.find((l) => l.id === id)!;
   const layerName = (id: TasteLayer) => layerOf(id)[lang];
-  const descOf = (p: TastePlace) => (p.stay ? programById[p.stay].report.oneLine ?? '' : p.desc ?? '');
+  // 영어 · 중국어 화면 — 숙소 이름 · 지역 · 한 줄 소개도 그 언어로 (tasteMap.i18n.ts)
+  const tr = (p: TastePlace) => (lang === 'ko' ? undefined : PLACE_I18N[p.name]);
+  const nameOf = (p: TastePlace) => tr(p)?.name || p.name;
+  const areaOf = (p: TastePlace) => (lang === 'ko' ? p.area : AREA_I18N[p.area]?.[lang] ?? p.area);
+  const descOf = (p: TastePlace) => (p.stay ? programById[p.stay].report.oneLine ?? '' : (lang !== 'ko' && tr(p)?.[lang]) || p.desc || '');
   const found = TASTE_PLACES;
   const shown = useMemo(() => found.filter((p) => filter === 'all' || p.layer === filter), [found, filter]);
 
@@ -126,7 +131,7 @@ export default function MapPage() {
       const links = p.stay ? `<a href="${href.stay(p.stay)}">${esc(t.seeStay)} →</a>` : '';
       m.bindPopup(
         `<div class="tmap-pop"><p class="tmap-pop__layer" style="color:${color}">${esc(layerName(p.layer))}${p.stay ? ` · ${esc(t.webzineBadge)}` : ''}</p>` +
-          `<p class="tmap-pop__name">${esc(p.name)}</p><p class="tmap-pop__area">${esc(p.area)}</p>` +
+          `<p class="tmap-pop__name">${esc(nameOf(p))}</p><p class="tmap-pop__area">${esc(areaOf(p))}</p>` +
           `<p class="tmap-pop__desc">${esc(descOf(p))}</p>${links ? `<p class="tmap-pop__links">${links}</p>` : ''}</div>`,
         { maxWidth: 280 },
       );
@@ -198,8 +203,8 @@ export default function MapPage() {
                     <i style={{ background: l.color }} aria-hidden="true" /> {l[lang]}
                     {p.stay && <span className="tmap__badge">{t.webzineBadge}</span>}
                   </span>
-                  <span className="tmap__name">{p.name}</span>
-                  <span className="tmap__area">{p.area}</span>
+                  <span className="tmap__name">{nameOf(p)}</span>
+                  <span className="tmap__area">{areaOf(p)}</span>
                   <span className="tmap__desc">{descOf(p)}</span>
                 </button>
               </li>
