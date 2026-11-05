@@ -36,7 +36,7 @@ export interface UiText {
     tickerMore: (n: number) => string;
     /** 방명록 페이지 미니홈피 틀 — 오른쪽 탭 (처음 · 질문 · 자유) · 오른쪽 위 제목 */
     cyTabs: [string, string, string]; cyTitle: string;
-    cyMood: string; cySurf: string; cyNews: string; cyNewsSub: string; cyRoom: string; cyRoomSub: string; cyFriends: string; cyFriendsSub: string; cyEmpty: string; cyAsk: string; cyAskSub: string; cyAskBtn: string;
+    cyMood: string; cySurf: string; cyNews: string; cyNewsSub: string; cyRoom: string; cyRoomSub: string; cyFriends: string; cyFriendsSub: string; cyEmpty: string; cyAsk: string; cyAskSub: string; cyAskBtn: string; cyAskFree: string; cyAskQ: string;
     /** 첫 화면 두 버튼 — 자유롭게 적기 · 질문 골라 답하기 */
     modeTitle: string; modeSub: string; freeBtn: string; freeHint: string; freeLabel: string; freePlaceholder: string;
     questionsBtn: string; questionsHint: (n: number) => string; questionsDone: (k: number, n: number) => string; toModes: string };
@@ -104,7 +104,7 @@ export const UI: Record<Lang, UiText> = {
       localOnly: '지금은 준비 중이라 남긴 노트가 이 화면에만 보여요.', cloudAria: '여행자들이 남긴 노트',
       coverHint: '제주에 어떤 마음을 남겨 볼까요?', coverAria: '나의 제주 노트 표지',
       pickTitle: '어떤 질문에 답해 볼까요?', pickSub: '마음이 가는 질문만 골라 적어 보세요.\n하나만 적어도 괜찮아요.', pickWrite: '적어 보기', toList: '질문 목록', doneAnswer: '다 적었어요',
-      boardTitle: '모두의 노트', boardBy: (name) => `— ${name}`, boardMore: '노트 더 보기', tickerMore: (n) => `외 ${n.toLocaleString()}명이 답했어요`, cyTabs: ['홈', '질문', '자유'], cyTitle: 'STAY JEJULOG 방명록', cyMood: '♥ 여행 중', cySurf: '★ 다른 방 파도타기', cyNews: 'Updated news', cyNewsSub: 'TODAY STORY', cyRoom: 'Mini Room', cyRoomSub: 'MY JEJU NOTE', cyFriends: 'What friends say', cyFriendsSub: '자유롭게 남긴 한마디', cyEmpty: '아직 남긴 글이 없어요', cyAsk: '질문에 답해 주세요', cyAskSub: '마음에 드는 질문 하나만 골라도 좋아요', cyAskBtn: '답하기',
+      boardTitle: '모두의 노트', boardBy: (name) => `— ${name}`, boardMore: '노트 더 보기', tickerMore: (n) => `외 ${n.toLocaleString()}명이 답했어요`, cyTabs: ['홈', '질문', '자유'], cyTitle: 'STAY JEJULOG 방명록', cyMood: '♥ 여행 중', cySurf: '★ 다른 방 파도타기', cyNews: 'Updated news', cyNewsSub: 'TODAY STORY', cyRoom: 'Mini Room', cyRoomSub: 'MY JEJU NOTE', cyFriends: 'What friends say', cyFriendsSub: '자유롭게 남긴 한마디', cyEmpty: '아직 남긴 글이 없어요', cyAsk: '질문에 답해 주세요', cyAskSub: '마음에 드는 질문 하나만 골라도 좋아요', cyAskBtn: '답하기', cyAskFree: '자유 답변', cyAskQ: '질문지 답변',
       modeTitle: '제주 게하 방명록, 어떻게 남겨 볼까요?', modeSub: '자유롭게 적거나,\n마음이 가는 질문을 골라 답해 보세요.',
       freeBtn: '자유롭게 적기', freeHint: '하고 싶은 말을 마음대로', freeLabel: '자유롭게 남긴 말', freePlaceholder: '제주에서의 하루, 남기고 싶은 마음을 자유롭게 적어 보세요',
       questionsBtn: '질문 골라 답하기', questionsHint: (n) => `${n}가지 질문 중 골라서`, questionsDone: (k, n) => `${n}개 중 ${k}개 답했어요`, toModes: '뒤로가기',
@@ -194,7 +194,7 @@ export const UI: Record<Lang, UiText> = {
       localOnly: 'This is still being set up, so your note is only shown on this screen for now.', cloudAria: 'Notes left by travelers',
       coverHint: 'What will you leave in Jeju?', coverAria: 'My Jeju note cover',
       pickTitle: 'Which question would you like to answer?', pickSub: 'Pick only the ones that speak to you.\nOne answer is enough.', pickWrite: 'Write', toList: 'Questions', doneAnswer: 'Done',
-      boardTitle: "Everyone's notes", boardBy: (name) => `— ${name}`, boardMore: 'See more notes', tickerMore: (n) => `and ${n.toLocaleString()} ${n === 1 ? 'other' : 'others'} answered`, cyTabs: ['Home', 'Q&A', 'Free'], cyTitle: 'STAY JEJULOG Guestbook', cyMood: '♥ traveling', cySurf: '★ Visit other rooms', cyNews: 'Updated news', cyNewsSub: 'TODAY STORY', cyRoom: 'Mini Room', cyRoomSub: 'MY JEJU NOTE', cyFriends: 'What friends say', cyFriendsSub: 'free notes', cyEmpty: 'No notes yet', cyAsk: 'Answer a question', cyAskSub: 'Just one question you like is enough', cyAskBtn: 'Answer',
+      boardTitle: "Everyone's notes", boardBy: (name) => `— ${name}`, boardMore: 'See more notes', tickerMore: (n) => `and ${n.toLocaleString()} ${n === 1 ? 'other' : 'others'} answered`, cyTabs: ['Home', 'Q&A', 'Free'], cyTitle: 'STAY JEJULOG Guestbook', cyMood: '♥ traveling', cySurf: '★ Visit other rooms', cyNews: 'Updated news', cyNewsSub: 'TODAY STORY', cyRoom: 'Mini Room', cyRoomSub: 'MY JEJU NOTE', cyFriends: 'What friends say', cyFriendsSub: 'free notes', cyEmpty: 'No notes yet', cyAsk: 'Answer a question', cyAskSub: 'Just one question you like is enough', cyAskBtn: 'Answer', cyAskFree: 'Free note', cyAskQ: 'Answer the questions',
       modeTitle: 'Jeju guesthouse guestbook — how would you like to leave a note?', modeSub: 'Write freely,\nor pick a question to answer.',
       freeBtn: 'Write freely', freeHint: 'Anything you want to say', freeLabel: 'Free note', freePlaceholder: 'Write anything about your day or your feelings in Jeju',
       questionsBtn: 'Answer a question', questionsHint: (n) => `Choose from ${n} questions`, questionsDone: (k, n) => `${k} of ${n} answered`, toModes: 'Back',
@@ -284,7 +284,7 @@ export const UI: Record<Lang, UiText> = {
       localOnly: '目前仍在准备中，你的笔记暂时只显示在这个页面上。', cloudAria: '旅行者们留下的笔记',
       coverHint: '要在济州留下怎样的心意呢？', coverAria: '我的济州笔记封面',
       pickTitle: '想回答哪个问题？', pickSub: '只挑你喜欢的问题来写吧。\n写一个也没关系。', pickWrite: '写一写', toList: '问题列表', doneAnswer: '写好了',
-      boardTitle: '大家的笔记', boardBy: (name) => `— ${name}`, boardMore: '查看更多笔记', tickerMore: (n) => `等 ${n.toLocaleString()} 人也回答了`, cyTabs: ['首页', '问题', '自由'], cyTitle: 'STAY JEJULOG 留言簿', cyMood: '♥ 旅行中', cySurf: '★ 去别的房间看看', cyNews: 'Updated news', cyNewsSub: 'TODAY STORY', cyRoom: 'Mini Room', cyRoomSub: 'MY JEJU NOTE', cyFriends: 'What friends say', cyFriendsSub: '自由留言', cyEmpty: '还没有留言', cyAsk: '来回答问题吧', cyAskSub: '挑一个喜欢的问题就好', cyAskBtn: '回答',
+      boardTitle: '大家的笔记', boardBy: (name) => `— ${name}`, boardMore: '查看更多笔记', tickerMore: (n) => `等 ${n.toLocaleString()} 人也回答了`, cyTabs: ['首页', '问题', '自由'], cyTitle: 'STAY JEJULOG 留言簿', cyMood: '♥ 旅行中', cySurf: '★ 去别的房间看看', cyNews: 'Updated news', cyNewsSub: 'TODAY STORY', cyRoom: 'Mini Room', cyRoomSub: 'MY JEJU NOTE', cyFriends: 'What friends say', cyFriendsSub: '自由留言', cyEmpty: '还没有留言', cyAsk: '来回答问题吧', cyAskSub: '挑一个喜欢的问题就好', cyAskBtn: '回答', cyAskFree: '自由留言', cyAskQ: '回答问题',
       modeTitle: '济州民宿留言簿，想怎么留言呢？', modeSub: '可以自由书写，\n也可以挑个问题来回答。',
       freeBtn: '自由书写', freeHint: '想说什么都可以', freeLabel: '自由留言', freePlaceholder: '自由写下在济州的一天或想留下的心情',
       questionsBtn: '挑问题回答', questionsHint: (n) => `从${n}个问题中挑选`, questionsDone: (k, n) => `已回答 ${k} / ${n}`, toModes: '返回',

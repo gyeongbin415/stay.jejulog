@@ -442,22 +442,28 @@ function GuestWriter({ notes, onClose, onSent, inline = false }: { notes: GuestN
       {/* 처음 — 자유롭게 적기 · 질문 골라 답하기 두 버튼, 하나 이상 적으면 이름과 함께 남기기 */}
       {phase === 'pick' && inline && (
         <div className="gwrite__body wrap">
-          {/* 가장 먼저 — 질문 다섯 개를 바로 골라 답하기 (방명록의 주 목적) */}
+          {/* 가장 먼저 — 자유 답변 · 질문지 답변 (방명록의 주 목적) */}
           <section className="cy__ask">
             <h3 className="cy__ask-title">
               ✎ {t.cyAsk} <small>{t.cyAskSub}</small>
             </h3>
-            <ol className="cy__ask-list">
-              {t.questions.map((q, i) => (
-                <li key={i}>
-                  <button type="button" className={answered[i] ? 'is-done' : undefined} onClick={() => open(i)} data-track={`guest_cyask_q${i + 1}`}>
-                    <b>Q{i + 1}</b>
-                    <span>{q}</span>
-                    <em>{answered[i] ? '✓' : t.cyAskBtn}</em>
-                  </button>
-                </li>
-              ))}
-            </ol>
+            {/* 두 줄만 — 누르면 오른쪽(휴대폰은 위) '자유' · '질문' 탭과 같은 화면으로 */}
+            <ul className="cy__ask-list">
+              <li>
+                <button type="button" className={answered[FREE] ? 'is-done' : undefined} onClick={() => goTab(2)} data-track="guest_cyask_free">
+                  <b>✎</b>
+                  <span>{t.cyAskFree} <small>{t.freeHint}</small></span>
+                  <em>{answered[FREE] ? '✓' : t.cyAskBtn}</em>
+                </button>
+              </li>
+              <li>
+                <button type="button" className={qCount ? 'is-done' : undefined} onClick={() => goTab(1)} data-track="guest_cyask_questions">
+                  <b>Q</b>
+                  <span>{t.cyAskQ} <small>{qCount ? t.questionsDone(qCount, QUESTIONS) : t.questionsHint(QUESTIONS)}</small></span>
+                  <em>{t.cyAskBtn}</em>
+                </button>
+              </li>
+            </ul>
           </section>
           <div className="cy__top">
             <section className="cy__news">
