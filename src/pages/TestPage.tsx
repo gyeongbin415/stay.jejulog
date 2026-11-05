@@ -235,7 +235,9 @@ function Result({ result, shared, onRetry, focusRef }: { result: QuizResult; sha
   };
 
   // 결과 공유 — 지금 쓰는 기기의 공유 창으로 (휴대폰이면 카카오톡 · 인스타그램 앱이 목록에 바로 뜸)
-  const url = absUrl(href.result(result.code));
+  // 공유하는 링크는 결과별 미리보기 페이지(public/s/{결과}.html) — 카카오톡 · 문자 등의 링크 미리보기에 그 결과 그림(s/{결과}.jpg)이 뜨고,
+  //  누르면 웹진의 이 결과 화면으로 바로 넘어감 (웹진 주소 그대로면 미리보기가 모두 같은 대표 그림)
+  const url = absUrl(`s/${result.main}.html?r=${result.code}`);
   const hit = (via: string) => track('result_share', { via });
   const failed = (err: unknown) => setStatus((err as Error)?.name === 'AbortError' ? t.canceled : t.shareFailed);
   // 카카오톡 — 결과 링크를 공유 창으로 (링크만 보냄, 제목 · 설명 문장은 함께 보내지 않음)
@@ -259,8 +261,7 @@ function Result({ result, shared, onRetry, focusRef }: { result: QuizResult; sha
   //  누르면 웹진의 이 결과 화면으로 바로 넘어감
   const shareX = () => {
     hit('x');
-    const cardUrl = absUrl(`s/${result.main}.html?r=${result.code}`);
-    openXPost(t.xText(site.characters[result.main]), cardUrl);
+    openXPost(t.xText(site.characters[result.main]), url);
   };
   // 링크 복사 — 결과 링크를 복사해 두고 원하는 곳(문자 · DM · 메모 등)에 붙여 넣게
   //  복사 기능을 못 쓰는 브라우저는 숨긴 글상자를 골라 복사
