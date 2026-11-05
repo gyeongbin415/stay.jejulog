@@ -93,11 +93,12 @@ const pct = (v: number, of: number) => `${(v / of) * 100}%`;
 /** 목록 칸 숙소 이름 — 스르르는 ‘게스트하우스’를 빼고 짧게 (두 줄로 넘쳐 칸 높이가 달라지지 않게) */
 const listPlace = (id: ProgramId, name: string) => (id === 'craft' ? name.replace(/\s*(게스트하우스|Guesthouse)/g, '') : name);
 
+/** 처음 들어오면 목록부터 — 이번 방문에서 '집'을 골라 두었으면(숙소 상세에 다녀오는 등) 그대로 집 */
 function readView(): View {
   try {
-    return sessionStorage.getItem(VIEW_KEY) === 'list' ? 'list' : 'house';
+    return sessionStorage.getItem(VIEW_KEY) === 'house' ? 'house' : 'list';
   } catch {
-    return 'house';
+    return 'list';
   }
 }
 
