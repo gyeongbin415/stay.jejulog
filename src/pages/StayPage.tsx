@@ -265,13 +265,13 @@ export default function StayPage({ id }: { id: ProgramId }) {
         <div className="stay-nav__row">
           {/* 글자 없이 ← · 집 · → 아이콘만 (읽어 주는 이름은 그대로) */}
           <a className="btn btn--ghost stay-nav__icon" href={href.stay(prev.id)} aria-label={t.prevStay} title={t.prevStay} data-track={`stay_${id}_prev_${prev.id}`}>
-            <span className="arrow" aria-hidden="true">←</span>
+            <svg className="stay-nav__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H6M11 6.5 5.5 12 11 17.5" /></svg>
           </a>
           <a className="btn btn--ghost stay-nav__icon" href={href.house()} aria-label={t.backToHouse} title={t.backToHouse} data-track={`stay_${id}_back_house`}>
             <Icon name="home" />
           </a>
           <a className="btn btn--ghost stay-nav__icon" href={href.stay(next.id)} aria-label={t.nextStay} title={t.nextStay} data-track={`stay_${id}_next_${next.id}`}>
-            <span className="arrow" aria-hidden="true">→</span>
+            <svg className="stay-nav__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6.5 18.5 12 13 17.5" /></svg>
           </a>
         </div>
         {/* 아래: 나에게 맞는 게하 찾기 (크게) */}
