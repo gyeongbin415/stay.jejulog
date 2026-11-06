@@ -182,7 +182,7 @@ const STRIP: { src: string; h: number; y: number; r: number; photo: string; stay
   { src: stripGuitar, h: 96, y: -2, r: -1.5, photo: 'guitar', stay: 'book' },
   { src: stripPotluck, h: 97, y: 4, r: 2, photo: 'potluck' },
   { src: stripWinePour, h: 95, y: -3, r: -1.5, photo: 'winepour' },
-  { src: stripCat, h: 94, y: 2, r: 1.5, photo: 'cat' },
+  { src: stripCat, h: 94, y: 2, r: 1.5, photo: 'cat', stay: 'flower' },
 ];
 
 /** 사진 띠가 저절로 흐르는 빠르기 — 한 바퀴(사진 18장)에 걸리는 시간 */
@@ -339,7 +339,7 @@ function PhotoStrip() {
 
 /* ── ROOM TOUR — CHECK IN 아래, 집 그림 + 테두리 버튼. 누르면 집 페이지(#/house) ─────────────────────────────── */
 function RoomTour() {
-  const { site: SITE } = useContent();
+  const { site: SITE, ui } = useContent();
   const e = SITE.explore;
   return (
     <section id="roomtour" className="roomtour" data-tone="light" aria-labelledby="roomtour-title">
@@ -348,7 +348,8 @@ function RoomTour() {
       <a className="roomtour__link" href={href.house()} data-track="home_roomtour">
         <img className="roomtour__img" src={houseUrl} alt="" width={900} height={630} loading="lazy" decoding="async" />
         <span className="roomtour__btn">
-          <span id="roomtour-title">{e.title.join(' ')}</span>
+          {/* 버튼 문구는 '~하기'로 (게하 탐색 페이지 제목 '어느 방부터 둘러볼까요?'는 그대로) */}
+          <span id="roomtour-title">{ui.home.roomtourCta}</span>
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6.5 18.5 12 13 17.5" /></svg>
         </span>
       </a>
