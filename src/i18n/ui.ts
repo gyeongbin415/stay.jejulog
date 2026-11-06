@@ -65,7 +65,7 @@ export interface UiText {
     sharedLabel: string; resultLabel: string; lead: string;
     /** 추천 이유 — 1위 숙소에 점수를 준 실제 답변(최대 둘)으로 */
     reasonLine: (picks: string[]) => string;
-    bestCaption: string; nextCaption: string; thirdCaption: string; othersLabel: string; othersTitle: string; expType: string; reason: string; myPicks: string; detail: string;
+    bestCaption: string; nextCaption: string; thirdCaption: string; othersLabel: string; othersTitle: string; expType: string; reason: string; myPicks: string; detail: string; seeMap: string;
     retry: string; share: string; shared: string; copied: string; canceled: string;
     /** 결과 공유 — 제목 · 카카오톡 · X · 링크 복사, 카톡은 공유 창이 없으면 링크 복사로 */
     shareTitle: string; shareKakao: string; shareX: string; shareLink: string; kakaoCopied: string; linkCopied: string; xText: (title: string) => string; shareFailed: string;
@@ -153,7 +153,7 @@ export const UI: Record<Lang, UiText> = {
       reasonLine: (p) => `${p.map((x) => `‘${x}’`).join(', ')}라고 답한 당신에게 추천해요.`,
       bestCaption: '가장 잘 맞는 게스트하우스', nextCaption: '두 번째로 잘 맞는 게스트하우스', thirdCaption: '세 번째로 잘 맞는 게스트하우스',
       othersLabel: 'OTHER STAYS', othersTitle: '다른 게하게들도 만나보세요',
-      expType: '경험 유형', reason: '추천 이유', myPicks: '나의 선택', detail: '자세히 알아보기',
+      expType: '경험 유형', reason: '추천 이유', myPicks: '나의 선택', detail: '자세히 알아보기', seeMap: '취향 지도에서 위치 보기',
       retry: '다시하기', share: '친구에게 공유하기',
       save: '저장하기', saved: '결과 이미지를 저장했습니다.', saveFailed: '이미지를 저장하지 못했습니다. 화면을 캡처해 주세요.',
       shared: '공유 창을 열었습니다.', copied: '결과 링크를 복사했습니다.', canceled: '공유를 취소했습니다.',
@@ -243,7 +243,7 @@ export const UI: Record<Lang, UiText> = {
       reasonLine: (p) => `You answered ${p.map((x) => `“${x}”`).join(' and ')} — that’s why this stay suits you.`,
       bestCaption: 'Your best-matched guesthouse', nextCaption: 'Your second match', thirdCaption: 'Your third match',
       othersLabel: 'OTHER STAYS', othersTitle: 'Meet the other Gehages',
-      expType: 'Experience', reason: 'Why it fits', myPicks: 'Your answers', detail: 'Learn more',
+      expType: 'Experience', reason: 'Why it fits', myPicks: 'Your answers', detail: 'Learn more', seeMap: 'See it on the Taste Map',
       retry: 'Try again', share: 'Share with friends',
       save: 'Save', saved: 'Result image saved.', saveFailed: 'Couldn’t save the image. Please take a screenshot instead.',
       shared: 'Opened the share sheet.', copied: 'Result link copied.', canceled: 'Sharing canceled.',
@@ -333,7 +333,7 @@ export const UI: Record<Lang, UiText> = {
       reasonLine: (p) => `你选择了${p.map((x) => `“${x}”`).join('、')}，所以这里很适合你。`,
       bestCaption: '最适合你的民宿', nextCaption: '第二适合你的民宿', thirdCaption: '第三适合你的民宿',
       othersLabel: 'OTHER STAYS', othersTitle: '也来认识其他的게하게吧',
-      expType: '体验类型', reason: '推荐理由', myPicks: '你的选择', detail: '了解详情',
+      expType: '体验类型', reason: '推荐理由', myPicks: '你的选择', detail: '了解详情', seeMap: '在喜好地图上查看位置',
       retry: '再测一次', share: '分享给朋友',
       save: '保存', saved: '已保存结果图片。', saveFailed: '无法保存图片，请截屏保存。',
       shared: '已打开分享窗口。', copied: '已复制结果链接。', canceled: '已取消分享。',

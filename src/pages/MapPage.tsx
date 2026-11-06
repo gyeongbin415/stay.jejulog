@@ -16,7 +16,7 @@ type Filter = TasteLayer | 'all';
 
 const esc = (s: string) => s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!);
 
-export default function MapPage() {
+export default function MapPage({ stay }: { stay?: string | null }) {
   const { ui, lang, programById } = useContent();
   const t = ui.map;
   const [filter, setFilter] = useState<Filter>('all');
@@ -90,6 +90,12 @@ export default function MapPage() {
   }, []);
   const mapRef = useRef<L.Map | null>(null);
   const markers = useRef<Map<string, L.CircleMarker>>(new Map());
+  /** 테스트 결과에서 짚어 온 숙소 — 그 자리를 지키다가, 취향 버튼 · 목록을 누르면 놓음 */
+  const stayHold = useRef<string | null>(stay ?? null);
+  const pickFilter = (f: Filter) => {
+    stayHold.current = null;
+    setFilter(f);
+  };
 
   const layerOf = (id: TasteLayer) => TASTE_LAYERS.find((l) => l.id === id)!;
   const layerName = (id: TasteLayer) => layerOf(id)[lang];
@@ -149,10 +155,14 @@ export default function MapPage() {
       if (on.has(name)) m.addTo(map);
       else m.remove();
     });
-    if (shown.length) map.fitBounds(L.latLngBounds(shown.map((p) => [p.lat, p.lng] as [number, number])), { padding: [28, 28], maxZoom: 12 });
+    // 테스트 결과에서 숙소를 짚어 들어왔으면 그 숙소 자리를 지킴 (취향 버튼을 누르기 전까지)
+    const target = stayHold.current ? TASTE_PLACES.find((x) => x.stay === stayHold.current) : undefined;
+    if (target) map.setView([target.lat, target.lng], 12, { animate: false });
+    else if (shown.length) map.fitBounds(L.latLngBounds(shown.map((p) => [p.lat, p.lng] as [number, number])), { padding: [28, 28], maxZoom: 12 });
   }, [shown, lang]);
 
   const focus = (p: TastePlace) => {
+    stayHold.current = null;
     setActive(p.name);
     const map = mapRef.current;
     const m = markers.current.get(p.name);
@@ -161,6 +171,33 @@ export default function MapPage() {
     m.openPopup();
     mapEl.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   };
+
+  // 취향 테스트 결과의 '지도에서 위치 보기'로 들어오면(#/map?stay=lp) — 그 숙소 핀으로 날아가 소개 창을 열어 둠
+  useEffect(() => {
+    if (!stay) return;
+    const p = TASTE_PLACES.find((x) => x.stay === stay);
+    if (!p) return;
+    stayHold.current = stay;
+    setFilter('all');
+    // 처음 맞춤(fitBounds)이 끝난 뒤 — 날아가는 움직임 없이 바로 그 자리로 옮기고 소개 창을 엶 (움직이는 중에 창을 열면 멈춰 버림)
+    const id = window.setTimeout(() => {
+      const map = mapRef.current;
+      const m = markers.current.get(p.name);
+      if (!map || !m) return;
+      setActive(p.name);
+      map.stop();
+      map.invalidateSize();
+      map.setView([p.lat, p.lng], 12, { animate: false });
+      // 자리를 옮긴 다음에 열어야 소개 창이 지도 안으로 맞춰짐
+      open = window.setTimeout(() => m.openPopup(), 150);
+      mapEl.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 600);
+    let open = 0;
+    return () => {
+      window.clearTimeout(id);
+      window.clearTimeout(open);
+    };
+  }, [stay]);
 
   return (
     <section className="tmap" data-tone="light" aria-labelledby="map-title">
@@ -180,13 +217,13 @@ export default function MapPage() {
           <div ref={mapEl} className="tmap__map" role="region" aria-label={t.pageTitle} />
           {/* 취향 고르기 버튼 — 지도 바로 아래 */}
           <div ref={chipsEl} className="tmap__filters" role="group" aria-label={t.filterAria}>
-            <button type="button" className="tmap__chip" aria-pressed={filter === 'all'} onClick={() => setFilter('all')}>
+            <button type="button" className="tmap__chip" aria-pressed={filter === 'all'} onClick={() => pickFilter('all')}>
               {t.all} <span className="tmap__n">{found.length}</span>
             </button>
             {TASTE_LAYERS.map((l) => {
               const n = found.filter((p) => p.layer === l.id).length;
               return (
-                <button key={l.id} type="button" className="tmap__chip" aria-pressed={filter === l.id} onClick={() => setFilter(l.id)} style={{ '--c': l.color } as CSSProperties} data-track={`map_layer_${l.id}`}>
+                <button key={l.id} type="button" className="tmap__chip" aria-pressed={filter === l.id} onClick={() => pickFilter(l.id)} style={{ '--c': l.color } as CSSProperties} data-track={`map_layer_${l.id}`}>
                   <i aria-hidden="true" /> {l[lang]} <span className="tmap__n">{n}</span>
                 </button>
               );

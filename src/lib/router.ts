@@ -172,7 +172,8 @@ export const href = {
   test: () => 'test/',
   /** post — 몇 번째 게시물을 바로 크게 열지 (1부터) */
   insta: (post?: number) => (post ? `#/instagram?post=${post}` : '#/instagram'),
-  map: () => '#/map',
+  /** stay — 그 숙소 핀을 바로 열어 보여 줌 (취향 테스트 결과에서) */
+  map: (stay?: ProgramId) => (stay ? `#/map?stay=${stay}` : '#/map'),
   guest: () => '#/guest',
   result: (code: string) => `test/#?r=${code}`,
   myResult: (code: string) => `test/#?r=${code}&me=1`,

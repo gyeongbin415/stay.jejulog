@@ -226,7 +226,7 @@ export function App() {
             <HousePage />
           ) : route.name === 'map' ? (
             <Suspense fallback={<Loader label={ui.map.title} />}>
-              <MapPage />
+              <MapPage stay={route.query.get('stay')} />
             </Suspense>
           ) : route.name === 'guest' ? (
             <GuestNotes page />

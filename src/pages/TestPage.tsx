@@ -316,9 +316,15 @@ function Result({ result, shared, onRetry, focusRef }: { result: QuizResult; sha
           <a className="btn" href={href.stay(result.main)} data-track={`result_best01_${result.main}`} {...gaAttrs(result.main, 1)}>
             {t.detail} <span className="arrow" aria-hidden="true">→</span>
           </a>
-          <button type="button" className="result__save" onClick={save} aria-label={t.save} title={t.save} data-track="result_save">
-            <ActIcon name="save" />
-          </button>
+          <div className="result__side">
+            {/* 취향 지도에서 이 숙소 위치 보기 */}
+            <a className="result__save" href={href.map(result.main)} aria-label={t.seeMap} title={t.seeMap} data-track={`result_map_${result.main}`}>
+              <ActIcon name="pin" />
+            </a>
+            <button type="button" className="result__save" onClick={save} aria-label={t.save} title={t.save} data-track="result_save">
+              <ActIcon name="save" />
+            </button>
+          </div>
         </div>
       </header>
 
@@ -378,11 +384,12 @@ function Result({ result, shared, onRetry, focusRef }: { result: QuizResult; sha
 }
 
 /** 결과 버튼 아이콘 — 저장(내려받기) · 다시하기(되돌리기), 글자색 선으로 */
-function ActIcon({ name }: { name: 'save' | 'retry' }) {
+function ActIcon({ name }: { name: 'save' | 'retry' | 'pin' }) {
   return (
     <svg className="result__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
       {name === 'save' && <path d="M12 4v11m-5-5 5 5 5-5M5 19h14" />}
       {name === 'retry' && <path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3M4.5 4v3.5H8" />}
+      {name === 'pin' && <path d="M12 21s-6.5-5.7-6.5-11a6.5 6.5 0 0 1 13 0c0 5.3-6.5 11-6.5 11zM12 12.3a2.3 2.3 0 1 0 0-4.6 2.3 2.3 0 0 0 0 4.6z" />}
     </svg>
   );
 }
