@@ -55,7 +55,7 @@ export const EN: ContentPack = {
 
     explore: {
       label: 'ROOM TOUR',
-      title: ['Which room shall we look around first?'],
+      title: ['Which house holds your taste?'],
       sub: 'Explore the many experiences\nwaiting at Jeju guesthouses.',
       hint: 'Tap a room to visit its guesthouse.',
     },
