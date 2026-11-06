@@ -122,7 +122,20 @@ export function GuestNotes({ page = false }: { page?: boolean }) {
     const server = board?.notes ?? [];
     const seen = new Set(server.map(same));
     const recent = board ? mine.filter((n) => Date.now() - (n.t ?? 0) < 120000) : mine;
-    return [...recent.filter((n) => !seen.has(same(n))).reverse(), ...server];
+    const all = [...recent.filter((n) => !seen.has(same(n))).reverse(), ...server];
+    // 같은 질문에 같은 답(띄어쓰기 · 마침표 차이 무시)은 한 번만 — 두 번 눌러 똑같이 두 번 올라온 답이 겹쳐 보이지 않게 (최근 것 하나만)
+    const key = (q: number, x: string) => `${q}|${x.replace(/[\s.,!?~…]+/g, '').toLowerCase()}`;
+    const used = new Set<string>();
+    return all
+      .map((n) => ({ ...n, a: n.a.map((x, q) => {
+        const tx = (x ?? '').trim();
+        if (!tx) return x;
+        const k = key(q, tx);
+        if (used.has(k)) return '';
+        used.add(k);
+        return x;
+      }) }))
+      .filter((n) => n.a.some((x) => x?.trim()));
   }, [board, mine]);
 
   // 방명록 페이지 — 표지 없이 바로 쓰기 화면
