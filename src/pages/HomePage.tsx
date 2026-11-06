@@ -173,7 +173,7 @@ const STRIP: { src: string; h: number; y: number; r: number; photo: string; stay
   { src: stripSeaSit, h: 98, y: -3, r: -1.5, photo: 'seasit' },
   { src: stripRingWork, h: 97, y: 2, r: 2, photo: 'ringwork', stay: 'craft' },
   { src: stripForest, h: 96, y: -3, r: -1.5, photo: 'forest' },
-  { src: stripMallow, h: 93, y: 3, r: 1.5, photo: 'mallow' },
+  { src: stripMallow, h: 93, y: 3, r: 1.5, photo: 'mallow', stay: 'camping' },
   { src: stripPuppy, h: 96, y: -2, r: -1.5, photo: 'puppy' },
   { src: stripDinner, h: 100, y: 2, r: 1.5, photo: 'susu-dinner-table', stay: 'homemeal' },
   { src: stripCrater, h: 99, y: -4, r: -2, photo: 'crater' },
