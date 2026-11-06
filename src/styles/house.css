@@ -216,6 +216,11 @@
   .house3d.house3d--paper.house3d--paperwide { --w: max(100%, min(340vw, 2000px)); }
   .house3d.house3d--paper.house3d--paperwide .house3d__frame { margin: 0 0 0 calc((100% - var(--w)) / 2); }
 }
+/* PC — 그림을 화면보다 조금 크게(1.45배) 키워 집이 크게 보이게, 양옆 바다 · 섬 끝만 조금 잘라 냄 */
+@media (min-width: 900px) {
+  .house3d.house3d--paper.house3d--paperwide { --w: max(100%, min(145vw, 2600px)); overflow: hidden; }
+  .house3d.house3d--paper.house3d--paperwide .house3d__frame { margin-left: calc((100% - var(--w)) / 2); }
+}
 /* 손그림 집 이름표 — 방에 마우스를 올리면 그림 속 이름표 자리에 주황으로 */
 .house3d--paper .house3d__frame { container-type: inline-size; } /* 이름표 글씨를 그림 크기에 맞춤 (100cqw = 그림 폭) */
 .house3d__pill {
