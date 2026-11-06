@@ -3,7 +3,6 @@ import type { ProgramId } from '../data/types';
 import { useContent } from '../i18n';
 import { href } from '../lib/router';
 import { useMediaQuery, useReducedMotion } from '../lib/motion';
-import { HomeDeck } from '../components/HomeDeck';
 import { ContentPicker } from '../components/ContentPicker';
 import { GuestNotes } from '../components/GuestNotes';
 import houseUrl from '../assets/house-icon.png';
@@ -36,9 +35,7 @@ import stripSunrise from '../assets/strip/kokoko-sunrise.webp';
  */
 export function HomePage() {
   const { site: SITE, ui } = useContent();
-  // 휴대폰 — 칸을 한 장씩 위아래로 넘겨봄 (동작 줄이기 설정이면 보통 스크롤)
   const mobile = useMediaQuery('(max-width: 899px)');
-  const reduced = useReducedMotion();
   return (
     <>
       <h1 className="visually-hidden">{SITE.brand} {SITE.brandEn} — {ui.home.srTitle}</h1>
@@ -57,9 +54,7 @@ export function HomePage() {
           <CheckOut />
         </>
       )}
-      {/* 인트로보다 뒤에 둬야 손짓 처리도 인트로 다음 차례 (인트로가 단계를 넘긴 손짓은 넘기지 않음) */}
-      {/* 휴대폰 — 칸에 딱딱 맞춰 넘기지 않고 보통 스크롤처럼 부드럽게, 오른쪽 점만 지금 칸 표시 (점을 누르면 그 칸으로) */}
-      {mobile && !reduced && <HomeDeck snap={false} />}
+      {/* 오른쪽 점 표시(넘겨보기)는 뺌 — 오른쪽 아래 묶음 버튼을 펼치면 겹쳐서. 이제 메인은 보통 스크롤 */}
     </>
   );
 }
