@@ -15,8 +15,8 @@ const MAIN_PANEL: Partial<Record<Route['name'], string>> = {
   test: 'find',
   guest: 'guest',
 };
+// 숙소 상세는 뺌 — 페이지 맨 아래 ← · 집 · → 줄이 있고, 떠 있는 버튼이 본문 위에 겹쳐서
 const FALLBACK: Partial<Record<Route['name'], string>> = {
-  stay: href.house(),
   insta: href.home(),
 };
 
