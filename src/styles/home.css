@@ -527,3 +527,10 @@
   .problem__head { margin-top: 12px; } /* 사진 띠와 제목 사이 살짝 더 */
   .outro__inner, .outro__head, .outro__actions { justify-items: center; text-align: center; }
 }
+
+/* 휴대폰 첫 화면 네 줄 — 한 줄씩 통째로 누르는 링크 (누르기 쉽게 위아래 여유), 제목에서 살짝 더 아래로 */
+.problem__line { display: block; padding: 3px 0; color: inherit; text-decoration: none; -webkit-tap-highlight-color: rgba(240, 136, 58, .15); }
+.problem__line:hover .problem__term, .problem__line:focus-visible .problem__term { text-decoration: underline; }
+@media (max-width: 899px) {
+  .problem__answer { margin-top: 14px; }
+}

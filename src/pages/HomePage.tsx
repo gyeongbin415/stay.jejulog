@@ -165,7 +165,21 @@ function Problem() {
           </div>
         )}
         <div className="problem__answer">
-          <p className="problem__answertext pre">{linkTerms(SITE.problem.answer)}</p>
+          {/* 휴대폰 — 네 줄을 한 줄씩 통째로 누르면 그 페이지로 (PC 네 칸처럼) */}
+          <p className="problem__answertext">
+            {SITE.problem.answer.split('\n').map((line, i) => {
+              const link = TERM_LINKS.find((t) => t.words.some((w) => line.includes(w)));
+              return link ? (
+                <a key={i} className="problem__line" href={link.to()} data-track={link.track}>
+                  {linkTerms(line, false)}
+                </a>
+              ) : (
+                <span key={i} className="problem__line">
+                  {line}
+                </span>
+              );
+            })}
+          </p>
           {SITE.problem.answerNote && <p className="problem__answernote">{SITE.problem.answerNote}</p>}
         </div>
         {/* PC — 같은 네 줄을 01 · 02 · 03 · 04 네 칸으로 (번호 · 주황 이름 · 한 줄 설명), 휴대폰은 위 문장 그대로 */}
