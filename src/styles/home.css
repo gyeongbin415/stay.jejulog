@@ -491,3 +491,10 @@
 .find__art img, .picker__item--test .picker__art > img { rotate: 3deg; }
 .tastemap__img, .picker__item--map .picker__art > img { rotate: 2deg; }
 .gnote__art img, .picker__item--guest .picker__art > img { rotate: -2deg; }
+
+/* 메인 네 칸 — 버튼 상자 없이 PC 콘텐츠 고르기처럼 그림 아래 이름(굵게) · 작은 영어 이름만 (누르면 그 페이지로) */
+.roomtour__btn, .find__cta { display: inline-grid; justify-items: center; gap: 8px; padding: 0; background: none; border: 0; border-radius: 0; box-shadow: none; }
+.roomtour__btn svg { display: none; }
+.roomtour__name { font-family: var(--f-home); font-size: clamp(18px, 4.8vw, 21px); font-weight: 800; letter-spacing: -0.02em; color: var(--ink); }
+.roomtour__link:hover .roomtour__btn, .roomtour__link:active .roomtour__btn, .find__cta:hover, .find__cta:active { transform: none; box-shadow: none; }
+.roomtour__link:hover .roomtour__name, .find__cta:hover .roomtour__name { text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 2px; }
