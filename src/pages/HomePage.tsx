@@ -98,17 +98,21 @@ const TERM_LINKS: { words: string[]; to: () => string; track: string }[] = [
   { words: ['취향 지도', 'Taste Map', '喜好地图'], to: href.map, track: 'checkin_link_map' },
   { words: ['방명록', 'Guestbook', '留言簿'], to: href.guest, track: 'checkin_link_guest' },
 ];
-function linkTerms(text: string) {
+/** asLink=false — 칸 전체가 링크일 때 안쪽 단어는 주황 글자만 (링크 안에 링크를 넣지 않게) */
+function linkTerms(text: string, asLink = true) {
   const all = TERM_LINKS.flatMap((t) => t.words.map((w) => ({ w, t })));
   const re = new RegExp(`(${all.map((x) => x.w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})`, 'g');
   return text.split(re).map((part, i) => {
     const hit = all.find((x) => x.w === part);
-    return hit ? (
+    if (!hit) return part;
+    return asLink ? (
       <a key={i} className="problem__term" href={hit.t.to()} data-track={hit.t.track}>
         {part}
       </a>
     ) : (
-      part
+      <span key={i} className="problem__term">
+        {part}
+      </span>
     );
   });
 }
@@ -123,9 +127,11 @@ function answerSteps(text: string) {
   return text.split('\n').map((line) => {
     const clean = line.trim().replace(/[,，；;。.]+$/, '');
     const cut = clean.search(/[,，]/);
-    if (cut > 0) return { head: clean.slice(0, cut).trim(), desc: clean.slice(cut + 1).trim() };
+    // 칸 전체를 누르면 가는 곳 — 그 줄에 든 링크 단어(게하 탐색 · 취향 테스트 · 취향 지도 · 방명록)의 페이지
+    const link = TERM_LINKS.find((t) => t.words.some((w) => clean.includes(w)));
+    if (cut > 0) return { head: clean.slice(0, cut).trim(), desc: clean.slice(cut + 1).trim(), link };
     // 영어 — 문장 중간 줄이라 소문자로 시작('find your …')하므로 칸마다 첫 글자만 대문자로
-    return { head: words.find((w) => clean.includes(w)) ?? clean, desc: clean.charAt(0).toUpperCase() + clean.slice(1) };
+    return { head: words.find((w) => clean.includes(w)) ?? clean, desc: clean.charAt(0).toUpperCase() + clean.slice(1), link };
   });
 }
 
@@ -166,9 +172,12 @@ function Problem() {
         <ol className="problem__steps">
           {answerSteps(SITE.problem.answer).map((s, i) => (
             <li key={i} className="problem__step">
-              <span className="problem__stepno">{String(i + 1).padStart(2, '0')}</span>
-              <strong className="problem__stephead">{linkTerms(s.head)}</strong>
-              <span className="problem__stepdesc">{s.desc}</span>
+              {/* 네 칸 각각 — 번호 · 이름 · 설명 어디를 눌러도 그 페이지로 */}
+              <a className="problem__steplink" href={s.link?.to()} data-track={s.link?.track}>
+                <span className="problem__stepno">{String(i + 1).padStart(2, '0')}</span>
+                <strong className="problem__stephead">{linkTerms(s.head, false)}</strong>
+                <span className="problem__stepdesc">{s.desc}</span>
+              </a>
             </li>
           ))}
         </ol>
