@@ -1,4 +1,4 @@
-import { useEffect, type CSSProperties } from 'react';
+import { useEffect, useRef, type CSSProperties } from 'react';
 import type { ProgramId } from '../data/types';
 import { useContent } from '../i18n';
 import { href } from '../lib/router';
@@ -162,8 +162,104 @@ const STRIP: { src: string; h: number; y: number; r: number; photo: string; stay
   { src: stripCat, h: 94, y: 2, r: 1.5, photo: 'cat' },
 ];
 
+/** 사진 띠가 저절로 흐르는 빠르기 — 한 바퀴(사진 18장)에 걸리는 시간 */
+const STRIP_LAP_MS = 72000;
+/** 손을 뗀 뒤 다시 흐르기 시작할 때까지 */
+const STRIP_RESUME_MS = 2500;
+
 function PhotoStrip() {
   const { ui, programs } = useContent();
+  const reduced = useReducedMotion();
+  const ref = useRef<HTMLDivElement>(null);
+  // 천천히 저절로 흐르되, 내가 움직일 수 있게 — 휴대폰은 손가락으로 옆으로 밀고, PC 는 마우스로 끌거나 트랙패드 · Shift+휠로 옆으로
+  //  손대는 동안(마우스를 올려 둔 동안 포함)은 멈추고, 손을 떼고 2.5초 뒤 다시 흐름. 같은 줄을 두 번 이어 붙여 끝없이 이어짐
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    let pos = el.scrollLeft;
+    let last = performance.now();
+    let raf = 0;
+    let hover = false;
+    let holdUntil = 0;
+    let drag: { x: number; left: number; moved: boolean } | null = null;
+    const half = () => el.scrollWidth / 2;
+    const wrap = () => {
+      const h = half();
+      if (h <= 0) return;
+      if (el.scrollLeft >= h) el.scrollLeft -= h;
+      else if (el.scrollLeft <= 0) el.scrollLeft += h;
+    };
+    const hold = () => {
+      holdUntil = performance.now() + STRIP_RESUME_MS;
+    };
+    const tick = (now: number) => {
+      const dt = Math.min(64, now - last);
+      last = now;
+      if (!reduced && !hover && !drag && now > holdUntil && !document.hidden) {
+        const h = half();
+        pos += (h / STRIP_LAP_MS) * dt; // 소수점까지 따로 세어 아주 느려도 멈추지 않게
+        if (h > 0 && pos >= h) pos -= h;
+        el.scrollLeft = pos;
+      } else pos = el.scrollLeft; // 손으로 옮긴 자리부터 이어서
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    const onScroll = () => {
+      if (drag || performance.now() < holdUntil) wrap();
+    };
+    const onEnter = (e: PointerEvent) => e.pointerType === 'mouse' && (hover = true);
+    const onLeave = (e: PointerEvent) => {
+      if (e.pointerType !== 'mouse') return;
+      hover = false;
+      hold();
+    };
+    // 마우스로 끌기 (손가락은 기본 가로 스크롤 그대로)
+    const onDown = (e: PointerEvent) => {
+      hold();
+      if (e.pointerType !== 'mouse' || e.button !== 0) return;
+      drag = { x: e.clientX, left: el.scrollLeft, moved: false };
+      el.classList.add('is-dragging');
+    };
+    const onMove = (e: PointerEvent) => {
+      if (!drag) return;
+      const dx = e.clientX - drag.x;
+      if (Math.abs(dx) > 4) drag.moved = true;
+      el.scrollLeft = drag.left - dx;
+      wrap();
+    };
+    const onUp = () => {
+      if (!drag) return;
+      const moved = drag.moved;
+      drag = null;
+      el.classList.remove('is-dragging');
+      hold();
+      // 끌다 놓은 건 사진 누르기(상세로 이동)로 치지 않음
+      if (moved) el.addEventListener('click', (ev) => ev.preventDefault(), { capture: true, once: true });
+    };
+    const onTouch = () => hold();
+    const onWheel = (e: WheelEvent) => Math.abs(e.deltaX) > Math.abs(e.deltaY) && hold();
+    el.addEventListener('scroll', onScroll, { passive: true });
+    el.addEventListener('pointerenter', onEnter);
+    el.addEventListener('pointerleave', onLeave);
+    el.addEventListener('pointerdown', onDown);
+    window.addEventListener('pointermove', onMove);
+    window.addEventListener('pointerup', onUp);
+    el.addEventListener('touchstart', onTouch, { passive: true });
+    el.addEventListener('touchmove', onTouch, { passive: true });
+    el.addEventListener('wheel', onWheel, { passive: true });
+    return () => {
+      cancelAnimationFrame(raf);
+      el.removeEventListener('scroll', onScroll);
+      el.removeEventListener('pointerenter', onEnter);
+      el.removeEventListener('pointerleave', onLeave);
+      el.removeEventListener('pointerdown', onDown);
+      window.removeEventListener('pointermove', onMove);
+      window.removeEventListener('pointerup', onUp);
+      el.removeEventListener('touchstart', onTouch);
+      el.removeEventListener('touchmove', onTouch);
+      el.removeEventListener('wheel', onWheel);
+    };
+  }, [reduced]);
   const alt = (key: string) => {
     if (key === 'run') return ui.home.stripRunAlt;
     if (key === 'lounge') return ui.home.stripLoungeAlt;
@@ -195,7 +291,7 @@ function PhotoStrip() {
     return '';
   };
   return (
-    <div className="strip" aria-hidden="true">
+    <div className="strip" aria-hidden="true" ref={ref}>
       <div className="strip__track">
         {[0, 1].map((loop) =>
           STRIP.map((p) => {
