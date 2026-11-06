@@ -113,6 +113,22 @@ function linkTerms(text: string) {
   });
 }
 
+/**
+ * 안내 문장 한 줄 → PC 네 칸용 (이름 · 설명)
+ *  '게하 탐색으로, 색다른 제주 게하를 둘러보고' → 이름 '게하 탐색으로' · 설명 '색다른 제주 게하를 둘러보고' (중국어는 '，')
+ *  쉼표가 줄 가운데 없으면(영어) 이름은 그 줄의 링크 단어, 설명은 줄 전체
+ */
+function answerSteps(text: string) {
+  const words = TERM_LINKS.flatMap((t) => t.words);
+  return text.split('\n').map((line) => {
+    const clean = line.trim().replace(/[,，；;。.]+$/, '');
+    const cut = clean.search(/[,，]/);
+    if (cut > 0) return { head: clean.slice(0, cut).trim(), desc: clean.slice(cut + 1).trim() };
+    // 영어 — 문장 중간 줄이라 소문자로 시작('find your …')하므로 칸마다 첫 글자만 대문자로
+    return { head: words.find((w) => clean.includes(w)) ?? clean, desc: clean.charAt(0).toUpperCase() + clean.slice(1) };
+  });
+}
+
 /* ── SECTION 02. PROBLEM — 인트로 끝에 떠오르는 문제 정의 ─────────────────────────────── */
 function Problem() {
   const { site: SITE } = useContent();
@@ -146,6 +162,16 @@ function Problem() {
           <p className="problem__answertext pre">{linkTerms(SITE.problem.answer)}</p>
           {SITE.problem.answerNote && <p className="problem__answernote">{SITE.problem.answerNote}</p>}
         </div>
+        {/* PC — 같은 네 줄을 01 · 02 · 03 · 04 네 칸으로 (번호 · 주황 이름 · 한 줄 설명), 휴대폰은 위 문장 그대로 */}
+        <ol className="problem__steps">
+          {answerSteps(SITE.problem.answer).map((s, i) => (
+            <li key={i} className="problem__step">
+              <span className="problem__stepno">{String(i + 1).padStart(2, '0')}</span>
+              <strong className="problem__stephead">{linkTerms(s.head)}</strong>
+              <span className="problem__stepdesc">{s.desc}</span>
+            </li>
+          ))}
+        </ol>
       </div>
     </section>
   );
