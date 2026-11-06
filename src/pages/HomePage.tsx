@@ -1,4 +1,5 @@
 import { useEffect, type CSSProperties } from 'react';
+import type { ProgramId } from '../data/types';
 import { useContent } from '../i18n';
 import { href } from '../lib/router';
 import { useMediaQuery, useReducedMotion } from '../lib/motion';
@@ -161,9 +162,10 @@ function Problem() {
  */
 // 색 순서대로 — 초록(메밀밭 · 코스모스 · 숲길 · 분화구) → 주황(일출 · 일력 벽 · 모닥불 · 아이스티 · 포트럭 · 꽃과 고양이)
 // → 파랑(바다 달리기 · 방파제 · 강아지) → 갈색(LP 벽 · 반지 공방 · 저녁 식탁 · 기타 · 와인). 초록 · 파랑이 모자란 끝부분은 주황 · 갈색이 번갈아
-const STRIP: { src: string; h: number; y: number; r: number; photo: string }[] = [
+// stay — 누르면 그 게스트하우스 상세페이지로 가는 사진
+const STRIP: { src: string; h: number; y: number; r: number; photo: string; stay?: ProgramId }[] = [
   { src: stripBuckwheat, h: 99, y: -3, r: -2, photo: 'buckwheat' },
-  { src: stripSunrise, h: 90, y: 2, r: 2, photo: 'kokoko-sunrise' },
+  { src: stripSunrise, h: 90, y: 2, r: 2, photo: 'kokoko-sunrise', stay: 'flower' },
   { src: stripSeaRun, h: 98, y: -3, r: -2, photo: 'searun' },
   { src: stripLpWall, h: 92, y: 3, r: 1.5, photo: 'lpwall' },
   { src: stripCosmos, h: 99, y: -3, r: -1.5, photo: 'cosmos' },
@@ -173,7 +175,7 @@ const STRIP: { src: string; h: number; y: number; r: number; photo: string }[] =
   { src: stripForest, h: 96, y: -3, r: -1.5, photo: 'forest' },
   { src: stripMallow, h: 93, y: 3, r: 1.5, photo: 'mallow' },
   { src: stripPuppy, h: 96, y: -2, r: -1.5, photo: 'puppy' },
-  { src: stripDinner, h: 100, y: 2, r: 1.5, photo: 'susu-dinner-table' },
+  { src: stripDinner, h: 100, y: 2, r: 1.5, photo: 'susu-dinner-table', stay: 'homemeal' },
   { src: stripCrater, h: 99, y: -4, r: -2, photo: 'crater' },
   { src: stripTea, h: 91, y: 4, r: 1, photo: 'tea' },
   { src: stripGuitar, h: 96, y: -2, r: -1.5, photo: 'guitar' },
@@ -218,11 +220,20 @@ function PhotoStrip() {
     <div className="strip" aria-hidden="true">
       <div className="strip__track">
         {[0, 1].map((loop) =>
-          STRIP.map((p) => (
-            <span key={`${loop}-${p.src}`} className="strip__item" style={{ height: `${p.h}%`, '--y': `${p.y}%`, '--r': `${p.r}deg` } as CSSProperties}>
-              <img src={p.src} alt={loop === 0 ? alt(p.photo) : ''} />
-            </span>
-          )),
+          STRIP.map((p) => {
+            const style = { height: `${p.h}%`, '--y': `${p.y}%`, '--r': `${p.r}deg` } as CSSProperties;
+            const img = <img src={p.src} alt={loop === 0 ? alt(p.photo) : ''} />;
+            // 상세페이지가 있는 사진은 누르면 그 게스트하우스로 (띠 전체가 꾸밈이라 키보드 순서에는 넣지 않음 — 같은 곳은 집 · 목록에서 갈 수 있음)
+            return p.stay ? (
+              <a key={`${loop}-${p.src}`} className="strip__item strip__item--link" style={style} href={href.stay(p.stay)} tabIndex={-1} data-track={`strip_${p.stay}`}>
+                {img}
+              </a>
+            ) : (
+              <span key={`${loop}-${p.src}`} className="strip__item" style={style}>
+                {img}
+              </span>
+            );
+          }),
         )}
       </div>
     </div>
