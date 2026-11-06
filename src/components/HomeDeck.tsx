@@ -51,8 +51,8 @@ const blocked = (target: EventTarget | null) => {
 };
 
 /** panels — 넘겨볼 칸 id 들(첫 칸이 'intro' 면 인트로 단계는 인트로가 맡음) · dots — 오른쪽 점 보이기 · onPastEnd — 마지막 칸에서 더 내리면 */
-/** auto — 이 시간(ms) 동안 아무것도 안 하면 다음 칸으로 저절로 넘김 (마지막 칸에서 멈춤, 0 이면 안 넘김) */
-export function HomeDeck({ panels = HOME_PANELS, dots = true, onPastEnd, auto = 0 }: { panels?: Panels; dots?: boolean; onPastEnd?: () => void; auto?: number }) {
+/** snap — 휠 · 손가락 한 번에 한 칸씩 맞춰 넘김 (false 면 보통 스크롤처럼 부드럽게 흐르고, 오른쪽 점만 지금 칸을 보여 줌) */
+export function HomeDeck({ panels = HOME_PANELS, dots = true, onPastEnd, snap = true }: { panels?: Panels; dots?: boolean; onPastEnd?: () => void; snap?: boolean }) {
   const { ui } = useContent();
   const t = ui.deck;
   const [index, setIndex] = useState(0);
@@ -233,38 +233,18 @@ export function HomeDeck({ panels = HOME_PANELS, dots = true, onPastEnd, auto = 
     onScroll();
 
     const opts = { passive: false } as AddEventListenerOptions;
-    window.addEventListener('wheel', onWheel, opts);
-    window.addEventListener('touchstart', onStart, { passive: true });
-    window.addEventListener('touchmove', onMove, opts);
-    window.addEventListener('touchend', onEnd);
-    window.addEventListener('touchcancel', onEnd);
+    if (snap) {
+      window.addEventListener('wheel', onWheel, opts);
+      window.addEventListener('touchstart', onStart, { passive: true });
+      window.addEventListener('touchmove', onMove, opts);
+      window.addEventListener('touchend', onEnd);
+      window.addEventListener('touchcancel', onEnd);
+    }
     window.addEventListener('scroll', onScroll, { passive: true });
     document.documentElement.classList.add('has-fullpage');
-
-    // 저절로 넘기기 — auto 동안 손대지 않으면 다음 칸으로. 만지거나 · 스크롤하거나 · 누르거나 · 키를 누르면 (마우스만 움직이는 건 그대로 셈) 처음부터 다시 셈
-    //  메뉴가 열려 있거나 글을 쓰는 중(입력 칸)이면 · 다른 앱을 보는 중이면 넘기지 않음, 마지막 칸에서 멈춤
-    let idle = 0;
-    const arm = () => {
-      window.clearTimeout(idle);
-      if (auto > 0) idle = window.setTimeout(tick, auto);
-    };
-    const tick = () => {
-      const ae = document.activeElement;
-      const typing = ae instanceof Element && !!ae.closest('input, textarea, select, [contenteditable="true"]');
-      if (document.hidden || busy || typing || document.getElementById('site-menu')) return arm();
-      const k = current(panels);
-      if (k + 1 >= panels.length) return;
-      go.current(k + 1);
-      arm();
-    };
-    const IDLE_EVENTS = ['wheel', 'touchstart', 'pointerdown', 'keydown'] as const;
-    IDLE_EVENTS.forEach((ev) => window.addEventListener(ev, arm, { passive: true }));
-    arm();
     return () => {
       stop();
       cancelAnimationFrame(raf);
-      window.clearTimeout(idle);
-      IDLE_EVENTS.forEach((ev) => window.removeEventListener(ev, arm));
       window.removeEventListener('wheel', onWheel, opts);
       window.removeEventListener('touchstart', onStart);
       window.removeEventListener('touchmove', onMove, opts);
@@ -273,7 +253,7 @@ export function HomeDeck({ panels = HOME_PANELS, dots = true, onPastEnd, auto = 
       window.removeEventListener('scroll', onScroll);
       document.documentElement.classList.remove('has-fullpage');
     };
-  }, [panels, ownLast, auto]);
+  }, [panels, ownLast, snap]);
 
   if (!dots) return null;
   // 화면에 바로 고정 — 페이지 등장 애니메이션(transform) 안에 두면 화면이 아니라 페이지에 붙으므로 body 에

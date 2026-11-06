@@ -39,28 +39,6 @@ export function HomePage() {
   // 휴대폰 — 칸을 한 장씩 위아래로 넘겨봄 (동작 줄이기 설정이면 보통 스크롤)
   const mobile = useMediaQuery('(max-width: 899px)');
   const reduced = useReducedMotion();
-  // PC — 첫 화면(CHECK IN)에서 5초 동안 가만히 있으면 아래 콘텐츠 고르기 칸으로 부드럽게 (한 번만, 손대면 다시 셈)
-  useEffect(() => {
-    if (mobile || reduced) return;
-    let idle = 0;
-    const arm = () => {
-      window.clearTimeout(idle);
-      idle = window.setTimeout(() => {
-        const to = document.getElementById('roomtour');
-        if (!to) return;
-        const top = to.getBoundingClientRect().top + window.scrollY;
-        if (document.hidden || document.getElementById('site-menu')) return arm();
-        if (window.scrollY < top - 4) window.scrollTo({ top, behavior: 'smooth' });
-      }, 5000);
-    };
-    const EVENTS = ['wheel', 'touchstart', 'pointerdown', 'keydown'] as const;
-    EVENTS.forEach((ev) => window.addEventListener(ev, arm, { passive: true }));
-    arm();
-    return () => {
-      window.clearTimeout(idle);
-      EVENTS.forEach((ev) => window.removeEventListener(ev, arm));
-    };
-  }, [mobile, reduced]);
   return (
     <>
       <h1 className="visually-hidden">{SITE.brand} {SITE.brandEn} — {ui.home.srTitle}</h1>
@@ -80,8 +58,8 @@ export function HomePage() {
         </>
       )}
       {/* 인트로보다 뒤에 둬야 손짓 처리도 인트로 다음 차례 (인트로가 단계를 넘긴 손짓은 넘기지 않음) */}
-      {/* 5초 동안 가만히 있으면 다음 칸으로 저절로 */}
-      {mobile && !reduced && <HomeDeck auto={5000} />}
+      {/* 휴대폰 — 칸에 딱딱 맞춰 넘기지 않고 보통 스크롤처럼 부드럽게, 오른쪽 점만 지금 칸 표시 (점을 누르면 그 칸으로) */}
+      {mobile && !reduced && <HomeDeck snap={false} />}
     </>
   );
 }
