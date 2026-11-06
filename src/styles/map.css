@@ -1,7 +1,7 @@
 /* ==================================================================
    PAGE 06 — 제주 게하 취향지도 (지도 + 레이어 버튼 + 목록)
 ================================================================== */
-.tmap { padding: calc(var(--header) + clamp(28px, 5vh, 56px)) 0 clamp(64px, 10vh, 112px); }
+.tmap { padding: var(--page-top) 0 clamp(64px, 10vh, 112px); }
 .tmap__head { display: grid; gap: 12px; margin-bottom: clamp(20px, 3vh, 28px); }
 .tmap__title { font-family: var(--f-home); font-size: clamp(27px, 3.8vw, 46px); font-weight: 700; line-height: 1.32; letter-spacing: -0.025em; }
 /* 맨 위 작은 글자 링크 — 메인의 게하 탐색 · 취향 테스트 칸으로 (버튼처럼 보이지 않게) */
