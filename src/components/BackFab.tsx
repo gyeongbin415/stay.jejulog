@@ -34,7 +34,7 @@ export function BackFab({ route }: { route: Route }) {
   };
   return (
     <button type="button" className="backfab" onClick={onBack} aria-label={ui.stay.back} title={ui.stay.back} data-track={`${route.name}_back`}>
-      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 5.5 8.5 12l6.5 6.5" /></svg>
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M19 12H6M11 6.5 5.5 12 11 17.5" /></svg>
     </button>
   );
 }
