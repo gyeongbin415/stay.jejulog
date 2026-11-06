@@ -164,7 +164,7 @@ function Problem() {
 // → 파랑(바다 달리기 · 방파제 · 강아지) → 갈색(LP 벽 · 반지 공방 · 저녁 식탁 · 기타 · 와인). 초록 · 파랑이 모자란 끝부분은 주황 · 갈색이 번갈아
 // stay — 누르면 그 게스트하우스 상세페이지로 가는 사진
 const STRIP: { src: string; h: number; y: number; r: number; photo: string; stay?: ProgramId }[] = [
-  { src: stripBuckwheat, h: 99, y: -3, r: -2, photo: 'buckwheat' },
+  { src: stripBuckwheat, h: 99, y: -3, r: -2, photo: 'buckwheat', stay: 'camping' },
   { src: stripSunrise, h: 90, y: 2, r: 2, photo: 'kokoko-sunrise', stay: 'flower' },
   { src: stripSeaRun, h: 98, y: -3, r: -2, photo: 'searun', stay: 'running' },
   { src: stripLpWall, h: 92, y: 3, r: 1.5, photo: 'lpwall', stay: 'lp' },
