@@ -167,7 +167,7 @@ const STRIP: { src: string; h: number; y: number; r: number; photo: string; stay
   { src: stripBuckwheat, h: 99, y: -3, r: -2, photo: 'buckwheat' },
   { src: stripSunrise, h: 90, y: 2, r: 2, photo: 'kokoko-sunrise', stay: 'flower' },
   { src: stripSeaRun, h: 98, y: -3, r: -2, photo: 'searun', stay: 'running' },
-  { src: stripLpWall, h: 92, y: 3, r: 1.5, photo: 'lpwall' },
+  { src: stripLpWall, h: 92, y: 3, r: 1.5, photo: 'lpwall', stay: 'lp' },
   { src: stripCosmos, h: 99, y: -3, r: -1.5, photo: 'cosmos' },
   { src: stripCalendar, h: 95, y: 3, r: 1.5, photo: 'calendar' },
   { src: stripSeaSit, h: 98, y: -3, r: -1.5, photo: 'seasit' },
