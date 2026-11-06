@@ -259,4 +259,4 @@
   .house3d__room:hover + .house3d__tag .house3d__arrow, .house3d__room:focus-visible + .house3d__tag .house3d__arrow { max-width: 24px; opacity: 1; margin-left: 6px; }
 }
 /* 집 그림을 위로 — 그림 맨 위 하늘(구름 · 굴뚝 연기 위)을 조금 잘라 '집 / 목록' 버튼 바로 아래에 지붕이 오게 (칸이 넘치는 부분은 숨김) */
-.house3d.house3d--paper.house3d--paperwide .house3d__frame { margin-top: calc(var(--w) * -0.055); }
+.house3d.house3d--paper.house3d--paperwide .house3d__frame { margin-top: calc(var(--w) * -0.035); } /* 굴뚝 연기 구름 꼭대기(그림 폭의 약 4.3%)는 잘리지 않게 */

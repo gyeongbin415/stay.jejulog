@@ -162,9 +162,9 @@
 
 /* 그래서 — 웹진이 하는 일 */
 .problem__answer { display: grid; gap: 8px; }
-.problem__answertext { font-family: var(--f-home); font-size: clamp(17px, 2vw, 25px); font-weight: 600; line-height: 1.5; letter-spacing: -0.025em; color: var(--forest); }
+.problem__answertext { font-family: var(--f-home); font-size: clamp(17px, 2vw, 25px); font-weight: 600; line-height: 1.5; letter-spacing: -0.025em; color: var(--ink); } /* 문장은 검정, 세 단어만 주황 */
 /* '취향 테스트' · '취향 지도' · '방명록' — 굵게, 누르면 그 상세 페이지로 (마우스를 올리면 밑줄) */
-.problem__term { font-weight: 800; color: inherit; text-decoration: none; text-underline-offset: .18em; }
+.problem__term { font-weight: 800; color: var(--forest); text-decoration: none; text-underline-offset: .18em; }
 .problem__term:hover, .problem__term:focus-visible { text-decoration: underline; }
 .problem__answernote { font-size: 14.5px; color: var(--ink-soft); }
 @media (min-width: 900px) {
