@@ -520,3 +520,9 @@
 .roomtour__name { font-family: var(--f-home); font-size: clamp(18px, 4.8vw, 21px); font-weight: 800; letter-spacing: -0.02em; color: var(--ink); }
 .roomtour__link:hover .roomtour__btn, .roomtour__link:active .roomtour__btn, .find__cta:hover, .find__cta:active { transform: none; box-shadow: none; }
 .roomtour__link:hover .roomtour__name, .find__cta:hover .roomtour__name { text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 2px; }
+
+/* 휴대폰 · 태블릿 메인 — 첫 화면(제목 · 네 줄 문장)과 맨 아래 CHECK OUT 글을 가운데 정렬 */
+@media (max-width: 899px) {
+  .problem__head, .problem__answer { justify-items: center; text-align: center; }
+  .outro__inner, .outro__head, .outro__actions { justify-items: center; text-align: center; }
+}
