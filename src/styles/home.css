@@ -182,7 +182,7 @@
   .problem__step { display: grid; justify-items: center; align-content: start; gap: 8px; text-align: center; }
   .problem__stepno { font-family: var(--f-home); font-size: clamp(38px, 3.6vw, 56px); font-weight: 300; line-height: 1; letter-spacing: -0.04em; color: var(--ink); }
   .problem__stephead { margin-top: 2px; font-family: var(--f-home); font-size: clamp(18px, 1.6vw, 22px); font-weight: 700; letter-spacing: -0.025em; color: var(--ink); }
-  .problem__stepdesc { font-size: clamp(14.5px, 1.15vw, 16px); line-height: 1.6; color: var(--ink-soft); word-break: keep-all; }
+  .problem__stepdesc { font-family: var(--f-home); font-size: clamp(15px, 1.25vw, 17px); font-weight: 600; line-height: 1.6; letter-spacing: -0.025em; color: var(--ink); word-break: keep-all; } /* 색 · 두께는 휴대폰 문장과 같게 (검정) — 자리만 레퍼런스처럼 */
 }
 @media (max-height: 700px) and (max-width: 899px) {
   .problem__answernote { display: none; }
