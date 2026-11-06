@@ -130,6 +130,8 @@ export function GuestNotes({ page = false }: { page?: boolean }) {
       .map((n) => ({ ...n, a: n.a.map((x, q) => {
         const tx = (x ?? '').trim();
         if (!tx) return x;
+        // 시트에서 칸 글 맨 앞에 '[숨김]'을 붙인 답은 그 답만 빼고 (같은 줄의 다른 답은 그대로 · 글은 시트에 남음)
+        if (tx.startsWith('[숨김]')) return '';
         const k = key(q, tx);
         if (used.has(k)) return '';
         used.add(k);
