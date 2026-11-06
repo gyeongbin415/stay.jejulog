@@ -10,7 +10,7 @@
 /* 설명 — 휴대폰은 두 줄(가운데 정렬), 넓은 화면은 한 줄로 이어서 */
 @media (min-width: 640px) { .explore .explore__sub { white-space: normal; } }
 .explore__hint {
-  display: inline-flex; align-items: center; gap: 10px; margin-top: 6px;
+  display: inline-flex; align-items: center; gap: 10px; margin-top: 22px; /* 설명 글과 조금 띄워 안내 상자 · 집/목록 버튼을 아래로 */
   padding: 8px 16px; border-radius: 999px; background: var(--paper);
   font-size: var(--t-small); color: var(--ink-soft);
 }
