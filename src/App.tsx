@@ -2,7 +2,7 @@ import { lazy, Suspense, useEffect, useLayoutEffect, useRef } from 'react';
 import { useRoute, jumpToSection, parseHash, routeKey, href, rememberLeaving } from './lib/router';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
-import { MapFab } from './components/MapFab';
+import { MapFab, NextFab, NEXT_ORDER, type NextPage } from './components/MapFab';
 import { BackFab } from './components/BackFab';
 import { Loader } from './components/Loader';
 import { HomePage } from './pages/HomePage';
@@ -247,7 +247,8 @@ export function App() {
       {/* 뒤로 가기 동그라미 — 메인을 뺀 모든 페이지 왼쪽 아래 */}
       <BackFab route={route} />
       {/* 메인도 다른 페이지처럼 위 화살표 하나로 묶어서 — 방명록 · 게하 탐색 · 지도 · 테스트 (메인에서는 인스타그램 뺌) */}
-      <MapFab showHouse={route.name !== 'house' && route.name !== 'stay'} showMap={route.name !== 'map'} showInsta={!onHome && route.name !== 'insta'} showTest={route.name !== 'test'} showGuest={route.name !== 'guest'} home={onHome} />
+      {/* 게하 탐색 · 취향 테스트 · 지도 · 방명록 — 오른쪽 아래 동그라미는 다음 페이지로 바로 */}
+      {(NEXT_ORDER as readonly string[]).includes(route.name) ? <NextFab page={route.name as NextPage} /> : <MapFab showHouse={route.name !== 'house' && route.name !== 'stay'} showMap={route.name !== 'map'} showInsta={!onHome && route.name !== 'insta'} showTest={route.name !== 'test'} showGuest={route.name !== 'guest'} home={onHome} />}
       <Footer />
     </>
   );

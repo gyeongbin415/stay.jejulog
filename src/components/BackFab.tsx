@@ -22,6 +22,8 @@ const FALLBACK: Partial<Record<Route['name'], string>> = {
 
 export function BackFab({ route }: { route: Route }) {
   const { ui } = useContent();
+  // 게하 탐색 · 취향 테스트 · 지도 · 방명록 — 뒤로 가기 대신 오른쪽 아래 '다음 페이지' 동그라미(NextFab)로 차례로 넘어감
+  if (route.name in MAIN_PANEL) return null;
   const panel = MAIN_PANEL[route.name];
   const fallback = FALLBACK[route.name];
   if (!panel && !fallback) return null;

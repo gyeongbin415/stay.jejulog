@@ -9,6 +9,31 @@ import { href } from '../lib/router';
  * 버튼이 둘 이상이면 위쪽 화살표 동그라미 하나로 묶어 두고, 마우스를 올리거나(PC) 누르면 그 위로 펼칩니다.
  * 메인에서는 첫 인트로(어두운 화면) 동안 숨기고, CHECK IN 화면이 뜰 때부터 보여 줍니다.
  */
+/** 상세 페이지 차례 — 게하 탐색 → 취향 테스트 → 지도 → 방명록 → (다시) 게하 탐색 */
+export const NEXT_ORDER = ['house', 'test', 'map', 'guest'] as const;
+export type NextPage = (typeof NEXT_ORDER)[number];
+
+/**
+ * 상세 페이지 오른쪽 아래 — 누르면 바로 다음 페이지로 (뒤로 가서 다시 고를 필요 없이)
+ */
+export function NextFab({ page }: { page: NextPage }) {
+  const { ui } = useContent();
+  const next = NEXT_ORDER[(NEXT_ORDER.indexOf(page) + 1) % NEXT_ORDER.length];
+  const to = { house: href.house(), test: href.test(), map: href.map(), guest: href.guest() }[next];
+  const name = { house: ui.nav.house, test: ui.nav.test, map: ui.nav.map, guest: ui.nav.guest }[next];
+  return (
+    <div className="fabs">
+      <div className="fabs__list">
+        <a className="mapfab mapfab--accent" href={to} aria-label={name} title={name} data-track={`${page}_next_${next}`}>
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M5 12h13M13 6.5 18.5 12 13 17.5" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  );
+}
+
 export function MapFab({ showMap = true, showInsta = true, showHouse = false, showTest = false, showGuest = false, home = false }: { showMap?: boolean; showInsta?: boolean; showHouse?: boolean; showTest?: boolean; showGuest?: boolean; home?: boolean }) {
   const { ui } = useContent();
   const [introDone, setIntroDone] = useState(!home);
