@@ -93,6 +93,7 @@ function Intro() {
  * 첫 화면 주황 문구 — '취향 테스트' · '취향 지도' · '방명록'(영어 · 중국어도 같은 이름)만 굵게, 누르면 그 상세 페이지로
  */
 const TERM_LINKS: { words: string[]; to: () => string; track: string }[] = [
+  { words: ['게하 탐색', 'Explore', '探索民宿'], to: href.house, track: 'checkin_link_house' },
   { words: ['취향 테스트', 'Taste Test', '喜好测试'], to: href.test, track: 'checkin_link_test' },
   { words: ['취향 지도', 'Taste Map', '喜好地图'], to: href.map, track: 'checkin_link_map' },
   { words: ['방명록', 'Guestbook', '留言簿'], to: href.guest, track: 'checkin_link_guest' },
