@@ -104,22 +104,18 @@ function LangSwitch() {
 const MENU = [
   // 메인 — 인트로 다음 CHECK IN 화면(사진 띠 · '게스트하우스에서 이런 하루')으로
   { key: 'home', en: 'HOME', to: href.home('checkin') },
-  // 게하 탐색 — 메인의 집 그림 칸(휴대폰) · 콘텐츠 고르기 칸(PC)으로
-  { key: 'house', en: 'EXPLORE', to: href.home('roomtour') },
-  // 메뉴는 상세 화면 대신 메인 안의 그 칸으로 — 취향 테스트 안내 · 취향 지도 · 방명록
-  { key: 'test', en: 'TEST', to: href.home('find') },
-  { key: 'map', en: 'MAP', to: href.home('tastemap') },
-  { key: 'guest', en: 'GUESTBOOK', to: href.home('guest') },
+  // 나머지는 메인 칸이 아니라 바로 각 상세 페이지로 — 게하 탐색 · 취향 테스트 · 취향 지도 · 방명록
+  { key: 'house', en: 'EXPLORE', to: href.house() },
+  { key: 'test', en: 'TEST', to: href.test() },
+  { key: 'map', en: 'MAP', to: href.map() },
+  { key: 'guest', en: 'GUESTBOOK', to: href.guest() },
 ] as const;
 
 function Menu({ route, onClose }: { route: Route; onClose: () => void }) {
   const ref = useRef<HTMLDivElement>(null);
   const { ui } = useContent();
   const labels = { home: ui.nav.main, house: ui.nav.house, test: ui.nav.test, map: ui.nav.map, insta: ui.nav.more, guest: ui.nav.guest };
-  // PC 메인은 콘텐츠 고르기 하나만 — 테스트 · 지도 · 방명록 메뉴는 메인 칸 대신 상세 페이지로
-  const wide = typeof window !== 'undefined' && window.matchMedia('(min-width: 900px)').matches;
-  const DETAIL: Partial<Record<string, string>> = { test: href.test(), map: href.map(), guest: href.guest() };
-  const toOf = (m: (typeof MENU)[number]) => (wide && DETAIL[m.key]) || m.to;
+  const toOf = (m: (typeof MENU)[number]) => m.to;
 
   useEffect(() => {
     const prev = document.activeElement as HTMLElement | null;
