@@ -136,7 +136,7 @@
 .stay-nav { display: grid; grid-template-columns: auto; justify-content: center; gap: 12px; padding: 8px 0 clamp(72px, 10vh, 112px); }
 /* 위 줄: 이전 게하 · 집 둘러보기 · 다음 게하 — 한 줄로 나란히 */
 .stay-nav__row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-.stay-nav .stay-nav__test { margin: 18px 0 0; min-height: 60px; padding: 14px 44px; font-size: 17.5px; font-weight: 700; } /* 아래 줄 — 크게 */
+.stay-nav .stay-nav__test { margin: 0 0 18px; min-height: 60px; padding: 14px 44px; font-size: 17.5px; font-weight: 700; } /* 위 줄 — 크게 */
 /* 이전 게하 · 다음 게하만 화살표 (다른 버튼 화살표는 모두 숨김) */
 .stay-nav__row .btn .arrow { display: inline-block; }
 .stay-nav__row .btn:hover .arrow { transform: none; } /* 이전 · 다음 화살표는 마우스를 올려도 그대로 */
