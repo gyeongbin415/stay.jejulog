@@ -311,20 +311,17 @@ function Result({ result, shared, onRetry, focusRef }: { result: QuizResult; sha
         <p className="result__place">{programById[result.main].report.place.name}</p>
         {/* 게하 한 줄 소개 — 숙소 페이지 BASIC INFORMATION 과 같은 문장, 이름 바로 밑 */}
         {programById[result.main].report.oneLine && <p className="result__oneline">{programById[result.main].report.oneLine}</p>}
-        {/* 자세히 알아보기 · 그 오른쪽 저장(아이콘만) */}
+        {/* 왼쪽 지도에서 위치 보기 · 가운데 자세히 알아보기 · 오른쪽 저장 (양옆은 아이콘만) */}
         <div className="result__cta">
+          <a className="result__save result__map" href={href.map(result.main)} aria-label={t.seeMap} title={t.seeMap} data-track={`result_map_${result.main}`}>
+            <ActIcon name="pin" />
+          </a>
           <a className="btn" href={href.stay(result.main)} data-track={`result_best01_${result.main}`} {...gaAttrs(result.main, 1)}>
             {t.detail} <span className="arrow" aria-hidden="true">→</span>
           </a>
-          <div className="result__side">
-            {/* 취향 지도에서 이 숙소 위치 보기 */}
-            <a className="result__save" href={href.map(result.main)} aria-label={t.seeMap} title={t.seeMap} data-track={`result_map_${result.main}`}>
-              <ActIcon name="pin" />
-            </a>
-            <button type="button" className="result__save" onClick={save} aria-label={t.save} title={t.save} data-track="result_save">
-              <ActIcon name="save" />
-            </button>
-          </div>
+          <button type="button" className="result__save" onClick={save} aria-label={t.save} title={t.save} data-track="result_save">
+            <ActIcon name="save" />
+          </button>
         </div>
       </header>
 
