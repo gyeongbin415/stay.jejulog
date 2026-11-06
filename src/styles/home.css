@@ -524,5 +524,6 @@
 /* 휴대폰 · 태블릿 메인 — 첫 화면(제목 · 네 줄 문장)과 맨 아래 CHECK OUT 글을 가운데 정렬 */
 @media (max-width: 899px) {
   .problem__head, .problem__answer { justify-items: center; text-align: center; }
+  .problem__head { margin-top: 12px; } /* 사진 띠와 제목 사이 살짝 더 */
   .outro__inner, .outro__head, .outro__actions { justify-items: center; text-align: center; }
 }
