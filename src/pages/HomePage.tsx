@@ -138,7 +138,7 @@ function Problem() {
         {/* 사진 띠가 맨 위 — 그 아래 제목 · 문장 */}
         <PhotoStrip />
         <header className="problem__head">
-          <p className="label">{SITE.problem.label}</p>
+          {/* CHECK IN 라벨은 뺌 — 사진 띠 바로 아래 제목부터 */}
           <h2 id="problem-title" className="problem__title">
             {SITE.problem.title.map((l) => (
               <span key={l}>{l}</span>
