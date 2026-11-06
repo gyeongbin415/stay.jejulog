@@ -94,6 +94,29 @@ function Intro() {
   );
 }
 
+/**
+ * 첫 화면 주황 문구 — '취향 테스트' · '취향 지도' · '방명록'(영어 · 중국어도 같은 이름)만 굵게, 누르면 그 상세 페이지로
+ */
+const TERM_LINKS: { words: string[]; to: () => string; track: string }[] = [
+  { words: ['취향 테스트', 'Taste Test', '喜好测试'], to: href.test, track: 'checkin_link_test' },
+  { words: ['취향 지도', 'Taste Map', '喜好地图'], to: href.map, track: 'checkin_link_map' },
+  { words: ['방명록', 'Guestbook', '留言簿'], to: href.guest, track: 'checkin_link_guest' },
+];
+function linkTerms(text: string) {
+  const all = TERM_LINKS.flatMap((t) => t.words.map((w) => ({ w, t })));
+  const re = new RegExp(`(${all.map((x) => x.w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})`, 'g');
+  return text.split(re).map((part, i) => {
+    const hit = all.find((x) => x.w === part);
+    return hit ? (
+      <a key={i} className="problem__term" href={hit.t.to()} data-track={hit.t.track}>
+        {part}
+      </a>
+    ) : (
+      part
+    );
+  });
+}
+
 /* ── SECTION 02. PROBLEM — 인트로 끝에 떠오르는 문제 정의 ─────────────────────────────── */
 function Problem() {
   const { site: SITE } = useContent();
@@ -124,7 +147,7 @@ function Problem() {
           </div>
         )}
         <div className="problem__answer">
-          <p className="problem__answertext pre">{SITE.problem.answer}</p>
+          <p className="problem__answertext pre">{linkTerms(SITE.problem.answer)}</p>
           {SITE.problem.answerNote && <p className="problem__answernote">{SITE.problem.answerNote}</p>}
         </div>
       </div>
