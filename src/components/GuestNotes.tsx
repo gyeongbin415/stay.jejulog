@@ -193,7 +193,7 @@ function NoteArt() {
       </button>
       {/* 집 · 테스트 · 지도 칸과 같은 흰 테두리 버튼 — 질문 문구 */}
       <a className="roomtour__btn find__cta" href={href.guest()} data-track="guest_cta">
-        <span>{t.coverHint}</span>
+        <span>{ui.nav.guest}</span>
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6.5 18.5 12 13 17.5" /></svg>
       </a>
     </div>

@@ -349,7 +349,7 @@ function RoomTour() {
         <img className="roomtour__img" src={houseUrl} alt="" width={900} height={630} loading="lazy" decoding="async" />
         <span className="roomtour__btn">
           {/* 버튼 문구는 '~하기'로 (게하 탐색 페이지 제목 '어느 방부터 둘러볼까요?'는 그대로) */}
-          <span id="roomtour-title">{ui.home.roomtourCta}</span>
+          <span id="roomtour-title">{ui.nav.house}</span>
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6.5 18.5 12 13 17.5" /></svg>
         </span>
       </a>
@@ -359,7 +359,7 @@ function RoomTour() {
 
 /* ── SECTION 03. FIND YOUR STAY — 취향 테스트 안내 ─────────────────────────────── */
 function FindYourStay() {
-  const { site: SITE } = useContent();
+  const { site: SITE, ui } = useContent();
   return (
     <section id="find" className="find" data-tone="light" aria-labelledby="find-title">
       <div className="find__inner wrap">
@@ -378,7 +378,7 @@ function FindYourStay() {
           {/* 소라게 게하게 소개 · 공유하기는 테스트 페이지 첫 화면에 */}
           {/* 집 칸과 같은 흰 테두리 버튼 — 질문 문구 */}
           <a className="roomtour__btn find__cta" href={href.test()} data-track="find_cta">
-            <span>{SITE.findYourStay.cta}</span>
+            <span>{ui.nav.test}</span>
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6.5 18.5 12 13 17.5" /></svg>
           </a>
         </div>
@@ -406,7 +406,7 @@ function TasteMapBanner() {
         </a>
         {/* 집 · 테스트 칸과 같은 흰 테두리 버튼 — 질문 문구 */}
         <a className="roomtour__btn find__cta" href={href.map()} data-track="home_taste_map_btn">
-          <span>{ui.map.homeCta}</span>
+          <span>{ui.deck.tastemap}</span>
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6.5 18.5 12 13 17.5" /></svg>
         </a>
       </div>
