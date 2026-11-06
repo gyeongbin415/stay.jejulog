@@ -165,7 +165,7 @@ const STRIP: { src: string; h: number; y: number; r: number; photo: string; stay
   { src: stripSeaRun, h: 98, y: -3, r: -2, photo: 'searun', stay: 'running' },
   { src: stripLpWall, h: 92, y: 3, r: 1.5, photo: 'lpwall', stay: 'lp' },
   { src: stripCosmos, h: 99, y: -3, r: -1.5, photo: 'cosmos' },
-  { src: stripCalendar, h: 95, y: 3, r: 1.5, photo: 'calendar' },
+  { src: stripCalendar, h: 95, y: 3, r: 1.5, photo: 'calendar', stay: 'lp' },
   { src: stripSeaSit, h: 98, y: -3, r: -1.5, photo: 'seasit' },
   { src: stripRingWork, h: 97, y: 2, r: 2, photo: 'ringwork', stay: 'craft' },
   { src: stripForest, h: 96, y: -3, r: -1.5, photo: 'forest' },
