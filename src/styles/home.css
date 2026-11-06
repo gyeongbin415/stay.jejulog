@@ -179,6 +179,7 @@
   .problem__head { justify-items: center; text-align: center; margin-top: clamp(28px, 5vh, 56px); } /* 사진 띠와 제목 사이 넉넉히 */
   .problem__answer { display: none; }
   /* 제목 두 줄 — 첫 줄은 그대로, 둘째 · 셋째 줄은 한 줄로 이어서 (가운데 정렬) */
+  .problem__title { font-size: clamp(26px, 3.5vw, 42px); } /* 두 줄 제목 — 아주 살짝 작게 (46px → 42px) */
   .problem__title span:nth-child(n + 2) { display: inline; }
   .problem__title span:nth-child(n + 3)::before { content: " "; }
   .problem__steps { display: grid; grid-template-columns: repeat(4, 1fr); column-gap: clamp(20px, 3vw, 48px); margin: clamp(18px, 3vh, 36px) 0 0; /* 제목과 살짝 띄움 */ padding: 0; list-style: none; }
