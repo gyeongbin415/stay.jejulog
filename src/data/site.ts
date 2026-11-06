@@ -39,7 +39,7 @@ export const SITE = {
   findYourStay: {
     label: 'FIND YOUR STAY',
     title: ['당신의 취향에 맞는', '제주 게스트하우스를 찾아보세요.'],
-    cta: '나에게 맞는 게하 테스트하기',
+    cta: '내 게하 취향은?',
     rooms: '방 내부 둘러보기',
   },
 

@@ -37,7 +37,7 @@ export const ZH: ContentPack = {
     findYourStay: {
       label: 'FIND YOUR STAY',
       title: ['找一间契合你喜好的', '济州民宿。'],
-      cta: '测测最适合我的民宿',
+      cta: '我的民宿喜好是？',
       rooms: '看看房间里面',
     },
 

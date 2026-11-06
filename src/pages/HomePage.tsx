@@ -180,8 +180,8 @@ const STRIP: { src: string; h: number; y: number; r: number; photo: string; stay
   { src: stripCrater, h: 99, y: -4, r: -2, photo: 'crater' },
   { src: stripTea, h: 91, y: 4, r: 1, photo: 'tea' },
   { src: stripGuitar, h: 96, y: -2, r: -1.5, photo: 'guitar', stay: 'book' },
-  { src: stripPotluck, h: 97, y: 4, r: 2, photo: 'potluck' },
-  { src: stripWinePour, h: 95, y: -3, r: -1.5, photo: 'winepour' },
+  { src: stripPotluck, h: 97, y: 4, r: 2, photo: 'potluck', stay: 'camping' },
+  { src: stripWinePour, h: 95, y: -3, r: -1.5, photo: 'winepour', stay: 'wine' },
   { src: stripCat, h: 94, y: 2, r: 1.5, photo: 'cat', stay: 'flower' },
 ];
 
